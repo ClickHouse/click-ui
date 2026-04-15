@@ -292,6 +292,58 @@ describe('CardHorizontal Visual Regression', () => {
         });
       });
     });
+
+    describe('Interactive States', () => {
+      it('hover state - default color', async ({ page }) => {
+        await page.goto(getStoryUrl('cards-horizontal-card--default-color'), {
+          waitUntil: 'networkidle',
+        });
+        const card = page.getByTestId('card-horizontal');
+        await expect(card).toBeVisible({ timeout: 10000 });
+        await card.hover();
+        await expect(card).toHaveScreenshot('card-horizontal-default-hover-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('focus state - default color', async ({ page }) => {
+        await page.goto(getStoryUrl('cards-horizontal-card--default-color'), {
+          waitUntil: 'networkidle',
+        });
+        const card = page.getByTestId('card-horizontal');
+        await expect(card).toBeVisible({ timeout: 10000 });
+        await card.focus();
+        await expect(card).toHaveScreenshot('card-horizontal-default-focus-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+    });
+
+    describe('With Badge', () => {
+      it('with badge matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('cards-horizontal-card--with-badge'), {
+          waitUntil: 'networkidle',
+        });
+        const card = page.getByTestId('card-horizontal');
+        await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveScreenshot('card-horizontal-with-badge-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+    });
+
+    describe('With Info Button', () => {
+      it('with info button matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('cards-horizontal-card--with-info-button'), {
+          waitUntil: 'networkidle',
+        });
+        const card = page.getByTestId('card-horizontal');
+        await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveScreenshot('card-horizontal-with-info-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+    });
   });
 
   describe('Events and Accessibility', () => {

@@ -254,3 +254,13 @@ export const Interactive: Story = {
     description: 'Click this card to test interactions.',
   },
 };
+
+// Interactive story with handler for E2E testing
+export const InteractiveWithHandler: Story = {
+  args: {
+    icon: 'check',
+    title: 'Interactive Card with Handler',
+    description: 'This card has an onButtonClick handler for E2E testing.',
+    onButtonClick: () => console.log('Card clicked!'),
+  },
+};
