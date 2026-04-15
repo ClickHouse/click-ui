@@ -1,305 +1,185 @@
-import { type KeyboardEvent, type MouseEvent } from 'react';
-import { styled } from 'styled-components';
+import { forwardRef, type KeyboardEvent, type MouseEvent } from 'react';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
-import { CardHorizontalProps, CardSize, CardColor } from './CardHorizontal.types';
+import { cn, cva } from '@/lib/cva';
+import { CardHorizontalProps } from './CardHorizontal.types';
+import styles from './CardHorizontal.module.css';
 
-const Header = styled.div`
-  max-width: 100%;
-  gap: inherit;
-`;
+const cardHorizontalVariants = cva(styles['card-horizontal'], {
+  variants: {
+    color: {
+      default: styles['card-horizontal_default'],
+      muted: styles['card-horizontal_muted'],
+    },
+    size: {
+      sm: styles['card-horizontal_sm'],
+      md: styles['card-horizontal_md'],
+    },
+    disabled: {
+      true: styles['card-horizontal_disabled'],
+    },
+    selected: {
+      true: styles['card-horizontal_selected'],
+    },
+    selectable: {
+      true: styles['card-horizontal_selectable'],
+    },
+  },
+  defaultVariants: {
+    color: 'default',
+    size: 'md',
+  },
+});
 
-const Description = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: start;
-  gap: ${({ theme }) => theme.click.card.horizontal.space.md.gap};
-  flex: 1;
-  width: 100%;
-`;
+export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
+  (
+    {
+      title,
+      icon,
+      description,
+      disabled = false,
+      infoText,
+      infoUrl,
+      isSelected,
+      isSelectable = infoText ? false : true,
+      children,
+      color = 'default',
+      size = 'md',
+      badgeText,
+      badgeState,
+      badgeIcon,
+      badgeIconDir,
+      onButtonClick,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const handleClick = (e: MouseEvent<HTMLElement>) => {
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
 
-const Wrapper = styled.div<{
-  $hasShadow?: boolean;
-  $disabled?: boolean;
-  $isSelected?: boolean;
-  $isSelectable?: boolean;
-  $color: CardColor;
-  $size?: CardSize;
-}>`
-  display: inline-flex;
-  width: 100%;
-  max-width: 100%;
-  align-items: center;
-  justify-content: flex-start;
-
-  ${({ theme, $color, $size, $isSelected, $isSelectable, $disabled }) => `
-    background: ${theme.click.card.horizontal[$color].color.background.default};
-    color: ${theme.click.card.horizontal[$color].color.title.default};
-    border-radius: ${theme.click.card.horizontal.radii.all};
-    border: 1px solid ${
-      theme.click.card.horizontal[$color].color.stroke[
-        $isSelectable ? ($isSelected ? 'active' : 'hover') : 'default'
-      ]
+      if (typeof onButtonClick === 'function') {
+        onButtonClick(e);
+      }
+      if (infoUrl && infoUrl.length > 0) {
+        window.open(infoUrl, '_blank');
+      }
     };
-     padding: ${
-       $size === 'md'
-         ? `${theme.click.card.horizontal.space.md.y} ${theme.click.card.horizontal.space.md.x}`
-         : `${theme.click.card.horizontal.space.sm.y} ${theme.click.card.horizontal.space.sm.x}`
-     };
-    font: ${theme.click.card.horizontal.typography.title.default};
-    ${Description} {
-      color: ${theme.click.card.horizontal[$color].color.description.default};
-      font: ${theme.click.card.horizontal.typography.description.default};
-    }
-    &:hover{
-      background-color: ${
-        theme.click.card.horizontal[$color].color.background[
-          $isSelectable ? 'hover' : 'default'
-        ]
-      };
-      color: ${
-        theme.click.card.horizontal[$color].color.title[
-          $isSelectable ? 'hover' : 'default'
-        ]
-      };
-      border: 1px solid ${
-        theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable ? ($isSelected ? 'active' : 'default') : 'default'
-        ]
-      };
-      cursor: ${$isSelectable ? 'pointer' : 'default'};
-      font: ${theme.click.card.horizontal.typography.title.hover};
-      ${Description} {
-        color: ${
-          theme.click.card.horizontal[$color].color.description[
-            $isSelectable ? 'hover' : 'default'
-          ]
-        };
-        font: ${
-          theme.click.card.horizontal.typography.description[
-            $isSelectable ? 'hover' : 'default'
-          ]
-        };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+      if (isSelectable && !disabled && e.key === ' ') {
+        e.preventDefault();
+        handleClick(e as unknown as MouseEvent<HTMLElement>);
       }
-    }
+    };
 
-    &:active, &:focus, &:focus-within {
-      background-color: ${
-        theme.click.card.horizontal[$color].color.background[
-          $isSelectable ? 'active' : 'default'
-        ]
-      };
-      color: ${
-        theme.click.card.horizontal[$color].color.title[
-          $isSelectable ? 'active' : 'default'
-        ]
-      };
-      border: 1px solid ${
-        theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable ? 'active' : 'default'
-        ]
-      };
-      ${Description} {
-        color: ${
-          theme.click.card.horizontal[$color].color.description[
-            $isSelectable ? 'active' : 'default'
-          ]
-        };
-        font: ${
-          theme.click.card.horizontal.typography.description[
-            $isSelectable ? 'active' : 'default'
-          ]
-        };
-      }
-    }
-    ${
-      $disabled
-        ? `
-          pointer-events: none;
-          &,
-          &:hover,
-          &:active, &:focus, &:focus-within {
-            background-color: ${
-              theme.click.card.horizontal[$color].color.background.disabled
-            };
-            color: ${theme.click.card.horizontal[$color].color.title.disabled};
-            border: 1px solid ${
-              theme.click.card.horizontal[$color].color.stroke[
-                $isSelected ? 'active' : 'disabled'
-              ]
-            };
-            cursor: not-allowed;
-            ${Description} {
-              color: ${theme.click.card.horizontal[$color].color.description.disabled};
-              font: ${theme.click.card.horizontal.typography.description.disabled};
-            }
-          },
-          &:active, &:focus, &:focus-within {
-            border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
-          }
-        `
-        : ''
-    }
-  `}
-`;
-
-const CardIcon = styled(Icon)`
-  ${({ theme }) => `
-      height: ${theme.click.card.horizontal.icon.size.all};
-      width: ${theme.click.card.horizontal.icon.size.all};
-  `}
-`;
-
-const ContentWrapper = styled.div<{ $size: CardSize }>`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: ${({ theme, $size }) =>
-    $size === 'md'
-      ? theme.click.card.horizontal.space.md.gap
-      : theme.click.card.horizontal.space.sm.gap};
-
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-    flex-direction: column;
-  }
-`;
-
-const IconTextContentWrapper = styled.div<{ $size: CardSize }>`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  gap: ${({ theme, $size }) =>
-    $size === 'md'
-      ? theme.click.card.horizontal.space.md.gap
-      : theme.click.card.horizontal.space.sm.gap};
-`;
-
-export const CardHorizontal = ({
-  title,
-  icon,
-  description,
-  disabled = false,
-  infoText,
-  infoUrl,
-  isSelected,
-  isSelectable = infoText ? false : true,
-  children,
-  color = 'default',
-  size = 'md',
-  badgeText,
-  badgeState,
-  badgeIcon,
-  badgeIconDir,
-  onButtonClick,
-  ...props
-}: CardHorizontalProps) => {
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
-
-    if (typeof onButtonClick === 'function') {
-      onButtonClick(e);
-    }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    if (isSelectable && !disabled && e.key === ' ') {
-      e.preventDefault();
-      handleClick(e as unknown as MouseEvent<HTMLElement>);
-    }
-  };
-
-  return (
-    <Wrapper
-      $disabled={disabled}
-      $isSelected={isSelected}
-      $isSelectable={isSelectable}
-      $color={color}
-      $size={size}
-      tabIndex={disabled ? -1 : 0}
-      role={isSelectable ? 'button' : undefined}
-      aria-disabled={disabled}
-      aria-pressed={isSelectable ? (isSelected ?? false) : undefined}
-      onClick={handleClick}
-      onKeyDown={isSelectable ? handleKeyDown : undefined}
-      data-testid="card-horizontal"
-      {...props}
-    >
-      <ContentWrapper $size={size}>
-        <IconTextContentWrapper $size={size}>
-          {icon && (
-            <CardIcon
-              name={icon}
-              aria-hidden
-            />
-          )}
-          <Container
-            padding="none"
-            orientation="vertical"
-          >
-            {title && (
-              <Header
-                as={Container}
-                isResponsive={false}
-                gap="xs"
-                justifyContent="space-between"
-                fillWidth
-              >
-                <Container
-                  orientation="horizontal"
-                  gap="xs"
-                  isResponsive={false}
-                  fillWidth={false}
-                  grow="1"
-                >
-                  {title}
-                </Container>
-                {badgeText && (
-                  <Container
-                    isResponsive={false}
-                    justifyContent="end"
-                    fillWidth={false}
-                    data-testid="horizontal-card-badge"
-                  >
-                    <Badge
-                      text={badgeText}
-                      size="md"
-                      state={badgeState}
-                      icon={badgeIcon}
-                      iconDir={badgeIconDir}
-                    />
-                  </Container>
-                )}
-              </Header>
-            )}
-
-            {description && <Description>{description}</Description>}
-            {children && <Description>{children}</Description>}
-          </Container>
-        </IconTextContentWrapper>
-        {infoText && (
-          <Container
-            justifyContent="end"
-            fillWidth={false}
-            data-testid="horizontal-card-button"
-          >
-            <Button
-              label={infoText}
-              onClick={handleClick}
-              disabled={disabled}
-              fillWidth
-            />
-          </Container>
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          cardHorizontalVariants({
+            color,
+            size,
+            disabled,
+            selected: isSelected,
+            selectable: isSelectable,
+          }),
+          className
         )}
-      </ContentWrapper>
-    </Wrapper>
-  );
-};
+        tabIndex={disabled ? -1 : 0}
+        role={isSelectable ? 'button' : undefined}
+        aria-disabled={disabled}
+        aria-pressed={isSelectable ? (isSelected ?? false) : undefined}
+        onClick={handleClick}
+        onKeyDown={isSelectable ? handleKeyDown : undefined}
+        data-testid="card-horizontal"
+        {...props}
+      >
+        <div className={styles['card-horizontal__content']}>
+          <div className={styles['card-horizontal__icon-text-content']}>
+            {icon && (
+              <Icon
+                name={icon}
+                aria-hidden
+                className={styles['card-horizontal__icon']}
+              />
+            )}
+            <Container
+              padding="none"
+              orientation="vertical"
+              fillWidth
+            >
+              {title && (
+                <div className={styles['card-horizontal__header']}>
+                  <Container
+                    orientation="horizontal"
+                    gap="xs"
+                    isResponsive={false}
+                    fillWidth
+                    justifyContent="space-between"
+                  >
+                    <Container
+                      orientation="horizontal"
+                      gap="xs"
+                      isResponsive={false}
+                      fillWidth={false}
+                      grow="1"
+                    >
+                      {title}
+                    </Container>
+                    {badgeText && (
+                      <Container
+                        isResponsive={false}
+                        justifyContent="end"
+                        fillWidth={false}
+                        data-testid="horizontal-card-badge"
+                      >
+                        <Badge
+                          text={badgeText}
+                          size="md"
+                          state={badgeState}
+                          icon={badgeIcon}
+                          iconDir={badgeIconDir}
+                        />
+                      </Container>
+                    )}
+                  </Container>
+                </div>
+              )}
+
+              {description && (
+                <div className={styles['card-horizontal__description']}>
+                  {description}
+                </div>
+              )}
+              {children && (
+                <div className={styles['card-horizontal__description']}>{children}</div>
+              )}
+            </Container>
+          </div>
+          {infoText && (
+            <Container
+              justifyContent="end"
+              fillWidth={false}
+              data-testid="horizontal-card-button"
+            >
+              <Button
+                label={infoText}
+                onClick={handleClick}
+                disabled={disabled}
+                fillWidth
+              />
+            </Container>
+          )}
+        </div>
+      </div>
+    );
+  }
+);
+
+CardHorizontal.displayName = 'CardHorizontal';

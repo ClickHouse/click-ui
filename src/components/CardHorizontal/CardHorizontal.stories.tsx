@@ -1,15 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { styled } from 'styled-components';
 
 import { ICON_NAMES } from '../Icon/IconCommon';
 
 import { CardHorizontal } from '@/components/CardHorizontal';
-
-const GridCenter = styled.div`
-  display: grid;
-  width: 60%;
-  max-width: 480px;
-`;
 
 const meta: Meta<typeof CardHorizontal> = {
   component: CardHorizontal,
@@ -29,9 +22,9 @@ const meta: Meta<typeof CardHorizontal> = {
     size: { type: { name: 'enum', value: ['sm', 'md'] } },
   },
   decorators: Story => (
-    <GridCenter>
+    <div style={{ display: 'grid', width: '60%', maxWidth: '480px' }}>
       <Story />
-    </GridCenter>
+    </div>
   ),
 };
 
