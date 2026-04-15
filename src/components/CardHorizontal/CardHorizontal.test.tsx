@@ -201,4 +201,18 @@ describe('CardHorizontal Component', () => {
 
     expect(onButtonClick).toHaveBeenCalledTimes(1);
   });
+
+  it('should open infoUrl only once when inner button is clicked', async () => {
+    const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+    const { getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      infoUrl: 'https://example.com',
+    });
+
+    await userEvent.click(getByRole('button'));
+
+    expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+    windowOpenSpy.mockRestore();
+  });
 });
