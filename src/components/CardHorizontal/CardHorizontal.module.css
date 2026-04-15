@@ -98,11 +98,11 @@
   cursor: pointer;
 }
 
-.card-horizontal_default.card-horizontal_selectable:not(.card-horizontal_selected):not(.card-horizontal_disabled) {
+.card-horizontal_default.card-horizontal_selectable:not(.card-horizontal_selected, .card-horizontal_disabled) {
   border-color: var(--click-card-horizontal-default-color-stroke-hover);
 }
 
-.card-horizontal_muted.card-horizontal_selectable:not(.card-horizontal_selected):not(.card-horizontal_disabled) {
+.card-horizontal_muted.card-horizontal_selectable:not(.card-horizontal_selected, .card-horizontal_disabled) {
   border-color: var(--click-card-horizontal-muted-color-stroke-hover);
 }
 
