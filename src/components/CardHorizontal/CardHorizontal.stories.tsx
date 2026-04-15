@@ -123,27 +123,6 @@ export const DefaultSelected: Story = {
   },
 };
 
-export const MutedSelected: Story = {
-  args: {
-    icon: 'building',
-    title: 'Selected Muted Card',
-    description: 'This card is selected.',
-    isSelected: true,
-    color: 'muted',
-  },
-};
-
-export const DefaultDisabledSelected: Story = {
-  args: {
-    icon: 'building',
-    title: 'Disabled & Selected Card',
-    description: 'This card is both disabled and selected.',
-    disabled: true,
-    isSelected: true,
-    color: 'default',
-  },
-};
-
 export const WithBadge: Story = {
   args: {
     icon: 'building',
