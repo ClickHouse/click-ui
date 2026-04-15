@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, type MouseEvent } from 'react';
 import { styled } from 'styled-components';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
@@ -197,7 +197,7 @@ export const CardHorizontal = ({
   ...props
 }: CardHorizontalProps) => {
   const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: MouseEvent<HTMLElement>) => {
       if (disabled) {
         e.preventDefault();
         return;
@@ -214,7 +214,7 @@ export const CardHorizontal = ({
   );
 
   const handleButtonClick = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
+    (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
       handleClick(e);
     },
