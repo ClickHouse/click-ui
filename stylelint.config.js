@@ -159,5 +159,8 @@ export default {
     'comment-empty-line-before': null,
     'custom-property-empty-line-before': null,
     'declaration-empty-line-before': null,
+    // NOTE: Disable media-feature-range-notation to allow traditional (max-width: 768px) syntax
+    // for better browser support instead of forcing (width <= 768px) syntax
+    'media-feature-range-notation': null,
   },
 };

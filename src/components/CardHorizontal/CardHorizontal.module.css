@@ -240,7 +240,6 @@
   font: var(--click-card-horizontal-typography-description-disabled);
 }
 
-/* stylelint-disable-next-line media-feature-range-notation */
 @media (max-width: 768px) {
   .card-horizontal__content {
     flex-direction: column;
