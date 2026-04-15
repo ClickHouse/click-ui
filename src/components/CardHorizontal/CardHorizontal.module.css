@@ -34,10 +34,10 @@
   display: flex;
   width: 100%;
   max-width: 100%;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: var(--click-card-horizontal-space-md-gap);
-  flex-direction: row;
 }
 
 .card-horizontal__description {
