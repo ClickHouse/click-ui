@@ -197,6 +197,14 @@
   border-color: var(--click-card-horizontal-muted-color-stroke-active);
 }
 
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:hover {
+  border-color: var(--click-card-horizontal-default-color-stroke-active);
+}
+
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:hover {
+  border-color: var(--click-card-horizontal-muted-color-stroke-active);
+}
+
 .card-horizontal_disabled {
   cursor: not-allowed;
 }
