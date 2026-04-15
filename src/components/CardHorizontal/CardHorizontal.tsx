@@ -1,3 +1,4 @@
+import { type KeyboardEvent, type MouseEvent } from 'react';
 import { styled } from 'styled-components';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
@@ -195,7 +196,7 @@ export const CardHorizontal = ({
   onButtonClick,
   ...props
 }: CardHorizontalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (disabled) {
       e.preventDefault();
       return;
@@ -209,10 +210,10 @@ export const CardHorizontal = ({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (isSelectable && !disabled && e.key === ' ') {
       e.preventDefault();
-      handleClick(e as unknown as React.MouseEvent<HTMLElement>);
+      handleClick(e as unknown as MouseEvent<HTMLElement>);
     }
   };
 
