@@ -1,6 +1,4 @@
-/* Complex state-based selectors (default, hover, active, disabled) with varying
-   specificity are grouped logically by state for maintainability, not ordered
-   by specificity. This makes the code more readable and easier to maintain. */
+/* WARNING: Disabled `no-descending-specificity` due to complex state-based selectors (default, hover, active, disabled) with varying specificity are grouped logically by state for maintainability, not ordered by specificity. This makes the code easier to maintain at time of writing */
 /* stylelint-disable no-descending-specificity */
 .card-horizontal {
   display: inline-flex;
