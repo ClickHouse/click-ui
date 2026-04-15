@@ -91,7 +91,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
           }),
           className
         )}
-        tabIndex={disabled ? -1 : 0}
+        tabIndex={!isSelectable || disabled ? -1 : 0}
         role={isSelectable ? 'button' : undefined}
         aria-disabled={disabled}
         aria-pressed={isSelectable ? (isSelected ?? false) : undefined}

@@ -15,7 +15,6 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  gap: var(--click-card-horizontal-space-md-gap);
 }
 
 .card-horizontal__icon-text-content {
@@ -216,7 +215,7 @@
 .card-horizontal_default.card-horizontal_disabled,
 .card-horizontal_default.card-horizontal_disabled:hover,
 .card-horizontal_default.card-horizontal_disabled:active,
-.card-horizontal_default.card-horizontal_disabled:focus,
+.card-horizontal_default.card-horizontal_disabled:focus-visible,
 .card-horizontal_default.card-horizontal_disabled:focus-within {
   border-color: var(--click-card-horizontal-default-color-stroke-disabled);
   background-color: var(--click-card-horizontal-default-color-background-disabled);
@@ -226,7 +225,7 @@
 .card-horizontal_default.card-horizontal_disabled .card-horizontal__description,
 .card-horizontal_default.card-horizontal_disabled:hover .card-horizontal__description,
 .card-horizontal_default.card-horizontal_disabled:active .card-horizontal__description,
-.card-horizontal_default.card-horizontal_disabled:focus .card-horizontal__description,
+.card-horizontal_default.card-horizontal_disabled:focus-visible .card-horizontal__description,
 .card-horizontal_default.card-horizontal_disabled:focus-within .card-horizontal__description {
   color: var(--click-card-horizontal-default-color-description-disabled);
   font: var(--click-card-horizontal-typography-description-disabled);
@@ -235,7 +234,7 @@
 .card-horizontal_muted.card-horizontal_disabled,
 .card-horizontal_muted.card-horizontal_disabled:hover,
 .card-horizontal_muted.card-horizontal_disabled:active,
-.card-horizontal_muted.card-horizontal_disabled:focus,
+.card-horizontal_muted.card-horizontal_disabled:focus-visible,
 .card-horizontal_muted.card-horizontal_disabled:focus-within {
   border-color: var(--click-card-horizontal-muted-color-stroke-disabled);
   background-color: var(--click-card-horizontal-muted-color-background-disabled);
@@ -245,7 +244,7 @@
 .card-horizontal_muted.card-horizontal_disabled .card-horizontal__description,
 .card-horizontal_muted.card-horizontal_disabled:hover .card-horizontal__description,
 .card-horizontal_muted.card-horizontal_disabled:active .card-horizontal__description,
-.card-horizontal_muted.card-horizontal_disabled:focus .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_disabled:focus-visible .card-horizontal__description,
 .card-horizontal_muted.card-horizontal_disabled:focus-within .card-horizontal__description {
   color: var(--click-card-horizontal-muted-color-description-disabled);
   font: var(--click-card-horizontal-typography-description-disabled);
@@ -253,7 +252,7 @@
 
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled,
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:active,
-.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-visible,
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-within {
   border-color: var(--click-card-horizontal-default-color-stroke-active);
   background-color: var(--click-card-horizontal-default-color-background-disabled);
@@ -269,7 +268,7 @@
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled .card-horizontal__description,
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:hover .card-horizontal__description,
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:active .card-horizontal__description,
-.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-visible .card-horizontal__description,
 .card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-within .card-horizontal__description {
   color: var(--click-card-horizontal-default-color-description-disabled);
   font: var(--click-card-horizontal-typography-description-disabled);
@@ -277,7 +276,7 @@
 
 .card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled,
 .card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:active,
-.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus-visible,
 .card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus-within {
   border-color: var(--click-card-horizontal-muted-color-stroke-active);
   background-color: var(--click-card-horizontal-muted-color-background-disabled);
