@@ -89,6 +89,7 @@ describe('CardHorizontal Visual Regression', () => {
         });
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveAttribute('aria-selected', 'true');
         await expect(card).toHaveScreenshot(
           'card-horizontal-default-selected-light.png',
           {
@@ -103,6 +104,7 @@ describe('CardHorizontal Visual Regression', () => {
         });
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveAttribute('aria-selected', 'true');
         await expect(card).toHaveScreenshot('card-horizontal-muted-selected-light.png', {
           maxDiffPixels: 100,
         });
@@ -118,6 +120,7 @@ describe('CardHorizontal Visual Regression', () => {
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveAttribute('aria-disabled', 'true');
+        await expect(card).toHaveAttribute('aria-selected', 'true');
         await expect(card).toHaveScreenshot(
           'card-horizontal-disabled-selected-light.png',
           {
@@ -322,6 +325,8 @@ describe('CardHorizontal Visual Regression', () => {
       await card.focus();
       await expect(card).toBeFocused();
       await page.keyboard.press('Enter');
+      // Verify card remains visible and functional after Enter key (no crash)
+      await expect(card).toBeVisible();
     });
 
     it('tabIndex is -1 when disabled', async ({ page }) => {
