@@ -3,12 +3,8 @@ import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
-import {
-  CardHorizontalProps,
-  CardSize,
-  CardColor,
-  isValidHttpUrl,
-} from './CardHorizontal.types';
+import { CardHorizontalProps, CardSize, CardColor } from './CardHorizontal.types';
+import { isValidHttpUrl } from '@/utils/url';
 
 const Header = styled.div`
   max-width: 100%;

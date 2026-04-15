@@ -5,15 +5,6 @@ import type { BadgeState } from '@/components/Badge';
 export type CardColor = 'default' | 'muted';
 export type CardSize = 'sm' | 'md';
 
-export const isValidHttpUrl = (url: string): boolean => {
-  try {
-    const parsedUrl = new URL(url);
-    return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
-  } catch {
-    return false;
-  }
-};
-
 export interface CardHorizontalProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'title'

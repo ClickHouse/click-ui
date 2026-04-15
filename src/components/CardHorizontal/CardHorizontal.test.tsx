@@ -1,9 +1,6 @@
 import { screen } from '@testing-library/react';
-import {
-  CardHorizontal,
-  CardHorizontalProps,
-  isValidHttpUrl,
-} from '@/components/CardHorizontal';
+import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
+import { isValidHttpUrl } from '@/utils/url';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('CardHorizontal Component', () => {
