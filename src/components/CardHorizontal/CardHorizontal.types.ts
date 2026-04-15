@@ -1,9 +1,11 @@
-import { HTMLAttributes, MouseEventHandler, ReactNode } from 'react';
+import { HTMLAttributes, MouseEvent, KeyboardEvent, ReactNode } from 'react';
 import type { IconName, ImageName } from '@/components/Icon';
 import type { BadgeState } from '@/components/Badge';
 
 export type CardColor = 'default' | 'muted';
 export type CardSize = 'sm' | 'md';
+
+export type CardInteractionEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>;
 
 export interface CardHorizontalProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -26,6 +28,6 @@ export interface CardHorizontalProps extends Omit<
   badgeState?: BadgeState;
   badgeIcon?: IconName;
   badgeIconDir?: 'start' | 'end';
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  onButtonClick?: MouseEventHandler<HTMLElement>;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
+  onButtonClick?: (e: CardInteractionEvent) => void;
 }

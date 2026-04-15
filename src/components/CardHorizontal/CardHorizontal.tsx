@@ -66,7 +66,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
       }
 
       if (typeof onButtonClick === 'function') {
-        onButtonClick(e as MouseEvent<HTMLElement>);
+        onButtonClick(e);
       }
       if (infoUrl && infoUrl.length > 0) {
         window.open(infoUrl, '_blank');
