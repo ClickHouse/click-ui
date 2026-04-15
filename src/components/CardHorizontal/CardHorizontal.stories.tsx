@@ -192,8 +192,8 @@ export const NonSelectable: Story = {
   args: {
     icon: 'building',
     title: 'Non-Selectable Card',
-    description: 'This card is not selectable (has infoText).',
-    infoText: 'Click me',
+    description: 'This card is not selectable.',
+    isSelectable: false,
   },
 };
 

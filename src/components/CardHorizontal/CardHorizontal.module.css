@@ -99,6 +99,10 @@
   cursor: pointer;
 }
 
+.card-horizontal:not(.card-horizontal_selectable) {
+  cursor: not-allowed;
+}
+
 .card-horizontal_default.card-horizontal_selectable:not(.card-horizontal_selected) {
   border-color: var(--click-card-horizontal-default-color-stroke-hover);
 }
