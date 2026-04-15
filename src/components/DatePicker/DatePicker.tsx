@@ -40,7 +40,7 @@ const PopoverContent = styled(Popover.Content)`
 `;
 
 interface CalendarProps {
-  allowOnlyDatesList?: Date[];
+  allowOnlyDatesList?: Array<Date>;
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
