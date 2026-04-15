@@ -300,6 +300,8 @@ describe('CardHorizontal Visual Regression', () => {
       const card = page.getByTestId('card-horizontal');
       await expect(card).toBeVisible({ timeout: 10000 });
       await card.click();
+      // Verify card remains visible and functional after click (no crash)
+      await expect(card).toBeVisible();
     });
 
     it('disabled card prevents click and has aria-disabled', async ({ page }) => {
