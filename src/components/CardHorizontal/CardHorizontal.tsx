@@ -208,6 +208,11 @@ export const CardHorizontal = ({
       window.open(infoUrl, '_blank');
     }
   };
+
+  const onClickButtonHandler = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    handleClick(e);
+  };
   return (
     <Wrapper
       $disabled={disabled}
@@ -280,7 +285,7 @@ export const CardHorizontal = ({
           >
             <Button
               label={infoText}
-              onClick={handleClick}
+              onClick={onClickButtonHandler}
               disabled={disabled}
               fillWidth
             />
