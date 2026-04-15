@@ -107,6 +107,24 @@ describe('CardHorizontal Visual Regression', () => {
           maxDiffPixels: 100,
         });
       });
+
+      it('disabled and selected matches snapshot', async ({ page }) => {
+        await page.goto(
+          getStoryUrl('cards-horizontal-card--default-disabled-selected', 'light'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
+        const card = page.getByTestId('card-horizontal');
+        await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveAttribute('aria-disabled', 'true');
+        await expect(card).toHaveScreenshot(
+          'card-horizontal-disabled-selected-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
+      });
     });
 
     describe('With Badge', () => {
