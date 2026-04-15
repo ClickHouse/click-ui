@@ -2,4 +2,4 @@
 "@clickhouse/click-ui": patch
 ---
 
-Security fix for CardHorizontal: validate URLs before opening and add noopener/noreferrer. Prevents javascript: URI attacks and tab-nabbing vulnerabilities.
+Security fix for CardHorizontal by validating URLs before opening. Also, adds `noopener/noreferrer`. To help prevents javascript URI and tab related attacks.
