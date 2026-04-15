@@ -218,6 +218,7 @@ export const CardHorizontal = ({
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
       onClick={handleClick}
+      data-testid="card-horizontal"
       {...props}
     >
       <ContentWrapper $size={size}>
