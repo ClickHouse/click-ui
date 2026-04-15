@@ -47,7 +47,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        # NOTE: Pinned to avoid broken @vercel/hono@0.2.67 dep in newer versions can revisit when Vercel publishes a fix
+        run: npm install --global vercel@41.7.3
 
       - name: Build Storybook
         run: yarn storybook:build

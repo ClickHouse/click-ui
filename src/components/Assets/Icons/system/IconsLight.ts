@@ -52,6 +52,7 @@ import Cloud from '../Cloud';
 import Cloud_Keys from '../Cloud-Keys';
 import Code from '../Code';
 import Code_In_Square from '../Code-In-Square';
+import Collapse_All from '../Collapse-All';
 import Connect from '../Connect';
 import Connect_Alt from '../Connect-Alt';
 import Console from '../Console';
@@ -76,6 +77,7 @@ import Download_In_Circle from '../Download-In-Circle';
 import Email from '../Email';
 import Empty from '../Empty';
 import Enter from '../Enter';
+import Expand_All from '../Expand-All';
 import Eye from '../Eye';
 import Eye_Closed from '../Eye-Closed';
 import Filter from '../Filter';
@@ -225,6 +227,7 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   'cloud-keys': Cloud_Keys,
   code: Code,
   'code-in-square': Code_In_Square,
+  'collapse-all': Collapse_All,
   connect: Connect,
   'connect-alt': Connect_Alt,
   console: Console,
@@ -249,6 +252,7 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   email: Email,
   empty: Empty,
   enter: Enter,
+  'expand-all': Expand_All,
   eye: Eye,
   'eye-closed': Eye_Closed,
   filter: Filter,
