@@ -239,10 +239,9 @@
   font: var(--click-card-horizontal-typography-description-disabled);
 }
 
-/* stylelint-disable plugin/no-unsupported-browser-features, media-feature-range-notation */
-@media all and (max-width: 768px) {
+/* stylelint-disable-next-line media-feature-range-notation */
+@media (max-width: 768px) {
   .card-horizontal__content {
     flex-direction: column;
   }
 }
-/* stylelint-enable plugin/no-unsupported-browser-features, media-feature-range-notation */
