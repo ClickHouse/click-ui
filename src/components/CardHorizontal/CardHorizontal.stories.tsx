@@ -57,7 +57,6 @@ export const Playground: Story = {
   },
 };
 
-// Color variants
 export const DefaultColor: Story = {
   args: {
     icon: 'building',
@@ -76,7 +75,6 @@ export const MutedColor: Story = {
   },
 };
 
-// Size variants
 export const SmallSize: Story = {
   args: {
     icon: 'building',
@@ -95,7 +93,6 @@ export const MediumSize: Story = {
   },
 };
 
-// Disabled states
 export const DefaultDisabled: Story = {
   args: {
     icon: 'building',
@@ -116,7 +113,6 @@ export const MutedDisabled: Story = {
   },
 };
 
-// Selected states
 export const DefaultSelected: Story = {
   args: {
     icon: 'building',
@@ -137,7 +133,6 @@ export const MutedSelected: Story = {
   },
 };
 
-// Disabled + Selected
 export const DefaultDisabledSelected: Story = {
   args: {
     icon: 'building',
@@ -149,7 +144,6 @@ export const DefaultDisabledSelected: Story = {
   },
 };
 
-// With badge
 export const WithBadge: Story = {
   args: {
     icon: 'building',
@@ -172,7 +166,6 @@ export const WithBadgeAndIcon: Story = {
   },
 };
 
-// With info button
 export const WithInfoButton: Story = {
   args: {
     icon: 'building',
@@ -202,7 +195,6 @@ export const WithInfoButtonDisabled: Story = {
   },
 };
 
-// Non-selectable cards
 export const NonSelectable: Story = {
   args: {
     icon: 'building',
@@ -212,7 +204,6 @@ export const NonSelectable: Story = {
   },
 };
 
-// Without icon
 export const WithoutIcon: Story = {
   args: {
     title: 'Card Without Icon',
@@ -220,7 +211,6 @@ export const WithoutIcon: Story = {
   },
 };
 
-// Title only
 export const TitleOnly: Story = {
   args: {
     icon: 'building',
@@ -228,7 +218,6 @@ export const TitleOnly: Story = {
   },
 };
 
-// Description only
 export const DescriptionOnly: Story = {
   args: {
     icon: 'building',
@@ -236,7 +225,6 @@ export const DescriptionOnly: Story = {
   },
 };
 
-// With children
 export const WithChildren: Story = {
   args: {
     icon: 'building',
@@ -246,7 +234,6 @@ export const WithChildren: Story = {
   },
 };
 
-// Interactive story for testing
 export const Interactive: Story = {
   args: {
     icon: 'check',
@@ -255,7 +242,6 @@ export const Interactive: Story = {
   },
 };
 
-// Interactive story with handler for E2E testing
 export const InteractiveWithHandler: Story = {
   args: {
     icon: 'check',
