@@ -199,7 +199,6 @@
 
 .card-horizontal_disabled {
   cursor: not-allowed;
-  pointer-events: none;
 }
 
 .card-horizontal_default.card-horizontal_disabled,
