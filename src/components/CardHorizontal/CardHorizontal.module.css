@@ -158,7 +158,7 @@
 }
 
 .card-horizontal_default.card-horizontal_selectable:active:not(.card-horizontal_disabled),
-.card-horizontal_default.card-horizontal_selectable:focus:not(.card-horizontal_disabled),
+.card-horizontal_default.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled),
 .card-horizontal_default.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) {
   border-color: var(--click-card-horizontal-default-color-stroke-active);
   background-color: var(--click-card-horizontal-default-color-background-active);
@@ -166,14 +166,14 @@
 }
 
 .card-horizontal_default.card-horizontal_selectable:active:not(.card-horizontal_disabled) .card-horizontal__description,
-.card-horizontal_default.card-horizontal_selectable:focus:not(.card-horizontal_disabled) .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled) .card-horizontal__description,
 .card-horizontal_default.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) .card-horizontal__description {
   color: var(--click-card-horizontal-default-color-description-active);
   font: var(--click-card-horizontal-typography-description-active);
 }
 
 .card-horizontal_muted.card-horizontal_selectable:active:not(.card-horizontal_disabled),
-.card-horizontal_muted.card-horizontal_selectable:focus:not(.card-horizontal_disabled),
+.card-horizontal_muted.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled),
 .card-horizontal_muted.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) {
   border-color: var(--click-card-horizontal-muted-color-stroke-active);
   background-color: var(--click-card-horizontal-muted-color-background-active);
@@ -181,7 +181,7 @@
 }
 
 .card-horizontal_muted.card-horizontal_selectable:active:not(.card-horizontal_disabled) .card-horizontal__description,
-.card-horizontal_muted.card-horizontal_selectable:focus:not(.card-horizontal_disabled) .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled) .card-horizontal__description,
 .card-horizontal_muted.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) .card-horizontal__description {
   color: var(--click-card-horizontal-muted-color-description-active);
   font: var(--click-card-horizontal-typography-description-active);
