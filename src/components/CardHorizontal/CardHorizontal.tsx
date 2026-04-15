@@ -217,6 +217,7 @@ export const CardHorizontal = ({
       $size={size}
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
+      aria-selected={isSelectable ? isSelected : undefined}
       onClick={handleClick}
       data-testid="card-horizontal"
       {...props}
