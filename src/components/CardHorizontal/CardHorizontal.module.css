@@ -1,52 +1,53 @@
+/* stylelint-disable no-descending-specificity */
 .card-horizontal {
+  display: inline-flex;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid transparent;
   border-radius: var(--click-card-horizontal-radii-all);
-  display: inline-flex;
   font: var(--click-card-horizontal-typography-title-default);
-  justify-content: flex-start;
-  max-width: 100%;
-  width: 100%;
 }
 
 .card-horizontal__content {
   display: flex;
+  width: 100%;
   flex-direction: row;
   gap: var(--click-card-horizontal-space-md-gap);
-  width: 100%;
 }
 
 .card-horizontal__icon-text-content {
-  align-items: center;
   display: flex;
-  flex-direction: row;
-  gap: var(--click-card-horizontal-space-md-gap);
   width: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--click-card-horizontal-space-md-gap);
 }
 
 .card-horizontal__icon {
-  height: var(--click-card-horizontal-icon-size-all);
   width: var(--click-card-horizontal-icon-size-all);
+  height: var(--click-card-horizontal-icon-size-all);
 }
 
 .card-horizontal__header {
   display: flex;
-  flex-flow: row;
-  gap: inherit;
-  max-width: 100%;
   width: 100%;
-  align-items: center;
+  max-width: 100%;
   justify-content: space-between;
+  align-items: center;
+  gap: inherit;
+  flex-flow: row;
 }
 
 .card-horizontal__description {
-  align-self: start;
   display: flex;
+  width: 100%;
   flex: 1;
   flex-direction: column;
-  font: var(--click-card-horizontal-typography-description-default);
+  align-self: start;
   gap: var(--click-card-horizontal-space-md-gap);
-  width: 100%;
+  font: var(--click-card-horizontal-typography-description-default);
 }
 
 .card-horizontal_md {
@@ -74,8 +75,8 @@
 }
 
 .card-horizontal_default {
-  background: var(--click-card-horizontal-default-color-background-default);
   border-color: var(--click-card-horizontal-default-color-stroke-default);
+  background: var(--click-card-horizontal-default-color-background-default);
   color: var(--click-card-horizontal-default-color-title-default);
 }
 
@@ -84,8 +85,8 @@
 }
 
 .card-horizontal_muted {
-  background: var(--click-card-horizontal-muted-color-background-default);
   border-color: var(--click-card-horizontal-muted-color-stroke-default);
+  background: var(--click-card-horizontal-muted-color-background-default);
   color: var(--click-card-horizontal-muted-color-title-default);
 }
 
@@ -106,8 +107,8 @@
 }
 
 .card-horizontal_default.card-horizontal_selectable:hover:not(.card-horizontal_disabled) {
-  background-color: var(--click-card-horizontal-default-color-background-hover);
   border-color: var(--click-card-horizontal-default-color-stroke-default);
+  background-color: var(--click-card-horizontal-default-color-background-hover);
   color: var(--click-card-horizontal-default-color-title-hover);
   font: var(--click-card-horizontal-typography-title-hover);
 }
@@ -118,8 +119,8 @@
 }
 
 .card-horizontal_muted.card-horizontal_selectable:hover:not(.card-horizontal_disabled) {
-  background-color: var(--click-card-horizontal-muted-color-background-hover);
   border-color: var(--click-card-horizontal-muted-color-stroke-default);
+  background-color: var(--click-card-horizontal-muted-color-background-hover);
   color: var(--click-card-horizontal-muted-color-title-hover);
   font: var(--click-card-horizontal-typography-title-hover);
 }
@@ -131,8 +132,8 @@
 
 .card-horizontal_default.card-horizontal_selected,
 .card-horizontal_default.card-horizontal_selectable.card-horizontal_selected {
-  background-color: var(--click-card-horizontal-default-color-background-active);
   border-color: var(--click-card-horizontal-default-color-stroke-active);
+  background-color: var(--click-card-horizontal-default-color-background-active);
   color: var(--click-card-horizontal-default-color-title-active);
 }
 
@@ -144,8 +145,8 @@
 
 .card-horizontal_muted.card-horizontal_selected,
 .card-horizontal_muted.card-horizontal_selectable.card-horizontal_selected {
-  background-color: var(--click-card-horizontal-muted-color-background-active);
   border-color: var(--click-card-horizontal-muted-color-stroke-active);
+  background-color: var(--click-card-horizontal-muted-color-background-active);
   color: var(--click-card-horizontal-muted-color-title-active);
 }
 
@@ -158,8 +159,8 @@
 .card-horizontal_default:active:not(.card-horizontal_disabled),
 .card-horizontal_default:focus:not(.card-horizontal_disabled),
 .card-horizontal_default:focus-within:not(.card-horizontal_disabled) {
-  background-color: var(--click-card-horizontal-default-color-background-active);
   border-color: var(--click-card-horizontal-default-color-stroke-active);
+  background-color: var(--click-card-horizontal-default-color-background-active);
   color: var(--click-card-horizontal-default-color-title-active);
 }
 
@@ -173,8 +174,8 @@
 .card-horizontal_muted:active:not(.card-horizontal_disabled),
 .card-horizontal_muted:focus:not(.card-horizontal_disabled),
 .card-horizontal_muted:focus-within:not(.card-horizontal_disabled) {
-  background-color: var(--click-card-horizontal-muted-color-background-active);
   border-color: var(--click-card-horizontal-muted-color-stroke-active);
+  background-color: var(--click-card-horizontal-muted-color-background-active);
   color: var(--click-card-horizontal-muted-color-title-active);
 }
 
@@ -205,8 +206,8 @@
 .card-horizontal_default.card-horizontal_disabled:active,
 .card-horizontal_default.card-horizontal_disabled:focus,
 .card-horizontal_default.card-horizontal_disabled:focus-within {
-  background-color: var(--click-card-horizontal-default-color-background-disabled);
   border-color: var(--click-card-horizontal-default-color-stroke-disabled);
+  background-color: var(--click-card-horizontal-default-color-background-disabled);
   color: var(--click-card-horizontal-default-color-title-disabled);
 }
 
@@ -224,8 +225,8 @@
 .card-horizontal_muted.card-horizontal_disabled:active,
 .card-horizontal_muted.card-horizontal_disabled:focus,
 .card-horizontal_muted.card-horizontal_disabled:focus-within {
-  background-color: var(--click-card-horizontal-muted-color-background-disabled);
   border-color: var(--click-card-horizontal-muted-color-stroke-disabled);
+  background-color: var(--click-card-horizontal-muted-color-background-disabled);
   color: var(--click-card-horizontal-muted-color-title-disabled);
 }
 
@@ -238,8 +239,10 @@
   font: var(--click-card-horizontal-typography-description-disabled);
 }
 
-@media (max-width: var(--breakpoint-sizes-md)) {
+/* stylelint-disable plugin/no-unsupported-browser-features, media-feature-range-notation */
+@media all and (max-width: 768px) {
   .card-horizontal__content {
     flex-direction: column;
   }
 }
+/* stylelint-enable plugin/no-unsupported-browser-features, media-feature-range-notation */
