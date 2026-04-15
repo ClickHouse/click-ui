@@ -216,6 +216,7 @@ export const CardHorizontal = ({
       $color={color}
       $size={size}
       tabIndex={disabled ? -1 : 0}
+      role={isSelectable ? 'button' : undefined}
       aria-disabled={disabled}
       aria-selected={isSelectable ? isSelected : undefined}
       onClick={handleClick}
