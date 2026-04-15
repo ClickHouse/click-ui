@@ -1,7 +1,7 @@
 /* WARNING: Disabled `no-descending-specificity` due to complex state-based selectors (default, hover, active, disabled) with varying specificity are grouped logically by state for maintainability, not ordered by specificity. This makes the code easier to maintain at time of writing */
 /* stylelint-disable no-descending-specificity */
 .card-horizontal {
-  display: inline-flex;
+  display: flex;
   width: 100%;
   max-width: 100%;
   justify-content: flex-start;
@@ -41,6 +41,16 @@
 }
 
 .card-horizontal__description {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-self: start;
+  gap: var(--click-card-horizontal-space-md-gap);
+  font: var(--click-card-horizontal-typography-description-default);
+}
+
+.card-horizontal__children {
   display: flex;
   width: 100%;
   flex: 1;

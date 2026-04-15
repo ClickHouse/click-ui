@@ -281,6 +281,20 @@ describe('CardHorizontal Component', () => {
     expect(onClickMock).not.toHaveBeenCalled();
   });
 
+  it('should call onClick on Enter key when selectable', () => {
+    const onClickMock = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+      onButtonClick: onClickMock,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    fireEvent.keyDown(wrapper, { key: 'Enter' });
+
+    expect(onClickMock).toHaveBeenCalled();
+  });
+
   it('should not have onKeyDown when not selectable', () => {
     const { container } = renderCard({
       title: 'Test Card',

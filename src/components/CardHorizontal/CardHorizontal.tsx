@@ -57,14 +57,16 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
     },
     ref
   ) => {
-    const handleClick = (e: MouseEvent<HTMLElement>) => {
+    const handleInteraction = (
+      e: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
+    ) => {
       if (disabled) {
         e.preventDefault();
         return;
       }
 
       if (typeof onButtonClick === 'function') {
-        onButtonClick(e);
+        onButtonClick(e as MouseEvent<HTMLElement>);
       }
       if (infoUrl && infoUrl.length > 0) {
         window.open(infoUrl, '_blank');
@@ -74,7 +76,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
     const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
       if (isSelectable && !disabled && (e.key === ' ' || e.key === 'Enter')) {
         e.preventDefault();
-        handleClick(e as unknown as MouseEvent<HTMLElement>);
+        handleInteraction(e);
       }
     };
 
@@ -95,7 +97,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
         role={isSelectable ? 'button' : undefined}
         aria-disabled={disabled}
         aria-pressed={isSelectable ? (isSelected ?? false) : undefined}
-        onClick={handleClick}
+        onClick={handleInteraction}
         onKeyDown={isSelectable ? handleKeyDown : undefined}
         data-testid="card-horizontal"
         {...props}
@@ -158,7 +160,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
                 </div>
               )}
               {children && (
-                <div className={styles['card-horizontal__description']}>{children}</div>
+                <div className={styles['card-horizontal__children']}>{children}</div>
               )}
             </Container>
           </div>
@@ -170,7 +172,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
             >
               <Button
                 label={infoText}
-                onClick={handleClick}
+                onClick={handleInteraction}
                 disabled={disabled}
                 fillWidth
               />
