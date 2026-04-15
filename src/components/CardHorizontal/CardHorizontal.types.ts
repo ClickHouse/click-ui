@@ -18,8 +18,16 @@ export interface CardHorizontalProps extends Omit<
   disabled?: boolean;
   description?: ReactNode;
   infoUrl?: string;
+  /**
+   * When provided, displays a button inside the card.
+   * Automatically sets isSelectable to false (unless explicitly overridden).
+   */
   infoText?: string;
   isSelected?: boolean;
+  /**
+   * Controls whether the card is clickable/interactive.
+   * Defaults to false when infoText is provided, true otherwise.
+   */
   isSelectable?: boolean;
   children?: ReactNode;
   color?: CardColor;
