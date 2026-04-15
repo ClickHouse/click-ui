@@ -295,6 +295,10 @@ describe('CardHorizontal Visual Regression', () => {
   });
 
   describe('Events and Accessibility', () => {
+    // NOTE: Click and keyboard tests verify the card remains functional (no crash)
+    // but cannot assert handler invocation since Storybook stories don't expose
+    // onButtonClick handlers for E2E verification. Handler logic is covered by
+    // unit tests in CardHorizontal.test.tsx.
     it('click event fires correctly', async ({ page }) => {
       await page.goto(getStoryUrl('cards-horizontal-card--interactive', 'light'), {
         waitUntil: 'networkidle',
