@@ -204,8 +204,8 @@ export const CardHorizontal = ({
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
+    if (infoUrl && infoUrl.length > 0 && /^https?:\/\//i.test(infoUrl)) {
+      window.open(infoUrl, '_blank', 'noopener,noreferrer');
     }
   };
   return (
