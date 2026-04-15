@@ -72,7 +72,7 @@ export const CardHorizontal = forwardRef<HTMLDivElement, CardHorizontalProps>(
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-      if (isSelectable && !disabled && e.key === ' ') {
+      if (isSelectable && !disabled && (e.key === ' ' || e.key === 'Enter')) {
         e.preventDefault();
         handleClick(e as unknown as MouseEvent<HTMLElement>);
       }
