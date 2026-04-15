@@ -187,4 +187,37 @@ describe('CardHorizontal Component', () => {
     expect(windowOpenSpy).not.toHaveBeenCalled();
     windowOpenSpy.mockRestore();
   });
+
+  it('should have aria-selected="true" when selected and selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelected: true,
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it('should have aria-selected="false" when not selected but selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelected: false,
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('aria-selected', 'false');
+  });
+
+  it('should not have aria-selected when not selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      isSelectable: false,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('aria-selected');
+  });
 });
