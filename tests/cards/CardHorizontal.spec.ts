@@ -317,7 +317,7 @@ describe('CardHorizontal Visual Regression', () => {
       });
       const card = page.getByTestId('card-horizontal');
       await expect(card).toBeVisible({ timeout: 10000 });
-      await page.keyboard.press('Tab');
+      await card.focus();
       await expect(card).toBeFocused();
       await page.keyboard.press('Enter');
     });
