@@ -207,7 +207,6 @@ describe('CardHorizontal Visual Regression', () => {
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.hover();
-        await page.waitForTimeout(100);
         await expect(card).toHaveScreenshot('card-horizontal-default-hover-light.png', {
           maxDiffPixels: 100,
         });
@@ -220,7 +219,6 @@ describe('CardHorizontal Visual Regression', () => {
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.focus();
-        await page.waitForTimeout(100);
         await expect(card).toHaveScreenshot('card-horizontal-default-focus-light.png', {
           maxDiffPixels: 100,
         });
