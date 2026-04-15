@@ -36,8 +36,8 @@
   max-width: 100%;
   justify-content: space-between;
   align-items: center;
-  gap: inherit;
-  flex-flow: row;
+  gap: var(--click-card-horizontal-space-md-gap);
+  flex-direction: row;
 }
 
 .card-horizontal__description {
