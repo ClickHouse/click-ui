@@ -220,4 +220,25 @@ describe('CardHorizontal Component', () => {
     const wrapper = container.firstChild;
     expect(wrapper).not.toHaveAttribute('aria-selected');
   });
+
+  it('should have role=button when selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('role', 'button');
+  });
+
+  it('should not have role when not selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      isSelectable: false,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('role');
+  });
 });
