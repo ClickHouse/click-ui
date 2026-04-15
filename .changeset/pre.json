@@ -6,6 +6,7 @@
   },
   "changesets": [
     "add-biglake-metastore-logo",
+    "add-collapse-all-expand-all-icons",
     "bil-4944-contribute-spendthresholdinput-changes-up-into-click-ui",
     "chore-add-mexican-flag",
     "fix-dialog-description-warning",

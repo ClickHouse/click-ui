@@ -1,5 +1,11 @@
 # @clickhouse/click-ui
 
+## 0.2.0-rc.5
+
+### Patch Changes
+
+- 1174257: Add CollapseAll and ExpandAll icons
+
 ## 0.2.0-rc.4
 
 ### Patch Changes
