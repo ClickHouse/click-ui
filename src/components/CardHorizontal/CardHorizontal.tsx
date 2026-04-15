@@ -208,6 +208,14 @@ export const CardHorizontal = ({
       window.open(infoUrl, '_blank');
     }
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (isSelectable && !disabled && e.key === ' ') {
+      e.preventDefault();
+      handleClick(e as unknown as React.MouseEvent<HTMLElement>);
+    }
+  };
+
   return (
     <Wrapper
       $disabled={disabled}
@@ -220,6 +228,7 @@ export const CardHorizontal = ({
       aria-disabled={disabled}
       aria-pressed={isSelectable ? (isSelected ?? false) : undefined}
       onClick={handleClick}
+      onKeyDown={isSelectable ? handleKeyDown : undefined}
       data-testid="card-horizontal"
       {...props}
     >

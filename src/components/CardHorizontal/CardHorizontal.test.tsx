@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -250,5 +250,45 @@ describe('CardHorizontal Component', () => {
 
     const wrapper = container.firstChild;
     expect(wrapper).not.toHaveAttribute('role');
+  });
+
+  it('should call onClick on Space key when selectable', () => {
+    const onClickMock = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+      onButtonClick: onClickMock,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    fireEvent.keyDown(wrapper, { key: ' ' });
+
+    expect(onClickMock).toHaveBeenCalled();
+  });
+
+  it('should not call onClick on Space key when disabled', () => {
+    const onClickMock = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      disabled: true,
+      isSelectable: true,
+      onButtonClick: onClickMock,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    fireEvent.keyDown(wrapper, { key: ' ' });
+
+    expect(onClickMock).not.toHaveBeenCalled();
+  });
+
+  it('should not have onKeyDown when not selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      isSelectable: false,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('onkeydown');
   });
 });
