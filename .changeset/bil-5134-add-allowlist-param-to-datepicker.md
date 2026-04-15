@@ -15,3 +15,5 @@ Adds optional `allowOnlyDatesList` prop to `DatePicker`, which enables the user 
   ]}
   onSelectDate={(date) => console.log('Selected:', date)}
 />
+```
+Only the dates in `allowOnlyDatesList` will be selectable. All other dates will be disabled.
