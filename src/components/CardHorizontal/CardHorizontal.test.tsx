@@ -188,7 +188,7 @@ describe('CardHorizontal Component', () => {
     windowOpenSpy.mockRestore();
   });
 
-  it('should have aria-selected="true" when selected and selectable', () => {
+  it('should have aria-pressed="true" when selected and selectable', () => {
     const { container } = renderCard({
       title: 'Test Card',
       isSelected: true,
@@ -196,10 +196,10 @@ describe('CardHorizontal Component', () => {
     });
 
     const wrapper = container.firstChild;
-    expect(wrapper).toHaveAttribute('aria-selected', 'true');
+    expect(wrapper).toHaveAttribute('aria-pressed', 'true');
   });
 
-  it('should have aria-selected="false" when not selected but selectable', () => {
+  it('should have aria-pressed="false" when not selected but selectable', () => {
     const { container } = renderCard({
       title: 'Test Card',
       isSelected: false,
@@ -207,10 +207,10 @@ describe('CardHorizontal Component', () => {
     });
 
     const wrapper = container.firstChild;
-    expect(wrapper).toHaveAttribute('aria-selected', 'false');
+    expect(wrapper).toHaveAttribute('aria-pressed', 'false');
   });
 
-  it('should not have aria-selected when not selectable', () => {
+  it('should not have aria-pressed when not selectable', () => {
     const { container } = renderCard({
       title: 'Test Card',
       infoText: 'Click me',
@@ -218,7 +218,7 @@ describe('CardHorizontal Component', () => {
     });
 
     const wrapper = container.firstChild;
-    expect(wrapper).not.toHaveAttribute('aria-selected');
+    expect(wrapper).not.toHaveAttribute('aria-pressed');
   });
 
   it('should have role=button when selectable', () => {

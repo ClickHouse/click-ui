@@ -89,7 +89,7 @@ describe('CardHorizontal Visual Regression', () => {
         });
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
-        await expect(card).toHaveAttribute('aria-selected', 'true');
+        await expect(card).toHaveAttribute('aria-pressed', 'true');
         await expect(card).toHaveScreenshot(
           'card-horizontal-default-selected-light.png',
           {
@@ -104,7 +104,7 @@ describe('CardHorizontal Visual Regression', () => {
         });
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
-        await expect(card).toHaveAttribute('aria-selected', 'true');
+        await expect(card).toHaveAttribute('aria-pressed', 'true');
         await expect(card).toHaveScreenshot('card-horizontal-muted-selected-light.png', {
           maxDiffPixels: 100,
         });
@@ -120,7 +120,7 @@ describe('CardHorizontal Visual Regression', () => {
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveAttribute('aria-disabled', 'true');
-        await expect(card).toHaveAttribute('aria-selected', 'true');
+        await expect(card).toHaveAttribute('aria-pressed', 'true');
         await expect(card).toHaveScreenshot(
           'card-horizontal-disabled-selected-light.png',
           {
@@ -286,6 +286,7 @@ describe('CardHorizontal Visual Regression', () => {
         });
         const card = page.getByTestId('card-horizontal');
         await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveAttribute('aria-pressed', 'true');
         await expect(card).toHaveScreenshot('card-horizontal-default-selected-dark.png', {
           maxDiffPixels: 100,
         });
