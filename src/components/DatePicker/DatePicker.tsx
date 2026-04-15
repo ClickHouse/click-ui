@@ -137,9 +137,9 @@ const Calendar = ({
           const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
           const isPresent = isSameDate(today, fullDate);
           const isNotAllowed =
-            allowOnlyDatesList && allowOnlyDatesList.length > 0
-              ? !allowOnlyDatesList.some(d => isSameDate(d, fullDate))
-              : false;
+            allowOnlyDatesList &&
+            allowOnlyDatesList.length > 0 &&
+            !allowOnlyDatesList.some(d => isSameDate(d, fullDate));
           const isFutureDisabled = futureDatesDisabled && fullDate > today;
           const isDisabled = isNotAllowed || isFutureDisabled;
           const currentIndex = dayIndex;
