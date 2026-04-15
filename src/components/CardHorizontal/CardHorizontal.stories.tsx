@@ -7,7 +7,7 @@ import { CardHorizontal } from '@/components/CardHorizontal';
 
 const GridCenter = styled.div`
   display: grid;
-  width: 60%;
+  width: 600px;
 `;
 
 const meta: Meta<typeof CardHorizontal> = {
