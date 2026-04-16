@@ -250,6 +250,17 @@
             }
           },
           "$description": "Selection highlight - grid row, table row, list item"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{color.blue.100}",
+          "$extensions": {
+            "mode": {
+              "light": "{color.blue.100}",
+              "dark": "{color.blue.700}"
+            }
+          },
+          "$description": "Selection hover highlight - grid row, table row, list item"
         }
       }
     },
