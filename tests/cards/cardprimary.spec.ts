@@ -221,7 +221,10 @@ describe('CardPrimary Visual Regression', () => {
         const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.hover();
-        await page.waitForTimeout(100);
+        await page.waitForFunction(() => {
+          const el = document.querySelector('[class*="card-primary"]');
+          return el?.matches(':hover') || false;
+        });
         await expect(card).toHaveScreenshot('card-primary-hover-light.png', {
           maxDiffPixels: 100,
         });
@@ -234,7 +237,10 @@ describe('CardPrimary Visual Regression', () => {
         const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.focus();
-        await page.waitForTimeout(100);
+        await page.waitForFunction(() => {
+          const el = document.querySelector('[class*="card-primary"]');
+          return el?.matches(':focus') || false;
+        });
         await expect(card).toHaveScreenshot('card-primary-focus-light.png', {
           maxDiffPixels: 100,
         });
