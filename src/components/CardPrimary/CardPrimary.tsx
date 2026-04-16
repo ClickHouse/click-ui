@@ -31,7 +31,7 @@ const Wrapper = styled.div<{
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
     cursor: pointer;
     button {
@@ -147,6 +147,7 @@ const Card = ({
 
   const hasAction = !!infoUrl || typeof onButtonClick === 'function';
   const Component = hasAction ? Button : 'div';
+  const hasConsumerClick = typeof props.onClick === 'function';
 
   return (
     <Wrapper
@@ -155,7 +156,7 @@ const Card = ({
       $size={size}
       aria-disabled={disabled}
       $isSelected={isSelected}
-      tabIndex={disabled ? -1 : 0}
+      tabIndex={disabled || !hasConsumerClick ? -1 : 0}
       data-testid="card-primary"
       {...props}
     >
