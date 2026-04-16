@@ -5,6 +5,11 @@ const meta: Meta<typeof CardPrimary> = {
   component: CardPrimary,
   title: 'Cards/Primary Card',
   tags: ['cardPrimary', 'autodocs'],
+  decorators: Story => (
+    <div style={{ display: 'grid', width: '60%', maxWidth: '480px' }}>
+      <Story />
+    </div>
+  ),
 };
 
 export default meta;
