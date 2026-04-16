@@ -1,8 +1,8 @@
 ---
-"@clickhouse/click-ui": patch
+"@clickhouse/click-ui": minor
 ---
 
-Improve CardPrimary accessibility and add visual regression tests
+Add visual regression tests, and improve CardPrimary accessibility
 
 **Accessibility Improvements:**
 
