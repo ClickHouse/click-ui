@@ -1,3 +1,4 @@
+import { type MouseEvent, type KeyboardEvent } from 'react';
 import { styled } from 'styled-components';
 import { Title } from '@/components/Title';
 import { Text, type TextAlignment } from '@/components/Text';
@@ -135,7 +136,7 @@ const Card = ({
   children,
   ...props
 }: CardPrimaryProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
@@ -144,11 +145,11 @@ const Card = ({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (typeof onButtonClick === 'function') {
-        onButtonClick(e as unknown as React.MouseEvent<HTMLElement>);
+        onButtonClick(e as unknown as MouseEvent<HTMLElement>);
       }
       if (infoUrl && infoUrl.length > 0) {
         window.open(infoUrl, '_blank');
