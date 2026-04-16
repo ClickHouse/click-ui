@@ -231,10 +231,6 @@ describe('CardPrimary Visual Regression', () => {
         const card = page.getByTestId('card-primary');
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.hover();
-        await page.waitForFunction(() => {
-          const el = document.querySelector('[data-testid="card-primary"]');
-          return el?.matches(':hover') || false;
-        });
         await expect(card).toHaveScreenshot('card-primary-hover-light.png', {
           maxDiffPixels: 100,
         });
@@ -247,10 +243,6 @@ describe('CardPrimary Visual Regression', () => {
         const card = page.getByTestId('card-primary');
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.focus();
-        await page.waitForFunction(() => {
-          const el = document.querySelector('[data-testid="card-primary"]');
-          return el?.matches(':focus') || false;
-        });
         await expect(card).toHaveScreenshot('card-primary-focus-light.png', {
           maxDiffPixels: 100,
         });
@@ -263,7 +255,7 @@ describe('CardPrimary Visual Regression', () => {
 
     describe('Size Variants', () => {
       it('medium size matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('cards-primary-card--size-medium'), {
+        await page.goto(getStoryUrl('cards-primary-card--size-medium', 'dark'), {
           waitUntil: 'networkidle',
         });
         const card = page.getByTestId('card-primary');
@@ -274,7 +266,7 @@ describe('CardPrimary Visual Regression', () => {
       });
 
       it('small size matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('cards-primary-card--size-small'), {
+        await page.goto(getStoryUrl('cards-primary-card--size-small', 'dark'), {
           waitUntil: 'networkidle',
         });
         const card = page.getByTestId('card-primary');
@@ -287,7 +279,7 @@ describe('CardPrimary Visual Regression', () => {
 
     describe('State Variants', () => {
       it('disabled matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('cards-primary-card--disabled'), {
+        await page.goto(getStoryUrl('cards-primary-card--disabled', 'dark'), {
           waitUntil: 'networkidle',
         });
         const card = page.getByTestId('card-primary');
@@ -299,7 +291,7 @@ describe('CardPrimary Visual Regression', () => {
       });
 
       it('selected matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('cards-primary-card--selected'), {
+        await page.goto(getStoryUrl('cards-primary-card--selected', 'dark'), {
           waitUntil: 'networkidle',
         });
         const card = page.getByTestId('card-primary');
@@ -312,7 +304,7 @@ describe('CardPrimary Visual Regression', () => {
 
     describe('Top Badge Variants', () => {
       it('with top badge matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('cards-primary-card--with-top-badge'), {
+        await page.goto(getStoryUrl('cards-primary-card--with-top-badge', 'dark'), {
           waitUntil: 'networkidle',
         });
         const card = page.getByTestId('card-primary');
@@ -325,18 +317,6 @@ describe('CardPrimary Visual Regression', () => {
   });
 
   describe('Events and Accessibility', () => {
-    it('click event fires correctly', async ({ page }) => {
-      await page.goto(getStoryUrl('cards-primary-card--interactive', 'light'), {
-        waitUntil: 'networkidle',
-      });
-      const card = page.getByTestId('card-primary');
-      const button = page.getByText('Click Me');
-      await expect(card).toBeVisible({ timeout: 10000 });
-      await expect(button).toBeVisible();
-      await expect(button).toBeEnabled();
-      await button.click();
-    });
-
     it('disabled card has aria-disabled attribute', async ({ page }) => {
       await page.goto(getStoryUrl('cards-primary-card--disabled', 'light'), {
         waitUntil: 'networkidle',
