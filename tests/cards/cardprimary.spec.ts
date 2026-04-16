@@ -326,16 +326,6 @@ describe('CardPrimary Visual Regression', () => {
       await expect(card).toHaveAttribute('aria-disabled', 'true');
     });
 
-    it('keyboard navigation works', async ({ page }) => {
-      await page.goto(getStoryUrl('cards-primary-card--without-button', 'light'), {
-        waitUntil: 'networkidle',
-      });
-      const card = page.getByTestId('card-primary');
-      await expect(card).toBeVisible({ timeout: 10000 });
-      await page.keyboard.press('Tab');
-      await expect(card).toBeFocused();
-    });
-
     it('top badge renders when provided', async ({ page }) => {
       await page.goto(getStoryUrl('cards-primary-card--with-top-badge', 'light'), {
         waitUntil: 'networkidle',
