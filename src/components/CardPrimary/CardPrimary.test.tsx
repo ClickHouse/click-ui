@@ -45,8 +45,7 @@ describe('CardPrimary Component', () => {
     });
     it('should not render inner button when no action is provided', () => {
       const description = 'This is the card description';
-      const infoText = 'test';
-      renderCard({
+      const { queryByRole } = renderCard({
         icon: 'warning',
         title: '',
         description,
@@ -54,7 +53,7 @@ describe('CardPrimary Component', () => {
         infoText: '',
       });
 
-      expect(screen.queryByText(infoText)).toBeNull();
+      expect(queryByRole('button')).toBeNull();
     });
 
     it('should render button when onButtonClick is provided', () => {

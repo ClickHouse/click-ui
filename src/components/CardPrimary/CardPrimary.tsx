@@ -76,8 +76,7 @@ const Card = forwardRef<HTMLDivElement, CardPrimaryProps>(
       }
     };
 
-    const hasAction = !!infoUrl || typeof onButtonClick === 'function';
-    const Component = hasAction ? Button : 'div';
+    const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
     const contentAlign = alignContent ?? 'center';
     const hasConsumerClick = typeof props.onClick === 'function';
 
