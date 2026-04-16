@@ -15,11 +15,11 @@
 }
 
 .card-primary-top-badge_is-selected {
-  border-color: var(--click-button-basic-color-primary-stroke-active);
+  border-color: var(--click-button-basic-color-primary-stroke-active) !important;
 }
 
 /* When the card is active, also highlight the badge */
 .card-primary-top-badge:active,
 .card-primary:active ~ .card-primary-top-badge {
-  border-color: var(--click-button-basic-color-primary-stroke-active);
+  border-color: var(--click-button-basic-color-primary-stroke-active) !important;
 }
