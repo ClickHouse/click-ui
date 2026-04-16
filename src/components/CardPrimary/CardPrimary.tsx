@@ -1,4 +1,4 @@
-import { type MouseEvent, type KeyboardEvent } from 'react';
+import { type MouseEvent } from 'react';
 import { styled } from 'styled-components';
 import { Title } from '@/components/Title';
 import { Text, type TextAlignment } from '@/components/Text';
@@ -145,21 +145,8 @@ const Card = ({
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (typeof onButtonClick === 'function') {
-        onButtonClick(e as unknown as MouseEvent<HTMLElement>);
-      }
-      if (infoUrl && infoUrl.length > 0) {
-        window.open(infoUrl, '_blank');
-      }
-    }
-  };
-
   const hasAction = !!infoUrl || typeof onButtonClick === 'function';
   const Component = hasAction ? Button : 'div';
-  const isCardClickable = !hasAction && !disabled;
 
   return (
     <Wrapper
@@ -167,11 +154,8 @@ const Card = ({
       $hasShadow={hasShadow}
       $size={size}
       aria-disabled={disabled}
-      aria-pressed={isCardClickable ? isSelected : undefined}
-      role={isCardClickable ? 'button' : undefined}
-      onKeyDown={isCardClickable ? handleKeyDown : undefined}
       $isSelected={isSelected}
-      tabIndex={hasAction || disabled ? -1 : 0}
+      tabIndex={disabled ? -1 : 0}
       data-testid="card-primary"
       {...props}
     >
