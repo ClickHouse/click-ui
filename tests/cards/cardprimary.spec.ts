@@ -94,6 +94,7 @@ describe('CardPrimary Visual Regression', () => {
         });
         const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveAttribute('aria-pressed', 'true');
         await expect(card).toHaveScreenshot('card-primary-selected-light.png', {
           maxDiffPixels: 100,
         });
