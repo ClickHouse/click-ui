@@ -1,0 +1,43 @@
+{
+  "sizing": {
+    "symbol": {
+      "xs": {
+        "$type": "dimension",
+        "$value": { "value": 12, "unit": "px" },
+        "$description": "12px, icon-xs, extra-small, 0.75rem, tiny-icon, micro"
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": { "value": 16, "unit": "px" },
+        "$description": "16px, icon-sm, small, 1rem, compact-icon, dense"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": { "value": 20, "unit": "px" },
+        "$description": "20px, icon-md, medium, 1.25rem, standard-icon, default"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": { "value": 24, "unit": "px" },
+        "$description": "24px, icon-lg, large, 1.5rem, prominent-icon, spacious"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": { "value": 32, "unit": "px" },
+        "$description": "32px, icon-xl, extra-large, 2rem, feature-icon, large"
+      }
+    },
+    "border": {
+      "thin": {
+        "$type": "dimension",
+        "$value": { "value": 1, "unit": "px" },
+        "$description": "1px, thin stroke, hairline weight"
+      },
+      "regular": {
+        "$type": "dimension",
+        "$value": { "value": 2, "unit": "px" },
+        "$description": "2px, regular stroke, medium weight"
+      }
+    }
+  }
+}
