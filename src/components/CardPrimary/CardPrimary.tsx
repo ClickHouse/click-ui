@@ -144,15 +144,17 @@ const Card = ({
     }
   };
 
-  const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
+  const hasAction = !!infoUrl || typeof onButtonClick === 'function';
+  const Component = hasAction ? Button : 'div';
+  const isCardClickable = !hasAction && !disabled;
+
   return (
     <Wrapper
       $alignContent={alignContent}
       $hasShadow={hasShadow}
       $size={size}
       aria-disabled={disabled}
-      aria-pressed={isSelected}
-      role="button"
+      aria-pressed={isCardClickable ? isSelected : undefined}
       $isSelected={isSelected}
       tabIndex={0}
       data-testid="card-primary"

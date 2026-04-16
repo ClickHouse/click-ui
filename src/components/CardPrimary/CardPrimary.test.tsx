@@ -33,21 +33,19 @@ describe('CardPrimary Component', () => {
     });
     it('should render button when the infoUrl is provided', () => {
       const description = 'This is the card description';
-      const infoText = 'test';
-      renderCard({
+      const { queryByRole } = renderCard({
         icon: 'warning',
         title: '',
         description,
         infoUrl: 'test',
-        infoText,
+        infoText: 'test',
       });
 
-      expect(screen.getByText(infoText)).toBeDefined();
+      expect(queryByRole('button')).not.toBeNull();
     });
     it('should not render button when the infoUrl is provided and length is 0', () => {
       const description = 'This is the card description';
-      const infoText = 'test';
-      renderCard({
+      const { queryByRole } = renderCard({
         icon: 'warning',
         title: '',
         description,
@@ -55,21 +53,20 @@ describe('CardPrimary Component', () => {
         infoText: '',
       });
 
-      expect(screen.queryByText(infoText)).toBeNull();
+      expect(queryByRole('button')).toBeNull();
     });
 
     it('should render button when onButtonClick is provided', () => {
       const description = 'This is the card description';
-      const infoText = 'test1';
-      renderCard({
+      const { queryByRole } = renderCard({
         icon: 'warning',
         title: '',
         description,
         onButtonClick: () => null,
-        infoText,
+        infoText: 'test1',
       });
 
-      expect(screen.getByText(infoText)).toBeDefined();
+      expect(queryByRole('button')).not.toBeNull();
     });
 
     it('should render the top badge', () => {
