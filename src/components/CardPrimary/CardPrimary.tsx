@@ -151,6 +151,7 @@ const Card = ({
       $hasShadow={hasShadow}
       $size={size}
       aria-disabled={disabled}
+      aria-pressed={isSelected}
       $isSelected={isSelected}
       tabIndex={0}
       data-testid="card-primary"
