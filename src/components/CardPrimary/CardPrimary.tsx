@@ -155,8 +155,9 @@ const Card = ({
       $size={size}
       aria-disabled={disabled}
       aria-pressed={isCardClickable ? isSelected : undefined}
+      role={isCardClickable ? 'button' : undefined}
       $isSelected={isSelected}
-      tabIndex={0}
+      tabIndex={disabled ? -1 : 0}
       data-testid="card-primary"
       {...props}
     >
