@@ -1,0 +1,299 @@
+/* WARNING: Disabled `no-descending-specificity` due to complex state-based selectors (default, hover, active, disabled) with varying specificity are grouped logically by state for maintainability, not ordered by specificity. This makes the code easier to maintain at time of writing */
+/* stylelint-disable no-descending-specificity */
+.card-horizontal {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--click-card-horizontal-radii-all);
+  font: var(--click-card-horizontal-typography-title-default);
+}
+
+.card-horizontal__content {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.card-horizontal__icon-text-content {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.card-horizontal__icon {
+  width: var(--click-card-horizontal-icon-size-all);
+  height: var(--click-card-horizontal-icon-size-all);
+}
+
+.card-horizontal__header {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.card-horizontal__description {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-self: start;
+  gap: var(--click-card-horizontal-space-md-gap);
+  font: var(--click-card-horizontal-typography-description-default);
+}
+
+.card-horizontal__children {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-self: start;
+  gap: var(--click-card-horizontal-space-md-gap);
+  font: var(--click-card-horizontal-typography-description-default);
+}
+
+.card-horizontal_md {
+  padding: var(--click-card-horizontal-space-md-y) var(--click-card-horizontal-space-md-x);
+}
+
+.card-horizontal_sm {
+  padding: var(--click-card-horizontal-space-sm-y) var(--click-card-horizontal-space-sm-x);
+}
+
+.card-horizontal_md .card-horizontal__content {
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.card-horizontal_sm .card-horizontal__content {
+  gap: var(--click-card-horizontal-space-sm-gap);
+}
+
+.card-horizontal_md .card-horizontal__icon-text-content {
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.card-horizontal_sm .card-horizontal__icon-text-content {
+  gap: var(--click-card-horizontal-space-sm-gap);
+}
+
+.card-horizontal_default {
+  border-color: var(--click-card-horizontal-default-color-stroke-default);
+  background: var(--click-card-horizontal-default-color-background-default);
+  color: var(--click-card-horizontal-default-color-title-default);
+}
+
+.card-horizontal_default .card-horizontal__description {
+  color: var(--click-card-horizontal-default-color-description-default);
+}
+
+.card-horizontal_muted {
+  border-color: var(--click-card-horizontal-muted-color-stroke-default);
+  background: var(--click-card-horizontal-muted-color-background-default);
+  color: var(--click-card-horizontal-muted-color-title-default);
+}
+
+.card-horizontal_muted .card-horizontal__description {
+  color: var(--click-card-horizontal-muted-color-description-default);
+}
+
+.card-horizontal_selectable {
+  cursor: pointer;
+}
+
+.card-horizontal_default.card-horizontal_selectable:not(.card-horizontal_selected, .card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-default-color-stroke-hover);
+}
+
+.card-horizontal_muted.card-horizontal_selectable:not(.card-horizontal_selected, .card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-muted-color-stroke-hover);
+}
+
+.card-horizontal_default.card-horizontal_selectable:hover:not(.card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-default-color-stroke-default);
+  background-color: var(--click-card-horizontal-default-color-background-hover);
+  color: var(--click-card-horizontal-default-color-title-hover);
+  font: var(--click-card-horizontal-typography-title-hover);
+}
+
+.card-horizontal_default.card-horizontal_selectable:hover:not(.card-horizontal_disabled) .card-horizontal__description {
+  color: var(--click-card-horizontal-default-color-description-hover);
+  font: var(--click-card-horizontal-typography-description-hover);
+}
+
+.card-horizontal_muted.card-horizontal_selectable:hover:not(.card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-muted-color-stroke-default);
+  background-color: var(--click-card-horizontal-muted-color-background-hover);
+  color: var(--click-card-horizontal-muted-color-title-hover);
+  font: var(--click-card-horizontal-typography-title-hover);
+}
+
+.card-horizontal_muted.card-horizontal_selectable:hover:not(.card-horizontal_disabled) .card-horizontal__description {
+  color: var(--click-card-horizontal-muted-color-description-hover);
+  font: var(--click-card-horizontal-typography-description-hover);
+}
+
+.card-horizontal_default.card-horizontal_selected,
+.card-horizontal_default.card-horizontal_selectable.card-horizontal_selected {
+  border-color: var(--click-card-horizontal-default-color-stroke-active);
+  background-color: var(--click-card-horizontal-default-color-background-active);
+  color: var(--click-card-horizontal-default-color-title-active);
+}
+
+.card-horizontal_default.card-horizontal_selected .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selectable.card-horizontal_selected .card-horizontal__description {
+  color: var(--click-card-horizontal-default-color-description-active);
+  font: var(--click-card-horizontal-typography-description-active);
+}
+
+.card-horizontal_muted.card-horizontal_selected,
+.card-horizontal_muted.card-horizontal_selectable.card-horizontal_selected {
+  border-color: var(--click-card-horizontal-muted-color-stroke-active);
+  background-color: var(--click-card-horizontal-muted-color-background-active);
+  color: var(--click-card-horizontal-muted-color-title-active);
+}
+
+.card-horizontal_muted.card-horizontal_selected .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selectable.card-horizontal_selected .card-horizontal__description {
+  color: var(--click-card-horizontal-muted-color-description-active);
+  font: var(--click-card-horizontal-typography-description-active);
+}
+
+.card-horizontal_default.card-horizontal_selectable:active:not(.card-horizontal_disabled),
+.card-horizontal_default.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled),
+.card-horizontal_default.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-default-color-stroke-active);
+  background-color: var(--click-card-horizontal-default-color-background-active);
+  color: var(--click-card-horizontal-default-color-title-active);
+}
+
+.card-horizontal_default.card-horizontal_selectable:active:not(.card-horizontal_disabled) .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled) .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) .card-horizontal__description {
+  color: var(--click-card-horizontal-default-color-description-active);
+  font: var(--click-card-horizontal-typography-description-active);
+}
+
+.card-horizontal_muted.card-horizontal_selectable:active:not(.card-horizontal_disabled),
+.card-horizontal_muted.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled),
+.card-horizontal_muted.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-muted-color-stroke-active);
+  background-color: var(--click-card-horizontal-muted-color-background-active);
+  color: var(--click-card-horizontal-muted-color-title-active);
+}
+
+.card-horizontal_muted.card-horizontal_selectable:active:not(.card-horizontal_disabled) .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selectable:focus-visible:not(.card-horizontal_disabled) .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selectable:focus-within:not(.card-horizontal_disabled) .card-horizontal__description {
+  color: var(--click-card-horizontal-muted-color-description-active);
+  font: var(--click-card-horizontal-typography-description-active);
+}
+
+.card-horizontal_default.card-horizontal_selected:hover:not(.card-horizontal_disabled),
+.card-horizontal_default.card-horizontal_selectable.card-horizontal_selected:hover:not(.card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-default-color-stroke-active);
+}
+
+.card-horizontal_muted.card-horizontal_selected:hover:not(.card-horizontal_disabled),
+.card-horizontal_muted.card-horizontal_selectable.card-horizontal_selected:hover:not(.card-horizontal_disabled) {
+  border-color: var(--click-card-horizontal-muted-color-stroke-active);
+}
+
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:hover {
+  border-color: var(--click-card-horizontal-default-color-stroke-active);
+}
+
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:hover {
+  border-color: var(--click-card-horizontal-muted-color-stroke-active);
+}
+
+.card-horizontal_disabled {
+  cursor: not-allowed;
+}
+
+.card-horizontal_default.card-horizontal_disabled,
+.card-horizontal_default.card-horizontal_disabled:hover,
+.card-horizontal_default.card-horizontal_disabled:active,
+.card-horizontal_default.card-horizontal_disabled:focus-visible,
+.card-horizontal_default.card-horizontal_disabled:focus-within {
+  border-color: var(--click-card-horizontal-default-color-stroke-disabled);
+  background-color: var(--click-card-horizontal-default-color-background-disabled);
+  color: var(--click-card-horizontal-default-color-title-disabled);
+}
+
+.card-horizontal_default.card-horizontal_disabled .card-horizontal__description,
+.card-horizontal_default.card-horizontal_disabled:hover .card-horizontal__description,
+.card-horizontal_default.card-horizontal_disabled:active .card-horizontal__description,
+.card-horizontal_default.card-horizontal_disabled:focus-visible .card-horizontal__description,
+.card-horizontal_default.card-horizontal_disabled:focus-within .card-horizontal__description {
+  color: var(--click-card-horizontal-default-color-description-disabled);
+  font: var(--click-card-horizontal-typography-description-disabled);
+}
+
+.card-horizontal_muted.card-horizontal_disabled,
+.card-horizontal_muted.card-horizontal_disabled:hover,
+.card-horizontal_muted.card-horizontal_disabled:active,
+.card-horizontal_muted.card-horizontal_disabled:focus-visible,
+.card-horizontal_muted.card-horizontal_disabled:focus-within {
+  border-color: var(--click-card-horizontal-muted-color-stroke-disabled);
+  background-color: var(--click-card-horizontal-muted-color-background-disabled);
+  color: var(--click-card-horizontal-muted-color-title-disabled);
+}
+
+.card-horizontal_muted.card-horizontal_disabled .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_disabled:hover .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_disabled:active .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_disabled:focus-visible .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_disabled:focus-within .card-horizontal__description {
+  color: var(--click-card-horizontal-muted-color-description-disabled);
+  font: var(--click-card-horizontal-typography-description-disabled);
+}
+
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:active,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-visible,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-within {
+  border-color: var(--click-card-horizontal-default-color-stroke-active);
+  background-color: var(--click-card-horizontal-default-color-background-disabled);
+  color: var(--click-card-horizontal-default-color-title-disabled);
+}
+
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:hover .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:active .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-visible .card-horizontal__description,
+.card-horizontal_default.card-horizontal_selected.card-horizontal_disabled:focus-within .card-horizontal__description {
+  color: var(--click-card-horizontal-default-color-description-disabled);
+  font: var(--click-card-horizontal-typography-description-disabled);
+}
+
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:active,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus-visible,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus-within {
+  border-color: var(--click-card-horizontal-muted-color-stroke-active);
+  background-color: var(--click-card-horizontal-muted-color-background-disabled);
+  color: var(--click-card-horizontal-muted-color-title-disabled);
+}
+
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:hover .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:active .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus-visible .card-horizontal__description,
+.card-horizontal_muted.card-horizontal_selected.card-horizontal_disabled:focus-within .card-horizontal__description {
+  color: var(--click-card-horizontal-muted-color-description-disabled);
+  font: var(--click-card-horizontal-typography-description-disabled);
+}
+
+@media (max-width: 768px) {
+  .card-horizontal__content {
+    flex-direction: column;
+  }
+}
