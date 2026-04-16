@@ -67,7 +67,9 @@ const Card = forwardRef<HTMLDivElement, CardPrimaryProps>(
     ref
   ) => {
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-      if (disabled) return;
+      if (disabled) {
+        return;
+      }
       if (typeof onButtonClick === 'function') {
         onButtonClick(e);
       }
