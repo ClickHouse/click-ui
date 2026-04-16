@@ -27,7 +27,6 @@ export const Playground: Story = {
   },
 };
 
-// Size variants
 export const SizeMedium: Story = {
   args: {
     icon: 'building',
@@ -50,7 +49,6 @@ export const SizeSmall: Story = {
   },
 };
 
-// Alignment variants
 export const AlignStart: Story = {
   args: {
     icon: 'building',
@@ -84,7 +82,6 @@ export const AlignEnd: Story = {
   },
 };
 
-// State variants
 export const WithShadow: Story = {
   args: {
     icon: 'building',
@@ -121,7 +118,6 @@ export const Selected: Story = {
   },
 };
 
-// Content variants
 export const WithIcon: Story = {
   args: {
     icon: 'building',
@@ -183,7 +179,6 @@ export const WithoutButton: Story = {
   },
 };
 
-// Top badge variants
 export const WithTopBadge: Story = {
   args: {
     icon: 'building',
@@ -209,7 +204,6 @@ export const WithTopBadgeSelected: Story = {
   },
 };
 
-// Small size combinations
 export const SmallWithBadge: Story = {
   args: {
     icon: 'building',
@@ -234,7 +228,6 @@ export const SmallDisabled: Story = {
   },
 };
 
-// Interactive story for testing events
 export const Interactive: Story = {
   args: {
     icon: 'building',
