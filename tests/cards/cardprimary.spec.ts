@@ -10,7 +10,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--size-medium', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-size-medium-light.png', {
           maxDiffPixels: 100,
@@ -21,7 +21,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--size-small', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-size-small-light.png', {
           maxDiffPixels: 100,
@@ -34,7 +34,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--align-start', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-align-start-light.png', {
           maxDiffPixels: 100,
@@ -45,7 +45,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--align-center', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-align-center-light.png', {
           maxDiffPixels: 100,
@@ -56,7 +56,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--align-end', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-align-end-light.png', {
           maxDiffPixels: 100,
@@ -69,7 +69,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--with-shadow', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-with-shadow-light.png', {
           maxDiffPixels: 100,
@@ -80,7 +80,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--disabled', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveAttribute('aria-disabled', 'true');
         await expect(card).toHaveScreenshot('card-primary-disabled-light.png', {
@@ -92,7 +92,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--selected', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveAttribute('aria-pressed', 'true');
         await expect(card).toHaveScreenshot('card-primary-selected-light.png', {
@@ -106,7 +106,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--with-icon', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-with-icon-light.png', {
           maxDiffPixels: 100,
@@ -117,7 +117,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--with-icon-url', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-with-icon-url-light.png', {
           maxDiffPixels: 100,
@@ -128,7 +128,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--without-icon', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-without-icon-light.png', {
           maxDiffPixels: 100,
@@ -139,7 +139,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--title-only', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-title-only-light.png', {
           maxDiffPixels: 100,
@@ -150,9 +150,20 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--without-button', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-without-button-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('description only matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('cards-primary-card--description-only', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const card = page.locator('[class*="card-primary"]').first();
+        await expect(card).toBeVisible({ timeout: 10000 });
+        await expect(card).toHaveScreenshot('card-primary-description-only-light.png', {
           maxDiffPixels: 100,
         });
       });
@@ -163,7 +174,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--with-top-badge', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-with-top-badge-light.png', {
           maxDiffPixels: 100,
@@ -177,7 +188,7 @@ describe('CardPrimary Visual Regression', () => {
             waitUntil: 'networkidle',
           }
         );
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot(
           'card-primary-with-top-badge-selected-light.png',
@@ -193,7 +204,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--small-with-badge', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-small-with-badge-light.png', {
           maxDiffPixels: 100,
@@ -204,7 +215,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--small-disabled', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveAttribute('aria-disabled', 'true');
         await expect(card).toHaveScreenshot('card-primary-small-disabled-light.png', {
@@ -218,11 +229,11 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--size-medium', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.hover();
         await page.waitForFunction(() => {
-          const el = document.querySelector('[data-testid="card-primary"]');
+          const el = document.querySelector('[class*="card-primary"]');
           return el?.matches(':hover') || false;
         });
         await expect(card).toHaveScreenshot('card-primary-hover-light.png', {
@@ -234,11 +245,11 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--size-medium', 'light'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await card.focus();
         await page.waitForFunction(() => {
-          const el = document.querySelector('[data-testid="card-primary"]');
+          const el = document.querySelector('[class*="card-primary"]');
           return el?.matches(':focus') || false;
         });
         await expect(card).toHaveScreenshot('card-primary-focus-light.png', {
@@ -256,7 +267,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--size-medium'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-size-medium-dark.png', {
           maxDiffPixels: 100,
@@ -267,7 +278,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--size-small'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-size-small-dark.png', {
           maxDiffPixels: 100,
@@ -280,7 +291,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--disabled'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveAttribute('aria-disabled', 'true');
         await expect(card).toHaveScreenshot('card-primary-disabled-dark.png', {
@@ -292,7 +303,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--selected'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-selected-dark.png', {
           maxDiffPixels: 100,
@@ -305,7 +316,7 @@ describe('CardPrimary Visual Regression', () => {
         await page.goto(getStoryUrl('cards-primary-card--with-top-badge'), {
           waitUntil: 'networkidle',
         });
-        const card = page.getByTestId('card-primary');
+        const card = page.locator('[class*="card-primary"]').first();
         await expect(card).toBeVisible({ timeout: 10000 });
         await expect(card).toHaveScreenshot('card-primary-with-top-badge-dark.png', {
           maxDiffPixels: 100,
@@ -319,7 +330,7 @@ describe('CardPrimary Visual Regression', () => {
       await page.goto(getStoryUrl('cards-primary-card--interactive', 'light'), {
         waitUntil: 'networkidle',
       });
-      const card = page.getByTestId('card-primary');
+      const card = page.locator('[class*="card-primary"]').first();
       const button = page.getByRole('button');
       await expect(card).toBeVisible({ timeout: 10000 });
       await expect(button).toBeVisible();
@@ -331,7 +342,7 @@ describe('CardPrimary Visual Regression', () => {
       await page.goto(getStoryUrl('cards-primary-card--disabled', 'light'), {
         waitUntil: 'networkidle',
       });
-      const card = page.getByTestId('card-primary');
+      const card = page.locator('[class*="card-primary"]').first();
       await expect(card).toBeVisible({ timeout: 10000 });
       await expect(card).toHaveAttribute('aria-disabled', 'true');
     });
@@ -340,7 +351,7 @@ describe('CardPrimary Visual Regression', () => {
       await page.goto(getStoryUrl('cards-primary-card--size-medium', 'light'), {
         waitUntil: 'networkidle',
       });
-      const card = page.getByTestId('card-primary');
+      const card = page.locator('[class*="card-primary"]').first();
       await expect(card).toBeVisible({ timeout: 10000 });
       await page.keyboard.press('Tab');
       await expect(card).toBeFocused();

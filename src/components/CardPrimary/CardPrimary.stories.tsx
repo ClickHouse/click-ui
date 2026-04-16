@@ -242,6 +242,6 @@ export const Interactive: Story = {
     infoText: 'Click Me',
     size: 'md',
     alignContent: 'center',
-    onButtonClick: () => alert('Card button clicked!'),
+    onButtonClick: () => console.log('Card button clicked!'),
   },
 };
