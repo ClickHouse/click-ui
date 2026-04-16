@@ -123,6 +123,49 @@ describe('DatePicker', () => {
 
       expect(handleSelectDate).not.toHaveBeenCalled();
     });
+
+    it('disables selecting dates not in allowOnlyDatesList', async () => {
+      const date = new Date('07-04-2020');
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText } = renderCUI(
+        <DatePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          date={date}
+          onSelectDate={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('datepicker-input'));
+      user.click(await findByText('5'));
+
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+
+    it('disables selecting futures dates in allowOnlyDatesList when futureDatesDisabled', async () => {
+      // System time is July 5, 2020
+      const date = new Date('07-04-2020');
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText } = renderCUI(
+        <DatePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          date={date}
+          futureDatesDisabled
+          onSelectDate={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('datepicker-input'));
+      // July 6 is in allowOnlyDatesList but is a future date
+      user.click(await findByText('6'));
+
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
   });
 
   describe('two phased date selection', () => {

@@ -40,6 +40,7 @@ const PopoverContent = styled(Popover.Content)`
 `;
 
 interface CalendarProps {
+  allowOnlyDatesList?: Array<Date>;
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
@@ -49,6 +50,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({
+  allowOnlyDatesList,
   calendarBody,
   closeDatepicker,
   futureDatesDisabled,
@@ -134,7 +136,12 @@ const Calendar = ({
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
           const isPresent = isSameDate(today, fullDate);
-          const isDisabled = futureDatesDisabled ? fullDate > today : false;
+          const isNotAllowed =
+            allowOnlyDatesList &&
+            allowOnlyDatesList.length > 0 &&
+            !allowOnlyDatesList.some(d => isSameDate(d, fullDate));
+          const isFutureDisabled = futureDatesDisabled && fullDate > today;
+          const isDisabled = isNotAllowed || isFutureDisabled;
           const currentIndex = dayIndex;
           dayIndex++;
 
@@ -172,6 +179,7 @@ const Calendar = ({
 };
 
 export const DatePicker = ({
+  allowOnlyDatesList,
   date,
   disabled = false,
   futureDatesDisabled = false,
@@ -276,6 +284,7 @@ export const DatePicker = ({
           >
             {body => (
               <Calendar
+                allowOnlyDatesList={allowOnlyDatesList}
                 autoFocus={autoFocusCalendar}
                 calendarBody={body}
                 closeDatepicker={onCloseDatePicker}
