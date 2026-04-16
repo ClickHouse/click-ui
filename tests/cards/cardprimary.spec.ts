@@ -327,7 +327,7 @@ describe('CardPrimary Visual Regression', () => {
     });
 
     it('keyboard navigation works', async ({ page }) => {
-      await page.goto(getStoryUrl('cards-primary-card--size-medium', 'light'), {
+      await page.goto(getStoryUrl('cards-primary-card--without-button', 'light'), {
         waitUntil: 'networkidle',
       });
       const card = page.getByTestId('card-primary');
