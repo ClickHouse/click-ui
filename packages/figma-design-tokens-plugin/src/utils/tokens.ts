@@ -20,7 +20,7 @@ export function inferScopes(
 
   if (type === 'COLOR') {
     if (normalizedName.includes('border') || normalizedName.includes('stroke')) {
-      return ['STROKE_COLOR'];
+      return ['ALL_FILLS'];
     }
 
     if (
