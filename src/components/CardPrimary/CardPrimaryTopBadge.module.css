@@ -1,0 +1,25 @@
+.top-badge-wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.card-primary-top-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border: 1px solid transparent;
+  transform: translate(-50%, -50%);
+}
+
+.card-primary-top-badge_is-selected {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+}
+
+/* When the card is active, also highlight the badge */
+.card-primary-top-badge:active,
+.card-primary:active ~ .card-primary-top-badge {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+}

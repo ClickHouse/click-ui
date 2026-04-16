@@ -1,117 +1,42 @@
-import { type MouseEvent } from 'react';
-import { styled } from 'styled-components';
+import { forwardRef } from 'react';
 import { Title } from '@/components/Title';
 import { Text, type TextAlignment } from '@/components/Text';
 import { withTopBadge } from './withTopBadge';
 import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
-import { CardPrimaryProps, CardPrimarySize } from './CardPrimary.types';
+import { cn, cva } from '@/lib/cva';
+import styles from './CardPrimary.module.css';
+import { CardPrimaryProps } from './CardPrimary.types';
 
 type ContentAlignment = 'start' | 'center' | 'end';
 
-const Wrapper = styled.div<{
-  $size?: CardPrimarySize;
-  $hasShadow?: boolean;
-  $isSelected?: boolean;
-  $alignContent?: ContentAlignment;
-}>`
-  background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
-  border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
-  border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  text-align: ${({ $alignContent }) =>
-    $alignContent === 'start' ? 'left' : $alignContent === 'end' ? 'right' : 'center'};
-  flex-direction: column;
-  padding: ${({ $size = 'md', theme }) =>
-    `${theme.click.card.primary.space[$size].x} ${theme.click.card.primary.space[$size].y}`};
-  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
-
-  &:hover,
-  &:focus-visible {
-    background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
-    cursor: pointer;
-    button {
-      background-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.background.hover};
-      border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.hover};
-      &:active {
-        background-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.background.active};
-        border-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.stroke.active};
-      }
-    }
-  }
-
-  &:active {
-    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
-  }
-
-  &[aria-disabled='true'],
-  &[aria-disabled='true']:hover,
-  &[aria-disabled='true']:focus,
-  &[aria-disabled='true']:active {
-    pointer-events: none;
-    ${({ theme }) => `
-    background-color: ${theme.click.card.primary.color.background.disabled};
-    color: ${theme.click.card.primary.color.title.disabled};
-    border: 1px solid ${theme.click.card.primary.color.stroke.disabled};
-    cursor: not-allowed;
-
-    button {
-      background-color: ${theme.click.button.basic.color.primary.background.disabled};
-      border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
-      &:active {
-        background-color: ${theme.click.button.basic.color.primary.background.disabled};
-        border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
-      }
-    }`}
-  }
-
-  ${({ $isSelected, theme }) =>
-    $isSelected
-      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ''}
-`;
-
-const Header = styled.div<{
-  $size?: 'sm' | 'md';
-  $disabled?: boolean;
-  $alignContent?: ContentAlignment;
-}>`
-  display: flex;
-  flex-direction: column;
-  align-items: ${({ $alignContent = 'center' }) =>
-    ['start', 'end'].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
-
-  h3 {
-    color: ${({ $disabled, theme }) =>
-      $disabled == true
-        ? theme.click.global.color.text.muted
-        : theme.click.global.color.text.default};
-  }
-
-  svg,
-  img {
-    height: ${({ $size = 'md', theme }) => theme.click.card.primary.size.icon[$size].all};
-    width: ${({ $size = 'md', theme }) => theme.click.card.primary.size.icon[$size].all};
-  }
-`;
-
-const Content = styled.div<{ $size?: 'sm' | 'md'; $alignContent?: ContentAlignment }>`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-self: ${({ $alignContent = 'center' }) =>
-    ['start', 'end'].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
-  flex: 1;
-`;
+const cardVariants = cva(styles['card-primary'], {
+  variants: {
+    size: {
+      sm: styles['card-primary_size_sm'],
+      md: styles['card-primary_size_md'],
+    },
+    align: {
+      start: styles['card-primary_align_start'],
+      center: styles['card-primary_align_center'],
+      end: styles['card-primary_align_end'],
+    },
+    hasShadow: {
+      true: styles['card-primary_has-shadow'],
+    },
+    isSelected: {
+      true: styles['card-primary_is-selected'],
+    },
+    disabled: {
+      true: undefined,
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    align: 'center',
+  },
+});
 
 const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => {
   if (align === 'center') {
@@ -120,99 +45,132 @@ const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => 
   return align === 'start' ? 'left' : 'right';
 };
 
-const Card = ({
-  alignContent,
-  title,
-  icon,
-  iconUrl,
-  hasShadow = false,
-  description,
-  infoUrl,
-  infoText,
-  size,
-  disabled = false,
-  onButtonClick,
-  isSelected,
-  children,
-  ...props
-}: CardPrimaryProps) => {
-  const handleClick = (e: MouseEvent<HTMLElement>) => {
-    if (typeof onButtonClick === 'function') {
-      onButtonClick(e);
-    }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
-    }
-  };
+const Card = forwardRef<HTMLDivElement, CardPrimaryProps>(
+  (
+    {
+      alignContent,
+      title,
+      icon,
+      iconUrl,
+      hasShadow = false,
+      description,
+      infoUrl,
+      infoText,
+      size = 'md',
+      disabled = false,
+      onButtonClick,
+      isSelected,
+      children,
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+      if (disabled) return;
+      if (typeof onButtonClick === 'function') {
+        onButtonClick(e);
+      }
+      if (infoUrl && infoUrl.length > 0) {
+        window.open(infoUrl, '_blank');
+      }
+    };
 
-  const hasAction = !!infoUrl || typeof onButtonClick === 'function';
-  const Component = hasAction ? Button : 'div';
-  const hasConsumerClick = typeof props.onClick === 'function';
+    const hasAction = !!infoUrl || typeof onButtonClick === 'function';
+    const Component = hasAction ? Button : 'div';
+    const contentAlign = alignContent ?? 'center';
+    const hasConsumerClick = typeof props.onClick === 'function';
 
-  return (
-    <Wrapper
-      $alignContent={alignContent}
-      $hasShadow={hasShadow}
-      $size={size}
-      aria-disabled={disabled}
-      $isSelected={isSelected}
-      tabIndex={disabled || !hasConsumerClick ? -1 : 0}
-      data-testid="card-primary"
-      {...props}
-    >
-      {(icon || title) && (
-        <Header
-          $size={size}
-          $disabled={disabled}
-          $alignContent={alignContent}
-        >
-          {iconUrl ? (
-            <img
-              src={iconUrl}
-              alt="card icon"
-              aria-hidden
-            />
-          ) : (
-            icon && (
-              <Icon
-                name={icon}
-                aria-hidden
-              />
-            )
-          )}
-          {title && <Title type="h3">{title}</Title>}
-        </Header>
-      )}
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          cardVariants({
+            size,
+            align: contentAlign,
+            hasShadow,
+            isSelected,
+          }),
+          className
+        )}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled || !hasConsumerClick ? -1 : 0}
+        data-testid="card-primary"
+        {...props}
+      >
+        {(icon || title) && (
+          <div
+            className={cn(
+              styles['card-primary__header'],
+              styles[`card-primary__header_align_${contentAlign}`],
+              disabled && styles['card-primary__header_disabled']
+            )}
+          >
+            {(icon || iconUrl) && (
+              <div className={styles['card-primary__icon']}>
+                {iconUrl ? (
+                  <img
+                    src={iconUrl}
+                    alt="card icon"
+                    aria-hidden
+                  />
+                ) : (
+                  icon && (
+                    <Icon
+                      name={icon}
+                      aria-hidden
+                    />
+                  )
+                )}
+              </div>
+            )}
+            {title && (
+              <div className={styles['card-primary__title']}>
+                <Title type="h3">{title}</Title>
+              </div>
+            )}
+          </div>
+        )}
 
-      {(description || children) && (
-        <Content
-          $size={size}
-          $alignContent={alignContent}
-        >
-          {description && (
-            <Text
-              color="muted"
-              align={convertCardAlignToTextAlign(alignContent ?? 'start')}
+        {(description || children) && (
+          <div
+            className={cn(
+              styles['card-primary__content'],
+              styles[`card-primary__content_align_${contentAlign}`]
+            )}
+          >
+            {description && (
+              <div className={styles['card-primary__description']}>
+                <Text
+                  color="muted"
+                  align={convertCardAlignToTextAlign(contentAlign)}
+                >
+                  {description}
+                </Text>
+              </div>
+            )}
+            {children}
+          </div>
+        )}
+
+        {size === 'sm' && <Spacer size="sm" />}
+
+        {infoText && (
+          <div className={styles['card-primary__button']}>
+            <Component
+              onClick={handleClick}
+              disabled={disabled}
+              aria-disabled={disabled || undefined}
             >
-              {description}
-            </Text>
-          )}
-          {children}
-        </Content>
-      )}
+              {infoText}
+            </Component>
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
-      {size == 'sm' && <Spacer size="sm" />}
-
-      {infoText && (
-        <Component
-          onClick={handleClick}
-          disabled={disabled}
-        >
-          {infoText}
-        </Component>
-      )}
-    </Wrapper>
-  );
-};
+Card.displayName = 'CardPrimary';
 
 export const CardPrimary = withTopBadge<CardPrimaryProps>(Card);
