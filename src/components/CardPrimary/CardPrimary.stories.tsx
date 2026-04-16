@@ -136,7 +136,8 @@ export const WithIcon: Story = {
 
 export const WithIconUrl: Story = {
   args: {
-    iconUrl: 'https://clickhouse.com/favicon.ico',
+    iconUrl:
+      'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiI+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjQiLz48L3N2Zz4=',
     title: 'Card with Custom Icon',
     description: 'This card uses a custom icon URL.',
     infoText: 'Learn More',
