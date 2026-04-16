@@ -153,6 +153,7 @@ const Card = ({
       aria-disabled={disabled}
       $isSelected={isSelected}
       tabIndex={0}
+      data-testid="card-primary"
       {...props}
     >
       {(icon || title) && (
