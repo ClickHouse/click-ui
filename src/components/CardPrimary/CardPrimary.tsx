@@ -152,6 +152,7 @@ const Card = ({
       $size={size}
       aria-disabled={disabled}
       aria-pressed={isSelected}
+      role="button"
       $isSelected={isSelected}
       tabIndex={0}
       data-testid="card-primary"
