@@ -1,6 +1,7 @@
 {
   "name": "click-ui-monorepo",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
@@ -19,7 +20,15 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "husky": "^9.1.7"
+    "eslint": "^9",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prefer-arrow-functions": "^3.3.2",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.4.0",
+    "prettier": "^3.7.4",
+    "typescript-eslint": "^8"
   },
   "resolutions": {
     "@types/react": "18.3.1",
