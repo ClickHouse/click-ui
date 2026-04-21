@@ -81,10 +81,6 @@ jobs:
           node-version: '22.x'  # Node 22 includes npm >= 11.5.1 with OIDC support
           # Required so npm receives OIDC-backed auth for trusted publishing (avoids ENEEDAUTH).
           registry-url: 'https://registry.npmjs.org'
-      - name: Upgrade npm for OIDC support
-        run: |
-          npm install -g npm@latest
-          echo "npm version: $(npm --version)"
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
