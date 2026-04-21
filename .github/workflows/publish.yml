@@ -59,8 +59,8 @@ jobs:
           fetch-depth: 0
       - name: Set up Git
         run: |
-          git config user.email "actions@clickhouse.com"
-          git config user.name "GitHub Actions"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Bump package version (for version inputs)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
@@ -78,7 +78,9 @@ jobs:
           npm pkg set version=$NEW_VERSION --no-git-tag-version
       - uses: actions/setup-node@v6
         with:
-          node-version: '23.x'  # Node 22 includes npm >= 11.5.1 with OIDC support
+          node-version: '23.x'
+          # registry-url is required for OIDC trusted publishing. Avoid `npm install -g npm@latest`
+          # on hosted runners — it can leave npm broken (e.g. MODULE_NOT_FOUND / promise-retry).
           registry-url: 'https://registry.npmjs.org'
       - name: Enable Corepack
         run: corepack enable
