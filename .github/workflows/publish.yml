@@ -82,6 +82,10 @@ jobs:
           # registry-url is required for OIDC trusted publishing. Avoid `npm install -g npm@latest`
           # on hosted runners — it can leave npm broken (e.g. MODULE_NOT_FOUND / promise-retry).
           registry-url: 'https://registry.npmjs.org'
+      - name: Upgrade npm for OIDC support
+        run: |
+          npm install -g npm@latest
+          echo "npm version: $(npm --version)"
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
