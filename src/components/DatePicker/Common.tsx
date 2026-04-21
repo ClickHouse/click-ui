@@ -25,21 +25,19 @@ import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 import { Dropdown } from '@/components/Dropdown';
 
 const explicitWidth = '250px';
-const TXT_ON_MONTH_SELECT = 'Month';
-const TXT_ON_YEAR_SELECT = 'Year';
 
-const VIEW_GRID_MONTHS = {
+const viewGridMonths = {
   columns: 4,
   rows: 3,
 } as const;
 
-const VIEW_GRID_YEARS = {
+const viewGridYears = {
   columns: 3,
   rows: 3,
 } as const;
 
-const VIEW_TOTAL_YEARS = VIEW_GRID_YEARS.columns * VIEW_GRID_YEARS.rows;
-const VIEW_NAVIGATION_OFFSET_YEARS = Math.floor(VIEW_TOTAL_YEARS / 2);
+const totalYears = viewGridYears.columns * viewGridYears.rows;
+const yearsOffset = Math.floor(totalYears / 2);
 
 const HighlightedInputWrapper = styled(InputWrapper)<{
   $isActive: boolean;
@@ -299,18 +297,18 @@ const DatePickerContainer = styled(Container)`
 `;
 
 const ClickableTitle = styled.button`
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  user-select: none;
+
   ${({ theme }) => `
+    border-radius: ${theme.click.datePicker.dateOption.radii.default};
     color: ${theme.click.datePicker.color.title.default};
     font: ${theme.click.datePicker.typography.title.default};
-    border: 1px solid transparent;
-  `}
-
-  background: transparent;
-  cursor: pointer;
-  user-select: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  outline: none;
+  `};
 
   &:hover {
     background: ${({ theme }) =>
@@ -324,14 +322,14 @@ const ClickableTitle = styled.button`
 `;
 
 const UnselectableTitle = styled.h2`
+  margin: 0;
+  padding: 0;
+  user-select: none;
+
   ${({ theme }) => `
     color: ${theme.click.datePicker.color.title.default};
     font: ${theme.click.datePicker.typography.title.default};
   `}
-
-  margin: 0;
-  padding: 0;
-  user-select: none;
 `;
 
 const GridContainer = styled.div`
@@ -344,22 +342,30 @@ const GridContainer = styled.div`
 `;
 
 const MonthsGrid = styled(GridContainer)`
-  grid-template-columns: repeat(${VIEW_GRID_MONTHS.columns}, 1fr);
-  grid-template-rows: repeat(${VIEW_GRID_MONTHS.rows}, 1fr);
+  grid-template-columns: repeat(${viewGridMonths.columns}, 1fr);
+  grid-template-rows: repeat(${viewGridMonths.rows}, 1fr);
 `;
 
 const YearsGrid = styled(GridContainer)`
-  grid-template-columns: repeat(${VIEW_GRID_YEARS.columns}, 1fr);
-  grid-template-rows: repeat(${VIEW_GRID_YEARS.rows}, 1fr);
+  grid-template-columns: repeat(${viewGridYears.columns}, 1fr);
+  grid-template-rows: repeat(${viewGridYears.rows}, 1fr);
 `;
 
 const GridCell = styled.button<{ $isActive?: boolean; $isPresent?: boolean }>`
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-height: 26px;
+  padding: 8px 4px;
+  text-align: center;
+
   ${({ theme }) => `
+    background: ${theme.click.datePicker.dateOption.color.background.default};
     border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
     border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    font: ${theme.click.datePicker.dateOption.typography.label.default};
     color: ${theme.click.datePicker.dateOption.color.label.default};
-    background: ${theme.click.datePicker.dateOption.color.background.default};
+    font: ${theme.click.datePicker.dateOption.typography.label.default};
   `}
 
   ${({ $isActive, theme }) =>
@@ -373,14 +379,6 @@ const GridCell = styled.button<{ $isActive?: boolean; $isPresent?: boolean }>`
     $isPresent &&
     !$isActive &&
     `background: ${theme.click.datePicker.dateOption.color.background.range};`}
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 4px;
-  cursor: pointer;
-  text-align: center;
-  min-height: 26px;
 
   ${({ theme }) => `
     &:hover {
@@ -596,7 +594,7 @@ export const CalendarRenderer = ({
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [yearOffset, setYearOffset] = useState(0);
   const [focusedMonthIndex, setFocusedMonthIndex] = useState(month);
-  const [focusedYearIndex, setFocusedYearIndex] = useState(VIEW_NAVIGATION_OFFSET_YEARS);
+  const [focusedYearIndex, setFocusedYearIndex] = useState(yearsOffset);
 
   const monthGridRef = useRef<Array<HTMLButtonElement | null>>([]);
   const yearGridRef = useRef<Array<HTMLButtonElement | null>>([]);
@@ -612,7 +610,7 @@ export const CalendarRenderer = ({
 
   const onNextClick = useCallback(() => {
     if (view === YEARS) {
-      setYearOffset(prev => prev + VIEW_TOTAL_YEARS);
+      setYearOffset(prev => prev + totalYears);
     } else {
       navigation.toNext();
     }
@@ -620,7 +618,7 @@ export const CalendarRenderer = ({
 
   const onPreviousClick = useCallback(() => {
     if (view === YEARS) {
-      setYearOffset(prev => prev - VIEW_TOTAL_YEARS);
+      setYearOffset(prev => prev - totalYears);
       return;
     }
 
@@ -689,7 +687,7 @@ export const CalendarRenderer = ({
 
   const onMonthGridKeyDown = useCallback(
     (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
-      const columns = VIEW_GRID_MONTHS.columns;
+      const columns = viewGridMonths.columns;
       const totalItems = 12;
       let newIndex = index;
 
@@ -727,8 +725,8 @@ export const CalendarRenderer = ({
 
   const onYearGridKeyDown = useCallback(
     (e: KeyboardEvent<HTMLButtonElement>, index: number, yearValue: number) => {
-      const columns = VIEW_GRID_YEARS.columns;
-      const totalItems = VIEW_TOTAL_YEARS;
+      const columns = viewGridYears.columns;
+      const totalItems = totalYears;
       let newIndex = index;
 
       switch (e.key) {
@@ -769,11 +767,11 @@ export const CalendarRenderer = ({
 
   const getHeaderTitle = (view: DateViewOption) => {
     if (view === MONTHS) {
-      return TXT_ON_MONTH_SELECT;
+      return 'Month';
     }
 
     if (view === YEARS) {
-      return TXT_ON_YEAR_SELECT;
+      return 'Year';
     }
 
     return headerDateFormatter.format(headerDate);
@@ -820,7 +818,7 @@ export const CalendarRenderer = ({
     const todayYear = new Date().getFullYear();
     const selectedYear = selectedDate?.getFullYear();
 
-    for (let i = -VIEW_NAVIGATION_OFFSET_YEARS; i <= VIEW_NAVIGATION_OFFSET_YEARS; i++) {
+    for (let i = -yearsOffset; i <= yearsOffset; i++) {
       years.push(baseYear + i);
     }
 

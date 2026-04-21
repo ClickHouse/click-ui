@@ -244,3 +244,30 @@ export const DateTimeFutureStartDatesDisabled: Story = {
     predefinedTimesList: [],
   },
 };
+
+export const DefaultActiveTabEndDate: Story = {
+  args: {
+    maxRangeLength: 15,
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+    return (
+      <DateTimeRangePicker
+        key="default"
+        defaultActiveTab="endDate"
+        disabled={args.disabled}
+        endDate={endDate}
+        futureDatesDisabled={args.futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
+      />
+    );
+  },
+};
