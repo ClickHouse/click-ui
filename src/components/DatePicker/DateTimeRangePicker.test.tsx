@@ -529,6 +529,107 @@ describe('DateTimeRangePicker', () => {
         'active'
       );
     });
+
+    describe('useEffect syncing defaultActiveTab', () => {
+      it('updates the active tab when defaultActiveTab prop changes after mount', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, rerender } = renderCUI(
+          <DateTimeRangePicker
+            defaultActiveTab="startDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+
+        expect(getByTestId('tabbed-calendar-trigger-start')).toHaveAttribute(
+          'data-state',
+          'active'
+        );
+
+        rerender(
+          <DateTimeRangePicker
+            defaultActiveTab="endDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
+          'data-state',
+          'active'
+        );
+        expect(getByTestId('tabbed-calendar-trigger-start')).toHaveAttribute(
+          'data-state',
+          'inactive'
+        );
+      });
+
+      it('preserves the user-selected tab when defaultActiveTab prop changes', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, rerender } = renderCUI(
+          <DateTimeRangePicker
+            defaultActiveTab="startDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+
+        expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
+          'data-state',
+          'active'
+        );
+
+        rerender(
+          <DateTimeRangePicker
+            defaultActiveTab="startDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
+          'data-state',
+          'active'
+        );
+        expect(getByTestId('tabbed-calendar-trigger-start')).toHaveAttribute(
+          'data-state',
+          'inactive'
+        );
+      });
+
+      it('keeps the active tab stable when defaultActiveTab prop is set to the same value', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, rerender } = renderCUI(
+          <DateTimeRangePicker
+            defaultActiveTab="endDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+
+        expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
+          'data-state',
+          'active'
+        );
+
+        rerender(
+          <DateTimeRangePicker
+            defaultActiveTab="endDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
+          'data-state',
+          'active'
+        );
+      });
+    });
   });
 
   describe('predefined times', () => {

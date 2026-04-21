@@ -378,10 +378,6 @@ const parseTimeString = (
     return { isValid: false };
   }
 
-  if (!parsedDate.isValid()) {
-    return { isValid: false };
-  }
-
   return { isValid: true, parsedDate };
 };
 
@@ -600,9 +596,7 @@ const TabbedCalendar = ({
   const [activeTab, setActiveTab] = useState<Tab>(defaultActiveTab);
 
   useEffect(() => {
-    if (activeTab !== defaultActiveTab) {
-      setActiveTab(activeTab);
-    }
+    setActiveTab(defaultActiveTab);
   }, [defaultActiveTab]);
 
   const handleTabChange = useCallback((newTab: string) => {
