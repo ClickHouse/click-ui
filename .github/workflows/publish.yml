@@ -78,8 +78,7 @@ jobs:
           npm pkg set version=$NEW_VERSION --no-git-tag-version
       - uses: actions/setup-node@v6
         with:
-          node-version: '22.x'  # Node 22 includes npm >= 11.5.1 with OIDC support
-          # Required so npm receives OIDC-backed auth for trusted publishing (avoids ENEEDAUTH).
+          node-version: '23.x'  # Node 22 includes npm >= 11.5.1 with OIDC support
           registry-url: 'https://registry.npmjs.org'
       - name: Enable Corepack
         run: corepack enable
