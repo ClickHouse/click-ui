@@ -47,6 +47,10 @@ const CustomSelect = styled.div`
   width: 150px;
 `;
 
+const RowCountText = styled(Text)`
+  white-space: nowrap;
+`;
+
 const TotalPagesText = styled(Text)`
   white-space: nowrap;
 `;
@@ -143,13 +147,13 @@ export const Pagination = ({
       {...props}
     >
       {hasRowCount && (
-        <Text
+        <RowCountText
           component="div"
           color="muted"
           size="sm"
         >
           {typeof rowCount === 'number' ? formatNumber(rowCount) : rowCount} rows
-        </Text>
+        </RowCountText>
       )}
       <Container
         gap="xxs"

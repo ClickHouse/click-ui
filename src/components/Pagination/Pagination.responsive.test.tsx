@@ -71,4 +71,16 @@ describe('Pagination responsive behavior', () => {
 
     expect(getByText('of 2')).toBeInTheDocument();
   });
+
+  it('keeps row count text on one line', () => {
+    const { getByText } = renderCUI(
+      <Pagination
+        currentPage={1}
+        onChange={vi.fn()}
+        rowCount={19}
+      />
+    );
+
+    expect(getByText('19 rows')).toBeInTheDocument();
+  });
 });
