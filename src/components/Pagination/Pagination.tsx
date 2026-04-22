@@ -47,11 +47,7 @@ const CustomSelect = styled.div`
   width: 150px;
 `;
 
-const RowCountText = styled(Text)`
-  white-space: nowrap;
-`;
-
-const TotalPagesText = styled(Text)`
+const NoWrapText = styled(Text)`
   white-space: nowrap;
 `;
 
@@ -147,13 +143,13 @@ export const Pagination = ({
       {...props}
     >
       {hasRowCount && (
-        <RowCountText
+        <NoWrapText
           component="div"
           color="muted"
           size="sm"
         >
           {typeof rowCount === 'number' ? formatNumber(rowCount) : rowCount} rows
-        </RowCountText>
+        </NoWrapText>
       )}
       <Container
         gap="xxs"
@@ -187,13 +183,13 @@ export const Pagination = ({
           />
         </Container>
         {!!totalPages && (
-          <TotalPagesText
+          <NoWrapText
             component="div"
             color="muted"
             size="sm"
           >
             of {formatNumber(totalPages)}
-          </TotalPagesText>
+          </NoWrapText>
         )}
         <IconButton
           icon="chevron-right"
