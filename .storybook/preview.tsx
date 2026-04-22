@@ -4,7 +4,6 @@ import { Decorator } from "@storybook/react-vite";
 import { styled } from "styled-components";
 import { themes } from "storybook/theming";
 import { ClickUIProvider } from "../src/providers";
-import { agentDebugLog } from "../src/utils/agentDebugLog";
 
 const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
   ({ $left, $bfill: fill, theme }) => `
@@ -79,21 +78,6 @@ const ThemeWrapper = ({ themeSelection, children }: ThemeWrapperProps) => {
 const withTheme: Decorator = (StoryFn, context) => {
   const parameters = context.parameters;
   const themeSelection = parameters?.theme || context.globals.theme;
-  if (context.id === "display-pagination--playground") {
-    // #region agent log
-    agentDebugLog({
-      hypothesisId: "H5",
-      location: "preview.tsx:82",
-      message: "withTheme decorator render for pagination playground",
-      data: {
-        storyId: context.id,
-        viewMode: context.viewMode,
-        themeSelection: themeSelection || "system",
-      },
-      timestamp: Date.now(),
-    });
-    // #endregion
-  }
 
   return (
     <ThemeWrapper themeSelection={themeSelection}>

@@ -5,7 +5,6 @@ import {
   useCallback,
   useRef,
 } from 'react';
-import { agentDebugLog } from '@/utils/agentDebugLog';
 import { Container, type ContainerProps } from '@/components/Container';
 import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
@@ -67,16 +66,6 @@ export const Pagination = ({
   allowAllRows = true,
   ...props
 }: PaginationProps): ReactElement => {
-  // #region agent log
-  agentDebugLog({
-    hypothesisId: 'H2',
-    location: 'Pagination.tsx:69',
-    message: 'Pagination render entry',
-    data: { currentPage, totalPages, pageSize, disableNextButton },
-    timestamp: Date.now(),
-  });
-  // #endregion
-
   const hasRowCount = ['number', 'string'].includes(typeof rowCount);
   const inputRef = useRef<HTMLInputElement>(null);
   const formatNumber = (value: number) => {
@@ -93,32 +82,8 @@ export const Pagination = ({
       inputRef.current?.disabled ||
       (typeof totalPages !== 'undefined' ? sanitizedValue > totalPages : false)
     ) {
-      // #region agent log
-      agentDebugLog({
-        hypothesisId: 'H3',
-        location: 'Pagination.tsx:92',
-        message: 'Pagination input change rejected',
-        data: {
-          value,
-          sanitizedValue,
-          inputDisabled: Boolean(inputRef.current?.disabled),
-          totalPages,
-        },
-        timestamp: Date.now(),
-      });
-      // #endregion
       return;
     }
-
-    // #region agent log
-    agentDebugLog({
-      hypothesisId: 'H3',
-      location: 'Pagination.tsx:107',
-      message: 'Pagination input change accepted',
-      data: { value, sanitizedValue, totalPages },
-      timestamp: Date.now(),
-    });
-    // #endregion
 
     onChangeProp(sanitizedValue);
   };
@@ -161,21 +126,6 @@ export const Pagination = ({
   if (pageSize === -1 && !allowAllRows && maxRowsPerPageList.length > 0) {
     pageSize = maxRowsPerPageList[0];
   }
-
-  // #region agent log
-  agentDebugLog({
-    hypothesisId: 'H4',
-    location: 'Pagination.tsx:152',
-    message: 'Pagination computed controls state',
-    data: {
-      leftButtonDisabled,
-      rightButtonDisabled,
-      hasRowCount,
-      maxRowsOptions: maxRowsPerPageList.length,
-    },
-    timestamp: Date.now(),
-  });
-  // #endregion
 
   return (
     <Container
