@@ -51,6 +51,12 @@ const NoWrapText = styled(Text)`
   white-space: nowrap;
 `;
 
+const PageInputWrapper = styled.div`
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+`;
+
 export const Pagination = ({
   totalPages,
   currentPage,
@@ -163,11 +169,7 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        <Container
-          maxWidth="50px"
-          isResponsive={false}
-          fillWidth={false}
-        >
+        <PageInputWrapper>
           <NumberField
             ref={inputRef}
             onChange={onChange}
@@ -181,7 +183,7 @@ export const Pagination = ({
             onBlur={onPageNumberBlur}
             disabled={leftButtonDisabled && rightButtonDisabled}
           />
-        </Container>
+        </PageInputWrapper>
         {!!totalPages && (
           <NoWrapText
             component="div"
