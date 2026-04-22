@@ -38,4 +38,25 @@ describe('Pagination responsive behavior', () => {
       })
     ).toBe(true);
   });
+
+  it('renders all pagination layout containers as non-responsive', () => {
+    renderCUI(
+      <Pagination
+        currentPage={1}
+        onChange={vi.fn()}
+        totalPages={20}
+        rowCount={1000}
+        maxRowsPerPageList={[10, 25, 50]}
+      />
+    );
+
+    const nonResponsiveContainers = containerMock.mock.calls.filter(([props]) => {
+      const typedProps = props as {
+        isResponsive?: boolean;
+      };
+      return typedProps.isResponsive === false;
+    });
+
+    expect(nonResponsiveContainers.length).toBeGreaterThanOrEqual(3);
+  });
 });

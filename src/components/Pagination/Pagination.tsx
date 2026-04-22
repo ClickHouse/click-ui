@@ -149,6 +149,7 @@ export const Pagination = ({
       )}
       <Container
         gap="xxs"
+        isResponsive={false}
         fillWidth={false}
       >
         <IconButton
@@ -160,6 +161,7 @@ export const Pagination = ({
         />
         <Container
           maxWidth="50px"
+          isResponsive={false}
           fillWidth={false}
         >
           <NumberField
