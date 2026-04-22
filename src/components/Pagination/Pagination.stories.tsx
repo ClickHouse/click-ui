@@ -22,6 +22,7 @@ const PaginationRenderer = () => {
   return (
     <Pagination
       currentPage={currentPage}
+      totalPages={10}
       onChange={handleChange}
     />
   );
