@@ -51,11 +51,9 @@ const NoWrapText = styled(Text)`
   white-space: nowrap;
 `;
 
-const PageInputWrapper = styled.div`
-  width: 50px;
-  min-width: 50px;
-  max-width: 50px;
-  flex-shrink: 0;
+const PageInputWrapper = styled.div<{ $digitCount: number }>`
+  flex: 0 0 auto;
+  width: ${({ $digitCount }) => `calc(${$digitCount}ch + 2.5rem)`};
 `;
 
 export const Pagination = ({
@@ -79,6 +77,11 @@ export const Pagination = ({
 }: PaginationProps): ReactElement => {
   const hasRowCount = ['number', 'string'].includes(typeof rowCount);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pageDigits = Math.max(
+    2,
+    currentPage.toString().length,
+    (totalPages ?? 0).toString().length
+  );
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat('en').format(value);
   };
@@ -170,7 +173,7 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        <PageInputWrapper>
+        <PageInputWrapper $digitCount={pageDigits}>
           <NumberField
             ref={inputRef}
             onChange={onChange}
