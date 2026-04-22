@@ -27,9 +27,30 @@ const PaginationRenderer = () => {
   );
 };
 
+const PaginationResponsiveLayoutRenderer = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
+
+  return (
+    <Pagination
+      currentPage={currentPage}
+      onChange={setCurrentPage}
+      onPageSizeChange={setPageSize}
+      pageSize={pageSize}
+      totalPages={20}
+      rowCount={1000}
+      maxRowsPerPageList={[10, 25, 50]}
+    />
+  );
+};
+
 export const Playground: Story = {
   args: {
     currentPage: 1,
   },
   render: () => <PaginationRenderer />,
+};
+
+export const ResponsiveLayoutPreview: Story = {
+  render: () => <PaginationResponsiveLayoutRenderer />,
 };

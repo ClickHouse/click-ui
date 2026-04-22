@@ -130,6 +130,7 @@ export const Pagination = ({
   return (
     <Container
       gap={gap}
+      isResponsive={false}
       justifyContent={
         justifyContent ??
         (rowCount || maxRowsPerPageList.length > 0 ? 'space-between' : 'center')
