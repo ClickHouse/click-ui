@@ -49,11 +49,14 @@ const CustomSelect = styled.div`
 
 const NoWrapText = styled(Text)`
   white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  flex-shrink: 0;
 `;
 
 const PageInputWrapper = styled.div<{ $digitCount: number }>`
   flex: 0 0 auto;
-  width: ${({ $digitCount }) => `calc(${$digitCount}ch + 2.5rem)`};
+  width: ${({ $digitCount }) => `clamp(44px, calc(${$digitCount}ch + 2.5rem), 72px)`};
 `;
 
 export const Pagination = ({
