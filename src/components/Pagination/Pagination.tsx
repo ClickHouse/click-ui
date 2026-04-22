@@ -55,6 +55,7 @@ const PageInputWrapper = styled.div`
   width: 50px;
   min-width: 50px;
   max-width: 50px;
+  flex-shrink: 0;
 `;
 
 export const Pagination = ({
