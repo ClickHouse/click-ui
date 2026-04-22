@@ -136,6 +136,7 @@ export const Pagination = ({
       }
       fillWidth={fillWidth}
       {...props}
+      isResponsive={false}
     >
       {hasRowCount && (
         <Text
@@ -149,6 +150,7 @@ export const Pagination = ({
       <Container
         gap="xxs"
         fillWidth={false}
+        isResponsive={false}
       >
         <IconButton
           icon="chevron-left"
@@ -160,6 +162,7 @@ export const Pagination = ({
         <Container
           maxWidth="50px"
           fillWidth={false}
+          isResponsive={false}
         >
           <NumberField
             ref={inputRef}
