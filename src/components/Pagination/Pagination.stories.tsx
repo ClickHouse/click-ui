@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Pagination } from '@/components/Pagination';
 
 const meta: Meta<typeof Pagination> = {
@@ -11,6 +11,10 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 
 type Story = StoryObj<typeof Pagination>;
+
+const MobileViewportFrame = ({ children }: { children: ReactNode }) => (
+  <div style={{ width: '320px' }}>{children}</div>
+);
 
 const PaginationRenderer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -53,5 +57,17 @@ export const Playground: Story = {
 };
 
 export const ResponsiveLayoutPreview: Story = {
-  render: () => <PaginationResponsiveLayoutRenderer />,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Responsive preview constrained to a mobile-width frame. Pagination layout should remain in a single horizontal row just like desktop.',
+      },
+    },
+  },
+  render: () => (
+    <MobileViewportFrame>
+      <PaginationResponsiveLayoutRenderer />
+    </MobileViewportFrame>
+  ),
 };
