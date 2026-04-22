@@ -1,4 +1,27 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { appendFileSync, mkdirSync } from "node:fs";
+import { dirname } from "node:path";
+
+const DEBUG_LOG_PATH = "/opt/cursor/logs/debug.log";
+
+const appendDebugLog = (payload: unknown) => {
+  if (!payload || typeof payload !== "object") {
+    return;
+  }
+
+  const entry = payload as Record<string, unknown>;
+  const normalized = {
+    hypothesisId: typeof entry.hypothesisId === "string" ? entry.hypothesisId : "UNKNOWN",
+    location: typeof entry.location === "string" ? entry.location : "unknown",
+    message: typeof entry.message === "string" ? entry.message : "missing-message",
+    data: typeof entry.data === "object" && entry.data !== null ? entry.data : {},
+    timestamp: typeof entry.timestamp === "number" ? entry.timestamp : Date.now(),
+  };
+
+  mkdirSync(dirname(DEBUG_LOG_PATH), { recursive: true });
+  appendFileSync(DEBUG_LOG_PATH, `${JSON.stringify(normalized)}\n`);
+};
+
 const config: StorybookConfig = {
   core: {
     disableTelemetry: true
@@ -44,6 +67,34 @@ const config: StorybookConfig = {
           return this.resolve('@mdx-js/react', undefined, { skipSelf: true });
         }
         return null;
+      },
+    });
+    config.plugins.push({
+      name: "agent-debug-log-endpoint",
+      configureServer(server) {
+        server.middlewares.use("/__agent-debug-log", (req, res) => {
+          if (req.method !== "POST") {
+            res.statusCode = 405;
+            res.end("Method Not Allowed");
+            return;
+          }
+
+          let body = "";
+          req.on("data", chunk => {
+            body += chunk.toString();
+          });
+
+          req.on("end", () => {
+            try {
+              appendDebugLog(JSON.parse(body || "{}"));
+              res.statusCode = 204;
+              res.end();
+            } catch {
+              res.statusCode = 400;
+              res.end("Invalid JSON");
+            }
+          });
+        });
       },
     });
 
