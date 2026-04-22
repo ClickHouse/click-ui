@@ -59,4 +59,16 @@ describe('Pagination responsive behavior', () => {
 
     expect(nonResponsiveContainers.length).toBeGreaterThanOrEqual(3);
   });
+
+  it('renders total page text as a single inline token', () => {
+    const { getByText } = renderCUI(
+      <Pagination
+        currentPage={1}
+        onChange={vi.fn()}
+        totalPages={2}
+      />
+    );
+
+    expect(getByText('of 2')).toBeInTheDocument();
+  });
 });

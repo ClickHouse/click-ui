@@ -47,6 +47,10 @@ const CustomSelect = styled.div`
   width: 150px;
 `;
 
+const TotalPagesText = styled(Text)`
+  white-space: nowrap;
+`;
+
 export const Pagination = ({
   totalPages,
   currentPage,
@@ -179,13 +183,13 @@ export const Pagination = ({
           />
         </Container>
         {!!totalPages && (
-          <Text
+          <TotalPagesText
             component="div"
             color="muted"
             size="sm"
           >
             of {formatNumber(totalPages)}
-          </Text>
+          </TotalPagesText>
         )}
         <IconButton
           icon="chevron-right"
