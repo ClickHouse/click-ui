@@ -238,6 +238,37 @@ export const DateTimeWithMaxRange: Story = {
   },
 };
 
+export const SetStartAndEndDate: Story = {
+  args: {
+    maxRangeLength: 15,
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : new Date();
+    const startDate = args.startDate
+      ? new Date(args.startDate)
+      : new Date(endDate.getTime() - 3600);
+
+    const futureDatesDisabled = args.futureDatesDisabled ?? true;
+
+    return (
+      <DateTimeRangePicker
+        key="default"
+        defaultActiveTab="endDate"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
+      />
+    );
+  },
+};
+
 export const DateTimeFutureStartDatesDisabled: Story = {
   args: {
     futureStartDatesDisabled: true,

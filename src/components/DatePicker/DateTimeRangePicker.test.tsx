@@ -394,6 +394,28 @@ describe('DateTimeRangePicker', () => {
       await userEvent.click(getByText('15'));
       expect(handleSelectDate).toHaveBeenCalled();
     });
+
+    it('allows picking an end date before the start date when an end date is already set', async () => {
+      const handleSelectDate = vi.fn();
+      const startDate = new Date('07-10-2020 12:00');
+      const endDate = new Date('07-15-2020 12:00');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          defaultActiveTab="endDate"
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      await userEvent.click(getByText('5'));
+
+      expect(getByTestId('datetimepicker-input').textContent).toBe(
+        'Jul 10, 12:00 pm – Jul 05, 12:00 pm'
+      );
+    });
   });
 
   describe('setting a default active tab', () => {

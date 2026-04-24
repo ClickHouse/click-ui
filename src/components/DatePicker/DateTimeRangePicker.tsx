@@ -162,6 +162,7 @@ const Calendar = ({
           // start date is selected, end date is not; disable anything before start date
           if (
             calendarType === 'endDate' &&
+            !endDate &&
             startDate &&
             startDate > fullDate &&
             !isSameDate(startDate, fullDate)
