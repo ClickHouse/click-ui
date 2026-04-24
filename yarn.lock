@@ -840,7 +840,6 @@ __metadata:
     fs-extra: "npm:^11.3.4"
     glob: "npm:^13.0.6"
     globals: "npm:^16.5.0"
-    husky: "npm:^9.1.7"
     jsdom: "npm:^24.0.0"
     lodash-es: "npm:^4.17.23"
     postcss: "npm:^8.5.8"
@@ -8281,15 +8280,6 @@ __metadata:
   bin:
     human-id: dist/cli.js
   checksum: 10c0/c0e6aacfa71adff6e9783fc209493a7f8de92da041bea32deb3a9cd1244a4d2b89f32d5e90130e8e22da4e6fe15b61cf4e533f114927384de1418460c92b5a7a
-  languageName: node
-  linkType: hard
-
-"husky@npm:^9.1.7":
-  version: 9.1.7
-  resolution: "husky@npm:9.1.7"
-  bin:
-    husky: bin.js
-  checksum: 10c0/35bb110a71086c48906aa7cd3ed4913fb913823715359d65e32e0b964cb1e255593b0ae8014a5005c66a68e6fa66c38dcfa8056dbbdfb8b0187c0ffe7ee3a58f
   languageName: node
   linkType: hard
 
