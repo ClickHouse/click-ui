@@ -53,6 +53,7 @@ export const SplitButton = ({
       modal={modal}
     >
       <SplitButtonTrigger
+        data-testid="split-button"
         $disabled={disabled}
         $fillWidth={fillWidth}
         ref={ref}
@@ -60,6 +61,7 @@ export const SplitButton = ({
       >
         <PrimaryButton
           disabled={disabled}
+          aria-disabled={disabled || undefined}
           $type={type}
           $fillWidth={fillWidth}
           {...props}
@@ -75,6 +77,7 @@ export const SplitButton = ({
         <SecondaryButton
           as={Dropdown.Trigger}
           disabled={disabled}
+          aria-disabled={disabled || undefined}
           $type={type}
           asChild
           data-testid="split-button-dropdown"

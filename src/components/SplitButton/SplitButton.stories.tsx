@@ -61,3 +61,49 @@ export const Playground: Story = {
     menu: menuItems,
   },
 };
+
+// Button Types
+export const Primary: Story = {
+  args: {
+    type: 'primary',
+    children: 'Primary Split Button',
+    menu: menuItems,
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    type: 'secondary',
+    children: 'Secondary Split Button',
+    menu: menuItems,
+  },
+};
+
+// Disabled States
+export const PrimaryDisabled: Story = {
+  args: {
+    type: 'primary',
+    children: 'Disabled Primary',
+    menu: menuItems,
+    disabled: true,
+  },
+};
+
+export const SecondaryDisabled: Story = {
+  args: {
+    type: 'secondary',
+    children: 'Disabled Secondary',
+    menu: menuItems,
+    disabled: true,
+  },
+};
+
+// Interactive
+export const Interactive: Story = {
+  args: {
+    type: 'primary',
+    children: 'Interactive Split Button',
+    menu: menuItems,
+    onClick: () => console.log('clicked'),
+  },
+};
