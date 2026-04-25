@@ -218,7 +218,11 @@ git push origin chore/v1.0.0
 
 ### Promoting to stable release
 
-Stable releases are created from `chore/v*` branches. Once a stable release is published, the pre-release mode is switched off and `main` must be updated to reflect the version bump and exit from pre-release mode.
+Stable releases (`stable` or `latest`) can be created from `chore/v*` branches. Once released, the pre-release mode is switched off and `main` must be updated to reflect the version bump and exit from pre-release mode.
+
+> [!WARNING]
+> Use `latest` only when you want this version to become the **default** installed by `npm install @clickhouse/click-ui`.
+> Publishing `latest` from an older maintenance branch (e.g., `chore/v1.x.x`) **will downgrade** the default for all users who haven't pinned a version, even if a newer `v2.x.x` was previously `latest`.
 
 Follow these steps:
 
@@ -226,7 +230,7 @@ Follow these steps:
 
 2. Run the [Create Release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) workflow from the `chore/v*` branch:
    - Select the maintenance branch (e.g., `chore/v1.0.0`)
-   - Choose `stable` as the release type
+   - Choose `stable` or `latest` as the release type
    - Confirm the release type and branch name
 
 3. Review and merge the release PR into the maintenance branch
