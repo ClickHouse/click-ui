@@ -1,5 +1,6 @@
 import { screen } from '@testing-library/react';
 import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
+import { isValidHttpUrl } from '@/utils/url';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('CardHorizontal Component', () => {
@@ -186,5 +187,34 @@ describe('CardHorizontal Component', () => {
 
     expect(windowOpenSpy).not.toHaveBeenCalled();
     windowOpenSpy.mockRestore();
+  });
+});
+
+describe('isValidHttpUrl', () => {
+  it('should return true for valid HTTP URLs', () => {
+    expect(isValidHttpUrl('http://example.com')).toBe(true);
+    expect(isValidHttpUrl('http://localhost:3000')).toBe(true);
+    expect(isValidHttpUrl('http://test.com/path')).toBe(true);
+  });
+
+  it('should return true for valid HTTPS URLs', () => {
+    expect(isValidHttpUrl('https://example.com')).toBe(true);
+    expect(isValidHttpUrl('https://clickhouse.com')).toBe(true);
+    expect(isValidHttpUrl('https://api.example.com/v1/test')).toBe(true);
+  });
+
+  it('should return false for invalid URLs', () => {
+    expect(isValidHttpUrl('javascript:alert(1)')).toBe(false);
+    expect(isValidHttpUrl('data:text/html,<script>alert(1)</script>')).toBe(false);
+    expect(isValidHttpUrl('file:///etc/passwd')).toBe(false);
+    expect(isValidHttpUrl('ftp://example.com')).toBe(false);
+    expect(isValidHttpUrl('about:blank')).toBe(false);
+    expect(isValidHttpUrl('vbscript:msgbox(1)')).toBe(false);
+  });
+
+  it('should return false for non-HTTP protocols', () => {
+    expect(isValidHttpUrl('')).toBe(false);
+    expect(isValidHttpUrl('not-a-url')).toBe(false);
+    expect(isValidHttpUrl('://invalid')).toBe(false);
   });
 });

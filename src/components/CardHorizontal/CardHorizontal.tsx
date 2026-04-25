@@ -4,6 +4,7 @@ import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { CardHorizontalProps, CardSize, CardColor } from './CardHorizontal.types';
+import { isValidHttpUrl } from '@/utils/url';
 
 const Header = styled.div`
   max-width: 100%;
@@ -204,8 +205,8 @@ export const CardHorizontal = ({
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
+    if (infoUrl && infoUrl.length > 0 && isValidHttpUrl(infoUrl)) {
+      window.open(infoUrl, '_blank', 'noopener,noreferrer');
     }
   };
   return (
