@@ -21,6 +21,11 @@ on:
         description: 'For stable/latest: type the branch name to confirm (e.g., "main")'
         required: false
         type: string
+      skip_prerelease:
+        description: 'Skip pre-release requirement and publish stable/latest directly (⚠️ WARN: Use with caution)'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   create-release-pr:
@@ -170,7 +175,7 @@ jobs:
           yarn changeset pre enter ${{ inputs.release_type }}
 
       - name: Validate latest release eligibility
-        if: (inputs.release_type == 'latest' || inputs.release_type == 'stable') && steps.check-prerelease.outputs.prerelease != 'true'
+        if: (inputs.release_type == 'latest' || inputs.release_type == 'stable') && steps.check-prerelease.outputs.prerelease != 'true' && inputs.skip_prerelease != true
         run: |
           echo "👹 Oops! Cannot release 'latest' without a pre-release version first..."
           echo "💡 You must release through 'test' or 'rc' before creating a stable release."
@@ -234,7 +239,7 @@ jobs:
           echo "🤖 Target version is $TARGET_VERSION"
           echo "🤖 Maintenance branch would be $MAINTENANCE_BRANCH"
 
-          if [[ "$CURRENT_BRANCH" == "main" ]]; then
+          if [[ "$CURRENT_BRANCH" == "main" ]] && [[ "${{ inputs.skip_prerelease }}" != "true" ]]; then
             if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
               echo "⚠️ WARNING: Maintenance branch '$MAINTENANCE_BRANCH' already exists for version $BASE_VERSION."
               echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance."
@@ -249,7 +254,7 @@ jobs:
         run: |
           # WARNING: This is coupled with a verify release commit
           # if you need to modify, apply the changes accordingly
-          COMMIT_TITLE=$(.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}")
+          COMMIT_TITLE=$(.scripts/bash/generate-release-commit-message "${{ steps.version-package.outputs.version }}" "${{ inputs.release_type }}" "${{ inputs.skip_prerelease }}")
 
           echo "title=$COMMIT_TITLE" >> $GITHUB_OUTPUT
           echo "branch=changeset-release/v${{ steps.version-package.outputs.version }}-${{ inputs.release_type }}" >> $GITHUB_OUTPUT

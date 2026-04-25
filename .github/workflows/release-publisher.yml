@@ -35,15 +35,17 @@ jobs:
 
           # WARNING: This is coupled with generate release commit
           # if you need to modify, apply the changes accordingly
-          # Script outputs "VERSION RELEASE_TYPE" on success (e.g., "1.2.3 latest")
+          # Script outputs "VERSION RELEASE_TYPE [skip_prerelease]" on success (e.g., "1.2.3 latest" or "1.2.3 latest skip_prerelease")
           if OUTPUT=$(.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
             VERSION=$(echo "$OUTPUT" | awk '{print $1}')
             RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
+            SKIP_PRERELEASE=$(echo "$OUTPUT" | awk '{print $3}')
             echo "✅ Detected release PR merge for version $VERSION ($RELEASE_TYPE)"
             echo "is_release=true" >> $GITHUB_OUTPUT
             echo "version=$VERSION" >> $GITHUB_OUTPUT
             echo "tag=v$VERSION" >> $GITHUB_OUTPUT
             echo "release_type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
+            echo "skip_prerelease=$SKIP_PRERELEASE" >> $GITHUB_OUTPUT
           else
             echo "⚠️ This is not a release PR merge. Skipping release."
             echo "is_release=false" >> $GITHUB_OUTPUT
@@ -63,7 +65,7 @@ jobs:
           echo "🤖 Current branch is $CURRENT_BRANCH"
           echo "🤖 Maintenance branch is $MAINTENANCE_BRANCH"
 
-          if [[ "$CURRENT_BRANCH" == "main" ]]; then
+          if [[ "$CURRENT_BRANCH" == "main" ]] && [[ "${{ steps.verify-merge.outputs.skip_prerelease }}" != "skip_prerelease" ]]; then
             if git ls-remote --exit-code --heads origin "$MAINTENANCE_BRANCH" >/dev/null 2>&1; then
               echo "⚠️ WARNING: Maintenance branch '$MAINTENANCE_BRANCH' already exists. Are you trying to update an existing pre-release version?"
               echo "💡 Please checkout the branch $MAINTENANCE_BRANCH and create the release from there to ensure proper version line maintenance, please!"
