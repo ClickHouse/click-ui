@@ -1,3 +1,4 @@
+import { type KeyboardEvent, type MouseEvent } from 'react';
 import { styled } from 'styled-components';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
@@ -195,7 +196,7 @@ export const CardHorizontal = ({
   onButtonClick,
   ...props
 }: CardHorizontalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (disabled) {
       e.preventDefault();
       return;
@@ -208,6 +209,14 @@ export const CardHorizontal = ({
       window.open(infoUrl, '_blank');
     }
   };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLElement>) => {
+    if (isSelectable && !disabled && e.key === ' ') {
+      e.preventDefault();
+      handleClick(e as unknown as MouseEvent<HTMLElement>);
+    }
+  };
+
   return (
     <Wrapper
       $disabled={disabled}
@@ -216,8 +225,12 @@ export const CardHorizontal = ({
       $color={color}
       $size={size}
       tabIndex={disabled ? -1 : 0}
+      role={isSelectable ? 'button' : undefined}
       aria-disabled={disabled}
+      aria-pressed={isSelectable ? (isSelected ?? false) : undefined}
       onClick={handleClick}
+      onKeyDown={isSelectable ? handleKeyDown : undefined}
+      data-testid="card-horizontal"
       {...props}
     >
       <ContentWrapper $size={size}>

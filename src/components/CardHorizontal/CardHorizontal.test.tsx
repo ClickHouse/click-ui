@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -186,5 +186,109 @@ describe('CardHorizontal Component', () => {
 
     expect(windowOpenSpy).not.toHaveBeenCalled();
     windowOpenSpy.mockRestore();
+  });
+
+  it('should have aria-pressed="true" when selected and selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelected: true,
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('should have aria-pressed="false" when not selected but selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelected: false,
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('should have aria-pressed="false" when selectable but isSelected is not provided', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('should not have aria-pressed when not selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      isSelectable: false,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('aria-pressed');
+  });
+
+  it('should have role=button when selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).toHaveAttribute('role', 'button');
+  });
+
+  it('should not have role when not selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      isSelectable: false,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('role');
+  });
+
+  it('should call onClick on Space key when selectable', () => {
+    const onClickMock = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelectable: true,
+      onButtonClick: onClickMock,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    fireEvent.keyDown(wrapper, { key: ' ' });
+
+    expect(onClickMock).toHaveBeenCalled();
+  });
+
+  it('should not call onClick on Space key when disabled', () => {
+    const onClickMock = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      disabled: true,
+      isSelectable: true,
+      onButtonClick: onClickMock,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    fireEvent.keyDown(wrapper, { key: ' ' });
+
+    expect(onClickMock).not.toHaveBeenCalled();
+  });
+
+  it('should not have onKeyDown when not selectable', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      isSelectable: false,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('onkeydown');
   });
 });
