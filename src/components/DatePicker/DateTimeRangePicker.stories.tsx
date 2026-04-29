@@ -2,6 +2,7 @@ import { Args, Meta, StoryObj } from '@storybook/react-vite';
 import { DateTimeRangePicker } from './DateTimeRangePicker';
 import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from './utils';
 import dayjs from 'dayjs';
+import { Text } from '../Text';
 
 const meta: Meta<typeof DateTimeRangePicker> = {
   component: DateTimeRangePicker,
@@ -273,6 +274,46 @@ export const DateTimeFutureStartDatesDisabled: Story = {
   args: {
     futureStartDatesDisabled: true,
     predefinedTimesList: [],
+  },
+};
+
+export const TimezoneLocalVsUTC: Story = {
+  render: (args: Args) => {
+    const startDate = args.startDate
+      ? new Date(args.startDate)
+      : dayjs().subtract(6, 'hour').toDate();
+    const endDate = args.endDate ? new Date(args.endDate) : dayjs().toDate();
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div>
+          <Text>local</Text>
+          <DateTimeRangePicker
+            endDate={endDate}
+            onSelectDateRange={(startDate, endDate) =>
+              console.log(
+                'local selected:',
+                startDate.toISOString(),
+                endDate.toISOString()
+              )
+            }
+            startDate={startDate}
+            timezone="local"
+          />
+        </div>
+        <div>
+          <Text>UTC</Text>
+          <DateTimeRangePicker
+            endDate={endDate}
+            onSelectDateRange={(startDate, endDate) =>
+              console.log('UTC selected:', startDate.toISOString(), endDate.toISOString())
+            }
+            startDate={startDate}
+            timezone="UTC"
+          />
+        </div>
+      </div>
+    );
   },
 };
 

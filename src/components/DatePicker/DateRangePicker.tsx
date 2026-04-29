@@ -25,8 +25,12 @@ import { Icon } from '@/components/Icon';
 import {
   DateRange,
   datesAreWithinMaxRange,
+  formatDateHeader,
+  formatSelectedDate,
+  shiftFromTimezone,
   isDateRangeTheWholeMonth,
-  selectedDateFormatter,
+  Timezone,
+  shiftToTimezone,
 } from './utils';
 
 type OpenDirection = 'left' | 'right';
@@ -88,6 +92,7 @@ interface CalendarProps {
   setSelectedDate: (selectedDate: Date) => void;
   startDate?: Date;
   endDate?: Date;
+  timezone: Timezone;
 }
 
 const Calendar = ({
@@ -99,8 +104,13 @@ const Calendar = ({
   setSelectedDate,
   startDate,
   endDate,
+  timezone,
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
+
+  const today = shiftToTimezone(new Date(), timezone);
+  const shiftedStart = startDate ? shiftToTimezone(startDate, timezone) : undefined;
+  const shiftedEnd = endDate ? shiftToTimezone(endDate, timezone) : undefined;
 
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
@@ -110,14 +120,13 @@ const Calendar = ({
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-          const today = new Date();
           const isSelected =
-            (startDate && isSameDate(startDate, fullDate)) ||
-            (endDate && isSameDate(endDate, fullDate));
+            (shiftedStart && isSameDate(shiftedStart, fullDate)) ||
+            (shiftedEnd && isSameDate(shiftedEnd, fullDate));
           const isPresent = isSameDate(today, fullDate);
 
           const isBetweenStartAndEndDates = Boolean(
-            startDate && endDate && fullDate > startDate && fullDate < endDate
+            shiftedStart && shiftedEnd && fullDate > shiftedStart && fullDate < shiftedEnd
           );
 
           let isDisabled = false;
@@ -125,22 +134,25 @@ const Calendar = ({
             isDisabled = true;
           }
 
-          if (futureStartDatesDisabled && !startDate && fullDate > today) {
+          if (futureStartDatesDisabled && !shiftedStart && fullDate > today) {
             isDisabled = true;
           }
 
           if (
             maxRangeLength > 1 &&
-            startDate &&
-            !datesAreWithinMaxRange(startDate, fullDate, maxRangeLength)
+            shiftedStart &&
+            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
           ) {
             isDisabled = true;
           }
 
           const shouldShowRangeIndicator =
-            !endDate &&
+            !shiftedEnd &&
             Boolean(
-              startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
+              shiftedStart &&
+              hoveredDate &&
+              fullDate > shiftedStart &&
+              fullDate < hoveredDate
             );
 
           const handleMouseEnter = () => {
@@ -151,21 +163,21 @@ const Calendar = ({
             if (isDisabled) {
               return false;
             }
-            setSelectedDate(fullDate);
+            setSelectedDate(shiftFromTimezone(fullDate, timezone));
 
             // User has a date range selected and clicked a new date.
             // This will cause the selected date to be reset, thus do not close the datepicker.
-            if (startDate && endDate) {
+            if (shiftedStart && shiftedEnd) {
               return;
             }
 
             // The user has selected a new start date, don't close
-            if (startDate && fullDate < startDate) {
+            if (shiftedStart && fullDate < shiftedStart) {
               return;
             }
 
             // Only close the datepicker if the user hasn't clicked the selected start date.
-            if (startDate && !isSameDate(fullDate, startDate)) {
+            if (shiftedStart && !isSameDate(fullDate, shiftedStart)) {
               closeDatepicker();
               return;
             }
@@ -193,12 +205,6 @@ const Calendar = ({
   });
 };
 
-const locale = 'en-US';
-const monthFormatter = new Intl.DateTimeFormat(locale, {
-  month: 'short',
-  year: 'numeric',
-});
-
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   predefinedDatesList: DateRange[];
@@ -208,6 +214,7 @@ interface PredefinedDatesProps {
   setStartDate: Dispatch<SetStateAction<Date | undefined>>;
   shouldShowCustomRange: boolean;
   showCustomDateRange: Dispatch<SetStateAction<boolean>>;
+  timezone: Timezone;
 }
 
 const PredefinedDates = ({
@@ -219,6 +226,7 @@ const PredefinedDates = ({
   setStartDate,
   shouldShowCustomRange,
   showCustomDateRange,
+  timezone,
 }: PredefinedDatesProps) => {
   const handleCustomTimePeriodClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -245,13 +253,11 @@ const PredefinedDates = ({
             selectedStartDate &&
             isSameDate(selectedStartDate, startDate);
 
-          const isWholeMonth = isDateRangeTheWholeMonth({ startDate, endDate });
+          const isWholeMonth = isDateRangeTheWholeMonth({ startDate, endDate }, timezone);
 
           const formattedText = isWholeMonth
-            ? monthFormatter.format(startDate)
-            : `${selectedDateFormatter.format(
-                startDate
-              )} – ${selectedDateFormatter.format(endDate)}`.trim();
+            ? formatDateHeader(timezone, startDate)
+            : `${formatSelectedDate(timezone, startDate)} – ${formatSelectedDate(timezone, endDate)}`.trim();
 
           return (
             <StyledDropdownItem
@@ -296,6 +302,7 @@ export interface DateRangePickerProps {
   maxRangeLength?: number;
   startDate?: Date;
   responsivePositioning?: boolean;
+  timezone?: Timezone;
 }
 
 export const DateRangePicker = ({
@@ -310,6 +317,7 @@ export const DateRangePicker = ({
   placeholder = 'start date – end date',
   predefinedDatesList,
   responsivePositioning = true,
+  timezone = 'local',
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -431,6 +439,7 @@ export const DateRangePicker = ({
           placeholder={placeholder}
           selectedEndDate={selectedEndDate}
           selectedStartDate={selectedStartDate}
+          timezone={timezone}
         />
       </Dropdown.Trigger>
       <Dropdown.Content
@@ -452,6 +461,7 @@ export const DateRangePicker = ({
               setStartDate={setSelectedStartDate}
               shouldShowCustomRange={shouldShowCustomRange}
               showCustomDateRange={setShouldShowCustomRange}
+              timezone={timezone}
             />
 
             {shouldShowCustomRange && (
@@ -463,6 +473,7 @@ export const DateRangePicker = ({
                   calendarOptions={calendarOptions}
                   allowYearMonthSelection={false}
                   selectedDate={selectedStartDate}
+                  timezone={timezone}
                 >
                   {(body: Body) => (
                     <Calendar
@@ -474,6 +485,7 @@ export const DateRangePicker = ({
                       setSelectedDate={handleSelectDate}
                       startDate={selectedStartDate}
                       endDate={selectedEndDate}
+                      timezone={timezone}
                     />
                   )}
                 </StyledCalendarRenderer>
@@ -485,6 +497,7 @@ export const DateRangePicker = ({
             calendarOptions={calendarOptions}
             allowYearMonthSelection={false}
             selectedDate={selectedStartDate}
+            timezone={timezone}
           >
             {(body: Body) => (
               <Calendar
@@ -496,6 +509,7 @@ export const DateRangePicker = ({
                 setSelectedDate={handleSelectDate}
                 startDate={selectedStartDate}
                 endDate={selectedEndDate}
+                timezone={timezone}
               />
             )}
           </CalendarRenderer>

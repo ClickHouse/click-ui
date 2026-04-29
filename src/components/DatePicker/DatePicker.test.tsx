@@ -168,6 +168,40 @@ describe('DatePicker', () => {
     });
   });
 
+  describe('when configured for the UTC timezone', () => {
+    it('renders the selected date from its UTC fields', () => {
+      const date = new Date('2026-04-30T01:00:00Z');
+      const { getByDisplayValue } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={vi.fn()}
+          timezone="UTC"
+        />
+      );
+
+      expect(getByDisplayValue('Apr 30, 2026')).toBeInTheDocument();
+    });
+
+    it('emits midnight UTC when the user picks a calendar day', async () => {
+      const handleSelectDate = vi.fn();
+      const date = new Date('2026-04-15T12:00:00Z');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DatePicker
+          date={date}
+          onSelectDate={handleSelectDate}
+          timezone="UTC"
+        />
+      );
+
+      await userEvent.click(getByTestId('datepicker-input'));
+      await userEvent.click(getByText('22'));
+
+      const selectedDate = handleSelectDate.mock.lastCall?.[0] as Date;
+      expect(selectedDate.toISOString()).toBe('2026-04-22T00:00:00.000Z');
+    });
+  });
+
   describe('two phased date selection', () => {
     it('shows progressive input updates during year and month selection', async () => {
       const onSelectDate = vi.fn();

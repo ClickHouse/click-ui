@@ -809,4 +809,43 @@ describe('DateTimeRangePicker', () => {
       );
     });
   });
+
+  describe('when configured for the UTC timezone', () => {
+    it('renders both endpoints from their UTC date and time fields', () => {
+      const startDate = new Date('2026-04-30T08:00:00Z');
+      const endDate = new Date('2026-04-30T14:30:00Z');
+
+      const { getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          endDate={endDate}
+          onSelectDateRange={vi.fn()}
+          startDate={startDate}
+          timezone="UTC"
+        />
+      );
+
+      expect(getByTestId('datetimepicker-input').textContent).toBe(
+        'Apr 30, 08:00 am – Apr 30, 02:30 pm'
+      );
+    });
+
+    it('populates the time input with the UTC hour and minute of the active side', async () => {
+      const startDate = new Date('2026-04-30T08:00:00Z');
+      const endDate = new Date('2026-04-30T14:30:00Z');
+
+      const { getAllByTestId, getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          endDate={endDate}
+          onSelectDateRange={vi.fn()}
+          startDate={startDate}
+          timezone="UTC"
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      const timeInputs = getAllByTestId('date-time-picker-time-input');
+      expect((timeInputs[0] as HTMLInputElement).value).toBe('08:00');
+    });
+  });
 });

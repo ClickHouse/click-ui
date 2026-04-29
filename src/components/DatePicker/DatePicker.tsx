@@ -1,9 +1,9 @@
-import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import * as Popover from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
-import { DatePickerProps } from './DatePicker.types';
+import { shiftFromTimezone, shiftToTimezone, Timezone } from './utils';
 
 const DAYS_IN_WEEK = 7;
 
@@ -47,6 +47,7 @@ interface CalendarProps {
   selectedDate?: Date;
   setSelectedDate: (selectedDate: Date) => void;
   autoFocus?: boolean;
+  timezone: Timezone;
 }
 
 const Calendar = ({
@@ -57,13 +58,27 @@ const Calendar = ({
   selectedDate,
   setSelectedDate,
   autoFocus = false,
+  timezone,
 }: CalendarProps) => {
   const allDays = calendarBody.value.flatMap(week => week.value);
   const totalDays = allDays.length;
 
-  const today = new Date();
+  const today = shiftToTimezone(new Date(), timezone);
+
+  const shiftedSelected = selectedDate
+    ? shiftToTimezone(selectedDate, timezone)
+    : undefined;
+
+  const shiftedAllowList = useMemo(() => {
+    return allowOnlyDatesList?.map(date => {
+      return shiftToTimezone(date, timezone);
+    });
+  }, [allowOnlyDatesList, timezone]);
+
   const initialFocusIndex = allDays.findIndex(day =>
-    selectedDate ? isSameDate(selectedDate, day.value) : isSameDate(today, day.value)
+    shiftedSelected
+      ? isSameDate(shiftedSelected, day.value)
+      : isSameDate(today, day.value)
   );
 
   const [focusedDayIndex, setFocusedDayIndex] = useState<number>(
@@ -86,35 +101,35 @@ const Calendar = ({
 
   const onDayKeyDown = useCallback(
     (
-      e: KeyboardEvent<HTMLTableCellElement>,
+      event: KeyboardEvent<HTMLTableCellElement>,
       index: number,
       fullDate: Date,
       isDisabled: boolean
     ) => {
       let newIndex = index;
 
-      switch (e.key) {
+      switch (event.key) {
         case 'ArrowRight':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index + 1) % totalDays;
           break;
         case 'ArrowLeft':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index - 1 + totalDays) % totalDays;
           break;
         case 'ArrowDown':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index + DAYS_IN_WEEK) % totalDays;
           break;
         case 'ArrowUp':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index - DAYS_IN_WEEK + totalDays) % totalDays;
           break;
         case 'Enter':
         case ' ':
-          e.preventDefault();
+          event.preventDefault();
           if (!isDisabled) {
-            setSelectedDate(fullDate);
+            setSelectedDate(shiftFromTimezone(fullDate, timezone));
             closeDatepicker();
           }
           return;
@@ -125,7 +140,7 @@ const Calendar = ({
       setFocusedDayIndex(newIndex);
       dayRefs.current[newIndex]?.focus();
     },
-    [totalDays, setSelectedDate, closeDatepicker]
+    [totalDays, setSelectedDate, closeDatepicker, timezone]
   );
 
   let dayIndex = 0;
@@ -134,12 +149,16 @@ const Calendar = ({
     return (
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
-          const isSelected = selectedDate && isSameDate(selectedDate, fullDate);
+          const isSelected = shiftedSelected && isSameDate(shiftedSelected, fullDate);
           const isPresent = isSameDate(today, fullDate);
+
           const isNotAllowed =
-            allowOnlyDatesList &&
-            allowOnlyDatesList.length > 0 &&
-            !allowOnlyDatesList.some(d => isSameDate(d, fullDate));
+            shiftedAllowList &&
+            shiftedAllowList.length > 0 &&
+            !shiftedAllowList.some((shiftedDate: Date) => {
+              return isSameDate(shiftedDate, fullDate);
+            });
+
           const isFutureDisabled = futureDatesDisabled && fullDate > today;
           const isDisabled = isNotAllowed || isFutureDisabled;
           const currentIndex = dayIndex;
@@ -149,7 +168,7 @@ const Calendar = ({
             if (isDisabled) {
               return false;
             }
-            setSelectedDate(fullDate);
+            setSelectedDate(shiftFromTimezone(fullDate, timezone));
             closeDatepicker();
           };
 
@@ -178,6 +197,16 @@ const Calendar = ({
   });
 };
 
+export interface DatePickerProps {
+  allowOnlyDatesList?: Array<Date>;
+  date?: Date;
+  disabled?: boolean;
+  futureDatesDisabled?: boolean;
+  onSelectDate: (selectedDate: Date) => void;
+  placeholder?: string;
+  timezone?: Timezone;
+}
+
 export const DatePicker = ({
   allowOnlyDatesList,
   date,
@@ -185,6 +214,7 @@ export const DatePicker = ({
   futureDatesDisabled = false,
   onSelectDate,
   placeholder,
+  timezone = 'local',
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -269,6 +299,7 @@ export const DatePicker = ({
           partialYear={partialYear}
           placeholder={placeholder}
           selectedDate={selectedDate}
+          timezone={timezone}
         />
       </PopoverTrigger>
       <Popover.Portal>
@@ -281,6 +312,7 @@ export const DatePicker = ({
             onYearSelect={onYearSelect}
             onMonthSelect={onMonthSelect}
             selectedDate={selectedDate}
+            timezone={timezone}
           >
             {body => (
               <Calendar
@@ -291,6 +323,7 @@ export const DatePicker = ({
                 futureDatesDisabled={futureDatesDisabled}
                 selectedDate={selectedDate}
                 setSelectedDate={onDateSelect}
+                timezone={timezone}
               />
             )}
           </CalendarRenderer>
