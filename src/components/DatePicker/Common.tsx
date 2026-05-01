@@ -15,11 +15,13 @@ import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Text';
 import {
-  headerDateFormatter,
-  selectedDateFormatter,
-  selectedDateTimeFormatter,
-  selectedDateTimeFormatterWithSeconds,
-  weekdayFormatter,
+  formatDateHeader,
+  formatSelectedDate,
+  formatSelectedDateTime,
+  formatSelectedDateTimeWithSeconds,
+  formatWeekday,
+  shiftToTimezone,
+  Timezone,
 } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 import { Dropdown } from '@/components/Dropdown';
@@ -63,23 +65,31 @@ interface DatePickerInputProps {
   partialYear?: number;
   placeholder?: string;
   selectedDate?: Date;
+  timezone?: Timezone;
 }
 
 const formatPartialDate = (
+  timezone: Timezone,
   selectedDate?: Date,
   partialYear?: number,
   partialMonth?: number
 ): string => {
   if (typeof partialYear === 'number' && typeof partialMonth === 'number') {
-    const date = new Date(partialYear, partialMonth, 1);
-    return headerDateFormatter.format(date);
+    const date =
+      timezone === 'UTC'
+        ? new Date(Date.UTC(partialYear, partialMonth, 1))
+        : new Date(partialYear, partialMonth, 1);
+    return formatDateHeader(timezone, date);
   }
+
   if (typeof partialYear === 'number') {
     return String(partialYear);
   }
+
   if (selectedDate instanceof Date) {
-    return selectedDateFormatter.format(selectedDate);
+    return formatSelectedDate(timezone, selectedDate);
   }
+
   return '';
 };
 
@@ -91,9 +101,11 @@ export const DatePickerInput = ({
   partialYear,
   placeholder,
   selectedDate,
+  timezone = 'system',
 }: DatePickerInputProps) => {
   const defaultId = useId();
   const formattedSelectedDate = formatPartialDate(
+    timezone,
     selectedDate,
     partialYear,
     partialMonth
@@ -126,6 +138,7 @@ interface DateRangePickerInputProps {
   placeholder?: string;
   selectedEndDate?: Date;
   selectedStartDate?: Date;
+  timezone?: Timezone;
 }
 
 export const DateRangePickerInput = ({
@@ -135,6 +148,7 @@ export const DateRangePickerInput = ({
   placeholder,
   selectedEndDate,
   selectedStartDate,
+  timezone = 'system',
 }: DateRangePickerInputProps) => {
   const defaultId = useId();
 
@@ -150,14 +164,14 @@ export const DateRangePickerInput = ({
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)} –{' '}
-          {selectedDateFormatter.format(selectedEndDate)}
+          {formatSelectedDate(timezone, selectedStartDate)} –{' '}
+          {formatSelectedDate(timezone, selectedEndDate)}
         </span>
       );
     } else {
       formattedValue = (
         <span>
-          {selectedDateFormatter.format(selectedStartDate)}{' '}
+          {formatSelectedDate(timezone, selectedStartDate)}{' '}
           <Text
             color="muted"
             component="span"
@@ -197,6 +211,7 @@ interface DateTimeRangePickerInputProps {
   selectedEndDate?: Date;
   selectedStartDate?: Date;
   shouldShowSeconds?: boolean;
+  timezone?: Timezone;
 }
 
 export const DateTimeRangePickerInput = ({
@@ -207,12 +222,20 @@ export const DateTimeRangePickerInput = ({
   selectedEndDate,
   selectedStartDate,
   shouldShowSeconds,
+  timezone = 'system',
 }: DateTimeRangePickerInputProps) => {
   const defaultId = useId();
 
-  const dateTimeFormatter = shouldShowSeconds
-    ? selectedDateTimeFormatterWithSeconds
-    : selectedDateTimeFormatter;
+  const formatDateTime = useCallback(
+    (date: Date) => {
+      if (shouldShowSeconds) {
+        return formatSelectedDateTimeWithSeconds(timezone, date);
+      }
+
+      return formatSelectedDateTime(timezone, date);
+    },
+    [shouldShowSeconds, timezone]
+  );
 
   let formattedValue = (
     <Text
@@ -222,28 +245,19 @@ export const DateTimeRangePickerInput = ({
       {placeholder ?? ''}
     </Text>
   );
+
   if (selectedStartDate) {
     if (selectedEndDate) {
       formattedValue = (
         <span>
-          {dateTimeFormatter
-            .format(selectedStartDate)
-            .replace('AM', 'am')
-            .replace('PM', 'pm')}{' '}
-          –{' '}
-          {dateTimeFormatter
-            .format(selectedEndDate)
-            .replace('AM', 'am')
-            .replace('PM', 'pm')}
+          {formatDateTime(selectedStartDate).replace('AM', 'am').replace('PM', 'pm')} –{' '}
+          {formatDateTime(selectedEndDate).replace('AM', 'am').replace('PM', 'pm')}
         </span>
       );
     } else {
       formattedValue = (
         <span>
-          {dateTimeFormatter
-            .format(selectedStartDate)
-            .replace('AM', 'am')
-            .replace('PM', 'pm')}{' '}
+          {formatDateTime(selectedStartDate).replace('AM', 'am').replace('PM', 'pm')}{' '}
           <Text
             color="muted"
             component="span"
@@ -262,10 +276,7 @@ export const DateTimeRangePickerInput = ({
         >
           start date –{' '}
         </Text>
-        {dateTimeFormatter
-          .format(selectedEndDate)
-          .replace('AM', 'am')
-          .replace('PM', 'pm')}
+        {formatDateTime(selectedEndDate).replace('AM', 'am').replace('PM', 'pm')}
       </span>
     );
   }
@@ -508,6 +519,7 @@ interface CalendarRendererProps {
   onYearSelect?: (year: number) => void;
   onMonthSelect?: (year: number, month: number) => void;
   selectedDate?: Date;
+  timezone?: Timezone;
 }
 
 const monthAbbreviations = getMonthNames('short');
@@ -583,11 +595,20 @@ export const CalendarRenderer = ({
   onYearSelect,
   onMonthSelect,
   selectedDate,
+  timezone = 'system',
   ...props
 }: CalendarRendererProps) => {
+  // useCalendar reads dates as local; shiftToTimezone is a no-op in local mode.
+  const shiftedCalendarOptions: UseCalendarOptions =
+    calendarOptions.defaultDate instanceof Date
+      ? {
+          ...calendarOptions,
+          defaultDate: shiftToTimezone(calendarOptions.defaultDate, timezone),
+        }
+      : calendarOptions;
   const { body, headers, month, navigation, year } = useCalendar({
     defaultWeekStart: 1,
-    ...calendarOptions,
+    ...shiftedCalendarOptions,
   });
 
   const [view, setView] = useState<DateViewOption>(DAYS);
@@ -686,31 +707,31 @@ export const CalendarRenderer = ({
   );
 
   const onMonthGridKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
       const columns = viewGridMonths.columns;
       const totalItems = 12;
       let newIndex = index;
 
-      switch (e.key) {
+      switch (event.key) {
         case 'ArrowRight':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index + 1) % totalItems;
           break;
         case 'ArrowLeft':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index - 1 + totalItems) % totalItems;
           break;
         case 'ArrowDown':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index + columns) % totalItems;
           break;
         case 'ArrowUp':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index - columns + totalItems) % totalItems;
           break;
         case 'Enter':
         case ' ':
-          e.preventDefault();
+          event.preventDefault();
           onMonthSelection(index);
           return;
         default:
@@ -724,31 +745,31 @@ export const CalendarRenderer = ({
   );
 
   const onYearGridKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLButtonElement>, index: number, yearValue: number) => {
+    (event: KeyboardEvent<HTMLButtonElement>, index: number, yearValue: number) => {
       const columns = viewGridYears.columns;
       const totalItems = totalYears;
       let newIndex = index;
 
-      switch (e.key) {
+      switch (event.key) {
         case 'ArrowRight':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index + 1) % totalItems;
           break;
         case 'ArrowLeft':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index - 1 + totalItems) % totalItems;
           break;
         case 'ArrowDown':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index + columns) % totalItems;
           break;
         case 'ArrowUp':
-          e.preventDefault();
+          event.preventDefault();
           newIndex = (index - columns + totalItems) % totalItems;
           break;
         case 'Enter':
         case ' ':
-          e.preventDefault();
+          event.preventDefault();
           onYearSelection(yearValue);
           return;
         default:
@@ -774,15 +795,19 @@ export const CalendarRenderer = ({
       return 'Year';
     }
 
-    return headerDateFormatter.format(headerDate);
+    // headerDate already has the right month/year in its local fields.
+    return formatDateHeader('system', headerDate);
   };
 
   const renderMonthsGrid = () => {
-    const today = new Date();
-    const todayMonth = today.getMonth();
-    const todayYear = today.getFullYear();
-    const selectedMonth = selectedDate?.getMonth();
-    const selectedYear = selectedDate?.getFullYear();
+    const today = shiftToTimezone(new Date(), timezone);
+    const thisMonth = today.getMonth();
+    const thisYear = today.getFullYear();
+    const shiftedSelected = selectedDate
+      ? shiftToTimezone(selectedDate, timezone)
+      : undefined;
+    const selectedMonth = shiftedSelected?.getMonth();
+    const selectedYear = shiftedSelected?.getFullYear();
 
     return (
       <MonthsGrid
@@ -790,24 +815,36 @@ export const CalendarRenderer = ({
         role="grid"
         aria-label="Select month"
       >
-        {monthAbbreviations.map((abbr, index) => (
-          <GridCell
-            key={abbr}
-            type="button"
-            ref={el => {
-              monthGridRef.current[index] = el;
-            }}
-            $isActive={selectedDate && index === selectedMonth && year === selectedYear}
-            $isPresent={index === todayMonth && year === todayYear}
-            onClick={() => onMonthSelection(index)}
-            onKeyDown={e => onMonthGridKeyDown(e, index)}
-            data-testid={`month-cell-${index}`}
-            tabIndex={index === focusedMonthIndex ? 0 : -1}
-            aria-label={abbr}
-          >
-            {abbr}
-          </GridCell>
-        ))}
+        {monthAbbreviations.map((month, index) => {
+          const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+            onMonthGridKeyDown(event, index);
+          };
+
+          const handleClick = () => {
+            onMonthSelection(index);
+          };
+
+          const ref = (element: HTMLButtonElement) => {
+            monthGridRef.current[index] = element;
+          };
+
+          return (
+            <GridCell
+              key={month}
+              type="button"
+              ref={ref}
+              $isActive={selectedDate && index === selectedMonth && year === selectedYear}
+              $isPresent={index === thisMonth && year === thisYear}
+              onClick={handleClick}
+              onKeyDown={handleKeyDown}
+              data-testid={`month-cell-${index}`}
+              tabIndex={index === focusedMonthIndex ? 0 : -1}
+              aria-label={month}
+            >
+              {month}
+            </GridCell>
+          );
+        })}
       </MonthsGrid>
     );
   };
@@ -815,8 +852,10 @@ export const CalendarRenderer = ({
   const renderYearsGrid = () => {
     const years: Array<number> = [];
     const baseYear = year + yearOffset;
-    const todayYear = new Date().getFullYear();
-    const selectedYear = selectedDate?.getFullYear();
+    const thisYear = shiftToTimezone(new Date(), timezone).getFullYear();
+    const selectedYear = selectedDate
+      ? shiftToTimezone(selectedDate, timezone).getFullYear()
+      : undefined;
 
     for (let i = -yearsOffset; i <= yearsOffset; i++) {
       years.push(baseYear + i);
@@ -828,24 +867,36 @@ export const CalendarRenderer = ({
         role="grid"
         aria-label="Select year"
       >
-        {years.map((currYear, index) => (
-          <GridCell
-            key={currYear}
-            type="button"
-            ref={el => {
-              yearGridRef.current[index] = el;
-            }}
-            $isActive={selectedDate && currYear === selectedYear}
-            $isPresent={currYear === todayYear}
-            onClick={() => onYearSelection(currYear)}
-            onKeyDown={e => onYearGridKeyDown(e, index, currYear)}
-            data-testid={`year-cell-${currYear}`}
-            tabIndex={index === focusedYearIndex ? 0 : -1}
-            aria-label={String(currYear)}
-          >
-            {currYear}
-          </GridCell>
-        ))}
+        {years.map((currentYear, index) => {
+          const ref = (element: HTMLButtonElement) => {
+            yearGridRef.current[index] = element;
+          };
+
+          const handleClick = () => {
+            onYearSelection(currentYear);
+          };
+
+          const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+            onYearGridKeyDown(event, index, currentYear);
+          };
+
+          return (
+            <GridCell
+              key={currentYear}
+              type="button"
+              ref={ref}
+              $isActive={selectedDate && currentYear === selectedYear}
+              $isPresent={currentYear === thisYear}
+              onClick={handleClick}
+              onKeyDown={handleKeyDown}
+              data-testid={`year-cell-${currentYear}`}
+              tabIndex={index === focusedYearIndex ? 0 : -1}
+              aria-label={String(currentYear)}
+            >
+              {currentYear}
+            </GridCell>
+          );
+        })}
       </YearsGrid>
     );
   };
@@ -878,7 +929,7 @@ export const CalendarRenderer = ({
             {headers.weekDays.map(({ key, value: date }) => {
               return (
                 <DateTableHeader key={key}>
-                  {weekdayFormatter.format(date)}
+                  {formatWeekday('system', date)}
                 </DateTableHeader>
               );
             })}

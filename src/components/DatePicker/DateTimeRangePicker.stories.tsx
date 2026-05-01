@@ -2,6 +2,7 @@ import { Args, Meta, StoryObj } from '@storybook/react-vite';
 import { DateTimeRangePicker } from './DateTimeRangePicker';
 import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from './utils';
 import dayjs from 'dayjs';
+import { Text } from '../Text';
 
 const meta: Meta<typeof DateTimeRangePicker> = {
   component: DateTimeRangePicker,
@@ -99,7 +100,7 @@ export const PredefinedDatesScrollable: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const now = dayjs();
+    const now = dayjs('2026-05-01T12:00:00Z');
     const predefinedTimesList: DateRangeListItem[] = [
       {
         dateRange: {
@@ -244,7 +245,9 @@ export const SetStartAndEndDate: Story = {
     predefinedTimesList: [],
   },
   render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : new Date();
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('2026-05-01T12:00:00Z');
     const startDate = args.startDate
       ? new Date(args.startDate)
       : new Date(endDate.getTime() - 3600);
@@ -273,6 +276,48 @@ export const DateTimeFutureStartDatesDisabled: Story = {
   args: {
     futureStartDatesDisabled: true,
     predefinedTimesList: [],
+  },
+};
+
+export const TimezoneLocalVsUTC: Story = {
+  render: (args: Args) => {
+    const startDate = args.startDate
+      ? new Date(args.startDate)
+      : dayjs('2026-05-01T12:00:00Z').subtract(6, 'hour').toDate();
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('2026-05-01T12:00:00Z');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div>
+          <Text>local</Text>
+          <DateTimeRangePicker
+            endDate={endDate}
+            onSelectDateRange={(startDate, endDate) =>
+              console.log(
+                'local selected:',
+                startDate.toISOString(),
+                endDate.toISOString()
+              )
+            }
+            startDate={startDate}
+            timezone="system"
+          />
+        </div>
+        <div>
+          <Text>UTC</Text>
+          <DateTimeRangePicker
+            endDate={endDate}
+            onSelectDateRange={(startDate, endDate) =>
+              console.log('UTC selected:', startDate.toISOString(), endDate.toISOString())
+            }
+            startDate={startDate}
+            timezone="UTC"
+          />
+        </div>
+      </div>
+    );
   },
 };
 

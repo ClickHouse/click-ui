@@ -22,7 +22,14 @@ import {
 import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
-import { DateRangeListItem, datesAreWithinMaxRange, Meridiem } from './utils';
+import {
+  DateRangeListItem,
+  datesAreWithinMaxRange,
+  shiftFromTimezone,
+  Meridiem,
+  Timezone,
+  shiftToTimezone,
+} from './utils';
 import { dayjs, Dayjs } from '@/utils/date';
 import { Tabs } from '../Tabs/Tabs';
 import { TextField } from '@/components/TextField';
@@ -105,6 +112,7 @@ interface CalendarProps {
   setSelectedDate: SetSelectedDate;
   startDate?: Date;
   endDate?: Date;
+  timezone: Timezone;
 }
 
 const Calendar = ({
@@ -116,8 +124,13 @@ const Calendar = ({
   setSelectedDate,
   startDate,
   endDate,
+  timezone,
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
+
+  const today = shiftToTimezone(new Date(), timezone);
+  const shiftedStart = startDate ? shiftToTimezone(startDate, timezone) : undefined;
+  const shiftedEnd = endDate ? shiftToTimezone(endDate, timezone) : undefined;
 
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
@@ -128,14 +141,12 @@ const Calendar = ({
       <tr key={weekKey}>
         {week.map(({ date, isCurrentMonth, key: dayKey, value: fullDate }) => {
           const isSelected =
-            (startDate && isSameDate(startDate, fullDate)) ||
-            (endDate && isSameDate(endDate, fullDate));
-
-          const today = new Date();
+            (shiftedStart && isSameDate(shiftedStart, fullDate)) ||
+            (shiftedEnd && isSameDate(shiftedEnd, fullDate));
 
           const isCurrentDate = isSameDate(today, fullDate);
           const isBetweenStartAndEndDates = Boolean(
-            startDate && endDate && fullDate > startDate && fullDate < endDate
+            shiftedStart && shiftedEnd && fullDate > shiftedStart && fullDate < shiftedEnd
           );
 
           let isDisabled = false;
@@ -153,8 +164,8 @@ const Calendar = ({
 
           if (
             maxRangeLength > 1 &&
-            startDate &&
-            !datesAreWithinMaxRange(startDate, fullDate, maxRangeLength)
+            shiftedStart &&
+            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
           ) {
             isDisabled = true;
           }
@@ -162,10 +173,10 @@ const Calendar = ({
           // start date is selected, end date is not; disable anything before start date
           if (
             calendarType === 'endDate' &&
-            !endDate &&
-            startDate &&
-            startDate > fullDate &&
-            !isSameDate(startDate, fullDate)
+            !shiftedEnd &&
+            shiftedStart &&
+            shiftedStart > fullDate &&
+            !isSameDate(shiftedStart, fullDate)
           ) {
             isDisabled = true;
           }
@@ -173,25 +184,28 @@ const Calendar = ({
           // start date isn't selected, but end date is; disable anything after end date
           if (
             calendarType === 'startDate' &&
-            !startDate &&
-            endDate &&
-            fullDate > endDate
+            !shiftedStart &&
+            shiftedEnd &&
+            fullDate > shiftedEnd
           ) {
             isDisabled = true;
           }
 
           const startDateSelectedAndIsSelectingEndDate =
             calendarType === 'endDate' &&
-            !endDate &&
+            !shiftedEnd &&
             Boolean(
-              startDate && hoveredDate && fullDate > startDate && fullDate < hoveredDate
+              shiftedStart &&
+              hoveredDate &&
+              fullDate > shiftedStart &&
+              fullDate < hoveredDate
             );
 
           const endDateSelectedAndIsSelectingStartDate =
             calendarType === 'startDate' &&
-            !startDate &&
+            !shiftedStart &&
             Boolean(
-              endDate && hoveredDate && fullDate < endDate && fullDate > hoveredDate
+              shiftedEnd && hoveredDate && fullDate < shiftedEnd && fullDate > hoveredDate
             );
 
           const shouldShowRangeIndicator =
@@ -207,23 +221,37 @@ const Calendar = ({
               return false;
             }
 
+            const originalFullDate = shiftFromTimezone(fullDate, timezone);
+
             // If the user selects a start date and changes the start date
             // use any hours, minutes, seconds they've already set
             if (calendarType === 'startDate' && startDate) {
-              fullDate.setHours(startDate.getHours());
-              fullDate.setMinutes(startDate.getMinutes());
-              fullDate.setSeconds(startDate.getSeconds());
+              if (timezone === 'UTC') {
+                originalFullDate.setUTCHours(startDate.getUTCHours());
+                originalFullDate.setUTCMinutes(startDate.getUTCMinutes());
+                originalFullDate.setUTCSeconds(startDate.getUTCSeconds());
+              } else {
+                originalFullDate.setHours(startDate.getHours());
+                originalFullDate.setMinutes(startDate.getMinutes());
+                originalFullDate.setSeconds(startDate.getSeconds());
+              }
             }
 
             // If the user selects an end date and changes the end date
             // use any hours, minutes, seconds they've already set
             if (calendarType === 'endDate' && endDate) {
-              fullDate.setHours(endDate.getHours());
-              fullDate.setMinutes(endDate.getMinutes());
-              fullDate.setSeconds(endDate.getSeconds());
+              if (timezone === 'UTC') {
+                originalFullDate.setUTCHours(endDate.getUTCHours());
+                originalFullDate.setUTCMinutes(endDate.getUTCMinutes());
+                originalFullDate.setUTCSeconds(endDate.getUTCSeconds());
+              } else {
+                originalFullDate.setHours(endDate.getHours());
+                originalFullDate.setMinutes(endDate.getMinutes());
+                originalFullDate.setSeconds(endDate.getSeconds());
+              }
             }
 
-            setSelectedDate(fullDate, calendarType);
+            setSelectedDate(originalFullDate, calendarType);
           };
 
           return (
@@ -387,10 +415,12 @@ interface TimeInputProps {
   date: Date | undefined;
   setDate: (date: Date) => void;
   shouldShowSeconds: boolean;
+  timezone: Timezone;
 }
 
-const TimeInput = ({ date, setDate, shouldShowSeconds }: TimeInputProps) => {
-  let dayjsDate = dayjs(date);
+const TimeInput = ({ date, setDate, shouldShowSeconds, timezone }: TimeInputProps) => {
+  let dayjsDate = timezone === 'UTC' ? dayjs.utc(date) : dayjs(date);
+
   if (!date) {
     dayjsDate = dayjsDate.hour(12).minute(0);
   }
@@ -577,6 +607,7 @@ interface TabbedCalendarProps {
   setStartDate: SetDate;
   shouldShowSeconds: boolean;
   startDate: Date | undefined;
+  timezone: Timezone;
 }
 
 const TabbedCalendar = ({
@@ -590,6 +621,7 @@ const TabbedCalendar = ({
   setStartDate,
   shouldShowSeconds,
   startDate,
+  timezone,
 }: TabbedCalendarProps) => {
   const [activeTab, setActiveTab] = useState<Tab>(defaultActiveTab);
 
@@ -652,7 +684,10 @@ const TabbedCalendar = ({
         </Tabs.Trigger>
       </StyledTriggerList>
       <Tabs.Content value="startDate">
-        <StyledCalendarRenderer calendarOptions={startDateCalendarOptions}>
+        <StyledCalendarRenderer
+          calendarOptions={startDateCalendarOptions}
+          timezone={timezone}
+        >
           {(body: Body) => (
             <Calendar
               calendarBody={body}
@@ -663,6 +698,7 @@ const TabbedCalendar = ({
               maxRangeLength={maxRangeLength}
               setSelectedDate={setSelectedDate}
               startDate={startDate}
+              timezone={timezone}
             />
           )}
         </StyledCalendarRenderer>
@@ -670,10 +706,14 @@ const TabbedCalendar = ({
           date={startDate}
           setDate={handleSetStartDate}
           shouldShowSeconds={shouldShowSeconds}
+          timezone={timezone}
         />
       </Tabs.Content>
       <Tabs.Content value="endDate">
-        <StyledCalendarRenderer calendarOptions={endDateCalendarOptions}>
+        <StyledCalendarRenderer
+          calendarOptions={endDateCalendarOptions}
+          timezone={timezone}
+        >
           {(body: Body) => (
             <Calendar
               calendarBody={body}
@@ -684,6 +724,7 @@ const TabbedCalendar = ({
               maxRangeLength={maxRangeLength}
               setSelectedDate={setSelectedDate}
               startDate={startDate}
+              timezone={timezone}
             />
           )}
         </StyledCalendarRenderer>
@@ -691,6 +732,7 @@ const TabbedCalendar = ({
           date={endDate}
           setDate={handleSetEndDate}
           shouldShowSeconds={shouldShowSeconds}
+          timezone={timezone}
         />
       </Tabs.Content>
     </Tabs>
@@ -711,6 +753,7 @@ export interface DateTimeRangePickerProps {
   maxRangeLength?: number;
   shouldShowSeconds?: boolean;
   startDate?: Date;
+  timezone?: Timezone;
 }
 
 export const DateTimeRangePicker = ({
@@ -727,6 +770,7 @@ export const DateTimeRangePicker = ({
   predefinedTimesList,
   shouldShowSeconds,
   startDate,
+  timezone = 'system',
 }: DateTimeRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();
@@ -737,22 +781,44 @@ export const DateTimeRangePicker = ({
   const calendarContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (startDate) {
-      if (startDate.getHours() === 0) {
-        startDate.setHours(12);
-      }
-      setSelectedStartDate(startDate);
+    if (!startDate) {
+      return;
     }
-  }, [startDate]);
+
+    const startDateCopy = new Date(startDate);
+
+    const hours =
+      timezone === 'UTC' ? startDateCopy.getUTCHours() : startDateCopy.getHours();
+
+    if (hours === 0) {
+      if (timezone === 'UTC') {
+        startDateCopy.setUTCHours(12);
+      } else {
+        startDateCopy.setHours(12);
+      }
+    }
+
+    setSelectedStartDate(startDateCopy);
+  }, [startDate, timezone]);
 
   useEffect(() => {
-    if (endDate) {
-      if (endDate.getHours() === 0) {
-        endDate.setHours(12);
-      }
-      setSelectedEndDate(endDate);
+    if (!endDate) {
+      return;
     }
-  }, [endDate]);
+
+    const endDateCopy = new Date(endDate);
+
+    const hours = timezone === 'UTC' ? endDateCopy.getUTCHours() : endDateCopy.getHours();
+    if (hours === 0) {
+      if (timezone === 'UTC') {
+        endDateCopy.setUTCHours(12);
+      } else {
+        endDateCopy.setHours(12);
+      }
+    }
+
+    setSelectedEndDate(endDateCopy);
+  }, [endDate, timezone]);
 
   useLayoutEffect(() => {
     if (shouldShowCustomRange && calendarContainerRef.current) {
@@ -781,12 +847,23 @@ export const DateTimeRangePicker = ({
 
   const handleSelectDate = useCallback(
     (selectedDate: Date, calendarType: CalendarType): void => {
-      if (
-        selectedDate.getHours() === 0 &&
-        selectedDate.getMinutes() === 0 &&
-        selectedDate.getSeconds() === 0
-      ) {
-        selectedDate.setHours(12); // set the time to 12 noon if time hasn't been set yet
+      const isMidnight =
+        timezone === 'UTC'
+          ? selectedDate.getUTCHours() === 0 &&
+            selectedDate.getUTCMinutes() === 0 &&
+            selectedDate.getUTCSeconds() === 0
+          : selectedDate.getHours() === 0 &&
+            selectedDate.getMinutes() === 0 &&
+            selectedDate.getSeconds() === 0;
+
+      if (isMidnight) {
+        // set the time to 12 noon if time hasn't been set yet
+
+        if (timezone === 'UTC') {
+          selectedDate.setUTCHours(12);
+        } else {
+          selectedDate.setHours(12);
+        }
       }
 
       if (calendarType === 'startDate') {
@@ -813,7 +890,14 @@ export const DateTimeRangePicker = ({
         }
       }
     },
-    [onSelectDateRange, selectedEndDate, selectedStartDate]
+    [
+      closeDatePicker,
+      closeOnDateRangeSelected,
+      onSelectDateRange,
+      selectedEndDate,
+      selectedStartDate,
+      timezone,
+    ]
   );
 
   const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
@@ -843,6 +927,7 @@ export const DateTimeRangePicker = ({
           selectedEndDate={selectedEndDate}
           selectedStartDate={selectedStartDate}
           shouldShowSeconds={shouldShowSeconds}
+          timezone={timezone}
         />
       </Dropdown.Trigger>
       <Dropdown.Content align="start">
@@ -880,6 +965,7 @@ export const DateTimeRangePicker = ({
                     setStartDate={setSelectedStartDate}
                     shouldShowSeconds={Boolean(shouldShowSeconds)}
                     startDate={selectedStartDate}
+                    timezone={timezone}
                   />
                 </CalendarRendererContainer>
               )}
@@ -897,6 +983,7 @@ export const DateTimeRangePicker = ({
                 setStartDate={setSelectedStartDate}
                 shouldShowSeconds={Boolean(shouldShowSeconds)}
                 startDate={selectedStartDate}
+                timezone={timezone}
               />
             </>
           )}

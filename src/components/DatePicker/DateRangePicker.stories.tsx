@@ -1,6 +1,8 @@
 import { Args, Meta, StoryObj } from '@storybook/react-vite';
+import dayjs from 'dayjs';
 import { DateRangePicker } from './DateRangePicker';
 import { getPredefinedMonthsForDateRangePicker } from './utils';
+import { Text } from '../Text';
 
 const meta: Meta<typeof DateRangePicker> = {
   component: DateRangePicker,
@@ -173,6 +175,52 @@ export const PredefinedDatesArbitraryDates: Story = {
         predefinedDatesList={predefinedDatesList}
         startDate={startDate}
       />
+    );
+  },
+};
+
+export const TimezoneLocalVsUTC: Story = {
+  render: (args: Args) => {
+    const startDate = args.startDate
+      ? new Date(args.startDate)
+      : new Date('2026-04-15T01:00:00Z');
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('2026-04-30T01:00:00Z');
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div>
+          <Text>
+            For system tz start date {dayjs(startDate).format('YYYY/DD/MM HH:mm')} and end
+            date {dayjs(endDate).format('YYYY/DD/MM HH:mm')}
+          </Text>
+          <Text>system</Text>
+          <DateRangePicker
+            endDate={endDate}
+            onSelectDateRange={(startDate, endDate) =>
+              console.log(
+                'system selected:',
+                startDate.toISOString(),
+                endDate.toISOString()
+              )
+            }
+            startDate={startDate}
+            timezone="system"
+          />
+        </div>
+        <div>
+          <Text>UTC</Text>
+          <DateRangePicker
+            endDate={endDate}
+            onSelectDateRange={(startDate, endDate) =>
+              console.log('UTC selected:', startDate.toISOString(), endDate.toISOString())
+            }
+            startDate={startDate}
+            timezone="UTC"
+          />
+        </div>
+      </div>
     );
   },
 };

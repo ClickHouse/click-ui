@@ -2,6 +2,7 @@ export { DatePicker } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
 export { DateTimeRangePicker } from './DateTimeRangePicker';
 
-export type { DatePickerProps } from './DatePicker.types';
+export type { DatePickerProps } from './DatePicker';
 export type { DateRangePickerProps } from './DateRangePicker';
 export type { DateTimeRangePickerProps, Tab } from './DateTimeRangePicker';
+export type { Timezone } from './utils';

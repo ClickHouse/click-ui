@@ -382,4 +382,45 @@ describe('DateRangePicker', () => {
       expect(getByText('Oct 2019')).toBeInTheDocument();
     });
   });
+
+  describe('when configured for the UTC timezone', () => {
+    it('renders both endpoints from their UTC fields', () => {
+      const startDate = new Date('2026-04-30T01:00:00Z');
+      const endDate = new Date('2026-05-30T01:00:00Z');
+
+      const { getByText } = renderCUI(
+        <DateRangePicker
+          endDate={endDate}
+          onSelectDateRange={vi.fn()}
+          startDate={startDate}
+          timezone="UTC"
+        />
+      );
+
+      expect(getByText('Apr 30, 2026 – May 30, 2026')).toBeInTheDocument();
+    });
+
+    it('emits midnight UTC for the new endpoint when the user picks a calendar day', async () => {
+      const handleSelectDateRange = vi.fn();
+      const startDate = new Date('2026-04-15T12:00:00Z');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={handleSelectDateRange}
+          startDate={startDate}
+          timezone="UTC"
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByText('22'));
+
+      const [emittedStart, emittedEnd] = handleSelectDateRange.mock.lastCall as [
+        Date,
+        Date,
+      ];
+      expect(emittedStart.toISOString()).toBe('2026-04-15T12:00:00.000Z');
+      expect(emittedEnd.toISOString()).toBe('2026-04-22T00:00:00.000Z');
+    });
+  });
 });

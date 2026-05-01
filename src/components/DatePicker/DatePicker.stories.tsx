@@ -1,6 +1,8 @@
 import { Args } from '@storybook/react-vite';
+import { dayjs } from '@/utils/date';
 import { DatePicker } from '@/components/DatePicker';
 import { getNextNDatesForDatePickerAllowOnlyList } from './utils';
+import { Text } from '../Text';
 
 const defaultStory = {
   args: {
@@ -52,5 +54,33 @@ export const DatePickerAllowOnlyNext30Days = {
   args: {
     ...defaultStory.args,
     allowOnlyDatesList: getNextNDatesForDatePickerAllowOnlyList(30),
+  },
+};
+
+export const TimezoneLocalVsUTC = {
+  ...defaultStory,
+  render: (args: Args) => {
+    const date = args.date ? new Date(args.date) : new Date('2026-04-30T01:00:00Z');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <Text>For system tz date {dayjs(date).format('YYYY/DD/MM HH:mm')}</Text>
+        <div>
+          <Text>system</Text>
+          <DatePicker
+            date={date}
+            onSelectDate={date => console.log('system selected:', date.toISOString())}
+            timezone="system"
+          />
+        </div>
+        <div>
+          <Text>UTC</Text>
+          <DatePicker
+            date={date}
+            onSelectDate={date => console.log('UTC selected:', date.toISOString())}
+            timezone="UTC"
+          />
+        </div>
+      </div>
+    );
   },
 };

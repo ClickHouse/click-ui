@@ -1,4 +1,6 @@
-import dayjs from 'dayjs';
+import { dayjs } from '@/utils/date';
+
+export type Timezone = 'system' | 'UTC';
 
 export interface DateRange {
   startDate: Date;
@@ -19,22 +21,34 @@ export interface DateRangeListItem {
   label: string;
 }
 
-export const selectedDateFormatter = new Intl.DateTimeFormat(locale, {
+const createFormatter = (options: Intl.DateTimeFormatOptions) => {
+  const timezoneFormatters: Partial<Record<Timezone, Intl.DateTimeFormat>> = {};
+
+  return (timezone: Timezone, date: Date): string => {
+    if (!timezoneFormatters[timezone]) {
+      const opts = timezone === 'UTC' ? { ...options, timeZone: 'UTC' } : options;
+      timezoneFormatters[timezone] = new Intl.DateTimeFormat(locale, opts);
+    }
+    return timezoneFormatters[timezone].format(date);
+  };
+};
+
+export const formatSelectedDate = createFormatter({
   day: '2-digit',
   month: 'short',
   year: 'numeric',
 });
 
-export const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
+export const formatWeekday = createFormatter({ weekday: 'short' });
 
-export const selectedDateTimeFormatter = new Intl.DateTimeFormat(locale, {
+export const formatSelectedDateTime = createFormatter({
   day: '2-digit',
   month: 'short',
   hour: '2-digit',
   minute: '2-digit',
 });
 
-export const selectedDateTimeFormatterWithSeconds = new Intl.DateTimeFormat(locale, {
+export const formatSelectedDateTimeWithSeconds = createFormatter({
   day: '2-digit',
   month: 'short',
   hour: '2-digit',
@@ -42,20 +56,30 @@ export const selectedDateTimeFormatterWithSeconds = new Intl.DateTimeFormat(loca
   second: '2-digit',
 });
 
-export const selectedDateTimeDateFormatter = new Intl.DateTimeFormat(locale, {
-  day: '2-digit',
-  month: 'short',
-});
-
-export const timeFormatter = new Intl.DateTimeFormat(locale, {
-  hour: '2-digit',
-  minute: '2-digit',
-});
-
-export const headerDateFormatter = new Intl.DateTimeFormat(locale, {
+export const formatDateHeader = createFormatter({
   month: 'short',
   year: 'numeric',
 });
+
+// In UTC mode, shift by the host offset so local-time getters return UTC
+// values. shiftFromTimezone reverses it.
+//
+// Caveat: round-tripping across a DST boundary drifts by an hour — each
+// direction reads getTimezoneOffset on its own input. Call sites don't
+// round-trip the same Date, so this hasn't bitten us.
+export const shiftToTimezone = (date: Date, timezone: Timezone): Date => {
+  if (timezone !== 'UTC') {
+    return date;
+  }
+  return new Date(date.getTime() + date.getTimezoneOffset() * 60_000);
+};
+
+export const shiftFromTimezone = (date: Date, timezone: Timezone): Date => {
+  if (timezone !== 'UTC') {
+    return date;
+  }
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
+};
 
 export const getPredefinedMonthsForDateRangePicker = (
   numberOfMonths: number
@@ -166,13 +190,17 @@ export const datesAreWithinMaxRange = (
   return daysDifference <= maxRangeLength;
 };
 
-export const isDateRangeTheWholeMonth = ({ startDate, endDate }: DateRange): boolean => {
-  if (startDate.getMonth() !== endDate.getMonth()) {
+export const isDateRangeTheWholeMonth = (
+  { startDate, endDate }: DateRange,
+  timezone: Timezone = 'system'
+): boolean => {
+  const start = timezone === 'UTC' ? dayjs.utc(startDate) : dayjs(startDate);
+  const end = timezone === 'UTC' ? dayjs.utc(endDate) : dayjs(endDate);
+
+  if (start.month() !== end.month()) {
     return false;
   }
 
-  const start = dayjs(startDate);
-  const end = dayjs(endDate);
   const startDateIsFirstDay = start.isSame(start.startOf('month'), 'day');
   const endDateIsLastDay = end.isSame(end.endOf('month'), 'day');
 
