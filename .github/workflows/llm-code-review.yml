@@ -1,13 +1,16 @@
 name: 🥷 Code Review (LLM)
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  issue_comment:
+    types: [created]
 
 jobs:
   code-review:
     name: Claude Code Review
-    if: github.event.sender.type != 'Bot'
+    if: |
+      github.event.issue.pull_request &&
+      github.event.sender.type != 'Bot' &&
+      contains(github.event.comment.body, '@claude review')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,9 +33,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             REPO: ${{ github.repository }}
-            PR NUMBER: ${{ github.event.pull_request.number }}
-            PR TITLE: ${{ github.event.pull_request.title }}
-            PR AUTHOR: ${{ github.event.pull_request.user.login }}
+            PR NUMBER: ${{ github.event.issue.number }}
+            PR TITLE: ${{ github.event.issue.title }}
+            PR AUTHOR: ${{ github.event.issue.user.login }}
 
             You're reviewing a pull request for a **component library**.
             Please use the project's `.llm/CONVENTIONS.md`, `.llm/SECURITY.md`, CHANGELOG.md as your guide and focus on
