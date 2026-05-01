@@ -317,7 +317,7 @@ export const DateRangePicker = ({
   placeholder = 'start date – end date',
   predefinedDatesList,
   responsivePositioning = true,
-  timezone = 'local',
+  timezone = 'system',
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();

@@ -1,6 +1,6 @@
 import { dayjs } from '@/utils/date';
 
-export type Timezone = 'local' | 'UTC';
+export type Timezone = 'system' | 'UTC';
 
 export interface DateRange {
   startDate: Date;
@@ -192,7 +192,7 @@ export const datesAreWithinMaxRange = (
 
 export const isDateRangeTheWholeMonth = (
   { startDate, endDate }: DateRange,
-  timezone: Timezone = 'local'
+  timezone: Timezone = 'system'
 ): boolean => {
   const start = timezone === 'UTC' ? dayjs.utc(startDate) : dayjs(startDate);
   const end = timezone === 'UTC' ? dayjs.utc(endDate) : dayjs(endDate);

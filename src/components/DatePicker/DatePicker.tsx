@@ -214,7 +214,7 @@ export const DatePicker = ({
   futureDatesDisabled = false,
   onSelectDate,
   placeholder,
-  timezone = 'local',
+  timezone = 'system',
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>();

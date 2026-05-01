@@ -100,7 +100,7 @@ export const PredefinedDatesScrollable: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
     const startDate = args.startDate ? new Date(args.startDate) : undefined;
-    const now = dayjs();
+    const now = dayjs('2026-05-01T12:00:00Z');
     const predefinedTimesList: DateRangeListItem[] = [
       {
         dateRange: {
@@ -245,7 +245,9 @@ export const SetStartAndEndDate: Story = {
     predefinedTimesList: [],
   },
   render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : new Date();
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('2026-05-01T12:00:00Z');
     const startDate = args.startDate
       ? new Date(args.startDate)
       : new Date(endDate.getTime() - 3600);
@@ -281,8 +283,10 @@ export const TimezoneLocalVsUTC: Story = {
   render: (args: Args) => {
     const startDate = args.startDate
       ? new Date(args.startDate)
-      : dayjs().subtract(6, 'hour').toDate();
-    const endDate = args.endDate ? new Date(args.endDate) : dayjs().toDate();
+      : dayjs('2026-05-01T12:00:00Z').subtract(6, 'hour').toDate();
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('2026-05-01T12:00:00Z');
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -298,7 +302,7 @@ export const TimezoneLocalVsUTC: Story = {
               )
             }
             startDate={startDate}
-            timezone="local"
+            timezone="system"
           />
         </div>
         <div>

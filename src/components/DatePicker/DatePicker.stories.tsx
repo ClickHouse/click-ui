@@ -63,13 +63,13 @@ export const TimezoneLocalVsUTC = {
     const date = args.date ? new Date(args.date) : new Date('2026-04-30T01:00:00Z');
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <Text>For local tz date {dayjs(date).format('YYYY/DD/MM HH:mm')}</Text>
+        <Text>For system tz date {dayjs(date).format('YYYY/DD/MM HH:mm')}</Text>
         <div>
-          <Text>local</Text>
+          <Text>system</Text>
           <DatePicker
             date={date}
-            onSelectDate={date => console.log('local selected:', date.toISOString())}
-            timezone="local"
+            onSelectDate={date => console.log('system selected:', date.toISOString())}
+            timezone="system"
           />
         </div>
         <div>

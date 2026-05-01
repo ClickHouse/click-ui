@@ -104,8 +104,8 @@ describe('DatePicker utils', () => {
     describe('when running in local mode', () => {
       it('passes the date through unchanged in both directions', () => {
         const date = new Date('2026-04-30T01:00:00Z');
-        expect(shiftToTimezone(date, 'local')).toBe(date);
-        expect(shiftFromTimezone(date, 'local')).toBe(date);
+        expect(shiftToTimezone(date, 'system')).toBe(date);
+        expect(shiftFromTimezone(date, 'system')).toBe(date);
       });
     });
 

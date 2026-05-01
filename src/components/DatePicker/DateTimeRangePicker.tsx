@@ -770,7 +770,7 @@ export const DateTimeRangePicker = ({
   predefinedTimesList,
   shouldShowSeconds,
   startDate,
-  timezone = 'local',
+  timezone = 'system',
 }: DateTimeRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedStartDate, setSelectedStartDate] = useState<Date>();

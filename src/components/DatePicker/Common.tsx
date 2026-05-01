@@ -101,7 +101,7 @@ export const DatePickerInput = ({
   partialYear,
   placeholder,
   selectedDate,
-  timezone = 'local',
+  timezone = 'system',
 }: DatePickerInputProps) => {
   const defaultId = useId();
   const formattedSelectedDate = formatPartialDate(
@@ -148,7 +148,7 @@ export const DateRangePickerInput = ({
   placeholder,
   selectedEndDate,
   selectedStartDate,
-  timezone = 'local',
+  timezone = 'system',
 }: DateRangePickerInputProps) => {
   const defaultId = useId();
 
@@ -222,7 +222,7 @@ export const DateTimeRangePickerInput = ({
   selectedEndDate,
   selectedStartDate,
   shouldShowSeconds,
-  timezone = 'local',
+  timezone = 'system',
 }: DateTimeRangePickerInputProps) => {
   const defaultId = useId();
 
@@ -595,7 +595,7 @@ export const CalendarRenderer = ({
   onYearSelect,
   onMonthSelect,
   selectedDate,
-  timezone = 'local',
+  timezone = 'system',
   ...props
 }: CalendarRendererProps) => {
   // useCalendar reads dates as local; shiftToTimezone is a no-op in local mode.
@@ -796,7 +796,7 @@ export const CalendarRenderer = ({
     }
 
     // headerDate already has the right month/year in its local fields.
-    return formatDateHeader('local', headerDate);
+    return formatDateHeader('system', headerDate);
   };
 
   const renderMonthsGrid = () => {
@@ -929,7 +929,7 @@ export const CalendarRenderer = ({
             {headers.weekDays.map(({ key, value: date }) => {
               return (
                 <DateTableHeader key={key}>
-                  {formatWeekday('local', date)}
+                  {formatWeekday('system', date)}
                 </DateTableHeader>
               );
             })}

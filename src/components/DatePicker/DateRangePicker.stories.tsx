@@ -192,21 +192,21 @@ export const TimezoneLocalVsUTC: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
           <Text>
-            For local tz start date {dayjs(startDate).format('YYYY/DD/MM HH:mm')} and end
+            For system tz start date {dayjs(startDate).format('YYYY/DD/MM HH:mm')} and end
             date {dayjs(endDate).format('YYYY/DD/MM HH:mm')}
           </Text>
-          <Text>local</Text>
+          <Text>system</Text>
           <DateRangePicker
             endDate={endDate}
             onSelectDateRange={(startDate, endDate) =>
               console.log(
-                'local selected:',
+                'system selected:',
                 startDate.toISOString(),
                 endDate.toISOString()
               )
             }
             startDate={startDate}
-            timezone="local"
+            timezone="system"
           />
         </div>
         <div>

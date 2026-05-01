@@ -2,9 +2,13 @@
 '@clickhouse/click-ui': minor
 ---
 
-Adds `timezone` field to `DatePicker`, `DateRangePicker` and `DateTimeRangePicker`, allowing the user to configure whether to display dates in local or utc.
+Adds `timezone` field to `DatePicker`, `DateRangePicker` and `DateTimeRangePicker`, allowing the user to configure whether to display dates in system (local) or utc.
 
-Defaults to `local`
+```ts
+type Timezone = 'system' | 'UTC'
+````
+
+Defaults to `system`
 
 ### Usage
 
@@ -12,7 +16,7 @@ Defaults to `local`
 ```ts
 <DatePicker
   onSelectDate={handleDateSelect}
-  timezone="local"
+  timezone="system"
 />
 
 ```
@@ -35,6 +39,6 @@ Defaults to `local`
   endDate={endDate}
   onSelectDateRange={handleDateRangeSelected}
   startDate={startDate}
-  timezone="local"
+  timezone="system"
 />
 ```
