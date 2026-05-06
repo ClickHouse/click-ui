@@ -225,6 +225,29 @@ export const TimezoneLocalVsUTC: Story = {
   },
 };
 
+export const DisabledPastDatesBugCheck: Story = {
+  args: {
+    maxRangeLength: 31,
+  },
+  render: (args: Args) => {
+    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(6);
+
+    const startOfMonth = new Date('May 1, 2026');
+    const endOfMonth = new Date('May 31, 2026');
+
+    return (
+      <DateRangePicker
+        startDate={startOfMonth}
+        endDate={endOfMonth}
+        maxRangeLength={args.maxRangeLength}
+        futureStartDatesDisabled={true}
+        predefinedDatesList={predefinedDatesList}
+        onSelectDateRange={args.onSelectDateRange}
+      />
+    );
+  },
+};
+
 export const PredefinedDatesScrollable: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;
