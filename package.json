@@ -1,6 +1,6 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "v0.2.0-rc.8",
+  "version": "v0.2.1-rc.8",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
