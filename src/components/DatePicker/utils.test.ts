@@ -8,7 +8,7 @@ import {
 } from './utils';
 
 describe('DatePicker utils', () => {
-  describe('checking if two dates are fall within a range', () => {
+  describe('checking if two dates fall within a range', () => {
     it('returns true if the two dates are within the range', () => {
       const startDate = new Date('07-01-2025');
       const endDate = new Date('07-08-2025');

@@ -175,6 +175,51 @@ describe('DateRangePicker', () => {
     });
   });
 
+  describe('when a range is already selected and maxRangeLength is set', () => {
+    it('allows starting a new range from a date earlier than the current start, even if outside the max range window', async () => {
+      const startDate = new Date('07-25-2020');
+      const endDate = new Date('07-30-2020');
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, findByText } = renderCUI(
+        <DateRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          onSelectDateRange={handleSelectDate}
+          maxRangeLength={5}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      // Jul 11 is 14 days before startDate (outside maxRange=5) and earlier than startDate.
+      await userEvent.click(await findByText('11'));
+
+      // Click resets the range; input should reflect the new start with no end.
+      const inputText = getByTestId('daterangepicker-input').textContent ?? '';
+      expect(inputText).toContain('Jul 11, 2020');
+      expect(inputText).toContain('end date');
+    });
+
+    it('still blocks dates after the start that fall outside the max range window', async () => {
+      const startDate = new Date('07-04-2020');
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, findByText } = renderCUI(
+        <DateRangePicker
+          startDate={startDate}
+          onSelectDateRange={handleSelectDate}
+          maxRangeLength={5}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      // Jul 25 is 21 days after startDate, outside maxRange=5.
+      await userEvent.click(await findByText('25'));
+
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+  });
+
   describe('predefined date ranges', () => {
     beforeEach(() => {
       vi.setSystemTime(new Date('07-04-2020'));

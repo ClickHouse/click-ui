@@ -141,7 +141,8 @@ const Calendar = ({
           if (
             maxRangeLength > 1 &&
             shiftedStart &&
-            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
+            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength) &&
+            fullDate > shiftedStart
           ) {
             isDisabled = true;
           }
