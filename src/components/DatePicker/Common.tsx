@@ -15,6 +15,7 @@ import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Text';
 import {
+  dateRangeIsValid,
   formatDateHeader,
   formatSelectedDate,
   formatSelectedDateTime,
@@ -44,13 +45,18 @@ const yearsOffset = Math.floor(totalYears / 2);
 const HighlightedInputWrapper = styled(InputWrapper)<{
   $isActive: boolean;
   $width?: string;
+  error?: boolean;
 }>`
-  ${({ $isActive, $width, theme }) => {
-    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-      $isActive
-        ? theme.click.datePicker.dateOption.color.stroke.active
-        : theme.click.field.color.stroke.default
-    };
+  ${({ $isActive, $width, error, theme }) => {
+    let borderColor = $isActive
+      ? theme.click.datePicker.dateOption.color.stroke.active
+      : theme.click.field.color.stroke.default;
+
+    if (error) {
+      borderColor = theme.click.field.color.stroke.error;
+    }
+
+    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${borderColor};
     width: ${$width ? $width : explicitWidth};
     ${$width && `min-width: ${explicitWidth};`}
     `;
@@ -281,12 +287,21 @@ export const DateTimeRangePickerInput = ({
     );
   }
 
+  const startDateIsAfterEndDate =
+    selectedStartDate &&
+    selectedEndDate &&
+    !dateRangeIsValid({
+      startDate: selectedStartDate,
+      endDate: selectedEndDate,
+    });
+
   return (
     <HighlightedInputWrapper
       $isActive={isActive}
-      disabled={disabled}
-      id={id ?? defaultId}
       $width="max-content"
+      disabled={disabled}
+      error={startDateIsAfterEndDate}
+      id={id ?? defaultId}
     >
       <InputStartContent>
         <Icon name="calendar" />

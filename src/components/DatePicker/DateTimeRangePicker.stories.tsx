@@ -321,6 +321,41 @@ export const TimezoneLocalVsUTC: Story = {
   },
 };
 
+export const DontFireIfInvalid: Story = {
+  args: {
+    maxRangeLength: 15,
+    predefinedTimesList: [],
+    shouldShowSeconds: true,
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('2026-05-01T12:00:00Z');
+    const startDate = args.startDate
+      ? new Date(args.startDate)
+      : new Date(endDate.getTime() - 3600);
+
+    const futureDatesDisabled = args.futureDatesDisabled ?? true;
+
+    return (
+      <DateTimeRangePicker
+        key="default"
+        defaultActiveTab="endDate"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+        shouldFireIfInvalid={false}
+        shouldShowSeconds={args.shouldShowSeconds}
+      />
+    );
+  },
+};
+
 export const DefaultActiveTabEndDate: Story = {
   args: {
     maxRangeLength: 15,

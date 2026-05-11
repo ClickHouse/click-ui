@@ -29,12 +29,14 @@ import {
   Meridiem,
   Timezone,
   shiftToTimezone,
+  dateRangeIsValid,
 } from './utils';
 import { dayjs, Dayjs } from '@/utils/date';
 import { Tabs } from '../Tabs/Tabs';
 import { TextField } from '@/components/TextField';
 import { ButtonGroup } from '../ButtonGroup/ButtonGroup';
 import { Label } from '../Label/Label';
+import { Text } from '../Text';
 
 const calendarFullWidth = '258px';
 
@@ -64,10 +66,18 @@ const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>
   top: 0;
 `;
 
+const NoOverflowDropdownContent = styled(Dropdown.Content)`
+  overflow-y: hidden;
+`;
+
 // Height of 221px is height the height the calendar needs to match the PredefinedTimesContainer
 const StyledCalendarRenderer = styled(CalendarRenderer)`
   border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
   min-height: 221px;
+`;
+
+const BottomPaddingTabs = styled(Tabs)`
+  padding-bottom: ${({ theme }) => `${theme.sizes[3]};`};
 `;
 
 const StyledTriggerList = styled(Tabs.TriggersList)`
@@ -549,14 +559,15 @@ const TimeInput = ({ date, setDate, shouldShowSeconds, timezone }: TimeInputProp
       padding="xs"
       maxWidth={`${calendarFullWidth}`}
       orientation="horizontal"
+      justifyContent="end"
     >
-      <Container maxWidth="10%">
+      <Container maxWidth="8%">
         <Label htmlFor="date-time-picker-time-input">Time</Label>
       </Container>
       <Container
-        gap="md"
         justifyContent="space-evenly"
         orientation="horizontal"
+        maxWidth="85%"
       >
         <Container
           maxWidth="45%"
@@ -664,8 +675,11 @@ const TabbedCalendar = ({
     endDateCalendarOptions.defaultDate = endDate;
   }
 
+  const startDateIsAfterEndDate =
+    startDate && endDate && !dateRangeIsValid({ startDate, endDate });
+
   return (
-    <Tabs
+    <BottomPaddingTabs
       onValueChange={handleTabChange}
       value={activeTab}
     >
@@ -735,7 +749,16 @@ const TabbedCalendar = ({
           timezone={timezone}
         />
       </Tabs.Content>
-    </Tabs>
+      {startDateIsAfterEndDate && (
+        <Text
+          align="center"
+          color="danger"
+          fillWidth
+        >
+          End date and time must be after start
+        </Text>
+      )}
+    </BottomPaddingTabs>
   );
 };
 
@@ -751,6 +774,7 @@ export interface DateTimeRangePickerProps {
   placeholder?: string;
   predefinedTimesList?: DateRangeListItem[];
   maxRangeLength?: number;
+  shouldFireIfInvalid?: boolean;
   shouldShowSeconds?: boolean;
   startDate?: Date;
   timezone?: Timezone;
@@ -768,6 +792,7 @@ export const DateTimeRangePicker = ({
   openDirection = 'right',
   placeholder = 'start date – end date',
   predefinedTimesList,
+  shouldFireIfInvalid = true,
   shouldShowSeconds,
   startDate,
   timezone = 'system',
@@ -870,6 +895,13 @@ export const DateTimeRangePicker = ({
         setSelectedStartDate(selectedDate);
 
         if (selectedEndDate) {
+          if (
+            !shouldFireIfInvalid &&
+            !dateRangeIsValid({ startDate: selectedDate, endDate: selectedEndDate })
+          ) {
+            return;
+          }
+
           onSelectDateRange(selectedDate, selectedEndDate);
 
           if (closeOnDateRangeSelected) {
@@ -882,6 +914,13 @@ export const DateTimeRangePicker = ({
         setSelectedEndDate(selectedDate);
 
         if (selectedStartDate) {
+          if (
+            !shouldFireIfInvalid &&
+            !dateRangeIsValid({ startDate: selectedStartDate, endDate: selectedDate })
+          ) {
+            return;
+          }
+
           onSelectDateRange(selectedStartDate, selectedDate);
 
           if (closeOnDateRangeSelected) {
@@ -896,6 +935,7 @@ export const DateTimeRangePicker = ({
       onSelectDateRange,
       selectedEndDate,
       selectedStartDate,
+      shouldFireIfInvalid,
       timezone,
     ]
   );
@@ -930,7 +970,7 @@ export const DateTimeRangePicker = ({
           timezone={timezone}
         />
       </Dropdown.Trigger>
-      <Dropdown.Content align="start">
+      <NoOverflowDropdownContent align="start">
         <Container orientation="horizontal">
           {shouldShowPredefinedTimes ? (
             <PredefinedCalendarContainer
@@ -988,7 +1028,7 @@ export const DateTimeRangePicker = ({
             </>
           )}
         </Container>
-      </Dropdown.Content>
+      </NoOverflowDropdownContent>
     </Dropdown>
   );
 };

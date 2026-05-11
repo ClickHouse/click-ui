@@ -1,4 +1,6 @@
 import {
+  DateRange,
+  dateRangeIsValid,
   datesAreWithinMaxRange,
   formatSelectedDate,
   formatSelectedDateTime,
@@ -89,7 +91,7 @@ describe('DatePicker utils', () => {
   });
 
   describe('formatting dates in UTC mode', () => {
-    it('renders the calendar day from the UTC fields of the instant', () => {
+    it('renders the calendar day from the UTC fields of the date', () => {
       const date = new Date('2026-04-30T01:00:00Z');
       expect(formatSelectedDate('UTC', date)).toBe('Apr 30, 2026');
     });
@@ -100,7 +102,104 @@ describe('DatePicker utils', () => {
     });
   });
 
-  describe('translating an instant for the calendar grid', () => {
+  describe('validating a date range', () => {
+    it('rejects a range with no start date', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: undefined as unknown as Date,
+          endDate: new Date('2026-04-30'),
+        })
+      ).toBe(false);
+    });
+
+    it('rejects a range with no end date', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date('2026-04-01'),
+          endDate: undefined as unknown as Date,
+        })
+      ).toBe(false);
+    });
+
+    it('rejects a null date range', () => {
+      expect(dateRangeIsValid(null as unknown as DateRange)).toBe(false);
+    });
+
+    it('rejects a start date that is a date-shaped string', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: '2026-04-01' as unknown as Date,
+          endDate: new Date('2026-04-30'),
+        })
+      ).toBe(false);
+    });
+
+    it('rejects an end date that is a date-shaped string', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date('2026-04-01'),
+          endDate: '2026-04-30' as unknown as Date,
+        })
+      ).toBe(false);
+    });
+
+    it('rejects a start date that is a Date holding NaN', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date('not-a-date'),
+          endDate: new Date('2026-04-30'),
+        })
+      ).toBe(false);
+    });
+
+    it('rejects an end date that is a Date holding NaN', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date('2026-04-01'),
+          endDate: new Date('not-a-date'),
+        })
+      ).toBe(false);
+    });
+
+    it('rejects a range whose start date is after its end date', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date('2026-04-30'),
+          endDate: new Date('2026-04-01'),
+        })
+      ).toBe(false);
+    });
+
+    it('accepts a range spanning multiple days', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date('2026-04-01'),
+          endDate: new Date('2026-04-30'),
+        })
+      ).toBe(true);
+    });
+
+    it('accepts a range where start and end are the same date', () => {
+      const date = new Date('2026-04-15T12:00:00Z');
+      expect(
+        dateRangeIsValid({
+          startDate: date,
+          endDate: new Date(date.getTime()),
+        })
+      ).toBe(true);
+    });
+
+    it('accepts a range starting at the unix epoch', () => {
+      expect(
+        dateRangeIsValid({
+          startDate: new Date(0),
+          endDate: new Date('2026-04-30'),
+        })
+      ).toBe(true);
+    });
+  });
+
+  describe('translating an date for the calendar grid', () => {
     describe('when running in local mode', () => {
       it('passes the date through unchanged in both directions', () => {
         const date = new Date('2026-04-30T01:00:00Z');
@@ -119,7 +218,7 @@ describe('DatePicker utils', () => {
         offsetSpy.mockRestore();
       });
 
-      it('shifts the instant forward by the host offset so local-time getters yield UTC values', () => {
+      it('shifts the date forward by the host offset so local-time getters yield UTC values', () => {
         const original = new Date('2026-04-30T01:00:00Z');
         const shifted = shiftToTimezone(original, 'UTC');
         expect(shifted.getTime() - original.getTime()).toBe(420 * 60_000);
