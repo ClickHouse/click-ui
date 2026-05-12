@@ -749,6 +749,275 @@ describe('DateTimeRangePicker', () => {
     });
   });
 
+  describe('not firing onSelectedDate on invalid date ranges', () => {
+    beforeEach(() => {
+      vi.setSystemTime(new Date('07-10-2020 11:30 AM'));
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    describe('when shouldFireIfInvalid is true', () => {
+      it('fires the callback when a new end date lands before the existing start date', async () => {
+        const handleSelectDate = vi.fn();
+        const startDate = new Date('07-10-2020 12:00');
+        const endDate = new Date('07-15-2020 12:00');
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            defaultActiveTab="endDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('5'));
+
+        expect(handleSelectDate).toHaveBeenCalledOnce();
+      });
+
+      it('fires the callback when a new start date lands after the existing end date', async () => {
+        const handleSelectDate = vi.fn();
+        const startDate = new Date('07-10-2020 12:00');
+        const endDate = new Date('07-15-2020 12:00');
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            defaultActiveTab="startDate"
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('20'));
+
+        expect(handleSelectDate).toHaveBeenCalledOnce();
+      });
+    });
+
+    describe('when shouldFireIfInvalid is false', () => {
+      it('does not fire the callback when a new end date lands before the existing start date', async () => {
+        const handleSelectDate = vi.fn();
+        const startDate = new Date('07-10-2020 12:00');
+        const endDate = new Date('07-15-2020 12:00');
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            defaultActiveTab="endDate"
+            shouldFireIfInvalid={false}
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('5'));
+
+        expect(handleSelectDate).not.toHaveBeenCalled();
+      });
+
+      it('does not fire the callback when a new start date lands after the existing end date', async () => {
+        const handleSelectDate = vi.fn();
+        const startDate = new Date('07-10-2020 12:00');
+        const endDate = new Date('07-15-2020 12:00');
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            defaultActiveTab="startDate"
+            shouldFireIfInvalid={false}
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('20'));
+
+        expect(handleSelectDate).not.toHaveBeenCalled();
+      });
+
+      it('reflects the invalid selection in the input even though the callback is suppressed', async () => {
+        const handleSelectDate = vi.fn();
+        const startDate = new Date('07-10-2020 12:00');
+        const endDate = new Date('07-15-2020 12:00');
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            defaultActiveTab="endDate"
+            shouldFireIfInvalid={false}
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('5'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 10, 12:00 pm – Jul 05, 12:00 pm'
+        );
+      });
+
+      it('fires the callback once the range returns to a valid state', async () => {
+        const handleSelectDate = vi.fn();
+        const startDate = new Date('07-10-2020 12:00');
+        const endDate = new Date('07-15-2020 12:00');
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            defaultActiveTab="endDate"
+            shouldFireIfInvalid={false}
+            onSelectDateRange={handleSelectDate}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('5'));
+        expect(handleSelectDate).not.toHaveBeenCalled();
+
+        await userEvent.click(getByText('20'));
+        expect(handleSelectDate).toHaveBeenCalledOnce();
+      });
+    });
+  });
+
+  describe('showing a validation message', () => {
+    beforeEach(() => {
+      vi.setSystemTime(new Date('07-10-2020 11:30 AM'));
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('displays the message when an out-of-order range is provided via props', async () => {
+      const startDate = new Date('07-15-2020 12:00');
+      const endDate = new Date('07-10-2020 12:00');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(getByText('End date and time must be after start')).toBeVisible();
+    });
+
+    it('shows no message when the range is in order', async () => {
+      const startDate = new Date('07-10-2020 12:00');
+      const endDate = new Date('07-15-2020 12:00');
+
+      const { getByTestId, queryByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(
+        queryByText('End date and time must be after start')
+      ).not.toBeInTheDocument();
+    });
+
+    it('omits the message when only one endpoint is set', async () => {
+      const { getByTestId, queryByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={new Date('07-15-2020 12:00')}
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(
+        queryByText('End date and time must be after start')
+      ).not.toBeInTheDocument();
+    });
+
+    it('appears after a user selection creates an out-of-order range', async () => {
+      const startDate = new Date('07-10-2020 12:00');
+      const endDate = new Date('07-15-2020 12:00');
+
+      const { getByTestId, getByText, queryByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          defaultActiveTab="endDate"
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      expect(
+        queryByText('End date and time must be after start')
+      ).not.toBeInTheDocument();
+
+      await userEvent.click(getByText('5'));
+
+      expect(getByText('End date and time must be after start')).toBeVisible();
+    });
+
+    it('disappears once the user corrects the range', async () => {
+      const startDate = new Date('07-15-2020 12:00');
+      const endDate = new Date('07-10-2020 12:00');
+
+      const { getByTestId, getByText, queryByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          defaultActiveTab="endDate"
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      expect(getByText('End date and time must be after start')).toBeVisible();
+
+      await userEvent.click(getByText('25'));
+
+      expect(
+        queryByText('End date and time must be after start')
+      ).not.toBeInTheDocument();
+    });
+
+    it('remains visible after switching between the start and end tabs', async () => {
+      const startDate = new Date('07-15-2020 12:00');
+      const endDate = new Date('07-10-2020 12:00');
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          endDate={endDate}
+          defaultActiveTab="startDate"
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      expect(getByText('End date and time must be after start')).toBeVisible();
+
+      await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+      expect(getByText('End date and time must be after start')).toBeVisible();
+    });
+  });
+
   describe('predefined times', () => {
     beforeEach(() => {
       vi.setSystemTime(new Date('07-04-2020 11:30 AM'));

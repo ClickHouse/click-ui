@@ -206,3 +206,23 @@ export const isDateRangeTheWholeMonth = (
 
   return startDateIsFirstDay && endDateIsLastDay;
 };
+
+export const dateRangeIsValid = (dateRange: DateRange): boolean => {
+  if (!dateRange?.startDate || !dateRange?.endDate) {
+    return false;
+  }
+
+  if (!(dateRange.startDate instanceof Date) || !dayjs(dateRange.startDate).isValid()) {
+    return false;
+  }
+
+  if (!(dateRange.endDate instanceof Date) || !dayjs(dateRange.endDate).isValid()) {
+    return false;
+  }
+
+  if (dateRange.startDate.getTime() > dateRange.endDate.getTime()) {
+    return false;
+  }
+
+  return true;
+};
