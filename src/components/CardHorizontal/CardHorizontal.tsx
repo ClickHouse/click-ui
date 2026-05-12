@@ -3,7 +3,12 @@ import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
-import { CardHorizontalProps, CardSize, CardColor } from './CardHorizontal.types';
+import {
+  CardHorizontalProps,
+  CardSize,
+  CardColor,
+  CardAlignment,
+} from './CardHorizontal.types';
 
 const Header = styled.div`
   max-width: 100%;
@@ -26,11 +31,13 @@ const Wrapper = styled.div<{
   $isSelectable?: boolean;
   $color: CardColor;
   $size?: CardSize;
+  $alignment: CardAlignment;
 }>`
   display: inline-flex;
   width: 100%;
   max-width: 100%;
-  align-items: center;
+  align-items: ${({ $alignment }) => ($alignment === 'top' ? 'flex-start' : 'center')};
+  align-self: ${({ $alignment }) => ($alignment === 'top' ? 'stretch' : 'auto')};
   justify-content: flex-start;
 
   ${({ theme, $color, $size, $isSelected, $isSelectable, $disabled }) => `
@@ -165,10 +172,10 @@ const ContentWrapper = styled.div<{ $size: CardSize }>`
   }
 `;
 
-const IconTextContentWrapper = styled.div<{ $size: CardSize }>`
+const IconTextContentWrapper = styled.div<{ $size: CardSize; $alignment: CardAlignment }>`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: ${({ $alignment }) => ($alignment === 'top' ? 'flex-start' : 'center')};
   width: 100%;
   gap: ${({ theme, $size }) =>
     $size === 'md'
@@ -188,6 +195,7 @@ export const CardHorizontal = ({
   children,
   color = 'default',
   size = 'md',
+  alignment = 'center',
   badgeText,
   badgeState,
   badgeIcon,
@@ -215,13 +223,17 @@ export const CardHorizontal = ({
       $isSelectable={isSelectable}
       $color={color}
       $size={size}
+      $alignment={alignment}
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
       onClick={handleClick}
       {...props}
     >
       <ContentWrapper $size={size}>
-        <IconTextContentWrapper $size={size}>
+        <IconTextContentWrapper
+          $size={size}
+          $alignment={alignment}
+        >
           {icon && (
             <CardIcon
               name={icon}

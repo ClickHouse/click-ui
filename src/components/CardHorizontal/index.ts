@@ -1,2 +1,6 @@
 export { CardHorizontal } from './CardHorizontal';
-export type { CardSize, CardHorizontalProps } from './CardHorizontal.types';
+export type {
+  CardSize,
+  CardAlignment,
+  CardHorizontalProps,
+} from './CardHorizontal.types';

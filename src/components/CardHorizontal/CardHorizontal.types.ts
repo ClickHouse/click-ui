@@ -4,6 +4,7 @@ import type { BadgeState } from '@/components/Badge';
 
 export type CardColor = 'default' | 'muted';
 export type CardSize = 'sm' | 'md';
+export type CardAlignment = 'center' | 'top';
 
 export interface CardHorizontalProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -28,4 +29,5 @@ export interface CardHorizontalProps extends Omit<
   badgeIconDir?: 'start' | 'end';
   onClick?: MouseEventHandler<HTMLDivElement>;
   onButtonClick?: MouseEventHandler<HTMLElement>;
+  alignment?: CardAlignment;
 }
