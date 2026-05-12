@@ -64,7 +64,7 @@ export { CardHorizontal } from './components/CardHorizontal';
 export { CardPrimary } from './components/CardPrimary';
 export { CardPromotion } from './components/CardPromotion';
 export { CardSecondary } from './components/CardSecondary';
-export type { CardHorizontalProps } from './components/CardHorizontal';
+export type { CardHorizontalProps, CardAlignment } from './components/CardHorizontal';
 export type { CardPrimaryProps } from './components/CardPrimary';
 export type { CardPromotionProps } from './components/CardPromotion';
 export type { BadgeState, CardSecondaryProps } from './components/CardSecondary';

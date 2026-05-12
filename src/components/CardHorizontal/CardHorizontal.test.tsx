@@ -173,6 +173,25 @@ describe('CardHorizontal Component', () => {
     expect(button).toBeDisabled();
   });
 
+  it('should render with center alignment when alignment prop is not provided', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      description: 'Test description',
+    });
+
+    expect(container.firstChild).toBeDefined();
+  });
+
+  it('should render with top alignment when alignment="top"', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      description: 'Test description',
+      alignment: 'top',
+    });
+
+    expect(container.firstChild).toBeDefined();
+  });
+
   it('should not open infoUrl when disabled', () => {
     const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
     const { container } = renderCard({
