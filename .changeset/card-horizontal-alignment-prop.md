@@ -1,5 +1,5 @@
 ---
-"@clickhouse/click-ui": patch
+"@clickhouse/click-ui": minor
 ---
 
 Add `alignment` prop to `CardHorizontal` to support top-aligned content
