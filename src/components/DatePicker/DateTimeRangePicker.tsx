@@ -361,7 +361,7 @@ const PredefinedTimes = ({
           justifyContent="space-between"
           orientation="horizontal"
         >
-          Since a specific date and time <Icon name="chevron-right" />
+          Custom time period <Icon name="chevron-right" />
         </Container>
       </StyledDropdownItem>
     </PredefinedTimesContainer>

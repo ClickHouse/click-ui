@@ -584,7 +584,7 @@ describe('DateTimeRangePicker', () => {
       );
 
       await userEvent.click(getByTestId('datetimepicker-input'));
-      await userEvent.click(getByText('Since a specific date and time'));
+      await userEvent.click(getByText('Custom time period'));
 
       expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
         'data-state',
@@ -1093,7 +1093,7 @@ describe('DateTimeRangePicker', () => {
       expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
 
       await userEvent.click(getByTestId('datetimepicker-input'));
-      await userEvent.click(getByText('Since a specific date and time'));
+      await userEvent.click(getByText('Custom time period'));
 
       expect(getByTestId('datepicker-calendar-container')).toBeInTheDocument();
     });
