@@ -288,7 +288,11 @@ const Calendar = ({
 };
 
 interface PredefinedTimesProps {
-  onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
+  onSelectDateRange: (
+    startDate: Date,
+    endDate: Date,
+    predefinedDateLabel?: string
+  ) => void;
   predefinedTimesList: DateRangeListItem[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
@@ -324,7 +328,7 @@ const PredefinedTimes = ({
           const handleItemClick = () => {
             setStartDate(startDate);
             setEndDate(endDate);
-            onSelectDateRange(startDate, endDate);
+            onSelectDateRange(startDate, endDate, label);
           };
 
           const rangeIsSelected =
@@ -769,7 +773,11 @@ export interface DateTimeRangePickerProps {
   endDate?: Date;
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
-  onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
+  onSelectDateRange: (
+    startDate: Date,
+    endDate: Date,
+    predefinedDateLabel?: string
+  ) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
   predefinedTimesList?: DateRangeListItem[];
