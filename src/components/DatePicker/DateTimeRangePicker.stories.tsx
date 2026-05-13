@@ -8,8 +8,14 @@ const meta: Meta<typeof DateTimeRangePicker> = {
   component: DateTimeRangePicker,
   args: {
     maxRangeLength: undefined,
-    onSelectDateRange: (startDate: Date, endDate: Date) => {
-      console.log('Date range selected: ', startDate, endDate);
+    onSelectDateRange: (startDate: Date, endDate: Date, predefinedDateLabel) => {
+      console.log(
+        'Date range selected: ',
+        startDate,
+        endDate,
+        'predefinedDateLabel: ',
+        predefinedDateLabel
+      );
     },
   },
   tags: ['autodocs'],

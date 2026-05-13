@@ -97,6 +97,46 @@ describe('DateTimeRangePicker', () => {
       expect(endDate).toEqual(new Date('2020-07-10 12:00.00'));
     });
 
+    it('omits predefinedDateLabel when selecting an end date via the calendar', async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      await userEvent.click(getByText('Start date'));
+      await userEvent.click(getByText('4'));
+
+      await userEvent.click(getByText('End date'));
+      await userEvent.click(getByText('10'));
+
+      const [, , predefinedDateLabel] = handleSelectDate.mock.lastCall ?? [];
+
+      expect(predefinedDateLabel).toBeUndefined();
+    });
+
+    it('omits predefinedDateLabel when selecting a start date via the calendar after end date is set', async () => {
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      await userEvent.click(getByTestId('tabbed-calendar-trigger-end'));
+      await userEvent.click(getByText('10'));
+
+      await userEvent.click(getByTestId('tabbed-calendar-trigger-start'));
+      await userEvent.click(getByText('4'));
+
+      const [, , predefinedDateLabel] = handleSelectDate.mock.lastCall ?? [];
+
+      expect(predefinedDateLabel).toBeUndefined();
+    });
+
     it('allows setting a new start date by clicking any date', async () => {
       const handleSelectDate = vi.fn();
 
@@ -544,7 +584,7 @@ describe('DateTimeRangePicker', () => {
       );
 
       await userEvent.click(getByTestId('datetimepicker-input'));
-      await userEvent.click(getByText('Since a specific date and time'));
+      await userEvent.click(getByText('Custom time period'));
 
       expect(getByTestId('tabbed-calendar-trigger-end')).toHaveAttribute(
         'data-state',
@@ -1053,7 +1093,7 @@ describe('DateTimeRangePicker', () => {
       expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
 
       await userEvent.click(getByTestId('datetimepicker-input'));
-      await userEvent.click(getByText('Since a specific date and time'));
+      await userEvent.click(getByText('Custom time period'));
 
       expect(getByTestId('datepicker-calendar-container')).toBeInTheDocument();
     });
@@ -1076,6 +1116,47 @@ describe('DateTimeRangePicker', () => {
       expect(getByTestId('datetimepicker-input').textContent).toBe(
         'Jul 04, 11:15 am – Jul 04, 11:30 am'
       );
+    });
+
+    it('passes the predefined label as predefinedDateLabel when a predefined time is selected', async () => {
+      const handleSelectDate = vi.fn();
+
+      const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedTimesList={predefinedTimesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      await userEvent.click(getByText('Past 15 minutes'));
+
+      const [startDate, endDate, predefinedDateLabel] =
+        handleSelectDate.mock.lastCall ?? [];
+
+      expect(startDate).toEqual(new Date('2020-07-04 11:15.00'));
+      expect(endDate).toEqual(new Date('2020-07-04 11:30.00'));
+      expect(predefinedDateLabel).toBe('Past 15 minutes');
+    });
+
+    it('passes the matching label as predefinedDateLabel for any predefined time selection', async () => {
+      const handleSelectDate = vi.fn();
+
+      const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={handleSelectDate}
+          predefinedTimesList={predefinedTimesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      await userEvent.click(getByText('Past hour'));
+
+      const [, , predefinedDateLabel] = handleSelectDate.mock.lastCall ?? [];
+
+      expect(predefinedDateLabel).toBe('Past hour');
     });
   });
 
