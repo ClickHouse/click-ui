@@ -1,4 +1,4 @@
-name: 📚 Storybook to Vercel
+name: Publish storybook to vercel
 
 on:
   push:
@@ -86,7 +86,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            ## 📚 Storybook Preview Deployed
+            ## Storybook Preview Deployed
 
             ✅ Preview URL: ${{ steps.deploy.outputs.url }}
 
@@ -103,9 +103,9 @@ jobs:
           if OUTPUT=$(.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
             VERSION=$(echo "$OUTPUT" | awk '{print $1}')
             RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
-            echo "🤖 Detected release commit for version $VERSION ($RELEASE_TYPE) will deploy..."
+            echo "Detected release commit for version $VERSION ($RELEASE_TYPE) will deploy..."
           else
-            echo "🦖 Skip! Commit message does not match release format"
+            echo "Skip! Commit message does not match release format"
             exit 0
           fi
 
@@ -114,4 +114,4 @@ jobs:
             --yes \
             --prod \
             --token=${{ secrets.VERCEL_TOKEN }})
-          echo "🚀 Deployed v$VERSION ($RELEASE_TYPE) to $DEPLOYMENT_URL"
+          echo "Deployed v$VERSION ($RELEASE_TYPE) to $DEPLOYMENT_URL"

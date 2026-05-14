@@ -1,4 +1,4 @@
-name: 🔔 Pull Request Slack notification
+name: Pull request Slack notification
 
 on:
   pull_request:

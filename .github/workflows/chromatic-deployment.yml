@@ -1,4 +1,4 @@
-name: 🎨 Chromatic deployment
+name: Chromatic deployment
 
 on:
   pull_request:
