@@ -1,4 +1,4 @@
-name: 🎭 Visual regression tests
+name: Visual regression tests
 
 on:
   pull_request:

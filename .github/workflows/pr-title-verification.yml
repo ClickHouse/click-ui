@@ -1,4 +1,4 @@
-name: 🍄 PR title verification
+name: PR title verification
 
 on:
   pull_request_target:
