@@ -61,6 +61,23 @@ describe('DateRangePicker', () => {
     expect(getByText('start date – end date')).toBeInTheDocument();
   });
 
+  it('opens the calendar when responsivePositioning is disabled', async () => {
+    const handleSelectDate = vi.fn();
+
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DateRangePicker
+        onSelectDateRange={handleSelectDate}
+        responsivePositioning={false}
+      />
+    );
+
+    expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+
+    await userEvent.click(getByTestId('daterangepicker-input'));
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   describe('selecting dates', () => {
     beforeAll(() => {
       vi.setSystemTime(new Date('07-04-2020'));

@@ -50,6 +50,23 @@ describe('DateTimeRangePicker', () => {
     );
   });
 
+  it('opens the calendar when responsivePositioning is disabled', async () => {
+    const handleSelectDate = vi.fn();
+
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DateTimeRangePicker
+        onSelectDateRange={handleSelectDate}
+        responsivePositioning={false}
+      />
+    );
+
+    expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+
+    await userEvent.click(getByTestId('datetimepicker-input'));
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   it('handles only passing in end date, but not start date', () => {
     const handleSelectDate = vi.fn();
     const endDate = new Date('07-05-2020');

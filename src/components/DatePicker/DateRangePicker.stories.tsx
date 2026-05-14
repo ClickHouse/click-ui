@@ -179,6 +179,30 @@ export const PredefinedDatesArbitraryDates: Story = {
   },
 };
 
+export const ResponsivePositioningDisabled: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+    const predefinedDatesList = getPredefinedMonthsForDateRangePicker(-6);
+
+    return (
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <DateRangePicker
+          key="default"
+          endDate={endDate}
+          onSelectDateRange={args.onSelectDateRange}
+          predefinedDatesList={predefinedDatesList}
+          responsivePositioning={false}
+          startDate={startDate}
+        />
+      </div>
+    );
+  },
+};
+
 export const TimezoneLocalVsUTC: Story = {
   render: (args: Args) => {
     const startDate = args.startDate

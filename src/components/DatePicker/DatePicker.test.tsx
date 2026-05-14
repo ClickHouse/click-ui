@@ -92,6 +92,23 @@ describe('DatePicker', () => {
     expect(selectedDate).toEqual(new Date('2020-07-22 00:00.00'));
   });
 
+  it('opens the calendar when responsivePositioning is disabled', async () => {
+    const handleSelectDate = vi.fn();
+
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DatePicker
+        onSelectDate={handleSelectDate}
+        responsivePositioning={false}
+      />
+    );
+
+    expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+
+    await userEvent.click(getByTestId('datepicker-input'));
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   describe('disabling dates', () => {
     // this test was throwing an error if `vi.useFakeTimers` was called outside
     // of beforeAll, so it needed to be put in here

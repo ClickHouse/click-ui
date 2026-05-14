@@ -388,3 +388,24 @@ export const DefaultActiveTabEndDate: Story = {
     );
   },
 };
+
+export const ResponsivePositioningDisabled: Story = {
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+    const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+
+    return (
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <DateTimeRangePicker
+          key="default"
+          endDate={endDate}
+          onSelectDateRange={args.onSelectDateRange}
+          predefinedTimesList={predefinedTimesList}
+          responsivePositioning={false}
+          startDate={startDate}
+        />
+      </div>
+    );
+  },
+};

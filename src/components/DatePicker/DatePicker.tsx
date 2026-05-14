@@ -204,6 +204,7 @@ export interface DatePickerProps {
   futureDatesDisabled?: boolean;
   onSelectDate: (selectedDate: Date) => void;
   placeholder?: string;
+  responsivePositioning?: boolean;
   timezone?: Timezone;
 }
 
@@ -214,6 +215,7 @@ export const DatePicker = ({
   futureDatesDisabled = false,
   onSelectDate,
   placeholder,
+  responsivePositioning = true,
   timezone = 'system',
 }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -305,6 +307,7 @@ export const DatePicker = ({
       <Popover.Portal>
         <PopoverContent
           align="start"
+          avoidCollisions={responsivePositioning}
           sideOffset={4}
         >
           <CalendarRenderer
