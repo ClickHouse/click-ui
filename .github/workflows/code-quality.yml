@@ -7,6 +7,9 @@ on:
 env:
   HUSKY: 0
 
+permissions:
+  contents: read
+
 jobs:
   code-quality-checks:
     runs-on: ubuntu-latest
