@@ -1,6 +1,33 @@
-import { useCallback, useState, forwardRef } from 'react';
-import { styled } from 'styled-components';
-import { ButtonGroupProps, ButtonGroupType, SelectionValue } from './ButtonGroup.types';
+import { forwardRef, useCallback, useState } from 'react';
+import { cn, cva } from '@/lib/cva';
+import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
+import styles from './ButtonGroup.module.css';
+
+const wrapperVariants = cva(styles.buttongroup, {
+  variants: {
+    type: {
+      default: styles['buttongroup_type_default'],
+      borderless: styles['buttongroup_type_borderless'],
+    },
+    fillWidth: {
+      true: styles['buttongroup_fillwidth'],
+    },
+  },
+  defaultVariants: { type: 'default' },
+});
+
+const buttonVariants = cva(styles.button, {
+  variants: {
+    type: {
+      default: styles['button_type_default'],
+      borderless: styles['button_type_borderless'],
+    },
+    fillWidth: {
+      true: styles['button_fillwidth'],
+    },
+  },
+  defaultVariants: { type: 'default' },
+});
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
   if (value === undefined) {
@@ -26,6 +53,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       onClick,
       type = 'default',
       multiple = false,
+      className,
       ...props
     },
     ref
@@ -68,118 +96,36 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       [currentSelection, multiple, isControlled, onClick]
     );
 
-    const buttons = options.map(({ value, label, ...buttonProps }) => {
-      const isActive = isValueSelected(value, currentSelection);
+    const buttons = options.map(
+      ({ value, label, className: optionClassName, ...buttonProps }) => {
+        const isActive = isValueSelected(value, currentSelection);
 
-      return (
-        <Button
-          key={value}
-          $active={isActive}
-          aria-pressed={isActive}
-          $fillWidth={fillWidth}
-          $type={type}
-          onClick={() => onButtonGroupClickCommonHandler(value)}
-          role="button"
-          {...buttonProps}
-        >
-          {label}
-        </Button>
-      );
-    });
+        return (
+          <button
+            key={value}
+            className={cn(buttonVariants({ type, fillWidth }), optionClassName)}
+            aria-pressed={isActive}
+            onClick={() => onButtonGroupClickCommonHandler(value)}
+            role="button"
+            {...buttonProps}
+          >
+            {label}
+          </button>
+        );
+      }
+    );
 
     return (
-      <ButtonGroupWrapper
+      <div
         ref={ref}
         {...props}
-        $fillWidth={fillWidth}
-        $type={type}
+        className={cn(wrapperVariants({ type, fillWidth }), className)}
         role="group"
       >
         {buttons}
-      </ButtonGroupWrapper>
+      </div>
     );
   }
 );
 
 ButtonGroup.displayName = 'ButtonGroup';
-
-const ButtonGroupWrapper = styled.div<{ $fillWidth: boolean; $type: ButtonGroupType }>`
-  display: inline-flex;
-  box-sizing: border-box;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: ${({ theme, $type }) =>
-    `${theme.click.button.group.space.panel[$type].x} ${theme.click.button.group.space.panel[$type].y}`};
-  gap: ${({ theme, $type }) => theme.click.button.group.space.panel[$type].gap};
-  border: ${({ theme, $type }) =>
-    $type === 'default'
-      ? `1px solid ${theme.click.button.group.color.panel.stroke[$type]}`
-      : 'none'};
-  background: ${({ theme }) => theme.click.button.group.color.background.panel};
-  border-radius: ${({ theme }) => theme.click.button.group.radii.panel.all};
-  width: ${({ $fillWidth }) => ($fillWidth ? '100%' : 'auto')};
-`;
-
-const Button = styled.button<{
-  $active: boolean;
-  $fillWidth: boolean;
-  $type: ButtonGroupType;
-}>`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background: ${({ $active, theme }) =>
-    $active
-      ? theme.click.button.group.color.background.active
-      : theme.click.button.group.color.background.default};
-  color: ${({ theme }) => theme.click.button.group.color.text.default};
-  font: ${({ theme }) => theme.click.button.group.typography.label.default};
-  padding: ${({ theme, $type }) =>
-    `${theme.click.button.group.space.button[$type].y} ${theme.click.button.group.space.button[$type].x}`};
-  ${({ $fillWidth }) => ($fillWidth ? 'flex: 1;' : '')};
-  border-radius: ${({ theme, $type }) =>
-    theme.click.button.group.radii.button[$type].all};
-  cursor: pointer;
-  border: none;
-
-  &[aria-pressed='true'] {
-    background: ${({ theme }) => theme.click.button.group.color.background.active};
-    font: ${({ theme }) => theme.click.button.group.typography.label.active};
-    color: ${({ theme }) => theme.click.button.group.color.text.active};
-  }
-
-  &:hover {
-    background: ${({ theme }) => theme.click.button.group.color.background.hover};
-    font: ${({ theme }) => theme.click.button.group.typography.label.hover};
-    color: ${({ theme }) => theme.click.button.group.color.text.hover};
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    font: ${({ theme }) => theme.click.button.group.typography.label.disabled};
-    color: ${({ theme }) => theme.click.button.group.color.text.disabled};
-    background: ${({ theme, $active }) =>
-      theme.click.button.group.color.background[
-        $active ? 'disabled-active' : 'disabled'
-      ]};
-
-    &:active,
-    &:focus,
-    &[aria-pressed='true'] {
-      color: ${({ theme }) => theme.click.button.group.color.text.disabled};
-    }
-  }
-
-  &[aria-pressed='true'] {
-    background: ${({ theme }) => theme.click.button.group.color.background.active};
-    font: ${({ theme }) => theme.click.button.group.typography.label.active};
-    color: ${({ theme }) => theme.click.button.group.color.text.active};
-    &:disabled {
-      background: ${({ theme }) =>
-        theme.click.button.group.color.background['disabled-active']};
-    }
-  }
-`;
