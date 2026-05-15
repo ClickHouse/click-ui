@@ -429,7 +429,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.60.0",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",
