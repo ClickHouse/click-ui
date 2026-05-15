@@ -15,11 +15,11 @@ services:
 
   test:
     extends: playwright
-    command: yarn test:visual
+    command: npx playwright test
 
   update-snapshots:
     extends: playwright
-    command: yarn test:visual:update
+    command: npx playwright test --update-snapshots=all
 
   ui:
     extends: playwright

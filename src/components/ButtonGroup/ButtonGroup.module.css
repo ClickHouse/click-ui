@@ -1,0 +1,85 @@
+.buttongroup {
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--click-button-group-radii-panel-all);
+  background: var(--click-button-group-color-background-panel);
+}
+
+.buttongroup_type_default {
+  padding: var(--click-button-group-space-panel-default-x)
+    var(--click-button-group-space-panel-default-y);
+  gap: var(--click-button-group-space-panel-default-gap);
+  border: 1px solid var(--click-button-group-color-panel-stroke-default);
+}
+
+.buttongroup_type_borderless {
+  padding: var(--click-button-group-space-panel-borderless-x)
+    var(--click-button-group-space-panel-borderless-y);
+  gap: var(--click-button-group-space-panel-borderless-gap);
+  border: none;
+}
+
+.buttongroup_fillwidth {
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: var(--click-button-group-color-background-default);
+  color: var(--click-button-group-color-text-default);
+  font: var(--click-button-group-typography-label-default);
+  cursor: pointer;
+}
+
+.button_type_default {
+  padding: var(--click-button-group-space-button-default-y)
+    var(--click-button-group-space-button-default-x);
+  border-radius: var(--click-button-group-radii-button-default-all);
+}
+
+.button_type_borderless {
+  padding: var(--click-button-group-space-button-borderless-y)
+    var(--click-button-group-space-button-borderless-x);
+  border-radius: var(--click-button-group-radii-button-borderless-all);
+}
+
+.button_fillwidth {
+  flex: 1;
+}
+
+.button[aria-pressed='true'] {
+  background: var(--click-button-group-color-background-active);
+  color: var(--click-button-group-color-text-active);
+  font: var(--click-button-group-typography-label-active);
+}
+
+.button:hover {
+  background: var(--click-button-group-color-background-hover);
+  color: var(--click-button-group-color-text-hover);
+  font: var(--click-button-group-typography-label-hover);
+}
+
+.button:disabled {
+  background: var(--click-button-group-color-background-disabled);
+  color: var(--click-button-group-color-text-disabled);
+  font: var(--click-button-group-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.button:disabled:active,
+.button:disabled:focus,
+.button:disabled[aria-pressed='true'] {
+  color: var(--click-button-group-color-text-disabled);
+}
+
+.button[aria-pressed='true']:disabled {
+  background: var(--click-button-group-color-background-disabled-active);
+}
