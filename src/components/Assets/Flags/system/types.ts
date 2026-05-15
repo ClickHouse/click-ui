@@ -15,6 +15,7 @@ export type FlagName =
   | 'ireland'
   | 'israel'
   | 'japan'
+  | 'malaysia'
   | 'mexico'
   | 'netherlands'
   | 'singapore'
@@ -22,6 +23,7 @@ export type FlagName =
   | 'south-korea'
   | 'sweden'
   | 'switzerland'
+  | 'taiwan'
   | 'united-arab-emirates'
   | 'united-kingdom'
   | 'united-states';
