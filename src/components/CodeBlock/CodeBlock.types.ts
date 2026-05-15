@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 export type CodeThemeType = 'light' | 'dark';
 
@@ -7,7 +7,7 @@ export interface CodeBlockProps extends Omit<
   'children' | 'onCopy'
 > {
   language?: string;
-  children: string;
+  children: ReactNode;
   theme?: CodeThemeType;
   showLineNumbers?: boolean;
   showWrapButton?: boolean;
