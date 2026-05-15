@@ -5,14 +5,14 @@ const Brazil = (props: SVGAssetProps): React.ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="30"
-    height="21"
-    viewBox="0 0 30 21"
+    height="20"
+    viewBox="0 0 30 20"
     fill="none"
     {...props}
   >
     <g clipPath="url(#clip0_3880_11917)">
       <path
-        d="M0 1C0 0.447715 0.447715 0 1 0H29C29.5523 0 30 0.447715 30 1V19C30 19.5523 29.5523 20 29 20H1C0.447716 20 0 19.5523 0 19V1Z"
+        d="M0 0H30V20H0V0Z"
         fill="#009B3A"
       />
       <path
@@ -1242,8 +1242,9 @@ const Brazil = (props: SVGAssetProps): React.ReactElement => (
       <clipPath id="clip0_3880_11917">
         <rect
           width="30"
-          height="21"
+          height="20"
           fill="white"
+          rx="1"
         />
       </clipPath>
     </defs>
