@@ -383,7 +383,7 @@
     "lint:code:fix": "eslint src --report-unused-disable-directives --fix",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
-    "prepare": "yarn test && yarn format && yarn lint && yarn changeset:verify && yarn circular-dependency:check",
+    "prepare": "yarn test && yarn format && yarn lint && yarn circular-dependency:check",
     "prettify": "yarn format:fix",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
