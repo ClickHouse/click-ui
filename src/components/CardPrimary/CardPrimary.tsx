@@ -1,3 +1,4 @@
+import { type MouseEvent } from 'react';
 import { styled } from 'styled-components';
 import { Title } from '@/components/Title';
 import { Text, type TextAlignment } from '@/components/Text';
@@ -30,7 +31,7 @@ const Wrapper = styled.div<{
   box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
     cursor: pointer;
     button {
@@ -135,7 +136,7 @@ const Card = ({
   children,
   ...props
 }: CardPrimaryProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
@@ -144,7 +145,10 @@ const Card = ({
     }
   };
 
-  const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
+  const hasAction = !!infoUrl || typeof onButtonClick === 'function';
+  const Component = hasAction ? Button : 'div';
+  const hasConsumerClick = typeof props.onClick === 'function';
+
   return (
     <Wrapper
       $alignContent={alignContent}
@@ -152,7 +156,8 @@ const Card = ({
       $size={size}
       aria-disabled={disabled}
       $isSelected={isSelected}
-      tabIndex={0}
+      tabIndex={disabled || !hasConsumerClick ? -1 : 0}
+      data-testid="card-primary"
       {...props}
     >
       {(icon || title) && (
