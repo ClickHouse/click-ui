@@ -125,5 +125,14 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
+  {
+    files: ['plugins/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: './tsconfig.node.json',
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   ...storybook.configs['flat/recommended']
 );

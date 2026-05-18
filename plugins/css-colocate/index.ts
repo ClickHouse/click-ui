@@ -2,7 +2,7 @@ import type { Plugin, ResolvedConfig } from 'vite';
 import { preprocessCssModules } from './css-preprocess';
 import { resolveCssModule, loadCssModule } from './virtual-modules';
 import { injectComponentCss, injectRegularCssImports } from './import-inject';
-import { copyCssFiles } from './utils';
+import { copyCssFiles, preventCssNameOverwrites } from './utils';
 import path from 'path';
 
 interface TrackedCssImport {
@@ -27,29 +27,28 @@ export const cssColocatePlugin = (): Plugin => {
     name: 'vite-plugin-css-colocate',
     apply: 'build',
 
-    async buildStart() {
+    buildStart: async () => {
       // WARN: Reset between rebuilds
       // to prevent future build:watch transform to keep
       // appending, causing duplicate CSS imports
       // on each rebuild
       trackedImports.length = 0;
+
       await preprocessCssModules(config.root);
     },
 
-    configResolved(resolvedConfig) {
+    configResolved: resolvedConfig => {
       config = resolvedConfig;
     },
 
-    async resolveId(id, importer) {
-      return resolveCssModule(id, importer, config.root);
-    },
+    resolveId: async (id, importer) => resolveCssModule(id, importer, config.root),
 
     async load(id) {
       return loadCssModule(id, this, config.root);
     },
 
-    transform(code, id) {
-      if (id.includes('node_modules') || !/\.[jt]sx?$/.test(id)) return null;
+    transform: (code, id) => {
+      if (id.includes('node_modules') || !/\.[jt]sx?$/.test(id)) {return null;}
 
       // Track regular CSS imports (not .module.css)
       const cssImports: string[] = [];
@@ -69,22 +68,22 @@ export const cssColocatePlugin = (): Plugin => {
       return null;
     },
 
-    async closeBundle() {
+    closeBundle: async () => {
       const formats = [
         { format: 'esm' as const, ext: 'js' as const },
         { format: 'cjs' as const, ext: 'cjs' as const },
       ];
 
+      // WARN: Prevents CSS file name collisions between processed .module.css files and regular .css files. E.g. throws an error if a .module.css file would produce the same output name as a .css file. This check is format-independent because it validates source files, not output.
+      await preventCssNameOverwrites(config.root);
+
       for (const { format, ext } of formats) {
         const distDir = path.join(config.root, 'dist', format);
 
-        // Copy all CSS files (from temp and src)
         await copyCssFiles(config.root, distDir);
 
-        // Inject CSS imports into component files
         await injectComponentCss(distDir, format, ext);
 
-        // Inject CSS imports into files with tracked imports
         await injectRegularCssImports(trackedImports, config.root, distDir, format);
       }
     },

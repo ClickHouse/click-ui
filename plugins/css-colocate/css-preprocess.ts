@@ -4,7 +4,7 @@ import postcss from 'postcss';
 import postcssModules from 'postcss-modules';
 import { getTempDir, findFiles, generateScopedName } from './utils';
 
-export async function preprocessCssModules(rootDir: string): Promise<void> {
+export const preprocessCssModules = async (rootDir: string): Promise<void> => {
   const srcDir = path.join(rootDir, 'src');
   const tempDir = getTempDir(rootDir);
 
@@ -50,4 +50,4 @@ export async function preprocessCssModules(rootDir: string): Promise<void> {
   console.log(
     `\n✅ Pre-processing complete: ${files.length} file(s), ${totalClasses} class(es)\n`
   );
-}
+};

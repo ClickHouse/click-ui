@@ -49,6 +49,30 @@ When using CSS Modules (migration in progress from styled-components):
 - Use CSS custom properties from theme tokens: `var(--click-button-basic-color-primary-background-default)`
 - Always include `:focus-visible` styles for keyboard accessibility, never use `outline: none` without replacement
 
+### CSS File Naming (Prevent Overwrites)
+
+⚠️ **CRITICAL**: Never have both `{name}.module.css` and `{name}.css` in the same directory.
+
+**Context**: Click UI uses CSS colocation, each component ships with its CSS alongside it. CSS Modules (`.module.css`) are preprocessed during build into standard CSS files and both are copied to `dist/` maintaining the same directory structure. This enables bundlers to discover and include CSS automatically when importing components.
+
+**Why**: During build, `.module.css` files are processed and written as `.css` to the output. If a regular `.css` file exists with the same name, both would attempt to write to the same destination path in `dist/`, causing ambiguity.
+
+**Wrong:**
+```
+src/components/Button/
+├── Button.module.css  ← Processed to dist/components/Button.css
+└── Button.css         ← Also writes to dist/components/Button.css
+```
+
+**Correct:**
+```
+src/components/Button/
+├── Button.module.css   ← CSS Modules (scoped)
+└── Button.theme.css    ← Different name, distinct output
+```
+
+The build will throw an error if this collision is detected, but it's better to prevent it at the source.
+
 ### Accessibility (Mandatory)
 
 - Interactive elements need `role`, `aria-label`, `aria-describedby`
@@ -122,3 +146,4 @@ src/components/
 - `React.FC` or explicit `children` in props (use `React.ReactNode`)
 - Circular imports via barrel files
 - Untyped event handlers
+- Having both `{name}.module.css` and `{name}.css` in same directory (causes dist overwrite collision)
