@@ -19,6 +19,41 @@ export const Playground: Story = {
   },
 };
 
+export const Primary: Story = {
+  args: {
+    type: 'primary',
+    icon: 'user',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    type: 'secondary',
+    icon: 'user',
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    type: 'ghost',
+    icon: 'user',
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    type: 'danger',
+    icon: 'user',
+  },
+};
+
+export const Info: Story = {
+  args: {
+    type: 'info',
+    icon: 'user',
+  },
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,
@@ -36,6 +71,13 @@ export const Empty: Story = {
 export const Small: Story = {
   args: {
     size: 'sm',
+    icon: 'user',
+  },
+};
+
+export const ExtraSmall: Story = {
+  args: {
+    size: 'xs',
     icon: 'user',
   },
 };
