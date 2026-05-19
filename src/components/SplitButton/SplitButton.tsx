@@ -1,114 +1,172 @@
-import { useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
+import { useEffect, useRef, useState, forwardRef } from 'react';
+import { cn, cva } from '@/lib/cva';
 import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Button/BaseButton';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
-import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
+import { SplitButtonProps, Menu } from './SplitButton.types';
+import styles from './SplitButton.module.css';
 
-export const SplitButton = ({
-  type = 'primary',
-  disabled,
-  menu,
-  dir,
-  open,
-  defaultOpen,
-  onOpenChange,
-  modal,
-  side,
-  fillWidth,
-  children,
-  icon,
-  iconDir = 'start',
-  ...props
-}: SplitButtonProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+const splitButtonVariants = cva(styles['split-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button_primary'],
+      secondary: styles['split-button_secondary'],
+    },
+    fillWidth: {
+      true: styles['split-button_fill-width'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
 
-  useEffect(() => {
-    const targetDiv = ref.current;
-    if (!targetDiv) {
-      return;
-    }
+const primaryButtonVariants = cva(styles['split-button__primary-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button__primary-button_primary'],
+      secondary: styles['split-button__primary-button_secondary'],
+    },
+    fillWidth: {
+      true: styles['split-button__primary-button_fill-width'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
 
-    const resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        setWidth(entry.target.clientWidth);
+const secondaryButtonVariants = cva(styles['split-button__secondary-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button__secondary-button_primary'],
+      secondary: styles['split-button__secondary-button_secondary'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
+
+export const SplitButton = forwardRef<HTMLButtonElement, SplitButtonProps>(
+  (
+    {
+      type = 'primary',
+      disabled,
+      menu,
+      dir,
+      open,
+      defaultOpen,
+      onOpenChange,
+      modal,
+      side,
+      fillWidth,
+      children,
+      icon,
+      iconDir = 'start',
+      className,
+      ...props
+    },
+    forwardedRef
+  ) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+      const targetDiv = wrapperRef.current;
+      if (!targetDiv) {
+        return;
       }
-    });
 
-    resizeObserver.observe(targetDiv);
+      const resizeObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          setWidth(entry.target.clientWidth);
+        }
+      });
 
-    return () => {
-      resizeObserver.unobserve(targetDiv);
-    };
-  }, []);
+      resizeObserver.observe(targetDiv);
 
-  return (
-    <Dropdown
-      dir={dir}
-      open={open}
-      defaultOpen={defaultOpen}
-      onOpenChange={onOpenChange}
-      modal={modal}
-    >
-      <SplitButtonTrigger
-        $disabled={disabled}
-        $fillWidth={fillWidth}
-        ref={ref}
-        $type={type}
+      return () => {
+        resizeObserver.unobserve(targetDiv);
+      };
+    }, []);
+
+    return (
+      <Dropdown
+        dir={dir}
+        open={open}
+        defaultOpen={defaultOpen}
+        onOpenChange={onOpenChange}
+        modal={modal}
       >
-        <PrimaryButton
-          disabled={disabled}
-          $type={type}
-          $fillWidth={fillWidth}
-          {...props}
+        <div
+          ref={wrapperRef}
+          role="group"
+          aria-label={typeof children === 'string' ? children : 'Split button'}
+          data-testid="split-button"
+          className={cn(splitButtonVariants({ type, fillWidth }), className)}
+          data-disabled={disabled ? '' : undefined}
         >
-          <ButtonData
-            as={IconWrapper}
-            icon={icon}
-            iconDir={iconDir}
+          <BaseButton
+            ref={forwardedRef}
+            type="button"
+            disabled={disabled}
+            aria-disabled={disabled || undefined}
+            data-disabled={disabled ? '' : undefined}
+            className={cn(primaryButtonVariants({ type, fillWidth }))}
+            {...props}
           >
-            {children}
-          </ButtonData>
-        </PrimaryButton>
-        <SecondaryButton
-          as={Dropdown.Trigger}
-          disabled={disabled}
-          $type={type}
-          asChild
-          data-testid="split-button-dropdown"
+            <IconWrapper
+              icon={icon}
+              iconDir={iconDir}
+            >
+              {children}
+            </IconWrapper>
+          </BaseButton>
+          <Dropdown.Trigger
+            asChild
+            disabled={disabled}
+          >
+            <button
+              type="button"
+              disabled={disabled}
+              className={secondaryButtonVariants({ type })}
+              data-testid="split-button-dropdown"
+              data-disabled={disabled ? '' : undefined}
+              aria-disabled={disabled || undefined}
+              aria-label="Open menu"
+            >
+              <span>
+                <Icon
+                  name="chevron-down"
+                  size="sm"
+                  aria-hidden
+                />
+              </span>
+            </button>
+          </Dropdown.Trigger>
+        </div>
+        <Dropdown.Content
+          side={side}
+          style={{ minWidth: width }}
+          sideOffset={4}
+          align="end"
         >
-          <span>
-            <Icon
-              name="chevron-down"
-              size="sm"
+          {menu.map((item: Menu, index: number) => (
+            <MenuContentItem
+              key={`split-menu-option-${index}`}
+              parentKey={`split-menu-option-${index}`}
+              {...item}
             />
-          </span>
-        </SecondaryButton>
-      </SplitButtonTrigger>
-      <DropdownContent
-        as={Dropdown.Content}
-        side={side}
-        $width={width}
-        sideOffset={4}
-        align="end"
-      >
-        {menu.map((item: Menu, index: number) => (
-          <MenuContentItem
-            key={`split-menu-option-${index}`}
-            parentKey={`split-menu-option-${index}`}
-            {...item}
-          />
-        ))}
-      </DropdownContent>
-    </Dropdown>
-  );
-};
+          ))}
+        </Dropdown.Content>
+      </Dropdown>
+    );
+  }
+);
 
-const DropdownContent = styled.div<{ $width: number }>`
-  min-width: ${({ $width }) => $width}px;
-`;
+SplitButton.displayName = 'SplitButton';
 
 const MenuContentItem = ({
   items = [],
@@ -171,95 +229,3 @@ const MenuContentItem = ({
     );
   }
 };
-
-const SplitButtonTrigger = styled.div<{
-  $disabled?: boolean;
-  $type: ButtonType;
-  $fillWidth?: boolean;
-}>`
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  user-select: none;
-  ${({ theme, $disabled = false, $type, $fillWidth }) => `
-    width: ${$fillWidth ? '100%' : 'revert'};
-    border-radius: ${theme.click.button.radii.all};
-    border: 1px solid ${theme.click.button.split[$type].stroke.default};
-    ${
-      $disabled
-        ? `
-          cursor: not-allowed;
-          border-color: ${theme.click.button.split[$type].stroke.disabled};
-        `
-        : `
-          &:hover {
-            border-color: ${theme.click.button.split[$type].stroke.hover};
-          }
-          &:focus-within {
-            border-color: ${theme.click.button.split[$type].stroke.active};
-          }
-        `
-    }
-  `}
-`;
-
-const PrimaryButton = styled(BaseButton)<{
-  $type: ButtonType;
-  $fillWidth?: boolean;
-}>`
-  border: none;
-  align-self: stretch;
-  border-radius: 0;
-  align-items: center;
-  padding: ${({ theme }) =>
-    `${theme.click.button.split.space.y} ${theme.click.button.split.space.x}`};
-  ${({ theme, $type, $fillWidth }) => `
-    width: ${$fillWidth ? '100%' : 'revert'};
-    justify-content: center;
-    background: ${theme.click.button.split[$type].background.main.default};
-    color: ${theme.click.button.split[$type].text.default};
-    font: ${theme.click.button.split.typography.label.default};
-    &:hover {
-      background: ${theme.click.button.split[$type].background.main.hover};
-      color: ${theme.click.button.split[$type].text.hover};
-      font: ${theme.click.button.split.typography.label.hover};
-    }
-    &:focus {
-      background: ${theme.click.button.split[$type].background.main.active};
-      color: ${theme.click.button.split[$type].text.active};
-      font: ${theme.click.button.split.typography.label.active};
-    }
-    &:disabled {
-      background: ${theme.click.button.split[$type].background.main.disabled};
-      color: ${theme.click.button.split[$type].text.disabled};
-      font: ${theme.click.button.split.typography.label.disabled};
-    }
-  `}
-`;
-
-const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
-  border: none;
-  align-self: stretch;
-  border-radius: 0;
-  ${({ theme, $type }) => `
-    padding: ${theme.click.button.split.icon.space.y} ${theme.click.button.split.icon.space.x};
-    background: ${theme.click.button.split[$type].background.action.default};
-    color: ${theme.click.button.split[$type].text.default};
-    &:hover {
-      background: ${theme.click.button.split[$type].background.action.hover};
-      color: ${theme.click.button.split[$type].text.hover};
-    }
-    &:focus {
-      background: ${theme.click.button.split[$type].background.action.active};
-      color: ${theme.click.button.split[$type].text.active};
-    }
-    &[data-disabled] {
-      background: ${theme.click.button.split[$type].background.action.disabled};
-      color: ${theme.click.button.split[$type].text.disabled};
-    }
-  `}
-`;
-
-const ButtonData = styled.div`
-  width: auto;
-`;

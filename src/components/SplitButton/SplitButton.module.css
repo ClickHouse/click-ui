@@ -1,0 +1,174 @@
+.split-button {
+  display: inline-flex;
+  overflow: hidden;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--click-button-radii-all);
+  user-select: none;
+}
+
+.split-button_fill-width {
+  width: 100%;
+}
+
+.split-button_primary {
+  border-color: var(--click-button-split-primary-stroke-default);
+}
+
+.split-button_primary:hover:not([data-disabled]) {
+  border-color: var(--click-button-split-primary-stroke-hover);
+}
+
+.split-button_primary:focus-within:not([data-disabled]) {
+  border-color: var(--click-button-split-primary-stroke-active);
+}
+
+.split-button_primary[data-disabled] {
+  border-color: var(--click-button-split-primary-stroke-disabled);
+  cursor: not-allowed;
+}
+
+.split-button_secondary {
+  border-color: var(--click-button-split-secondary-stroke-default);
+}
+
+.split-button_secondary:hover:not([data-disabled]) {
+  border-color: var(--click-button-split-secondary-stroke-hover);
+}
+
+.split-button_secondary:focus-within:not([data-disabled]) {
+  border-color: var(--click-button-split-secondary-stroke-active);
+}
+
+.split-button_secondary[data-disabled] {
+  border-color: var(--click-button-split-secondary-stroke-disabled);
+  cursor: not-allowed;
+}
+
+/* Override BaseButton's styled-component border-radius until BaseButton is migrated to CSS modules */
+.split-button .split-button__primary-button {
+  display: flex;
+  padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: var(--click-button-split-typography-label-default);
+  cursor: pointer;
+}
+
+.split-button .split-button__primary-button_fill-width {
+  width: 100%;
+}
+
+.split-button .split-button__primary-button_primary {
+  background: var(--click-button-split-primary-background-main-default);
+  color: var(--click-button-split-primary-text-default);
+}
+
+.split-button .split-button__primary-button_primary[data-disabled] {
+  background: var(--click-button-split-primary-background-main-disabled);
+  color: var(--click-button-split-primary-text-disabled);
+  font: var(--click-button-split-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.split-button .split-button__primary-button_primary:hover:not([data-disabled]) {
+  background: var(--click-button-split-primary-background-main-hover);
+  color: var(--click-button-split-primary-text-hover);
+  font: var(--click-button-split-typography-label-hover);
+}
+
+.split-button .split-button__primary-button_primary:focus-visible:not([data-disabled]) {
+  background: var(--click-button-split-primary-background-main-active);
+  color: var(--click-button-split-primary-text-active);
+  font: var(--click-button-split-typography-label-active);
+  outline: 2px solid var(--click-button-split-primary-stroke-active);
+  outline-offset: 2px;
+}
+
+.split-button .split-button__primary-button_secondary {
+  background: var(--click-button-split-secondary-background-main-default);
+  color: var(--click-button-split-secondary-text-default);
+}
+
+.split-button .split-button__primary-button_secondary[data-disabled] {
+  background: var(--click-button-split-secondary-background-main-disabled);
+  color: var(--click-button-split-secondary-text-disabled);
+  font: var(--click-button-split-typography-label-disabled);
+  cursor: not-allowed;
+}
+
+.split-button .split-button__primary-button_secondary:hover:not([data-disabled]) {
+  background: var(--click-button-split-secondary-background-main-hover);
+  color: var(--click-button-split-secondary-text-hover);
+  font: var(--click-button-split-typography-label-hover);
+}
+
+.split-button .split-button__primary-button_secondary:focus-visible:not([data-disabled]) {
+  background: var(--click-button-split-secondary-background-main-active);
+  color: var(--click-button-split-secondary-text-active);
+  font: var(--click-button-split-typography-label-active);
+  outline: 2px solid var(--click-button-split-secondary-stroke-active);
+  outline-offset: 2px;
+}
+
+.split-button .split-button__secondary-button {
+  display: flex;
+  padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
+  align-self: stretch;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.split-button .split-button__secondary-button_primary {
+  background: var(--click-button-split-primary-background-action-default);
+  color: var(--click-button-split-primary-text-default);
+}
+
+.split-button .split-button__secondary-button_primary:hover:not([data-disabled]) {
+  background: var(--click-button-split-primary-background-action-hover);
+  color: var(--click-button-split-primary-text-hover);
+}
+
+.split-button .split-button__secondary-button_primary:focus-visible:not([data-disabled]) {
+  background: var(--click-button-split-primary-background-action-active);
+  color: var(--click-button-split-primary-text-active);
+  outline: 2px solid var(--click-button-split-primary-stroke-active);
+  outline-offset: 2px;
+}
+
+.split-button .split-button__secondary-button_primary[data-disabled] {
+  background: var(--click-button-split-primary-background-action-disabled);
+  color: var(--click-button-split-primary-text-disabled);
+  cursor: not-allowed;
+}
+
+.split-button .split-button__secondary-button_secondary {
+  background: var(--click-button-split-secondary-background-action-default);
+  color: var(--click-button-split-secondary-text-default);
+}
+
+.split-button .split-button__secondary-button_secondary:hover:not([data-disabled]) {
+  background: var(--click-button-split-secondary-background-action-hover);
+  color: var(--click-button-split-secondary-text-hover);
+}
+
+.split-button .split-button__secondary-button_secondary:focus-visible:not([data-disabled]) {
+  background: var(--click-button-split-secondary-background-action-active);
+  color: var(--click-button-split-secondary-text-active);
+  outline: 2px solid var(--click-button-split-secondary-stroke-active);
+  outline-offset: 2px;
+}
+
+.split-button .split-button__secondary-button_secondary[data-disabled] {
+  background: var(--click-button-split-secondary-background-action-disabled);
+  color: var(--click-button-split-secondary-text-disabled);
+  cursor: not-allowed;
+}

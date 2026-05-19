@@ -1,25 +1,27 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from '@storybook/react-vite';
 const config: StorybookConfig = {
   core: {
-    disableTelemetry: true
+    disableTelemetry: true,
   },
-  stories: [
-    "./Introduction.mdx",
-    "../src/**/*.stories.@(ts|tsx)",
+  stories: ['./Introduction.mdx', '../src/**/*.stories.@(ts|tsx)'],
+
+  addons: [
+    '@storybook/addon-links', //"@storybook/addon-interactions",
+    'storybook-addon-pseudo-states',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
   ],
 
-  addons: ["@storybook/addon-links", //"@storybook/addon-interactions",
-  "storybook-addon-pseudo-states", "@storybook/addon-a11y", "@storybook/addon-docs"],
-
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
 
-  staticDirs: ["../public"],
+  staticDirs: ['../public'],
   typescript: {
-    reactDocgen: "react-docgen-typescript",
+    reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
+      tsconfigPath: '../tsconfig.json',
       compilerOptions: {
         allowSyntheticDefaultImports: false,
         esModuleInterop: false,
@@ -32,8 +34,9 @@ const config: StorybookConfig = {
   },
 
   async viteFinal(config, { configType }) {
-    config.plugins = (config.plugins || []).filter((plugin) => {
-      const pluginName = plugin && typeof plugin === 'object' && 'name' in plugin ? plugin.name : null;
+    config.plugins = (config.plugins || []).filter(plugin => {
+      const pluginName =
+        plugin && typeof plugin === 'object' && 'name' in plugin ? plugin.name : null;
       return pluginName !== 'css-external';
     });
     config.plugins.push({
