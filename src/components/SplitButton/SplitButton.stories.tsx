@@ -61,3 +61,78 @@ export const Playground: Story = {
     menu: menuItems,
   },
 };
+
+export const Primary: Story = {
+  args: {
+    children: 'Split button',
+    menu: menuItems,
+    type: 'primary',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    children: 'Split button',
+    menu: menuItems,
+    type: 'secondary',
+  },
+};
+
+export const DisabledPrimary: Story = {
+  args: {
+    children: 'Split button',
+    disabled: true,
+    menu: menuItems,
+    type: 'primary',
+  },
+};
+
+export const DisabledSecondary: Story = {
+  args: {
+    children: 'Split button',
+    disabled: true,
+    menu: menuItems,
+    type: 'secondary',
+  },
+};
+
+export const FillWidthPrimary: Story = {
+  args: {
+    children: 'Split button',
+    fillWidth: true,
+    menu: menuItems,
+    type: 'primary',
+  },
+  decorators: [
+    Story => (
+      <div style={{ width: '20rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const FillWidthSecondary: Story = {
+  args: {
+    children: 'Split button',
+    fillWidth: true,
+    menu: menuItems,
+    type: 'secondary',
+  },
+  decorators: [
+    Story => (
+      <div style={{ width: '20rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const OpenPrimary: Story = {
+  args: {
+    children: 'Split button',
+    menu: menuItems,
+    open: true,
+    type: 'primary',
+  },
+};
