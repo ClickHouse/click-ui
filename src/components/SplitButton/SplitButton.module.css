@@ -47,7 +47,7 @@
   border-color: var(--click-button-split-secondary-stroke-active);
 }
 
-.splitbutton__primary.splitbutton__primary {
+.splitbutton__trigger .splitbutton__primary {
   padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
   justify-content: center;
   align-items: center;
@@ -108,7 +108,7 @@
   font: var(--click-button-split-typography-label-disabled);
 }
 
-.splitbutton__secondary.splitbutton__secondary {
+.splitbutton__trigger .splitbutton__secondary {
   padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
   align-self: stretch;
   border: none;
