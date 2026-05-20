@@ -1,0 +1,157 @@
+.splitbutton__trigger {
+  display: inline-flex;
+  overflow: hidden;
+  align-items: center;
+  border: 1px solid;
+  border-radius: var(--click-button-radii-all);
+  user-select: none;
+}
+
+.splitbutton__trigger_fillwidth {
+  width: 100%;
+}
+
+.splitbutton__trigger_disabled {
+  cursor: not-allowed;
+}
+
+.splitbutton__trigger_type_primary {
+  border-color: var(--click-button-split-primary-stroke-default);
+}
+
+.splitbutton__trigger_type_secondary {
+  border-color: var(--click-button-split-secondary-stroke-default);
+}
+
+.splitbutton__trigger_type_primary.splitbutton__trigger_disabled {
+  border-color: var(--click-button-split-primary-stroke-disabled);
+}
+
+.splitbutton__trigger_type_secondary.splitbutton__trigger_disabled {
+  border-color: var(--click-button-split-secondary-stroke-disabled);
+}
+
+.splitbutton__trigger_interactive.splitbutton__trigger_type_primary:hover {
+  border-color: var(--click-button-split-primary-stroke-hover);
+}
+
+.splitbutton__trigger_interactive.splitbutton__trigger_type_secondary:hover {
+  border-color: var(--click-button-split-secondary-stroke-hover);
+}
+
+.splitbutton__trigger_interactive.splitbutton__trigger_type_primary:focus-within {
+  border-color: var(--click-button-split-primary-stroke-active);
+}
+
+.splitbutton__trigger_interactive.splitbutton__trigger_type_secondary:focus-within {
+  border-color: var(--click-button-split-secondary-stroke-active);
+}
+
+.splitbutton__primary {
+  padding: var(--click-button-split-space-y) var(--click-button-split-space-x) !important;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border: none;
+  border-radius: 0;
+}
+
+.splitbutton__primary_fillwidth {
+  width: 100%;
+}
+
+.splitbutton__primary_type_primary {
+  background: var(--click-button-split-primary-background-main-default);
+  color: var(--click-button-split-primary-text-default);
+  font: var(--click-button-split-typography-label-default);
+}
+
+.splitbutton__primary_type_primary:hover {
+  background: var(--click-button-split-primary-background-main-hover);
+  color: var(--click-button-split-primary-text-hover);
+  font: var(--click-button-split-typography-label-hover);
+}
+
+.splitbutton__primary_type_primary:focus {
+  background: var(--click-button-split-primary-background-main-active);
+  color: var(--click-button-split-primary-text-active);
+  font: var(--click-button-split-typography-label-active);
+}
+
+.splitbutton__primary_type_primary:disabled {
+  background: var(--click-button-split-primary-background-main-disabled);
+  color: var(--click-button-split-primary-text-disabled);
+  font: var(--click-button-split-typography-label-disabled);
+}
+
+.splitbutton__primary_type_secondary {
+  background: var(--click-button-split-secondary-background-main-default);
+  color: var(--click-button-split-secondary-text-default);
+  font: var(--click-button-split-typography-label-default);
+}
+
+.splitbutton__primary_type_secondary:hover {
+  background: var(--click-button-split-secondary-background-main-hover);
+  color: var(--click-button-split-secondary-text-hover);
+  font: var(--click-button-split-typography-label-hover);
+}
+
+.splitbutton__primary_type_secondary:focus {
+  background: var(--click-button-split-secondary-background-main-active);
+  color: var(--click-button-split-secondary-text-active);
+  font: var(--click-button-split-typography-label-active);
+}
+
+.splitbutton__primary_type_secondary:disabled {
+  background: var(--click-button-split-secondary-background-main-disabled);
+  color: var(--click-button-split-secondary-text-disabled);
+  font: var(--click-button-split-typography-label-disabled);
+}
+
+.splitbutton__secondary {
+  padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x)
+    !important;
+  align-self: stretch;
+  border: none;
+  border-radius: 0;
+}
+
+.splitbutton__secondary_type_primary {
+  background: var(--click-button-split-primary-background-action-default);
+  color: var(--click-button-split-primary-text-default);
+}
+
+.splitbutton__secondary_type_primary:hover {
+  background: var(--click-button-split-primary-background-action-hover);
+  color: var(--click-button-split-primary-text-hover);
+}
+
+.splitbutton__secondary_type_primary:focus {
+  background: var(--click-button-split-primary-background-action-active);
+  color: var(--click-button-split-primary-text-active);
+}
+
+.splitbutton__secondary_type_primary[data-disabled] {
+  background: var(--click-button-split-primary-background-action-disabled);
+  color: var(--click-button-split-primary-text-disabled);
+}
+
+.splitbutton__secondary_type_secondary {
+  background: var(--click-button-split-secondary-background-action-default);
+  color: var(--click-button-split-secondary-text-default);
+}
+
+.splitbutton__secondary_type_secondary:hover {
+  background: var(--click-button-split-secondary-background-action-hover);
+  color: var(--click-button-split-secondary-text-hover);
+}
+
+.splitbutton__secondary_type_secondary:focus {
+  background: var(--click-button-split-secondary-background-action-active);
+  color: var(--click-button-split-secondary-text-active);
+}
+
+.splitbutton__secondary_type_secondary[data-disabled] {
+  background: var(--click-button-split-secondary-background-action-disabled);
+  color: var(--click-button-split-secondary-text-disabled);
+}
