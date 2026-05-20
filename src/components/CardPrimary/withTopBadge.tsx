@@ -19,7 +19,7 @@ export const withTopBadge =
           <CardPrimaryTopBadge
             data-testid="card-top-badge"
             text={topBadgeText}
-            $isSelected={props.isSelected || false}
+            isSelected={props.isSelected || false}
           />
         )}
       </TopBadgeWrapper>
