@@ -72,7 +72,7 @@ export const SplitButton = ({
   className,
   ...props
 }: SplitButtonProps) => {
-  const iconWrapperWidthProps = { fillWidth: false } as Record<string, unknown>;
+  const iconWrapperWidthProps = { fillWidth: false } as const;
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
 
