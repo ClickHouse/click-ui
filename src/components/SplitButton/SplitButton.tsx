@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Button/BaseButton';
 import { IconWrapper } from '@/components/IconWrapper';
@@ -55,6 +55,8 @@ const secondaryButtonVariants = cva(styles.splitbutton__secondary, {
   },
 });
 
+const iconWrapperWidthProps = { fillWidth: false } as const;
+
 export const SplitButton = ({
   type = 'primary',
   disabled,
@@ -72,9 +74,9 @@ export const SplitButton = ({
   className,
   ...props
 }: SplitButtonProps) => {
-  const iconWrapperWidthProps = { fillWidth: false } as const;
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+  const dropdownContentStyle = useMemo(() => ({ minWidth: `${width}px` }), [width]);
 
   useEffect(() => {
     const targetDiv = ref.current;
@@ -136,7 +138,7 @@ export const SplitButton = ({
         </BaseButton>
       </div>
       <Dropdown.Content
-        style={{ minWidth: `${width}px` }}
+        style={dropdownContentStyle}
         side={side}
         sideOffset={4}
         align="end"
