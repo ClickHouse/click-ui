@@ -1,0 +1,216 @@
+.header {
+  max-width: 100%;
+  gap: inherit;
+}
+
+.description {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-self: start;
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.cardicon {
+  width: var(--click-card-horizontal-icon-size-all);
+  height: var(--click-card-horizontal-icon-size-all);
+}
+
+.contentwrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.contentwrapper_size_md {
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.contentwrapper_size_sm {
+  gap: var(--click-card-horizontal-space-sm-gap);
+}
+
+/* stylelint-disable-next-line media-feature-range-notation -- prefix notation
+   required for browser compatibility per .browserslistrc */
+@media (max-width: 768px) {
+  .contentwrapper {
+    flex-direction: column;
+  }
+}
+
+.icontextcontentwrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icontextcontentwrapper_alignment_top {
+  align-items: flex-start;
+}
+
+.icontextcontentwrapper_alignment_center {
+  align-items: center;
+}
+
+.icontextcontentwrapper_size_md {
+  gap: var(--click-card-horizontal-space-md-gap);
+}
+
+.icontextcontentwrapper_size_sm {
+  gap: var(--click-card-horizontal-space-sm-gap);
+}
+
+.wrapper {
+  display: inline-flex;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: auto;
+  border: 1px solid var(--card-stroke-default);
+  border-radius: var(--click-card-horizontal-radii-all);
+  background: var(--card-bg-default);
+  color: var(--card-title-default);
+  font: var(--click-card-horizontal-typography-title-default);
+}
+
+.wrapper_color_default {
+  --card-bg-default: var(--click-card-horizontal-default-color-background-default);
+  --card-bg-hover: var(--click-card-horizontal-default-color-background-hover);
+  --card-bg-active: var(--click-card-horizontal-default-color-background-active);
+  --card-bg-disabled: var(--click-card-horizontal-default-color-background-disabled);
+  --card-title-default: var(--click-card-horizontal-default-color-title-default);
+  --card-title-hover: var(--click-card-horizontal-default-color-title-hover);
+  --card-title-active: var(--click-card-horizontal-default-color-title-active);
+  --card-title-disabled: var(--click-card-horizontal-default-color-title-disabled);
+  --card-stroke-default: var(--click-card-horizontal-default-color-stroke-default);
+  --card-stroke-hover: var(--click-card-horizontal-default-color-stroke-hover);
+  --card-stroke-active: var(--click-card-horizontal-default-color-stroke-active);
+  --card-stroke-disabled: var(--click-card-horizontal-default-color-stroke-disabled);
+  --card-desc-default: var(--click-card-horizontal-default-color-description-default);
+  --card-desc-hover: var(--click-card-horizontal-default-color-description-hover);
+  --card-desc-active: var(--click-card-horizontal-default-color-description-active);
+  --card-desc-disabled: var(--click-card-horizontal-default-color-description-disabled);
+}
+
+.wrapper_color_muted {
+  --card-bg-default: var(--click-card-horizontal-muted-color-background-default);
+  --card-bg-hover: var(--click-card-horizontal-muted-color-background-hover);
+  --card-bg-active: var(--click-card-horizontal-muted-color-background-active);
+  --card-bg-disabled: var(--click-card-horizontal-muted-color-background-disabled);
+  --card-title-default: var(--click-card-horizontal-muted-color-title-default);
+  --card-title-hover: var(--click-card-horizontal-muted-color-title-hover);
+  --card-title-active: var(--click-card-horizontal-muted-color-title-active);
+  --card-title-disabled: var(--click-card-horizontal-muted-color-title-disabled);
+  --card-stroke-default: var(--click-card-horizontal-muted-color-stroke-default);
+  --card-stroke-hover: var(--click-card-horizontal-muted-color-stroke-hover);
+  --card-stroke-active: var(--click-card-horizontal-muted-color-stroke-active);
+  --card-stroke-disabled: var(--click-card-horizontal-muted-color-stroke-disabled);
+  --card-desc-default: var(--click-card-horizontal-muted-color-description-default);
+  --card-desc-hover: var(--click-card-horizontal-muted-color-description-hover);
+  --card-desc-active: var(--click-card-horizontal-muted-color-description-active);
+  --card-desc-disabled: var(--click-card-horizontal-muted-color-description-disabled);
+}
+
+.wrapper_alignment_top {
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.wrapper_alignment_center {
+  align-items: center;
+  align-self: auto;
+}
+
+.wrapper_size_md {
+  padding: var(--click-card-horizontal-space-md-y) var(--click-card-horizontal-space-md-x);
+}
+
+.wrapper_size_sm {
+  padding: var(--click-card-horizontal-space-sm-y) var(--click-card-horizontal-space-sm-x);
+}
+
+.wrapper .description {
+  color: var(--card-desc-default);
+  font: var(--click-card-horizontal-typography-description-default);
+}
+
+.wrapper.wrapper_selectable {
+  border-color: var(--card-stroke-hover);
+}
+
+.wrapper.wrapper_selectable.wrapper_selected {
+  border-color: var(--card-stroke-active);
+}
+
+.wrapper:hover {
+  font: var(--click-card-horizontal-typography-title-hover);
+}
+
+.wrapper.wrapper_selectable:hover {
+  border-color: var(--card-stroke-default);
+  background-color: var(--card-bg-hover);
+  color: var(--card-title-hover);
+  cursor: pointer;
+}
+
+.wrapper.wrapper_selectable.wrapper_selected:hover {
+  border-color: var(--card-stroke-active);
+}
+
+.wrapper.wrapper_selectable:hover .description {
+  color: var(--card-desc-hover);
+  font: var(--click-card-horizontal-typography-description-hover);
+}
+
+.wrapper.wrapper_selectable:active,
+.wrapper.wrapper_selectable:focus,
+.wrapper.wrapper_selectable:focus-within {
+  border-color: var(--card-stroke-active);
+  background-color: var(--card-bg-active);
+  color: var(--card-title-active);
+}
+
+.wrapper.wrapper_selectable:active .description,
+.wrapper.wrapper_selectable:focus .description,
+.wrapper.wrapper_selectable:focus-within .description {
+  color: var(--card-desc-active);
+  font: var(--click-card-horizontal-typography-description-active);
+}
+
+/* stylelint-disable no-descending-specificity -- disabled state intentionally
+   defined after hover/active to mirror the source cascade order;
+   pointer-events:none plus tabIndex=-1 prevent hover/focus/active from firing. */
+.wrapper.wrapper_disabled,
+.wrapper.wrapper_disabled:hover,
+.wrapper.wrapper_disabled:active,
+.wrapper.wrapper_disabled:focus,
+.wrapper.wrapper_disabled:focus-within {
+  border: 1px solid var(--card-stroke-disabled);
+  background-color: var(--card-bg-disabled);
+  color: var(--card-title-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.wrapper.wrapper_disabled.wrapper_selected,
+.wrapper.wrapper_disabled.wrapper_selected:hover,
+.wrapper.wrapper_disabled.wrapper_selected:active,
+.wrapper.wrapper_disabled.wrapper_selected:focus,
+.wrapper.wrapper_disabled.wrapper_selected:focus-within {
+  border-color: var(--card-stroke-active);
+}
+
+.wrapper.wrapper_disabled .description {
+  color: var(--card-desc-disabled);
+  font: var(--click-card-horizontal-typography-description-disabled);
+}
+
+.wrapper.wrapper_disabled:active,
+.wrapper.wrapper_disabled:focus,
+.wrapper.wrapper_disabled:focus-within {
+  border: 1px solid var(--card-stroke-active);
+}
+/* stylelint-enable no-descending-specificity */
