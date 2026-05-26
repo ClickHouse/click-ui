@@ -1,0 +1,182 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: column;
+  border: 1px solid var(--click-card-primary-color-stroke-default);
+  border-radius: var(--click-card-primary-radii-all);
+  background-color: var(--click-card-primary-color-background-default);
+  text-align: center;
+}
+
+.wrapper_align_start {
+  text-align: left;
+}
+
+.wrapper_align_center {
+  text-align: center;
+}
+
+.wrapper_align_end {
+  text-align: right;
+}
+
+.wrapper_size_md {
+  padding: var(--click-card-primary-space-md-x) var(--click-card-primary-space-md-y);
+  gap: var(--click-card-primary-space-md-gap);
+}
+
+.wrapper_size_sm {
+  padding: var(--click-card-primary-space-sm-x) var(--click-card-primary-space-sm-y);
+  gap: var(--click-card-primary-space-sm-gap);
+}
+
+.wrapper_shadow {
+  box-shadow: var(--shadow-1);
+}
+
+.wrapper_selected {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+}
+
+.wrapper:hover,
+.wrapper:focus {
+  background-color: var(--click-card-secondary-color-background-hover);
+  cursor: pointer;
+}
+
+.wrapper:hover button,
+.wrapper:focus button {
+  border-color: var(--click-button-basic-color-primary-stroke-hover);
+  background-color: var(--click-button-basic-color-primary-background-hover);
+}
+
+.wrapper:hover button:active,
+.wrapper:focus button:active {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+  background-color: var(--click-button-basic-color-primary-background-active);
+}
+
+.wrapper:active {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+}
+
+/* stylelint-disable no-descending-specificity -- disabled state intentionally
+   defined after hover/active to mirror the source cascade order;
+   pointer-events:none prevents the hover/active rules from applying when disabled. */
+.wrapper[aria-disabled='true'],
+.wrapper[aria-disabled='true']:hover,
+.wrapper[aria-disabled='true']:focus,
+.wrapper[aria-disabled='true']:active {
+  border: 1px solid var(--click-card-primary-color-stroke-disabled);
+  background-color: var(--click-card-primary-color-background-disabled);
+  color: var(--click-card-primary-color-title-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.wrapper[aria-disabled='true'] button,
+.wrapper[aria-disabled='true']:hover button,
+.wrapper[aria-disabled='true']:focus button,
+.wrapper[aria-disabled='true']:active button,
+.wrapper[aria-disabled='true'] button:active,
+.wrapper[aria-disabled='true']:hover button:active,
+.wrapper[aria-disabled='true']:focus button:active,
+.wrapper[aria-disabled='true']:active button:active {
+  border-color: var(--click-button-basic-color-primary-stroke-disabled);
+  background-color: var(--click-button-basic-color-primary-background-disabled);
+}
+/* stylelint-enable no-descending-specificity */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header_align_start {
+  align-items: flex-start;
+}
+
+.header_align_center {
+  align-items: center;
+}
+
+.header_align_end {
+  align-items: flex-end;
+}
+
+.header_size_md {
+  gap: var(--click-card-primary-space-md-gap);
+}
+
+.header.header_size_md svg,
+.header.header_size_md img {
+  width: var(--click-card-primary-size-icon-md-all);
+  height: var(--click-card-primary-size-icon-md-all);
+}
+
+.header_size_sm {
+  gap: var(--click-card-primary-space-sm-gap);
+}
+
+.header.header_size_sm svg,
+.header.header_size_sm img {
+  width: var(--click-card-primary-size-icon-sm-all);
+  height: var(--click-card-primary-size-icon-sm-all);
+}
+
+.header.header h3 {
+  color: var(--click-global-color-text-default);
+}
+
+.header.header_disabled h3 {
+  color: var(--click-global-color-text-muted);
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-self: center;
+}
+
+.content_align_start {
+  align-self: flex-start;
+}
+
+.content_align_center {
+  align-self: center;
+}
+
+.content_align_end {
+  align-self: flex-end;
+}
+
+.content_size_md {
+  gap: var(--click-card-primary-space-md-gap);
+}
+
+.content_size_sm {
+  gap: var(--click-card-primary-space-sm-gap);
+}
+
+.topbadgewrapper {
+  position: relative;
+}
+
+.topbadge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.topbadge_selected {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+}
+
+div:active + .topbadge {
+  border-color: var(--click-button-basic-color-primary-stroke-active);
+}
