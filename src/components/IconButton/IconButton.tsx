@@ -1,17 +1,38 @@
 import { forwardRef } from 'react';
-import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
+import { cn, cva } from '@/lib/cva';
 import { IconButtonProps } from './IconButton.types';
+import styles from './IconButton.module.css';
+
+const iconButtonVariants = cva(styles.iconbutton, {
+  variants: {
+    type: {
+      primary: styles['iconbutton_type_primary'],
+      secondary: styles['iconbutton_type_secondary'],
+      ghost: styles['iconbutton_type_ghost'],
+      danger: styles['iconbutton_type_danger'],
+      info: styles['iconbutton_type_info'],
+    },
+    size: {
+      default: '',
+      sm: styles['iconbutton_size_sm'],
+      xs: styles['iconbutton_size_xs'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+    size: 'default',
+  },
+});
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ type = 'primary', icon, size, disabled, ...props }, ref) => {
+  ({ type = 'primary', icon, size, disabled, className, ...props }, ref) => {
     const iconName = icon ? icon.toString() : 'unknown icon';
 
     return (
-      <Button
+      <button
         {...props}
-        $styleType={type}
-        $size={size}
+        className={cn(iconButtonVariants({ type, size }), className)}
         disabled={disabled}
         ref={ref}
         role="button"
@@ -21,57 +42,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           name={icon}
           size="sm"
         />
-      </Button>
+      </button>
     );
   }
 );
 
 IconButton.displayName = 'IconButton';
-
-const Button = styled.button<{
-  $styleType?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'info';
-  $size?: 'default' | 'sm' | 'xs';
-}>`
-  ${({ theme, $size, $styleType = 'primary' }) => `
-  border-radius: ${theme.click.button.iconButton.radii.all};
-  border: ${theme.click.button.stroke} solid ${
-    theme.click.button.iconButton.color[$styleType].stroke.default
-  };
-  cursor: pointer;
-  padding: ${
-    $size
-      ? `${theme.click.button.iconButton[$size].space.y} ${theme.click.button.iconButton[$size].space.x}`
-      : `${theme.click.button.iconButton.default.space.y} ${theme.click.button.iconButton.default.space.x}`
-  };
-
-  background-color: ${theme.click.button.iconButton.color[$styleType].background.default};
-
-  color: ${theme.click.button.iconButton.color[$styleType].text.default};
-  &:not([disabled]) {
-    &:hover {
-      background-color: ${theme.click.button.iconButton.color[$styleType].background.hover};
-      color: ${theme.click.button.iconButton.color[$styleType].text.hover};
-      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.hover};
-    }
-
-    &:focus, &:active, &:focus-within {
-      background-color: ${
-        theme.click.button.iconButton.color[$styleType].background.active
-      };
-      color: ${theme.click.button.iconButton.color[$styleType].text.active};
-      border-color: ${theme.click.button.iconButton.color[$styleType].stroke.active};
-    }
-  }
-  &:visited {
-    background-color: ${
-      theme.click.button.iconButton.color[$styleType].background.default
-    };
-  }
-
-  &[disabled] {
-    background-color: ${theme.click.button.iconButton.color.disabled.background.default};
-    color: ${theme.click.button.iconButton.color.disabled.text.default};
-    cursor: not-allowed;
-  }
-  `}
-`;
