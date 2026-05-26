@@ -1,21 +1,27 @@
-import { Badge } from '@/components/Badge';
-import { Container } from '@/components/Container';
-import { styled } from 'styled-components';
+import { Badge, BadgeProps } from '@/components/Badge';
+import { Container, ContainerProps } from '@/components/Container';
+import { cn } from '@/lib/cva';
+import { HTMLAttributes } from 'react';
+import styles from './CardPrimary.module.css';
 
-export const TopBadgeWrapper = styled(Container)`
-  position: relative;
-`;
+type TopBadgeWrapperProps = ContainerProps<'div'> & HTMLAttributes<HTMLDivElement>;
 
-export const CardPrimaryTopBadge = styled(Badge)<{ $isSelected?: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  ${({ $isSelected, theme }) =>
-    $isSelected
-      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ''}
-  div:active + & {
-    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
-  }
-`;
+export const TopBadgeWrapper = ({ className, ...props }: TopBadgeWrapperProps) => (
+  <Container
+    className={cn(styles.topbadgewrapper, className)}
+    {...props}
+  />
+);
+
+type CardPrimaryTopBadgeProps = BadgeProps & { isSelected?: boolean };
+
+export const CardPrimaryTopBadge = ({
+  isSelected,
+  className,
+  ...props
+}: CardPrimaryTopBadgeProps) => (
+  <Badge
+    className={cn(styles.topbadge, isSelected && styles['topbadge_selected'], className)}
+    {...props}
+  />
+);

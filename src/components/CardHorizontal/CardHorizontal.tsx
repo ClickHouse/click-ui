@@ -1,187 +1,65 @@
-import { styled } from 'styled-components';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
-import {
-  CardHorizontalProps,
-  CardSize,
-  CardColor,
-  CardAlignment,
-} from './CardHorizontal.types';
+import { cn, cva } from '@/lib/cva';
+import { CardHorizontalProps } from './CardHorizontal.types';
+import styles from './CardHorizontal.module.css';
 
-const Header = styled.div`
-  max-width: 100%;
-  gap: inherit;
-`;
+const wrapperVariants = cva(styles.wrapper, {
+  variants: {
+    color: {
+      default: styles['wrapper_color_default'],
+      muted: styles['wrapper_color_muted'],
+    },
+    size: {
+      sm: styles['wrapper_size_sm'],
+      md: styles['wrapper_size_md'],
+    },
+    alignment: {
+      center: styles['wrapper_alignment_center'],
+      top: styles['wrapper_alignment_top'],
+    },
+    selectable: {
+      true: styles['wrapper_selectable'],
+    },
+    selected: {
+      true: styles['wrapper_selected'],
+    },
+    disabled: {
+      true: styles['wrapper_disabled'],
+    },
+  },
+  defaultVariants: {
+    color: 'default',
+    size: 'md',
+    alignment: 'center',
+  },
+});
 
-const Description = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: start;
-  gap: ${({ theme }) => theme.click.card.horizontal.space.md.gap};
-  flex: 1;
-  width: 100%;
-`;
+const contentWrapperVariants = cva(styles.contentwrapper, {
+  variants: {
+    size: {
+      sm: styles['contentwrapper_size_sm'],
+      md: styles['contentwrapper_size_md'],
+    },
+  },
+  defaultVariants: { size: 'md' },
+});
 
-const Wrapper = styled.div<{
-  $hasShadow?: boolean;
-  $disabled?: boolean;
-  $isSelected?: boolean;
-  $isSelectable?: boolean;
-  $color: CardColor;
-  $size?: CardSize;
-  $alignment: CardAlignment;
-}>`
-  display: inline-flex;
-  width: 100%;
-  max-width: 100%;
-  align-items: ${({ $alignment }) => ($alignment === 'top' ? 'flex-start' : 'center')};
-  align-self: ${({ $alignment }) => ($alignment === 'top' ? 'stretch' : 'auto')};
-  justify-content: flex-start;
-
-  ${({ theme, $color, $size, $isSelected, $isSelectable, $disabled }) => `
-    background: ${theme.click.card.horizontal[$color].color.background.default};
-    color: ${theme.click.card.horizontal[$color].color.title.default};
-    border-radius: ${theme.click.card.horizontal.radii.all};
-    border: 1px solid ${
-      theme.click.card.horizontal[$color].color.stroke[
-        $isSelectable ? ($isSelected ? 'active' : 'hover') : 'default'
-      ]
-    };
-     padding: ${
-       $size === 'md'
-         ? `${theme.click.card.horizontal.space.md.y} ${theme.click.card.horizontal.space.md.x}`
-         : `${theme.click.card.horizontal.space.sm.y} ${theme.click.card.horizontal.space.sm.x}`
-     };
-    font: ${theme.click.card.horizontal.typography.title.default};
-    ${Description} {
-      color: ${theme.click.card.horizontal[$color].color.description.default};
-      font: ${theme.click.card.horizontal.typography.description.default};
-    }
-    &:hover{
-      background-color: ${
-        theme.click.card.horizontal[$color].color.background[
-          $isSelectable ? 'hover' : 'default'
-        ]
-      };
-      color: ${
-        theme.click.card.horizontal[$color].color.title[
-          $isSelectable ? 'hover' : 'default'
-        ]
-      };
-      border: 1px solid ${
-        theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable ? ($isSelected ? 'active' : 'default') : 'default'
-        ]
-      };
-      cursor: ${$isSelectable ? 'pointer' : 'default'};
-      font: ${theme.click.card.horizontal.typography.title.hover};
-      ${Description} {
-        color: ${
-          theme.click.card.horizontal[$color].color.description[
-            $isSelectable ? 'hover' : 'default'
-          ]
-        };
-        font: ${
-          theme.click.card.horizontal.typography.description[
-            $isSelectable ? 'hover' : 'default'
-          ]
-        };
-      }
-    }
-
-    &:active, &:focus, &:focus-within {
-      background-color: ${
-        theme.click.card.horizontal[$color].color.background[
-          $isSelectable ? 'active' : 'default'
-        ]
-      };
-      color: ${
-        theme.click.card.horizontal[$color].color.title[
-          $isSelectable ? 'active' : 'default'
-        ]
-      };
-      border: 1px solid ${
-        theme.click.card.horizontal[$color].color.stroke[
-          $isSelectable ? 'active' : 'default'
-        ]
-      };
-      ${Description} {
-        color: ${
-          theme.click.card.horizontal[$color].color.description[
-            $isSelectable ? 'active' : 'default'
-          ]
-        };
-        font: ${
-          theme.click.card.horizontal.typography.description[
-            $isSelectable ? 'active' : 'default'
-          ]
-        };
-      }
-    }
-    ${
-      $disabled
-        ? `
-          pointer-events: none;
-          &,
-          &:hover,
-          &:active, &:focus, &:focus-within {
-            background-color: ${
-              theme.click.card.horizontal[$color].color.background.disabled
-            };
-            color: ${theme.click.card.horizontal[$color].color.title.disabled};
-            border: 1px solid ${
-              theme.click.card.horizontal[$color].color.stroke[
-                $isSelected ? 'active' : 'disabled'
-              ]
-            };
-            cursor: not-allowed;
-            ${Description} {
-              color: ${theme.click.card.horizontal[$color].color.description.disabled};
-              font: ${theme.click.card.horizontal.typography.description.disabled};
-            }
-          },
-          &:active, &:focus, &:focus-within {
-            border: 1px solid ${theme.click.card.horizontal[$color].color.stroke.active};
-          }
-        `
-        : ''
-    }
-  `}
-`;
-
-const CardIcon = styled(Icon)`
-  ${({ theme }) => `
-      height: ${theme.click.card.horizontal.icon.size.all};
-      width: ${theme.click.card.horizontal.icon.size.all};
-  `}
-`;
-
-const ContentWrapper = styled.div<{ $size: CardSize }>`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: ${({ theme, $size }) =>
-    $size === 'md'
-      ? theme.click.card.horizontal.space.md.gap
-      : theme.click.card.horizontal.space.sm.gap};
-
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-    flex-direction: column;
-  }
-`;
-
-const IconTextContentWrapper = styled.div<{ $size: CardSize; $alignment: CardAlignment }>`
-  display: flex;
-  flex-direction: row;
-  align-items: ${({ $alignment }) => ($alignment === 'top' ? 'flex-start' : 'center')};
-  width: 100%;
-  gap: ${({ theme, $size }) =>
-    $size === 'md'
-      ? theme.click.card.horizontal.space.md.gap
-      : theme.click.card.horizontal.space.sm.gap};
-`;
+const iconTextContentWrapperVariants = cva(styles.icontextcontentwrapper, {
+  variants: {
+    size: {
+      sm: styles['icontextcontentwrapper_size_sm'],
+      md: styles['icontextcontentwrapper_size_md'],
+    },
+    alignment: {
+      center: styles['icontextcontentwrapper_alignment_center'],
+      top: styles['icontextcontentwrapper_alignment_top'],
+    },
+  },
+  defaultVariants: { size: 'md', alignment: 'center' },
+});
 
 export const CardHorizontal = ({
   title,
@@ -201,6 +79,7 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
+  className,
   ...props
 }: CardHorizontalProps) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -217,27 +96,30 @@ export const CardHorizontal = ({
     }
   };
   return (
-    <Wrapper
-      $disabled={disabled}
-      $isSelected={isSelected}
-      $isSelectable={isSelectable}
-      $color={color}
-      $size={size}
-      $alignment={alignment}
+    <div
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
       onClick={handleClick}
       {...props}
+      className={cn(
+        wrapperVariants({
+          color,
+          size,
+          alignment,
+          selectable: isSelectable,
+          selected: isSelected,
+          disabled,
+        }),
+        className
+      )}
     >
-      <ContentWrapper $size={size}>
-        <IconTextContentWrapper
-          $size={size}
-          $alignment={alignment}
-        >
+      <div className={cn(contentWrapperVariants({ size }))}>
+        <div className={cn(iconTextContentWrapperVariants({ size, alignment }))}>
           {icon && (
-            <CardIcon
+            <Icon
               name={icon}
               aria-hidden
+              className={styles.cardicon}
             />
           )}
           <Container
@@ -245,8 +127,8 @@ export const CardHorizontal = ({
             orientation="vertical"
           >
             {title && (
-              <Header
-                as={Container}
+              <Container
+                className={styles.header}
                 isResponsive={false}
                 gap="xs"
                 justifyContent="space-between"
@@ -277,13 +159,13 @@ export const CardHorizontal = ({
                     />
                   </Container>
                 )}
-              </Header>
+              </Container>
             )}
 
-            {description && <Description>{description}</Description>}
-            {children && <Description>{children}</Description>}
+            {description && <div className={styles.description}>{description}</div>}
+            {children && <div className={styles.description}>{children}</div>}
           </Container>
-        </IconTextContentWrapper>
+        </div>
         {infoText && (
           <Container
             justifyContent="end"
@@ -298,7 +180,7 @@ export const CardHorizontal = ({
             />
           </Container>
         )}
-      </ContentWrapper>
-    </Wrapper>
+      </div>
+    </div>
   );
 };

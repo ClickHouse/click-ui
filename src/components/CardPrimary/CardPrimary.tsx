@@ -1,116 +1,77 @@
-import { styled } from 'styled-components';
 import { Title } from '@/components/Title';
 import { Text, type TextAlignment } from '@/components/Text';
 import { withTopBadge } from './withTopBadge';
 import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
-import { CardPrimaryProps, CardPrimarySize } from './CardPrimary.types';
+import { cn, cva } from '@/lib/cva';
+import { CardPrimaryProps } from './CardPrimary.types';
+import styles from './CardPrimary.module.css';
 
 type ContentAlignment = 'start' | 'center' | 'end';
 
-const Wrapper = styled.div<{
-  $size?: CardPrimarySize;
-  $hasShadow?: boolean;
-  $isSelected?: boolean;
-  $alignContent?: ContentAlignment;
-}>`
-  background-color: ${({ theme }) => theme.click.card.primary.color.background.default};
-  border-radius: ${({ theme }) => theme.click.card.primary.radii.all};
-  border: ${({ theme }) => `1px solid ${theme.click.card.primary.color.stroke.default}`};
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  text-align: ${({ $alignContent }) =>
-    $alignContent === 'start' ? 'left' : $alignContent === 'end' ? 'right' : 'center'};
-  flex-direction: column;
-  padding: ${({ $size = 'md', theme }) =>
-    `${theme.click.card.primary.space[$size].x} ${theme.click.card.primary.space[$size].y}`};
-  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
+const wrapperVariants = cva(styles.wrapper, {
+  variants: {
+    size: {
+      sm: styles['wrapper_size_sm'],
+      md: styles['wrapper_size_md'],
+    },
+    align: {
+      start: styles['wrapper_align_start'],
+      center: styles['wrapper_align_center'],
+      end: styles['wrapper_align_end'],
+    },
+    hasShadow: {
+      true: styles['wrapper_shadow'],
+    },
+    isSelected: {
+      true: styles['wrapper_selected'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    align: 'center',
+  },
+});
 
-  &:hover,
-  &:focus {
-    background-color: ${({ theme }) => theme.click.card.secondary.color.background.hover};
-    cursor: pointer;
-    button {
-      background-color: ${({ theme }) =>
-        theme.click.button.basic.color.primary.background.hover};
-      border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.hover};
-      &:active {
-        background-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.background.active};
-        border-color: ${({ theme }) =>
-          theme.click.button.basic.color.primary.stroke.active};
-      }
-    }
-  }
+const headerVariants = cva(styles.header, {
+  variants: {
+    size: {
+      sm: styles['header_size_sm'],
+      md: styles['header_size_md'],
+    },
+    align: {
+      start: styles['header_align_start'],
+      center: styles['header_align_center'],
+      end: styles['header_align_end'],
+    },
+    disabled: {
+      true: styles['header_disabled'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    align: 'center',
+  },
+});
 
-  &:active {
-    border-color: ${({ theme }) => theme.click.button.basic.color.primary.stroke.active};
-  }
-
-  &[aria-disabled='true'],
-  &[aria-disabled='true']:hover,
-  &[aria-disabled='true']:focus,
-  &[aria-disabled='true']:active {
-    pointer-events: none;
-    ${({ theme }) => `
-    background-color: ${theme.click.card.primary.color.background.disabled};
-    color: ${theme.click.card.primary.color.title.disabled};
-    border: 1px solid ${theme.click.card.primary.color.stroke.disabled};
-    cursor: not-allowed;
-
-    button {
-      background-color: ${theme.click.button.basic.color.primary.background.disabled};
-      border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
-      &:active {
-        background-color: ${theme.click.button.basic.color.primary.background.disabled};
-        border-color: ${theme.click.button.basic.color.primary.stroke.disabled};
-      }
-    }`}
-  }
-
-  ${({ $isSelected, theme }) =>
-    $isSelected
-      ? `border-color: ${theme.click.button.basic.color.primary.stroke.active};`
-      : ''}
-`;
-
-const Header = styled.div<{
-  $size?: 'sm' | 'md';
-  $disabled?: boolean;
-  $alignContent?: ContentAlignment;
-}>`
-  display: flex;
-  flex-direction: column;
-  align-items: ${({ $alignContent = 'center' }) =>
-    ['start', 'end'].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
-
-  h3 {
-    color: ${({ $disabled, theme }) =>
-      $disabled == true
-        ? theme.click.global.color.text.muted
-        : theme.click.global.color.text.default};
-  }
-
-  svg,
-  img {
-    height: ${({ $size = 'md', theme }) => theme.click.card.primary.size.icon[$size].all};
-    width: ${({ $size = 'md', theme }) => theme.click.card.primary.size.icon[$size].all};
-  }
-`;
-
-const Content = styled.div<{ $size?: 'sm' | 'md'; $alignContent?: ContentAlignment }>`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-self: ${({ $alignContent = 'center' }) =>
-    ['start', 'end'].includes($alignContent) ? `flex-${$alignContent}` : $alignContent};
-  gap: ${({ $size = 'md', theme }) => theme.click.card.primary.space[$size].gap};
-  flex: 1;
-`;
+const contentVariants = cva(styles.content, {
+  variants: {
+    size: {
+      sm: styles['content_size_sm'],
+      md: styles['content_size_md'],
+    },
+    align: {
+      start: styles['content_align_start'],
+      center: styles['content_align_center'],
+      end: styles['content_align_end'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    align: 'center',
+  },
+});
 
 const convertCardAlignToTextAlign = (align: ContentAlignment): TextAlignment => {
   if (align === 'center') {
@@ -133,6 +94,7 @@ const Card = ({
   onButtonClick,
   isSelected,
   children,
+  className,
   ...props
 }: CardPrimaryProps) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -146,21 +108,17 @@ const Card = ({
 
   const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
   return (
-    <Wrapper
-      $alignContent={alignContent}
-      $hasShadow={hasShadow}
-      $size={size}
+    <div
       aria-disabled={disabled}
-      $isSelected={isSelected}
       tabIndex={0}
       {...props}
+      className={cn(
+        wrapperVariants({ size, align: alignContent, hasShadow, isSelected }),
+        className
+      )}
     >
       {(icon || title) && (
-        <Header
-          $size={size}
-          $disabled={disabled}
-          $alignContent={alignContent}
-        >
+        <div className={cn(headerVariants({ size, align: alignContent, disabled }))}>
           {iconUrl ? (
             <img
               src={iconUrl}
@@ -176,14 +134,11 @@ const Card = ({
             )
           )}
           {title && <Title type="h3">{title}</Title>}
-        </Header>
+        </div>
       )}
 
       {(description || children) && (
-        <Content
-          $size={size}
-          $alignContent={alignContent}
-        >
+        <div className={cn(contentVariants({ size, align: alignContent }))}>
           {description && (
             <Text
               color="muted"
@@ -193,7 +148,7 @@ const Card = ({
             </Text>
           )}
           {children}
-        </Content>
+        </div>
       )}
 
       {size == 'sm' && <Spacer size="sm" />}
@@ -206,7 +161,7 @@ const Card = ({
           {infoText}
         </Component>
       )}
-    </Wrapper>
+    </div>
   );
 };
 
