@@ -97,6 +97,9 @@ export const CardHorizontal = ({
   };
   return (
     <div
+      tabIndex={disabled ? -1 : 0}
+      aria-disabled={disabled}
+      onClick={handleClick}
       {...props}
       className={cn(
         wrapperVariants({
@@ -109,9 +112,6 @@ export const CardHorizontal = ({
         }),
         className
       )}
-      tabIndex={disabled ? -1 : 0}
-      aria-disabled={disabled}
-      onClick={handleClick}
     >
       <div className={cn(contentWrapperVariants({ size }))}>
         <div className={cn(iconTextContentWrapperVariants({ size, alignment }))}>
