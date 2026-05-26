@@ -2,4 +2,4 @@
 '@clickhouse/click-ui': patch
 ---
 
-migration of IconButton from styled-components to css modules. no behavior change.
+Migrate IconButton from styled-components to css modules with no change in behavior
