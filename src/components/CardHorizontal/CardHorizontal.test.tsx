@@ -1,4 +1,5 @@
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -204,6 +205,33 @@ describe('CardHorizontal Component', () => {
     wrapper.click();
 
     expect(windowOpenSpy).not.toHaveBeenCalled();
+    windowOpenSpy.mockRestore();
+  });
+
+  it('should call onButtonClick only once when inner button is clicked', async () => {
+    const onButtonClick = vitest.fn();
+    const { getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      onButtonClick,
+    });
+
+    await userEvent.click(getByRole('button'));
+
+    expect(onButtonClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should open infoUrl only once when inner button is clicked', async () => {
+    const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+    const { getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      infoUrl: 'https://example.com',
+    });
+
+    await userEvent.click(getByRole('button'));
+
+    expect(windowOpenSpy).toHaveBeenCalledTimes(1);
     windowOpenSpy.mockRestore();
   });
 });

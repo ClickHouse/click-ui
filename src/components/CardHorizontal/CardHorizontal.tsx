@@ -1,3 +1,4 @@
+import { useCallback, type MouseEvent } from 'react';
 import { styled } from 'styled-components';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
@@ -203,19 +204,30 @@ export const CardHorizontal = ({
   onButtonClick,
   ...props
 }: CardHorizontalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
 
-    if (typeof onButtonClick === 'function') {
-      onButtonClick(e);
-    }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
-    }
-  };
+      if (typeof onButtonClick === 'function') {
+        onButtonClick(e);
+      }
+      if (infoUrl && infoUrl.length > 0) {
+        window.open(infoUrl, '_blank');
+      }
+    },
+    [disabled, onButtonClick, infoUrl]
+  );
+
+  const handleButtonClick = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      handleClick(e);
+    },
+    [handleClick]
+  );
   return (
     <Wrapper
       $disabled={disabled}
@@ -292,7 +304,7 @@ export const CardHorizontal = ({
           >
             <Button
               label={infoText}
-              onClick={handleClick}
+              onClick={handleButtonClick}
               disabled={disabled}
               fillWidth
             />
