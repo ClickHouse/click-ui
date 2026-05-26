@@ -1,10 +1,10 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
 export type ButtonGroupType = 'default' | 'borderless';
 export type SelectionValue = string | Set<string>;
 
 export interface ButtonGroupElementProps extends Omit<
-  HTMLAttributes<HTMLButtonElement>,
+  ButtonHTMLAttributes<HTMLButtonElement>,
   'children'
 > {
   value: string;

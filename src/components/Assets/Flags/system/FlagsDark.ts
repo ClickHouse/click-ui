@@ -17,6 +17,7 @@ import Indonesia from '../Indonesia';
 import Ireland from '../Ireland';
 import Israel from '../Israel';
 import Japan from '../Japan';
+import Malaysia from '../Malaysia';
 import Mexico from '../Mexico';
 import Netherlands from '../Netherlands';
 import Singapore from '../Singapore';
@@ -24,6 +25,7 @@ import South_Africa from '../South-Africa';
 import South_Korea from '../South-Korea';
 import Sweden from '../Sweden';
 import Switzerland from '../Switzerland';
+import Taiwan from '../Taiwan';
 import United_Arab_Emirates from '../United-Arab-Emirates';
 import United_Kingdom from '../United-Kingdom';
 import United_States from '../United-States';
@@ -44,6 +46,7 @@ const FlagsDark: Record<FlagName, ComponentType<SVGAssetProps>> = {
   ireland: Ireland,
   israel: Israel,
   japan: Japan,
+  malaysia: Malaysia,
   mexico: Mexico,
   netherlands: Netherlands,
   singapore: Singapore,
@@ -51,6 +54,7 @@ const FlagsDark: Record<FlagName, ComponentType<SVGAssetProps>> = {
   'south-korea': South_Korea,
   sweden: Sweden,
   switzerland: Switzerland,
+  taiwan: Taiwan,
   'united-arab-emirates': United_Arab_Emirates,
   'united-kingdom': United_Kingdom,
   'united-states': United_States,

@@ -1,36 +1,30 @@
 #!/bin/bash
 
-COMMAND="${1:-test}"
-
 PORT="8282"
+COMPOSE_FILE="docker-compose.playwright.yml"
 
-if [[ "$COMMAND" = "update" ]]; then
-  docker compose \
-    -f docker-compose.playwright.yml \
-    run \
-    --rm update-snapshots
-elif [[ "$COMMAND" = "ui" ]]; then
-  docker rm -f playwright-ui 2>/dev/null
+case "${1:-}" in
+  update)
+    shift
+    docker compose -f "$COMPOSE_FILE" run --rm --entrypoint "" playwright \
+      npx playwright test --update-snapshots=all "$@"
+    ;;
+  ui)
+    docker rm -f playwright-ui 2>/dev/null
 
-  echo "🎭 Starting Playwright UI at http://localhost:$PORT..."
+    echo "🎭 Starting Playwright UI at http://localhost:$PORT..."
 
-  (sleep 3 &&
-    open "http://localhost:$PORT" 2>/dev/null ||
-    xdg-open "http://localhost:$PORT" 2>/dev/null) &
+    (sleep 3 &&
+      open "http://localhost:$PORT" 2>/dev/null ||
+      xdg-open "http://localhost:$PORT" 2>/dev/null) &
 
-  docker compose \
-      -f docker-compose.playwright.yml \
-      run \
-      --rm \
-      --service-ports \
-      --name playwright-ui \
-      ui
-elif [[ "$COMMAND" = "report" ]]; then
-  npx playwright show-report
-else
-  docker compose \
-    -f docker-compose.playwright.yml \
-    run \
-    --rm \
-    test
-fi
+    docker compose -f "$COMPOSE_FILE" run --rm --service-ports --name playwright-ui ui
+    ;;
+  report)
+    npx playwright show-report
+    ;;
+  *)
+    docker compose -f "$COMPOSE_FILE" run --rm --entrypoint "" playwright \
+      npx playwright test "$@"
+    ;;
+esac

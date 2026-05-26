@@ -1,5 +1,252 @@
 # @clickhouse/click-ui
 
+## 0.6.0
+
+### Minor Changes
+
+- b307591: Add BigLake Metastore logo
+
+  Added the `BigLakeMetastore` logo to the logo library:
+  - New `Biglake-Metastore.tsx` SVG component under `src/components/Assets/Logos/`
+  - Registered in both `LogosDark` and `LogosLight` system files
+  - Added `BigLakeMetastore` to the logo types
+
+- ec4d35d: Adds `startContent` and `endContent` props to `NumberField`, matching the existing `TextField` API. This enables rendering additional elements (e.g., unit labels, currency symbols) inside the input field without absolute-positioning hacks.
+
+  ## What has changed?
+  - New `startContent` prop for rendering content to the left of the input
+  - New `endContent` prop for rendering content to the right of the input
+  - Clicking on `startContent` focuses the input field
+  - `endContent` is displayed alongside the existing loading indicator when both are present
+  - Added `WithEndContent` and `WithStartContent` stories
+
+  ## How to use?
+
+  With a currency symbol prefix:
+
+  ```tsx
+  import { NumberField, Text } from '@clickhouse/click-ui';
+
+  <NumberField
+    label="Price"
+    placeholder="0.00"
+    hideControls
+    startContent={
+      <Text
+        color="muted"
+        size="sm"
+      >
+        $
+      </Text>
+    }
+  />;
+  ```
+
+  With a unit suffix:
+
+  ```tsx
+  import { NumberField, Text } from '@clickhouse/click-ui';
+
+  <NumberField
+    label="Spend limit"
+    placeholder="0"
+    hideControls
+    endContent={
+      <Text
+        color="muted"
+        size="sm"
+      >
+        dollars / credits
+      </Text>
+    }
+  />;
+  ```
+
+- 4b14153: Adds optional `allowOnlyDatesList` prop to `DatePicker`, which enables the user to provide a predefined allowlist of dates that can be selected.
+
+  ### How to use?
+
+  ```tsx
+  <DatePicker
+    allowOnlyDatesList={[
+      new Date('2026-01-15'),
+      new Date('2026-01-20'),
+      new Date('2026-02-01'),
+    ]}
+    onSelectDate={date => console.log('Selected:', date)}
+  />
+  ```
+
+  Only the dates in `allowOnlyDatesList` will be selectable. All other dates will be disabled.
+
+- cf1852b: Add `alignment` prop to `CardHorizontal` to support top-aligned content
+
+  Adds an optional `alignment` prop (`'center' | 'top'`, default `'center'`) to
+  `CardHorizontal`. The default preserves existing behaviour. Use `alignment="top"`
+  to pin content to the top edge — useful in side-by-side layouts where cards have
+  different content heights and centre-alignment causes visual misalignment.
+
+- a1b0891: Ship pre-compiled CSS alongside components via CSS Modules.
+
+  Components now import their own Web Standard CSS files (.css) directly. When you import a component, whether from the barrel export (`@clickhouse/click-ui`) or a per-component path (`@clickhouse/click-ui/Button`), your bundler (webpack, Vite, etc.) will discover the CSS import and emit it into your application's CSS output automatically.
+
+  **What this means for your app:**
+  - **Bundler-managed CSS**: The CSS that was previously injected at runtime by styled-components is now delivered as standard `.css` files; Only applies for components which have migrated out from Styled Components as there's a transition period. Your bundler handles concatenation, minification, and ordering.
+  - **Tree-shaking works**: Components you don't import won't have their CSS included. The `sideEffects: ["**/*.css"]` declaration in `package.json` ensures bundlers keep CSS for the components you do use.
+  - **No config changes needed**: Per-component CSS is additive, unused components produce no extra CSS.
+  - **CSS Modules under the hood**: Class names are scoped and hashed to avoid collisions. You don't need to change anything; the public component API is unchanged.
+
+  **Migration:**
+
+  None required for most bundlers! Install the update and your bundler will handle the rest.
+
+  **Framework-specific notes:**
+  - **Next.js**: Next.js restricts global CSS imports from `node_modules` by default. If you encounter the error "Global CSS cannot be imported from within node_modules", add `@clickhouse/click-ui` to your `transpilePackages` configuration in `next.config.js` (available in Next.js 13+):
+
+    ```js
+    module.exports = {
+      transpilePackages: ['@clickhouse/click-ui'],
+    };
+    ```
+
+    See the [Next.js example documentation](docs/examples/nextjs-app-router-with-ssr.md) for complete setup instructions.
+
+- f6a2cd2: This library will now use CSS Modules for styling and because it's distributed unbundled, gives the consumer application full control over bundling and optimisations. You'll only include what you actually use, resulting in smaller bundle sizes and better performance!
+
+  **Migration:**
+
+  Your bundler must be configured to handle `.module.css` imports from `node_modules`. Most popular bundlers (Vite, webpack, Parcel, Rollup with appropriate plugins) support CSS Modules by default or with minimal configuration.
+
+  NOTE: We're currently migrating from Styled-Components to CSS Modules. Some components may still use Styled-Components during the transition period.
+
+  To learn more about CSS modules support, check our documentation [here](https://github.com/ClickHouse/click-ui?tab=readme-ov-file#css-modules)
+
+- 62c0767: Adds `timezone` field to `DatePicker`, `DateRangePicker` and `DateTimeRangePicker`, allowing the user to configure whether to display dates in system (local) or utc.
+
+  ```ts
+  type Timezone = 'system' | 'UTC';
+  ```
+
+  Defaults to `system`
+
+  ### Usage
+
+  #### DatePicker
+
+  ```ts
+  <DatePicker
+    onSelectDate={handleDateSelect}
+    timezone="system"
+  />
+
+  ```
+
+  #### DateRangePicker
+
+  ```ts
+  <DateRangePicker
+    onSelectDateRange={(startDate, endDate) =>
+      setStartDate(startDate);
+      setEndDate(endDate);
+    }
+    timezone="UTC"
+  />
+
+  ```
+
+  #### DateTimeRangePicker
+
+  ```ts
+  <DateTimeRangePicker
+    endDate={endDate}
+    onSelectDateRange={handleDateRangeSelected}
+    startDate={startDate}
+    timezone="system"
+  />
+  ```
+
+- 0073651: Adds a `responsivePositioning` prop to the DatePickers, which allows the dropdown to be forced to be aligned with the input in cases where radix determines it shouldn't be
+- c75fbdb: Adds validation for date ranges and validation states for DateTimeRangePicker. When invalid, the input will be highlighted in red and the reason will be displayed below the date input.
+- 59d3dae: `DateTimeRangePicker` adds an optional prop `predefinedDateLabel` to `onSelectDateRange` which passes the label of the predefined date that was selected. This will allow the callback function to know if it was a custom range or a predefined one that was selected
+- bb8ebc8: Adds the ability to set a default date tab between startDate and endDate (defaults to startDate)
+
+### Patch Changes
+
+- 0d2aa03: Add CollapseAll and ExpandAll icons
+- 80af437: Add Mexico flag
+- 3dedeeb: Add an SVG normalization step to fix breaking issues before proceeding with conversion and optimization. The normalization is based in "conservative" optimisation steps, to reduce chances of visual changes.
+
+  **Before:**
+
+  ```
+  SVG File → SVGR (SVGO) → React Component
+  ```
+
+  **After:**
+
+  ```
+  SVG File → SVGO Normalize → Create temp file → SVGR (no SVGO) → React Component → Delete temp file
+  ```
+
+- a200c40: Fixes a bug in DateTimeRangePicker that does't allow setting the end date when start date and end date are set
+- 911aa94: Suppress Radix `Missing Description` console warning when no `description` prop is provided to `Dialog.Content`. A hidden `RadixDialog.Description` is now rendered by default so Radix's accessibility check passes silently.
+- d5e5981: Use Radix Dialog primitives for accessibility compliance.
+  - Changed Dialog title from `styled.h2` to `styled(RadixDialog.Title)` so Radix recognizes it as a proper DialogTitle
+  - Added optional `description` prop to Dialog.Content that renders as `RadixDialog.Description`
+
+  ### Before
+
+  ```tsx
+  <Dialog.Content
+    title="Confirm Action"
+    showClose
+  >
+    <Text color="muted">Dialog body content goes here</Text>
+    <Spacer />
+    <Separator size="lg" />
+    <ActionArea>
+      <Dialog.Close label="Close" />
+      <Button iconRight="arrow-right">Continue</Button>
+    </ActionArea>
+  </Dialog.Content>
+  ```
+
+  ### After
+
+  ```tsx
+  <Dialog.Content
+    title="Confirm Action"
+    description="Dialog body content goes here"
+    showClose
+  >
+    <Spacer />
+    <Separator size="lg" />
+    <ActionArea>
+      <Dialog.Close label="Cancel" />
+      <Button type="primary">Confirm</Button>
+    </ActionArea>
+  </Dialog.Content>
+  ```
+
+- 8936ef2: Fix missing focus tokens in theme configuration
+
+  Added missing `focus` tokens to the design token source files to prevent them from being removed during token generation:
+  - Added `card.promotion.color.stroke.focus` with semantic reference `{click.global.color.accent.default}` (resolves to `#151515` in light theme and `#faff69` in dark theme)
+  - Added `genericMenu.item.color.default.stroke.focus` with value `#437eef` (light theme) and `#faff69` (dark theme)
+  - Added `genericMenu.item.color.danger.stroke.focus` with value `#437eef` (light theme) and `#faff69` (dark theme)
+
+  These tokens are required by the GenericMenu and CardPromotion components for keyboard focus outlines and were previously being lost when regenerating the theme tokens.
+
+- 5cda186: Add missing 'warning' color option to TextColor type and design tokens.
+
+  The `warning` value was available in theme tokens but missing from the `TextColor` type definition, causing TypeScript errors when using `<Text color="warning">`. This fix:
+  - Adds `'warning'` to the `TextColor` type union in `Text.tsx`
+  - Adds warning color tokens to both light (`#a33c00`) and dark (`#ffb88f`) theme variables
+  - Adds warning token definitions to `light.json` and `dark.json` design token files
+
+- 12770c3: Prevent duplicate CSS imports in `vite build --watch` mode by clearing `trackedImports` between rebuilds
+- ba0e4e5: Fixes a bug in DateRangePicker that didn't allow changing to past dates when start date and end date were set and the past date was > maxRangeLength
+
 ## 0.2.0-test.0
 
 ### Minor Changes

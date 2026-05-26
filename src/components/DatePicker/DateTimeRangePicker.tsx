@@ -782,6 +782,7 @@ export interface DateTimeRangePickerProps {
   placeholder?: string;
   predefinedTimesList?: DateRangeListItem[];
   maxRangeLength?: number;
+  responsivePositioning?: boolean;
   shouldFireIfInvalid?: boolean;
   shouldShowSeconds?: boolean;
   startDate?: Date;
@@ -800,6 +801,7 @@ export const DateTimeRangePicker = ({
   openDirection = 'right',
   placeholder = 'start date – end date',
   predefinedTimesList,
+  responsivePositioning = true,
   shouldFireIfInvalid = true,
   shouldShowSeconds,
   startDate,
@@ -978,7 +980,10 @@ export const DateTimeRangePicker = ({
           timezone={timezone}
         />
       </Dropdown.Trigger>
-      <NoOverflowDropdownContent align="start">
+      <NoOverflowDropdownContent
+        align="start"
+        responsivePositioning={responsivePositioning}
+      >
         <Container orientation="horizontal">
           {shouldShowPredefinedTimes ? (
             <PredefinedCalendarContainer

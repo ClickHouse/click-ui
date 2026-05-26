@@ -28,7 +28,7 @@ const IconWrapper = (props: IconProps) => (
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
-  title: 'Display/Icon',
+  title: 'Assets/Icon',
   tags: ['icon', 'autodocs'],
   argTypes: {
     name: {

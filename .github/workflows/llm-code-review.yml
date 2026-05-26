@@ -1,4 +1,4 @@
-name: 🥷 Code Review (LLM)
+name: Code review by llm
 
 on:
   issue_comment:
@@ -45,24 +45,24 @@ jobs:
 
             ---
 
-            ## 🔍 What to look for
+            ## What to look for
 
             Think like a maintainer of radix ui, base ui, shadcn/ui, Mantine, or MUI. Review with care for:
 
-            ### 🚨 Must-fix (block merge)
+            ### Must-fix (block merge)
             - Bugs or regressions in component behavior
             - Breaking changes to public component APIs (props, slots, variants) without a migration note
             - Missing or incorrect TypeScript types on exported APIs
             - Security issues (XSS via dangerouslySetInnerHTML, unescaped user content, etc.)
             - Hardcoded values that should be theme tokens or CSS variables
 
-            ### ♿ Accessibility (a11y) — especially important for a component library!
+            ### Accessibility (a11y) — especially important for a component library!
             - Missing ARIA roles, labels, or descriptions on interactive elements
             - Keyboard navigation gaps (focus management, tab order, Escape key handling)
             - Color contrast or visual-only state indicators (missing `aria-disabled`, etc.)
             - Reduced-motion support missing for animated components
 
-            ### 🎨 Component library conventions
+            ### Component library conventions
             - Does the component accept and forward a `className` prop? (composability)
             - Are `data-*` attributes used for styling hooks instead of generated class names?
             - Is the component using design tokens / CSS variables from the theme instead of hardcoded colors or sizes?
@@ -70,27 +70,27 @@ jobs:
             - Does the component forward `ref` correctly with `React.forwardRef`?
             - Are polymorphic components (`as` prop or `asChild`) handled safely?
 
-            ### 🧪 Testing
+            ### Testing
             - Are new component behaviors covered by unit or integration tests?
             - Do tests check both visual and accessible states?
 
-            ### 📦 Bundle & performance
+            ### Bundle & performance
             - Are new dependencies justified? Could a native API or existing util work instead?
             - Are large third-party imports tree-shakeable or lazy?
 
             ---
 
-            ## 📝 How to format your review
+            ## How to format your review
 
             Use a short, friendly summary at the top. Then group findings by severity:
 
-            **🚨 Must Fix**
+            **Must Fix**
             - `ComponentName`: clear issue → what to do
 
-            **♿ Accessibility**
+            **Accessibility**
             - `ComponentName`: issue → fix
 
-            **💡 Suggestions** _(optional, non-blocking)_
+            **Suggestions** _(optional, non-blocking)_
             - `ComponentName`: small idea that could make it even better
 
             Keep each item to one or two lines. No lengthy explanations unless truly needed.
