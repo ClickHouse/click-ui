@@ -109,13 +109,13 @@ const Card = ({
   const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
   return (
     <div
+      aria-disabled={disabled}
+      tabIndex={0}
       {...props}
       className={cn(
         wrapperVariants({ size, align: alignContent, hasShadow, isSelected }),
         className
       )}
-      aria-disabled={disabled}
-      tabIndex={0}
     >
       {(icon || title) && (
         <div className={cn(headerVariants({ size, align: alignContent, disabled }))}>
