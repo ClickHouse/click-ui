@@ -120,7 +120,7 @@ After generating, run `yarn test:visual tests/<area>/<name>.spec.ts` to confirm 
   '@clickhouse/click-ui': patch
   ---
 
-  migration of <Name> from styled-components to css modules. no behavior change.
+  Migrate <Name> from styled-components to css modules with no change in behavior
   ````
 
   `patch` bump (no behavior change → not even minor). Do not pad the body with extra prose, lists of preserved attributes, or migration notes — the terse phrasing is intentional and scales across dozens of migration PRs.
@@ -171,7 +171,7 @@ Before marking the PR ready:
 - [ ] Branch is rebased on the latest `main` (a fresh `forwardRef` or unrelated commit may have landed during the work).
 - [ ] Commit 1 contains only stories, spec, snapshots, and possibly a narrow TS widening — nothing else.
 - [ ] Commit 2 changes only `<Name>.tsx`, `<Name>.module.css`, and the changeset.
-- [ ] Changeset is `patch` and reads exactly `migration of <Name> from styled-components to css modules. no behavior change.`
+- [ ] Changeset is `patch` and reads exactly `Migrate <Name> from styled-components to css modules with no change in behavior`
 - [ ] `yarn test:visual tests/<area>/<name>.spec.ts` is green with zero snapshot regenerations between the two commits.
 - [ ] No `styled-components` imports remain in `src/components/<Name>/`.
 - [ ] No internal links (Linear, Notion, internal Slack/Grafana) anywhere in PR text, commit messages, the changeset, or this skill's adjacent files — click-ui is a public repo.
