@@ -4,7 +4,7 @@ import LogosLight from './LogosLight';
 
 const meta: Meta<typeof Logo> = {
   component: Logo,
-  title: 'Display/Logo',
+  title: 'Assets/Logo',
   tags: ['LOGO', 'autodocs'],
   argTypes: {
     name: {

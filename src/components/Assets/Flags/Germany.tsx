@@ -26,9 +26,11 @@ const Germany = (props: SVGAssetProps): React.ReactElement => (
     </g>
     <defs>
       <clipPath id="germanyFlagClipPath">
-        <path
+        <rect
+          width={30}
+          height={20}
           fill="#fff"
-          d="M0 0h30v20H0z"
+          rx={1}
         />
       </clipPath>
     </defs>

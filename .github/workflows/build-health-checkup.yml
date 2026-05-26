@@ -1,4 +1,4 @@
-name: 🏗️ Build Health Checkup
+name: Build health checkup
 
 on:
   workflow_dispatch:

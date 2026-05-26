@@ -57,6 +57,23 @@ export const DatePickerAllowOnlyNext30Days = {
   },
 };
 
+export const ResponsivePositioningDisabled = {
+  ...defaultStory,
+  render: (args: Args) => {
+    const date = args.date ? new Date(args.date) : undefined;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <DatePicker
+          date={date}
+          onSelectDate={args.onSelectDate}
+          placeholder={args.placeholder}
+          responsivePositioning={false}
+        />
+      </div>
+    );
+  },
+};
+
 export const TimezoneLocalVsUTC = {
   ...defaultStory,
   render: (args: Args) => {

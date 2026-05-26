@@ -34,6 +34,7 @@ const UnitedArabEmirates = (props: SVGAssetProps): React.ReactElement => (
           width="30"
           height="20"
           fill="white"
+          rx="1"
         />
       </clipPath>
     </defs>

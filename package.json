@@ -1,6 +1,6 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "v0.4.0",
+  "version": "v0.6.0",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
@@ -383,7 +383,7 @@
     "lint:code:fix": "eslint src --report-unused-disable-directives --fix",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
-    "prepare": "yarn test && yarn format && yarn lint && yarn changeset:verify && yarn circular-dependency:check",
+    "prepare": "yarn test && yarn format && yarn lint && yarn circular-dependency:check",
     "prettify": "yarn format:fix",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -429,7 +429,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.60.0",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",

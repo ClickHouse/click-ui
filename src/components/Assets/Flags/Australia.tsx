@@ -13,7 +13,7 @@ const Australia = (props: SVGAssetProps): React.ReactElement => (
     <g clipPath="url(#clip0_2882_11964)">
       <path
         fill="#012169"
-        d="M29 0H1a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h28a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1Z"
+        d="M0 0h30v20H0V0Z"
       />
       <mask
         id="mask0_2882_11964"
@@ -94,9 +94,11 @@ const Australia = (props: SVGAssetProps): React.ReactElement => (
     </g>
     <defs>
       <clipPath id="clip0_2882_11964">
-        <path
+        <rect
+          width={30}
+          height={20}
           fill="#fff"
-          d="M0 0h30v20H0z"
+          rx={1}
         />
       </clipPath>
     </defs>
