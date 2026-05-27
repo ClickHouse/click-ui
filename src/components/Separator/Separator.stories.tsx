@@ -32,6 +32,23 @@ const HorizontalHarness = ({ size }: { size: SeparatorProps['size'] }) => (
   </div>
 );
 
+const DefaultHarness = ({ size }: { size: SeparatorProps['size'] }) => (
+  <div
+    data-testid="separator-harness"
+    style={{
+      display: 'inline-flex',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      width: '160px',
+      background: '#888',
+    }}
+  >
+    <div style={{ height: '24px', background: '#222' }} />
+    <Separator size={size} />
+    <div style={{ height: '24px', background: '#222' }} />
+  </div>
+);
+
 const VerticalHarness = ({ size }: { size: SeparatorProps['size'] }) => (
   <div
     data-testid="separator-harness"
@@ -108,5 +125,5 @@ export const VerticalXxl: Story = {
 };
 
 export const DefaultOrientation: Story = {
-  render: () => <HorizontalHarness size="md" />,
+  render: () => <DefaultHarness size="md" />,
 };
