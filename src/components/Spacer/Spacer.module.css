@@ -1,6 +1,5 @@
 .spacer {
   display: flex;
-  padding: var(--click-spacer-horizontal-space-y-md) var(--click-spacer-horizontal-space-x-all);
   background: transparent;
 }
 
