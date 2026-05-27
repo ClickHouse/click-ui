@@ -46,6 +46,7 @@ export const Disabled: Story = {
       <input
         id="disabled-input"
         defaultValue="value"
+        disabled
       />
     </GenericLabel>
   ),
