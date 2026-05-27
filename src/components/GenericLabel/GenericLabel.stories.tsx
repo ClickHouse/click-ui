@@ -23,3 +23,30 @@ export const Playground: Story = {
     </GenericLabel>
   ),
 };
+
+export const Default: Story = {
+  render: () => (
+    <GenericLabel htmlFor="default-input">
+      Form Field generic label
+      <input
+        id="default-input"
+        defaultValue="value"
+      />
+    </GenericLabel>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <GenericLabel
+      htmlFor="disabled-input"
+      disabled
+    >
+      Form Field generic label
+      <input
+        id="disabled-input"
+        defaultValue="value"
+      />
+    </GenericLabel>
+  ),
+};
