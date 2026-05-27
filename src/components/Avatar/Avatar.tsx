@@ -1,79 +1,47 @@
 import { Fallback, Image, Root } from '@radix-ui/react-avatar';
-import { styled } from 'styled-components';
-import { AvatarProps, TextSize } from './Avatar.types';
+import { cn, cva } from '@/lib/cva';
+import { AvatarProps } from './Avatar.types';
+import styles from './Avatar.module.css';
+
+const fallbackVariants = cva(styles.avatar__fallback, {
+  variants: {
+    textSize: {
+      sm: styles['avatar__fallback_size_sm'],
+      md: styles['avatar__fallback_size_md'],
+    },
+  },
+  defaultVariants: {
+    textSize: 'sm',
+  },
+});
 
 export const Avatar = ({
   text,
   textSize = 'sm',
   src,
   srcSet,
+  className,
   ...delegated
 }: AvatarProps) => (
-  <StyledRoot {...delegated}>
-    <AvatarImage
+  <Root
+    {...delegated}
+    className={cn(styles.avatar, className)}
+  >
+    <Image
       src={src}
       srcSet={srcSet}
       alt={text}
+      className={styles.avatar__image}
     />
-    <StyledFallback
-      $textSize={textSize}
+    <Fallback
       delayMs={0}
+      className={cn(fallbackVariants({ textSize }))}
     >
       {text
         .trim()
         .replace(/(^.)([^ ]* )?(.).*/, '$1$3')
         .trim()
         .toUpperCase()}
-    </StyledFallback>
-  </StyledRoot>
+    </Fallback>
+  </Root>
 );
-
-const StyledRoot = styled(Root)`
-  width: ${props => props.theme.click.avatar.size.width};
-  height: ${props => props.theme.click.avatar.size.height};
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  overflow: hidden;
-  user-select: none;
-
-  background-color: ${props => props.theme.click.avatar.color.background.default};
-  color: ${props => props.theme.click.avatar.color.text.default};
-  border-radius: ${props => props.theme.click.avatar.radii.all};
-
-  &:active {
-    background-color: ${props => props.theme.click.avatar.color.background.active};
-    color: ${props => props.theme.click.avatar.color.text.active};
-  }
-
-  &:hover {
-    background-color: ${props => props.theme.click.avatar.color.background.hover};
-    color: ${props => props.theme.click.avatar.color.text.hover};
-  }
-`;
-
-const AvatarImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-`;
-
-const StyledFallback = styled(Fallback)<{ $textSize: TextSize }>`
-  width: ${props => props.theme.click.avatar.size.label.width};
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  ${({ theme, $textSize = 'sm' }) => `
-    font: ${theme.click.avatar.typography.label[$textSize].default};
-
-    &:active {
-      font: ${theme.click.avatar.typography.label[$textSize].active};
-    }
-
-    &:hover {
-      font: ${theme.click.avatar.typography.label[$textSize].hover};
-      }
-  `}
-`;
