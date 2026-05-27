@@ -1,5 +1,5 @@
 import { test as it, expect } from '@playwright/test';
-import { getStoryUrl } from './index';
+import { getStoryUrl } from '../utils';
 
 const { describe, use } = it;
 
