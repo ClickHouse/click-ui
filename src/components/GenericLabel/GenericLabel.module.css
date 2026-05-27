@@ -1,0 +1,31 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. genericLabel) */
+
+.generic-label {
+  color: var(--click-field-color-genericLabel-default);
+  font: var(--click-field-typography-genericLabel-default);
+  cursor: pointer;
+}
+
+.generic-label:hover {
+  color: var(--click-field-color-genericLabel-hover);
+  font: var(--click-field-typography-genericLabel-hover);
+}
+
+.generic-label:focus,
+.generic-label:focus-within {
+  color: var(--click-field-color-genericLabel-active);
+  font: var(--click-field-typography-genericLabel-active);
+}
+
+/* stylelint-disable no-descending-specificity -- disabled state intentionally
+   defined after hover/focus to neutralize them; the original styled-components
+   emits no hover/focus rules when disabled is true. */
+.generic-label.generic-label_disabled,
+.generic-label.generic-label_disabled:hover,
+.generic-label.generic-label_disabled:focus,
+.generic-label.generic-label_disabled:focus-within {
+  color: var(--click-field-color-genericLabel-disabled);
+  font: var(--click-field-typography-genericLabel-disabled);
+  cursor: not-allowed;
+}
+/* stylelint-enable no-descending-specificity */
