@@ -426,6 +426,9 @@ describe('Checkbox Visual Regression', () => {
       });
       const checkbox = page.getByRole('checkbox');
       await expect(checkbox).toBeDisabled();
+      await page.locator('body').click();
+      await page.keyboard.press('Tab');
+      await expect(checkbox).not.toBeFocused();
     });
   });
 });
