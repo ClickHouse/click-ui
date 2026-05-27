@@ -360,11 +360,11 @@ export type { PopoverProps } from '@radix-ui/react-popover';
  * @deprecated Use the `Link` component with the `component` prop instead.
  * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
  */
-export { linkStyles } from './components/Link/common';
+export { linkStyles } from './styles/linkStyles';
 
 /**
  * @deprecated Use the `Link` component with the `component` prop instead.
  * This type exposes internal styled-components implementation details.
  * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
  */
-export type { StyledLinkProps } from './components/Link/common';
+export type { StyledLinkProps } from './styles/linkStyles';

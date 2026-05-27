@@ -9,7 +9,7 @@ import {
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon/Icon.types';
 import { styled } from 'styled-components';
-import { linkStyles } from './common';
+import { linkStyles } from '@/styles/linkStyles';
 import type { TextSize, TextWeight } from '@/components/Text';
 
 export interface LinkProps<T extends ElementType = 'a'> {
