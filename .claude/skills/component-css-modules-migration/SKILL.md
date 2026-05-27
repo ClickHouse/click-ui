@@ -48,8 +48,14 @@ If you need to fix repo tooling (broken script, version mismatch) to even run `y
 ### Files
 
 - `src/components/<Name>/<Name>.stories.tsx` — Extend the existing stories. There must be exactly one named story per visual variant the spec wants to screenshot. Reuse the structure from `src/components/ButtonGroup/ButtonGroup.stories.tsx`. Required scenarios: each `type` variant, selected/active state, disabled state (including disabled+active if applicable), fill-width / size variants, multi-select if applicable.
-- `tests/<area>/<name>.spec.ts` — New Playwright spec. Mirror the structure from `tests/buttons/button.spec.ts` or `tests/buttons/buttongroup.spec.ts`. Cover:
-  - Light + dark theme via `getStoryUrl(storyId, theme)` from `tests/utils/index.ts`
+- `tests/<area>/<name>.spec.ts` — New Playwright spec. Pick `<area>` carefully:
+  - **Never put component specs under `tests/utils/`.** That folder is reserved for shared test helpers like `getStoryUrl` (`tests/utils/index.ts`). Mixing specs and helpers there confuses both human readers and Copilot reviewers.
+  - Use an existing component-family folder if the component fits one (e.g. `tests/buttons/`, `tests/cards/`).
+  - For primitives that just display content (Spacer, Separator, Text, Title, Label, GenericLabel, Icon, etc.), use **`tests/display/`**.
+  - Establish a new folder only when the component genuinely starts a new family. Name it for the family (e.g. `tests/forms/`, `tests/overlays/`), not the component.
+
+  Mirror the structure from `tests/buttons/button.spec.ts` or `tests/buttons/buttongroup.spec.ts`. Cover:
+  - Light + dark theme via `getStoryUrl(storyId, theme)` from `tests/utils/index.ts` (imported as `from '../utils'` from a sibling test folder)
   - Each variant story → snapshot
   - Interactive states (hover, focus) — call `page.locator('body').click()` before `Tab` to anchor focus into page content (not browser chrome — known flakiness fix)
   - Keyboard activation if relevant (Space, Enter) — works on native `<button>` regardless of styling
