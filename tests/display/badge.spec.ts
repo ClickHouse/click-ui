@@ -184,6 +184,29 @@ describe('Badge Visual Regression', () => {
           maxDiffPixels: 100,
         });
       });
+
+      it('icon solid type matches snapshot', async ({ page }) => {
+        // Locks in the original BadgeContent quirk: $type/$size default to
+        // 'opaque'/'md' for the icon SVG even when the badge itself is
+        // solid/sm. See badgeContentVariants in Badge.tsx.
+        await goto(page, 'display-badge--icon-solid', 'light');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-icon-solid-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('icon sm size matches snapshot', async ({ page }) => {
+        // Locks in the original BadgeContent quirk: icon SVG dimensions
+        // stay md even when the badge's `size` is sm.
+        await goto(page, 'display-badge--icon-sm', 'light');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-icon-sm-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
     });
 
     describe('Dismissible', () => {
@@ -404,6 +427,24 @@ describe('Badge Visual Regression', () => {
         const node = badge(page);
         await expect(node).toBeVisible({ timeout: 10000 });
         await expect(node).toHaveScreenshot('badge-icon-end-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('icon solid type matches snapshot', async ({ page }) => {
+        await goto(page, 'display-badge--icon-solid');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-icon-solid-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('icon sm size matches snapshot', async ({ page }) => {
+        await goto(page, 'display-badge--icon-sm');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-icon-sm-dark.png', {
           maxDiffPixels: 100,
         });
       });

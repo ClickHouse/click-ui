@@ -43,33 +43,25 @@ const contentVariants = cva(styles.content, {
   defaultVariants: { size: 'md' },
 });
 
+// The original `BadgeContent = styled(IconWrapper)` only forwarded `$state` —
+// `$type` and `$size` were NOT passed and defaulted to `'opaque'` and `'md'`
+// inside the styled rule. So the descendant <svg> color always came from the
+// opaque-text-* tokens (regardless of the badge's actual `type`) and the
+// SVG dimensions were always md (regardless of the badge's actual `size`).
+// To preserve byte-for-byte behavior, this variant set keys off `state` only.
 const badgeContentVariants = cva(styles.badgecontent, {
   variants: {
-    typestate: {
-      'opaque-default': styles['badgecontent_typestate_opaque-default'],
-      'opaque-success': styles['badgecontent_typestate_opaque-success'],
-      'opaque-neutral': styles['badgecontent_typestate_opaque-neutral'],
-      'opaque-danger': styles['badgecontent_typestate_opaque-danger'],
-      'opaque-disabled': styles['badgecontent_typestate_opaque-disabled'],
-      'opaque-warning': styles['badgecontent_typestate_opaque-warning'],
-      'opaque-info': styles['badgecontent_typestate_opaque-info'],
-      'solid-default': styles['badgecontent_typestate_solid-default'],
-      'solid-success': styles['badgecontent_typestate_solid-success'],
-      'solid-neutral': styles['badgecontent_typestate_solid-neutral'],
-      'solid-danger': styles['badgecontent_typestate_solid-danger'],
-      'solid-disabled': styles['badgecontent_typestate_solid-disabled'],
-      'solid-warning': styles['badgecontent_typestate_solid-warning'],
-      'solid-info': styles['badgecontent_typestate_solid-info'],
-    },
-    size: {
-      sm: styles['badgecontent_size_sm'],
-      md: styles['badgecontent_size_md'],
+    state: {
+      default: styles['badgecontent_state_default'],
+      success: styles['badgecontent_state_success'],
+      neutral: styles['badgecontent_state_neutral'],
+      danger: styles['badgecontent_state_danger'],
+      disabled: styles['badgecontent_state_disabled'],
+      warning: styles['badgecontent_state_warning'],
+      info: styles['badgecontent_state_info'],
     },
   },
-  defaultVariants: {
-    typestate: 'opaque-default',
-    size: 'md',
-  },
+  defaultVariants: { state: 'default' },
 });
 
 const closeIconVariants = cva(styles.closeicon, {
@@ -133,7 +125,7 @@ export const Badge = ({
           iconDir={iconDir}
           size={size}
           ellipsisContent={ellipsisContent}
-          className={cn(badgeContentVariants({ typestate, size: resolvedSize }))}
+          className={cn(badgeContentVariants({ state }))}
         >
           {text}
         </IconWrapper>

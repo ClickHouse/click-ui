@@ -114,6 +114,28 @@ export const IconEnd: Story = {
   },
 };
 
+export const IconSolid: Story = {
+  args: {
+    text: 'badge',
+    state: 'success',
+    size: 'md',
+    type: 'solid',
+    icon: 'check',
+    iconDir: 'start',
+  },
+};
+
+export const IconSm: Story = {
+  args: {
+    text: 'badge',
+    state: 'success',
+    size: 'sm',
+    type: 'opaque',
+    icon: 'check',
+    iconDir: 'start',
+  },
+};
+
 // Dismissible
 
 export const Dismissible: Story = {
