@@ -62,6 +62,19 @@ describe('Avatar Visual Regression', () => {
           maxDiffPixels: 100,
         });
       });
+
+      it('with image matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('display-avatar--with-image', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const harness = page.locator(harnessLocator).first();
+        await expect(harness).toBeVisible({ timeout: 10000 });
+        // Wait for the Radix image to finish loading and replace the fallback.
+        await expect(harness.locator('img')).toBeVisible({ timeout: 10000 });
+        await expect(harness).toHaveScreenshot('avatar-with-image-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
     });
 
     describe('Interactive States', () => {
@@ -72,9 +85,12 @@ describe('Avatar Visual Regression', () => {
         const harness = page.locator(harnessLocator).first();
         await expect(harness).toBeVisible({ timeout: 10000 });
         await harness.hover();
-        await expect(harness).toHaveScreenshot('avatar-text-fallback-sm-hover-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          'avatar-text-fallback-sm-hover-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('md text fallback hover matches snapshot', async ({ page }) => {
@@ -84,9 +100,12 @@ describe('Avatar Visual Regression', () => {
         const harness = page.locator(harnessLocator).first();
         await expect(harness).toBeVisible({ timeout: 10000 });
         await harness.hover();
-        await expect(harness).toHaveScreenshot('avatar-text-fallback-md-hover-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          'avatar-text-fallback-md-hover-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
   });
@@ -146,6 +165,19 @@ describe('Avatar Visual Regression', () => {
         const harness = page.locator(harnessLocator).first();
         await expect(harness).toBeVisible({ timeout: 10000 });
         await expect(harness).toHaveScreenshot('avatar-default-text-size-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('with image matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('display-avatar--with-image'), {
+          waitUntil: 'networkidle',
+        });
+        const harness = page.locator(harnessLocator).first();
+        await expect(harness).toBeVisible({ timeout: 10000 });
+        // Wait for the Radix image to finish loading and replace the fallback.
+        await expect(harness.locator('img')).toBeVisible({ timeout: 10000 });
+        await expect(harness).toHaveScreenshot('avatar-with-image-dark.png', {
           maxDiffPixels: 100,
         });
       });
