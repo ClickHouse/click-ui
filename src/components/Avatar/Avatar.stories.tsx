@@ -33,19 +33,39 @@ export const Playground: Story = {
 };
 
 export const TextFallbackSm: Story = {
-  render: () => <AvatarHarness text="Claude Mendoza" textSize="sm" />,
+  render: () => (
+    <AvatarHarness
+      text="Claude Mendoza"
+      textSize="sm"
+    />
+  ),
 };
 
 export const TextFallbackMd: Story = {
-  render: () => <AvatarHarness text="Claude Mendoza" textSize="md" />,
+  render: () => (
+    <AvatarHarness
+      text="Claude Mendoza"
+      textSize="md"
+    />
+  ),
 };
 
 export const TextSingleWord: Story = {
-  render: () => <AvatarHarness text="Avatar" textSize="sm" />,
+  render: () => (
+    <AvatarHarness
+      text="Avatar"
+      textSize="sm"
+    />
+  ),
 };
 
 export const TextSingleChar: Story = {
-  render: () => <AvatarHarness text="A" textSize="md" />,
+  render: () => (
+    <AvatarHarness
+      text="A"
+      textSize="md"
+    />
+  ),
 };
 
 export const DefaultTextSize: Story = {
