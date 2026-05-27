@@ -1,55 +1,107 @@
-import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { IconWrapper } from '@/components/IconWrapper';
-import { BadgeProps, BadgeState, BadgeSize, BadgeType } from './Badge.types';
+import { cn, cva } from '@/lib/cva';
+import { BadgeProps } from './Badge.types';
+import styles from './Badge.module.css';
 
-const Wrapper = styled.div<{ $state?: BadgeState; $size?: BadgeSize; $type?: BadgeType }>`
-  display: inline-flex;
-  ${({ $state = 'default', $size = 'md', $type = 'opaque', theme }) => `
-    background-color: ${theme.click.badge[$type].color.background[$state]};
-    color: ${theme.click.badge[$type].color.text[$state]};
-    font: ${theme.click.badge.typography.label[$size].default};
-    border-radius: ${theme.click.badge.radii.all};
-    border: ${theme.click.badge.stroke} solid ${theme.click.badge[$type].color.stroke[$state]};
-    padding: ${theme.click.badge.space[$size].y} ${theme.click.badge.space[$size].x};
-  `}
-`;
+const wrapperVariants = cva(styles.wrapper, {
+  variants: {
+    typestate: {
+      'opaque-default': styles['wrapper_typestate_opaque-default'],
+      'opaque-success': styles['wrapper_typestate_opaque-success'],
+      'opaque-neutral': styles['wrapper_typestate_opaque-neutral'],
+      'opaque-danger': styles['wrapper_typestate_opaque-danger'],
+      'opaque-disabled': styles['wrapper_typestate_opaque-disabled'],
+      'opaque-warning': styles['wrapper_typestate_opaque-warning'],
+      'opaque-info': styles['wrapper_typestate_opaque-info'],
+      'solid-default': styles['wrapper_typestate_solid-default'],
+      'solid-success': styles['wrapper_typestate_solid-success'],
+      'solid-neutral': styles['wrapper_typestate_solid-neutral'],
+      'solid-danger': styles['wrapper_typestate_solid-danger'],
+      'solid-disabled': styles['wrapper_typestate_solid-disabled'],
+      'solid-warning': styles['wrapper_typestate_solid-warning'],
+      'solid-info': styles['wrapper_typestate_solid-info'],
+    },
+    size: {
+      sm: styles['wrapper_size_sm'],
+      md: styles['wrapper_size_md'],
+    },
+  },
+  defaultVariants: {
+    typestate: 'opaque-default',
+    size: 'md',
+  },
+});
 
-const Content = styled.div<{ $state?: BadgeState; $size?: BadgeSize }>`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ $size = 'md', theme }) => theme.click.badge.space[$size].gap};
-  max-width: 100%;
-  justify-content: flex-start;
-`;
+const contentVariants = cva(styles.content, {
+  variants: {
+    size: {
+      sm: styles['content_size_sm'],
+      md: styles['content_size_md'],
+    },
+  },
+  defaultVariants: { size: 'md' },
+});
 
-const SvgContainer = styled.svg<{
-  $state?: BadgeState;
-  $size?: BadgeSize;
-  $type?: BadgeType;
-}>`
-  ${({ $state = 'default', $size = 'md', $type = 'opaque', theme }) => `
-    color: ${theme.click.badge[$type].color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
-  `}
-`;
-const BadgeContent = styled(IconWrapper)<{
-  $state?: BadgeState;
-  $size?: BadgeSize;
-  $type?: BadgeType;
-}>`
-  width: auto;
-  overflow: hidden;
-  svg {
-    ${({ $state = 'default', $size = 'md', $type = 'opaque', theme }) => `
-    color: ${theme.click.badge[$type].color.text[$state]};
-    height: ${theme.click.badge.icon[$size].size.height};
-    width: ${theme.click.badge.icon[$size].size.width};
-    gap: inherit;
-  `}
-  }
-`;
+const badgeContentVariants = cva(styles.badgecontent, {
+  variants: {
+    typestate: {
+      'opaque-default': styles['badgecontent_typestate_opaque-default'],
+      'opaque-success': styles['badgecontent_typestate_opaque-success'],
+      'opaque-neutral': styles['badgecontent_typestate_opaque-neutral'],
+      'opaque-danger': styles['badgecontent_typestate_opaque-danger'],
+      'opaque-disabled': styles['badgecontent_typestate_opaque-disabled'],
+      'opaque-warning': styles['badgecontent_typestate_opaque-warning'],
+      'opaque-info': styles['badgecontent_typestate_opaque-info'],
+      'solid-default': styles['badgecontent_typestate_solid-default'],
+      'solid-success': styles['badgecontent_typestate_solid-success'],
+      'solid-neutral': styles['badgecontent_typestate_solid-neutral'],
+      'solid-danger': styles['badgecontent_typestate_solid-danger'],
+      'solid-disabled': styles['badgecontent_typestate_solid-disabled'],
+      'solid-warning': styles['badgecontent_typestate_solid-warning'],
+      'solid-info': styles['badgecontent_typestate_solid-info'],
+    },
+    size: {
+      sm: styles['badgecontent_size_sm'],
+      md: styles['badgecontent_size_md'],
+    },
+  },
+  defaultVariants: {
+    typestate: 'opaque-default',
+    size: 'md',
+  },
+});
+
+const closeIconVariants = cva(styles.closeicon, {
+  variants: {
+    state: {
+      default: styles['closeicon_state_default'],
+      success: styles['closeicon_state_success'],
+      neutral: styles['closeicon_state_neutral'],
+      danger: styles['closeicon_state_danger'],
+      disabled: styles['closeicon_state_disabled'],
+      warning: styles['closeicon_state_warning'],
+      info: styles['closeicon_state_info'],
+    },
+  },
+  defaultVariants: { state: 'default' },
+});
+
+type BadgeTypeState =
+  | 'opaque-default'
+  | 'opaque-success'
+  | 'opaque-neutral'
+  | 'opaque-danger'
+  | 'opaque-disabled'
+  | 'opaque-warning'
+  | 'opaque-info'
+  | 'solid-default'
+  | 'solid-success'
+  | 'solid-neutral'
+  | 'solid-danger'
+  | 'solid-disabled'
+  | 'solid-warning'
+  | 'solid-info';
 
 export const Badge = ({
   icon,
@@ -61,33 +113,39 @@ export const Badge = ({
   dismissible,
   onClose,
   ellipsisContent = true,
+  className,
   ...props
-}: BadgeProps) => (
-  <Wrapper
-    $state={state}
-    $size={size}
-    $type={type}
-    {...props}
-  >
-    <Content data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-badge-content`}>
-      <BadgeContent
-        icon={icon}
-        iconDir={iconDir}
-        size={size}
-        $state={state}
-        ellipsisContent={ellipsisContent}
+}: BadgeProps) => {
+  const resolvedType = type ?? 'opaque';
+  const resolvedSize = size ?? 'md';
+  const typestate = `${resolvedType}-${state}` as BadgeTypeState;
+  return (
+    <div
+      {...props}
+      className={cn(wrapperVariants({ typestate, size: resolvedSize }), className)}
+    >
+      <div
+        data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-badge-content`}
+        className={cn(contentVariants({ size: resolvedSize }))}
       >
-        {text}
-      </BadgeContent>
-      {dismissible && (
-        <SvgContainer
-          name="cross"
-          $state={state}
-          as={Icon}
-          onClick={onClose}
-          aria-label="close"
-        />
-      )}
-    </Content>
-  </Wrapper>
-);
+        <IconWrapper
+          icon={icon}
+          iconDir={iconDir}
+          size={size}
+          ellipsisContent={ellipsisContent}
+          className={cn(badgeContentVariants({ typestate, size: resolvedSize }))}
+        >
+          {text}
+        </IconWrapper>
+        {dismissible && (
+          <Icon
+            name="cross"
+            onClick={onClose}
+            aria-label="close"
+            className={cn(closeIconVariants({ state }))}
+          />
+        )}
+      </div>
+    </div>
+  );
+};

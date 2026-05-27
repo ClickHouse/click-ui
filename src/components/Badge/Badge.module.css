@@ -1,0 +1,264 @@
+.wrapper {
+  display: inline-flex;
+  padding: var(--click-badge-space-md-y) var(--click-badge-space-md-x);
+  border: var(--click-badge-stroke) solid var(--click-badge-opaque-color-stroke-default);
+  border-radius: var(--click-badge-radii-all);
+  background-color: var(--click-badge-opaque-color-background-default);
+  color: var(--click-badge-opaque-color-text-default);
+  font: var(--click-badge-typography-label-md-default);
+}
+
+/* Opaque type — colors per state */
+
+.wrapper_typestate_opaque-default {
+  border-color: var(--click-badge-opaque-color-stroke-default);
+  background-color: var(--click-badge-opaque-color-background-default);
+  color: var(--click-badge-opaque-color-text-default);
+}
+
+.wrapper_typestate_opaque-success {
+  border-color: var(--click-badge-opaque-color-stroke-success);
+  background-color: var(--click-badge-opaque-color-background-success);
+  color: var(--click-badge-opaque-color-text-success);
+}
+
+.wrapper_typestate_opaque-neutral {
+  border-color: var(--click-badge-opaque-color-stroke-neutral);
+  background-color: var(--click-badge-opaque-color-background-neutral);
+  color: var(--click-badge-opaque-color-text-neutral);
+}
+
+.wrapper_typestate_opaque-danger {
+  border-color: var(--click-badge-opaque-color-stroke-danger);
+  background-color: var(--click-badge-opaque-color-background-danger);
+  color: var(--click-badge-opaque-color-text-danger);
+}
+
+.wrapper_typestate_opaque-disabled {
+  border-color: var(--click-badge-opaque-color-stroke-disabled);
+  background-color: var(--click-badge-opaque-color-background-disabled);
+  color: var(--click-badge-opaque-color-text-disabled);
+}
+
+.wrapper_typestate_opaque-warning {
+  border-color: var(--click-badge-opaque-color-stroke-warning);
+  background-color: var(--click-badge-opaque-color-background-warning);
+  color: var(--click-badge-opaque-color-text-warning);
+}
+
+.wrapper_typestate_opaque-info {
+  border-color: var(--click-badge-opaque-color-stroke-info);
+  background-color: var(--click-badge-opaque-color-background-info);
+  color: var(--click-badge-opaque-color-text-info);
+}
+
+/* Solid type — colors per state */
+
+.wrapper_typestate_solid-default {
+  border-color: var(--click-badge-solid-color-stroke-default);
+  background-color: var(--click-badge-solid-color-background-default);
+  color: var(--click-badge-solid-color-text-default);
+}
+
+.wrapper_typestate_solid-success {
+  border-color: var(--click-badge-solid-color-stroke-success);
+  background-color: var(--click-badge-solid-color-background-success);
+  color: var(--click-badge-solid-color-text-success);
+}
+
+.wrapper_typestate_solid-neutral {
+  border-color: var(--click-badge-solid-color-stroke-neutral);
+  background-color: var(--click-badge-solid-color-background-neutral);
+  color: var(--click-badge-solid-color-text-neutral);
+}
+
+.wrapper_typestate_solid-danger {
+  border-color: var(--click-badge-solid-color-stroke-danger);
+  background-color: var(--click-badge-solid-color-background-danger);
+  color: var(--click-badge-solid-color-text-danger);
+}
+
+.wrapper_typestate_solid-disabled {
+  border-color: var(--click-badge-solid-color-stroke-disabled);
+  background-color: var(--click-badge-solid-color-background-disabled);
+  color: var(--click-badge-solid-color-text-disabled);
+}
+
+.wrapper_typestate_solid-warning {
+  border-color: var(--click-badge-solid-color-stroke-warning);
+  background-color: var(--click-badge-solid-color-background-warning);
+  color: var(--click-badge-solid-color-text-warning);
+}
+
+.wrapper_typestate_solid-info {
+  border-color: var(--click-badge-solid-color-stroke-info);
+  background-color: var(--click-badge-solid-color-background-info);
+  color: var(--click-badge-solid-color-text-info);
+}
+
+/* Sizes */
+
+.wrapper_size_sm {
+  padding: var(--click-badge-space-sm-y) var(--click-badge-space-sm-x);
+  font: var(--click-badge-typography-label-sm-default);
+}
+
+.wrapper_size_md {
+  padding: var(--click-badge-space-md-y) var(--click-badge-space-md-x);
+  font: var(--click-badge-typography-label-md-default);
+}
+
+/* Content row — mirrors the inner Content wrapper */
+
+.content {
+  display: inline-flex;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--click-badge-space-md-gap);
+}
+
+.content_size_sm {
+  gap: var(--click-badge-space-sm-gap);
+}
+
+.content_size_md {
+  gap: var(--click-badge-space-md-gap);
+}
+
+/* BadgeContent — wraps the IconWrapper. The original styled(IconWrapper) set
+   `width: auto; overflow: hidden;` on the IconWrapper's rendered root and
+   styled the descendant <svg> with state-driven color and icon size.
+
+   The doubled-class selectors below (e.g. `.badgecontent.badgecontent svg`)
+   raise specificity to (0,2,1) so these rules win over the Icon component's
+   own runtime-injected styled-components rule `.<sc-class> svg { width: ... }`
+   (specificity 0,1,1). styled-components used to inject the BadgeContent
+   stylesheet AFTER Icon's stylesheet at render time, so source order let
+   BadgeContent win at equal specificity; CSS Modules now bundle Badge's
+   stylesheet earlier than the runtime SC stylesheet, so we need the bump. */
+
+/* stylelint-disable no-descending-specificity -- doubled-class selectors below
+   raise specificity so they win over the Icon component's runtime-injected
+   styled-components `& svg` rule. */
+
+.badgecontent {
+  width: auto;
+  overflow: hidden;
+}
+
+.badgecontent.badgecontent svg {
+  width: var(--click-badge-icon-md-size-width);
+  height: var(--click-badge-icon-md-size-height);
+  gap: inherit;
+}
+
+.badgecontent_size_sm.badgecontent_size_sm svg {
+  width: var(--click-badge-icon-sm-size-width);
+  height: var(--click-badge-icon-sm-size-height);
+}
+
+.badgecontent_size_md.badgecontent_size_md svg {
+  width: var(--click-badge-icon-md-size-width);
+  height: var(--click-badge-icon-md-size-height);
+}
+
+/* Opaque type — descendant svg color per state */
+
+.badgecontent_typestate_opaque-default.badgecontent_typestate_opaque-default svg {
+  color: var(--click-badge-opaque-color-text-default);
+}
+
+.badgecontent_typestate_opaque-success.badgecontent_typestate_opaque-success svg {
+  color: var(--click-badge-opaque-color-text-success);
+}
+
+.badgecontent_typestate_opaque-neutral.badgecontent_typestate_opaque-neutral svg {
+  color: var(--click-badge-opaque-color-text-neutral);
+}
+
+.badgecontent_typestate_opaque-danger.badgecontent_typestate_opaque-danger svg {
+  color: var(--click-badge-opaque-color-text-danger);
+}
+
+.badgecontent_typestate_opaque-disabled.badgecontent_typestate_opaque-disabled svg {
+  color: var(--click-badge-opaque-color-text-disabled);
+}
+
+.badgecontent_typestate_opaque-warning.badgecontent_typestate_opaque-warning svg {
+  color: var(--click-badge-opaque-color-text-warning);
+}
+
+.badgecontent_typestate_opaque-info.badgecontent_typestate_opaque-info svg {
+  color: var(--click-badge-opaque-color-text-info);
+}
+
+/* Solid type — descendant svg color per state */
+
+.badgecontent_typestate_solid-default.badgecontent_typestate_solid-default svg {
+  color: var(--click-badge-solid-color-text-default);
+}
+
+.badgecontent_typestate_solid-success.badgecontent_typestate_solid-success svg {
+  color: var(--click-badge-solid-color-text-success);
+}
+
+.badgecontent_typestate_solid-neutral.badgecontent_typestate_solid-neutral svg {
+  color: var(--click-badge-solid-color-text-neutral);
+}
+
+.badgecontent_typestate_solid-danger.badgecontent_typestate_solid-danger svg {
+  color: var(--click-badge-solid-color-text-danger);
+}
+
+.badgecontent_typestate_solid-disabled.badgecontent_typestate_solid-disabled svg {
+  color: var(--click-badge-solid-color-text-disabled);
+}
+
+.badgecontent_typestate_solid-warning.badgecontent_typestate_solid-warning svg {
+  color: var(--click-badge-solid-color-text-warning);
+}
+
+.badgecontent_typestate_solid-info.badgecontent_typestate_solid-info svg {
+  color: var(--click-badge-solid-color-text-info);
+}
+
+/* stylelint-enable no-descending-specificity */
+
+/* Close icon — mirrors the SvgContainer styled.svg with as={Icon}. The
+   styled-components version only passed $state (size and type defaulted),
+   so width/height come from the default md/opaque tokens, and color from
+   the opaque-text-<state> token. */
+
+.closeicon {
+  width: var(--click-badge-icon-md-size-width);
+  height: var(--click-badge-icon-md-size-height);
+}
+
+.closeicon_state_default {
+  color: var(--click-badge-opaque-color-text-default);
+}
+
+.closeicon_state_success {
+  color: var(--click-badge-opaque-color-text-success);
+}
+
+.closeicon_state_neutral {
+  color: var(--click-badge-opaque-color-text-neutral);
+}
+
+.closeicon_state_danger {
+  color: var(--click-badge-opaque-color-text-danger);
+}
+
+.closeicon_state_disabled {
+  color: var(--click-badge-opaque-color-text-disabled);
+}
+
+.closeicon_state_warning {
+  color: var(--click-badge-opaque-color-text-warning);
+}
+
+.closeicon_state_info {
+  color: var(--click-badge-opaque-color-text-info);
+}
