@@ -1,0 +1,36 @@
+.label {
+  color: var(--click-field-color-label-default);
+  font: var(--click-field-typography-label-default);
+}
+
+.label:hover {
+  color: var(--click-field-color-label-hover);
+  font: var(--click-field-typography-label-hover);
+}
+
+.label:focus,
+.label:focus-within {
+  color: var(--click-field-color-label-active);
+  font: var(--click-field-typography-label-active);
+}
+
+/* stylelint-disable no-descending-specificity -- error/disabled modifiers
+   intentionally override :hover/:focus/:focus-within to mirror the original
+   ternary, which emitted no hover/focus rules when disabled or error were
+   set. */
+.label.label_error,
+.label.label_error:hover,
+.label.label_error:focus,
+.label.label_error:focus-within {
+  color: var(--click-field-color-label-error);
+  font: var(--click-field-typography-label-error);
+}
+
+.label.label_disabled,
+.label.label_disabled:hover,
+.label.label_disabled:focus,
+.label.label_disabled:focus-within {
+  color: var(--click-field-color-label-disabled);
+  font: var(--click-field-typography-label-disabled);
+}
+/* stylelint-enable no-descending-specificity */
