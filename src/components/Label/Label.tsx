@@ -19,13 +19,7 @@ const labelVariants = cva(styles.label, {
   },
 });
 
-export const Label = ({
-  disabled,
-  error,
-  children,
-  className,
-  ...props
-}: LabelProps) => (
+export const Label = ({ disabled, error, children, className, ...props }: LabelProps) => (
   <label
     {...props}
     className={cn(labelVariants({ disabled, error }), className)}
