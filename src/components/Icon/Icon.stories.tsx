@@ -3,7 +3,7 @@ import LogosLight from '@/components/Assets/Logos/system/LogosLight';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
 import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
 import { Icon } from '@/components/Icon';
-import { IconName, IconProps } from '@/components/Icon/Icon.types';
+import { IconName, IconProps, ImageType } from '@/components/Icon/Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
 import { styled } from 'styled-components';
@@ -53,6 +53,91 @@ export const Playground: Story = {
     state: 'default',
   },
   render: args => <IconWrapper {...(args as IconProps)} />,
+};
+
+const IconHarness = (props: ImageType) => (
+  <div
+    data-testid="icon-harness"
+    style={{
+      display: 'inline-flex',
+      padding: '24px',
+      background: '#888',
+    }}
+  >
+    <Icon {...props} />
+  </div>
+);
+
+export const DefaultMd: Story = {
+  render: () => <IconHarness name="users" />,
+};
+
+export const SizeXs: Story = {
+  render: () => <IconHarness name="users" size="xs" />,
+};
+
+export const SizeSm: Story = {
+  render: () => <IconHarness name="users" size="sm" />,
+};
+
+export const SizeMd: Story = {
+  render: () => <IconHarness name="users" size="md" />,
+};
+
+export const SizeLg: Story = {
+  render: () => <IconHarness name="users" size="lg" />,
+};
+
+export const SizeXl: Story = {
+  render: () => <IconHarness name="users" size="xl" />,
+};
+
+export const SizeXxl: Story = {
+  render: () => <IconHarness name="users" size="xxl" />,
+};
+
+export const StateSuccess: Story = {
+  render: () => <IconHarness name="users" state="success" />,
+};
+
+export const StateWarning: Story = {
+  render: () => <IconHarness name="users" state="warning" />,
+};
+
+export const StateDanger: Story = {
+  render: () => <IconHarness name="users" state="danger" />,
+};
+
+export const StateInfo: Story = {
+  render: () => <IconHarness name="users" state="info" />,
+};
+
+export const StateSuccessSm: Story = {
+  render: () => <IconHarness name="users" state="success" size="sm" />,
+};
+
+export const StateSuccessXl: Story = {
+  render: () => <IconHarness name="users" state="success" size="xl" />,
+};
+
+export const CustomColor: Story = {
+  render: () => <IconHarness name="users" color="#c10000" />,
+};
+
+export const CustomWidthHeight: Story = {
+  render: () => <IconHarness name="users" width={40} height={40} />,
+};
+
+export const FlagAsset: Story = {
+  render: () => <IconHarness name="australia" size="md" />,
+};
+
+export const LogoAsset: Story = {
+  render: () => <IconHarness name="clickhouse" size="md" />,
+};
+
+export const PaymentAsset: Story = {
+  render: () => <IconHarness name="visa" size="md" />,
 };
 
 type IconGalleryProps = {
