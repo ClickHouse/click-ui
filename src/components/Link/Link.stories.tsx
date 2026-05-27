@@ -20,12 +20,7 @@ interface LinkHarnessProps {
   children?: React.ReactNode;
 }
 
-const LinkHarness = ({
-  size,
-  weight,
-  icon,
-  children = 'Try me!',
-}: LinkHarnessProps) => (
+const LinkHarness = ({ size, weight, icon, children = 'Try me!' }: LinkHarnessProps) => (
   <div
     data-testid="link-harness"
     style={{
@@ -99,5 +94,10 @@ export const WithIcon: Story = {
 };
 
 export const WithIconSm: Story = {
-  render: () => <LinkHarness size="sm" icon="popout" />,
+  render: () => (
+    <LinkHarness
+      size="sm"
+      icon="popout"
+    />
+  ),
 };
