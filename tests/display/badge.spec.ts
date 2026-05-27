@@ -211,12 +211,14 @@ describe('Badge Visual Regression', () => {
         await expect(closeButton).toBeVisible({ timeout: 10000 });
       });
 
-      it('clicking close fires onClose', async ({ page }) => {
+      it('close button is clickable', async ({ page }) => {
+        // Smoke test: the close icon resolves under getByLabel('close') and
+        // accepts a click without throwing. The story's onClose is a no-op,
+        // so this does NOT prove the handler fires — it only guarantees the
+        // close target stays clickable through the migration.
         await goto(page, 'display-badge--dismissible', 'light');
         const closeButton = page.getByLabel('close').first();
         await expect(closeButton).toBeVisible({ timeout: 10000 });
-        // Just verify the close target is clickable. Storybook story's
-        // onClose is a no-op; we assert no exception is thrown.
         await closeButton.click();
       });
     });
