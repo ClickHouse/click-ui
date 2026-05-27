@@ -59,11 +59,7 @@ export const Playground: Story = {
 const IconHarness = (props: ImageType) => (
   <div
     data-testid="icon-harness"
-    style={{
-      display: 'inline-flex',
-      padding: '24px',
-      background: '#888',
-    }}
+    style={{ display: 'inline-flex' }}
   >
     <Icon {...props} />
   </div>
