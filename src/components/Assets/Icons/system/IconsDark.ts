@@ -130,6 +130,7 @@ import Play from '../Play';
 import Play_In_Circle from '../Play-In-Circle';
 import Plug from '../Plug';
 import Plus from '../Plus';
+import Popin from '../Popin';
 import Popout from '../Popout';
 import Popover_Arrow from '../Popover-Arrow';
 import Puzzle_Piece from '../Puzzle-Piece';
@@ -305,6 +306,7 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   'play-in-circle': Play_In_Circle,
   plug: Plug,
   plus: Plus,
+  popin: Popin,
   popout: Popout,
   'popover-arrow': Popover_Arrow,
   'puzzle-piece': Puzzle_Piece,
