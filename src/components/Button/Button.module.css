@@ -34,7 +34,7 @@
   color: var(--click-button-basic-color-primary-text-default);
 }
 
-.button_primary:disabled {
+.button_primary:disabled:not(.button_loading) {
   border-color: var(--click-button-basic-color-primary-stroke-disabled);
   background-color: var(--click-button-basic-color-primary-background-disabled);
   color: var(--click-button-basic-color-primary-text-disabled);
@@ -71,7 +71,7 @@
   color: var(--click-button-basic-color-secondary-text-default);
 }
 
-.button_secondary:disabled {
+.button_secondary:disabled:not(.button_loading) {
   border-color: var(--click-button-basic-color-secondary-stroke-disabled);
   background-color: var(--click-button-basic-color-secondary-background-disabled);
   color: var(--click-button-basic-color-secondary-text-disabled);
@@ -108,7 +108,7 @@
   color: var(--click-button-basic-color-empty-text-default);
 }
 
-.button_empty:disabled {
+.button_empty:disabled:not(.button_loading) {
   border-color: var(--click-button-basic-color-empty-stroke-disabled);
   background-color: var(--click-button-basic-color-empty-background-disabled);
   color: var(--click-button-basic-color-empty-text-disabled);
@@ -145,7 +145,7 @@
   color: var(--click-button-basic-color-danger-text-default);
 }
 
-.button_danger:disabled {
+.button_danger:disabled:not(.button_loading) {
   border-color: var(--click-button-basic-color-danger-stroke-disabled);
   background-color: var(--click-button-basic-color-danger-background-disabled);
   color: var(--click-button-basic-color-danger-text-disabled);
@@ -184,8 +184,16 @@
   content: '';
   position: absolute;
   inset: 0;
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
   pointer-events: none;
-  animation: shimmer 1.5s ease-in-out infinite;
+  animation: shimmer-fixed 1.5s ease-in-out infinite;
+}
+
+.button_fill.button_loading::before {
+  background-size: 200% 100%;
+  background-repeat: repeat;
+  animation: shimmer-fill 1.5s ease-in-out infinite;
 }
 
 .button_primary.button_loading,
@@ -202,7 +210,17 @@
   opacity: 0.7;
 }
 
-@keyframes shimmer {
+@keyframes shimmer-fixed {
+  0% {
+    background-position: -200px 0;
+  }
+
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+@keyframes shimmer-fill {
   0% {
     background-position: 100% 0;
   }
@@ -213,27 +231,19 @@
 }
 
 .button_primary.button_loading::before {
-  background: var(--click-button-basic-color-primary-background-loading);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
+  background-image: var(--click-button-basic-color-primary-background-loading);
 }
 
 .button_secondary.button_loading::before {
-  background: var(--click-button-basic-color-secondary-background-loading);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
+  background-image: var(--click-button-basic-color-secondary-background-loading);
 }
 
 .button_empty.button_loading::before {
-  background: var(--click-button-basic-color-empty-background-loading);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
+  background-image: var(--click-button-basic-color-empty-background-loading);
 }
 
 .button_danger.button_loading::before {
-  background: var(--click-button-basic-color-danger-background-loading);
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
+  background-image: var(--click-button-basic-color-danger-background-loading);
 }
 
 .button__icon {
@@ -255,7 +265,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button_loading::before {
+  .button_loading::before,
+  .button_fill.button_loading::before {
     animation: none;
   }
 }
