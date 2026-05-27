@@ -1,0 +1,81 @@
+.separator[data-orientation='horizontal'] {
+  width: 100%;
+  border-top: 0.0625rem solid var(--click-separator-color-stroke-default);
+}
+
+.separator[data-orientation='vertical'] {
+  height: 100%;
+  border-right: 0.0625rem solid var(--click-separator-color-stroke-default);
+}
+
+.separator_variant_horizontal-xs {
+  margin:
+    var(--click-separator-horizontal-space-y-xs)
+    var(--click-separator-horizontal-space-x-all);
+}
+
+.separator_variant_horizontal-sm {
+  margin:
+    var(--click-separator-horizontal-space-y-sm)
+    var(--click-separator-horizontal-space-x-all);
+}
+
+.separator_variant_horizontal-md {
+  margin:
+    var(--click-separator-horizontal-space-y-md)
+    var(--click-separator-horizontal-space-x-all);
+}
+
+.separator_variant_horizontal-lg {
+  margin:
+    var(--click-separator-horizontal-space-y-lg)
+    var(--click-separator-horizontal-space-x-all);
+}
+
+.separator_variant_horizontal-xl {
+  margin:
+    var(--click-separator-horizontal-space-y-xl)
+    var(--click-separator-horizontal-space-x-all);
+}
+
+.separator_variant_horizontal-xxl {
+  margin:
+    var(--click-separator-horizontal-space-y-xxl)
+    var(--click-separator-horizontal-space-x-all);
+}
+
+.separator_variant_vertical-xs {
+  margin:
+    var(--click-separator-vertical-space-y-all)
+    var(--click-separator-vertical-space-x-xs);
+}
+
+.separator_variant_vertical-sm {
+  margin:
+    var(--click-separator-vertical-space-y-all)
+    var(--click-separator-vertical-space-x-sm);
+}
+
+.separator_variant_vertical-md {
+  margin:
+    var(--click-separator-vertical-space-y-all)
+    var(--click-separator-vertical-space-x-md);
+}
+
+.separator_variant_vertical-lg {
+  margin:
+    var(--click-separator-vertical-space-y-all)
+    var(--click-separator-vertical-space-x-lg);
+}
+
+.separator_variant_vertical-xl {
+  margin:
+    var(--click-separator-vertical-space-y-all)
+    var(--click-separator-vertical-space-x-xl);
+}
+
+.separator_variant_vertical-xxl {
+  margin:
+    var(--click-separator-vertical-space-y-all)
+    var(--click-separator-vertical-space-x-xxl);
+}
