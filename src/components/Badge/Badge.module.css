@@ -108,21 +108,15 @@
   font: var(--click-badge-typography-label-md-default);
 }
 
-/* Content row — mirrors the inner Content wrapper */
+/* Content row — mirrors the inner Content styled component. The original
+   `Content` was never passed `$size`, so its `gap` always defaulted to the
+   md token regardless of the badge's actual `size`. Preserved verbatim. */
 
 .content {
   display: inline-flex;
   max-width: 100%;
   justify-content: flex-start;
   align-items: center;
-  gap: var(--click-badge-space-md-gap);
-}
-
-.content_size_sm {
-  gap: var(--click-badge-space-sm-gap);
-}
-
-.content_size_md {
   gap: var(--click-badge-space-md-gap);
 }
 
@@ -193,37 +187,46 @@
 /* Close icon — mirrors the SvgContainer styled.svg with as={Icon}. The
    styled-components version only passed $state (size and type defaulted),
    so width/height come from the default md/opaque tokens, and color from
-   the opaque-text-<state> token. */
+   the opaque-text-<state> token.
+
+   The state classes below use doubled-class specificity (0,2,1) so they
+   always win over Icon's internal `SvgWrapper` styled-component rule that
+   sets `color: currentColor` on the same element at single-class specificity.
+   Without the bump, stylesheet-order would decide and CSS Modules bundle
+   before runtime SC styles, so the close icon would inherit the wrapper's
+   color (e.g. opaque-text-info for an info badge, but solid-text-info for
+   a solid info badge). Doubled class keeps the close icon on opaque-text-*
+   regardless. */
 
 .closeicon {
   width: var(--click-badge-icon-md-size-width);
   height: var(--click-badge-icon-md-size-height);
 }
 
-.closeicon_state_default {
+.closeicon_state_default.closeicon_state_default {
   color: var(--click-badge-opaque-color-text-default);
 }
 
-.closeicon_state_success {
+.closeicon_state_success.closeicon_state_success {
   color: var(--click-badge-opaque-color-text-success);
 }
 
-.closeicon_state_neutral {
+.closeicon_state_neutral.closeicon_state_neutral {
   color: var(--click-badge-opaque-color-text-neutral);
 }
 
-.closeicon_state_danger {
+.closeicon_state_danger.closeicon_state_danger {
   color: var(--click-badge-opaque-color-text-danger);
 }
 
-.closeicon_state_disabled {
+.closeicon_state_disabled.closeicon_state_disabled {
   color: var(--click-badge-opaque-color-text-disabled);
 }
 
-.closeicon_state_warning {
+.closeicon_state_warning.closeicon_state_warning {
   color: var(--click-badge-opaque-color-text-warning);
 }
 
-.closeicon_state_info {
+.closeicon_state_info.closeicon_state_info {
   color: var(--click-badge-opaque-color-text-info);
 }

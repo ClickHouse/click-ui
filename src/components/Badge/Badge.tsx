@@ -33,16 +33,6 @@ const wrapperVariants = cva(styles.wrapper, {
   },
 });
 
-const contentVariants = cva(styles.content, {
-  variants: {
-    size: {
-      sm: styles['content_size_sm'],
-      md: styles['content_size_md'],
-    },
-  },
-  defaultVariants: { size: 'md' },
-});
-
 // The original `BadgeContent = styled(IconWrapper)` only forwarded `$state` —
 // `$type` and `$size` were NOT passed and defaulted to `'opaque'` and `'md'`
 // inside the styled rule. So the descendant <svg> color always came from the
@@ -118,7 +108,7 @@ export const Badge = ({
     >
       <div
         data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-badge-content`}
-        className={cn(contentVariants({ size: resolvedSize }))}
+        className={styles.content}
       >
         <IconWrapper
           icon={icon}

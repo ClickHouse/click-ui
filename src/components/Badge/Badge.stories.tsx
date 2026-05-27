@@ -162,6 +162,28 @@ export const DismissibleWithIcon: Story = {
   },
 };
 
+export const DismissibleSm: Story = {
+  args: {
+    text: 'badge',
+    state: 'info',
+    size: 'sm',
+    type: 'opaque',
+    dismissible: true,
+    onClose: () => {},
+  },
+};
+
+export const DismissibleSolid: Story = {
+  args: {
+    text: 'badge',
+    state: 'info',
+    size: 'md',
+    type: 'solid',
+    dismissible: true,
+    onClose: () => {},
+  },
+};
+
 // Ellipsis off
 
 export const EllipsisOff: Story = {

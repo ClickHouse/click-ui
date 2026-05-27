@@ -228,6 +228,29 @@ describe('Badge Visual Regression', () => {
         });
       });
 
+      it('dismissible sm matches snapshot', async ({ page }) => {
+        // Locks in the original Content quirk: its `gap` always defaulted to
+        // the md token even when the badge's `size` was sm.
+        await goto(page, 'display-badge--dismissible-sm', 'light');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-dismissible-sm-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('dismissible solid matches snapshot', async ({ page }) => {
+        // Locks in the original SvgContainer quirk: its color always used the
+        // opaque-text-* token regardless of the badge's actual `type`, so the
+        // close icon stays opaque-info on a solid-info badge.
+        await goto(page, 'display-badge--dismissible-solid', 'light');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-dismissible-solid-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
       it('close button exposes aria-label', async ({ page }) => {
         await goto(page, 'display-badge--dismissible', 'light');
         const closeButton = page.getByLabel('close').first();
@@ -465,6 +488,24 @@ describe('Badge Visual Regression', () => {
         const node = badge(page);
         await expect(node).toBeVisible({ timeout: 10000 });
         await expect(node).toHaveScreenshot('badge-dismissible-with-icon-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('dismissible sm matches snapshot', async ({ page }) => {
+        await goto(page, 'display-badge--dismissible-sm');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-dismissible-sm-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('dismissible solid matches snapshot', async ({ page }) => {
+        await goto(page, 'display-badge--dismissible-solid');
+        const node = badge(page);
+        await expect(node).toBeVisible({ timeout: 10000 });
+        await expect(node).toHaveScreenshot('badge-dismissible-solid-dark.png', {
           maxDiffPixels: 100,
         });
       });
