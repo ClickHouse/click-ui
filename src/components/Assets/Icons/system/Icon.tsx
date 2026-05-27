@@ -40,7 +40,7 @@ const Icon = ({ name, theme, size, ...props }: IconPropsWithAliases) => {
   return (
     <SvgImageElement
       as={ThemedIcon}
-      $size={size}
+      size={size}
       role="img"
       aria-label={resolvedName}
       {...props}

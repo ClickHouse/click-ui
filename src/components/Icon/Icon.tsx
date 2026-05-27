@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
-import type { AssetSize } from '@/types';
-import { IconName, IconProps, IconState, ImageType } from './Icon.types';
+import { CSSProperties } from 'react';
+import { cn, cva } from '@/lib/cva';
+import { IconName, IconProps, ImageType } from './Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Flag } from '@/components/Assets/Flags/system/Flag';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
@@ -11,6 +11,31 @@ import { LogoName } from '@/components/Assets/Logos/system/types';
 import { Payment } from '@/components/Assets/Payments/system/Payment';
 import { PaymentName } from '@/components/Assets/Payments/system/types';
 import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
+import styles from './Icon.module.css';
+
+const svgWrapperVariants = cva(styles['svg-wrapper'], {
+  variants: {
+    size: {
+      xs: styles['svg-wrapper_size_xs'],
+      sm: styles['svg-wrapper_size_sm'],
+      md: styles['svg-wrapper_size_md'],
+      lg: styles['svg-wrapper_size_lg'],
+      xl: styles['svg-wrapper_size_xl'],
+      xxl: styles['svg-wrapper_size_xxl'],
+    },
+    state: {
+      default: '',
+      success: styles['svg-wrapper_state_success'],
+      warning: styles['svg-wrapper_state_warning'],
+      danger: styles['svg-wrapper_state_danger'],
+      info: styles['svg-wrapper_state_info'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    state: 'default',
+  },
+});
 
 const SVGIcon = ({
   name,
@@ -28,52 +53,21 @@ const SVGIcon = ({
     return null;
   }
 
+  const wrapperStyle = {
+    ...(color !== undefined ? { '--svg-icon-color': color } : {}),
+    ...(width !== undefined ? { '--svg-width': String(width) } : {}),
+    ...(height !== undefined ? { '--svg-height': String(height) } : {}),
+  } as CSSProperties;
+
   return (
-    <SvgWrapper
-      $color={color}
-      $width={width}
-      $height={height}
-      $size={size}
-      className={className}
-      state={state}
+    <div
+      className={cn(svgWrapperVariants({ size, state }), className)}
+      style={wrapperStyle}
     >
       <Component {...props} />
-    </SvgWrapper>
+    </div>
   );
 };
-
-const SvgWrapper = styled.div<{
-  $color?: string;
-  $width?: number | string;
-  $height?: number | string;
-  $size?: AssetSize;
-  state?: IconState;
-}>`
-  display: flex;
-  align-items: center;
-
-  ${({ theme, $color = 'currentColor', $width, $height, $size }) => `
-    & path[stroke], & svg[stroke]:not([stroke="none"]), & rect[stroke], & circle[fill] {
-      stroke: ${$color};
-    }
-
-    & path[fill], & svg[fill]:not([fill="none"]), & rect[fill], & circle[fill] {
-      fill: ${$color};
-    }
-
-    & svg {
-      width: ${$width || theme.click.image[$size || 'md'].size.width || '24px'};
-      height: ${$height || theme.click.image[$size || 'md'].size.height || '24px'};
-    }
-  `}
-
-  ${({ theme, $color = 'currentColor', state = 'default', $size = 'md' }) => `
-    background: ${theme.click.icon.color.background[state]};
-    border-radius: ${theme.border.radii.full};
-    padding: ${state === 'default' ? 'none' : theme.click.icon.space[$size].all};
-    color: ${state === 'default' ? $color : theme.click.icon.color.text[state]};
-  `}
-`;
 
 const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
   if (Object.keys(FlagsLight).includes(name)) {

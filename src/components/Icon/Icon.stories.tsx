@@ -6,7 +6,6 @@ import { Icon } from '@/components/Icon';
 import { IconName, IconProps, ImageType } from '@/components/Icon/Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
-import { styled } from 'styled-components';
 import { useState } from 'react';
 import { SearchField } from '@/components/SearchField';
 import { Title } from '@/components/Title';
@@ -14,6 +13,7 @@ import { Panel } from '@/components/Panel';
 import { Text } from '@/components/Text';
 import { GridContainer } from '@/components/GridContainer';
 import { Spacer } from '@/components/Spacer';
+import storyStyles from './Icon.stories.module.css';
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagsLight);
@@ -164,23 +164,12 @@ const IconGallery = ({ name }: IconGalleryProps) => (
   </Container>
 );
 
-const ResponsiveGridContainer = styled(GridContainer)`
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1em;
-
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-`;
+const ResponsiveGridContainer = (props: { children: React.ReactNode }) => (
+  <GridContainer
+    className={storyStyles['responsive-grid']}
+    {...props}
+  />
+);
 
 export const Icons: Story = {
   render: () => {
