@@ -99,6 +99,18 @@ describe('Button Visual Regression', () => {
           animations: 'disabled',
         });
       });
+
+      it('fill width loading matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-button--fill-width-loading', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button');
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await expect(button).toHaveScreenshot('button-fill-width-loading-light.png', {
+          maxDiffPixels: 100,
+          animations: 'disabled',
+        });
+      });
     });
 
     describe('Disabled States', () => {
@@ -351,6 +363,18 @@ describe('Button Visual Regression', () => {
         const button = page.getByRole('button');
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-danger-loading-dark.png', {
+          maxDiffPixels: 100,
+          animations: 'disabled',
+        });
+      });
+
+      it('fill width loading matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-button--fill-width-loading'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button');
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await expect(button).toHaveScreenshot('button-fill-width-loading-dark.png', {
           maxDiffPixels: 100,
           animations: 'disabled',
         });

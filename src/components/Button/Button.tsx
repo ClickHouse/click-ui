@@ -41,7 +41,7 @@ const buttonVariants = cva(styles.button, {
       left: styles['button_align-left'],
     },
     fillWidth: {
-      true: styles['button_fill'],
+      true: styles['button_fill_width'],
     },
     loading: {
       true: styles['button_loading'],
