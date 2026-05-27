@@ -85,10 +85,6 @@ export const WeightBold: Story = {
   render: () => <LinkHarness weight="bold" />,
 };
 
-export const WeightMono: Story = {
-  render: () => <LinkHarness weight="mono" />,
-};
-
 export const WithIcon: Story = {
   render: () => <LinkHarness icon="popout" />,
 };

@@ -97,17 +97,6 @@ describe('Link Visual Regression', () => {
           maxDiffPixels: 100,
         });
       });
-
-      it('mono weight matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('typography-link--weight-mono', 'light'), {
-          waitUntil: 'networkidle',
-        });
-        const harness = page.locator(harnessLocator).first();
-        await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot('link-weight-mono-light.png', {
-          maxDiffPixels: 100,
-        });
-      });
     });
 
     describe('Icon Variants', () => {
@@ -257,17 +246,6 @@ describe('Link Visual Regression', () => {
         const harness = page.locator(harnessLocator).first();
         await expect(harness).toBeVisible({ timeout: 10000 });
         await expect(harness).toHaveScreenshot('link-weight-bold-dark.png', {
-          maxDiffPixels: 100,
-        });
-      });
-
-      it('mono weight matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('typography-link--weight-mono'), {
-          waitUntil: 'networkidle',
-        });
-        const harness = page.locator(harnessLocator).first();
-        await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot('link-weight-mono-dark.png', {
           maxDiffPixels: 100,
         });
       });
