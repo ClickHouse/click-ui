@@ -8,8 +8,8 @@ import {
 } from 'react';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon/Icon.types';
-import { styled } from 'styled-components';
-import { linkStyles } from '@/styles/linkStyles';
+import { cn, cva } from '@/lib/cva';
+import styles from './Link.module.css';
 import type { TextSize, TextWeight } from '@/components/Text';
 
 export interface LinkProps<T extends ElementType = 'a'> {
@@ -27,22 +27,41 @@ export interface LinkProps<T extends ElementType = 'a'> {
   component?: T;
 }
 
-const CuiLink = styled.a<{ $size: TextSize; $weight: TextWeight }>`
-  ${linkStyles}
-`;
+const linkVariants = cva(styles.link, {
+  variants: {
+    size: {
+      xs: styles['link_size_xs'],
+      sm: styles['link_size_sm'],
+      md: styles['link_size_md'],
+      lg: styles['link_size_lg'],
+    },
+    weight: {
+      normal: styles['link_weight_normal'],
+      medium: styles['link_weight_medium'],
+      semibold: styles['link_weight_semibold'],
+      bold: styles['link_weight_bold'],
+      mono: styles['link_weight_mono'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    weight: 'normal',
+  },
+});
 
-const IconWrapper = styled.span<{ $size: TextSize }>`
-  .external-icon {
-    height: ${({ $size, theme }) =>
-      $size === 'xs' || $size === 'sm'
-        ? theme.click.link.icon.size.sm.height
-        : theme.click.link.icon.size.md.height};
-    width: ${({ $size, theme }) =>
-      $size === 'xs' || $size === 'sm'
-        ? theme.click.link.icon.size.sm.width
-        : theme.click.link.icon.size.md.width};
-  }
-`;
+const externalIconVariants = cva('', {
+  variants: {
+    size: {
+      xs: styles['external-icon_size_xs'],
+      sm: styles['external-icon_size_sm'],
+      md: styles['external-icon_size_md'],
+      lg: styles['external-icon_size_lg'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
 
 type LinkPolymorphicComponent = <T extends ElementType = 'a'>(
   props: Omit<ComponentProps<T>, keyof T> & LinkProps<T>
@@ -57,28 +76,30 @@ const _Link = <T extends ElementType = 'a'>(
     icon,
     children,
     component,
+    className,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & LinkProps<T>,
+  }: Omit<ComponentProps<T>, keyof T> & LinkProps<T> & { className?: string },
   ref: ComponentPropsWithRef<T>['ref']
-) => (
-  <CuiLink
-    ref={ref}
-    $size={size}
-    $weight={weight}
-    as={component ?? 'a'}
-    onClick={onClick}
-    {...props}
-  >
-    {children}
-    {icon && (
-      <IconWrapper $size={size}>
-        <Icon
-          name={icon}
-          className="external-icon"
-          data-testid={icon}
-        />
-      </IconWrapper>
-    )}
-  </CuiLink>
-);
+) => {
+  const Component = component ?? 'a';
+  return (
+    <Component
+      ref={ref}
+      onClick={onClick}
+      {...props}
+      className={cn(linkVariants({ size, weight }), className)}
+    >
+      {children}
+      {icon && (
+        <span>
+          <Icon
+            name={icon}
+            className={cn('external-icon', externalIconVariants({ size }))}
+            data-testid={icon}
+          />
+        </span>
+      )}
+    </Component>
+  );
+};
 export const Link: LinkPolymorphicComponent = forwardRef(_Link);
