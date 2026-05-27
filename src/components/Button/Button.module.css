@@ -24,7 +24,7 @@
   justify-content: flex-start;
 }
 
-.button_fill {
+.button_fill_width {
   width: 100%;
 }
 
@@ -187,13 +187,13 @@
   background-size: 200px 100%;
   background-repeat: no-repeat;
   pointer-events: none;
-  animation: shimmer-fixed 1.5s ease-in-out infinite;
+  animation: shimmer-fixed-width 1.5s ease-in-out infinite;
 }
 
-.button_fill.button_loading::before {
+.button_fill_width.button_loading::before {
   background-size: 200% 100%;
   background-repeat: repeat;
-  animation: shimmer-fill 1.5s ease-in-out infinite;
+  animation: shimmer-fill-width 1.5s ease-in-out infinite;
 }
 
 .button_primary.button_loading,
@@ -210,7 +210,7 @@
   opacity: 0.7;
 }
 
-@keyframes shimmer-fixed {
+@keyframes shimmer-fixed-width {
   0% {
     background-position: -200px 0;
   }
@@ -220,7 +220,7 @@
   }
 }
 
-@keyframes shimmer-fill {
+@keyframes shimmer-fill-width {
   0% {
     background-position: 100% 0;
   }
@@ -266,7 +266,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .button_loading::before,
-  .button_fill.button_loading::before {
+  .button_fill_width.button_loading::before {
     animation: none;
   }
 }
