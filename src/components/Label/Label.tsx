@@ -1,47 +1,29 @@
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { LabelProps } from './Label.types';
+import styles from './Label.module.css';
 
-interface FormFieldLableProps {
-  disabled?: boolean;
-  $error?: boolean;
-  htmlFor?: string;
-}
+const labelVariants = cva(styles.label, {
+  variants: {
+    disabled: {
+      true: styles['label_disabled'],
+      false: '',
+    },
+    error: {
+      true: styles['label_error'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    disabled: false,
+    error: false,
+  },
+});
 
-const FormFieldLabel = styled.label<FormFieldLableProps>`
-  ${({ theme, disabled, $error }) => `
-    ${
-      disabled
-        ? `
-    color: ${theme.click.field.color.label.disabled};
-    font: ${theme.click.field.typography.label.disabled};
-    `
-        : $error
-          ? `
-    color: ${theme.click.field.color.label.error};
-    font: ${theme.click.field.typography.label.error};
-    `
-          : `
-    color: ${theme.click.field.color.label.default};
-    font: ${theme.click.field.typography.label.default};
-    &:hover {
-      color: ${theme.click.field.color.label.hover};
-      font: ${theme.click.field.typography.label.hover};
-    }
-    &:focus, &:focus-within {
-      color: ${theme.click.field.color.label.active};
-      font: ${theme.click.field.typography.label.active};
-    }
-    `
-    };
-  `}
-`;
-
-export const Label = ({ disabled, error, children, ...props }: LabelProps) => (
-  <FormFieldLabel
-    disabled={disabled}
-    $error={error}
+export const Label = ({ disabled, error, children, className, ...props }: LabelProps) => (
+  <label
     {...props}
+    className={cn(labelVariants({ disabled, error }), className)}
   >
     {children}
-  </FormFieldLabel>
+  </label>
 );

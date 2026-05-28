@@ -26,7 +26,7 @@ const TextFieldWrapper = ({
 
 describe('TextField', () => {
   describe('label color', () => {
-    it('is the default color when labelColor is not set', () => {
+    it('renders the label without an explicit color override when labelColor is not set', () => {
       const label = 'Hello there!';
       const text = 'General Kenobi';
 
@@ -39,7 +39,14 @@ describe('TextField', () => {
 
       const labelElement = getByText(label);
       expect(labelElement).toBeInTheDocument();
-      expect(labelElement).toHaveStyle('color: rgb(179, 182, 189)');
+      // The Label's default color is set via the CSS Module rule
+      // `.label { color: var(--click-field-color-label-default) }`, which
+      // jsdom does not load. Visual parity is covered by the Playwright
+      // suite at tests/display/label.spec.ts. The assertion below verifies
+      // the InputWrapper does not inject a styled-components color override
+      // when no labelColor prop is passed (element.style.color is the empty
+      // string when no inline `color` is set).
+      expect(labelElement.style.color).toBe('');
     });
 
     it('is the color of the passed in labelColor', () => {

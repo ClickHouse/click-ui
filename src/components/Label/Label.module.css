@@ -1,0 +1,32 @@
+.label {
+  color: var(--click-field-color-label-default);
+  font: var(--click-field-typography-label-default);
+}
+
+/* Hover/focus rules only apply when neither disabled nor error is set, matching
+   the original styled-components behavior (which simply didn't emit them in
+   those states). The :not() chain also raises specificity above 0-1-0 so these
+   rules win over InputWrapper's `labelColor` override (a 0-1-0 single-class
+   styled-components selector injected later in the cascade). The .label_error
+   and .label_disabled modifiers below stay at 0-1-0 on purpose, so labelColor
+   continues to override them. */
+.label:not(.label_error, .label_disabled):hover {
+  color: var(--click-field-color-label-hover);
+  font: var(--click-field-typography-label-hover);
+}
+
+.label:not(.label_error, .label_disabled):focus,
+.label:not(.label_error, .label_disabled):focus-within {
+  color: var(--click-field-color-label-active);
+  font: var(--click-field-typography-label-active);
+}
+
+.label_error {
+  color: var(--click-field-color-label-error);
+  font: var(--click-field-typography-label-error);
+}
+
+.label_disabled {
+  color: var(--click-field-color-label-disabled);
+  font: var(--click-field-typography-label-disabled);
+}

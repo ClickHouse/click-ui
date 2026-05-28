@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Label } from '@/components/Label';
+import type { LabelProps } from './Label.types';
 
 const meta: Meta<typeof Label> = {
   component: Label,
@@ -11,6 +12,28 @@ export default meta;
 
 type Story = StoryObj<typeof Label>;
 
+// Nest the input inside Label so the browser associates them implicitly.
+// Explicit htmlFor/id would collide across stories on the autodocs page,
+// since each story renders in its own React root and shares the document.
+const LabelHarness = ({ disabled, error, children }: LabelProps) => (
+  <div
+    data-testid="label-harness"
+    style={{
+      display: 'inline-flex',
+      padding: '8px',
+      background: 'transparent',
+    }}
+  >
+    <Label
+      disabled={disabled}
+      error={error}
+    >
+      {children}
+      <input />
+    </Label>
+  </div>
+);
+
 export const Playground: Story = {
   args: {
     children: 'Form Field label',
@@ -20,7 +43,19 @@ export const Playground: Story = {
   render: args => (
     <Label {...args}>
       {args.children}
-      <input id="test" />
+      <input />
     </Label>
   ),
+};
+
+export const Default: Story = {
+  render: () => <LabelHarness>Form Field label</LabelHarness>,
+};
+
+export const Disabled: Story = {
+  render: () => <LabelHarness disabled>Form Field label</LabelHarness>,
+};
+
+export const Error: Story = {
+  render: () => <LabelHarness error>Form Field label</LabelHarness>,
 };
