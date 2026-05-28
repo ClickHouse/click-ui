@@ -26,7 +26,10 @@ const LinkHarness = ({ size, weight, icon, children = 'Try me!' }: LinkHarnessPr
     style={{
       display: 'inline-flex',
       padding: '8px',
-      background: 'transparent',
+      // Match the storybook backdrop so the link's themed color renders against
+      // its intended background in the autodocs view (where Storybook's
+      // .docs-story container otherwise paints a white card regardless of theme).
+      background: 'var(--click-storybook-global-background)',
     }}
   >
     <Link
