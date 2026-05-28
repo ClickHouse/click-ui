@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import type { HorizontalDirection, AssetSize } from '@/types';
 import type { ImageName } from '@/components/Icon/Icon.types';
 import type { GapOptions } from '@/components/Container';
 
-export interface IconWrapperProps {
+export interface IconWrapperProps extends HTMLAttributes<HTMLDivElement> {
   icon?: ImageName;
   iconDir?: HorizontalDirection;
   size?: AssetSize;
