@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Label } from '@/components/Label';
 import type { LabelProps } from './Label.types';
@@ -12,25 +13,41 @@ export default meta;
 
 type Story = StoryObj<typeof Label>;
 
-const LabelHarness = ({ disabled, error, children }: LabelProps) => (
-  <div
-    data-testid="label-harness"
-    style={{
-      display: 'inline-flex',
-      padding: '8px',
-      background: 'transparent',
-    }}
-  >
-    <Label
-      disabled={disabled}
-      error={error}
-      htmlFor="label-harness-input"
+const LabelHarness = ({ disabled, error, children }: LabelProps) => {
+  const inputId = useId();
+  return (
+    <div
+      data-testid="label-harness"
+      style={{
+        display: 'inline-flex',
+        padding: '8px',
+        background: 'transparent',
+      }}
     >
-      {children}
-      <input id="label-harness-input" />
+      <Label
+        disabled={disabled}
+        error={error}
+        htmlFor={inputId}
+      >
+        {children}
+        <input id={inputId} />
+      </Label>
+    </div>
+  );
+};
+
+const PlaygroundRender = (args: LabelProps) => {
+  const inputId = useId();
+  return (
+    <Label
+      {...args}
+      htmlFor={inputId}
+    >
+      {args.children}
+      <input id={inputId} />
     </Label>
-  </div>
-);
+  );
+};
 
 export const Playground: Story = {
   args: {
@@ -38,12 +55,7 @@ export const Playground: Story = {
     error: false,
     disabled: false,
   },
-  render: args => (
-    <Label {...args}>
-      {args.children}
-      <input id="test" />
-    </Label>
-  ),
+  render: args => <PlaygroundRender {...args} />,
 };
 
 export const Default: Story = {
