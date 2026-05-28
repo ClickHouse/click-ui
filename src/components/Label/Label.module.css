@@ -3,19 +3,20 @@
   font: var(--click-field-typography-label-default);
 }
 
-/* Pseudo-class rules are wrapped in :where() so they contribute zero specificity
-   beyond .label itself (0-1-0). This keeps the modifier rules below at 0-1-0
-   too, matching the effective single-class specificity that styled-components
-   used to emit. It matters because InputWrapper's StyledLabel applies a
-   `labelColor` override via a styled-components-generated single-class selector
-   (also 0-1-0) — if the modifier specificity rises above that, labelColor is
-   silently ignored when error/disabled is active. */
-.label:where(:hover) {
+/* Hover/focus rules only apply when neither disabled nor error is set, matching
+   the original styled-components behavior (which simply didn't emit them in
+   those states). The :not() chain also raises specificity above 0-1-0 so these
+   rules win over InputWrapper's `labelColor` override (a 0-1-0 single-class
+   styled-components selector injected later in the cascade). The .label_error
+   and .label_disabled modifiers below stay at 0-1-0 on purpose, so labelColor
+   continues to override them. */
+.label:not(.label_error, .label_disabled):hover {
   color: var(--click-field-color-label-hover);
   font: var(--click-field-typography-label-hover);
 }
 
-.label:where(:focus, :focus-within) {
+.label:not(.label_error, .label_disabled):focus,
+.label:not(.label_error, .label_disabled):focus-within {
   color: var(--click-field-color-label-active);
   font: var(--click-field-typography-label-active);
 }
