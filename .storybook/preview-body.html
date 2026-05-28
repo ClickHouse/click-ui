@@ -6,11 +6,14 @@
 		font-family: 'Inter', sans-serif;
 	}
 
-	.sbdocs a {
+	/* Scope MDX-prose link color so it doesn't bleed into rendered story canvases
+	   (.docs-story), where it would otherwise win at 0-1-1 specificity over the
+	   themed --click-global-color-text-link-default the Link component sets. */
+	.sbdocs a:not(.docs-story a) {
 		color: #FAFF69;
 	}
 
-	.sbdocs a:hover {
+	.sbdocs a:not(.docs-story a):hover {
 		text-decoration: underline;
 	}
 </style>
