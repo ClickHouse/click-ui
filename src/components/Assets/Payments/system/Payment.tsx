@@ -40,7 +40,7 @@ const Payment = ({ name, theme, size, ...props }: PaymentPropsWithAliases) => {
   return (
     <SvgImageElement
       as={ThemedPayment}
-      $size={size}
+      size={size}
       role="img"
       aria-label={resolvedName}
       {...props}

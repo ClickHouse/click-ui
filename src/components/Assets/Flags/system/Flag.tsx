@@ -40,7 +40,7 @@ const Flag = ({ name, theme, size, ...props }: FlagPropsWithAliases) => {
   return (
     <SvgImageElement
       as={ThemedFlag}
-      $size={size}
+      size={size}
       role="img"
       aria-label={resolvedName}
       {...props}

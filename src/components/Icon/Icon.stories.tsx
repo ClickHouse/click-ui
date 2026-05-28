@@ -3,17 +3,18 @@ import LogosLight from '@/components/Assets/Logos/system/LogosLight';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
 import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
 import { Icon } from '@/components/Icon';
-import { IconName, IconProps } from '@/components/Icon/Icon.types';
+import { IconName, IconProps, ImageType } from '@/components/Icon/Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
-import { styled } from 'styled-components';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
+import { cn } from '@/lib/cva';
 import { SearchField } from '@/components/SearchField';
 import { Title } from '@/components/Title';
 import { Panel } from '@/components/Panel';
 import { Text } from '@/components/Text';
 import { GridContainer } from '@/components/GridContainer';
 import { Spacer } from '@/components/Spacer';
+import storyStyles from './Icon.stories.module.css';
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagsLight);
@@ -55,6 +56,175 @@ export const Playground: Story = {
   render: args => <IconWrapper {...(args as IconProps)} />,
 };
 
+const IconHarness = (props: ImageType) => (
+  <div
+    data-testid="icon-harness"
+    style={{ display: 'inline-flex' }}
+  >
+    <Icon {...props} />
+  </div>
+);
+
+export const DefaultMd: Story = {
+  render: () => <IconHarness name="users" />,
+};
+
+export const SizeXs: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      size="xs"
+    />
+  ),
+};
+
+export const SizeSm: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      size="sm"
+    />
+  ),
+};
+
+export const SizeMd: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      size="md"
+    />
+  ),
+};
+
+export const SizeLg: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      size="lg"
+    />
+  ),
+};
+
+export const SizeXl: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      size="xl"
+    />
+  ),
+};
+
+export const SizeXxl: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      size="xxl"
+    />
+  ),
+};
+
+export const StateSuccess: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      state="success"
+    />
+  ),
+};
+
+export const StateWarning: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      state="warning"
+    />
+  ),
+};
+
+export const StateDanger: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      state="danger"
+    />
+  ),
+};
+
+export const StateInfo: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      state="info"
+    />
+  ),
+};
+
+export const StateSuccessSm: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      state="success"
+      size="sm"
+    />
+  ),
+};
+
+export const StateSuccessXl: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      state="success"
+      size="xl"
+    />
+  ),
+};
+
+export const CustomColor: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      color="#c10000"
+    />
+  ),
+};
+
+export const CustomWidthHeight: Story = {
+  render: () => (
+    <IconHarness
+      name="users"
+      width={40}
+      height={40}
+    />
+  ),
+};
+
+export const FlagAsset: Story = {
+  render: () => (
+    <IconHarness
+      name="australia"
+      size="md"
+    />
+  ),
+};
+
+export const LogoAsset: Story = {
+  render: () => (
+    <IconHarness
+      name="clickhouse"
+      size="md"
+    />
+  ),
+};
+
+export const PaymentAsset: Story = {
+  render: () => (
+    <IconHarness
+      name="visa"
+      size="md"
+    />
+  ),
+};
+
 type IconGalleryProps = {
   name: IconName;
 };
@@ -79,23 +249,15 @@ const IconGallery = ({ name }: IconGalleryProps) => (
   </Container>
 );
 
-const ResponsiveGridContainer = styled(GridContainer)`
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1em;
-
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-`;
+const ResponsiveGridContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof GridContainer>) => (
+  <GridContainer
+    className={cn(storyStyles['responsive-grid'], className)}
+    {...props}
+  />
+);
 
 export const Icons: Story = {
   render: () => {

@@ -40,7 +40,7 @@ const Logo = ({ name, theme, size, ...props }: LogoPropsWithAliases) => {
   return (
     <SvgImageElement
       as={ThemedLogo}
-      $size={size}
+      size={size}
       role="img"
       aria-label={resolvedName}
       {...props}
