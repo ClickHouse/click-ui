@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Label } from '@/components/Label';
 import type { LabelProps } from './Label.types';
@@ -13,41 +12,27 @@ export default meta;
 
 type Story = StoryObj<typeof Label>;
 
-const LabelHarness = ({ disabled, error, children }: LabelProps) => {
-  const inputId = useId();
-  return (
-    <div
-      data-testid="label-harness"
-      style={{
-        display: 'inline-flex',
-        padding: '8px',
-        background: 'transparent',
-      }}
-    >
-      <Label
-        disabled={disabled}
-        error={error}
-        htmlFor={inputId}
-      >
-        {children}
-        <input id={inputId} />
-      </Label>
-    </div>
-  );
-};
-
-const PlaygroundRender = (args: LabelProps) => {
-  const inputId = useId();
-  return (
+// Nest the input inside Label so the browser associates them implicitly.
+// Explicit htmlFor/id would collide across stories on the autodocs page,
+// since each story renders in its own React root and shares the document.
+const LabelHarness = ({ disabled, error, children }: LabelProps) => (
+  <div
+    data-testid="label-harness"
+    style={{
+      display: 'inline-flex',
+      padding: '8px',
+      background: 'transparent',
+    }}
+  >
     <Label
-      {...args}
-      htmlFor={inputId}
+      disabled={disabled}
+      error={error}
     >
-      {args.children}
-      <input id={inputId} />
+      {children}
+      <input />
     </Label>
-  );
-};
+  </div>
+);
 
 export const Playground: Story = {
   args: {
@@ -55,7 +40,12 @@ export const Playground: Story = {
     error: false,
     disabled: false,
   },
-  render: args => <PlaygroundRender {...args} />,
+  render: args => (
+    <Label {...args}>
+      {args.children}
+      <input />
+    </Label>
+  ),
 };
 
 export const Default: Story = {
