@@ -1,42 +1,25 @@
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { GenericLabelProps } from './GenericLabel.types';
+import styles from './GenericLabel.module.css';
 
-interface FormFieldLableProps {
-  disabled?: boolean;
-  htmlFor?: string;
-}
+const genericLabelVariants = cva(styles['generic-label'], {
+  variants: {
+    disabled: {
+      true: styles['generic-label_disabled'],
+    },
+  },
+});
 
-const FormFieldLabel = styled.label<FormFieldLableProps>`
-  ${({ theme, disabled }) => `
-    ${
-      disabled
-        ? `
-    color: ${theme.click.field.color.genericLabel.disabled};
-    font: ${theme.click.field.typography.genericLabel.disabled};
-    cursor: not-allowed;
-    `
-        : `
-    cursor: pointer;
-    color: ${theme.click.field.color.genericLabel.default};
-    font: ${theme.click.field.typography.genericLabel.default};
-    &:hover {
-      color: ${theme.click.field.color.genericLabel.hover};
-      font: ${theme.click.field.typography.genericLabel.hover};
-    }
-    &:focus, &:focus-within {
-      color: ${theme.click.field.color.genericLabel.active};
-      font: ${theme.click.field.typography.genericLabel.active};
-    }
-    `
-    };
-  `}
-`;
-
-export const GenericLabel = ({ disabled, children, ...props }: GenericLabelProps) => (
-  <FormFieldLabel
-    disabled={disabled}
+export const GenericLabel = ({
+  disabled,
+  children,
+  className,
+  ...props
+}: GenericLabelProps) => (
+  <label
     {...props}
+    className={cn(genericLabelVariants({ disabled }), className)}
   >
     {children}
-  </FormFieldLabel>
+  </label>
 );
