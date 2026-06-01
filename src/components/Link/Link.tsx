@@ -64,7 +64,7 @@ const externalIconVariants = cva('', {
 });
 
 type LinkPolymorphicComponent = <T extends ElementType = 'a'>(
-  props: Omit<ComponentProps<T>, keyof T> & LinkProps<T>
+  props: Omit<ComponentProps<T>, keyof LinkProps<T>> & LinkProps<T>
 ) => ReactNode;
 
 /** Component for linking to other pages or sections from with body text */
@@ -78,7 +78,7 @@ const _Link = <T extends ElementType = 'a'>(
     component,
     className,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & LinkProps<T> & { className?: string },
+  }: Omit<ComponentProps<T>, keyof LinkProps<T>> & LinkProps<T> & { className?: string },
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   const Component = component ?? 'a';
