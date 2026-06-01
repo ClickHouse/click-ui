@@ -75,7 +75,7 @@ export interface GridContainerProps<T extends ElementType = 'div'> {
 }
 
 type GridContainerPolymorphicComponent = <T extends ElementType = 'div'>(
-  props: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>
+  props: Omit<ComponentProps<T>, keyof GridContainerProps<T>> & GridContainerProps<T>
 ) => ReactNode;
 
 const _GridContainer = <T extends ElementType = 'div'>(
@@ -106,7 +106,7 @@ const _GridContainer = <T extends ElementType = 'div'>(
     overflow,
     component,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & GridContainerProps<T>,
+  }: Omit<ComponentProps<T>, keyof GridContainerProps<T>> & GridContainerProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (

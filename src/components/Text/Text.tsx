@@ -32,7 +32,7 @@ export interface TextProps<T extends ElementType = 'p'> {
 }
 
 type TextPolymorphicComponent = <T extends ElementType = 'p'>(
-  props: Omit<ComponentProps<T>, keyof T> & TextProps<T>
+  props: Omit<ComponentProps<T>, keyof TextProps<T>> & TextProps<T>
 ) => ReactNode;
 
 const _Text = <T extends ElementType = 'p'>(
@@ -46,7 +46,7 @@ const _Text = <T extends ElementType = 'p'>(
     component,
     fillWidth,
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & TextProps<T>,
+  }: Omit<ComponentProps<T>, keyof TextProps<T>> & TextProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => (
   <CuiText

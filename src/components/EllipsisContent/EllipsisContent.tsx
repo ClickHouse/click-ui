@@ -29,11 +29,14 @@ export interface EllipsisContentProps<T extends ElementType = 'div'> {
 }
 
 type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
-  props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
+  props: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>
 ) => ReactNode;
 
 const _EllipsisContent = <T extends ElementType = 'div'>(
-  { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
+  {
+    component,
+    ...props
+  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (

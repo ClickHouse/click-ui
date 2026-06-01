@@ -23,7 +23,7 @@ type JustifyContentOptions =
 type WrapOptions = 'nowrap' | 'wrap' | 'wrap-reverse';
 
 type ContainerPolymorphicComponent = <T extends ElementType = 'div'>(
-  props: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>
+  props: Omit<ComponentProps<T>, keyof ContainerProps<T>> & ContainerProps<T>
 ) => ReactNode;
 
 const _Container = <T extends ElementType = 'div'>(
@@ -48,7 +48,7 @@ const _Container = <T extends ElementType = 'div'>(
     overflow,
     display = 'flex',
     ...props
-  }: Omit<ComponentProps<T>, keyof T> & ContainerProps<T>,
+  }: Omit<ComponentProps<T>, keyof ContainerProps<T>> & ContainerProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (
