@@ -33,7 +33,10 @@ type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
 ) => ReactNode;
 
 const _EllipsisContent = <T extends ElementType = 'div'>(
-  { component, ...props }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>,
+  {
+    component,
+    ...props
+  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   return (
