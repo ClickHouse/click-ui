@@ -128,6 +128,7 @@ export type IconName =
   | 'play-in-circle'
   | 'plug'
   | 'plus'
+  | 'popin'
   | 'popout'
   | 'popover-arrow'
   | 'puzzle-piece'

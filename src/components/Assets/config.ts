@@ -135,6 +135,7 @@ export const ASSET_NAME_MAPPINGS = {
     PlayInCircle: 'play-in-circle',
     Plug: 'plug',
     Plus: 'plus',
+    Popin: 'popin',
     Popout: 'popout',
     PopoverArrow: 'popover-arrow',
     PuzzlePiece: 'puzzle-piece',
