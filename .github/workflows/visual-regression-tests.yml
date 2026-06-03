@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # Full history so the resolver can diff against the PR base branch.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:
@@ -20,16 +23,35 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
+      # Decide which specs the diff affects before doing any expensive setup.
+      # See .scripts/js/affected-visual-specs for the resolution rules.
+      - name: Resolve affected specs
+        id: affected
+        run: |
+          base="origin/${{ github.base_ref }}"
+          result="$(node .scripts/js/affected-visual-specs "$base")"
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+
       - name: Install dependencies
+        if: steps.affected.outputs.result != 'NONE'
         run: yarn install --immutable
 
       - name: Install Playwright browsers
+        if: steps.affected.outputs.result != 'NONE'
         run: npx playwright install --with-deps chromium
 
       # NOTE: The tests path is located in playwright.config.ts
       # e.g. ./tests
       - name: Run visual regression tests
-        run: npx playwright test
+        if: steps.affected.outputs.result != 'NONE'
+        run: |
+          if [ "${{ steps.affected.outputs.result }}" = "ALL" ]; then
+            echo "Running the full visual-regression suite."
+            npx playwright test
+          else
+            echo "Running scoped specs: ${{ steps.affected.outputs.result }}"
+            npx playwright test ${{ steps.affected.outputs.result }}
+          fi
 
       - name: Upload test results
         if: failure()

@@ -1,0 +1,275 @@
+#!/usr/bin/env node
+
+/**
+ * Resolves which Playwright visual-regression spec files are affected by the
+ * current diff, so CI can run a scoped subset instead of the whole suite.
+ *
+ * The visual specs navigate to Storybook story URLs by string id rather than
+ * importing the component under test, so Playwright's own `--only-changed`
+ * dependency tracing cannot connect a `src/` change to its spec. Instead, each
+ * spec declares the source it covers with one or more `@covers <path>`
+ * directives, and this script maps the diff onto those declarations.
+ *
+ * Resolution rules for each changed path:
+ *   - a spec file itself .............................. run that spec
+ *   - a snapshot under `<spec>.spec.ts-snapshots/` .... run the owning spec
+ *   - `src/components/<X>/**` with a mapped spec ....... run that spec,
+ *       UNLESS <X> is imported by other components (a shared dependency),
+ *       in which case fall back to the full suite
+ *   - `src/components/<X>/**` with no mapped spec ...... ignore (no visual test)
+ *   - docs / changesets ............................... ignore
+ *   - anything else (theme, lib, tests/utils, configs,
+ *       storybook setup, package.json, ...) ........... run the full suite
+ *
+ * Output (stdout, machine-readable):
+ *   ALL   -> run the entire suite
+ *   NONE  -> nothing visual-affecting changed, skip
+ *   <list of spec paths separated by spaces>
+ *
+ * Human-readable reasoning is written to stderr so it shows up in CI logs
+ * without polluting the captured result.
+ *
+ * Usage: affected-visual-specs [baseRef]   (baseRef defaults to origin/main)
+ */
+
+import { execFileSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = path.resolve(__dirname, '../..');
+const testsDir = path.join(rootDir, 'tests');
+const componentsDir = path.join(rootDir, 'src/components');
+
+const baseRef = process.argv[2] || 'origin/main';
+
+const log = msg => process.stderr.write(`${msg}\n`);
+
+const git = args => {
+  try {
+    return execFileSync('git', args, { cwd: rootDir, encoding: 'utf-8' });
+  } catch {
+    return '';
+  }
+};
+
+const toPosix = p => p.split(path.sep).join('/');
+
+/** Every changed path relative to the repo root: PR diff + uncommitted work. */
+const getChangedFiles = () => {
+  const sets = [
+    git(['diff', '--name-only', `${baseRef}...HEAD`]), // committed since merge-base
+    git(['diff', '--name-only', 'HEAD']), // unstaged
+    git(['diff', '--name-only', '--cached']), // staged
+  ];
+  const files = new Set();
+  for (const out of sets) {
+    for (const line of out.split('\n')) {
+      const f = line.trim();
+      if (f) files.add(f);
+    }
+  }
+  return [...files];
+};
+
+/** Walk a directory returning absolute paths of files matching `filter`. */
+const walk = (dir, filter, acc = []) => {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, filter, acc);
+    else if (filter(entry.name)) acc.push(full);
+  }
+  return acc;
+};
+
+/**
+ * Build the coverage map from `@covers` directives.
+ * Returns Map<coveredDir (repo-relative posix), Set<spec (repo-relative posix)>>.
+ * Throws if a spec lacks a directive or points at a path that does not exist,
+ * so the map can never silently drift out of sync with the suite.
+ */
+const buildCoverageMap = () => {
+  const specFiles = walk(testsDir, name => name.endsWith('.spec.ts'));
+  const map = new Map();
+  const directiveRe = /@covers\s+(\S+)/g;
+
+  for (const specAbs of specFiles) {
+    const specRel = toPosix(path.relative(rootDir, specAbs));
+    const src = fs.readFileSync(specAbs, 'utf-8');
+    const covered = [...src.matchAll(directiveRe)].map(m => m[1]);
+
+    if (covered.length === 0) {
+      throw new Error(
+        `Spec "${specRel}" has no "@covers <path>" directive. Add one so the ` +
+          `affected-spec resolver knows which source it guards (see ` +
+          `.scripts/js/affected-visual-specs).`
+      );
+    }
+
+    for (const coveredPath of covered) {
+      if (!fs.existsSync(path.join(rootDir, coveredPath))) {
+        throw new Error(
+          `Spec "${specRel}" declares "@covers ${coveredPath}" but that path ` +
+            `does not exist.`
+        );
+      }
+      if (!map.has(coveredPath)) map.set(coveredPath, new Set());
+      map.get(coveredPath).add(specRel);
+    }
+  }
+  return map;
+};
+
+/**
+ * Set of component directory names (e.g. "Icon") that are imported by *another*
+ * component. A change to such a shared component can alter the rendering of its
+ * consumers' snapshots, so we escalate to the full suite rather than trusting a
+ * scoped run.
+ *
+ * What counts as a shared dependency: an import of the component from another
+ * component's *runtime* source (i.e. it is a building block other components
+ * render). What does NOT count:
+ *   - barrel re-exports (src/components/index.ts), theme, lib, demo code —
+ *     otherwise the barrel that re-exports every component would mark the whole
+ *     catalogue shared and defeat scoping;
+ *   - `.stories.tsx` / test files — a story importing a layout primitive for
+ *     demo purposes is not a runtime rendering dependency. (Trade-off: a
+ *     primitive used *only* inside another component's stories is not treated
+ *     as shared; migrations are visual-parity by design, so this is accepted
+ *     and surfaced in the logs.)
+ */
+const getSharedComponents = () => {
+  const componentNames = fs
+    .readdirSync(componentsDir, { withFileTypes: true })
+    .filter(e => e.isDirectory())
+    .map(e => e.name);
+
+  // `components/Icon` must not match `components/IconButton`, so require the
+  // name to be followed by a non-identifier character (path separator, quote…).
+  const matchers = componentNames.map(name => ({
+    name,
+    re: new RegExp(`components/${name}(?![A-Za-z0-9])`),
+  }));
+
+  const shared = new Set();
+  const srcFiles = walk(
+    path.join(rootDir, 'src'),
+    name =>
+      /\.(ts|tsx)$/.test(name) &&
+      !/\.stories\.tsx?$/.test(name) &&
+      !/\.(test|spec)\.tsx?$/.test(name)
+  );
+
+  for (const fileAbs of srcFiles) {
+    const fileRel = toPosix(path.relative(rootDir, fileAbs));
+    const importerComponent = fileRel.match(/^src\/components\/([^/]+)\//)?.[1];
+    if (!importerComponent) continue; // not inside a component dir
+
+    const content = fs.readFileSync(fileAbs, 'utf-8');
+    for (const { name, re } of matchers) {
+      if (name === importerComponent || shared.has(name)) continue;
+      if (re.test(content)) shared.add(name);
+    }
+  }
+  return shared;
+};
+
+const isSnapshot = p => /\.spec\.ts-snapshots\//.test(p);
+const isIgnorable = p =>
+  p.startsWith('.changeset/') ||
+  /\.(md|mdx)$/.test(p) ||
+  p === 'LICENSE' ||
+  p.startsWith('.github/ISSUE_TEMPLATE/');
+
+const main = () => {
+  const changed = getChangedFiles();
+  if (changed.length === 0) {
+    log(`No changes detected against ${baseRef}.`);
+    process.stdout.write('NONE');
+    return;
+  }
+
+  log(`Changed files vs ${baseRef}:`);
+  changed.forEach(f => log(`  ${f}`));
+
+  const coverage = buildCoverageMap();
+  const shared = getSharedComponents();
+  const selected = new Set();
+  const reasons = [];
+
+  for (const file of changed) {
+    // 1. A spec file itself always runs.
+    if (file.startsWith('tests/') && file.endsWith('.spec.ts')) {
+      selected.add(file);
+      reasons.push(`${file} -> itself (spec changed)`);
+      continue;
+    }
+
+    // 2. A snapshot runs its owning spec.
+    if (isSnapshot(file)) {
+      const owning = file.replace(/\.spec\.ts-snapshots\/.*$/, '.spec.ts');
+      selected.add(owning);
+      reasons.push(`${file} -> ${owning} (snapshot baseline)`);
+      continue;
+    }
+
+    // 3. Other test infrastructure (utils, fixtures) -> full suite.
+    if (file.startsWith('tests/')) {
+      log(`\nFull suite: shared test infra changed (${file}).`);
+      return finish('ALL');
+    }
+
+    // 4. Component source.
+    const componentMatch = file.match(/^src\/components\/([^/]+)\//);
+    if (componentMatch) {
+      const name = componentMatch[1];
+      if (shared.has(name)) {
+        log(
+          `\nFull suite: shared component changed (${name} is imported by other components).`
+        );
+        return finish('ALL');
+      }
+      const dir = `src/components/${name}`;
+      const specs = coverage.get(dir);
+      if (specs) {
+        specs.forEach(s => {
+          selected.add(s);
+          reasons.push(`${file} -> ${s} (@covers ${dir})`);
+        });
+      } else {
+        reasons.push(`${file} -> ignored (${dir} has no visual spec)`);
+      }
+      continue;
+    }
+
+    // 5. Docs / changesets -> no visual impact.
+    if (isIgnorable(file)) {
+      reasons.push(`${file} -> ignored (docs/changeset)`);
+      continue;
+    }
+
+    // 6. Anything else (theme, lib, hooks, configs, storybook, deps) is
+    //    potentially global -> run the full suite to stay safe.
+    log(`\nFull suite: non-component change that may affect any story (${file}).`);
+    return finish('ALL');
+  }
+
+  log('\nResolution:');
+  reasons.forEach(r => log(`  ${r}`));
+
+  if (selected.size === 0) {
+    log('\nNo visual-affecting changes -> skipping the visual suite.');
+    return finish('NONE');
+  }
+
+  const list = [...selected].sort();
+  log(`\nScoped to ${list.length} spec file(s).`);
+  return finish(list.join(' '));
+};
+
+const finish = result => {
+  process.stdout.write(result);
+};
+
+main();
