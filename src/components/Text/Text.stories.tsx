@@ -35,105 +35,73 @@ export const Playground: Story = {
 // Sizes
 
 export const SizeXs: Story = {
-  render: () => (
-    <TextHarness size="xs">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness size="xs">{sample}</TextHarness>,
 };
 
 export const SizeSm: Story = {
-  render: () => (
-    <TextHarness size="sm">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness size="sm">{sample}</TextHarness>,
 };
 
 export const SizeMd: Story = {
-  render: () => (
-    <TextHarness size="md">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness size="md">{sample}</TextHarness>,
 };
 
 export const SizeLg: Story = {
-  render: () => (
-    <TextHarness size="lg">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness size="lg">{sample}</TextHarness>,
 };
 
 // Weights
 
 export const WeightNormal: Story = {
-  render: () => (
-    <TextHarness weight="normal">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness weight="normal">{sample}</TextHarness>,
 };
 
 export const WeightMedium: Story = {
-  render: () => (
-    <TextHarness weight="medium">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness weight="medium">{sample}</TextHarness>,
 };
 
 export const WeightSemibold: Story = {
-  render: () => (
-    <TextHarness weight="semibold">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness weight="semibold">{sample}</TextHarness>,
 };
 
 export const WeightBold: Story = {
-  render: () => (
-    <TextHarness weight="bold">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness weight="bold">{sample}</TextHarness>,
 };
 
 export const WeightMono: Story = {
-  render: () => (
-    <TextHarness weight="mono">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness weight="mono">{sample}</TextHarness>,
 };
 
 // Colors
 
 export const ColorDefault: Story = {
-  render: () => (
-    <TextHarness color="default">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness color="default">{sample}</TextHarness>,
 };
 
 export const ColorMuted: Story = {
-  render: () => (
-    <TextHarness color="muted">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness color="muted">{sample}</TextHarness>,
 };
 
 export const ColorDanger: Story = {
-  render: () => (
-    <TextHarness color="danger">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness color="danger">{sample}</TextHarness>,
 };
 
 export const ColorDisabled: Story = {
-  render: () => (
-    <TextHarness color="disabled">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness color="disabled">{sample}</TextHarness>,
 };
 
 // Alignment
 
 export const AlignLeft: Story = {
-  render: () => (
-    <TextHarness align="left">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness align="left">{sample}</TextHarness>,
 };
 
 export const AlignCenter: Story = {
-  render: () => (
-    <TextHarness align="center">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness align="center">{sample}</TextHarness>,
 };
 
 export const AlignRight: Story = {
-  render: () => (
-    <TextHarness align="right">{sample}</TextHarness>
-  ),
+  render: () => <TextHarness align="right">{sample}</TextHarness>,
 };
 
 // Fill width
