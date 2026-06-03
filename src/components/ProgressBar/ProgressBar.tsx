@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { ProgressBarProps } from './ProgressBar.types';
 import { IconButton } from '@/components/IconButton';
 import { cn, cva } from '@/lib/cva';
@@ -55,7 +56,7 @@ export const ProgressBar = ({
       style={
         {
           '--progress': `${progress}%`,
-        } as React.CSSProperties
+        } as CSSProperties
       }
       {...props}
       className={cn(
