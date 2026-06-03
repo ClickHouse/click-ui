@@ -1,73 +1,42 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Separator } from '@/components/Separator';
-import type { SeparatorProps } from './Separator.types';
 
 const meta: Meta<typeof Separator> = {
   component: Separator,
   title: 'Display/Separator',
   tags: ['separator', 'autodocs'],
+  // Separator is a thin line, so the decorator wraps it in a contrasting block
+  // with bars on either side to make it measurable in the snapshot. The layout
+  // follows the story's orientation arg (vertical → row, otherwise → column).
+  decorators: [
+    (Story, { args }) => {
+      const vertical = args.orientation === 'vertical';
+      const bar = vertical
+        ? { width: '24px', background: '#222' }
+        : { height: '24px', background: '#222' };
+      return (
+        <div
+          data-testid="separator-harness"
+          style={{
+            display: 'inline-flex',
+            flexDirection: vertical ? 'row' : 'column',
+            alignItems: 'stretch',
+            ...(vertical ? { height: '80px' } : { width: '160px' }),
+            background: '#888',
+          }}
+        >
+          <div style={bar} />
+          <Story />
+          <div style={bar} />
+        </div>
+      );
+    },
+  ],
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Separator>;
-
-const HorizontalHarness = ({ size }: { size: SeparatorProps['size'] }) => (
-  <div
-    data-testid="separator-harness"
-    style={{
-      display: 'inline-flex',
-      flexDirection: 'column',
-      alignItems: 'stretch',
-      width: '160px',
-      background: '#888',
-    }}
-  >
-    <div style={{ height: '24px', background: '#222' }} />
-    <Separator
-      size={size}
-      orientation="horizontal"
-    />
-    <div style={{ height: '24px', background: '#222' }} />
-  </div>
-);
-
-const DefaultHarness = ({ size }: { size: SeparatorProps['size'] }) => (
-  <div
-    data-testid="separator-harness"
-    style={{
-      display: 'inline-flex',
-      flexDirection: 'column',
-      alignItems: 'stretch',
-      width: '160px',
-      background: '#888',
-    }}
-  >
-    <div style={{ height: '24px', background: '#222' }} />
-    <Separator size={size} />
-    <div style={{ height: '24px', background: '#222' }} />
-  </div>
-);
-
-const VerticalHarness = ({ size }: { size: SeparatorProps['size'] }) => (
-  <div
-    data-testid="separator-harness"
-    style={{
-      display: 'inline-flex',
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      height: '80px',
-      background: '#888',
-    }}
-  >
-    <div style={{ width: '24px', background: '#222' }} />
-    <Separator
-      size={size}
-      orientation="vertical"
-    />
-    <div style={{ width: '24px', background: '#222' }} />
-  </div>
-);
 
 export const Playground: Story = {
   args: {
@@ -77,53 +46,53 @@ export const Playground: Story = {
 };
 
 export const HorizontalXs: Story = {
-  render: () => <HorizontalHarness size="xs" />,
+  args: { size: 'xs', orientation: 'horizontal' },
 };
 
 export const HorizontalSm: Story = {
-  render: () => <HorizontalHarness size="sm" />,
+  args: { size: 'sm', orientation: 'horizontal' },
 };
 
 export const HorizontalMd: Story = {
-  render: () => <HorizontalHarness size="md" />,
+  args: { size: 'md', orientation: 'horizontal' },
 };
 
 export const HorizontalLg: Story = {
-  render: () => <HorizontalHarness size="lg" />,
+  args: { size: 'lg', orientation: 'horizontal' },
 };
 
 export const HorizontalXl: Story = {
-  render: () => <HorizontalHarness size="xl" />,
+  args: { size: 'xl', orientation: 'horizontal' },
 };
 
 export const HorizontalXxl: Story = {
-  render: () => <HorizontalHarness size="xxl" />,
+  args: { size: 'xxl', orientation: 'horizontal' },
 };
 
 export const VerticalXs: Story = {
-  render: () => <VerticalHarness size="xs" />,
+  args: { size: 'xs', orientation: 'vertical' },
 };
 
 export const VerticalSm: Story = {
-  render: () => <VerticalHarness size="sm" />,
+  args: { size: 'sm', orientation: 'vertical' },
 };
 
 export const VerticalMd: Story = {
-  render: () => <VerticalHarness size="md" />,
+  args: { size: 'md', orientation: 'vertical' },
 };
 
 export const VerticalLg: Story = {
-  render: () => <VerticalHarness size="lg" />,
+  args: { size: 'lg', orientation: 'vertical' },
 };
 
 export const VerticalXl: Story = {
-  render: () => <VerticalHarness size="xl" />,
+  args: { size: 'xl', orientation: 'vertical' },
 };
 
 export const VerticalXxl: Story = {
-  render: () => <VerticalHarness size="xxl" />,
+  args: { size: 'xxl', orientation: 'vertical' },
 };
 
 export const DefaultOrientation: Story = {
-  render: () => <DefaultHarness size="md" />,
+  args: { size: 'md' },
 };
