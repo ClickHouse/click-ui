@@ -902,6 +902,7 @@
   --click-genericMenu-item-color-default-background-active: #ffffff;
   --click-genericMenu-item-color-default-background-disabled: #ffffff;
   --click-genericMenu-item-color-default-stroke-default: #e6e7e9;
+  --click-genericMenu-item-color-default-stroke-focus: #437eef;
   --click-genericMenu-item-color-format-default: lch(71.998 4.1843 268.48);
   --click-genericMenu-item-color-format-hover: lch(71.998 4.1843 268.48);
   --click-genericMenu-item-color-format-active: lch(71.998 4.1843 268.48);
@@ -918,6 +919,8 @@
   --click-genericMenu-item-color-danger-background-hover: rgb(100% 13.725% 13.725% / 0.2);
   --click-genericMenu-item-color-danger-background-active: rgb(100% 13.725% 13.725% / 0.3);
   --click-genericMenu-item-color-danger-background-disabled: #ffffff;
+  --click-genericMenu-item-color-danger-stroke-default: rgba(0, 0, 0, 0);
+  --click-genericMenu-item-color-danger-stroke-focus: #437eef;
   --click-genericMenu-itemCustom-typography-label-sm: 500 0.75rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --click-genericMenu-itemCustom-typography-label-lg: 400 0.875rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --click-genericMenu-button-space-gap: 0.25rem;
@@ -1426,6 +1429,7 @@
   --click-global-color-text-link-default: #437eef;
   --click-global-color-text-link-hover: #104ec6;
   --click-global-color-text-danger: #c10000;
+  --click-global-color-text-warning: #a33c00;
   --click-global-color-title-default: lch(11.126 1.374 305.43);
   --click-global-color-title-muted: #696e79;
   --click-global-color-outline-default: #437eef;
