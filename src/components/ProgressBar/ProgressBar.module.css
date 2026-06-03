@@ -1,0 +1,124 @@
+.progressbar {
+  display: flex;
+  min-height: 2px;
+  padding-right: 0;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--click-field-space-gap);
+  border: 1px solid var(--click-field-color-stroke-default);
+  border-radius: var(--click-field-radii-all);
+  background: linear-gradient(
+    var(--progress-grad-dir, to right),
+    var(--global-color-accent-default) 0%,
+    var(--global-color-accent-default) var(--progress),
+    var(--progress-bg, var(--click-field-color-background-default)) var(--progress),
+    var(--progress-bg, var(--click-field-color-background-default)) 100%
+  );
+  background-position: center;
+  background-size: calc(100% + 2px);
+  color: var(--global-color-accent-default);
+  font: var(--typography-styles-product-text-normal-sm);
+  transition: all 100ms ease-in-out;
+}
+
+.progressbar_orientation_vertical {
+  width: auto;
+  height: 100%;
+  flex-direction: column;
+}
+
+/* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same
+   width fallback chain (100% → -webkit-fill-available → fill-available →
+   stretch) so horizontal bars fill the available inline space. */
+.progressbar_orientation_horizontal {
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+}
+/* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+
+.progressbar_orientation_horizontal.progressbar_dir_start {
+  --progress-grad-dir: to right;
+}
+
+.progressbar_orientation_horizontal.progressbar_dir_end {
+  --progress-grad-dir: to left;
+}
+
+.progressbar_orientation_vertical.progressbar_dir_start {
+  --progress-grad-dir: to bottom;
+}
+
+.progressbar_orientation_vertical.progressbar_dir_end {
+  --progress-grad-dir: to top;
+}
+
+.progressbar_type_default {
+  padding: 0.25rem var(--click-field-space-x);
+  padding-right: 0;
+}
+
+.progressbar_type_small {
+  padding: 0 var(--click-field-space-x);
+  padding-right: 0;
+}
+
+.progressbar_completed.progressbar_type_default {
+  background: var(--click-field-color-background-default);
+  background-position: center;
+  background-size: calc(100% + 2px);
+}
+
+.progressbar:hover {
+  --progress-bg: var(--click-field-color-background-hover);
+
+  border: 1px solid var(--click-field-color-stroke-hover);
+  background-position: center;
+  background-size: calc(100% + 2px);
+}
+
+.progressbar_completed:hover {
+  background: var(--click-field-color-background-hover);
+  background-position: center;
+  background-size: calc(100% + 2px);
+}
+
+.progressbar:focus,
+.progressbar:focus-within {
+  --progress-bg: var(--click-field-color-background-active);
+
+  border: 1px solid var(--click-field-color-stroke-active);
+  background-position: center;
+  background-size: calc(100% + 2px);
+}
+
+.progressbar_completed:focus,
+.progressbar_completed:focus-within {
+  background: var(--click-field-color-background-active);
+  background-position: center;
+  background-size: calc(100% + 2px);
+}
+
+.progresstext {
+  width: 100%;
+  font: inherit;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- mix-blend-mode
+     is widely supported on evergreen browsers; the original rule
+     used the same value to invert the text against the gradient fill. */
+  mix-blend-mode: difference;
+}
+
+.progressclosebutton {
+  visibility: hidden;
+  border: 0;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- mix-blend-mode
+     is widely supported on evergreen browsers; the original rule
+     used the same value to invert the close icon against the gradient fill. */
+  mix-blend-mode: difference;
+}
+
+.progressclosebutton_dismissable {
+  visibility: visible;
+}
