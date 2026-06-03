@@ -1,0 +1,125 @@
+.text {
+  margin: 0;
+  color: var(--click-global-color-text-default);
+  font: var(--typography-styles-product-text-normal-md);
+  text-align: left;
+}
+
+.text_fill-width {
+  width: 100%;
+}
+
+/* font shorthand depends on both size and weight; one class per pairing
+   mirrors the single `font:` declaration emitted by styled-components. */
+
+.text_font_normal-xs {
+  font: var(--typography-styles-product-text-normal-xs);
+}
+
+.text_font_normal-sm {
+  font: var(--typography-styles-product-text-normal-sm);
+}
+
+.text_font_normal-md {
+  font: var(--typography-styles-product-text-normal-md);
+}
+
+.text_font_normal-lg {
+  font: var(--typography-styles-product-text-normal-lg);
+}
+
+.text_font_medium-xs {
+  font: var(--typography-styles-product-text-medium-xs);
+}
+
+.text_font_medium-sm {
+  font: var(--typography-styles-product-text-medium-sm);
+}
+
+.text_font_medium-md {
+  font: var(--typography-styles-product-text-medium-md);
+}
+
+.text_font_medium-lg {
+  font: var(--typography-styles-product-text-medium-lg);
+}
+
+.text_font_semibold-xs {
+  font: var(--typography-styles-product-text-semibold-xs);
+}
+
+.text_font_semibold-sm {
+  font: var(--typography-styles-product-text-semibold-sm);
+}
+
+.text_font_semibold-md {
+  font: var(--typography-styles-product-text-semibold-md);
+}
+
+.text_font_semibold-lg {
+  font: var(--typography-styles-product-text-semibold-lg);
+}
+
+.text_font_bold-xs {
+  font: var(--typography-styles-product-text-bold-xs);
+}
+
+.text_font_bold-sm {
+  font: var(--typography-styles-product-text-bold-sm);
+}
+
+.text_font_bold-md {
+  font: var(--typography-styles-product-text-bold-md);
+}
+
+.text_font_bold-lg {
+  font: var(--typography-styles-product-text-bold-lg);
+}
+
+.text_font_mono-xs {
+  font: var(--typography-styles-product-text-mono-xs);
+}
+
+.text_font_mono-sm {
+  font: var(--typography-styles-product-text-mono-sm);
+}
+
+.text_font_mono-md {
+  font: var(--typography-styles-product-text-mono-md);
+}
+
+.text_font_mono-lg {
+  font: var(--typography-styles-product-text-mono-lg);
+}
+
+.text_color_default {
+  color: var(--click-global-color-text-default);
+}
+
+.text_color_muted {
+  color: var(--click-global-color-text-muted);
+}
+
+.text_color_danger {
+  color: var(--click-global-color-text-danger);
+}
+
+.text_color_disabled {
+  color: var(--click-global-color-text-disabled);
+}
+
+.text_color_warning {
+  color: var(--click-global-color-text-warning);
+}
+
+.text_align_left {
+  text-align: left;
+}
+
+.text_align_center {
+  text-align: center;
+}
+
+.text_align_right {
+  text-align: right;
+}

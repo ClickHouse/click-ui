@@ -1,0 +1,89 @@
+.title {
+  /* anchors inherit the title color via this local alias; the color
+     modifiers below redefine it so links track the chosen title color. */
+  --title-link-color: var(--click-global-color-title-default);
+
+  margin: 0;
+  padding: 0;
+  color: var(--click-global-color-title-default);
+  font: var(--typography-styles-product-titles-md);
+  font-style: inherit;
+  text-align: left;
+}
+
+.title a,
+.title a:visited {
+  color: var(--title-link-color);
+  cursor: pointer;
+}
+
+.title a:hover {
+  color: var(--click-global-color-title-muted);
+}
+
+/* font shorthand depends on both family and size; one class per pairing
+   mirrors the single `font:` declaration emitted by styled-components. */
+
+.title_font_product-xs {
+  font: var(--typography-styles-product-titles-xs);
+}
+
+.title_font_product-sm {
+  font: var(--typography-styles-product-titles-sm);
+}
+
+.title_font_product-md {
+  font: var(--typography-styles-product-titles-md);
+}
+
+.title_font_product-lg {
+  font: var(--typography-styles-product-titles-lg);
+}
+
+.title_font_product-xl {
+  font: var(--typography-styles-product-titles-xl);
+}
+
+.title_font_brand-xs {
+  font: var(--typography-styles-brand-titles-xs);
+}
+
+.title_font_brand-sm {
+  font: var(--typography-styles-brand-titles-sm);
+}
+
+.title_font_brand-md {
+  font: var(--typography-styles-brand-titles-md);
+}
+
+.title_font_brand-lg {
+  font: var(--typography-styles-brand-titles-lg);
+}
+
+.title_font_brand-xl {
+  font: var(--typography-styles-brand-titles-xl);
+}
+
+.title_color_default {
+  --title-link-color: var(--click-global-color-title-default);
+
+  color: var(--click-global-color-title-default);
+}
+
+.title_color_muted {
+  --title-link-color: var(--click-global-color-title-muted);
+
+  color: var(--click-global-color-title-muted);
+}
+
+.title_align_left {
+  text-align: left;
+}
+
+.title_align_center {
+  text-align: center;
+}
+
+.title_align_right {
+  text-align: right;
+}

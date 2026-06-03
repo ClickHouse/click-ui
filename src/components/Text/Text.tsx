@@ -5,7 +5,8 @@ import {
   ReactNode,
   forwardRef,
 } from 'react';
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
+import styles from './Text.module.css';
 
 export type TextSize = 'xs' | 'sm' | 'md' | 'lg';
 export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold' | 'mono';
@@ -35,6 +36,67 @@ type TextPolymorphicComponent = <T extends ElementType = 'p'>(
   props: Omit<ComponentProps<T>, keyof TextProps<T>> & TextProps<T>
 ) => ReactNode;
 
+const textVariants = cva(styles.text, {
+  variants: {
+    color: {
+      default: styles['text_color_default'],
+      muted: styles['text_color_muted'],
+      danger: styles['text_color_danger'],
+      disabled: styles['text_color_disabled'],
+      warning: styles['text_color_warning'],
+    },
+    align: {
+      left: styles['text_align_left'],
+      center: styles['text_align_center'],
+      right: styles['text_align_right'],
+    },
+    fillWidth: {
+      true: styles['text_fill-width'],
+    },
+    size: {
+      xs: '',
+      sm: '',
+      md: '',
+      lg: '',
+    },
+    weight: {
+      normal: '',
+      medium: '',
+      semibold: '',
+      bold: '',
+      mono: '',
+    },
+  },
+  compoundVariants: [
+    { weight: 'normal', size: 'xs', class: styles['text_font_normal-xs'] },
+    { weight: 'normal', size: 'sm', class: styles['text_font_normal-sm'] },
+    { weight: 'normal', size: 'md', class: styles['text_font_normal-md'] },
+    { weight: 'normal', size: 'lg', class: styles['text_font_normal-lg'] },
+    { weight: 'medium', size: 'xs', class: styles['text_font_medium-xs'] },
+    { weight: 'medium', size: 'sm', class: styles['text_font_medium-sm'] },
+    { weight: 'medium', size: 'md', class: styles['text_font_medium-md'] },
+    { weight: 'medium', size: 'lg', class: styles['text_font_medium-lg'] },
+    { weight: 'semibold', size: 'xs', class: styles['text_font_semibold-xs'] },
+    { weight: 'semibold', size: 'sm', class: styles['text_font_semibold-sm'] },
+    { weight: 'semibold', size: 'md', class: styles['text_font_semibold-md'] },
+    { weight: 'semibold', size: 'lg', class: styles['text_font_semibold-lg'] },
+    { weight: 'bold', size: 'xs', class: styles['text_font_bold-xs'] },
+    { weight: 'bold', size: 'sm', class: styles['text_font_bold-sm'] },
+    { weight: 'bold', size: 'md', class: styles['text_font_bold-md'] },
+    { weight: 'bold', size: 'lg', class: styles['text_font_bold-lg'] },
+    { weight: 'mono', size: 'xs', class: styles['text_font_mono-xs'] },
+    { weight: 'mono', size: 'sm', class: styles['text_font_mono-sm'] },
+    { weight: 'mono', size: 'md', class: styles['text_font_mono-md'] },
+    { weight: 'mono', size: 'lg', class: styles['text_font_mono-lg'] },
+  ],
+  defaultVariants: {
+    color: 'default',
+    align: 'left',
+    size: 'md',
+    weight: 'normal',
+  },
+});
+
 const _Text = <T extends ElementType = 'p'>(
   {
     align,
@@ -48,36 +110,21 @@ const _Text = <T extends ElementType = 'p'>(
     ...props
   }: Omit<ComponentProps<T>, keyof TextProps<T>> & TextProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
-) => (
-  <CuiText
-    as={component ?? 'p'}
-    ref={ref}
-    $align={align}
-    $color={color}
-    $size={size}
-    $weight={weight}
-    $fillWidth={fillWidth}
-    className={className}
-    {...props}
-  >
-    {children}
-  </CuiText>
-);
-
-const CuiText = styled.p<{
-  $align?: TextAlignment;
-  $color?: TextColor;
-  $size?: TextSize;
-  $weight?: TextWeight;
-  $fillWidth?: boolean;
-}>`
-  font: ${({ $size = 'md', $weight = 'normal', theme }) =>
-    theme.typography.styles.product.text[$weight][$size]};
-  color: ${({ $color = 'default', theme }) => theme.click.global.color.text[$color]};
-  text-align: ${({ $align = 'left' }) => $align};
-  margin: 0;
-  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
-`;
+) => {
+  const Component = component ?? 'p';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(
+        textVariants({ color, align, size, weight, fillWidth }),
+        className
+      )}
+    >
+      {children}
+    </Component>
+  );
+};
 
 _Text.displayName = 'Text';
 
