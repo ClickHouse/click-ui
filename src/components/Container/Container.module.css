@@ -1,0 +1,174 @@
+.container {
+  display: var(--container-display, flex);
+  width: var(--container-width, 100%);
+  min-width: var(--container-min-width, auto);
+  max-width: var(--container-max-width, none);
+  height: var(--container-height);
+  min-height: var(--container-min-height);
+  max-height: var(--container-max-height);
+  padding: var(--container-padding);
+  overflow: var(--container-overflow);
+  flex: var(--container-grow);
+  flex-shrink: var(--container-shrink);
+  /* stylelint-disable declaration-block-no-redundant-longhand-properties -- flex-direction and flex-wrap are overridden independently by modifier classes, so the flex-flow shorthand can't be used */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  /* stylelint-enable declaration-block-no-redundant-longhand-properties */
+  justify-content: start;
+  align-items: center;
+  gap: var(--container-gap);
+}
+
+.container_gap_none {
+  --container-gap: var(--click-container-gap-none);
+}
+
+.container_gap_xxs {
+  --container-gap: var(--click-container-gap-xxs);
+}
+
+.container_gap_xs {
+  --container-gap: var(--click-container-gap-xs);
+}
+
+.container_gap_sm {
+  --container-gap: var(--click-container-gap-sm);
+}
+
+.container_gap_md {
+  --container-gap: var(--click-container-gap-md);
+}
+
+.container_gap_lg {
+  --container-gap: var(--click-container-gap-lg);
+}
+
+.container_gap_xl {
+  --container-gap: var(--click-container-gap-xl);
+}
+
+.container_gap_xxl {
+  --container-gap: var(--click-container-gap-xxl);
+}
+
+.container_padding_none {
+  --container-padding: var(--click-container-space-none);
+}
+
+.container_padding_xxs {
+  --container-padding: var(--click-container-space-xxs);
+}
+
+.container_padding_xs {
+  --container-padding: var(--click-container-space-xs);
+}
+
+.container_padding_sm {
+  --container-padding: var(--click-container-space-sm);
+}
+
+.container_padding_md {
+  --container-padding: var(--click-container-space-md);
+}
+
+.container_padding_lg {
+  --container-padding: var(--click-container-space-lg);
+}
+
+.container_padding_xl {
+  --container-padding: var(--click-container-space-xl);
+}
+
+.container_padding_xxl {
+  --container-padding: var(--click-container-space-xxl);
+}
+
+.container_orientation_horizontal {
+  flex-direction: row;
+}
+
+.container_orientation_vertical {
+  flex-direction: column;
+}
+
+.container_wrap_nowrap {
+  flex-wrap: nowrap;
+}
+
+.container_wrap_wrap {
+  flex-wrap: wrap;
+}
+
+.container_wrap_wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+.container_align-items_start {
+  align-items: start;
+}
+
+.container_align-items_center {
+  align-items: center;
+}
+
+.container_align-items_end {
+  align-items: end;
+}
+
+.container_align-items_stretch {
+  align-items: stretch;
+}
+
+.container_justify-content_start {
+  justify-content: start;
+}
+
+.container_justify-content_center {
+  justify-content: center;
+}
+
+.container_justify-content_space-between {
+  justify-content: space-between;
+}
+
+.container_justify-content_space-around {
+  justify-content: space-around;
+}
+
+.container_justify-content_space-evenly {
+  justify-content: space-evenly;
+}
+
+.container_justify-content_end {
+  justify-content: end;
+}
+
+.container_justify-content_left {
+  justify-content: left;
+}
+
+.container_justify-content_right {
+  justify-content: right;
+}
+
+/* The source emitted invalid values (`max-width: auto`, `flex-direction: auto`)
+   in the non-responsive branches; browsers ignore them, so only `width` changes
+   below the breakpoint when isResponsive is false. The responsive branch is the
+   only one that overrides max-width and flex-direction. */
+/* stylelint-disable-next-line media-feature-range-notation -- prefix notation
+   required for browser compatibility per .browserslistrc */
+@media (max-width: 768px) {
+  .container_responsive {
+    width: 100%;
+    max-width: none;
+    flex-direction: column;
+  }
+
+  .container_non-responsive_fill {
+    width: 100%;
+  }
+
+  .container_non-responsive_hug {
+    width: auto;
+  }
+}
