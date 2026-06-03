@@ -20,6 +20,7 @@ const variants = [
   { story: 'align-right', name: 'align-right' },
   { story: 'heading-levels', name: 'heading-levels' },
   { story: 'with-link', name: 'with-link' },
+  { story: 'inherit-italic', name: 'inherit-italic' },
 ] as const;
 
 describe('Title Visual Regression', () => {
@@ -48,6 +49,17 @@ describe('Title Visual Regression', () => {
       await expect(harness).toHaveScreenshot('title-link-hover-light.png', {
         maxDiffPixels: 100,
       });
+    });
+
+    it('inherits font-style from an italic parent', async ({ page }) => {
+      await page.goto(getStoryUrl('typography-title--inherit-italic', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const heading = page.locator(`${harnessLocator} :is(h1,h2,h3,h4,h5,h6)`).first();
+      await expect(heading).toBeVisible({ timeout: 10000 });
+      // The compound `font` shorthand classes reset font-style to normal; the
+      // base rule's `font-style: inherit` must keep the heading italic.
+      await expect(heading).toHaveCSS('font-style', 'italic');
     });
   });
 

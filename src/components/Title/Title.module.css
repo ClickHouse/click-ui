@@ -26,42 +26,52 @@
 
 .title_font_product-xs {
   font: var(--typography-styles-product-titles-xs);
+  font-style: inherit;
 }
 
 .title_font_product-sm {
   font: var(--typography-styles-product-titles-sm);
+  font-style: inherit;
 }
 
 .title_font_product-md {
   font: var(--typography-styles-product-titles-md);
+  font-style: inherit;
 }
 
 .title_font_product-lg {
   font: var(--typography-styles-product-titles-lg);
+  font-style: inherit;
 }
 
 .title_font_product-xl {
   font: var(--typography-styles-product-titles-xl);
+  font-style: inherit;
 }
 
 .title_font_brand-xs {
   font: var(--typography-styles-brand-titles-xs);
+  font-style: inherit;
 }
 
 .title_font_brand-sm {
   font: var(--typography-styles-brand-titles-sm);
+  font-style: inherit;
 }
 
 .title_font_brand-md {
   font: var(--typography-styles-brand-titles-md);
+  font-style: inherit;
 }
 
 .title_font_brand-lg {
   font: var(--typography-styles-brand-titles-lg);
+  font-style: inherit;
 }
 
 .title_font_brand-xl {
   font: var(--typography-styles-brand-titles-xl);
+  font-style: inherit;
 }
 
 .title_color_default {

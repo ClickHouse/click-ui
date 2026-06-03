@@ -210,3 +210,22 @@ export const WithLink: Story = {
     </TitleHarness>
   ),
 };
+
+// Title inside an italic parent — `font-style: inherit` must survive the `font`
+// shorthand so the heading renders italic (regression lock for the CSS Modules
+// migration, where the compound `font` classes otherwise reset font-style).
+export const InheritItalic: Story = {
+  render: () => (
+    <div
+      data-testid="title-harness"
+      style={{
+        display: 'inline-block',
+        padding: '8px',
+        width: '420px',
+        fontStyle: 'italic',
+      }}
+    >
+      <Title type="h2">{sample}</Title>
+    </div>
+  ),
+};
