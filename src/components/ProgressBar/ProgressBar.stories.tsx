@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import { ProgressBar } from '@/components/ProgressBar';
 
 const meta: Meta<typeof ProgressBar> = {
@@ -21,6 +21,16 @@ const meta: Meta<typeof ProgressBar> = {
 export default meta;
 
 type Story = StoryObj<typeof ProgressBar>;
+
+// Vertical bars fill their container's height. Set the height on a
+// width-hugging wrapper rather than passing `style` to the component, since the
+// component spreads `style` and would otherwise clobber its own `--progress`
+// fill variable, leaving the bar empty.
+const verticalDecorator: Decorator = Story => (
+  <div style={{ display: 'inline-flex', height: '10rem' }}>
+    <Story />
+  </div>
+);
 
 export const Playground: Story = {
   args: {
@@ -49,8 +59,8 @@ export const VerticalProgressBar: Story = {
     type: 'small',
     orientation: 'vertical',
     dir: 'start',
-    style: { height: '10rem' },
   },
+  decorators: [verticalDecorator],
 };
 
 export const DefaultHorizontal: Story = {
@@ -134,8 +144,8 @@ export const VerticalDirStart: Story = {
     type: 'small',
     orientation: 'vertical',
     dir: 'start',
-    style: { height: '10rem' },
   },
+  decorators: [verticalDecorator],
 };
 
 export const VerticalDirEnd: Story = {
@@ -144,6 +154,6 @@ export const VerticalDirEnd: Story = {
     type: 'small',
     orientation: 'vertical',
     dir: 'end',
-    style: { height: '10rem' },
   },
+  decorators: [verticalDecorator],
 };
