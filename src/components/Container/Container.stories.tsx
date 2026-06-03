@@ -1,23 +1,35 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { ReactNode } from 'react';
 import { Container } from '@/components/Container';
 import { Text } from '@/components/Text';
-import { styled } from 'styled-components';
 
-const GridCenter = styled.div`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-`;
+const GridCenter = ({ children }: { children: ReactNode }) => (
+  <div
+    style={{
+      display: 'grid',
+      placeItems: 'center',
+      width: '100%',
+      height: '100%',
+    }}
+  >
+    {children}
+  </div>
+);
 
-const Box = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 32px;
-  border: 1px solid grey;
-`;
+const Box = ({ children }: { children: ReactNode }) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '64px',
+      height: '32px',
+      border: '1px solid grey',
+    }}
+  >
+    {children}
+  </div>
+);
 
 const meta: Meta<typeof Container> = {
   component: Container,
