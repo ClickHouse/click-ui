@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, useMemo } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { IconName, IconProps, ImageType } from './Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
@@ -49,15 +49,19 @@ const SVGIcon = ({
 }: IconProps) => {
   const Component = ICONS_MAP[name];
 
+  const wrapperStyle = useMemo(
+    () =>
+      ({
+        ...(color !== undefined ? { '--svg-icon-color': color } : {}),
+        ...(width !== undefined ? { '--svg-width': String(width) } : {}),
+        ...(height !== undefined ? { '--svg-height': String(height) } : {}),
+      }) as CSSProperties,
+    [color, width, height]
+  );
+
   if (!Component) {
     return null;
   }
-
-  const wrapperStyle = {
-    ...(color !== undefined ? { '--svg-icon-color': color } : {}),
-    ...(width !== undefined ? { '--svg-width': String(width) } : {}),
-    ...(height !== undefined ? { '--svg-height': String(height) } : {}),
-  } as CSSProperties;
 
   return (
     <div
