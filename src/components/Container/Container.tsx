@@ -5,6 +5,7 @@ import {
   ElementType,
   ReactNode,
   forwardRef,
+  useMemo,
 } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { ContainerProps } from './Container.types';
@@ -95,25 +96,46 @@ const _Container = <T extends ElementType = 'div'>(
   const resolvedAlignItems =
     alignItems ?? (orientation === 'vertical' ? 'start' : 'center');
 
-  const cssVariables = {
-    '--container-display': display,
-    '--container-width': fillWidth === true ? '100%' : 'auto',
-    '--container-min-width': minWidth ?? 'auto',
-    '--container-max-width': maxWidth ?? 'none',
-    ...(grow && { '--container-grow': grow }),
-    ...(shrink && { '--container-shrink': shrink }),
-    ...(fillHeight && { '--container-height': '100%' }),
-    ...(maxHeight && { '--container-max-height': maxHeight }),
-    ...(minHeight && { '--container-min-height': minHeight }),
-    ...(overflow && { '--container-overflow': overflow }),
-  } as CSSProperties;
+  // `_Container` is a real component (wrapped by `forwardRef` below); the
+  // rules-of-hooks PascalCase-name heuristic false-positives on our
+  // `_`-prefixed polymorphic-component naming convention.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const mergedStyle = useMemo(
+    () =>
+      ({
+        '--container-display': display,
+        '--container-width': fillWidth === true ? '100%' : 'auto',
+        '--container-min-width': minWidth ?? 'auto',
+        '--container-max-width': maxWidth ?? 'none',
+        ...(grow && { '--container-grow': grow }),
+        ...(shrink && { '--container-shrink': shrink }),
+        ...(fillHeight && { '--container-height': '100%' }),
+        ...(maxHeight && { '--container-max-height': maxHeight }),
+        ...(minHeight && { '--container-min-height': minHeight }),
+        ...(overflow && { '--container-overflow': overflow }),
+        ...style,
+      }) as CSSProperties,
+    [
+      display,
+      fillWidth,
+      minWidth,
+      maxWidth,
+      grow,
+      shrink,
+      fillHeight,
+      maxHeight,
+      minHeight,
+      overflow,
+      style,
+    ]
+  );
 
   return (
     <Component
       ref={ref}
       data-testid="container"
       {...props}
-      style={{ ...cssVariables, ...style }}
+      style={mergedStyle}
       className={cn(
         containerVariants({
           gap,
