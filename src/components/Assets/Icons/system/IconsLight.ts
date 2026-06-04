@@ -125,6 +125,7 @@ import Pause from '../Pause';
 import Payment from '../Payment';
 import Pencil from '../Pencil';
 import Pie_Chart from '../Pie-Chart';
+import Pin from '../Pin';
 import Pipe from '../Pipe';
 import Play from '../Play';
 import Play_In_Circle from '../Play-In-Circle';
@@ -168,6 +169,7 @@ import Thumbs_Up from '../Thumbs-Up';
 import Trash from '../Trash';
 import Tree_Structure from '../Tree-Structure';
 import Underline from '../Underline';
+import Unpin from '../Unpin';
 import Upgrade from '../Upgrade';
 import Upload from '../Upload';
 import Url from '../Url';
@@ -300,6 +302,7 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   payment: Payment,
   pencil: Pencil,
   'pie-chart': Pie_Chart,
+  pin: Pin,
   pipe: Pipe,
   play: Play,
   'play-in-circle': Play_In_Circle,
@@ -343,6 +346,7 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   trash: Trash,
   'tree-structure': Tree_Structure,
   underline: Underline,
+  unpin: Unpin,
   upgrade: Upgrade,
   upload: Upload,
   url: Url,
