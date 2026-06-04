@@ -1,47 +1,36 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { Link } from '@/components/Link';
-import type { IconName } from '@/components/Icon/Icon.types';
-import type { TextSize, TextWeight } from '@/components/Text';
 
 const meta: Meta<typeof Link> = {
   component: Link,
   title: 'Typography/Link',
   tags: ['link', 'autodocs'],
+  args: {
+    href: 'https://www.example.com',
+    children: 'Try me!',
+  },
+  decorators: [
+    Story => (
+      <div
+        data-testid="link-harness"
+        style={{
+          display: 'inline-flex',
+          padding: '8px',
+          // Match the storybook backdrop so the link's themed color renders against
+          // its intended background in the autodocs view (where Storybook's
+          // .docs-story container otherwise paints a white card regardless of theme).
+          background: 'var(--click-storybook-global-background)',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Link>;
-
-interface LinkHarnessProps {
-  size?: TextSize;
-  weight?: TextWeight;
-  icon?: IconName;
-  children?: React.ReactNode;
-}
-
-const LinkHarness = ({ size, weight, icon, children = 'Try me!' }: LinkHarnessProps) => (
-  <div
-    data-testid="link-harness"
-    style={{
-      display: 'inline-flex',
-      padding: '8px',
-      // Match the storybook backdrop so the link's themed color renders against
-      // its intended background in the autodocs view (where Storybook's
-      // .docs-story container otherwise paints a white card regardless of theme).
-      background: 'var(--click-storybook-global-background)',
-    }}
-  >
-    <Link
-      size={size}
-      weight={weight}
-      icon={icon}
-      href="https://www.example.com"
-    >
-      {children}
-    </Link>
-  </div>
-);
 
 export const Playground: Story = {
   args: {
@@ -52,51 +41,44 @@ export const Playground: Story = {
   },
 };
 
-export const Default: Story = {
-  render: () => <LinkHarness />,
-};
+export const Default: Story = {};
 
 export const SizeXs: Story = {
-  render: () => <LinkHarness size="xs" />,
+  args: { size: 'xs' },
 };
 
 export const SizeSm: Story = {
-  render: () => <LinkHarness size="sm" />,
+  args: { size: 'sm' },
 };
 
 export const SizeMd: Story = {
-  render: () => <LinkHarness size="md" />,
+  args: { size: 'md' },
 };
 
 export const SizeLg: Story = {
-  render: () => <LinkHarness size="lg" />,
+  args: { size: 'lg' },
 };
 
 export const WeightNormal: Story = {
-  render: () => <LinkHarness weight="normal" />,
+  args: { weight: 'normal' },
 };
 
 export const WeightMedium: Story = {
-  render: () => <LinkHarness weight="medium" />,
+  args: { weight: 'medium' },
 };
 
 export const WeightSemibold: Story = {
-  render: () => <LinkHarness weight="semibold" />,
+  args: { weight: 'semibold' },
 };
 
 export const WeightBold: Story = {
-  render: () => <LinkHarness weight="bold" />,
+  args: { weight: 'bold' },
 };
 
 export const WithIcon: Story = {
-  render: () => <LinkHarness icon="popout" />,
+  args: { icon: 'popout' },
 };
 
 export const WithIconSm: Story = {
-  render: () => (
-    <LinkHarness
-      size="sm"
-      icon="popout"
-    />
-  ),
+  args: { size: 'sm', icon: 'popout' },
 };

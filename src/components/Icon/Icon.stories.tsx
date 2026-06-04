@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import LogosLight from '@/components/Assets/Logos/system/LogosLight';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
 import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
 import { Icon } from '@/components/Icon';
-import { IconName, IconProps, ImageType } from '@/components/Icon/Icon.types';
+import { IconName, IconProps } from '@/components/Icon/Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
 import { ComponentProps, useState } from 'react';
@@ -56,173 +56,106 @@ export const Playground: Story = {
   render: args => <IconWrapper {...(args as IconProps)} />,
 };
 
-const IconHarness = (props: ImageType) => (
+// Most Icon stories don't need the gallery/Container layout that Playground and
+// the Icons gallery use, so the harness backdrop is applied per-story (not on
+// meta) to keep those bespoke stories unwrapped.
+const iconHarness: Decorator = Story => (
   <div
     data-testid="icon-harness"
     style={{ display: 'inline-flex' }}
   >
-    <Icon {...props} />
+    <Story />
   </div>
 );
 
 export const DefaultMd: Story = {
-  render: () => <IconHarness name="users" />,
+  args: { name: 'users' },
+  decorators: [iconHarness],
 };
 
 export const SizeXs: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      size="xs"
-    />
-  ),
+  args: { name: 'users', size: 'xs' },
+  decorators: [iconHarness],
 };
 
 export const SizeSm: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      size="sm"
-    />
-  ),
+  args: { name: 'users', size: 'sm' },
+  decorators: [iconHarness],
 };
 
 export const SizeMd: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      size="md"
-    />
-  ),
+  args: { name: 'users', size: 'md' },
+  decorators: [iconHarness],
 };
 
 export const SizeLg: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      size="lg"
-    />
-  ),
+  args: { name: 'users', size: 'lg' },
+  decorators: [iconHarness],
 };
 
 export const SizeXl: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      size="xl"
-    />
-  ),
+  args: { name: 'users', size: 'xl' },
+  decorators: [iconHarness],
 };
 
 export const SizeXxl: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      size="xxl"
-    />
-  ),
+  args: { name: 'users', size: 'xxl' },
+  decorators: [iconHarness],
 };
 
 export const StateSuccess: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      state="success"
-    />
-  ),
+  args: { name: 'users', state: 'success' },
+  decorators: [iconHarness],
 };
 
 export const StateWarning: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      state="warning"
-    />
-  ),
+  args: { name: 'users', state: 'warning' },
+  decorators: [iconHarness],
 };
 
 export const StateDanger: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      state="danger"
-    />
-  ),
+  args: { name: 'users', state: 'danger' },
+  decorators: [iconHarness],
 };
 
 export const StateInfo: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      state="info"
-    />
-  ),
+  args: { name: 'users', state: 'info' },
+  decorators: [iconHarness],
 };
 
 export const StateSuccessSm: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      state="success"
-      size="sm"
-    />
-  ),
+  args: { name: 'users', state: 'success', size: 'sm' },
+  decorators: [iconHarness],
 };
 
 export const StateSuccessXl: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      state="success"
-      size="xl"
-    />
-  ),
+  args: { name: 'users', state: 'success', size: 'xl' },
+  decorators: [iconHarness],
 };
 
 export const CustomColor: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      color="#c10000"
-    />
-  ),
+  args: { name: 'users', color: '#c10000' },
+  decorators: [iconHarness],
 };
 
 export const CustomWidthHeight: Story = {
-  render: () => (
-    <IconHarness
-      name="users"
-      width={40}
-      height={40}
-    />
-  ),
+  args: { name: 'users', width: 40, height: 40 },
+  decorators: [iconHarness],
 };
 
 export const FlagAsset: Story = {
-  render: () => (
-    <IconHarness
-      name="australia"
-      size="md"
-    />
-  ),
+  args: { name: 'australia', size: 'md' },
+  decorators: [iconHarness],
 };
 
 export const LogoAsset: Story = {
-  render: () => (
-    <IconHarness
-      name="clickhouse"
-      size="md"
-    />
-  ),
+  args: { name: 'clickhouse', size: 'md' },
+  decorators: [iconHarness],
 };
 
 export const PaymentAsset: Story = {
-  render: () => (
-    <IconHarness
-      name="visa"
-      size="md"
-    />
-  ),
+  args: { name: 'visa', size: 'md' },
+  decorators: [iconHarness],
 };
 
 type IconGalleryProps = {
