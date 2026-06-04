@@ -57,6 +57,16 @@ If you need to fix repo tooling (broken script, version mismatch) to even run `y
   - For primitives that just display content (Spacer, Separator, Text, Title, Label, GenericLabel, Icon, etc.), use **`tests/display/`**.
   - Establish a new folder only when the component genuinely starts a new family. Name it for the family (e.g. `tests/forms/`, `tests/overlays/`), not the component.
 
+  **Required header — `@covers` directive.** Begin the spec file with a comment declaring which source directory it guards:
+
+  ```ts
+  // Affected-spec coverage for scoped visual-regression runs in CI.
+  // See .scripts/js/affected-visual-specs
+  // @covers src/components/<Name>
+  ```
+
+  CI reads these directives to run only the specs a PR's diff touches instead of the whole suite (`.github/workflows/visual-regression-tests.yml` → `.scripts/js/affected-visual-specs`). The resolver **throws if any spec lacks a `@covers` directive**, so the visual-regression job fails fast until you add one. Point it at the component's source directory — the resolver verifies the path exists. If the spec screenshots more than one component (e.g. an overview spec), add one `@covers` line per component directory. The visual specs navigate to Storybook stories by string id rather than importing the component, so this directive is the *only* link the resolver has between a `src/` change and its spec — there is no fallback.
+
   Mirror the structure from `tests/buttons/button.spec.ts` or `tests/buttons/buttongroup.spec.ts`. Cover:
   - Light + dark theme via `getStoryUrl(storyId, theme)` from `tests/utils/index.ts` (imported as `from '../utils'` from a sibling test folder)
   - Each variant story → snapshot
@@ -183,6 +193,7 @@ Before marking the PR ready:
 
 - [ ] Branch is rebased on the latest `main` (a fresh `forwardRef` or unrelated commit may have landed during the work).
 - [ ] Commit 1 contains only stories, spec, snapshots, and possibly a narrow TS widening — nothing else.
+- [ ] The new spec starts with a `@covers src/components/<Name>` directive (CI's visual-regression job throws without it).
 - [ ] Commit 2 changes only `<Name>.tsx`, `<Name>.module.css`, and the changeset.
 - [ ] Changeset is `patch` and reads exactly `Migrate <Name> from styled-components to css modules with no change in behavior`
 - [ ] `yarn test:visual tests/<area>/<name>.spec.ts` is green with zero snapshot regenerations between the two commits.

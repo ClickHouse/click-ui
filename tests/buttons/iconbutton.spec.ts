@@ -1,3 +1,6 @@
+// Affected-spec coverage for scoped visual-regression runs in CI.
+// See .scripts/js/affected-visual-specs
+// @covers src/components/IconButton
 import { test as it, expect } from '@playwright/test';
 import { getStoryUrl } from '../utils';
 
