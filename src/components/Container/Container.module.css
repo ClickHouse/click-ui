@@ -5,9 +5,9 @@
      this reset a nested Container would inherit an ancestor's value — e.g. a
      parent with `fillHeight` would force `height: 100%` onto every descendant
      Container, and a parent with `grow` would make children flex-grow too.
-     Resetting to the guaranteed-invalid `initial` value keeps each Container's
-     defaults isolated; the `var()` fallbacks below then resolve to the same
-     defaults the styled-components version produced when the prop was unset. */
+     Resetting the variables on `.container` prevents inheritance; using `initial`
+     makes the consuming declarations compute to their initial values when the prop
+     is unset (the `var()` fallbacks below are an extra guard). */
   --container-height: initial;
   --container-min-height: initial;
   --container-max-height: initial;
