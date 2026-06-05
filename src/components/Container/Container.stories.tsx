@@ -374,3 +374,31 @@ export const FillHeight: Story = {
     </div>
   ),
 };
+
+// Regression guard: layout props (fillHeight, grow, overflow, …) are passed to
+// the DOM as inherited CSS custom properties. A nested Container that does not
+// set those props must NOT inherit the parent's values — otherwise a parent
+// with `fillHeight` stretches every descendant to full height. See the
+// computed-style assertions in tests/display/container.spec.ts.
+export const NestedInheritance: Story = {
+  render: () => (
+    <div style={{ height: '200px', border: '1px solid blue' }}>
+      <Container
+        orientation="vertical"
+        fillHeight
+        grow="1"
+        overflow="hidden"
+        style={{ border: '1px solid grey' }}
+        data-testid="parent-container"
+      >
+        <Container
+          orientation="vertical"
+          style={{ border: '1px solid red' }}
+          data-testid="child-container"
+        >
+          <Box>child</Box>
+        </Container>
+      </Container>
+    </div>
+  ),
+};
