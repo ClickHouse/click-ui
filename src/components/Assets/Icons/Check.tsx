@@ -10,7 +10,7 @@ const Check = (props: SVGAssetProps) => (
     {...props}
   >
     <path
-      d="M20 6.5L9 17.5L4 12.5"
+      d="M22 5.125L8.25 18.875L2 12.625"
       stroke="#161517"
       strokeWidth="2"
       strokeLinecap="round"
