@@ -65,8 +65,8 @@ describe('Container Visual Regression', () => {
   // stretches every descendant Container to full height (regression observed in
   // the control-plane alert banner). Assert computed styles directly so the
   // guard does not depend on a pixel baseline.
-  describe('Nested custom-property inheritance', () => {
-    it('child Container does not inherit parent fillHeight/grow/overflow', async ({
+  describe('isolating layout custom properties from nested Containers', () => {
+    it('does not let a nested Container inherit its ancestor’s fillHeight, grow, or overflow', async ({
       page,
     }) => {
       await page.goto(getStoryUrl('layout-container--nested-inheritance', 'light'), {
