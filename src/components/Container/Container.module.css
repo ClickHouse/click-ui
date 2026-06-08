@@ -1,15 +1,30 @@
 .container {
+  /* These props are only emitted as inline custom properties when the
+     matching Container prop is set (grow, shrink, fillHeight, minHeight,
+     maxHeight, overflow). Custom properties inherit by default, so without
+     this reset a nested Container would inherit an ancestor's value — e.g. a
+     parent with `fillHeight` would force `height: 100%` onto every descendant
+     Container, and a parent with `grow` would make children flex-grow too.
+     Resetting the variables on `.container` prevents inheritance; using `initial`
+     makes the consuming declarations compute to their initial values when the prop
+     is unset (the `var()` fallbacks below are an extra guard). */
+  --container-height: initial;
+  --container-min-height: initial;
+  --container-max-height: initial;
+  --container-overflow: initial;
+  --container-grow: initial;
+  --container-shrink: initial;
   display: var(--container-display, flex);
   width: var(--container-width, 100%);
   min-width: var(--container-min-width, auto);
   max-width: var(--container-max-width, none);
-  height: var(--container-height);
-  min-height: var(--container-min-height);
-  max-height: var(--container-max-height);
+  height: var(--container-height, auto);
+  min-height: var(--container-min-height, auto);
+  max-height: var(--container-max-height, none);
   padding: var(--container-padding);
-  overflow: var(--container-overflow);
-  flex: var(--container-grow);
-  flex-shrink: var(--container-shrink);
+  overflow: var(--container-overflow, visible);
+  flex: var(--container-grow, 0 1 auto);
+  flex-shrink: var(--container-shrink, 1);
   /* stylelint-disable declaration-block-no-redundant-longhand-properties -- flex-direction and flex-wrap are overridden independently by modifier classes, so the flex-flow shorthand can't be used */
   flex-direction: row;
   flex-wrap: nowrap;

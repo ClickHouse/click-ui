@@ -58,4 +58,40 @@ describe('Container Visual Regression', () => {
       });
     }
   });
+
+  // Layout props are forwarded to the DOM as inherited CSS custom properties.
+  // A nested Container that omits those props must keep its own defaults rather
+  // than inheriting the parent's, otherwise a parent with `fillHeight`/`grow`
+  // stretches every descendant Container to full height (regression observed in
+  // the control-plane alert banner). Assert computed styles directly so the
+  // guard does not depend on a pixel baseline.
+  describe('Nested custom-property inheritance', () => {
+    it('child Container does not inherit parent fillHeight/grow/overflow', async ({
+      page,
+    }) => {
+      await page.goto(getStoryUrl('layout-container--nested-inheritance', 'light'), {
+        waitUntil: 'networkidle',
+      });
+
+      const child = page.locator('[data-testid="child-container"]');
+      await expect(child).toBeVisible({ timeout: 10000 });
+
+      const { flexGrow, overflowX, fillsParentHeight } = await child.evaluate(node => {
+        const el = node as HTMLElement;
+        const style = getComputedStyle(el);
+        const parent = el.parentElement as HTMLElement;
+        return {
+          flexGrow: style.flexGrow,
+          overflowX: style.overflowX,
+          // The parent is 200px tall via fillHeight; the child wraps a single
+          // 32px box, so it must hug its content rather than stretch to fill.
+          fillsParentHeight: el.clientHeight >= parent.clientHeight,
+        };
+      });
+
+      expect(flexGrow).toBe('0');
+      expect(overflowX).toBe('visible');
+      expect(fillsParentHeight).toBe(false);
+    });
+  });
 });
