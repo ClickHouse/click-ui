@@ -142,6 +142,15 @@ const viteConfig = defineConfig({
 });
 
 const vitestConfig = defineVitestConfig({
+  // Allow Vitest to read files outside the package root. When tests run from a
+  // git worktree created under the repo (e.g. `.claude/worktrees/<id>/`), Vite
+  // resolves setup files like `@testing-library/jest-dom` up-tree into the
+  // parent checkout's `node_modules`; the default `fs.allow` (scoped to the
+  // worktree) then denies the read, surfacing as a misleading
+  // "Failed to load url …/jest-dom/dist/index.mjs … Does the file exist?".
+  // This only affects the local Vitest transform server — the library build and
+  // Storybook use their own configs — so relaxing strictness here is safe.
+  server: { fs: { strict: false } },
   test: {
     environment: 'jsdom',
     // TODO: Note that currently, the pw visual regression tests
