@@ -1,0 +1,165 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconBackground) */
+
+.alert {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  justify-content: start;
+  border-radius: var(--click-alert-radii-end);
+  background-color: var(--click-alert-color-background-neutral);
+  color: var(--click-alert-color-text-neutral);
+}
+
+.alert_type_default {
+  justify-content: start;
+  border-radius: var(--click-alert-radii-end);
+}
+
+.alert_type_banner {
+  justify-content: center;
+  border-radius: 0;
+}
+
+.alert_state_neutral {
+  background-color: var(--click-alert-color-background-neutral);
+  color: var(--click-alert-color-text-neutral);
+}
+
+.alert_state_success {
+  background-color: var(--click-alert-color-background-success);
+  color: var(--click-alert-color-text-success);
+}
+
+.alert_state_warning {
+  background-color: var(--click-alert-color-background-warning);
+  color: var(--click-alert-color-text-warning);
+}
+
+.alert_state_danger {
+  background-color: var(--click-alert-color-background-danger);
+  color: var(--click-alert-color-text-danger);
+}
+
+.alert_state_info {
+  background-color: var(--click-alert-color-background-info);
+  color: var(--click-alert-color-text-info);
+}
+
+.alert__icon-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--click-alert-color-iconBackground-neutral);
+  color: var(--click-alert-color-iconForeground-neutral);
+}
+
+.alert__icon-wrapper_state_neutral {
+  background-color: var(--click-alert-color-iconBackground-neutral);
+  color: var(--click-alert-color-iconForeground-neutral);
+}
+
+.alert__icon-wrapper_state_success {
+  background-color: var(--click-alert-color-iconBackground-success);
+  color: var(--click-alert-color-iconForeground-success);
+}
+
+.alert__icon-wrapper_state_warning {
+  background-color: var(--click-alert-color-iconBackground-warning);
+  color: var(--click-alert-color-iconForeground-warning);
+}
+
+.alert__icon-wrapper_state_danger {
+  background-color: var(--click-alert-color-iconBackground-danger);
+  color: var(--click-alert-color-iconForeground-danger);
+}
+
+.alert__icon-wrapper_state_info {
+  background-color: var(--click-alert-color-iconBackground-info);
+  color: var(--click-alert-color-iconForeground-info);
+}
+
+.alert__icon-wrapper_size_small {
+  padding: var(--click-alert-small-space-y) 0 var(--click-alert-small-space-y)
+    var(--click-alert-small-space-x);
+}
+
+.alert__icon-wrapper_size_medium {
+  padding: var(--click-alert-medium-space-y) 0 var(--click-alert-medium-space-y)
+    var(--click-alert-medium-space-x);
+}
+
+/* The styled-components original emitted `background-color: none` for banners,
+   which is an invalid value the browser drops, leaving the icon wrapper
+   transparent. `transparent` reproduces that rendering exactly. */
+.alert__icon-wrapper_type_banner {
+  background-color: transparent;
+}
+
+.alert__icon_size_small {
+  width: var(--click-alert-small-icon-width);
+  height: var(--click-alert-small-icon-height);
+}
+
+.alert__icon_size_medium {
+  width: var(--click-alert-medium-icon-width);
+  height: var(--click-alert-medium-icon-height);
+}
+
+.alert__text-wrapper {
+  display: flex;
+  /* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated -- preserves the styled-components original verbatim for byte-for-byte parity */
+  word-break: break-word;
+  flex-flow: column;
+}
+
+.alert__text-wrapper_size_small {
+  padding: var(--click-alert-small-space-y) var(--click-alert-small-space-x);
+  gap: var(--click-alert-small-space-gap);
+}
+
+.alert__text-wrapper_size_medium {
+  padding: var(--click-alert-medium-space-y) var(--click-alert-medium-space-x);
+  gap: var(--click-alert-medium-space-gap);
+}
+
+.alert__text-wrapper a,
+.alert__text-wrapper a:focus,
+.alert__text-wrapper a:visited,
+.alert__text-wrapper a:hover {
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.alert__title {
+  margin: 0;
+}
+
+.alert__title_size_small {
+  font: var(--click-alert-small-typography-title-default);
+}
+
+.alert__title_size_medium {
+  font: var(--click-alert-medium-typography-title-default);
+}
+
+.alert__text {
+  margin: 0;
+}
+
+.alert__text_size_small {
+  font: var(--click-alert-small-typography-text-default);
+}
+
+.alert__text_size_medium {
+  font: var(--click-alert-medium-typography-text-default);
+}
+
+.alert__dismiss {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
