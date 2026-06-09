@@ -202,6 +202,18 @@ The only legitimate reason to regenerate is if the snapshot in commit 1 itself w
 - **Cherry-picking PNG baselines.** Snapshots from a prior draft PR were captured against a different point in time. Always regenerate fresh.
 - **Pinning down instead of bumping up.** If the playwright version in the Dockerfile mismatches `@playwright/test`, bump both to the latest and update everywhere it's referenced — don't pin the Dockerfile back to match an older `yarn.lock`.
 - **Harness-in-render breaks Storybook "Show code".** Rendering a `*Harness` wrapper inside a story's `render` (`render: () => <FooHarness size="xs" />`) makes the copyable code show the harness, not the real `<Foo …>`. Render the real component via `args`/`render` and move the wrapper (test-id + styles) into a `decorators` entry, which "Show code" omits. Reproduce the wrapper exactly so the screenshotted `[data-testid="<name>-harness"]` region and the snapshots stay byte-for-byte. Caught on the first migration batch (Link/Avatar/Icon/Label/Separator/Spacer).
+- **Exported, polymorphic styled wrappers (`as` prop) must keep their API.** When a styled-component is *exported* and consumed polymorphically — `export const SidebarItemWrapper = styled.div\`…\`` rendered elsewhere as `<SidebarItemWrapper as={Collapsible.Header} $collapsible $level={1} $type="main" />` — other components depend on both the export and its transient-prop contract. Do **not** inline the wrapper's styles onto each call site or delete the export to "simplify"; that's a public-API change and breaks every `as=` consumer. Instead convert the wrapper into a plain component that (a) keeps the same name and export, (b) accepts the same `$`-prefixed props plus `className` and `as`, (c) destructures the `$` props out so they never reach the DOM (styled-components filtered them for free; `cn()` does not), and (d) forwards to the `as` target:
+  ```tsx
+  const wrapperVariants = cva(styles.wrapper, {
+    variants: { collapsible: { true: styles.wrapper_collapsible_true }, level: { … }, type: { … } },
+  });
+  export const SidebarItemWrapper = forwardRef<HTMLDivElement, SidebarItemWrapperProps>(
+    ({ as: As = 'div', className, $collapsible, $level = 0, $type = 'main', ...props }, ref) => (
+      <As ref={ref} className={cn(wrapperVariants({ collapsible: $collapsible, level: $level === 0 ? 'item' : 'subItem', type: $type }), className)} {...props} />
+    )
+  );
+  ```
+  The `as` target (e.g. `Collapsible.Header`) must already merge an incoming `className` (`className={cn(headerVariants(...), className)}`) — verify it does, or the wrapper's styles silently vanish when rendered `as` that component. Because the wrapper and its consumers are one styling unit, **migrate the wrapper and every consumer in a single PR** and verify pixel parity through the *consumers'* stories, not the primitive's — the primitive may have no standalone story worth keeping. (Example: the Collapsible family — `SidebarNavigationItem`/`SidebarNavigationTitle` own the styled wrappers, and `SidebarCollapsibleItem`/`SidebarCollapsibleTitle` consume them via `as={Collapsible.Header|Trigger}`.)
 
 ## Checklist
 
