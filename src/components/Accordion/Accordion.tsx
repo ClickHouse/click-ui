@@ -1,48 +1,69 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
-import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
 import { Text } from '@/components/Text';
-import { AccordionProps, Size, Color } from './Accordion.types';
+import { cn, cva } from '@/lib/cva';
+import styles from './Accordion.module.css';
+import { AccordionProps } from './Accordion.types';
+
+const triggerVariants = cva(styles.accordion__trigger, {
+  variants: {
+    size: {
+      sm: styles.accordion__trigger_size_sm,
+      md: styles.accordion__trigger_size_md,
+      lg: styles.accordion__trigger_size_lg,
+    },
+    color: {
+      default: styles.accordion__trigger_color_default,
+      link: styles.accordion__trigger_color_link,
+    },
+    fillWidth: {
+      true: styles['accordion__trigger_fill-width'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    color: 'default',
+    fillWidth: false,
+  },
+});
 
 const Accordion = ({
   title,
   size = 'md',
-  color,
+  color = 'default',
   icon,
   iconSize,
   gap,
   children,
   fillWidth = false,
+  className,
   ...delegated
 }: AccordionProps) => (
-  <AccordionRoot
+  <RadixAccordion.Root
     type="single"
     collapsible
-    $fillWidth={fillWidth}
     {...delegated}
+    className={cn(fillWidth && styles['accordion_fill-width'], className)}
   >
     <RadixAccordion.Item value="item">
-      <AccordionTrigger
-        $size={size}
-        color={color}
-        $fillWidth={fillWidth}
-      >
-        <AccordionIconsWrapper>
-          <AccordionIconWrapper>
+      <RadixAccordion.Trigger className={triggerVariants({ size, color, fillWidth })}>
+        <div className={styles['accordion__icons-wrapper']}>
+          <div className={styles['accordion__icon-wrapper']}>
             <Icon
               name="chevron-right"
               size={iconSize || size}
               aria-label="accordion icon"
             />
-          </AccordionIconWrapper>
+          </div>
           {icon ? (
             <Icon
               name={icon}
               size={iconSize || size}
             />
           ) : null}
-        </AccordionIconsWrapper>
+        </div>
         <Text
           component="div"
           size={size}
@@ -50,92 +71,20 @@ const Accordion = ({
         >
           {title}
         </Text>
-      </AccordionTrigger>
-      <AccordionContent>
+      </RadixAccordion.Trigger>
+      <RadixAccordion.Content>
         <Spacer size={gap} />
         {children}
-      </AccordionContent>
+      </RadixAccordion.Content>
     </RadixAccordion.Item>
-  </AccordionRoot>
+  </RadixAccordion.Root>
 );
 
-const AccordionRoot = styled(RadixAccordion.Root)<{
-  $fillWidth: boolean;
-}>`
-  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
-`;
+const SidebarAccordion = ({ className, ...props }: AccordionProps) => (
+  <Accordion
+    className={cn(styles.accordion_sidebar, className)}
+    {...props}
+  />
+);
 
-const AccordionTrigger = styled(RadixAccordion.Trigger)<{
-  $size?: Size;
-  color?: Color;
-  $fillWidth: boolean;
-}>`
-  border: none;
-  padding: 0;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  ${({ theme, $size = 'md', color = 'default' }) => `
-    gap: ${theme.click.accordion[$size].space.gap};
-    color: ${theme.click.accordion.color[color].label.default};
-    font: ${theme.click.accordion[$size].typography.label.default};
-
-    &:active {
-      color: ${theme.click.accordion.color[color].label.active};
-      font: ${theme.click.accordion[$size].typography.label.active};
-    }
-
-    &:hover {
-      color: ${theme.click.accordion.color[color].label.hover};
-      font: ${theme.click.accordion[$size].typography.label.hover};
-      cursor: pointer;
-    }
-  `}
-  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
-`;
-
-const AccordionIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
-
-  ${AccordionTrigger}[data-state='open'] & {
-    transform: rotate(90deg);
-  }
-`;
-const AccordionIconsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const AccordionContent = styled(RadixAccordion.Content)``;
-
-const SidebarAccordion = styled(Accordion)`
-  ${AccordionTrigger} {
-    gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
-  }
-  p {
-    margin: 0;
-  }
-
-  ${AccordionIconWrapper} {
-    visibility: hidden;
-  }
-
-  &:hover ${AccordionIconWrapper} {
-    visibility: revert;
-  }
-  &:active ${AccordionIconWrapper} {
-    visibility: revert;
-  }
-
-  ${AccordionTrigger}[data-state='open'] ${AccordionIconWrapper} {
-    visibility: revert;
-  }
-`;
-// This allows the Accordion to be referenced inside other
-// components css
-const AccordionToExport = styled(Accordion)``;
-export { AccordionToExport as Accordion, SidebarAccordion };
+export { Accordion, SidebarAccordion };
