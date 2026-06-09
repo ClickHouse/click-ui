@@ -1,0 +1,6 @@
+.hover-card__trigger {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+     keyword on `width` is widely supported on evergreen browsers; the original
+     styled-components rule used the same value. */
+  width: fit-content;
+}
