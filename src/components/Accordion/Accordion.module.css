@@ -1,0 +1,107 @@
+.accordion_fill-width {
+  width: 100%;
+}
+
+.accordion__trigger {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  gap: var(--accordion-gap);
+  border: none;
+  background-color: transparent;
+  color: var(--accordion-label-default);
+  font: var(--accordion-font-default);
+}
+
+.accordion__trigger:active {
+  color: var(--accordion-label-active);
+  font: var(--accordion-font-active);
+}
+
+.accordion__trigger:hover {
+  color: var(--accordion-label-hover);
+  font: var(--accordion-font-hover);
+  cursor: pointer;
+}
+
+.accordion__trigger_fill-width {
+  width: 100%;
+}
+
+.accordion__trigger_size_sm {
+  --accordion-gap: var(--click-accordion-sm-space-gap);
+  --accordion-font-default: var(--click-accordion-sm-typography-label-default);
+  --accordion-font-hover: var(--click-accordion-sm-typography-label-hover);
+  --accordion-font-active: var(--click-accordion-sm-typography-label-active);
+}
+
+.accordion__trigger_size_md {
+  --accordion-gap: var(--click-accordion-md-space-gap);
+  --accordion-font-default: var(--click-accordion-md-typography-label-default);
+  --accordion-font-hover: var(--click-accordion-md-typography-label-hover);
+  --accordion-font-active: var(--click-accordion-md-typography-label-active);
+}
+
+.accordion__trigger_size_lg {
+  --accordion-gap: var(--click-accordion-lg-space-gap);
+  --accordion-font-default: var(--click-accordion-lg-typography-label-default);
+  --accordion-font-hover: var(--click-accordion-lg-typography-label-hover);
+  --accordion-font-active: var(--click-accordion-lg-typography-label-active);
+}
+
+.accordion__trigger_color_default {
+  --accordion-label-default: var(--click-accordion-color-default-label-default);
+  --accordion-label-hover: var(--click-accordion-color-default-label-hover);
+  --accordion-label-active: var(--click-accordion-color-default-label-active);
+}
+
+.accordion__trigger_color_link {
+  --accordion-label-default: var(--click-accordion-color-link-label-default);
+  --accordion-label-hover: var(--click-accordion-color-link-label-hover);
+  --accordion-label-active: var(--click-accordion-color-link-label-active);
+}
+
+.accordion__icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.accordion__trigger[data-state='open'] .accordion__icon-wrapper {
+  transform: rotate(90deg);
+}
+
+.accordion__icons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* stylelint-disable no-descending-specificity -- the SidebarAccordion overrides
+   intentionally come last to mirror the original `styled(Accordion)` block, whose
+   rules were emitted after the base trigger/icon-wrapper styles. */
+.accordion_sidebar .accordion__trigger {
+  gap: var(--click-sidebar-navigation-item-default-space-gap);
+}
+
+.accordion_sidebar p {
+  margin: 0;
+}
+
+.accordion_sidebar .accordion__icon-wrapper {
+  visibility: hidden;
+}
+
+.accordion_sidebar:hover .accordion__icon-wrapper {
+  visibility: revert;
+}
+
+.accordion_sidebar:active .accordion__icon-wrapper {
+  visibility: revert;
+}
+
+.accordion_sidebar .accordion__trigger[data-state='open'] .accordion__icon-wrapper {
+  visibility: revert;
+}
+/* stylelint-enable no-descending-specificity */
