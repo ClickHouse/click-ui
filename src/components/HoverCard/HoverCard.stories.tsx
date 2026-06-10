@@ -75,3 +75,35 @@ export const Playground: Story = {
     open: 'default',
   },
 };
+
+/**
+ * Closed hover card — exercises only the trigger (`width: fit-content`), which
+ * is the single piece of styling HoverCard owns. The content panel is portaled
+ * and not mounted while closed.
+ */
+export const TriggerClosed: Story = {
+  args: {
+    open: 'closed',
+    showArrow: false,
+  },
+};
+
+/** Open hover card without the arrow. */
+export const OpenNoArrow: Story = {
+  args: {
+    open: 'open',
+    showArrow: false,
+    openDelay: 0,
+    closeDelay: 0,
+  },
+};
+
+/** Open hover card with the arrow shown (exercises the `showArrow` margin path). */
+export const OpenWithArrow: Story = {
+  args: {
+    open: 'open',
+    showArrow: true,
+    openDelay: 0,
+    closeDelay: 0,
+  },
+};

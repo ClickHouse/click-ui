@@ -1,8 +1,9 @@
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
 import { ReactNode } from 'react';
 import { Arrow, GenericPopoverMenuPanel } from '@/components/GenericMenu';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import styles from './HoverCard.module.css';
 
 export interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
   showArrow?: boolean;
@@ -15,15 +16,19 @@ export const HoverCard = ({ children, ...props }: RadixHoverCard.HoverCardProps)
   return <RadixHoverCard.Root {...props}>{children}</RadixHoverCard.Root>;
 };
 
-const Trigger = styled(RadixHoverCard.Trigger)`
-  width: fit-content;
-`;
-
 const HoverCardTrigger = ({
   children,
+  className,
   ...props
 }: RadixHoverCard.HoverCardTriggerProps) => {
-  return <Trigger {...props}>{children}</Trigger>;
+  return (
+    <RadixHoverCard.Trigger
+      {...props}
+      className={cn(styles['hover-card__trigger'], className)}
+    >
+      {children}
+    </RadixHoverCard.Trigger>
+  );
 };
 HoverCardTrigger.displayName = 'HoverCardTrigger';
 HoverCard.Trigger = HoverCardTrigger;
