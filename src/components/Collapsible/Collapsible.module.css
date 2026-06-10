@@ -1,0 +1,73 @@
+.collapsible {
+  width: 100%;
+}
+
+.collapsible [data-trigger-icon] {
+  visibility: hidden;
+  transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.collapsible [data-trigger-icon][data-open='true'] {
+  transform: rotate(90deg);
+}
+
+.collapsible [data-collapsible-header]:hover [data-trigger-icon] {
+  visibility: visible;
+}
+
+.collapsible__header_indicator-dir_start {
+  margin-left: 0;
+  user-select: none;
+}
+
+.collapsible__header_indicator-dir_end {
+  margin-left: var(--click-image-sm-size-width);
+  user-select: none;
+}
+
+.collapsible__trigger {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  font: inherit;
+  cursor: inherit;
+}
+
+.collapsible__content_indicator-dir_start {
+  margin-left: var(--click-image-sm-size-width);
+}
+
+.collapsible__content_indicator-dir_end {
+  margin-right: var(--click-image-sm-size-width);
+}
+
+.collapsible__label {
+  display: flex;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same
+   width fallback chain (100% → -webkit-fill-available → fill-available →
+   stretch) so the label fills the available inline space. */
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  overflow: hidden;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--click-sidebar-navigation-item-default-space-gap);
+}
+
+.collapsible__ellipsis {
+  display: flex;
+  overflow: hidden;
+  flex: 1;
+  justify-content: flex-start;
+  gap: inherit;
+  white-space: nowrap;
+}
+
+.collapsible__ellipsis > *:not(button) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

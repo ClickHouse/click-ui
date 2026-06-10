@@ -1,0 +1,76 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. sqlSidebar) */
+.wrapper {
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original styled rule used this
+   same width fallback chain (100% → -webkit-fill-available → fill-available →
+   stretch) so the title fills the available inline space. */
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  padding: 0;
+  padding-left: var(--title-pad-left);
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  white-space: nowrap;
+
+  /* Not collapsible by default: reserve the icon-column width on the left.
+     The single-class modifiers below override this; keep these defaults at
+     single-class specificity so they can. */
+  --title-pad-left: var(--click-image-sm-size-width);
+}
+
+/* Doubled class → specificity (0,2,0). SidebarCollapsibleTitle renders this
+   wrapper `as={Collapsible.Trigger}`, so the element also carries
+   `.collapsible__trigger`, whose `display/align-items/color/font/cursor`
+   resets would otherwise win on CSS-module bundle order and strip the title's
+   own typography. The original styled-components cascade resolved in the
+   title's favour; the doubled class makes that deterministic. Only the
+   properties that actually conflict with the trigger live here — box metrics
+   and the `--title-*` custom properties stay single-class above/below so the
+   `type`/`collapsible` modifiers still override them. */
+.wrapper.wrapper {
+  display: inline-flex;
+  align-items: center;
+  color: var(--title-color-default);
+  font: var(--click-sidebar-navigation-title-typography-default);
+  cursor: pointer;
+}
+
+.wrapper.wrapper:hover {
+  color: var(--title-color-hover);
+  font: var(--click-sidebar-navigation-title-typography-hover);
+}
+
+.wrapper.wrapper:active,
+.wrapper.wrapper[data-state='open'],
+.wrapper.wrapper[data-selected='true'] {
+  color: var(--title-color-active);
+  font: var(--click-sidebar-navigation-title-typography-active);
+}
+
+.wrapper a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrapper a:active {
+  color: inherit;
+}
+
+.wrapper_type_main {
+  --title-color-default: var(--click-sidebar-main-navigation-title-color-default);
+  --title-color-hover: var(--click-sidebar-main-navigation-title-color-hover);
+  --title-color-active: var(--click-sidebar-main-navigation-title-color-active);
+}
+
+.wrapper_type_sql-sidebar {
+  --title-color-default: var(--click-sidebar-sqlSidebar-navigation-title-color-default);
+  --title-color-hover: var(--click-sidebar-sqlSidebar-navigation-title-color-hover);
+  --title-color-active: var(--click-sidebar-sqlSidebar-navigation-title-color-active);
+}
+
+.wrapper_collapsible_true {
+  --title-pad-left: 0;
+}

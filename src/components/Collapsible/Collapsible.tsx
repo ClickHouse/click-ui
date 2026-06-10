@@ -6,14 +6,15 @@ import {
   useEffect,
   forwardRef,
 } from 'react';
-import { styled } from 'styled-components';
 
+import { cn, cva } from '@/lib/cva';
 import { Icon, type ImageName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { EmptyButton } from '@/components/EmptyButton';
 
 import { IconWrapper } from './IconWrapper';
 import { CollapsibleProps } from './Collapsible.types';
+import styles from './Collapsible.module.css';
 
 type ContextProps = {
   open: boolean;
@@ -24,24 +25,12 @@ const NavContext = createContext<ContextProps>({
   open: false,
   onOpenChange: () => null,
 });
-const CollapsibleContainer = styled.div`
-  width: 100%;
-  [data-trigger-icon] {
-    visibility: hidden;
-    transition: transform 150ms cubic-bezier(0.87, 0, 0.13, 1);
-    &[data-open='true'] {
-      transform: rotate(90deg);
-    }
-  }
-  [data-collapsible-header]:hover [data-trigger-icon] {
-    visibility: visible;
-  }
-`;
 
 export const Collapsible = ({
   open: openProp,
   onOpenChange: onOpenChangeProp,
   children,
+  className,
   ...props
 }: CollapsibleProps) => {
   const [open, setOpen] = useState(openProp ?? false);
@@ -63,17 +52,26 @@ export const Collapsible = ({
     onOpenChange,
   };
   return (
-    <CollapsibleContainer {...props}>
+    <div
+      {...props}
+      className={cn(styles.collapsible, className)}
+    >
       <NavContext.Provider value={value}>{children}</NavContext.Provider>
-    </CollapsibleContainer>
+    </div>
   );
 };
 
-const CollapsipleHeaderContainer = styled.div<{ $indicatorDir: HorizontalDirection }>`
-  margin-left: ${({ theme, $indicatorDir }) =>
-    $indicatorDir === 'start' ? 0 : theme.click.image.sm.size.width};
-  user-select: none;
-`;
+const headerVariants = cva('', {
+  variants: {
+    indicatorDir: {
+      start: styles['collapsible__header_indicator-dir_start'],
+      end: styles['collapsible__header_indicator-dir_end'],
+    },
+  },
+  defaultVariants: {
+    indicatorDir: 'start',
+  },
+});
 
 interface CollapsipleHeaderProps extends HTMLAttributes<HTMLDivElement> {
   icon?: ImageName;
@@ -91,14 +89,14 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
       children,
       wrapInTrigger,
       onClick: onClickProp,
+      className,
       ...props
     }: CollapsipleHeaderProps,
     ref
   ) => {
     const { onOpenChange } = useContext(NavContext);
     return (
-      <CollapsipleHeaderContainer
-        $indicatorDir={indicatorDir}
+      <div
         ref={ref}
         onClick={e => {
           if (wrapInTrigger && typeof onOpenChange === 'function') {
@@ -110,6 +108,7 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
         }}
         data-collapsible-header
         {...props}
+        className={cn(headerVariants({ indicatorDir }), className)}
       >
         {indicatorDir === 'start' && <Collapsible.Trigger />}
         {children && (
@@ -121,7 +120,7 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
           </IconWrapper>
         )}
         {indicatorDir === 'end' && <Collapsible.Trigger />}
-      </CollapsipleHeaderContainer>
+      </div>
     );
   }
 );
@@ -129,15 +128,6 @@ const CollapsipleHeader = forwardRef<HTMLDivElement, CollapsipleHeaderProps>(
 CollapsipleHeader.displayName = 'CollapsibleHeader';
 Collapsible.Header = CollapsipleHeader;
 
-const CollapsipleTriggerButton = styled(EmptyButton)<{
-  $indicatorDir: HorizontalDirection;
-}>`
-  display: flex;
-  align-items: center;
-  font: inherit;
-  color: inherit;
-  cursor: inherit;
-`;
 interface CollapsipleTriggerProps extends HTMLAttributes<HTMLButtonElement> {
   icon?: ImageName;
   iconDir?: HorizontalDirection;
@@ -150,6 +140,7 @@ const CollapsipleTrigger = ({
   indicatorDir = 'start',
   icon,
   iconDir = 'start',
+  className,
   ...props
 }: CollapsipleTriggerProps) => {
   const { open, onOpenChange } = useContext(NavContext);
@@ -163,11 +154,11 @@ const CollapsipleTrigger = ({
   };
 
   return (
-    <CollapsipleTriggerButton
+    <EmptyButton
       onClick={onClick}
-      $indicatorDir={indicatorDir}
       aria-label="trigger children"
       {...props}
+      className={cn(styles.collapsible__trigger, className)}
     >
       {indicatorDir === 'start' && (
         <Icon
@@ -193,24 +184,25 @@ const CollapsipleTrigger = ({
           size="sm"
         />
       )}
-    </CollapsipleTriggerButton>
+    </EmptyButton>
   );
 };
 
 CollapsipleTrigger.displayName = 'CollapsibleTrigger';
 Collapsible.Trigger = CollapsipleTrigger;
 
-const CollapsibleContentWrapper = styled.div<{ $indicatorDir?: HorizontalDirection }>`
-  ${({ theme, $indicatorDir }) =>
-    $indicatorDir
-      ? `${$indicatorDir === 'start' ? 'margin-left' : 'margin-right'}: ${
-          theme.click.image.sm.size.width
-        }`
-      : ''}
-`;
+const contentVariants = cva('', {
+  variants: {
+    indicatorDir: {
+      start: styles['collapsible__content_indicator-dir_start'],
+      end: styles['collapsible__content_indicator-dir_end'],
+    },
+  },
+});
 
 const CollapsipleContent = ({
   indicatorDir,
+  className,
   ...props
 }: HTMLAttributes<HTMLDivElement> & { indicatorDir?: HorizontalDirection }) => {
   const { open } = useContext(NavContext);
@@ -218,9 +210,9 @@ const CollapsipleContent = ({
     return;
   }
   return (
-    <CollapsibleContentWrapper
-      $indicatorDir={indicatorDir}
+    <div
       {...props}
+      className={cn(contentVariants({ indicatorDir }), className)}
     />
   );
 };
