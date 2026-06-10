@@ -118,22 +118,22 @@
   --link-font: var(--typography-styles-product-text-mono-lg);
 }
 
-/* The inner Icon receives .external-icon via className. The original used a
-   descendant selector inside IconWrapper; here we pass the scoped class
-   straight to the Icon so the selector stays a single class with the same
-   effective specificity. */
-/* stylelint-disable-next-line block-no-empty -- base block required by BEM */
-.external-icon {
+/* The inner Icon is a `link__icon` element — it receives the scoped class via
+   className. The original used a descendant selector inside IconWrapper; here we
+   pass the scoped class straight to the Icon so the selector stays a single
+   class with the same effective specificity. */
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.link__icon {
 }
 
-.external-icon_size_xs,
-.external-icon_size_sm {
+.link__icon_size_xs,
+.link__icon_size_sm {
   width: var(--click-link-icon-size-sm-width);
   height: var(--click-link-icon-size-sm-height);
 }
 
-.external-icon_size_md,
-.external-icon_size_lg {
+.link__icon_size_md,
+.link__icon_size_lg {
   width: var(--click-link-icon-size-md-width);
   height: var(--click-link-icon-size-md-height);
 }
