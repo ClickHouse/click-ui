@@ -2,4 +2,4 @@
 '@clickhouse/click-ui': patch
 ---
 
- fix(Button): accept htmlType to support native button types
+ `Button` now accepts `htmlType` prop to support native HTML `type` attribute.
