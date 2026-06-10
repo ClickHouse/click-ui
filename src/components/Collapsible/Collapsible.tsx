@@ -61,7 +61,7 @@ export const Collapsible = ({
   );
 };
 
-const headerVariants = cva('', {
+const headerVariants = cva(styles.collapsible__header, {
   variants: {
     indicatorDir: {
       start: styles['collapsible__header_indicator-dir_start'],
@@ -191,7 +191,7 @@ const CollapsipleTrigger = ({
 CollapsipleTrigger.displayName = 'CollapsibleTrigger';
 Collapsible.Trigger = CollapsipleTrigger;
 
-const contentVariants = cva('', {
+const contentVariants = cva(styles.collapsible__content, {
   variants: {
     indicatorDir: {
       start: styles['collapsible__content_indicator-dir_start'],

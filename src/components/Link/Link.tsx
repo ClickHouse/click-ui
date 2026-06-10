@@ -49,7 +49,7 @@ const linkVariants = cva(styles.link, {
   },
 });
 
-const externalIconVariants = cva('', {
+const externalIconVariants = cva(styles['external-icon'], {
   variants: {
     size: {
       xs: styles['external-icon_size_xs'],
@@ -94,7 +94,7 @@ const _Link = <T extends ElementType = 'a'>(
         <span>
           <Icon
             name={icon}
-            className={cn('external-icon', externalIconVariants({ size }))}
+            className={cn(externalIconVariants({ size }))}
             data-testid={icon}
           />
         </span>
