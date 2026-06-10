@@ -59,7 +59,7 @@ const iconWrapperVariants = cva(styles['alert__icon-wrapper'], {
   },
 });
 
-const iconVariants = cva('', {
+const iconVariants = cva(styles.alert__icon, {
   variants: {
     size: {
       small: styles['alert__icon_size_small'],

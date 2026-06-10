@@ -6,6 +6,18 @@ import { cn, cva } from '@/lib/cva';
 import styles from './Accordion.module.css';
 import { AccordionProps } from './Accordion.types';
 
+const rootVariants = cva(styles.accordion, {
+  variants: {
+    fillWidth: {
+      true: styles['accordion_fill-width'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    fillWidth: false,
+  },
+});
+
 const triggerVariants = cva(styles.accordion__trigger, {
   variants: {
     size: {
@@ -45,7 +57,7 @@ const Accordion = ({
     type="single"
     collapsible
     {...delegated}
-    className={cn(fillWidth && styles['accordion_fill-width'], className)}
+    className={cn(rootVariants({ fillWidth }), className)}
   >
     <RadixAccordion.Item value="item">
       <RadixAccordion.Trigger className={triggerVariants({ size, color, fillWidth })}>

@@ -1,3 +1,7 @@
+/* stylelint-disable-next-line block-no-empty -- base block required by BEM */
+.accordion {
+}
+
 .accordion_fill-width {
   width: 100%;
 }

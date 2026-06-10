@@ -94,6 +94,10 @@
   background-color: transparent;
 }
 
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.alert__icon {
+}
+
 .alert__icon_size_small {
   width: var(--click-alert-small-icon-width);
   height: var(--click-alert-small-icon-height);

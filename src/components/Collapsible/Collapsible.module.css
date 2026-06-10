@@ -15,14 +15,16 @@
   visibility: visible;
 }
 
+.collapsible__header {
+  user-select: none;
+}
+
 .collapsible__header_indicator-dir_start {
   margin-left: 0;
-  user-select: none;
 }
 
 .collapsible__header_indicator-dir_end {
   margin-left: var(--click-image-sm-size-width);
-  user-select: none;
 }
 
 .collapsible__trigger {
@@ -31,6 +33,10 @@
   color: inherit;
   font: inherit;
   cursor: inherit;
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.collapsible__content {
 }
 
 .collapsible__content_indicator-dir_start {
