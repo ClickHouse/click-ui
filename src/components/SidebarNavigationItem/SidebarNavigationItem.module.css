@@ -1,0 +1,167 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. sqlSidebar) */
+.wrapper {
+  display: flex;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original styled rule used this
+   same width fallback chain (100% → -webkit-fill-available → fill-available →
+   stretch) so the item fills the available inline space. */
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  padding: var(--item-space-y) var(--item-space-right) var(--item-space-y)
+    var(--item-pad-left);
+  overflow: hidden;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  flex-wrap: nowrap;
+  align-items: center;
+  border: none;
+  border-radius: var(--item-radii);
+  background-color: var(--item-bg-default);
+  color: var(--item-text-default);
+  font: var(--item-font-default);
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: all;
+
+  /* Not collapsible by default: the padding-left reserves the icon-column width. */
+  --item-pad-left: var(--click-image-sm-size-width);
+  --item-mobile-pad-left: var(--click-image-sm-size-width);
+}
+
+.wrapper span a {
+  color: var(--item-text-default);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wrapper:hover,
+.wrapper:focus {
+  background-color: var(--item-bg-hover);
+  color: var(--item-text-hover);
+  font: var(--item-font-hover);
+  pointer-events: auto;
+}
+
+.wrapper:active,
+.wrapper[data-selected='true'] {
+  background-color: var(--item-bg-active);
+  color: var(--item-text-active);
+  font: var(--item-font-active);
+  pointer-events: all;
+}
+
+.wrapper[aria-disabled='true'],
+.wrapper[aria-disabled='true']:hover,
+.wrapper[aria-disabled='true']:focus,
+.wrapper[aria-disabled='true']:active,
+.wrapper[aria-disabled='true']:focus-within,
+.wrapper[aria-disabled='true'][data-selected='true'] {
+  color: var(--item-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.wrapper[aria-disabled='true'] span a {
+  color: var(--item-text-disabled);
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+/* stylelint-disable-next-line media-feature-range-notation -- prefix syntax matches the original styled rule and is more broadly supported than range syntax */
+@media (max-width: 640px) {
+  .wrapper {
+    padding: var(--item-mobile-space-y) var(--item-mobile-space-right)
+      var(--item-mobile-space-y) var(--item-mobile-pad-left);
+    gap: var(--item-mobile-gap);
+    font: var(--item-mobile-font-default);
+  }
+
+  .wrapper:hover,
+  .wrapper:focus {
+    font: var(--item-mobile-font-hover);
+  }
+
+  .wrapper:active,
+  .wrapper[data-selected='true'] {
+    font: var(--item-mobile-font-active);
+  }
+}
+
+.wrapper_itemtype_item {
+  --item-space-y: var(--click-sidebar-navigation-item-default-space-y);
+  --item-space-right: var(--click-sidebar-navigation-item-default-space-right);
+  --item-space-left: var(--click-sidebar-navigation-item-default-space-left);
+  --item-radii: var(--click-sidebar-navigation-item-radii-all);
+  --item-font-default: var(--click-sidebar-navigation-item-typography-default);
+  --item-font-hover: var(--click-sidebar-navigation-item-typography-hover);
+  --item-font-active: var(--click-sidebar-navigation-item-typography-active);
+  --item-mobile-gap: var(--click-sidebar-navigation-item-mobile-space-gap);
+  --item-mobile-space-y: var(--click-sidebar-navigation-item-mobile-space-y);
+  --item-mobile-space-right: var(--click-sidebar-navigation-item-mobile-space-right);
+  --item-mobile-space-left: var(--click-sidebar-navigation-item-mobile-space-left);
+  --item-mobile-font-default: var(--click-sidebar-navigation-item-mobile-typography-default);
+  --item-mobile-font-hover: var(--click-sidebar-navigation-item-mobile-typography-hover);
+  --item-mobile-font-active: var(--click-sidebar-navigation-item-mobile-typography-active);
+}
+
+.wrapper_itemtype_sub-item {
+  --item-space-y: var(--click-sidebar-navigation-subItem-default-space-y);
+  --item-space-right: var(--click-sidebar-navigation-subItem-default-space-right);
+  --item-space-left: var(--click-sidebar-navigation-subItem-default-space-left);
+  --item-radii: var(--click-sidebar-navigation-subItem-radii-all);
+  --item-font-default: var(--click-sidebar-navigation-subItem-typography-default);
+  --item-font-hover: var(--click-sidebar-navigation-subItem-typography-hover);
+  --item-font-active: var(--click-sidebar-navigation-subItem-typography-active);
+  --item-mobile-gap: var(--click-sidebar-navigation-subItem-mobile-space-gap);
+  --item-mobile-space-y: var(--click-sidebar-navigation-subItem-mobile-space-y);
+  --item-mobile-space-right: var(--click-sidebar-navigation-subItem-mobile-space-right);
+  --item-mobile-space-left: var(--click-sidebar-navigation-subItem-mobile-space-left);
+  --item-mobile-font-default: var(--click-sidebar-navigation-subItem-mobile-typography-default);
+  --item-mobile-font-hover: var(--click-sidebar-navigation-subItem-mobile-typography-hover);
+  --item-mobile-font-active: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+}
+
+.wrapper_collapsible_true {
+  --item-pad-left: var(--item-space-left);
+  --item-mobile-pad-left: var(--item-mobile-space-left);
+}
+
+.wrapper_color_main-item {
+  --item-bg-default: var(--click-sidebar-main-navigation-item-color-background-default);
+  --item-bg-hover: var(--click-sidebar-main-navigation-item-color-background-hover);
+  --item-bg-active: var(--click-sidebar-main-navigation-item-color-background-active);
+  --item-text-default: var(--click-sidebar-main-navigation-item-color-text-default);
+  --item-text-hover: var(--click-sidebar-main-navigation-item-color-text-hover);
+  --item-text-active: var(--click-sidebar-main-navigation-item-color-text-active);
+  --item-text-disabled: var(--click-sidebar-main-navigation-item-color-text-disabled);
+}
+
+.wrapper_color_main-sub-item {
+  --item-bg-default: var(--click-sidebar-main-navigation-subItem-color-background-default);
+  --item-bg-hover: var(--click-sidebar-main-navigation-subItem-color-background-hover);
+  --item-bg-active: var(--click-sidebar-main-navigation-subItem-color-background-active);
+  --item-text-default: var(--click-sidebar-main-navigation-subItem-color-text-default);
+  --item-text-hover: var(--click-sidebar-main-navigation-subItem-color-text-hover);
+  --item-text-active: var(--click-sidebar-main-navigation-subItem-color-text-active);
+  --item-text-disabled: var(--click-sidebar-main-navigation-subItem-color-text-disabled);
+}
+
+.wrapper_color_sql-sidebar-item {
+  --item-bg-default: var(--click-sidebar-sqlSidebar-navigation-item-color-background-default);
+  --item-bg-hover: var(--click-sidebar-sqlSidebar-navigation-item-color-background-hover);
+  --item-bg-active: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
+  --item-text-default: var(--click-sidebar-sqlSidebar-navigation-item-color-text-default);
+  --item-text-hover: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
+  --item-text-active: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
+  --item-text-disabled: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
+}
+
+.wrapper_color_sql-sidebar-sub-item {
+  --item-bg-default: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-default);
+  --item-bg-hover: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-hover);
+  --item-bg-active: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
+  --item-text-default: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-default);
+  --item-text-hover: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
+  --item-text-active: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
+  --item-text-disabled: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
+}
