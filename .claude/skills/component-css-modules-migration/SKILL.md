@@ -115,11 +115,9 @@ After generating, run `yarn test:visual tests/<area>/<name>.spec.ts` to confirm 
   - **Use BEM naming** per the regex in `stylelint.config.js`: `block`, `block__element`, `block_modifier`, `block_modifier_value`. Modifier values use underscores, not dashes.
   - **Every block and element must have a base class — even when it has no own styles.** A modifier can only exist to modify something, so `.block_fill-width` requires `.block`, and `.block__icon_size_sm` requires `.block__icon`. Never emit a lone family of modifier classes (`.accordion_fill-width` with no `.accordion`, `.external-icon_size_*` with no `.external-icon`). This shows up in the TSX as the tell-tale `cva('', { variants: … })` — an empty base string means the block/element has no base class. Always pass the base class as `cva`'s first argument: `cva(styles.block, { variants: … })`. Two consequences:
     - **Hoist any declaration shared by every modifier onto the base.** If `_indicator-dir_start` and `_indicator-dir_end` both set `user-select: none`, that lives on `.block__header`, and the modifiers keep only what differs.
-    - **If the base genuinely has no shared styles, emit it empty** with a `stylelint-disable-next-line block-no-empty` (the `stylelint-config-standard` rule rejects empty rules) and a one-line comment naming it as the base:
+    - **If the base genuinely has no shared styles, emit it empty** with a `block-no-empty` disable (the `stylelint-config-standard` rule rejects empty rules) whose reason names it as the base. Keep the reason **stable** — don't describe what the base currently holds or which modifiers it serves, since those change. `base block required by BEM` / `base element required by BEM` is enough:
       ```css
-      /* Base block. Carries no own styles, but BEM requires the block to exist
-         for its size modifiers to have something to modify. */
-      /* stylelint-disable-next-line block-no-empty */
+      /* stylelint-disable-next-line block-no-empty -- base block required by BEM */
       .external-icon {
       }
       ```

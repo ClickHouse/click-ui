@@ -94,9 +94,7 @@
   background-color: transparent;
 }
 
-/* Base element. Carries no own styles, but BEM requires the element to exist
-   for its size modifiers to have something to modify. */
-/* stylelint-disable-next-line block-no-empty */
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
 .alert__icon {
 }
 

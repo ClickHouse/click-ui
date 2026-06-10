@@ -1,6 +1,4 @@
-/* Base block. Carries no own styles, but BEM requires the block to exist for
-   its modifiers (_fill-width, _sidebar) to have something to modify. */
-/* stylelint-disable-next-line block-no-empty */
+/* stylelint-disable-next-line block-no-empty -- base block required by BEM */
 .accordion {
 }
 

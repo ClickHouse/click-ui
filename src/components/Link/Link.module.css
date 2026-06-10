@@ -122,9 +122,7 @@
    descendant selector inside IconWrapper; here we pass the scoped class
    straight to the Icon so the selector stays a single class with the same
    effective specificity. */
-/* Base block. Carries no own styles, but BEM requires the block to exist for
-   its size modifiers to have something to modify. */
-/* stylelint-disable-next-line block-no-empty */
+/* stylelint-disable-next-line block-no-empty -- base block required by BEM */
 .external-icon {
 }
 

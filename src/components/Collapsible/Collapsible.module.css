@@ -15,8 +15,6 @@
   visibility: visible;
 }
 
-/* Base element. The indicator-dir modifiers only differ in margin-left, so the
-   shared user-select lives here on the block's base element. */
 .collapsible__header {
   user-select: none;
 }
@@ -37,9 +35,7 @@
   cursor: inherit;
 }
 
-/* Base element. Carries no own styles, but BEM requires the element to exist
-   for its indicator-dir modifiers to have something to modify. */
-/* stylelint-disable-next-line block-no-empty */
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
 .collapsible__content {
 }
 
