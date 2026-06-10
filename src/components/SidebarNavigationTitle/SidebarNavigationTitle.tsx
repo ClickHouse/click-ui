@@ -1,6 +1,65 @@
-import { styled } from 'styled-components';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
+import { cn, cva } from '@/lib/cva';
 import { IconWrapper } from '@/components/Collapsible/IconWrapper';
 import { SidebarNavigationTitleProps } from './SidebarNavigationTitle.types';
+import styles from './SidebarNavigationTitle.module.css';
+
+const wrapperVariants = cva(styles.wrapper, {
+  variants: {
+    type: {
+      main: styles.wrapper_type_main,
+      sqlSidebar: styles['wrapper_type_sql-sidebar'],
+    },
+    collapsible: { true: styles.wrapper_collapsible_true, false: '' },
+  },
+  defaultVariants: { type: 'main', collapsible: false },
+});
+
+// Polymorphic wrapper: SidebarCollapsibleTitle renders it `as={Collapsible.Trigger}`.
+// Same shape as the Container polymorphic component (src/components/Container).
+export interface SidebarTitleWrapperProps<T extends ElementType = 'button'> {
+  as?: T;
+  $collapsible?: boolean;
+  $type?: 'main' | 'sqlSidebar';
+}
+
+type SidebarTitleWrapperComponent = <T extends ElementType = 'button'>(
+  props: Omit<ComponentProps<T>, keyof SidebarTitleWrapperProps<T>> &
+    SidebarTitleWrapperProps<T>
+) => ReactNode;
+
+const _SidebarTitleWrapper = <T extends ElementType = 'button'>(
+  {
+    as,
+    $collapsible = false,
+    $type = 'main',
+    className,
+    ...props
+  }: Omit<ComponentProps<T>, keyof SidebarTitleWrapperProps<T>> &
+    SidebarTitleWrapperProps<T>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'button';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(
+        wrapperVariants({ type: $type, collapsible: $collapsible }),
+        className
+      )}
+    />
+  );
+};
+
+export const SidebarTitleWrapper: SidebarTitleWrapperComponent =
+  forwardRef(_SidebarTitleWrapper);
 
 export const SidebarNavigationTitle = ({
   label,
@@ -25,44 +84,3 @@ export const SidebarNavigationTitle = ({
     </SidebarTitleWrapper>
   );
 };
-export const SidebarTitleWrapper = styled.button<{
-  $collapsible?: boolean;
-  $type: 'main' | 'sqlSidebar';
-}>`
-  display: inline-flex;
-  align-items: center;
-  background: transparent;
-  border: none;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  white-space: nowrap;
-  overflow: hidden;
-  cursor: pointer;
-  ${({ theme, $collapsible = false, $type }) => `
-    padding: 0;
-    padding-left: ${$collapsible ? 0 : theme.click.image.sm.size.width};
-    font: ${theme.click.sidebar.navigation.title.typography.default};
-    color: ${theme.click.sidebar[$type].navigation.title.color.default};
-
-    &:hover {
-      font: ${theme.click.sidebar.navigation.title.typography.hover};
-      color: ${theme.click.sidebar[$type].navigation.title.color.hover};
-    }
-
-    &:active, &[data-state="open"], &[data-selected="true"] {
-      font: ${theme.click.sidebar.navigation.title.typography.active};
-      color: ${theme.click.sidebar[$type].navigation.title.color.active};
-    }
-  `}
-
-  a {
-    color: inherit;
-    text-decoration: none;
-
-    &:active {
-      color: inherit;
-    }
-  }
-`;

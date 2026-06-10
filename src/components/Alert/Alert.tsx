@@ -1,10 +1,9 @@
 import { Icon, type IconName } from '@/components/Icon';
 import { useState, useCallback } from 'react';
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { AlertProps } from './Alert.types';
+import styles from './Alert.module.css';
 
-type AlertType = 'default' | 'banner';
-type AlertSize = 'small' | 'medium';
 type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
 const stateIconMap: Record<AlertState, IconName> = {
@@ -14,6 +13,99 @@ const stateIconMap: Record<AlertState, IconName> = {
   danger: 'warning',
   info: 'information',
 };
+
+const wrapperVariants = cva(styles.alert, {
+  variants: {
+    type: {
+      default: styles.alert_type_default,
+      banner: styles.alert_type_banner,
+    },
+    state: {
+      neutral: styles.alert_state_neutral,
+      success: styles.alert_state_success,
+      warning: styles.alert_state_warning,
+      danger: styles.alert_state_danger,
+      info: styles.alert_state_info,
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+    state: 'neutral',
+  },
+});
+
+const iconWrapperVariants = cva(styles['alert__icon-wrapper'], {
+  variants: {
+    state: {
+      neutral: styles['alert__icon-wrapper_state_neutral'],
+      success: styles['alert__icon-wrapper_state_success'],
+      warning: styles['alert__icon-wrapper_state_warning'],
+      danger: styles['alert__icon-wrapper_state_danger'],
+      info: styles['alert__icon-wrapper_state_info'],
+    },
+    size: {
+      small: styles['alert__icon-wrapper_size_small'],
+      medium: styles['alert__icon-wrapper_size_medium'],
+    },
+    type: {
+      default: '',
+      banner: styles['alert__icon-wrapper_type_banner'],
+    },
+  },
+  defaultVariants: {
+    state: 'neutral',
+    size: 'small',
+    type: 'default',
+  },
+});
+
+const iconVariants = cva('', {
+  variants: {
+    size: {
+      small: styles['alert__icon_size_small'],
+      medium: styles['alert__icon_size_medium'],
+    },
+  },
+  defaultVariants: {
+    size: 'small',
+  },
+});
+
+const textWrapperVariants = cva(styles['alert__text-wrapper'], {
+  variants: {
+    size: {
+      small: styles['alert__text-wrapper_size_small'],
+      medium: styles['alert__text-wrapper_size_medium'],
+    },
+  },
+  defaultVariants: {
+    size: 'small',
+  },
+});
+
+const titleVariants = cva(styles.alert__title, {
+  variants: {
+    size: {
+      small: styles.alert__title_size_small,
+      medium: styles.alert__title_size_medium,
+    },
+  },
+  defaultVariants: {
+    size: 'small',
+  },
+});
+
+const textVariants = cva(styles.alert__text, {
+  variants: {
+    size: {
+      small: styles.alert__text_size_small,
+      medium: styles.alert__text_size_medium,
+    },
+  },
+  defaultVariants: {
+    size: 'small',
+  },
+});
 
 export const Alert = ({
   text,
@@ -35,124 +127,43 @@ export const Alert = ({
   }, [onDismiss]);
 
   return isVisible ? (
-    <Wrapper
-      $size={size}
-      $state={state}
-      $type={type}
+    <div
       data-testid="click-alert"
       {...delegated}
+      className={cn(wrapperVariants({ state, type }))}
     >
-      {dismissible && type === 'banner' && <DismissWrapper></DismissWrapper>}
+      {dismissible && type === 'banner' && (
+        <button className={styles.alert__dismiss}></button>
+      )}
       {showIcon && (
-        <IconWrapper
-          $state={state}
-          $size={size}
-          $type={type}
-        >
-          <StyledIcon
-            $size={size}
+        <div className={cn(iconWrapperVariants({ state, size, type }))}>
+          <Icon
             size="sm"
             aria-hidden
             name={customIcon || stateIconMap[state]}
+            className={cn(iconVariants({ size }))}
           />
-        </IconWrapper>
+        </div>
       )}
-      <TextWrapper
-        $state={state}
-        $size={size}
-      >
-        {title && <Title $size={size}>{title}</Title>}
-        <Text $size={size}>{text}</Text>
-      </TextWrapper>
+      <div className={cn(textWrapperVariants({ size }))}>
+        {title && <h6 className={cn(titleVariants({ size }))}>{title}</h6>}
+        <div className={cn(textVariants({ size }))}>{text}</div>
+      </div>
       {dismissible && (
-        <DismissWrapper
+        <button
           data-testid="click-alert-dismiss-button"
           onClick={handleDismiss}
+          className={styles.alert__dismiss}
         >
           <Icon
             name="cross"
             aria-label="close"
           />
-        </DismissWrapper>
+        </button>
       )}
-    </Wrapper>
+    </div>
   ) : null;
 };
-
-const Wrapper = styled.div<{
-  $state: AlertState;
-  $size: AlertSize;
-  $type: AlertType;
-}>`
-  display: flex;
-  border-radius: ${({ $type, theme }) =>
-    $type === 'banner' ? theme.sizes[0] : theme.click.alert.radii.end};
-  justify-content: ${({ $type }) => ($type === 'banner' ? 'center' : 'start')};
-  overflow: hidden;
-  background-color: ${({ $state = 'neutral', theme }) =>
-    theme.click.alert.color.background[$state]};
-  color: ${({ $state = 'neutral', theme }) => theme.click.alert.color.text[$state]};
-  width: 100%;
-`;
-
-const IconWrapper = styled.div<{
-  $state: AlertState;
-  $size: AlertSize;
-  $type: AlertType;
-}>`
-  display: flex;
-  align-items: center;
-  background-color: ${({ $state = 'neutral', $type, theme }) =>
-    $type === 'banner' ? 'none' : theme.click.alert.color.iconBackground[$state]};
-  ${({ $state = 'neutral', $size, theme }) => `
-    color: ${theme.click.alert.color.iconForeground[$state]};
-    padding: ${theme.click.alert[$size].space.y} 0 ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
-  `}
-`;
-
-const StyledIcon = styled(Icon)<{ $size: AlertSize }>`
-  ${({ $size, theme }) => `
-    height: ${theme.click.alert[$size].icon.height};
-    width: ${theme.click.alert[$size].icon.width};
-  `}
-`;
-const TextWrapper = styled.div<{ $state: AlertState; $size: AlertSize }>`
-  display: flex;
-  flex-flow: column;
-  word-break: break-word;
-  ${({ $size, theme }) => `
-    gap: ${theme.click.alert[$size].space.gap};
-    padding: ${theme.click.alert[$size].space.y} ${theme.click.alert[$size].space.x};
-    `}
-
-  a,
-  a:focus,
-  a:visited,
-  a:hover {
-    font: inherit;
-    color: inherit;
-    text-decoration: underline;
-  }
-`;
-
-const Title = styled.h6<{ $size: AlertSize }>`
-  margin: 0;
-  font: ${({ theme, $size }) => theme.click.alert[$size].typography.title.default};
-`;
-const Text = styled.div<{ $size: AlertSize }>`
-  margin: 0;
-  font: ${({ theme, $size }) => theme.click.alert[$size].typography.text.default};
-`;
-
-const DismissWrapper = styled.button`
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  border: none;
-  background-color: transparent;
-  color: inherit;
-  cursor: pointer;
-`;
 
 export const DangerAlert = (props: AlertProps) => (
   <Alert

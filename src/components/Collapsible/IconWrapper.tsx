@@ -1,34 +1,10 @@
 import { ReactNode } from 'react';
-import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import type { ImageName } from '@/components/Icon';
 
-const LabelContainer = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  flex: 1;
-  gap: ${({ theme }) => theme.click.sidebar.navigation.item.default.space.gap};
-  overflow: hidden;
-`;
-
-const EllipsisContainer = styled.span`
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  justify-content: flex-start;
-  gap: inherit;
-  flex: 1;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
+import { cn } from '@/lib/cva';
+import styles from './Collapsible.module.css';
 
 export const IconWrapper = ({
   icon,
@@ -42,20 +18,20 @@ export const IconWrapper = ({
   children: ReactNode;
 }) => {
   return (
-    <LabelContainer>
+    <span className={cn(styles.collapsible__label)}>
       {icon && iconDir === 'start' && (
         <Icon
           name={icon}
           size="sm"
         />
       )}
-      <EllipsisContainer>{children}</EllipsisContainer>
+      <span className={cn(styles.collapsible__ellipsis)}>{children}</span>
       {icon && iconDir === 'end' && (
         <Icon
           name={icon}
           size="sm"
         />
       )}
-    </LabelContainer>
+    </span>
   );
 };
