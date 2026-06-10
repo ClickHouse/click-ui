@@ -1,8 +1,12 @@
-import { ComponentPropsWithoutRef, ElementType, forwardRef } from 'react';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
 import { cn, cva } from '@/lib/cva';
 import { IconWrapper } from '@/components/Collapsible/IconWrapper';
-import type { HorizontalDirection } from '@/types';
-import type { ImageName } from '@/components/Icon';
 import { SidebarNavigationTitleProps } from './SidebarNavigationTitle.types';
 import styles from './SidebarNavigationTitle.module.css';
 
@@ -17,22 +21,31 @@ const wrapperVariants = cva(styles.wrapper, {
   defaultVariants: { type: 'main', collapsible: false },
 });
 
-type SidebarTitleWrapperProps = ComponentPropsWithoutRef<'button'> & {
-  // Polymorphic: rendered `as={Collapsible.Trigger}` by SidebarCollapsibleTitle,
-  // hence the optional Collapsible.Trigger props below.
-  as?: ElementType;
+// Polymorphic wrapper: SidebarCollapsibleTitle renders it `as={Collapsible.Trigger}`.
+// Same shape as the Container polymorphic component (src/components/Container).
+export interface SidebarTitleWrapperProps<T extends ElementType = 'button'> {
+  as?: T;
   $collapsible?: boolean;
   $type?: 'main' | 'sqlSidebar';
-  icon?: ImageName;
-  iconDir?: HorizontalDirection;
-  indicatorDir?: HorizontalDirection;
-};
+}
 
-export const SidebarTitleWrapper = forwardRef<
-  HTMLButtonElement,
-  SidebarTitleWrapperProps
->(({ as, $collapsible = false, $type = 'main', className, ...props }, ref) => {
-  const Component = (as ?? 'button') as ElementType;
+type SidebarTitleWrapperComponent = <T extends ElementType = 'button'>(
+  props: Omit<ComponentProps<T>, keyof SidebarTitleWrapperProps<T>> &
+    SidebarTitleWrapperProps<T>
+) => ReactNode;
+
+const _SidebarTitleWrapper = <T extends ElementType = 'button'>(
+  {
+    as,
+    $collapsible = false,
+    $type = 'main',
+    className,
+    ...props
+  }: Omit<ComponentProps<T>, keyof SidebarTitleWrapperProps<T>> &
+    SidebarTitleWrapperProps<T>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'button';
   return (
     <Component
       ref={ref}
@@ -43,9 +56,10 @@ export const SidebarTitleWrapper = forwardRef<
       )}
     />
   );
-});
+};
 
-SidebarTitleWrapper.displayName = 'SidebarTitleWrapper';
+export const SidebarTitleWrapper: SidebarTitleWrapperComponent =
+  forwardRef(_SidebarTitleWrapper);
 
 export const SidebarNavigationTitle = ({
   label,

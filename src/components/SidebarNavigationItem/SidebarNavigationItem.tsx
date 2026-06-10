@@ -1,8 +1,12 @@
-import { ComponentPropsWithoutRef, ElementType, forwardRef } from 'react';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
 import { cn, cva } from '@/lib/cva';
 import { IconWrapper } from '@/components/Collapsible/IconWrapper';
-import type { HorizontalDirection } from '@/types';
-import type { ImageName } from '@/components/Icon';
 import { SidebarNavigationItemProps } from './SidebarNavigationItem.types';
 import styles from './SidebarNavigationItem.module.css';
 
@@ -34,43 +38,51 @@ const wrapperVariants = cva(styles.wrapper, {
   defaultVariants: { itemType: 'item', type: 'main', collapsible: false },
 });
 
-type SidebarItemWrapperProps = ComponentPropsWithoutRef<'div'> & {
-  // Polymorphic: rendered `as={Collapsible.Header}` by SidebarCollapsibleItem,
-  // hence the optional Collapsible.Header props below.
-  as?: ElementType;
+// Polymorphic wrapper: SidebarCollapsibleItem renders it `as={Collapsible.Header}`.
+// Same shape as the Container polymorphic component (src/components/Container).
+export interface SidebarItemWrapperProps<T extends ElementType = 'div'> {
+  as?: T;
   $collapsible?: boolean;
   $level?: number;
   $type?: 'main' | 'sqlSidebar';
-  icon?: ImageName;
-  iconDir?: HorizontalDirection;
-  indicatorDir?: HorizontalDirection;
-  wrapInTrigger?: boolean;
+}
+
+type SidebarItemWrapperComponent = <T extends ElementType = 'div'>(
+  props: Omit<ComponentProps<T>, keyof SidebarItemWrapperProps<T>> &
+    SidebarItemWrapperProps<T>
+) => ReactNode;
+
+const _SidebarItemWrapper = <T extends ElementType = 'div'>(
+  {
+    as,
+    $collapsible = false,
+    $level = 0,
+    $type = 'main',
+    className,
+    ...props
+  }: Omit<ComponentProps<T>, keyof SidebarItemWrapperProps<T>> &
+    SidebarItemWrapperProps<T>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'div';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(
+        wrapperVariants({
+          itemType: $level === 0 ? 'item' : 'subItem',
+          type: $type,
+          collapsible: $collapsible,
+        }),
+        className
+      )}
+    />
+  );
 };
 
-export const SidebarItemWrapper = forwardRef<HTMLDivElement, SidebarItemWrapperProps>(
-  (
-    { as, $collapsible = false, $level = 0, $type = 'main', className, ...props },
-    ref
-  ) => {
-    const Component = (as ?? 'div') as ElementType;
-    return (
-      <Component
-        ref={ref}
-        {...props}
-        className={cn(
-          wrapperVariants({
-            itemType: $level === 0 ? 'item' : 'subItem',
-            type: $type,
-            collapsible: $collapsible,
-          }),
-          className
-        )}
-      />
-    );
-  }
-);
-
-SidebarItemWrapper.displayName = 'SidebarItemWrapper';
+export const SidebarItemWrapper: SidebarItemWrapperComponent =
+  forwardRef(_SidebarItemWrapper);
 
 const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
   (
