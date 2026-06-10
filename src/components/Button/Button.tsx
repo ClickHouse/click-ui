@@ -33,6 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       type = 'primary',
+      htmlType,
       iconLeft,
       iconRight,
       align = 'center',
@@ -47,6 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => (
     <button
+      type={htmlType}
       ref={ref}
       className={cn(buttonVariants({ type, align, fillWidth, loading }), className)}
       disabled={disabled || loading}
