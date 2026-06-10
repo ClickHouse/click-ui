@@ -10,20 +10,12 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   // TODO: A workaround to fix native prop shadowing by the `type` prop. Refactor in the next major update.
   /** Used for native button type attribute  */
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  /** Whether the button is disabled */
   disabled?: boolean;
-  /** The text label to display in the button */
   label?: string;
-  /** Icon to display on the left side of the label */
   iconLeft?: IconName;
-  /** Icon to display on the right side of the label */
   iconRight?: IconName;
-  /** Alignment of the button content */
   align?: Alignment;
-  /** Whether the button should fill the full width of its container */
   fillWidth?: boolean;
-  /** Whether to show a loading state */
   loading?: boolean;
-  /** Whether the button should be focused on mount */
   autoFocus?: boolean;
 }
