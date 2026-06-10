@@ -142,6 +142,9 @@ const viteConfig = defineConfig({
 });
 
 const vitestConfig = defineVitestConfig({
+  // Let Vitest read setup files from a parent checkout's node_modules when run
+  // from a git worktree. See https://github.com/ClickHouse/click-ui/pull/1071
+  server: { fs: { strict: false } },
   test: {
     environment: 'jsdom',
     // TODO: Note that currently, the pw visual regression tests
