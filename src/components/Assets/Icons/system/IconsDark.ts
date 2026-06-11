@@ -66,6 +66,7 @@ import Database from '../Database';
 import Disk from '../Disk';
 import Display from '../Display';
 import Document from '../Document';
+import Dollar from '../Dollar';
 import Dot from '../Dot';
 import Dots_Horizontal from '../Dots-Horizontal';
 import Dots_Triangle from '../Dots-Triangle';
@@ -242,6 +243,7 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   disk: Disk,
   display: Display,
   document: Document,
+  dollar: Dollar,
   dot: Dot,
   'dots-horizontal': Dots_Horizontal,
   'dots-triangle': Dots_Triangle,

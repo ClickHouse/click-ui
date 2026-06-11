@@ -64,6 +64,7 @@ export type IconName =
   | 'disk'
   | 'display'
   | 'document'
+  | 'dollar'
   | 'dot'
   | 'dots-horizontal'
   | 'dots-triangle'
