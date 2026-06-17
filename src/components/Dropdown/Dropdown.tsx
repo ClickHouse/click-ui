@@ -8,6 +8,7 @@ import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -87,11 +88,13 @@ export type ArrowProps = {
 
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
+  container?: HTMLElement | null;
   responsivePositioning?: boolean;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
   children?: ReactNode;
+  container?: HTMLElement | null;
   responsivePositioning?: boolean;
 }
 
@@ -110,14 +113,17 @@ const DropdownMenuContent = styled(GenericMenuPanel)`
 const DropdownContent = ({
   sub,
   children,
+  container,
   showArrow,
   responsivePositioning = true,
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
   const inputModalityProps = useInputModality();
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
-    <DropdownMenu.Portal>
+    <DropdownMenu.Portal container={portalContainer}>
       <DropdownMenuContent
         {...props}
         $type="dropdown-menu"

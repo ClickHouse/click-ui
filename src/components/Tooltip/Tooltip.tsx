@@ -1,7 +1,8 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 import { HTMLAttributes } from 'react';
 import { styled } from 'styled-components';
-import { TooltipProps } from './Tooltip.types';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import { TooltipContentProps, TooltipProps } from './Tooltip.types';
 
 export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) => {
   return (
@@ -23,13 +24,6 @@ const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
 };
 TooltipTrigger.displayName = 'TooltipTrigger';
 Tooltip.Trigger = TooltipTrigger;
-interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
-  /** Whether to show an arrow pointing to the trigger element */
-  showArrow?: boolean;
-  /** Maximum width of the tooltip content */
-  maxWidth?: string;
-}
-
 const RadixTooltipContent = styled(RadixTooltip.Content)<{ $maxWidth?: string }>`
   display: flex;
   align-items: flex-start;
@@ -55,10 +49,13 @@ const TooltipContent = ({
   children,
   sideOffset = 6,
   maxWidth,
+  container,
   ...props
 }: TooltipContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
-    <RadixTooltip.Portal>
+    <RadixTooltip.Portal container={portalContainer}>
       <RadixTooltipContent
         sideOffset={sideOffset}
         $maxWidth={maxWidth}

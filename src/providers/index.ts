@@ -4,4 +4,8 @@
 // theme provider. Consider deprecating one or making ThemeProvider internal only.
 
 export { ClickUIProvider } from './ClickUIProvider';
+export { PortalProvider } from './PortalProvider';
+export { usePortalContainer, useResolvedPortalContainer } from './PortalContext';
+export type { PortalContainer } from './PortalContext';
+export type { PortalProviderProps } from './PortalProvider';
 export { ThemeProvider } from './ThemeProvider';
