@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react';
+import { ComponentPropsWithoutRef, CSSProperties, ElementRef, forwardRef } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
 import { cn } from '@/lib/cva';
 import { TabsProps } from './Tabs.types';
@@ -75,7 +75,9 @@ const FullWidthTabsTrigger = forwardRef<
     ref={ref}
     {...props}
     style={
-      width ? { ...style, ['--full-width-tabs-trigger-width' as string]: width } : style
+      width
+        ? ({ ...style, '--full-width-tabs-trigger-width': width } as CSSProperties)
+        : style
     }
     className={cn(
       styles.tabs__trigger,
