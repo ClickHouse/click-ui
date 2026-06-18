@@ -1,30 +1,30 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
-import { keyframes, styled } from 'styled-components';
 import { Button, ButtonProps } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
 import { CrossButton } from '@/components/CrossButton';
+import { cn, cva } from '@/lib/cva';
 import { DialogContentProps, DialogProps, DialogTriggerProps } from './Dialog.types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import styles from './Dialog.module.css';
 
 export const Dialog = ({ children, ...props }: DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
 };
 
 // Dialog Trigger
-const Trigger = styled(RadixDialog.Trigger)`
-  width: fit-content;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-`;
-
-const DialogTrigger = ({ children, asChild, ...props }: DialogTriggerProps) => {
+const DialogTrigger = ({
+  children,
+  asChild,
+  className,
+  ...props
+}: DialogTriggerProps) => {
   if (asChild) {
     // Pass all props to RadixDialog.Trigger, no styled wrapper
     return (
       <RadixDialog.Trigger
         asChild
+        className={className}
         {...props}
       >
         {children}
@@ -32,7 +32,14 @@ const DialogTrigger = ({ children, asChild, ...props }: DialogTriggerProps) => {
     );
   }
   // Use styled Trigger if not asChild
-  return <Trigger {...props}>{children}</Trigger>;
+  return (
+    <RadixDialog.Trigger
+      {...props}
+      className={cn(styles.trigger, className)}
+    >
+      {children}
+    </RadixDialog.Trigger>
+  );
 };
 
 DialogTrigger.displayName = 'DialogTrigger';
@@ -51,70 +58,21 @@ const DialogClose = ({ label = 'Close', type = 'secondary', ...props }: ButtonPr
 DialogClose.displayName = 'DialogClose';
 Dialog.Close = DialogClose;
 
-// Dialog Content
-const overlayShow = keyframes({
-  '0%': { opacity: 0 },
-  '100%': { opacity: 1 },
+const contentAreaVariants = cva(styles.content, {
+  variants: {
+    reducePadding: {
+      true: styles['content_reduce-padding'],
+    },
+  },
 });
 
-const contentShow = keyframes({
-  '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
-  '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+const titleAreaVariants = cva(styles['title-area'], {
+  variants: {
+    onlyClose: {
+      true: styles['title-area_only-close'],
+    },
+  },
 });
-
-const DialogOverlay = styled(RadixDialog.Overlay)`
-  background-color: ${({ theme }) => theme.click.dialog.color.opaqueBackground.default};
-  position: fixed;
-  inset: 0;
-  animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
-`;
-
-const ContentArea = styled(RadixDialog.Content)<{ $reducePadding?: boolean }>`
-  background: ${({ theme }) => theme.click.dialog.color.background.default};
-  border-radius: ${({ theme }) => theme.click.dialog.radii.all};
-  padding-block: ${({ theme, $reducePadding = false }) =>
-    $reducePadding ? theme.sizes[4] : theme.click.dialog.space.y};
-  padding-inline: ${({ theme, $reducePadding = false }) =>
-    $reducePadding ? theme.sizes[4] : theme.click.dialog.space.x};
-  box-shadow: ${({ theme }) => theme.click.dialog.shadow.default};
-  border: 1px solid ${({ theme }) => theme.click.global.color.stroke.default};
-  width: 75%;
-  max-width: 670px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  max-height: 75%;
-  overflow: auto;
-  transform: translate(-50%, -50%);
-  animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  outline: none;
-
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.sm}) {
-    max-height: 100%;
-    border-radius: 0;
-    width: 100%;
-  }
-`;
-
-const TitleArea = styled.div<{ $onlyClose?: boolean }>`
-  display: flex;
-  justify-content: ${({ $onlyClose }) => ($onlyClose ? 'flex-end' : 'space-between')};
-  align-items: center;
-  min-height: ${({ theme }) => theme.sizes[9]}; // 32px
-`;
-
-const Title = styled(RadixDialog.Title)`
-  font: ${({ theme }) => theme.click.dialog.typography.title.default};
-  padding: 0;
-  margin: 0;
-`;
-
-const Description = styled(RadixDialog.Description)`
-  font: ${({ theme }) => theme.click.dialog.typography.description.default};
-  color: ${({ theme }) => theme.click.dialog.color.description.default};
-  padding: 0;
-  margin: 0;
-`;
 
 const CloseButton = ({ onClose }: { onClose?: () => void }) => (
   <RadixDialog.Close asChild>
@@ -137,6 +95,7 @@ const DialogContent = ({
   container,
   showOverlay = true,
   reducePadding = false,
+  className,
   ...props
 }: DialogContentProps) => {
   const portalContainer = useResolvedPortalContainer(container);
@@ -146,33 +105,42 @@ const DialogContent = ({
       forceMount={forceMount}
       container={portalContainer}
     >
-      {showOverlay && <DialogOverlay />}
-      <ContentArea
+      {showOverlay && <RadixDialog.Overlay className={styles.overlay} />}
+      <RadixDialog.Content
         data-testid="click-dialog-contentarea"
-        $reducePadding={reducePadding}
         {...props}
+        className={cn(contentAreaVariants({ reducePadding }), className)}
       >
         {(title || showClose) && (
           <>
-            <TitleArea $onlyClose={!!showClose && !title}>
-              {title && <Title data-testid="click-dialog-title">{title}</Title>}
+            <div className={cn(titleAreaVariants({ onlyClose: !!showClose && !title }))}>
+              {title && (
+                <RadixDialog.Title
+                  data-testid="click-dialog-title"
+                  className={styles.title}
+                >
+                  {title}
+                </RadixDialog.Title>
+              )}
               {showClose && (
                 <CloseButton
                   data-testid="click-dialog-close"
                   onClose={onClose}
                 />
               )}
-            </TitleArea>
+            </div>
             <Spacer size="sm" />
           </>
         )}
         {description ? (
-          <Description>{description}</Description>
+          <RadixDialog.Description className={styles.description}>
+            {description}
+          </RadixDialog.Description>
         ) : (
           <RadixDialog.Description hidden />
         )}
         {children}
-      </ContentArea>
+      </RadixDialog.Content>
     </RadixDialog.Portal>
   );
 };
