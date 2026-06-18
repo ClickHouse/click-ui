@@ -13,52 +13,78 @@ const meta: Meta<typeof Tabs> = {
   },
   title: 'Display/Tabs',
   tags: ['tabs', 'autodocs'],
+  decorators: Story => (
+    <div
+      data-testid="tabs-harness"
+      style={{ width: 480, padding: 16 }}
+    >
+      <Story />
+    </div>
+  ),
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Tabs>;
 
+const children = (
+  <>
+    <Tabs.TriggersList>
+      <Tabs.Trigger
+        value="tab1"
+        key="tab1"
+      >
+        Tab 1
+      </Tabs.Trigger>
+      <Tabs.Trigger
+        value="tab2"
+        key="tab2"
+      >
+        Tab 2
+      </Tabs.Trigger>
+      <Tabs.Trigger
+        value="tab3"
+        key="tab3"
+      >
+        Tab 3
+      </Tabs.Trigger>
+    </Tabs.TriggersList>
+    <Tabs.Content value="tab1">
+      <Spacer />
+      <Text>Tab 1 content</Text>
+    </Tabs.Content>
+    <Tabs.Content value="tab2">
+      <Spacer />
+      <Text>Tab 2 content</Text>
+    </Tabs.Content>
+    <Tabs.Content value="tab3">
+      <Spacer />
+      <Text>Tab 3 content</Text>
+    </Tabs.Content>
+  </>
+);
+
 export const Playground: Story = {
   args: {
     defaultValue: 'tab2',
     onValueChange: s => console.log(s),
     ariaLabel: 'a simple tab component',
-    children: (
-      <>
-        <Tabs.TriggersList>
-          <Tabs.Trigger
-            value="tab1"
-            key="tab1"
-          >
-            Tab 1
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="tab2"
-            key="tab2"
-          >
-            Tab 2
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="tab3"
-            key="tab3"
-          >
-            Tab 3
-          </Tabs.Trigger>
-        </Tabs.TriggersList>
-        <Tabs.Content value="tab1">
-          <Spacer />
-          <Text>Tab 1 content</Text>
-        </Tabs.Content>
-        <Tabs.Content value="tab2">
-          <Spacer />
-          <Text>Tab 2 content</Text>
-        </Tabs.Content>
-        <Tabs.Content value="tab3">
-          <Spacer />
-          <Text>Tab 3 content</Text>
-        </Tabs.Content>
-      </>
-    ),
+    children,
+  },
+};
+
+export const Default: Story = {
+  args: {
+    defaultValue: 'tab2',
+    ariaLabel: 'a simple tab component',
+    children,
+  },
+};
+
+export const FirstSelected: Story = {
+  args: {
+    defaultValue: 'tab1',
+    ariaLabel: 'a simple tab component',
+    children,
   },
 };
