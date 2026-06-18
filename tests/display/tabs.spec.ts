@@ -60,9 +60,14 @@ describe('Tabs Visual Regression', () => {
           await page.goto(getStoryUrl('display-tabs--default', theme), {
             waitUntil: 'networkidle',
           });
-          await expect(page.locator(tabsHarness)).toBeVisible({ timeout: 10000 });
+          // The Default story sets defaultValue: 'tab2', and Radix tabs use a
+          // roving tabindex where only the active tab is the tabstop, so a
+          // single Tab from <body> lands on Tab 2 (not Tab 1).
+          const trigger = page.getByRole('tab', { name: 'Tab 2' });
+          await expect(trigger).toBeVisible({ timeout: 10000 });
           await page.locator('body').click();
           await page.keyboard.press('Tab');
+          await expect(trigger).toBeFocused();
           await page.waitForTimeout(100);
           await expect(page.locator(tabsHarness)).toHaveScreenshot(
             `tabs-trigger-focus-${theme}.png`,
