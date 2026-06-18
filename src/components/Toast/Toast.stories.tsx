@@ -36,6 +36,8 @@ export const Playground: Story = {
   render: args => <ToastTrigger {...args} />,
 };
 
+const STABLE_DURATION = 1000000;
+
 /**
  * Auto-opens a single toast on mount (no click needed) so the portaled toast
  * is rendered deterministically for visual-regression snapshots. The toast is
@@ -45,13 +47,11 @@ export const Playground: Story = {
 const AutoToast = (props: ToastProps) => {
   const { createToast } = useToast();
   useEffect(() => {
-    createToast({ duration: 1000000, ...props });
+    createToast({ ...props, duration: props.duration ?? STABLE_DURATION });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return null;
 };
-
-const STABLE_DURATION = 1000000;
 
 // Disable Radix toast animations so the captured frame is deterministic.
 const noAnimationStyle = (
