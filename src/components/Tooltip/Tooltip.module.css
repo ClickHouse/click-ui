@@ -1,0 +1,17 @@
+.content {
+  --tooltip-max-width: initial;
+
+  display: flex;
+  max-width: var(--tooltip-max-width);
+  padding: var(--click-tooltip-space-y) var(--click-tooltip-space-x);
+  align-items: flex-start;
+  border-radius: var(--click-tooltip-radii-all);
+  background: var(--click-tooltip-color-background-default);
+  color: var(--click-tooltip-color-label-default);
+  font: var(--click-tooltip-typography-label-default);
+  white-space: pre-wrap;
+}
+
+.arrow {
+  fill: var(--click-tooltip-color-background-default);
+}
