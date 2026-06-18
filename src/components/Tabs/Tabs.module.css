@@ -1,0 +1,54 @@
+.tabs__trigger {
+  padding: var(--click-tabs-space-y) var(--click-tabs-space-x);
+  border: none;
+  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-default);
+  background-color: var(--click-tabs-basic-color-background-default);
+  color: var(--click-tabs-basic-color-text-default);
+  font: var(--click-tabs-typography-label-default);
+  cursor: pointer;
+  border-top-left-radius: var(--click-tabs-radii-all);
+  border-top-right-radius: var(--click-tabs-radii-all);
+}
+
+.tabs__trigger[data-state='active'] {
+  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-active);
+  color: var(--click-tabs-basic-color-text-active);
+  font: var(--click-tabs-typography-label-active);
+}
+
+.tabs__trigger:hover {
+  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-hover);
+  background-color: var(--click-tabs-basic-color-background-hover);
+  color: var(--click-tabs-basic-color-text-hover);
+  font: var(--click-tabs-typography-label-hover);
+}
+
+.tabs__trigger:hover[data-state='active'] {
+  border-bottom: 2px solid var(--click-tabs-basic-color-stroke-active);
+  font: var(--click-tabs-typography-label-active);
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.tabs__content {
+}
+
+.tabs__triggers-list {
+  display: flex;
+  border-bottom: 1px solid var(--click-global-color-stroke-default);
+}
+
+.full-width-tabs {
+  width: 100%;
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.full-width-tabs__trigger {
+}
+
+.full-width-tabs__trigger_grow {
+  flex: 1 1 auto;
+}
+
+.full-width-tabs__trigger_fixed {
+  width: var(--full-width-tabs-trigger-width);
+}
