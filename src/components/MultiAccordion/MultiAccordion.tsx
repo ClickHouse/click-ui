@@ -259,6 +259,7 @@ const MultiAccordionItem = ({
           {showCheck && (
             <Icon
               className={cn(
+                styles['multi-accordion__status-icon'],
                 isCompleted && styles['multi-accordion__status-icon_completed']
               )}
               name={isCompleted ? 'check-in-circle' : 'circle'}
