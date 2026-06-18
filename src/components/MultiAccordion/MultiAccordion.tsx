@@ -1,5 +1,4 @@
 import * as RadixAccordion from '@radix-ui/react-accordion';
-import { styled } from 'styled-components';
 import type { AssetSize } from '@/types';
 import { Icon, type IconName } from '@/components/Icon';
 
@@ -13,8 +12,10 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { GapOptions, PaddingOptions } from '@/components/Container';
+import { GapOptions } from '@/components/Container';
 import { SizeType as SpacerSizeType } from '@/components/Spacer';
+import { cn, cva } from '@/lib/cva';
+import styles from './MultiAccordion.module.css';
 
 type Size = 'none' | 'sm' | 'md' | 'lg';
 type Color = 'default' | 'link';
@@ -59,6 +60,29 @@ const MultiAccordionContext = createContext<MultiAccordionContextProps>({
   showCheck: false,
 });
 
+const rootVariants = cva(styles['multi-accordion'], {
+  variants: {
+    fillWidth: {
+      true: styles['multi-accordion_fill-width'],
+      false: '',
+    },
+    gap: {
+      none: styles['multi-accordion_gap_none'],
+      xxs: styles['multi-accordion_gap_xxs'],
+      xs: styles['multi-accordion_gap_xs'],
+      sm: styles['multi-accordion_gap_sm'],
+      md: styles['multi-accordion_gap_md'],
+      lg: styles['multi-accordion_gap_lg'],
+      xl: styles['multi-accordion_gap_xl'],
+      xxl: styles['multi-accordion_gap_xxl'],
+    },
+  },
+  defaultVariants: {
+    fillWidth: true,
+    gap: 'md',
+  },
+});
+
 export const MultiAccordion = ({
   size = 'md',
   children,
@@ -67,6 +91,7 @@ export const MultiAccordion = ({
   showBorder = true,
   gap = 'md',
   markAsCompleted,
+  className,
   ...delegated
 }: MultiAccordionProps) => {
   const contextValue = {
@@ -78,15 +103,14 @@ export const MultiAccordion = ({
   };
 
   return (
-    <AccordionRoot
-      $fillWidth={fillWidth}
-      $gap={gap}
+    <RadixAccordion.Root
       {...delegated}
+      className={cn(rootVariants({ fillWidth, gap }), className)}
     >
       <MultiAccordionContext.Provider value={contextValue}>
         {children}
       </MultiAccordionContext.Provider>
-    </AccordionRoot>
+    </RadixAccordion.Root>
   );
 };
 interface MultiAccordionItemProps extends Omit<
@@ -107,6 +131,62 @@ interface MultiAccordionItemProps extends Omit<
   isCompleted?: boolean;
 }
 
+const itemVariants = cva(styles['multi-accordion__item'], {
+  variants: {
+    showBorder: {
+      true: '',
+      false: styles['multi-accordion__item_no-border'],
+    },
+    fillWidth: {
+      true: styles['multi-accordion__item_fill-width'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    showBorder: true,
+    fillWidth: true,
+  },
+});
+
+const triggerVariants = cva(styles['multi-accordion__trigger'], {
+  variants: {
+    size: {
+      none: styles['multi-accordion__trigger_size_none'],
+      sm: styles['multi-accordion__trigger_size_sm'],
+      md: styles['multi-accordion__trigger_size_md'],
+      lg: styles['multi-accordion__trigger_size_lg'],
+    },
+    font: {
+      sm: styles['multi-accordion__trigger_font_sm'],
+      md: styles['multi-accordion__trigger_font_md'],
+      lg: styles['multi-accordion__trigger_font_lg'],
+    },
+    color: {
+      default: styles['multi-accordion__trigger_color_default'],
+      link: styles['multi-accordion__trigger_color_link'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    font: 'md',
+    color: 'default',
+  },
+});
+
+const contentVariants = cva(styles['multi-accordion__content'], {
+  variants: {
+    size: {
+      none: styles['multi-accordion__content_padding_none'],
+      sm: styles['multi-accordion__content_padding_sm'],
+      md: styles['multi-accordion__content_padding_md'],
+      lg: styles['multi-accordion__content_padding_lg'],
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
 const MultiAccordionItem = ({
   value,
   title,
@@ -116,6 +196,7 @@ const MultiAccordionItem = ({
   gap,
   children,
   isCompleted = false,
+  className,
   ...props
 }: MultiAccordionItemProps): ReactElement => {
   const { fillWidth, size, showBorder, showCheck, markAsCompleted } =
@@ -131,31 +212,33 @@ const MultiAccordionItem = ({
   const customSize = size === 'none' ? 'sm' : size;
 
   return (
-    <AccordionItem
+    <RadixAccordion.Item
       value={value}
-      $showBorder={showBorder}
-      $fillWidth={fillWidth}
       {...props}
+      className={cn(itemVariants({ showBorder, fillWidth }), className)}
     >
-      <AccordionTrigger
-        $size={size}
-        color={color}
+      <RadixAccordion.Trigger
+        className={triggerVariants({
+          size,
+          font: customSize,
+          color: color ?? 'default',
+        })}
       >
-        <AccordionIconsWrapper>
-          <AccordionIconWrapper>
+        <div className={styles['multi-accordion__icons-wrapper']}>
+          <div className={styles['multi-accordion__icon-wrapper']}>
             <Icon
               name="chevron-right"
               size={iconSize ?? customSize}
               aria-label="accordion icon"
             />
-          </AccordionIconWrapper>
+          </div>
           {icon ? (
             <Icon
               name={icon}
               size={iconSize ?? customSize}
             />
           ) : null}
-        </AccordionIconsWrapper>
+        </div>
         <Container
           isResponsive={false}
           gap="sm"
@@ -165,17 +248,20 @@ const MultiAccordionItem = ({
           component="span"
           overflow="hidden"
         >
-          <AccordionItemTitle
+          <Text
+            className={styles['multi-accordion__title']}
             component="span"
             size={customSize}
             fillWidth={fillWidth}
           >
             {title}
-          </AccordionItemTitle>
+          </Text>
           {showCheck && (
-            <CustomIcon
+            <Icon
+              className={cn(
+                isCompleted && styles['multi-accordion__status-icon_completed']
+              )}
               name={isCompleted ? 'check-in-circle' : 'circle'}
-              $isCompleted={isCompleted}
               size={iconSize ?? customSize}
               aria-label="accordion icon status"
               onClick={onClickStatus}
@@ -184,132 +270,14 @@ const MultiAccordionItem = ({
             />
           )}
         </Container>
-      </AccordionTrigger>
-      <AccordionContent $padding={size}>
+      </RadixAccordion.Trigger>
+      <RadixAccordion.Content className={contentVariants({ size })}>
         <Spacer size={gap} />
         {children}
-      </AccordionContent>
-    </AccordionItem>
+      </RadixAccordion.Content>
+    </RadixAccordion.Item>
   );
 };
 
 MultiAccordionItem.displayName = 'MultiAccordion.Item';
 MultiAccordion.Item = MultiAccordionItem;
-
-interface StyledAccordionRootProps {
-  $fillWidth: boolean;
-  $gap: GapOptions;
-}
-
-const AccordionRoot = styled(RadixAccordion.Root)<StyledAccordionRootProps>`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  gap: ${({ theme, $gap }) => theme.click.container.gap[$gap]};
-  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
-`;
-
-interface StyledAccordionItemProps {
-  $fillWidth: boolean;
-  $showBorder: boolean;
-}
-
-const AccordionItem = styled(RadixAccordion.Item)<StyledAccordionItemProps>`
-  ${({ theme, $showBorder }) => `
-    border: ${
-      $showBorder ? `1px solid ${theme.click.global.color.stroke.default}` : 'none'
-    };
-    border-radius: ${theme.border.radii[1]};
-    background-color: ${theme.click.global.color.background.default};
-  `};
-  ${({ $fillWidth }) => $fillWidth && 'width: 100%'};
-`;
-
-interface StyledAccordionTriggerProps {
-  $size?: Size;
-  color?: Color;
-}
-
-const AccordionTrigger = styled(RadixAccordion.Trigger)<StyledAccordionTriggerProps>`
-  width: 100%;
-  border: none;
-  padding: 0;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  ${({ theme, $size = 'md', color = 'default' }) => {
-    const size: Size = $size === 'none' ? 'sm' : $size;
-
-    return `
-    padding: ${theme.click.container.space[$size]};
-    gap: ${theme.click.accordion[size].space.gap};
-    color: ${theme.click.accordion.color[color].label.default};
-    font: ${theme.click.accordion[size].typography.label.default};
-
-    &:active {
-      color: ${theme.click.accordion.color[color].label.active};
-      font: ${theme.click.accordion[size].typography.label.active};
-    }
-
-    &:hover {
-      color: ${theme.click.accordion.color[color].label.hover};
-      background: ${theme.click.global.color.stroke.default};
-      font: ${theme.click.accordion[size].typography.label.hover};
-      cursor: pointer;
-    }
-
-  [data-icon="accordion-status"] {
-    color: ${theme.global.color.stroke.intense};
-  }
-  `;
-  }};
-  border-radius: inherit;
-  &[data-state='open'] {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    [data-icon='accordion-status'] {
-      color: ${({ theme }): string => theme.global.color.accent.default};
-    }
-  }
-`;
-
-const AccordionIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
-
-  ${AccordionTrigger}[data-state='open'] & {
-    transform: rotate(90deg);
-  }
-`;
-
-const AccordionIconsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const CustomIcon = styled(Icon)<{ $isCompleted: boolean }>`
-  ${({ $isCompleted, theme }) =>
-    $isCompleted &&
-    `
-        svg path {
-          stroke: ${theme.global.color.background.default} !important;
-          &:first-of-type {
-            stroke: ${theme.global.color.accent.default} !important;
-          }
-          fill: ${theme.global.color.accent.default} !important;;
-        }
-      `}
-`;
-
-const AccordionContent = styled(RadixAccordion.Content)<{ $padding: PaddingOptions }>`
-  padding: ${({ theme, $padding }): string => theme.click.container.space[$padding]};
-  padding-top: 0;
-`;
-
-const AccordionItemTitle = styled(Text)`
-  overflow: hidden;
-`;
