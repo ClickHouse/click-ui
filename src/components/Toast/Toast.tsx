@@ -1,122 +1,54 @@
 import { createContext, useEffect, useState } from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
-import { keyframes, styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { toastsEventEmitter } from './toastEmitter';
 import { Icon, type IconName, type IconProps } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { Button } from '@/components/Button';
 import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
+import styles from './Toast.module.css';
 
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
 
+const toastIconVariants = cva(styles.toast__icon, {
+  variants: {
+    type: {
+      default: styles['toast__icon_type_default'],
+      success: styles['toast__icon_type_success'],
+      warning: styles['toast__icon_type_warning'],
+      danger: styles['toast__icon_type_danger'],
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
+
 // Lazy wrapper to avoid circular dependency issues at module load time
-const ToastIconWrapper = (props: IconProps & { $type?: ToastType }) => (
-  <Icon {...props} />
+const ToastIcon = ({
+  $type = 'default',
+  className,
+  ...props
+}: IconProps & { $type?: ToastType }) => (
+  <Icon
+    {...props}
+    className={cn(toastIconVariants({ type: $type }), className)}
+  />
 );
 
-const ToastIcon = styled(ToastIconWrapper)<{ $type?: ToastType }>`
-  ${({ theme, $type = 'default' }) => `
-  width: ${theme.click.toast.icon.size.width};
-  height: ${theme.click.toast.icon.size.height};
-  color: ${theme.click.toast.color.icon[$type]}
-`}
-`;
-const hide = keyframes`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-`;
-const slideIn = keyframes`
-  from {
-    transform: translateX(calc(100% + var(--viewport-padding)));
-  }
-  to {
-    transform: translateX(0);
-  }
-`;
-const swipeOut = keyframes`
-  from {
-    transform: translateX(var(--radix-toast-swipe-end-x));
-  }
-  to {
-    transform: translateX(calc(100% + var(--viewport-padding)));
-  }
-`;
-
-const ToastRoot = styled(RadixUIToast.Root)`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  ${({ theme }) => `
-    padding: ${theme.click.toast.space.y} ${theme.click.toast.space.x};
-    gap: ${theme.click.toast.space.gap};
-    border-radius: ${theme.click.toast.radii.all};
-    border: 1px solid ${theme.click.toast.color.stroke.default};
-    background: ${theme.click.global.color.background.default};
-    box-shadow: ${theme.click.toast.shadow};
-  `}
-  &[data-state='open'] {
-    animation: ${slideIn} 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  &[data-state='closed'] {
-    animation: ${hide} 100ms ease-in;
-  }
-  &[data-swipe='move'] {
-    transform: translateX(var(--radix-toast-swipe-move-x));
-  }
-  &[data-swipe='cancel'] {
-    transform: translateX(0);
-    transition: transform 200ms ease-out;
-  }
-  &[data-swipe='end'] {
-    animation: ${swipeOut} 100ms ease-out;
-  }
-`;
-
-const ToastHeader = styled(RadixUIToast.Title)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: inherit;
-  ${({ theme }) => `
-    font: ${theme.click.toast.typography.title.default};
-    color: ${theme.click.toast.color.title.default};
-  `}
-`;
-
-const ToastDescriptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  align-items: flex-end;
-  gap: inherit;
-  ${({ theme }) => `
-    font: ${theme.click.toast.typography.title.default};
-    color: ${theme.click.toast.color.title.default};
-  `}
-`;
-
-const ToastDescriptionContent = styled.div`
-  display: flex;
-  align-self: stretch;
-  gap: inherit;
-  ${({ theme }) => `
-    font: ${theme.click.toast.typography.description.default};
-    color: ${theme.click.toast.color.description.default};
-  `}
-`;
-
-const Title = styled.div`
-  flex: 1;
-`;
+const viewportVariants = cva(styles['toast-viewport'], {
+  variants: {
+    align: {
+      start: styles['toast-viewport_align_start'],
+      end: styles['toast-viewport_align_end'],
+    },
+  },
+  defaultVariants: {
+    align: 'end',
+  },
+});
 
 export const Toast = ({
   type,
@@ -126,7 +58,7 @@ export const Toast = ({
   actions = [],
   duration,
   onClose,
-
+  className,
   ...props
 }: ToastProps & { onClose: (open: boolean) => void }) => {
   let iconName = '';
@@ -138,34 +70,35 @@ export const Toast = ({
     iconName = 'warning';
   }
   return (
-    <ToastRoot
+    <RadixUIToast.Root
       onOpenChange={onClose}
       duration={duration}
       type={toastType}
       {...props}
+      className={cn(styles.toast, className)}
     >
-      <ToastHeader>
+      <RadixUIToast.Title className={styles.toast__header}>
         {iconName.length > 0 && (
           <ToastIcon
             name={iconName as IconName}
             $type={type}
           />
         )}
-        <Title>{title}</Title>
+        <div className={styles.toast__title}>{title}</div>
         <RadixUIToast.Close asChild>
           <IconButton
             icon="cross"
             type="ghost"
           />
         </RadixUIToast.Close>
-      </ToastHeader>
+      </RadixUIToast.Title>
       {(description || actions.length > 0) && (
-        <ToastDescriptionContainer>
-          <ToastDescriptionContent as={RadixUIToast.Description}>
+        <div className={styles['toast__description-container']}>
+          <RadixUIToast.Description className={styles['toast__description-content']}>
             {description}
-          </ToastDescriptionContent>
+          </RadixUIToast.Description>
           {actions.length > 0 && (
-            <ToastDescriptionContent>
+            <div className={styles['toast__description-content']}>
               {actions.map(({ altText, ...btnProps }) => (
                 <RadixUIToast.Action
                   altText={altText}
@@ -177,37 +110,13 @@ export const Toast = ({
                   </div>
                 </RadixUIToast.Action>
               ))}
-            </ToastDescriptionContent>
+            </div>
           )}
-        </ToastDescriptionContainer>
+        </div>
       )}
-    </ToastRoot>
+    </RadixUIToast.Root>
   );
 };
-
-const Viewport = styled(RadixUIToast.Viewport)<{ $align: ToastAlignment }>`
-  --viewport-padding: 25px;
-  position: fixed;
-  bottom: 0;
-  ${({ $align }) => {
-    if ($align === 'start') {
-      return 'left: 0';
-    }
-    return `
-      right: 0;
-  `;
-  }};
-  display: flex;
-  flex-direction: column;
-  padding: var(--viewport-padding);
-  gap: ${({ theme }) => theme.click.toast.space.gap};
-  width: ${({ theme }) => theme.click.toast.size.width};
-  max-width: 100vw;
-  margin: 0;
-  list-style: none;
-  z-index: 2147483647;
-  outline: none;
-`;
 
 export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
   align?: ToastAlignment;
@@ -280,7 +189,7 @@ export const ToastProvider = ({
           />
         ))}
       </ToastContext.Provider>
-      <Viewport $align={align} />
+      <RadixUIToast.Viewport className={cn(viewportVariants({ align }))} />
     </RadixUIToast.Provider>
   );
 };
