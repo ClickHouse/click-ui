@@ -202,6 +202,7 @@ export interface DatePickerProps {
   date?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
+  hasClearButton?: boolean;
   onSelectDate: (selectedDate: Date) => void;
   placeholder?: string;
   responsivePositioning?: boolean;
@@ -213,6 +214,7 @@ export const DatePicker = ({
   date,
   disabled = false,
   futureDatesDisabled = false,
+  hasClearButton = false,
   onSelectDate,
   placeholder,
   responsivePositioning = true,
@@ -266,23 +268,28 @@ export const DatePicker = ({
     [onSelectDate, resetPartialState]
   );
 
-  const onYearSelect = useCallback((year: number) => {
+  const handleYearSelect = useCallback((year: number) => {
     setPartialYear(year);
     setPartialMonth(undefined);
   }, []);
 
-  const onMonthSelect = useCallback((year: number, month: number) => {
+  const handleMonthSelect = useCallback((year: number, month: number) => {
     setPartialYear(year);
     setPartialMonth(month);
   }, []);
 
-  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
+  const handleTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setIsOpen(true);
       setAutoFocusCalendar(true);
     }
   }, []);
+
+  const handleClear = useCallback(() => {
+    resetPartialState();
+    setSelectedDate(undefined);
+  }, [resetPartialState]);
 
   return (
     <Popover.Root
@@ -291,14 +298,16 @@ export const DatePicker = ({
     >
       <PopoverTrigger
         disabled={disabled}
-        onKeyDown={onTriggerKeyDown}
+        onKeyDown={handleTriggerKeyDown}
       >
         <DatePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
+          hasClearButton={hasClearButton}
           partialMonth={partialMonth}
           partialYear={partialYear}
+          onClear={handleClear}
           placeholder={placeholder}
           selectedDate={selectedDate}
           timezone={timezone}
@@ -312,8 +321,8 @@ export const DatePicker = ({
         >
           <CalendarRenderer
             calendarOptions={calendarOptions}
-            onYearSelect={onYearSelect}
-            onMonthSelect={onMonthSelect}
+            onYearSelect={handleYearSelect}
+            onMonthSelect={handleMonthSelect}
             selectedDate={selectedDate}
             timezone={timezone}
           >

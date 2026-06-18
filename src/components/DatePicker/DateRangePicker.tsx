@@ -296,6 +296,7 @@ export interface DateRangePickerProps {
   disabled?: boolean;
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
+  hasClearButton?: boolean;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
@@ -312,6 +313,7 @@ export const DateRangePicker = ({
   disabled = false,
   futureDatesDisabled = false,
   futureStartDatesDisabled = false,
+  hasClearButton = false,
   maxRangeLength = -1,
   onSelectDateRange,
   openDirection = 'right',
@@ -362,6 +364,11 @@ export const DateRangePicker = ({
     setShouldShowCustomRange(false);
     setCalendarOpenDirection(openDirection);
   }, [openDirection]);
+
+  const handleClear = useCallback((): void => {
+    setSelectedStartDate(undefined);
+    setSelectedEndDate(undefined);
+  }, []);
 
   const handleOpenChange = (isOpen: boolean): void => {
     setIsOpen(isOpen);
@@ -436,7 +443,9 @@ export const DateRangePicker = ({
         <DateRangePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
+          hasClearButton={hasClearButton}
           isActive={isOpen}
+          onClear={handleClear}
           placeholder={placeholder}
           selectedEndDate={selectedEndDate}
           selectedStartDate={selectedStartDate}

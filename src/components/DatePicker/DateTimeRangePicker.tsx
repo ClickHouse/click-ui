@@ -773,6 +773,7 @@ export interface DateTimeRangePickerProps {
   endDate?: Date;
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
+  hasClearButton?: boolean;
   onSelectDateRange: (
     startDate: Date,
     endDate: Date,
@@ -796,6 +797,7 @@ export const DateTimeRangePicker = ({
   endDate,
   futureDatesDisabled = false,
   futureStartDatesDisabled = false,
+  hasClearButton = false,
   maxRangeLength = -1,
   onSelectDateRange,
   openDirection = 'right',
@@ -869,6 +871,11 @@ export const DateTimeRangePicker = ({
     setIsOpen(false);
     setShouldShowCustomRange(false);
     setCalendarOpenDirection('right');
+  }, []);
+
+  const handleClear = useCallback((): void => {
+    setSelectedStartDate(undefined);
+    setSelectedEndDate(undefined);
   }, []);
 
   const handleOpenChange = useCallback((isOpen: boolean): void => {
@@ -972,7 +979,9 @@ export const DateTimeRangePicker = ({
         <DateTimeRangePickerInput
           data-testid="datepicker-input-container"
           disabled={disabled}
+          hasClearButton={hasClearButton}
           isActive={isOpen}
+          onClear={handleClear}
           placeholder={placeholder}
           selectedEndDate={selectedEndDate}
           selectedStartDate={selectedStartDate}
