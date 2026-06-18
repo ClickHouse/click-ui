@@ -31,7 +31,7 @@ const DialogTrigger = ({
       </RadixDialog.Trigger>
     );
   }
-  // Use styled Trigger if not asChild
+  // Default trigger styling when not using asChild
   return (
     <RadixDialog.Trigger
       {...props}
