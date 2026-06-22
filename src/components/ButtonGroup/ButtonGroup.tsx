@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useState } from 'react';
+import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
 import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
 import styles from './ButtonGroup.module.css';
@@ -22,11 +23,27 @@ const buttonVariants = cva(styles.button, {
       default: styles['button_type_default'],
       borderless: styles['button_type_borderless'],
     },
+    iconOnly: {
+      true: '',
+      false: '',
+    },
     fillWidth: {
       true: styles['button_fillwidth'],
     },
   },
-  defaultVariants: { type: 'default' },
+  compoundVariants: [
+    {
+      iconOnly: true,
+      type: 'default',
+      class: styles['button_icon-only_default'],
+    },
+    {
+      iconOnly: true,
+      type: 'borderless',
+      class: styles['button_icon-only_borderless'],
+    },
+  ],
+  defaultVariants: { type: 'default', iconOnly: false },
 });
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {
@@ -52,6 +69,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       fillWidth = false,
       onClick,
       type = 'default',
+      iconOnly = false,
       multiple = false,
       className,
       ...props
@@ -97,19 +115,42 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     );
 
     const buttons = options.map(
-      ({ value, label, className: optionClassName, ...buttonProps }) => {
+      ({
+        value,
+        label,
+        icon,
+        className: optionClassName,
+        'aria-label': ariaLabel,
+        ...buttonProps
+      }) => {
         const isActive = isValueSelected(value, currentSelection);
 
         return (
           <button
             key={value}
-            className={cn(buttonVariants({ type, fillWidth }), optionClassName)}
+            className={cn(buttonVariants({ type, iconOnly, fillWidth }), optionClassName)}
             aria-pressed={isActive}
             onClick={() => onButtonGroupClickCommonHandler(value)}
             role="button"
             {...buttonProps}
+            aria-label={ariaLabel ?? (iconOnly && icon ? icon.toString() : undefined)}
           >
-            {label}
+            {iconOnly && icon ? (
+              <span
+                className={cn(
+                  styles.button__icon,
+                  type === 'borderless' && styles['button__icon_height_line']
+                )}
+              >
+                <Icon
+                  name={icon}
+                  size="sm"
+                  aria-hidden
+                />
+              </span>
+            ) : (
+              label
+            )}
           </button>
         );
       }

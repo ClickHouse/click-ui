@@ -30,6 +30,28 @@ describe('ButtonGroup Visual Regression', () => {
           maxDiffPixels: 100,
         });
       });
+
+      it('iconOnly default matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--icon-only', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        await expect(group).toHaveScreenshot('buttongroup-icon-only-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('iconOnly borderless matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--icon-only-borderless', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        await expect(group).toHaveScreenshot('buttongroup-icon-only-borderless-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
     });
 
     describe('Selection States', () => {
@@ -59,6 +81,38 @@ describe('ButtonGroup Visual Regression', () => {
         await expect(activeButton).toBeVisible();
         await expect(group).toHaveScreenshot(
           'buttongroup-borderless-selected-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
+      });
+
+      it('iconOnly default with selection matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--icon-only-selected', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
+        await expect(group).toHaveScreenshot('buttongroup-icon-only-selected-light.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('iconOnly borderless with selection matches snapshot', async ({ page }) => {
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--icon-only-borderless-selected', 'light'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
+        await expect(group).toHaveScreenshot(
+          'buttongroup-icon-only-borderless-selected-light.png',
           {
             maxDiffPixels: 100,
           }
@@ -194,6 +248,28 @@ describe('ButtonGroup Visual Regression', () => {
           maxDiffPixels: 100,
         });
       });
+
+      it('iconOnly default matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--icon-only', 'dark'), {
+          waitUntil: 'networkidle',
+        });
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        await expect(group).toHaveScreenshot('buttongroup-icon-only-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('iconOnly borderless matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--icon-only-borderless', 'dark'), {
+          waitUntil: 'networkidle',
+        });
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        await expect(group).toHaveScreenshot('buttongroup-icon-only-borderless-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
     });
 
     describe('Selection States', () => {
@@ -221,6 +297,38 @@ describe('ButtonGroup Visual Regression', () => {
         await expect(group).toHaveScreenshot('buttongroup-borderless-selected-dark.png', {
           maxDiffPixels: 100,
         });
+      });
+
+      it('iconOnly default with selection matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-buttongroup--icon-only-selected', 'dark'), {
+          waitUntil: 'networkidle',
+        });
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
+        await expect(group).toHaveScreenshot('buttongroup-icon-only-selected-dark.png', {
+          maxDiffPixels: 100,
+        });
+      });
+
+      it('iconOnly borderless with selection matches snapshot', async ({ page }) => {
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--icon-only-borderless-selected', 'dark'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
+        const group = page.getByRole('group');
+        await expect(group).toBeVisible({ timeout: 10000 });
+        const activeButton = page.getByRole('button', { pressed: true });
+        await expect(activeButton).toBeVisible();
+        await expect(group).toHaveScreenshot(
+          'buttongroup-icon-only-borderless-selected-dark.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
 
