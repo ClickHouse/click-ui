@@ -21,7 +21,7 @@ describe('ButtonGroup', () => {
     });
   });
 
-  it('renders icon-only buttons when type is iconOnly', () => {
+  it('renders icon-only buttons when iconOnly is true', () => {
     const iconOptions = [
       { icon: 'table' as const, value: 'table', 'aria-label': 'Table view' },
       { icon: 'pin' as const, value: 'pin', 'aria-label': 'Pin view' },
@@ -29,7 +29,7 @@ describe('ButtonGroup', () => {
 
     const { getByRole } = renderButtonGroup({
       options: iconOptions,
-      type: 'iconOnly',
+      iconOnly: true,
       'aria-label': 'View options',
     });
 
@@ -40,7 +40,7 @@ describe('ButtonGroup', () => {
   it('falls back to the icon name when iconOnly option has no aria-label', () => {
     const { getByRole } = renderButtonGroup({
       options: [{ icon: 'table', value: 'table' }],
-      type: 'iconOnly',
+      iconOnly: true,
       'aria-label': 'View options',
     });
 

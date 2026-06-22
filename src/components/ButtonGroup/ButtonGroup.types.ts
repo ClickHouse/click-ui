@@ -1,10 +1,10 @@
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 import type { IconName } from '@/components/Icon';
 
-export type ButtonGroupType = 'default' | 'borderless' | 'iconOnly';
+export type ButtonGroupType = 'default' | 'borderless';
 export type SelectionValue = string | Set<string>;
 
-/** Props for each button in the group. For `iconOnly`, set `aria-label` on each option. */
+/** Props for each button in the group. When `iconOnly` is true, set `aria-label` on each option. */
 export interface ButtonGroupElementProps extends Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
   'children'
@@ -14,7 +14,7 @@ export interface ButtonGroupElementProps extends Omit<
   icon?: IconName;
 }
 
-/** For `type="iconOnly"`, provide `aria-label` on the group and each option. */
+/** When `iconOnly` is true, provide `aria-label` on the group and each option. */
 export interface ButtonGroupProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'onClick'
@@ -25,5 +25,6 @@ export interface ButtonGroupProps extends Omit<
   onClick?: (value: string, selected: SelectionValue) => void;
   fillWidth?: boolean;
   type?: ButtonGroupType;
+  iconOnly?: boolean;
   multiple?: boolean;
 }

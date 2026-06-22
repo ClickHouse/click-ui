@@ -24,16 +24,20 @@ const meta: Meta<typeof ButtonGroup> = {
     docs: {
       description: {
         component:
-          'For `type="iconOnly"`, provide an `aria-label` on the group and on each option so icon buttons have meaningful names. Icon names are used as a fallback only.',
+          'When `iconOnly` is true, provide an `aria-label` on the group and on each option so icon buttons have meaningful names. Icon names are used as a fallback only.',
       },
     },
   },
   argTypes: {
     type: {
       control: 'radio',
-      options: ['default', 'borderless', 'iconOnly'],
+      options: ['default', 'borderless'],
+      description: 'Panel styling for the button group.',
+    },
+    iconOnly: {
+      control: 'boolean',
       description:
-        'Use `iconOnly` for icon buttons. Pair with per-option `aria-label` values for accessible names.',
+        'Renders icons instead of labels. Pair with per-option `aria-label` values for accessible names.',
     },
     'aria-label': {
       description: 'Names the button group for assistive technology.',
@@ -48,14 +52,15 @@ export const Playground: StoryObj<typeof ButtonGroup> = {
     options: labelOptions,
     fillWidth: false,
     type: 'default',
+    iconOnly: false,
     defaultSelected: 'option3',
     'aria-label': 'Button group playground',
   },
   render: args => (
     <ButtonGroup
       {...args}
-      options={args.type === 'iconOnly' ? iconOptions : labelOptions}
-      defaultSelected={args.type === 'iconOnly' ? 'pin' : args.defaultSelected}
+      options={args.iconOnly ? iconOptions : labelOptions}
+      defaultSelected={args.iconOnly ? 'pin' : args.defaultSelected}
     />
   ),
 };
@@ -109,7 +114,8 @@ export const BorderlessSelected: StoryObj<typeof ButtonGroup> = {
 export const IconOnly: StoryObj<typeof ButtonGroup> = {
   args: {
     options: iconOptions,
-    type: 'iconOnly',
+    type: 'default',
+    iconOnly: true,
     'aria-label': 'View options',
   },
   parameters: {
@@ -125,7 +131,27 @@ export const IconOnly: StoryObj<typeof ButtonGroup> = {
 export const IconOnlySelected: StoryObj<typeof ButtonGroup> = {
   args: {
     options: iconOptions,
-    type: 'iconOnly',
+    type: 'default',
+    iconOnly: true,
+    selected: 'pin',
+    'aria-label': 'View options',
+  },
+};
+
+export const IconOnlyBorderless: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: iconOptions,
+    type: 'borderless',
+    iconOnly: true,
+    'aria-label': 'View options',
+  },
+};
+
+export const IconOnlyBorderlessSelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: iconOptions,
+    type: 'borderless',
+    iconOnly: true,
     selected: 'pin',
     'aria-label': 'View options',
   },

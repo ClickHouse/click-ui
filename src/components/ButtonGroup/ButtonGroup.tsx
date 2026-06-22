@@ -9,7 +9,6 @@ const wrapperVariants = cva(styles.buttongroup, {
     type: {
       default: styles['buttongroup_type_default'],
       borderless: styles['buttongroup_type_borderless'],
-      iconOnly: styles['buttongroup_type_iconOnly'],
     },
     fillWidth: {
       true: styles['buttongroup_fillwidth'],
@@ -23,7 +22,9 @@ const buttonVariants = cva(styles.button, {
     type: {
       default: styles['button_type_default'],
       borderless: styles['button_type_borderless'],
-      iconOnly: styles['button_type_iconOnly'],
+    },
+    iconOnly: {
+      true: styles['button_iconOnly'],
     },
     fillWidth: {
       true: styles['button_fillwidth'],
@@ -55,6 +56,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       fillWidth = false,
       onClick,
       type = 'default',
+      iconOnly = false,
       multiple = false,
       className,
       ...props
@@ -109,19 +111,21 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         ...buttonProps
       }) => {
         const isActive = isValueSelected(value, currentSelection);
-        const isIconOnly = type === 'iconOnly';
 
         return (
           <button
             key={value}
-            className={cn(buttonVariants({ type, fillWidth }), optionClassName)}
+            className={cn(
+              buttonVariants({ type, iconOnly, fillWidth }),
+              optionClassName
+            )}
             aria-pressed={isActive}
             onClick={() => onButtonGroupClickCommonHandler(value)}
             role="button"
             {...buttonProps}
-            aria-label={ariaLabel ?? (isIconOnly && icon ? icon.toString() : undefined)}
+            aria-label={ariaLabel ?? (iconOnly && icon ? icon.toString() : undefined)}
           >
-            {isIconOnly && icon ? (
+            {iconOnly && icon ? (
               <span className={styles.button__icon}>
                 <Icon
                   name={icon}
