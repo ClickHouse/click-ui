@@ -826,7 +826,7 @@ const theme = {
         },
         icon: {
           space: {
-            y: '4.5px',
+            y: '0.25rem',
             x: '1rem',
           },
           size: {

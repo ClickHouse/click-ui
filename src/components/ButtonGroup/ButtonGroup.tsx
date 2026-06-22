@@ -24,13 +24,26 @@ const buttonVariants = cva(styles.button, {
       borderless: styles['button_type_borderless'],
     },
     iconOnly: {
-      true: styles['button_iconOnly'],
+      true: '',
+      false: '',
     },
     fillWidth: {
       true: styles['button_fillwidth'],
     },
   },
-  defaultVariants: { type: 'default' },
+  compoundVariants: [
+    {
+      iconOnly: true,
+      type: 'default',
+      class: styles['button_iconOnly_type_default'],
+    },
+    {
+      iconOnly: true,
+      type: 'borderless',
+      class: styles['button_iconOnly_type_borderless'],
+    },
+  ],
+  defaultVariants: { type: 'default', iconOnly: false },
 });
 
 const normalizeToSet = (value: SelectionValue | undefined): Set<string> => {

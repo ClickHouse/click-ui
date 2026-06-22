@@ -51,9 +51,18 @@
   border-radius: var(--click-button-group-radii-button-borderless-all);
 }
 
-.button_iconOnly {
+.button_iconOnly_type_default {
   padding: var(--click-button-group-icon-space-y)
     var(--click-button-group-icon-space-x);
+}
+
+.button_iconOnly_type_borderless {
+  padding: var(--click-button-group-space-button-borderless-y)
+    var(--click-button-group-icon-space-x);
+}
+
+.button_iconOnly_type_borderless .button__icon {
+  height: 1lh;
 }
 
 .button__icon {
