@@ -826,8 +826,14 @@ const theme = {
         },
         icon: {
           space: {
-            y: '0.25rem',
-            x: '1rem',
+            default: {
+              y: '3px',
+              x: '1rem',
+            },
+            borderless: {
+              y: '4.5px',
+              x: '1rem',
+            },
           },
           size: {
             all: '1rem',

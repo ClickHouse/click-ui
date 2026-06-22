@@ -52,13 +52,34 @@
 }
 
 .button_icon-only_default {
-  padding: var(--click-button-group-icon-space-y)
-    var(--click-button-group-icon-space-x);
+  padding: var(--click-button-group-icon-space-default-y)
+    var(--click-button-group-icon-space-default-x);
 }
 
 .button_icon-only_borderless {
-  padding: var(--click-button-group-space-button-borderless-y)
-    var(--click-button-group-icon-space-x);
+  padding: var(--click-button-group-icon-space-borderless-y)
+    var(--click-button-group-icon-space-borderless-x);
+    border: none;
+}
+
+.button_icon-only {
+  border: 1px solid var(--click-button-group-color-stroke-default);
+}
+
+.button_icon-only:hover {
+  border-color: var(--click-button-group-color-stroke-hover);
+}
+
+.button_icon-only[aria-pressed='true'] {
+  border-color: var(--click-button-group-color-stroke-active);
+}
+
+.button_icon-only:disabled {
+  border-color: var(--click-button-group-color-stroke-disabled);
+}
+
+.button_icon-only[aria-pressed='true']:disabled {
+  border-color: var(--click-button-group-color-stroke-disabled-active);
 }
 
 .button__icon {

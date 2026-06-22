@@ -24,7 +24,7 @@ const buttonVariants = cva(styles.button, {
       borderless: styles['button_type_borderless'],
     },
     iconOnly: {
-      true: '',
+      true: styles['button_icon-only'],
       false: '',
     },
     fillWidth: {
