@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useRef, useState } from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
@@ -6,6 +6,10 @@ import { Icon, type IconName, type IconProps } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { Button } from '@/components/Button';
 import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
+
+// Radix's default auto-close duration, mirrored here so our internally managed
+// timer matches Radix's behaviour when no `duration` is provided.
+const DEFAULT_TOAST_DURATION = 5000;
 
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
@@ -124,7 +128,7 @@ export const Toast = ({
   title,
   description,
   actions = [],
-  duration,
+  duration = DEFAULT_TOAST_DURATION,
   onClose,
 
   ...props
@@ -137,10 +141,68 @@ export const Toast = ({
   } else if (type && ['danger', 'warning'].includes(type)) {
     iconName = 'warning';
   }
+
+  // We manage the auto-close timer ourselves (and pass `duration={Infinity}` to
+  // Radix below) so that the timer is always cleared on unmount. The Radix
+  // implementation (v1.2.2) never clears its internal `closeTimerRef`, which
+  // causes the timer to fire after the host (e.g. jsdom in tests) has been
+  // torn down, surfacing as `ReferenceError: document is not defined`. See
+  // https://github.com/radix-ui/primitives/pull/3794. Once that upstream fix
+  // ships and we adopt it we can revert this in favour of Radix's own timer.
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const closeTimerStartTimeRef = useRef<number>(0);
+  const closeTimerRemainingTimeRef = useRef<number>(duration);
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current !== undefined) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = undefined;
+    }
+  }, []);
+
+  const startCloseTimer = useCallback(
+    (remaining: number) => {
+      clearCloseTimer();
+      if (!remaining || remaining === Infinity) {
+        return;
+      }
+      closeTimerStartTimeRef.current = Date.now();
+      closeTimerRef.current = setTimeout(() => {
+        closeTimerRef.current = undefined;
+        onClose(false);
+      }, remaining);
+    },
+    [clearCloseTimer, onClose]
+  );
+
+  useEffect(() => {
+    closeTimerRemainingTimeRef.current = duration;
+    startCloseTimer(duration);
+    return clearCloseTimer;
+  }, [duration, startCloseTimer, clearCloseTimer]);
+
+  const handlePause = useCallback(() => {
+    if (closeTimerRef.current === undefined) {
+      return;
+    }
+    const elapsed = Date.now() - closeTimerStartTimeRef.current;
+    closeTimerRemainingTimeRef.current = Math.max(
+      0,
+      closeTimerRemainingTimeRef.current - elapsed
+    );
+    clearCloseTimer();
+  }, [clearCloseTimer]);
+
+  const handleResume = useCallback(() => {
+    startCloseTimer(closeTimerRemainingTimeRef.current);
+  }, [startCloseTimer]);
+
   return (
     <ToastRoot
       onOpenChange={onClose}
-      duration={duration}
+      duration={Infinity}
+      onPause={handlePause}
+      onResume={handleResume}
       type={toastType}
       {...props}
     >
