@@ -128,10 +128,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         return (
           <button
             key={value}
-            className={cn(
-              buttonVariants({ type, iconOnly, fillWidth }),
-              optionClassName
-            )}
+            className={cn(buttonVariants({ type, iconOnly, fillWidth }), optionClassName)}
             aria-pressed={isActive}
             onClick={() => onButtonGroupClickCommonHandler(value)}
             role="button"
