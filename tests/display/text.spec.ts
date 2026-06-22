@@ -26,6 +26,7 @@ const variants = [
   { story: 'align-center', name: 'align-center' },
   { story: 'align-right', name: 'align-right' },
   { story: 'fill-width', name: 'fill-width' },
+  { story: 'no-wrap', name: 'no-wrap' },
 ] as const;
 
 describe('Text Visual Regression', () => {
