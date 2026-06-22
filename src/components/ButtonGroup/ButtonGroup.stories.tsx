@@ -71,6 +71,31 @@ export const BorderlessSelected: StoryObj<typeof ButtonGroup> = {
   },
 };
 
+export const IconOnly: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { icon: 'table', value: 'table' },
+      { icon: 'pin', value: 'pin' },
+      { icon: 'settings', value: 'settings' },
+    ],
+    type: 'iconOnly',
+    'aria-label': 'View options',
+  },
+};
+
+export const IconOnlySelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: [
+      { icon: 'table', value: 'table' },
+      { icon: 'pin', value: 'pin' },
+      { icon: 'settings', value: 'settings' },
+    ],
+    type: 'iconOnly',
+    selected: 'pin',
+    'aria-label': 'View options',
+  },
+};
+
 export const WithDisabledButton: StoryObj<typeof ButtonGroup> = {
   args: {
     options: [

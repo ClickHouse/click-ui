@@ -21,6 +21,22 @@ describe('ButtonGroup', () => {
     });
   });
 
+  it('renders icon-only buttons when type is iconOnly', () => {
+    const iconOptions = [
+      { icon: 'table' as const, value: 'table' },
+      { icon: 'pin' as const, value: 'pin' },
+    ];
+
+    const { getByRole } = renderButtonGroup({
+      options: iconOptions,
+      type: 'iconOnly',
+      'aria-label': 'View options',
+    });
+
+    expect(getByRole('button', { name: 'table' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'pin' })).toBeInTheDocument();
+  });
+
   it('forwards ref to the wrapper div', () => {
     const ref = createRef<HTMLDivElement>();
     renderCUI(

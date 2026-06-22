@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useState } from 'react';
+import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
 import { ButtonGroupProps, SelectionValue } from './ButtonGroup.types';
 import styles from './ButtonGroup.module.css';
@@ -8,6 +9,7 @@ const wrapperVariants = cva(styles.buttongroup, {
     type: {
       default: styles['buttongroup_type_default'],
       borderless: styles['buttongroup_type_borderless'],
+      iconOnly: styles['buttongroup_type_iconOnly'],
     },
     fillWidth: {
       true: styles['buttongroup_fillwidth'],
@@ -21,6 +23,7 @@ const buttonVariants = cva(styles.button, {
     type: {
       default: styles['button_type_default'],
       borderless: styles['button_type_borderless'],
+      iconOnly: styles['button_type_iconOnly'],
     },
     fillWidth: {
       true: styles['button_fillwidth'],
@@ -97,8 +100,16 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     );
 
     const buttons = options.map(
-      ({ value, label, className: optionClassName, ...buttonProps }) => {
+      ({
+        value,
+        label,
+        icon,
+        className: optionClassName,
+        'aria-label': ariaLabel,
+        ...buttonProps
+      }) => {
         const isActive = isValueSelected(value, currentSelection);
+        const isIconOnly = type === 'iconOnly';
 
         return (
           <button
@@ -108,8 +119,18 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
             onClick={() => onButtonGroupClickCommonHandler(value)}
             role="button"
             {...buttonProps}
+            aria-label={ariaLabel ?? (isIconOnly && icon ? icon.toString() : undefined)}
           >
-            {label}
+            {isIconOnly && icon ? (
+              <span className={styles.button__icon}>
+                <Icon
+                  name={icon}
+                  aria-hidden
+                />
+              </span>
+            ) : (
+              label
+            )}
           </button>
         );
       }

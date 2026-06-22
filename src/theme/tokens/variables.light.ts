@@ -824,6 +824,15 @@ const theme = {
             },
           },
         },
+        icon: {
+          space: {
+            y: '4.5px',
+            x: '1rem',
+          },
+          size: {
+            all: '1rem',
+          },
+        },
         color: {
           background: {
             default: 'rgba(0, 0, 0, 0)',

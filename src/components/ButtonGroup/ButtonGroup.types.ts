@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
+import type { IconName } from '@/components/Icon';
 
-export type ButtonGroupType = 'default' | 'borderless';
+export type ButtonGroupType = 'default' | 'borderless' | 'iconOnly';
 export type SelectionValue = string | Set<string>;
 
 export interface ButtonGroupElementProps extends Omit<
@@ -9,6 +10,7 @@ export interface ButtonGroupElementProps extends Omit<
 > {
   value: string;
   label?: ReactNode;
+  icon?: IconName;
 }
 
 export interface ButtonGroupProps extends Omit<

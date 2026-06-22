@@ -368,6 +368,9 @@
   --click-button-group-space-button-default-x: 0.75rem;
   --click-button-group-space-button-borderless-y: 5.5px;
   --click-button-group-space-button-borderless-x: 1rem;
+  --click-button-group-icon-space-y: 4.5px;
+  --click-button-group-icon-space-x: 1rem;
+  --click-button-group-icon-size-all: 1rem;
   --click-button-group-color-background-default: rgba(0, 0, 0, 0);
   --click-button-group-color-background-hover: #f6f7fa;
   --click-button-group-color-background-active: lch(95.274 1.5364 271.98);
