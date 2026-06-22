@@ -811,7 +811,7 @@
             },
             "borderless": {
               "y": {
-                "value": "4.5px",
+                "value": "5.5px",
                 "type": "spacing"
               },
               "x": {
