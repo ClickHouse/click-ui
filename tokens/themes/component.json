@@ -797,10 +797,8 @@
                 "type": "spacing"
               }
             }
-          }
-        },
-        "icon": {
-          "space": {
+          },
+          "icon": {
             "default": {
               "y": {
                 "value": "3px",
@@ -821,7 +819,9 @@
                 "type": "spacing"
               }
             }
-          },
+          }
+        },
+        "icon": {
           "size": {
             "all": {
               "value": "{click.button.iconButton.size.medium}",
