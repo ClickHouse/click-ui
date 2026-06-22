@@ -144,6 +144,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
               >
                 <Icon
                   name={icon}
+                  size="sm"
                   aria-hidden
                 />
               </span>

@@ -63,19 +63,12 @@
 
 .button__icon {
   display: flex;
-  width: var(--click-button-group-icon-size-all);
-  height: var(--click-button-group-icon-size-all);
   justify-content: center;
   align-items: center;
 }
 
 .button__icon_height_line {
   height: 1lh;
-}
-
-.button__icon svg {
-  width: var(--click-button-group-icon-size-all);
-  height: var(--click-button-group-icon-size-all);
 }
 
 .button_fillwidth {
