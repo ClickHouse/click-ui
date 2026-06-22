@@ -802,7 +802,7 @@
         "icon": {
           "space": {
             "y": {
-              "value": "4.5px",
+              "value": "{spaces.1}",
               "type": "spacing"
             },
             "x": {
