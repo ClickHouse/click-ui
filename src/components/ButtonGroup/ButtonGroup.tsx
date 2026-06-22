@@ -35,12 +35,12 @@ const buttonVariants = cva(styles.button, {
     {
       iconOnly: true,
       type: 'default',
-      class: styles['button_iconOnly_type_default'],
+      class: styles['button_icon-only_default'],
     },
     {
       iconOnly: true,
       type: 'borderless',
-      class: styles['button_iconOnly_type_borderless'],
+      class: styles['button_icon-only_borderless'],
     },
   ],
   defaultVariants: { type: 'default', iconOnly: false },
@@ -139,7 +139,12 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
             aria-label={ariaLabel ?? (iconOnly && icon ? icon.toString() : undefined)}
           >
             {iconOnly && icon ? (
-              <span className={styles.button__icon}>
+              <span
+                className={cn(
+                  styles.button__icon,
+                  type === 'borderless' && styles['button__icon_height_line']
+                )}
+              >
                 <Icon
                   name={icon}
                   aria-hidden
