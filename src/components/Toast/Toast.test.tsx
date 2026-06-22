@@ -66,6 +66,49 @@ describe('Toast', () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 
+  it('does not reset the auto-close timer when the parent re-renders with a new onClose identity', () => {
+    // Regression for: in ToastProvider, `onClose={onClose(id)}` produces a
+    // fresh function on every provider render. Without a stable callback ref
+    // inside Toast, every provider update (e.g. another toast appearing)
+    // would restart the countdown from the full duration, so a toast could
+    // be kept alive indefinitely by a frequently-rerendering parent.
+    const onClose1 = vi.fn();
+    const onClose2 = vi.fn();
+    const { rerender } = renderCUI(
+      <Toast
+        title="hello"
+        duration={1000}
+        onClose={onClose1}
+      />
+    );
+
+    act(() => {
+      vi.advanceTimersByTime(600);
+    });
+    expect(onClose1).not.toHaveBeenCalled();
+
+    rerender(
+      <Toast
+        title="hello"
+        duration={1000}
+        onClose={onClose2}
+      />
+    );
+
+    // Total elapsed since mount = 1100ms > original duration of 1000ms.
+    // If the timer was reset on re-render, no onClose would have fired yet
+    // (only 500ms of a fresh 1000ms countdown would have elapsed).
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
+    // The latest onClose must have been invoked exactly once.
+    expect(onClose2).toHaveBeenCalledTimes(1);
+    expect(onClose2).toHaveBeenCalledWith(false);
+    // And the original onClose -- which is no longer the prop -- must not
+    // have been invoked.
+    expect(onClose1).not.toHaveBeenCalled();
+  });
+
   it('does not auto-close when duration is Infinity', () => {
     const onClose = vi.fn();
     renderCUI(

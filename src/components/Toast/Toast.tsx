@@ -144,14 +144,27 @@ export const Toast = ({
 
   // We manage the auto-close timer ourselves (and pass `duration={Infinity}` to
   // Radix below) so that the timer is always cleared on unmount. The Radix
-  // implementation (v1.2.2) never clears its internal `closeTimerRef`, which
-  // causes the timer to fire after the host (e.g. jsdom in tests) has been
-  // torn down, surfacing as `ReferenceError: document is not defined`. See
+  // implementation (v1.2.2, still the case on 1.2.17) never clears its
+  // internal `closeTimerRef`, which causes the timer to fire after the host
+  // (e.g. jsdom in tests) has been torn down, surfacing as
+  // `ReferenceError: document is not defined`. See
   // https://github.com/radix-ui/primitives/pull/3794. Once that upstream fix
   // ships and we adopt it we can revert this in favour of Radix's own timer.
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const closeTimerStartTimeRef = useRef<number>(0);
   const closeTimerRemainingTimeRef = useRef<number>(duration);
+
+  // Stable ref to the latest `onClose` so that `startCloseTimer` does not
+  // depend on `onClose`'s identity. Without this, the auto-close `useEffect`
+  // below would re-run (and the countdown would restart from the full
+  // duration) every time the parent passes a fresh function -- which
+  // `ToastProvider` does on every render because it uses `onClose={onClose(id)}`
+  // (a new closure per render). That would let a frequently-rerendering parent
+  // keep a toast alive indefinitely and would also discard pause progress.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
 
   const clearCloseTimer = useCallback(() => {
     if (closeTimerRef.current !== undefined) {
@@ -169,10 +182,10 @@ export const Toast = ({
       closeTimerStartTimeRef.current = Date.now();
       closeTimerRef.current = setTimeout(() => {
         closeTimerRef.current = undefined;
-        onClose(false);
+        onCloseRef.current(false);
       }, remaining);
     },
-    [clearCloseTimer, onClose]
+    [clearCloseTimer]
   );
 
   useEffect(() => {
