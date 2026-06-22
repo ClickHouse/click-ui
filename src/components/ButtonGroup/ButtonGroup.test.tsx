@@ -23,8 +23,8 @@ describe('ButtonGroup', () => {
 
   it('renders icon-only buttons when type is iconOnly', () => {
     const iconOptions = [
-      { icon: 'table' as const, value: 'table' },
-      { icon: 'pin' as const, value: 'pin' },
+      { icon: 'table' as const, value: 'table', 'aria-label': 'Table view' },
+      { icon: 'pin' as const, value: 'pin', 'aria-label': 'Pin view' },
     ];
 
     const { getByRole } = renderButtonGroup({
@@ -33,8 +33,18 @@ describe('ButtonGroup', () => {
       'aria-label': 'View options',
     });
 
+    expect(getByRole('button', { name: 'Table view' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Pin view' })).toBeInTheDocument();
+  });
+
+  it('falls back to the icon name when iconOnly option has no aria-label', () => {
+    const { getByRole } = renderButtonGroup({
+      options: [{ icon: 'table', value: 'table' }],
+      type: 'iconOnly',
+      'aria-label': 'View options',
+    });
+
     expect(getByRole('button', { name: 'table' })).toBeInTheDocument();
-    expect(getByRole('button', { name: 'pin' })).toBeInTheDocument();
   });
 
   it('forwards ref to the wrapper div', () => {
