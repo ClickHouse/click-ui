@@ -829,7 +829,7 @@ const theme = {
               x: '1rem',
             },
             borderless: {
-              y: '4.5px',
+              y: '5.5px',
               x: '1rem',
             },
           },
