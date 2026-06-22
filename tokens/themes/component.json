@@ -809,6 +809,12 @@
               "value": "{spaces.4}",
               "type": "spacing"
             }
+          },
+          "size": {
+            "all": {
+              "value": "{click.button.iconButton.size.medium}",
+              "type": "sizing"
+            }
           }
         }
       },
@@ -869,14 +875,6 @@
                 "type": "typography"
               }
             }
-          }
-        }
-      },
-      "icon": {
-        "size": {
-          "all": {
-            "value": "{click.button.iconButton.size.medium}",
-            "type": "sizing"
           }
         }
       }
