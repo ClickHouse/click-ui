@@ -116,3 +116,7 @@ export const FillWidth: Story = {
     </TextHarness>
   ),
 };
+
+export const NoWrap: Story = {
+  render: () => <TextHarness noWrap>{sample}</TextHarness>,
+};
