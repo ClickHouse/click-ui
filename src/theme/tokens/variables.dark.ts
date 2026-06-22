@@ -823,9 +823,7 @@ const theme = {
               x: '1rem',
             },
           },
-        },
-        icon: {
-          space: {
+          icon: {
             default: {
               y: '3px',
               x: '1rem',
@@ -835,6 +833,8 @@ const theme = {
               x: '1rem',
             },
           },
+        },
+        icon: {
           size: {
             all: '1rem',
           },

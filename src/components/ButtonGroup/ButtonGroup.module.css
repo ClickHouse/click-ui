@@ -52,13 +52,13 @@
 }
 
 .button_icon-only_default {
-  padding: var(--click-button-group-icon-space-default-y)
-    var(--click-button-group-icon-space-default-x);
+  padding: var(--click-button-group-space-icon-default-y)
+    var(--click-button-group-space-icon-default-x);
 }
 
 .button_icon-only_borderless {
-  padding: var(--click-button-group-icon-space-borderless-y)
-    var(--click-button-group-icon-space-borderless-x);
+  padding: var(--click-button-group-space-icon-borderless-y)
+    var(--click-button-group-space-icon-borderless-x);
     border: none;
 }
 

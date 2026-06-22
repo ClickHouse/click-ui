@@ -368,10 +368,10 @@
   --click-button-group-space-button-default-x: 0.75rem;
   --click-button-group-space-button-borderless-y: 5.5px;
   --click-button-group-space-button-borderless-x: 1rem;
-  --click-button-group-icon-space-default-y: 3px;
-  --click-button-group-icon-space-default-x: 1rem;
-  --click-button-group-icon-space-borderless-y: 4.5px;
-  --click-button-group-icon-space-borderless-x: 1rem;
+  --click-button-group-space-icon-default-y: 3px;
+  --click-button-group-space-icon-default-x: 1rem;
+  --click-button-group-space-icon-borderless-y: 4.5px;
+  --click-button-group-space-icon-borderless-x: 1rem;
   --click-button-group-icon-size-all: 1rem;
   --click-button-group-color-background-default: rgba(0, 0, 0, 0);
   --click-button-group-color-background-hover: #f6f7fa;
