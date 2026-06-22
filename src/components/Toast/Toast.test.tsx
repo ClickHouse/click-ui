@@ -1,6 +1,28 @@
-import { act } from '@testing-library/react';
+import { useEffect } from 'react';
+import { act, render } from '@testing-library/react';
+import { useToast } from '@/hooks/useToast';
+import { ClickUIProvider } from '@/providers';
 import { renderCUI } from '@/utils/test-utils';
 import { Toast } from '@/components/Toast';
+import type { ToastProviderProps } from '@/components/Toast';
+
+// `ClickUIProvider` already nests `ToastProvider` and forwards `config.toast`,
+// so we render directly into that to exercise the full
+// `ToastProvider` -> `Toast` integration path (including provider-level
+// defaults like `duration`).
+const renderInToastProvider = (
+  ui: React.ReactNode,
+  providerProps: Omit<ToastProviderProps, 'children'> = {}
+) =>
+  render(
+    <ClickUIProvider
+      theme="dark"
+      config={{ toast: providerProps, tooltip: { delayDuration: 0 } }}
+      persistTheme={false}
+    >
+      {ui}
+    </ClickUIProvider>
+  );
 
 describe('Toast', () => {
   beforeEach(() => {
@@ -32,7 +54,7 @@ describe('Toast', () => {
     expect(onClose).toHaveBeenCalledWith(false);
   });
 
-  it('clears the auto-close timer when the toast unmounts (regression for radix-ui/primitives#3703)', () => {
+  it('does not leak the auto-close timer past unmount (regression for radix-ui/primitives#3703)', () => {
     const onClose = vi.fn();
     const { unmount } = renderCUI(
       <Toast
@@ -49,20 +71,38 @@ describe('Toast', () => {
 
     unmount();
 
-    // No pending timers must remain after unmount. Radix v1.2.2 leaks its
-    // internal `closeTimerRef` (the auto-close `setTimeout`) here because it
-    // never `clearTimeout`s it on unmount. The leftover timer later fires
-    // after vitest tears down jsdom and calls `handleClose`, which accesses
-    // `document.activeElement` -- producing
-    // `ReferenceError: document is not defined` and aborting the whole test
-    // file. We side-step this by passing `duration={Infinity}` to Radix and
-    // owning the timer in click-ui itself with a cleanup effect.
-    expect(vi.getTimerCount()).toBe(0);
-
-    // And nothing left behind should be able to invoke our `onClose` later.
-    act(() => {
-      vi.advanceTimersByTime(60_000);
+    // Simulate the post-unmount + post-jsdom-teardown environment: any
+    // subsequent access to `document.activeElement` would normally throw
+    // `ReferenceError: document is not defined`. Here we stub the getter so
+    // that an access flips a boolean we can assert against. If Radix's
+    // internal close timer leaks past unmount (radix-ui/primitives#3703,
+    // still present in 1.2.17), `handleClose` will fire after unmount and
+    // dereference `document.activeElement`, tripping the stub. With this
+    // PR's fix, we own the timer ourselves and clear it from the unmount
+    // cleanup, so no Radix `handleClose` ever runs post-unmount.
+    const originalDescriptor = Object.getOwnPropertyDescriptor(
+      Document.prototype,
+      'activeElement'
+    );
+    if (!originalDescriptor) {
+      throw new Error('Expected Document.prototype.activeElement descriptor');
+    }
+    let leakedDocumentAccess = false;
+    Object.defineProperty(Document.prototype, 'activeElement', {
+      configurable: true,
+      get: () => {
+        leakedDocumentAccess = true;
+        return null;
+      },
     });
+    try {
+      act(() => {
+        vi.advanceTimersByTime(60_000);
+      });
+    } finally {
+      Object.defineProperty(Document.prototype, 'activeElement', originalDescriptor);
+    }
+    expect(leakedDocumentAccess).toBe(false);
     expect(onClose).not.toHaveBeenCalled();
   });
 
@@ -123,5 +163,88 @@ describe('Toast', () => {
       vi.advanceTimersByTime(60_000);
     });
     expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('falls back to the provider-level duration when a toast does not set its own', () => {
+    // Regression: before this PR, an unset `ToastProps.duration` let Radix's
+    // `ToastProvider duration` (the default for every toast) take effect.
+    // After moving the timer into click-ui's wrapper, we must keep the same
+    // resolution order: prop > provider > built-in default.
+    const onCreated = vi.fn();
+    const TriggerWithSpy = () => {
+      const { createToast } = useToast();
+      useEffect(() => {
+        createToast({ title: 'hello' });
+        onCreated();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+      return null;
+    };
+
+    renderInToastProvider(<TriggerWithSpy />, { duration: 2000 });
+    expect(onCreated).toHaveBeenCalledTimes(1);
+
+    // The toast was created with no explicit `duration`, so it should pick
+    // up the provider's 2000 ms and not the built-in 5000 ms default.
+    act(() => {
+      vi.advanceTimersByTime(1999);
+    });
+    // The DOM should still have the toast.
+    expect(document.querySelector('[role="status"]')).not.toBeNull();
+
+    act(() => {
+      vi.advanceTimersByTime(2);
+    });
+    // After 2001 ms total the provider-level deadline has elapsed and the
+    // toast should have been removed from the provider's state, which
+    // unmounts it from the DOM.
+    expect(document.querySelector('[role="status"]')).toBeNull();
+  });
+
+  it('closes immediately on resume when the auto-close deadline elapsed during a pause', () => {
+    // Regression for: if `handlePause` runs after the auto-close deadline
+    // has already passed (event-loop delay / throttling beat Radix's
+    // close-timer to the punch), remaining time clamps to 0 and a naive
+    // `handleResume` -> `startCloseTimer(0)` would short-circuit, leaving
+    // the toast open forever.
+    const onClose = vi.fn();
+    // Use renderCUI so we get a real `Viewport` (which is what Radix's
+    // window-blur listener dispatches `toast.viewportPause` against).
+    renderCUI(
+      <Toast
+        title="hello"
+        duration={100}
+        onClose={onClose}
+      />
+    );
+
+    // Advance the wall clock past the deadline WITHOUT draining the fake
+    // timer queue, so the close-timer hasn't run yet but `Date.now()`
+    // reports an elapsed time greater than `duration`.
+    act(() => {
+      vi.setSystemTime(Date.now() + 500);
+    });
+    expect(onClose).not.toHaveBeenCalled();
+
+    // Simulate Radix's viewport-level pause/resume. Radix's outer
+    // `<div role="region">` wraps the actual viewport `<ol>`; the
+    // `VIEWPORT_PAUSE`/`VIEWPORT_RESUME` custom events are dispatched on the
+    // inner `<ol>` (that's what `ToastImpl` listens on), not the wrapper.
+    const viewport = document.querySelector('[role="region"] > ol');
+    if (!viewport) {
+      throw new Error('Expected Radix Toast viewport <ol> to be in the DOM');
+    }
+    act(() => {
+      viewport.dispatchEvent(new CustomEvent('toast.viewportPause'));
+    });
+    // Pause cleared the timer, but the deadline already elapsed -> remaining = 0.
+    act(() => {
+      viewport.dispatchEvent(new CustomEvent('toast.viewportResume'));
+    });
+
+    // Without the fix, onClose would never be invoked. With the fix, resume
+    // detects `remaining <= 0` after a real pause and closes immediately.
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledWith(false);
   });
 });
