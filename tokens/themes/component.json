@@ -798,6 +798,18 @@
               }
             }
           }
+        },
+        "icon": {
+          "space": {
+            "y": {
+              "value": "4.5px",
+              "type": "spacing"
+            },
+            "x": {
+              "value": "{spaces.4}",
+              "type": "spacing"
+            }
+          }
         }
       },
       "alignLeft": {
@@ -857,6 +869,14 @@
                 "type": "typography"
               }
             }
+          }
+        }
+      },
+      "icon": {
+        "size": {
+          "all": {
+            "value": "{click.button.iconButton.size.medium}",
+            "type": "sizing"
           }
         }
       }
