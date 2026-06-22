@@ -58,6 +58,7 @@ export const Playground: StoryObj<typeof ButtonGroup> = {
   },
   render: args => (
     <ButtonGroup
+      key={args.iconOnly ? 'icon-only' : 'label'}
       {...args}
       options={args.iconOnly ? iconOptions : labelOptions}
       defaultSelected={args.iconOnly ? 'pin' : args.defaultSelected}
