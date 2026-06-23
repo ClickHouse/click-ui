@@ -17,9 +17,8 @@ import type { ContainerProps } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
-import { styled } from 'styled-components';
+import { styled, keyframes } from 'styled-components';
 import { CrossButton } from '@/components/CrossButton';
-import { keyframes } from 'styled-components';
 import type {
   FlyoutProps,
   FlyoutTriggerProps,
@@ -82,13 +81,9 @@ const FlyoutContent = styled(DialogContent)<{
     height: ${$strategy === 'relative' ? '100%' : 'auto'};
     padding: 0 ${theme.click.flyout.space[$type].x};
     gap: ${theme.click.flyout.space[$type].gap};
-    box-shadow: ${
-      $hasShadow === false
-        ? 'none'
-        : $align === 'start'
-          ? theme.click.flyout.shadow.reverse
-          : theme.click.flyout.shadow.default
-    };
+    box-shadow: ${$hasShadow === false
+      ? 'none'
+      : theme.click.flyout.shadow[$align === 'start' ? 'reverse' : 'default']};
     border-${$align === 'start' ? 'right' : 'left'}: 1px solid ${
       theme.click.flyout.color.stroke.default
     };
