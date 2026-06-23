@@ -63,6 +63,7 @@ const FlyoutContent = styled(DialogContent)<{
   $strategy: FlyoutStrategy;
   $width?: string;
   $align: FlyoutAlignmentType;
+  $hasShadow?: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -74,7 +75,7 @@ const FlyoutContent = styled(DialogContent)<{
   --flyout-width: ${({ theme, $size = 'default', $width }) =>
     $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  ${({ theme, $strategy, $type = 'default', $align }) => `
+  ${({ theme, $strategy, $type = 'default', $align, $hasShadow = true }) => `
     ${$align === 'start' ? 'left' : 'right'}: 0;
     max-width: 100%;
     position: ${$strategy};
@@ -82,9 +83,11 @@ const FlyoutContent = styled(DialogContent)<{
     padding: 0 ${theme.click.flyout.space[$type].x}
     gap: ${theme.click.flyout.space[$type].gap};
     box-shadow: ${
-      $align === 'start'
-        ? theme.click.flyout.shadow.reverse
-        : theme.click.flyout.shadow.default
+      $hasShadow === false
+        ? 'none'
+        : $align === 'start'
+          ? theme.click.flyout.shadow.reverse
+          : theme.click.flyout.shadow.default
     };
     border-${$align === 'start' ? 'right' : 'left'}: 1px solid ${
       theme.click.flyout.color.stroke.default
@@ -133,6 +136,7 @@ const Content = ({
   closeOnInteractOutside = false,
   width,
   align = 'end',
+  hasShadow = true,
   onInteractOutside,
   ...props
 }: FlyoutContentProps) => {
@@ -153,6 +157,7 @@ const Content = ({
         }}
         $width={width}
         $align={align}
+        $hasShadow={hasShadow}
         {...props}
       >
         {children}
