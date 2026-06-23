@@ -123,7 +123,10 @@ const _Text = <T extends ElementType = 'p'>(
     <Component
       ref={ref}
       {...props}
-      className={cn(textVariants({ color, align, size, weight, fillWidth, noWrap }), className)}
+      className={cn(
+        textVariants({ color, align, size, weight, fillWidth, noWrap }),
+        className
+      )}
     >
       {children}
     </Component>
