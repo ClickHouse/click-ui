@@ -51,6 +51,43 @@
   border-radius: var(--click-button-group-radii-button-borderless-all);
 }
 
+.button_icon-only_default {
+  padding: var(--click-button-group-space-icon-default-y)
+    var(--click-button-group-space-icon-default-x);
+  border: 1px solid var(--click-button-group-color-stroke-default);
+}
+
+.button_icon-only_default:hover {
+  border-color: var(--click-button-group-color-stroke-hover);
+}
+
+.button_icon-only_default[aria-pressed='true'] {
+  border-color: var(--click-button-group-color-stroke-active);
+}
+
+.button_icon-only_default:disabled {
+  border-color: var(--click-button-group-color-stroke-disabled);
+}
+
+.button_icon-only_default[aria-pressed='true']:disabled {
+  border-color: var(--click-button-group-color-stroke-disabled-active);
+}
+
+.button_icon-only_borderless {
+  padding: var(--click-button-group-space-icon-borderless-y)
+    var(--click-button-group-space-icon-borderless-x);
+}
+
+.button__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button__icon_height_line {
+  height: 1lh;
+}
+
 .button_fillwidth {
   flex: 1;
 }

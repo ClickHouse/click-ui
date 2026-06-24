@@ -9,6 +9,7 @@ import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
@@ -80,11 +81,13 @@ type DeprecatedFields = {
 
 type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
   sub?: true;
+  container?: HTMLElement | null;
 } & ArrowProps &
   DeprecatedFields;
 
 type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
   sub?: never;
+  container?: HTMLElement | null;
 } & ArrowProps &
   DeprecatedFields;
 
@@ -120,6 +123,7 @@ const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
 const ContextMenuContent = ({
   sub,
   children,
+  container,
   showArrow,
   // TODO: remove deprecated side and align
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -130,8 +134,10 @@ const ContextMenuContent = ({
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {
   const ContentElement = sub ? RightMenu.SubContent : RightMenu.Content;
   const inputModalityProps = useInputModality();
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
-    <RightMenu.Portal>
+    <RightMenu.Portal container={portalContainer}>
       <RightMenuContent
         {...props}
         $type="context-menu"

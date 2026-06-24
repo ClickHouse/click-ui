@@ -17,9 +17,9 @@ import type { ContainerProps } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
-import { styled } from 'styled-components';
+import { styled, keyframes } from 'styled-components';
 import { CrossButton } from '@/components/CrossButton';
-import { keyframes } from 'styled-components';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type {
   FlyoutProps,
   FlyoutTriggerProps,
@@ -63,6 +63,7 @@ const FlyoutContent = styled(DialogContent)<{
   $strategy: FlyoutStrategy;
   $width?: string;
   $align: FlyoutAlignmentType;
+  $hasShadow?: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -74,17 +75,17 @@ const FlyoutContent = styled(DialogContent)<{
   --flyout-width: ${({ theme, $size = 'default', $width }) =>
     $width || theme.click.flyout.size[$size].width};
   animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  ${({ theme, $strategy, $type = 'default', $align }) => `
+  ${({ theme, $strategy, $type = 'default', $align, $hasShadow = true }) => `
     ${$align === 'start' ? 'left' : 'right'}: 0;
     max-width: 100%;
     position: ${$strategy};
     height: ${$strategy === 'relative' ? '100%' : 'auto'};
-    padding: 0 ${theme.click.flyout.space[$type].x}
+    padding: 0 ${theme.click.flyout.space[$type].x};
     gap: ${theme.click.flyout.space[$type].gap};
     box-shadow: ${
-      $align === 'start'
-        ? theme.click.flyout.shadow.reverse
-        : theme.click.flyout.shadow.default
+      $hasShadow === false
+        ? 'none'
+        : theme.click.flyout.shadow[$align === 'start' ? 'reverse' : 'default']
     };
     border-${$align === 'start' ? 'right' : 'left'}: 1px solid ${
       theme.click.flyout.color.stroke.default
@@ -133,11 +134,14 @@ const Content = ({
   closeOnInteractOutside = false,
   width,
   align = 'end',
+  hasShadow = true,
   onInteractOutside,
   ...props
 }: FlyoutContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
-    <DialogPortal container={container}>
+    <DialogPortal container={portalContainer}>
       {showOverlay && <DialogOverlay className="DialogOverlay" />}
       <FlyoutContent
         $size={size}
@@ -153,6 +157,7 @@ const Content = ({
         }}
         $width={width}
         $align={align}
+        $hasShadow={hasShadow}
         {...props}
       >
         {children}
@@ -170,10 +175,12 @@ const FlyoutElement = styled(Container)<{
   max-width: -webkit-fill-available;
   max-width: fill-available;
   max-width: stretch;
-  ${({ theme, $type = 'default' }) => `
-    gap: ${theme.click.flyout.space[$type].gap};
-    padding: 0 ${theme.click.flyout.space[$type].content.x};
-  `}
+  && {
+    ${({ theme, $type = 'default' }) => `
+      gap: ${theme.click.flyout.space[$type].gap};
+      padding: 0 ${theme.click.flyout.space[$type].content.x};
+    `}
+  }
 `;
 
 interface ElementProps extends Omit<
@@ -199,11 +206,13 @@ Flyout.Element = Element;
 const FlyoutHeaderContainer = styled(Container)<{
   $type?: FlyoutType;
 }>`
-  ${({ theme, $type = 'default' }) => `
-    row-gap: ${theme.click.flyout.space[$type].content['row-gap']};
-    column-gap: ${theme.click.flyout.space[$type].content['column-gap']};
-    padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].y} 0 ${theme.click.flyout.space[$type].y} ;
-  `}
+  && {
+    ${({ theme, $type = 'default' }) => `
+      row-gap: ${theme.click.flyout.space[$type].content['row-gap']};
+      column-gap: ${theme.click.flyout.space[$type].content['column-gap']};
+      padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].y} 0 ${theme.click.flyout.space[$type].y};
+    `}
+  }
 `;
 
 const FlyoutTitle = styled(DialogTitle)<{
@@ -350,11 +359,13 @@ Flyout.Body = Body;
 const FlyoutFooter = styled(Container)<{
   type?: FlyoutType;
 }>`
-  ${({ theme, type = 'default' }) => `
-    row-gap: ${theme.click.flyout.space[type].content['row-gap']};
-    column-gap: ${theme.click.flyout.space[type].content['column-gap']};
-    padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].content.x};
-  `}
+  && {
+    ${({ theme, type = 'default' }) => `
+      row-gap: ${theme.click.flyout.space[type].content['row-gap']};
+      column-gap: ${theme.click.flyout.space[type].content['column-gap']};
+      padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].content.x};
+    `}
+  }
 `;
 
 interface FlyoutButtonProps extends Omit<ButtonProps, 'children'> {

@@ -2,27 +2,68 @@ import { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { ButtonGroup } from '@/components/ButtonGroup';
+import type { ButtonGroupElementProps } from '@/components/ButtonGroup';
+
+const labelOptions: ButtonGroupElementProps[] = [
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' },
+];
+
+const iconOptions: ButtonGroupElementProps[] = [
+  { icon: 'table', value: 'table', 'aria-label': 'Table view' },
+  { icon: 'pin', value: 'pin', 'aria-label': 'Pin view' },
+  { icon: 'settings', value: 'settings', 'aria-label': 'Settings' },
+];
 
 const meta: Meta<typeof ButtonGroup> = {
   component: ButtonGroup,
   title: 'Buttons/ButtonGroup',
   tags: ['button-group', 'autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'When `iconOnly` is true, provide an `aria-label` on the group and on each option so icon buttons have meaningful names. Icon names are used as a fallback only.',
+      },
+    },
+  },
+  argTypes: {
+    type: {
+      control: 'radio',
+      options: ['default', 'borderless'],
+      description: 'Panel styling for the button group.',
+    },
+    iconOnly: {
+      control: 'boolean',
+      description:
+        'Renders icons instead of labels. Pair with per-option `aria-label` values for accessible names.',
+    },
+    'aria-label': {
+      description: 'Names the button group for assistive technology.',
+    },
+  },
 };
 
 export default meta;
 
 export const Playground: StoryObj<typeof ButtonGroup> = {
   args: {
-    options: [
-      { label: 'Option 1', value: 'option1' },
-      { label: 'Option 2', value: 'option2' },
-      { label: 'Option 3', value: 'option3' },
-    ],
+    options: labelOptions,
     fillWidth: false,
     type: 'default',
+    iconOnly: false,
     defaultSelected: 'option3',
     'aria-label': 'Button group playground',
   },
+  render: args => (
+    <ButtonGroup
+      key={args.iconOnly ? 'icon-only' : 'label'}
+      {...args}
+      options={args.iconOnly ? iconOptions : labelOptions}
+      defaultSelected={args.iconOnly ? 'pin' : args.defaultSelected}
+    />
+  ),
 };
 
 export const Default: StoryObj<typeof ButtonGroup> = {
@@ -68,6 +109,52 @@ export const BorderlessSelected: StoryObj<typeof ButtonGroup> = {
     ],
     type: 'borderless',
     selected: 'option1',
+  },
+};
+
+export const IconOnly: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: iconOptions,
+    type: 'default',
+    iconOnly: true,
+    'aria-label': 'View options',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Each option should include an `aria-label` with a human-readable name. The group also needs an `aria-label` describing the control set.',
+      },
+    },
+  },
+};
+
+export const IconOnlySelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: iconOptions,
+    type: 'default',
+    iconOnly: true,
+    selected: 'pin',
+    'aria-label': 'View options',
+  },
+};
+
+export const IconOnlyBorderless: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: iconOptions,
+    type: 'borderless',
+    iconOnly: true,
+    'aria-label': 'View options',
+  },
+};
+
+export const IconOnlyBorderlessSelected: StoryObj<typeof ButtonGroup> = {
+  args: {
+    options: iconOptions,
+    type: 'borderless',
+    iconOnly: true,
+    selected: 'pin',
+    'aria-label': 'View options',
   },
 };
 

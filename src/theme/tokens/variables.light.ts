@@ -823,6 +823,21 @@ const theme = {
               x: '1rem',
             },
           },
+          icon: {
+            default: {
+              y: '3px',
+              x: '1rem',
+            },
+            borderless: {
+              y: '5.5px',
+              x: '1rem',
+            },
+          },
+        },
+        icon: {
+          size: {
+            all: '1rem',
+          },
         },
         color: {
           background: {
