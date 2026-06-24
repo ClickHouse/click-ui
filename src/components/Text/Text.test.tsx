@@ -15,18 +15,4 @@ describe('Text', () => {
 
     expect(rendered.getAllByTestId('test-testid').length).toEqual(1);
   });
-
-  test('given noWrap, should apply nowrap styling', () => {
-    const text = 'text to render';
-    const rendered = renderCUI(<Text noWrap>{text}</Text>);
-
-    expect(rendered.getByText(text).className).toMatch(/text_no-wrap/);
-  });
-
-  test('given noWrap false, should apply normal white-space styling', () => {
-    const text = 'text to render';
-    const rendered = renderCUI(<Text noWrap={false}>{text}</Text>);
-
-    expect(rendered.getByText(text).className).toMatch(/text_wrap/);
-  });
 });

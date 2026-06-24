@@ -118,5 +118,12 @@ export const FillWidth: Story = {
 };
 
 export const NoWrap: Story = {
-  render: () => <TextHarness noWrap>{sample}</TextHarness>,
+  render: () => (
+    <div
+      data-testid="text-harness"
+      style={{ display: 'inline-block', padding: '8px', width: '120px' }}
+    >
+      <Text noWrap>{sample}</Text>
+    </div>
+  ),
 };
