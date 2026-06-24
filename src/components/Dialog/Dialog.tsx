@@ -12,30 +12,17 @@ export const Dialog = ({ children, ...props }: DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
 };
 
-// Dialog Trigger
 const DialogTrigger = ({
   children,
   asChild,
   className,
   ...props
 }: DialogTriggerProps) => {
-  if (asChild) {
-    // Pass all props to RadixDialog.Trigger, no styled wrapper
-    return (
-      <RadixDialog.Trigger
-        asChild
-        className={className}
-        {...props}
-      >
-        {children}
-      </RadixDialog.Trigger>
-    );
-  }
-  // Default trigger styling when not using asChild
   return (
     <RadixDialog.Trigger
+      asChild={asChild}
+      className={asChild ? className : cn(styles.trigger, className)}
       {...props}
-      className={cn(styles.trigger, className)}
     >
       {children}
     </RadixDialog.Trigger>
