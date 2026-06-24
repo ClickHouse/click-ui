@@ -124,6 +124,71 @@ export const injectComponentCss = async (
 };
 
 /**
+ * Inject the compiled CSS for every `.module.css` a source file imports.
+ *
+ * CSS module imports are served as virtual modules that expose only the
+ * class-name map — they carry no styles. `injectComponentCss` loads the rules
+ * for `<Dir>/index.js`, but any other module that uses a CSS module (e.g.
+ * Collapsible/IconWrapper.js, which other components render) would otherwise
+ * render with class names but no styles. This injects `<name>.css` into each
+ * such file so the rules travel with every consumer.
+ */
+export const injectModuleCssImports = async (
+  trackedModuleImports: TrackedImport[],
+  rootDir: string,
+  distDir: string,
+  format: 'esm' | 'cjs',
+  ext: string
+): Promise<void> => {
+  if (trackedModuleImports.length === 0) return;
+
+  const srcDir = path.join(rootDir, 'src');
+
+  for (const { sourceFile, cssPaths } of trackedModuleImports) {
+    const relativeToSrc = path.relative(srcDir, sourceFile);
+    const jsOutputFile = path.join(distDir, relativeToSrc.replace(/\.tsx?$/, `.${ext}`));
+
+    if (!(await fileExists(jsOutputFile))) continue;
+
+    let content = await fs.readFile(jsOutputFile, 'utf-8');
+    const importStatements: string[] = [];
+
+    for (const cssPath of cssPaths) {
+      const moduleSourcePath = resolveCssPath(cssPath, sourceFile, srcDir);
+      if (!moduleSourcePath) continue;
+
+      // The pre-processor emits `<name>.css` next to the `<name>.module.css`.
+      const compiledSourcePath = moduleSourcePath.replace(/\.module\.css$/, '.css');
+      const compiledDistPath = path.join(
+        distDir,
+        path.relative(srcDir, compiledSourcePath)
+      );
+
+      if (!(await fileExists(compiledDistPath))) continue;
+
+      const importPath = calculateImportPath(
+        jsOutputFile,
+        compiledSourcePath,
+        srcDir,
+        distDir
+      );
+      if (!importPath) continue;
+
+      // Skip when this file already imports the CSS (e.g. via injectComponentCss).
+      if (content.includes(`"${importPath}"`)) continue;
+
+      importStatements.push(createImportStatement(importPath, format));
+    }
+
+    if (importStatements.length > 0) {
+      content = removeEmptyCssComments(content);
+      content = insertAtTop(content, importStatements.join('\n') + '\n');
+      await fs.writeFile(jsOutputFile, content);
+    }
+  }
+};
+
+/**
  * Inject CSS imports into files that had CSS imports in source
  * (e.g., ThemeProvider.tsx imports theme CSS files)
  */

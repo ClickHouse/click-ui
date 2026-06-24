@@ -1,7 +1,11 @@
 import type { Plugin, ResolvedConfig } from 'vite';
 import { preprocessCssModules } from './css-preprocess';
 import { resolveCssModule, loadCssModule } from './virtual-modules';
-import { injectComponentCss, injectRegularCssImports } from './import-inject';
+import {
+  injectComponentCss,
+  injectRegularCssImports,
+  injectModuleCssImports,
+} from './import-inject';
 import { copyCssFiles } from './utils';
 import path from 'path';
 
@@ -11,6 +15,11 @@ interface TrackedCssImport {
 }
 
 const REGULAR_CSS_IMPORT_REGEX = /import\s+['"]([^'"]+\.css)['"];?/g;
+// Matches `import styles from './x.module.css'` / `import * as s from '...'`.
+// The class-name map is delivered via a virtual module that carries no CSS, so
+// every module importing one must also load the co-located compiled rules.
+const MODULE_CSS_IMPORT_REGEX =
+  /import\s+(?:\*\s+as\s+\w+|\w+)\s+from\s+['"]([^'"]+\.module\.css)['"];?/g;
 
 /**
  * Vite plugin that:
@@ -22,6 +31,7 @@ const REGULAR_CSS_IMPORT_REGEX = /import\s+['"]([^'"]+\.css)['"];?/g;
 export const cssColocatePlugin = (): Plugin => {
   let config: ResolvedConfig;
   const trackedImports: TrackedCssImport[] = [];
+  const trackedModuleImports: TrackedCssImport[] = [];
 
   return {
     name: 'vite-plugin-css-colocate',
@@ -33,6 +43,7 @@ export const cssColocatePlugin = (): Plugin => {
       // appending, causing duplicate CSS imports
       // on each rebuild
       trackedImports.length = 0;
+      trackedModuleImports.length = 0;
       await preprocessCssModules(config.root);
     },
 
@@ -66,6 +77,18 @@ export const cssColocatePlugin = (): Plugin => {
         trackedImports.push({ sourceFile: id, cssPaths: cssImports });
       }
 
+      // Track CSS module imports so the compiled rules are loaded into every
+      // consumer, not just the component whose name matches the directory.
+      const moduleCssImports: string[] = [];
+      MODULE_CSS_IMPORT_REGEX.lastIndex = 0;
+      while ((match = MODULE_CSS_IMPORT_REGEX.exec(code)) !== null) {
+        moduleCssImports.push(match[1]);
+      }
+
+      if (moduleCssImports.length) {
+        trackedModuleImports.push({ sourceFile: id, cssPaths: moduleCssImports });
+      }
+
       return null;
     },
 
@@ -86,6 +109,15 @@ export const cssColocatePlugin = (): Plugin => {
 
         // Inject CSS imports into files with tracked imports
         await injectRegularCssImports(trackedImports, config.root, distDir, format);
+
+        // Inject compiled CSS module rules into every file that imports one
+        await injectModuleCssImports(
+          trackedModuleImports,
+          config.root,
+          distDir,
+          format,
+          ext
+        );
       }
     },
   };
