@@ -13,6 +13,7 @@ interface FlyoutExampleProps extends FlyoutProps {
   type: 'default' | 'inline';
   size: 'default' | 'narrow' | 'wide' | 'widest';
   width?: string;
+  hasShadow?: boolean;
 }
 
 const FlyoutExample = ({
@@ -23,6 +24,7 @@ const FlyoutExample = ({
   size,
   width,
   align,
+  hasShadow,
   ...props
 }: FlyoutExampleProps) => {
   return (
@@ -35,6 +37,7 @@ const FlyoutExample = ({
         align={align}
         size={size}
         width={width}
+        hasShadow={hasShadow}
       >
         <Flyout.Header
           type={type}
@@ -84,6 +87,7 @@ const meta: Meta<typeof FlyoutExample> = {
     size: { control: 'select', options: ['default', 'narrow', 'wide', 'widest'] },
     type: { control: 'select', options: ['default', 'inline'] },
     width: { control: 'text' },
+    hasShadow: { control: 'boolean' },
   },
 };
 
@@ -98,6 +102,7 @@ export const Playground: Story = {
     align: 'end',
     size: 'default',
     type: 'default',
+    hasShadow: true,
   },
   parameters: {
     docs: {

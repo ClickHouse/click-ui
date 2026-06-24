@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import { Icon } from '@/components/Icon';
 import { EmptyButton } from '@/components/EmptyButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
@@ -77,10 +78,12 @@ const PopoverContent = ({
   container,
   ...props
 }: PopoverContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
     <RadixPopover.Portal
       forceMount={forceMount}
-      container={container}
+      container={portalContainer}
     >
       <MenuPanel
         as={RadixPopover.Content}

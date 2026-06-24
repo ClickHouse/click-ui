@@ -61,6 +61,7 @@ import { IconWrapper } from '@/components/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import { styled } from 'styled-components';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
@@ -331,6 +332,7 @@ export const InternalSelect = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputModalityProps = useInputModality();
+  const portalContainer = useResolvedPortalContainer(container);
 
   const onFocus = () => {
     inputRef.current?.focus();
@@ -474,7 +476,7 @@ export const InternalSelect = ({
               ))}
             </HiddenSelectElement>
           )}
-          <Portal container={container}>
+          <Portal container={portalContainer}>
             <SelectPopoverContent
               {...inputModalityProps}
               sideOffset={5}
