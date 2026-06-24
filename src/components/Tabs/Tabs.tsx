@@ -1,8 +1,23 @@
 import { ComponentPropsWithoutRef, CSSProperties, ElementRef, forwardRef } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import { TabsProps } from './Tabs.types';
 import styles from './Tabs.module.css';
+
+const fullWidthTriggerVariants = cva(
+  cn(styles.tabs__trigger, styles['full-width-tabs__trigger']),
+  {
+    variants: {
+      width: {
+        fixed: styles['full-width-tabs__trigger_width_fixed'],
+        stretched: styles['full-width-tabs__trigger_width_stretched'],
+      },
+    },
+    defaultVariants: {
+      width: 'stretched',
+    },
+  }
+);
 
 const Trigger = forwardRef<
   ElementRef<typeof RadixTabs.Trigger>,
@@ -80,11 +95,7 @@ const FullWidthTabsTrigger = forwardRef<
         : style
     }
     className={cn(
-      styles.tabs__trigger,
-      styles['full-width-tabs__trigger'],
-      width
-        ? styles['full-width-tabs__trigger_fixed']
-        : styles['full-width-tabs__trigger_grow'],
+      fullWidthTriggerVariants({ width: width ? 'fixed' : 'stretched' }),
       className
     )}
   />

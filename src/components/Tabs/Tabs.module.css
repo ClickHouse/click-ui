@@ -45,10 +45,10 @@
 .full-width-tabs__trigger {
 }
 
-.full-width-tabs__trigger_grow {
+.full-width-tabs__trigger_width_stretched {
   flex: 1 1 auto;
 }
 
-.full-width-tabs__trigger_fixed {
+.full-width-tabs__trigger_width_fixed {
   width: var(--full-width-tabs-trigger-width);
 }
