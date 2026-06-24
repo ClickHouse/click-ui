@@ -7,16 +7,20 @@ import { DialogProps } from '@radix-ui/react-dialog';
 interface Props extends DialogProps {
   showClose?: boolean;
   showSeparator?: boolean;
+  hasShadow?: boolean;
 }
 
 describe('Flyout', () => {
-  const renderFlyout = ({ showClose, showSeparator, ...props }: Props) => {
+  const renderFlyout = ({ showClose, showSeparator, hasShadow, ...props }: Props) => {
     return renderCUI(
       <Flyout {...props}>
         <Flyout.Trigger>
           <Button iconLeft="user">Flyout Fixed</Button>
         </Flyout.Trigger>
-        <Flyout.Content strategy="fixed">
+        <Flyout.Content
+          strategy="fixed"
+          hasShadow={hasShadow}
+        >
           <Flyout.Header
             title="test1"
             description="test2"
@@ -105,5 +109,15 @@ describe('Flyout', () => {
     expect(queryByText('Flyout Text')).not.toBeNull();
     fireEvent.click(getByText('Cancel'));
     expect(queryByText('Flyout Text')).toBeNull();
+  });
+
+  it('should remove shadow when hasShadow is false', () => {
+    const { queryByText, getByRole } = renderFlyout({
+      open: true,
+      hasShadow: false,
+    });
+
+    expect(queryByText('Flyout Text')).not.toBeNull();
+    expect(getByRole('dialog')).toHaveStyle({ boxShadow: 'none' });
   });
 });

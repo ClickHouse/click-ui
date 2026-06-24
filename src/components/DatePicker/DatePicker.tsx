@@ -4,6 +4,7 @@ import * as Popover from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
 import { shiftFromTimezone, shiftToTimezone, Timezone } from './utils';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 const DAYS_IN_WEEK = 7;
 
@@ -199,6 +200,7 @@ const Calendar = ({
 
 export interface DatePickerProps {
   allowOnlyDatesList?: Array<Date>;
+  container?: HTMLElement | null;
   date?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
@@ -210,6 +212,7 @@ export interface DatePickerProps {
 
 export const DatePicker = ({
   allowOnlyDatesList,
+  container,
   date,
   disabled = false,
   futureDatesDisabled = false,
@@ -225,6 +228,7 @@ export const DatePicker = ({
   const [autoFocusCalendar, setAutoFocusCalendar] = useState<boolean>(false);
 
   const calendarOptions: UseCalendarOptions = {};
+  const portalContainer = useResolvedPortalContainer(container);
 
   if (selectedDate) {
     calendarOptions.defaultDate = selectedDate;
@@ -304,7 +308,7 @@ export const DatePicker = ({
           timezone={timezone}
         />
       </PopoverTrigger>
-      <Popover.Portal>
+      <Popover.Portal container={portalContainer}>
         <PopoverContent
           align="start"
           avoidCollisions={responsivePositioning}
