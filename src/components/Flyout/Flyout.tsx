@@ -19,6 +19,7 @@ import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
 import { styled, keyframes } from 'styled-components';
 import { CrossButton } from '@/components/CrossButton';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type {
   FlyoutProps,
   FlyoutTriggerProps,
@@ -137,8 +138,10 @@ const Content = ({
   onInteractOutside,
   ...props
 }: FlyoutContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
-    <DialogPortal container={container}>
+    <DialogPortal container={portalContainer}>
       {showOverlay && <DialogOverlay className="DialogOverlay" />}
       <FlyoutContent
         $size={size}

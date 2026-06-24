@@ -25,6 +25,7 @@ import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 import { mergeRefs } from '@/utils/mergeRefs';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 import { useOption, useSearch } from './useOption';
 import { OptionContext } from './OptionContext';
@@ -94,6 +95,7 @@ interface Props
   placeholder?: string;
   onOpenChange?: (open: boolean) => void;
   label?: ReactNode;
+  container?: HTMLElement | null;
   error?: ReactNode;
   disabled?: boolean;
   dir?: 'start' | 'end';
@@ -264,6 +266,7 @@ export const AutoComplete = ({
   disabled,
   value = '',
   placeholder = 'Search',
+  container,
   ...props
 }: AutoCompleteProps) => {
   const defaultId = useId();
@@ -271,6 +274,7 @@ export const AutoComplete = ({
   const [open, setOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const portalContainer = useResolvedPortalContainer(container);
   const [highlighted, setHighlighted] = useState<string | undefined>();
   const visibleList = useRef<string[]>([]);
   const navigatable = useRef<string[]>([]);
@@ -505,7 +509,7 @@ export const AutoComplete = ({
           />
         </div>
       </Trigger>
-      <Portal>
+      <Portal container={portalContainer}>
         <PopoverContent
           sideOffset={5}
           onFocus={onFocus}

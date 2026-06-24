@@ -5,6 +5,7 @@ import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
 import { CrossButton } from '@/components/CrossButton';
 import { DialogContentProps, DialogProps, DialogTriggerProps } from './Dialog.types';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 export const Dialog = ({ children, ...props }: DialogProps) => {
   return <RadixDialog.Root {...props}>{children}</RadixDialog.Root>;
@@ -138,10 +139,12 @@ const DialogContent = ({
   reducePadding = false,
   ...props
 }: DialogContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
     <RadixDialog.Portal
       forceMount={forceMount}
-      container={container}
+      container={portalContainer}
     >
       {showOverlay && <DialogOverlay />}
       <ContentArea
