@@ -139,3 +139,64 @@ export const Playground: Story = {
     itemCount: 0,
   },
 };
+
+// Visual-regression story: renders the dropdown content open and inline (no
+// collision repositioning) so the menu panel + item extension styles can be
+// screenshotted deterministically.
+export const OpenContent: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', minHeight: 360 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+        >
+          <Dropdown.Group>
+            <Dropdown.Item data-state="checked">Checked item</Dropdown.Item>
+          </Dropdown.Group>
+          <Dropdown.Item>Default item</Dropdown.Item>
+          <Dropdown.Item icon="activity">Item with icon</Dropdown.Item>
+          <Dropdown.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Icon end
+          </Dropdown.Item>
+          <Dropdown.Item disabled>Disabled item</Dropdown.Item>
+          <Dropdown.Item type="danger">Delete</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
+export const OpenContentWithArrow: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', minHeight: 360 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          showArrow
+          avoidCollisions={false}
+        >
+          <Dropdown.Item>Default item</Dropdown.Item>
+          <Dropdown.Item>Second item</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};

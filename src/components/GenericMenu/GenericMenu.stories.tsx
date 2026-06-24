@@ -35,7 +35,7 @@ const DemoPopoverPanel = styled(GenericPopoverMenuPanel)`
 
 export const MenuPanel: StoryObj = {
   render: () => (
-    <DemoContainer>
+    <DemoContainer data-testid="generic-menu-harness">
       <DemoPanel $type="dropdown-menu">
         <GenericMenuItem>Default Item</GenericMenuItem>
         <GenericMenuItem $type="danger">Danger Item</GenericMenuItem>
@@ -47,7 +47,7 @@ export const MenuPanel: StoryObj = {
 
 export const PopoverPanel: StoryObj = {
   render: () => (
-    <DemoContainer>
+    <DemoContainer data-testid="generic-menu-harness">
       <DemoPopoverPanel $type="popover">
         <div style={{ padding: '1rem' }}>
           <h4>Popover Content</h4>
@@ -60,7 +60,7 @@ export const PopoverPanel: StoryObj = {
 
 export const WithArrow: StoryObj = {
   render: () => (
-    <DemoContainer>
+    <DemoContainer data-testid="generic-menu-harness">
       <DemoPanel
         $type="popover"
         $showArrow
@@ -82,12 +82,39 @@ export const WithArrow: StoryObj = {
 
 export const MenuItems: StoryObj = {
   render: () => (
-    <DemoContainer>
+    <DemoContainer data-testid="generic-menu-harness">
       <DemoPanel $type="context-menu">
         <GenericMenuItem>Cut</GenericMenuItem>
         <GenericMenuItem>Copy</GenericMenuItem>
         <GenericMenuItem>Paste</GenericMenuItem>
         <GenericMenuItem $type="danger">Delete</GenericMenuItem>
+      </DemoPanel>
+    </DemoContainer>
+  ),
+};
+
+export const ItemStates: StoryObj = {
+  render: () => (
+    <DemoContainer data-testid="generic-menu-harness">
+      <DemoPanel $type="dropdown-menu">
+        <GenericMenuItem>Default</GenericMenuItem>
+        <GenericMenuItem data-highlighted>Highlighted</GenericMenuItem>
+        <GenericMenuItem data-state="checked">Checked</GenericMenuItem>
+        <GenericMenuItem data-selected="true">Selected</GenericMenuItem>
+        <GenericMenuItem data-disabled>Disabled</GenericMenuItem>
+        <GenericMenuItem $type="danger">Danger default</GenericMenuItem>
+        <GenericMenuItem
+          $type="danger"
+          data-highlighted
+        >
+          Danger highlighted
+        </GenericMenuItem>
+        <GenericMenuItem
+          $type="danger"
+          data-disabled
+        >
+          Danger disabled
+        </GenericMenuItem>
       </DemoPanel>
     </DemoContainer>
   ),

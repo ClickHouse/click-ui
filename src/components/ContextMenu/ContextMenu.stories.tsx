@@ -92,3 +92,45 @@ export const Playground: Story = {
     showArrow: true,
   },
 };
+
+// Visual-regression story: a plain trigger the spec right-clicks to open the
+// context menu, so the menu panel + item extension styles can be screenshotted.
+const VRTrigger = styled.div`
+  display: grid;
+  place-items: center;
+  width: 240px;
+  height: 120px;
+  border: 2px currentColor dashed;
+`;
+
+export const OpenContent: Story = {
+  render: () => (
+    <div
+      data-testid="context-menu-harness"
+      style={{ padding: '2rem', minHeight: 360 }}
+    >
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <VRTrigger>Right-click here</VRTrigger>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content
+          showArrow
+          avoidCollisions={false}
+        >
+          <ContextMenu.Group>
+            <ContextMenu.Item>Content0</ContextMenu.Item>
+          </ContextMenu.Group>
+          <ContextMenu.Item icon="activity">Item with icon</ContextMenu.Item>
+          <ContextMenu.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Icon end
+          </ContextMenu.Item>
+          <ContextMenu.Item disabled>Disabled item</ContextMenu.Item>
+          <ContextMenu.Item type="danger">Delete</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
+    </div>
+  ),
+};
