@@ -1,11 +1,19 @@
 import * as RadixPopover from '@radix-ui/react-popover';
 import { Arrow, GenericMenuPanel } from '@/components/GenericMenu';
 import { styled } from 'styled-components';
-import { ReactNode } from 'react';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
+import { cn } from '@/lib/cva';
 import { Icon } from '@/components/Icon';
 import { EmptyButton } from '@/components/EmptyButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import styles from './Popover.module.css';
 
 export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
@@ -50,17 +58,30 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
   container?: HTMLElement | null;
 }
 
-const MenuPanel = styled(GenericMenuPanel)<{ $showClose?: boolean }>`
-  display: block;
-  padding: ${({ theme }) => theme.click.popover.space.y}
-    ${({ theme }) => theme.click.popover.space.x};
-  background-color: ${({ theme }) => theme.click.popover.color.panel.background.default};
-  border: 1px solid ${({ theme }) => theme.click.popover.color.panel.stroke.default};
-  border-radius: ${({ theme }) => theme.click.popover.radii.all};
-  box-shadow: ${({ theme }) => theme.click.popover.shadow.default};
+type MenuPanelComponent = <T extends ElementType = 'div'>(
+  props: ComponentProps<typeof GenericMenuPanel<T>> & { $showClose?: boolean }
+) => ReactNode;
 
-  ${({ $showClose }) => ($showClose ? 'padding-top: 1rem;' : '')};
-`;
+const _MenuPanel = <T extends ElementType = 'div'>(
+  {
+    $showClose,
+    className,
+    ...props
+  }: ComponentProps<typeof GenericMenuPanel<T>> & { $showClose?: boolean },
+  ref: ComponentPropsWithRef<T>['ref']
+) => (
+  <GenericMenuPanel
+    ref={ref}
+    {...(props as ComponentProps<typeof GenericMenuPanel>)}
+    className={cn(
+      styles['menu-panel'],
+      $showClose && styles['menu-panel_show-close'],
+      className
+    )}
+  />
+);
+
+const MenuPanel: MenuPanelComponent = forwardRef(_MenuPanel);
 
 const CloseButton = styled(EmptyButton)`
   position: absolute;

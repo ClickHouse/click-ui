@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
 import {
   GenericMenuPanel,
   GenericPopoverMenuPanel,
@@ -24,14 +25,21 @@ const DemoContainer = styled.div`
   padding: 2rem;
 `;
 
-const DemoPanel = styled(GenericMenuPanel)`
-  padding: 1rem;
-  min-width: 200px;
-`;
+const DemoPanel = (props: ComponentProps<typeof GenericMenuPanel<'div'>>) => (
+  <GenericMenuPanel
+    {...props}
+    style={{ padding: '1rem', minWidth: '200px', ...props.style }}
+  />
+);
 
-const DemoPopoverPanel = styled(GenericPopoverMenuPanel)`
-  min-width: 200px;
-`;
+const DemoPopoverPanel = (
+  props: ComponentProps<typeof GenericPopoverMenuPanel<'div'>>
+) => (
+  <GenericPopoverMenuPanel
+    {...props}
+    style={{ minWidth: '200px', ...props.style }}
+  />
+);
 
 export const MenuPanel: StoryObj = {
   render: () => (

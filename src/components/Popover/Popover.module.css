@@ -1,0 +1,12 @@
+.menu-panel {
+  display: block;
+  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  border: 1px solid var(--click-popover-color-panel-stroke-default);
+  border-radius: var(--click-popover-radii-all);
+  background-color: var(--click-popover-color-panel-background-default);
+  box-shadow: var(--click-popover-shadow-default);
+}
+
+.menu-panel_show-close {
+  padding-top: 1rem;
+}
