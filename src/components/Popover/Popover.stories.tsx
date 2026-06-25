@@ -28,7 +28,7 @@ export const OpenContent: Story = {
   render: () => (
     <div
       data-testid="popover-harness"
-      style={{ padding: '2rem', minHeight: 320 }}
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 360 }}
     >
       <Popover
         open
@@ -56,7 +56,7 @@ export const OpenContentNoClose: Story = {
   render: () => (
     <div
       data-testid="popover-harness"
-      style={{ padding: '2rem', minHeight: 320 }}
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
     >
       <Popover
         open

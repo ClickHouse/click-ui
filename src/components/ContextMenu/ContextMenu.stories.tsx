@@ -107,7 +107,7 @@ export const OpenContent: Story = {
   render: () => (
     <div
       data-testid="context-menu-harness"
-      style={{ padding: '2rem', minHeight: 360 }}
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 420 }}
     >
       <ContextMenu>
         <ContextMenu.Trigger>

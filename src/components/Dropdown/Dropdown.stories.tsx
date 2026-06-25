@@ -147,7 +147,7 @@ export const OpenContent: Story = {
   render: () => (
     <div
       data-testid="dropdown-harness"
-      style={{ padding: '2rem', minHeight: 360 }}
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 480 }}
     >
       <Dropdown
         open
@@ -181,7 +181,7 @@ export const OpenContentWithArrow: Story = {
   render: () => (
     <div
       data-testid="dropdown-harness"
-      style={{ padding: '2rem', minHeight: 360 }}
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
     >
       <Dropdown
         open
