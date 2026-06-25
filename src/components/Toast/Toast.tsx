@@ -1,4 +1,11 @@
-import { createContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import * as RadixUIToast from '@radix-ui/react-toast';
 import { keyframes, styled } from 'styled-components';
 import { toastsEventEmitter } from './toastEmitter';
@@ -7,9 +14,20 @@ import { IconButton } from '@/components/IconButton';
 import { Button } from '@/components/Button';
 import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
 
+// Radix's default auto-close duration, mirrored here so our internally managed
+// timer matches Radix's behaviour when no `duration` is provided.
+const DEFAULT_TOAST_DURATION = 5000;
+
 export const ToastContext = createContext<ToastContextProps>({
   createToast: () => null,
 });
+
+// Provider-level default duration. Mirrors Radix's `ToastProvider duration`
+// prop semantics so that consumers can do `<ToastProvider duration={...}>`
+// (or `<ClickUIProvider config={{ toast: { duration } }}>`) to set the
+// fallback for every toast that doesn't explicitly set its own `duration`.
+// Defaults to `DEFAULT_TOAST_DURATION`.
+const ToastDurationContext = createContext<number>(DEFAULT_TOAST_DURATION);
 
 // Lazy wrapper to avoid circular dependency issues at module load time
 const ToastIconWrapper = (props: IconProps & { $type?: ToastType }) => (
@@ -124,11 +142,18 @@ export const Toast = ({
   title,
   description,
   actions = [],
-  duration,
+  duration: durationProp,
   onClose,
 
   ...props
 }: ToastProps & { onClose: (open: boolean) => void }) => {
+  // Resolve the effective duration: explicit prop wins, then the provider-level
+  // duration from `ToastDurationContext` (`<ToastProvider duration={...}>` /
+  // `<ClickUIProvider config={{ toast: { duration } }}>`), then Radix's
+  // historical default of 5000 ms.
+  const providerDuration = useContext(ToastDurationContext);
+  const duration = durationProp ?? providerDuration;
+
   let iconName = '';
   if (type === 'default') {
     iconName = 'info-in-circle';
@@ -137,10 +162,101 @@ export const Toast = ({
   } else if (type && ['danger', 'warning'].includes(type)) {
     iconName = 'warning';
   }
+
+  // We manage the auto-close timer ourselves (and pass `duration={Infinity}` to
+  // Radix below) so that the timer is always cleared on unmount. The Radix
+  // implementation (v1.2.2, still the case on 1.2.17) never clears its
+  // internal `closeTimerRef`, which causes the timer to fire after the host
+  // (e.g. jsdom in tests) has been torn down, surfacing as
+  // `ReferenceError: document is not defined`. See
+  // https://github.com/radix-ui/primitives/pull/3794. Once that upstream fix
+  // ships and we adopt it we can revert this in favour of Radix's own timer.
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const closeTimerStartTimeRef = useRef<number>(0);
+  const closeTimerRemainingTimeRef = useRef<number>(duration);
+  // Tracks whether `handlePause` actually paused a running timer. Without
+  // this, `handleResume` could not tell apart "duration was 0/unset, never
+  // had a timer" from "timer was running and got paused with no time left",
+  // and the latter case must close the toast immediately on resume.
+  const wasPausedRef = useRef(false);
+
+  // Stable ref to the latest `onClose` so that `startCloseTimer` does not
+  // depend on `onClose`'s identity. Without this, the auto-close `useEffect`
+  // below would re-run (and the countdown would restart from the full
+  // duration) every time the parent passes a fresh function -- which
+  // `ToastProvider` does on every render because it uses `onClose={onClose(id)}`
+  // (a new closure per render). That would let a frequently-rerendering parent
+  // keep a toast alive indefinitely and would also discard pause progress.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimerRef.current !== undefined) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = undefined;
+    }
+  }, []);
+
+  const startCloseTimer = useCallback(
+    (remaining: number) => {
+      clearCloseTimer();
+      if (!remaining || remaining === Infinity) {
+        return;
+      }
+      closeTimerStartTimeRef.current = Date.now();
+      closeTimerRef.current = setTimeout(() => {
+        closeTimerRef.current = undefined;
+        onCloseRef.current(false);
+      }, remaining);
+    },
+    [clearCloseTimer]
+  );
+
+  useEffect(() => {
+    closeTimerRemainingTimeRef.current = duration;
+    wasPausedRef.current = false;
+    startCloseTimer(duration);
+    return clearCloseTimer;
+  }, [duration, startCloseTimer, clearCloseTimer]);
+
+  const handlePause = useCallback(() => {
+    if (closeTimerRef.current === undefined) {
+      return;
+    }
+    const elapsed = Date.now() - closeTimerStartTimeRef.current;
+    closeTimerRemainingTimeRef.current = Math.max(
+      0,
+      closeTimerRemainingTimeRef.current - elapsed
+    );
+    clearCloseTimer();
+    wasPausedRef.current = true;
+  }, [clearCloseTimer]);
+
+  const handleResume = useCallback(() => {
+    if (!wasPausedRef.current) {
+      return;
+    }
+    wasPausedRef.current = false;
+    // If the deadline elapsed during the pause window (e.g. event-loop delay
+    // or timer throttling pushed the pause past the auto-close deadline
+    // before the timer callback ran), close immediately on resume instead of
+    // letting `startCloseTimer(0)` short-circuit and leave the toast open
+    // forever.
+    if (closeTimerRemainingTimeRef.current <= 0) {
+      onCloseRef.current(false);
+      return;
+    }
+    startCloseTimer(closeTimerRemainingTimeRef.current);
+  }, [startCloseTimer]);
+
   return (
     <ToastRoot
       onOpenChange={onClose}
-      duration={duration}
+      duration={Infinity}
+      onPause={handlePause}
+      onResume={handleResume}
       type={toastType}
       {...props}
     >
@@ -216,6 +332,7 @@ export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
 export const ToastProvider = ({
   children,
   align = 'end',
+  duration: providerDuration = DEFAULT_TOAST_DURATION,
   ...props
 }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<Record<ToastAlignment, Map<string, ToastProps>>>({
@@ -268,18 +385,21 @@ export const ToastProvider = ({
     <RadixUIToast.Provider
       swipeDirection={align === 'start' ? 'left' : 'right'}
       key={`toast-provider-${align}`}
+      duration={providerDuration}
       {...props}
     >
-      <ToastContext.Provider value={value}>
-        {children}
-        {Array.from(toasts[align]).map(([id, toast]) => (
-          <Toast
-            key={id}
-            {...toast}
-            onClose={onClose(id)}
-          />
-        ))}
-      </ToastContext.Provider>
+      <ToastDurationContext.Provider value={providerDuration}>
+        <ToastContext.Provider value={value}>
+          {children}
+          {Array.from(toasts[align]).map(([id, toast]) => (
+            <Toast
+              key={id}
+              {...toast}
+              onClose={onClose(id)}
+            />
+          ))}
+        </ToastContext.Provider>
+      </ToastDurationContext.Provider>
       <Viewport $align={align} />
     </RadixUIToast.Provider>
   );
