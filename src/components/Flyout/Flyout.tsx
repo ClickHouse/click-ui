@@ -81,7 +81,9 @@ const FlyoutContent = styled(DialogContent)<{
     position: ${$strategy};
     height: ${$strategy === 'relative' ? '100%' : 'auto'};
     padding: 0 ${theme.click.flyout.space[$type].x};
-    gap: ${theme.click.flyout.space[$type].gap};
+    /* Section spacing comes from the separators' own margins (Separator size), not a
+       container gap. A gap here would stack on those margins and double the spacing. */
+    gap: 0;
     box-shadow: ${
       $hasShadow === false
         ? 'none'
