@@ -1,4 +1,15 @@
-.svg-wrapper {
+/* Base kept at zero specificity via :where() so external styled(Icon)
+   consumers override at equal specificity by source order — Icon is a CSS
+   Module, whose rules would otherwise beat equal-specificity styled-components
+   selectors by bundle order. Mirrors the Container precedent (#1101).
+   - `:where(.svg-wrapper)` drops the root to 0-0-0 so consumers that set
+     `color` on the root (CardPromotion's CardIcon, VerticalStepper's
+     CheckIcon, CardSecondary's LinkIconContainer; each a 0-1-0 selector) win.
+   - `:where(.svg-wrapper) svg` drops the svg-sizing rule to 0-0-1 so consumers
+     that set `width`/`height`/`color` via a descendant `.x svg` selector
+     (FileUpload's DocumentIcon / UploadIcon; 0-1-1) win, while Icon's OWN
+     `.svg-wrapper_size_* svg` size modifiers (0-1-1) still beat this base. */
+:where(.svg-wrapper) {
   display: flex;
   padding: 0;
   align-items: center;
@@ -7,7 +18,7 @@
   color: var(--svg-icon-color, currentcolor);
 }
 
-.svg-wrapper svg {
+:where(.svg-wrapper) svg {
   width: var(--svg-width, var(--click-image-md-size-width));
   height: var(--svg-height, var(--click-image-md-size-height));
 }

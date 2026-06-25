@@ -1,4 +1,11 @@
-.text {
+/* Base kept at zero specificity via :where() so an external styled(Text)
+   consumer (e.g. FileUpload's FileUploadDescription, which overrides `color`
+   and `font`) wins at equal specificity by source order — Text is a CSS
+   Module, whose 0-1-0 base rule would otherwise beat the consumer's 0-1-0
+   selector by bundle order. Mirrors the Container precedent (#1101). The
+   .text_color_* / .text_font_* / .text_align_* modifiers below stay above
+   zero specificity on purpose, so they keep winning over the base. */
+:where(.text) {
   margin: 0;
   color: var(--click-global-color-text-default);
   font: var(--typography-styles-product-text-normal-md);

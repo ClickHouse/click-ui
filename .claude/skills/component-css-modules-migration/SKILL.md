@@ -25,6 +25,26 @@ The reason this rule exists: the visual regression test is credible *only* becau
 
 The only collateral change you may need: a narrow TypeScript widening (e.g. `HTMLAttributes<HTMLButtonElement>` → `ButtonHTMLAttributes<HTMLButtonElement>`) when the new test stories need a prop like `disabled` to typecheck. That's pure TS, no runtime effect — include it in the baseline commit and call it out.
 
+## Base rules must be `:where()`-scoped when the component has external consumers (hard line)
+
+A styled-components rule and a CSS-module class both sit at specificity (0,1,0) for a single class. styled-components used to win equal-specificity ties against a component's own styles by source order, so any app that did `styled(Component)` and overrode a property the component also set just worked. After migration the component's base `.module.css` rule is a real (0,1,0) class, so it now *ties* with an external `styled(Component)` override of the same property — and the winner is decided by **bundle order**, which is not guaranteed across builds. In the published package consumed downstream, the CSS-module bundle can load after styled-components' runtime injection, so the base wins and the consumer's override is **silently dropped**. (It can still "work" in Storybook's dev server, whose order happens to favor the consumer — so the isolated stories do **not** catch this, exactly like the nested-`Container` inheritance trap.)
+
+**Fix:** scope the base rule(s) with `:where()` so they sit at zero specificity:
+
+```css
+:where(.block) {
+  /* base declarations */
+}
+```
+
+Now any consumer override (a 0,1,0 class, or a 0,1,1 descendant selector) wins by **specificity**, regardless of bundle order, and the component's own `_modifier` classes (still 0,1,0) keep winning over the base. First established for `Container` (#1101) and validated again on `EmptyButton` (#1105); applied to `Label`, `Text`, `Title`, and `Icon` together as a batch fix afterward.
+
+Rules:
+- **Only scope the base.** Leave `_modifier` classes, state rules, and `:hover`/`:focus` rules at their normal specificity — they *must* keep beating the zero-specificity base. Never blanket-wrap an entire file in `:where()`.
+- **Scope a descendant base rule by wrapping only the ancestor part**, so it drops by exactly one class: `.block svg { … }` → `:where(.block) svg { … }` goes from (0,1,1) to (0,0,1). A consumer's `.x svg` (0,1,1) then wins, while the component's own `.block_size_* svg` size modifiers (0,1,1) still beat the base. Verify both hold.
+- **Only scope a base rule whose declared properties are actually overridden by a consumer** (or are plausibly override targets — colors, fonts, layout, sizing). Don't `:where()` rules nothing competes with.
+- The component's own visual-regression snapshots **must not change** — re-run the existing specs and confirm zero regeneration. If an own snapshot moves, you scoped a modifier by mistake; narrow it.
+
 ## Prerequisites
 
 1. The component still uses `styled-components` (check `src/components/<Name>/<Name>.tsx`).
@@ -74,6 +94,7 @@ If you need to fix repo tooling (broken script, version mismatch) to even run `y
   - Keyboard activation if relevant (Space, Enter) — works on native `<button>` regardless of styling
   - Any ARIA assertions the existing component already supports
   - Use `page.getByRole(...)` matchers, not CSS attribute selectors like `[role="button"]:nth-child(N)`
+  - **At least one consumer story when the component is extended via `styled(Component)`.** Grep the repo for `styled(<ThisComponent>)` (and `styled(<exported alias>)`). For each consumer that overrides a property the base also declares, add a story rendering that consumer with the override active (e.g. a non-default `labelColor`, an error/unsupported state) and screenshot it. This is the only coverage that can catch a dropped equal-specificity override once the component is a CSS Module — the component's own stories never exercise the consumer's overriding selector. If a consumer's override happens to resolve to the same value as the base default (no visible delta), note it and skip the story rather than forcing one.
 - `tests/<area>/<name>.spec.ts-snapshots/*.png` — Generated, not committed by hand. See below.
 - `src/components/<Name>/<Name>.types.ts` — Only touch this if the new stories don't typecheck. The acceptable change is widening (e.g. `HTMLAttributes` → `ButtonHTMLAttributes`). Anything more is scope creep.
 
@@ -224,6 +245,7 @@ Before marking the PR ready:
 - [ ] The new spec starts with a `@covers src/components/<Name>` directive (CI's visual-regression job throws without it).
 - [ ] Commit 2 changes only `<Name>.tsx`, `<Name>.module.css`, and the changeset.
 - [ ] If the component reads props from inline CSS custom properties, every conditionally-emitted one is reset to `initial` in the base class (with a matching `var()` fallback) so it can't inherit into nested instances, and a nested-instance test guards it.
+- [ ] `styled(<ThisComponent>)` consumers were grepped for. Every base rule whose properties a consumer overrides is scoped with `:where(.base)` (modifiers left unscoped), and at least one consumer story with the override active is in the visual-regression coverage. Cite the Container (#1101) precedent.
 - [ ] Every block and element has a base class (no `cva('', …)`, no lone modifier families); shared declarations are hoisted onto the base and genuinely-empty bases carry a `block-no-empty` disable.
 - [ ] Changeset is `patch` and reads exactly `Migrate <Name> from styled-components to css modules with no change in behavior`
 - [ ] `yarn test:visual tests/<area>/<name>.spec.ts` is green with zero snapshot regenerations between the two commits.
