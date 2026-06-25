@@ -797,6 +797,36 @@
                 "type": "spacing"
               }
             }
+          },
+          "icon": {
+            "default": {
+              "y": {
+                "value": "3px",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
+            },
+            "borderless": {
+              "y": {
+                "value": "5.5px",
+                "type": "spacing"
+              },
+              "x": {
+                "value": "{spaces.4}",
+                "type": "spacing"
+              }
+            }
+          }
+        },
+        "icon": {
+          "size": {
+            "all": {
+              "value": "{click.button.iconButton.size.medium}",
+              "type": "sizing"
+            }
           }
         }
       },

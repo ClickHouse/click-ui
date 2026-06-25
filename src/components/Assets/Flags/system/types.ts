@@ -7,6 +7,7 @@ export type FlagName =
   | 'brazil'
   | 'canada'
   | 'european-union'
+  | 'france'
   | 'germany'
   | 'great-britain'
   | 'hong-kong'

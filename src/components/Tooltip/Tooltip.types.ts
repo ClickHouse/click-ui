@@ -7,4 +7,5 @@ export interface TooltipProps extends RadixTooltip.TooltipProps {
 export interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
   showArrow?: boolean;
   maxWidth?: string;
+  container?: HTMLElement | null;
 }

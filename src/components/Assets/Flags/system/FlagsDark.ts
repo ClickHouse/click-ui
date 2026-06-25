@@ -9,6 +9,7 @@ import Australia from '../Australia';
 import Brazil from '../Brazil';
 import Canada from '../Canada';
 import European_Union from '../European-Union';
+import France from '../France';
 import Germany from '../Germany';
 import Great_Britain from '../Great-Britain';
 import Hong_Kong from '../Hong-Kong';
@@ -38,6 +39,7 @@ const FlagsDark: Record<FlagName, ComponentType<SVGAssetProps>> = {
   brazil: Brazil,
   canada: Canada,
   'european-union': European_Union,
+  france: France,
   germany: Germany,
   'great-britain': Great_Britain,
   'hong-kong': Hong_Kong,

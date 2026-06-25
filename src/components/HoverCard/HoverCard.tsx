@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { Arrow, GenericPopoverMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import styles from './HoverCard.module.css';
 
 export interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
@@ -40,10 +41,12 @@ const HoverCardContent = ({
   container,
   ...props
 }: HoverCardContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
     <RadixHoverCard.Portal
       forceMount={forceMount}
-      container={container}
+      container={portalContainer}
     >
       <GenericPopoverMenuPanel
         as={RadixHoverCard.Content}

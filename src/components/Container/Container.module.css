@@ -1,4 +1,8 @@
-.container {
+/* Kept at zero specificity via :where() so that modifier classes (e.g.
+   .container_padding_md) and downstream styled-components overrides on a
+   styled(Container) both win without needing a specificity hack — Container is
+   a CSS Module, whose rules otherwise beat equal-specificity styled-components. */
+:where(.container) {
   /* These props are only emitted as inline custom properties when the
      matching Container prop is set (grow, shrink, fillHeight, minHeight,
      maxHeight, overflow). Custom properties inherit by default, so without
