@@ -1,9 +1,10 @@
 import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import { HTMLAttributes, ReactNode, useId } from 'react';
-import { styled } from 'styled-components';
 import { GenericLabel } from '@/components/GenericLabel';
 import { Label } from '@/components/Label';
 import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
+import { cn, cva } from '@/lib/cva';
+import styles from './RadioGroup.module.css';
 
 export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, 'dir'> {
   /** Whether to display radio items inline (horizontally) */
@@ -20,19 +21,22 @@ export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, '
   error?: ReactNode;
 }
 
-const RadioGroupRoot = styled(RadixRadioGroup.Root)<{
-  $error: boolean;
-  $inline?: boolean;
-}>`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.click.checkbox.space.gap};
-  flex-direction: ${({ $inline = true }) => ($inline === true ? 'row' : 'column')};
-  label {
-    ${({ $error, theme }) =>
-      $error ? `color: ${theme.click.field.color.label.error};` : ''}
-  }
-`;
+const radioGroupVariants = cva(styles['radio-group'], {
+  variants: {
+    inline: {
+      true: styles['radio-group_inline'],
+      false: styles['radio-group_inline_false'],
+    },
+    error: {
+      true: styles['radio-group_error'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    inline: true,
+    error: false,
+  },
+});
 
 export const RadioGroup = ({
   children,
@@ -44,6 +48,7 @@ export const RadioGroup = ({
   label,
   disabled,
   id,
+  className,
   ...props
 }: RadioGroupProps) => {
   return (
@@ -53,17 +58,22 @@ export const RadioGroup = ({
       $addLabelPadding
     >
       <FormElementContainer>
-        <RadioGroupRoot
+        <RadixRadioGroup.Root
           orientation={inline ? 'horizontal' : 'vertical'}
           disabled={disabled}
           id={id}
-          $error={!!error}
           dir={itemDir}
-          $inline={inline}
           {...props}
+          className={cn(
+            radioGroupVariants({
+              inline: inline === false ? false : true,
+              error: !!error,
+            }),
+            className
+          )}
         >
           {children}
-        </RadioGroupRoot>
+        </RadixRadioGroup.Root>
         {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
@@ -92,25 +102,28 @@ const RadioGroupItem = ({
   value,
   disabled,
   required,
+  className,
   ...props
 }: RadioGroupItemProps) => {
   const defaultId = useId();
   return (
-    <Wrapper
+    <FormRoot
       $orientation="horizontal"
       $dir="end"
       $addLabelPadding={false}
       {...props}
+      className={cn(styles.item, className)}
     >
-      <RadioInput
+      <RadixRadioGroup.Item
         value={value}
         id={id ?? defaultId}
         disabled={disabled}
         required={required}
         aria-label={`${label}`}
+        className={styles['radio-input']}
       >
-        <RadioGroupIndicator />
-      </RadioInput>
+        <RadixRadioGroup.Indicator className={styles['radio-indicator']} />
+      </RadixRadioGroup.Item>
       {label && (
         <GenericLabel
           htmlFor={id ?? defaultId}
@@ -119,77 +132,9 @@ const RadioGroupItem = ({
           {label}
         </GenericLabel>
       )}
-    </Wrapper>
+    </FormRoot>
   );
 };
 
 RadioGroupItem.displayName = 'RadioGroupItem';
 RadioGroup.Item = RadioGroupItem;
-
-const Wrapper = styled(FormRoot)`
-  padding: ${({ theme }) => theme.click.checkbox.space.all};
-
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.click.checkbox.space.gap};
-  width: auto;
-`;
-
-const RadioInput = styled(RadixRadioGroup.Item)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  cursor: pointer;
-  ${({ theme }) => `
-    border-radius: ${theme.click.radio.radii.all};
-    width: 1rem;
-    height: 1rem;
-    background: ${theme.click.radio.color.background.default};
-    border: 1px solid ${theme.click.radio.color.stroke.default};
-
-    &:hover {
-      background: ${theme.click.radio.color.background.hover};
-    }
-    &[data-state="checked"] {
-      border-color: ${theme.click.radio.color.stroke.active};
-      background: ${theme.click.radio.color.background.active};
-    }
-    &[data-disabled] {
-      background: ${theme.click.radio.color.background.disabled};
-      border-color: ${theme.click.radio.color.stroke.disabled};
-    }
-  `};
-`;
-
-const RadioGroupIndicator = styled(RadixRadioGroup.Indicator)`
-  ${({ theme }) => `
-    background: ${theme.click.radio.color.background.default};
-    &::after {
-      content: '';
-      display: block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: ${theme.click.radio.color.indicator.default};
-      &:hover {
-        background: ${theme.click.radio.color.indicator.hover};
-      }
-    }
-    &[data-state="checked"] {
-      background: ${theme.click.radio.color.background.active};
-      &::after {
-        background: ${theme.click.radio.color.indicator.active};
-      }
-    }
-    &:hover {
-      background: ${theme.click.radio.color.background.hover};
-    }
-    &[data-disabled] {
-      background: ${theme.click.radio.color.background.disabled};
-      &::after {
-        background: ${theme.click.radio.color.indicator.disabled};
-      }
-    }
-  `}
-`;
