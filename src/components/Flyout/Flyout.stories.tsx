@@ -147,3 +147,105 @@ export const Playground: Story = {
     },
   },
 };
+
+// --- Visual regression baseline stories ---
+// Each opens the flyout (`open`) so the portalled content renders for
+// screenshotting. They cover every visual axis the current rendering
+// varies on: type, size, alignment, shadow, and body alignment.
+
+export const OpenDefault: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const InlineType: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'inline',
+    hasShadow: true,
+  },
+};
+
+export const AlignStart: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'start',
+    size: 'default',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const NoShadow: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'default',
+    hasShadow: false,
+  },
+};
+
+export const SizeNarrow: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'narrow',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const SizeWide: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'wide',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const SizeWidest: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'widest',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const BodyAlignTop: Story = {
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'default',
+    alignBody: 'top',
+    hasShadow: true,
+  },
+};
