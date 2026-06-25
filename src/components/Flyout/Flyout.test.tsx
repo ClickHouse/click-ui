@@ -3,6 +3,7 @@ import { Flyout } from '@/components/Flyout';
 import { renderCUI } from '@/utils/test-utils';
 import { Button } from '@/components/Button';
 import { DialogProps } from '@radix-ui/react-dialog';
+import styles from './Flyout.module.css';
 
 interface Props extends DialogProps {
   showClose?: boolean;
@@ -118,6 +119,11 @@ describe('Flyout', () => {
     });
 
     expect(queryByText('Flyout Text')).not.toBeNull();
-    expect(getByRole('dialog')).toHaveStyle({ boxShadow: 'none' });
+    // The shadow is removed via the `content_no-shadow` CSS Modules class.
+    // jsdom does not load the `.module.css` stylesheet, so the computed
+    // `box-shadow` is not resolvable in the unit test environment; assert the
+    // modifier class is applied instead. The actual rendered no-shadow output
+    // is covered byte-for-byte by the visual-regression snapshot.
+    expect(getByRole('dialog')).toHaveClass(styles['content_no-shadow']);
   });
 });
