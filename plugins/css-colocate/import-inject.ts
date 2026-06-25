@@ -1,6 +1,5 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { glob } from 'glob';
 import { fileExists, createImportStatement } from './utils';
 
 interface TrackedImport {
@@ -23,6 +22,26 @@ const resolveCssPath = (
     return path.resolve(path.dirname(sourceFile), cssImportPath);
   }
   return null;
+};
+
+/**
+ * Map a source file to its emitted JS output path, mirroring the
+ * `createEntryFileNames` rule in vite.config.ts: when a module's filename equals
+ * its parent directory (e.g. Button/Button.tsx), the output is renamed to
+ * `index` (Button/index.js). Siblings like Collapsible/IconWrapper.tsx are not
+ * renamed.
+ */
+const resolveJsOutputFile = (
+  sourceFile: string,
+  srcDir: string,
+  distDir: string,
+  ext: string
+): string => {
+  const relative = path.relative(srcDir, sourceFile).replace(/\.tsx?$/, '');
+  const dir = path.dirname(relative);
+  const name = path.basename(relative);
+  const outName = path.basename(dir) === name ? 'index' : name;
+  return path.join(distDir, dir, `${outName}.${ext}`);
 };
 
 /**
@@ -52,7 +71,9 @@ const copyAndResolveCss = async (
   jsOutputFile: string
 ): Promise<string | null> => {
   const cssSourcePath = resolveCssPath(cssImportPath, sourceFile, srcDir);
-  if (!cssSourcePath || !(await fileExists(cssSourcePath))) return null;
+  if (!cssSourcePath || !(await fileExists(cssSourcePath))) {
+    return null;
+  }
 
   const cssRelativeToSrc = path.relative(srcDir, cssSourcePath);
   const cssOutputPath = path.join(distDir, cssRelativeToSrc);
@@ -93,33 +114,71 @@ const insertAtTop = (content: string, codeToInsert: string): string => {
 };
 
 /**
- * Inject CSS imports into component files (e.g., Button/index.js gets import "./Button.css")
+ * Inject the colocated rules stylesheet for every module that imported a `.module.css`.
  *
- * NOTE: This function assumes the CSS filename matches the parent directory name.
- * For example, components/Button/index.js expects components/Button/Button.css to exist.
- * Components that don't follow this naming convention will be silently skipped.
+ * Driven by the actual source imports tracked during `transform` (any file, not just
+ * `index.*`), so non-index consumers are covered too — e.g. Collapsible/IconWrapper.tsx
+ * imports Collapsible.module.css but is reached by SidebarNavigationItem without ever
+ * pulling in Collapsible/index.js. Keying off the directory name (the old approach) left
+ * such siblings without their stylesheet, which then got tree-shaken out of consumer builds.
+ *
+ * The rules file (`<Name>.css`) for a `<Name>.module.css` is produced by
+ * preprocessCssModules and copied into dist by copyCssFiles before this runs.
  */
-export const injectComponentCss = async (
+export const injectModuleCssImports = async (
+  trackedModuleImports: TrackedImport[],
+  rootDir: string,
   distDir: string,
-  format: 'esm' | 'cjs',
-  ext: string
+  format: 'esm' | 'cjs'
 ): Promise<void> => {
-  const files = await glob(`**/index.${ext}`, { cwd: distDir, absolute: true });
+  if (trackedModuleImports.length === 0) {
+    return;
+  }
 
-  for (const jsFile of files) {
-    const dir = path.dirname(jsFile);
-    const component = path.basename(dir);
-    const cssFile = path.join(dir, `${component}.css`);
+  const srcDir = path.join(rootDir, 'src');
+  const ext = format === 'esm' ? 'js' : 'cjs';
 
-    if (!(await fileExists(cssFile))) continue;
+  for (const { sourceFile, cssPaths } of trackedModuleImports) {
+    const jsOutputFile = resolveJsOutputFile(sourceFile, srcDir, distDir, ext);
 
-    const content = await fs.readFile(jsFile, 'utf-8');
-    if (content.includes(`${component}.css`)) continue;
+    if (!(await fileExists(jsOutputFile))) {
+      continue;
+    }
 
-    const importStmt = createImportStatement(`./${component}.css`, format) + '\n';
-    const updated = insertAtTop(content, importStmt);
+    let content = await fs.readFile(jsOutputFile, 'utf-8');
+    const importStatements: string[] = [];
 
-    await fs.writeFile(jsFile, updated);
+    for (const moduleCssPath of cssPaths) {
+      const moduleCssAbs = resolveCssPath(moduleCssPath, sourceFile, srcDir);
+      if (!moduleCssAbs) {
+        continue;
+      }
+
+      // `<Name>.module.css` -> `<Name>.css` (the emitted rules file, same relative dir)
+      const cssRulesSourcePath = moduleCssAbs.replace(/\.module\.css$/, '.css');
+      const cssOutputPath = path.join(distDir, path.relative(srcDir, cssRulesSourcePath));
+      if (!(await fileExists(cssOutputPath))) {
+        continue;
+      }
+
+      const importPath = calculateImportPath(jsOutputFile, cssRulesSourcePath, srcDir, distDir);
+      if (!importPath) {
+        continue;
+      }
+
+      const importStatement = createImportStatement(importPath, format);
+      if (!content.includes(importPath) && !importStatements.includes(importStatement)) {
+        importStatements.push(importStatement);
+      }
+    }
+
+    content = removeEmptyCssComments(content);
+
+    if (importStatements.length > 0) {
+      content = insertAtTop(content, importStatements.join('\n') + '\n');
+    }
+
+    await fs.writeFile(jsOutputFile, content);
   }
 };
 
@@ -133,7 +192,9 @@ export const injectRegularCssImports = async (
   distDir: string,
   format: 'esm' | 'cjs'
 ): Promise<void> => {
-  if (trackedImports.length === 0) return;
+  if (trackedImports.length === 0) {
+    return;
+  }
 
   const srcDir = path.join(rootDir, 'src');
 
@@ -144,7 +205,9 @@ export const injectRegularCssImports = async (
       relativeToSrc.replace(/\.tsx?$/, `.${format === 'esm' ? 'js' : 'cjs'}`)
     );
 
-    if (!(await fileExists(jsOutputFile))) continue;
+    if (!(await fileExists(jsOutputFile))) {
+      continue;
+    }
 
     let content = await fs.readFile(jsOutputFile, 'utf-8');
 
