@@ -1,11 +1,14 @@
-/* Base kept at zero specificity via :where() so an external
-   styled(Label) consumer (e.g. InputWrapper's StyledLabel, which sets
-   `color` from a `labelColor` prop) overrides the base at equal specificity
-   by source order — Label is a CSS Module, whose 0-1-0 base rule would
-   otherwise beat the consumer's 0-1-0 selector by bundle order. Mirrors the
-   Container precedent (#1101). The .label_error / .label_disabled modifiers
-   and the :not() hover/focus rules below stay above zero specificity on
-   purpose, so they keep winning over labelColor in those states. */
+/* Base scoped to zero specificity (0-0-0) via :where() so an external
+   styled(Label) consumer (e.g. InputWrapper's StyledLabel, which sets `color`
+   from a `labelColor` prop) overrides the base BY SPECIFICITY — its 0-1-0
+   selector outranks this 0-0-0 base regardless of source/bundle order. (Without
+   :where(), Label being a CSS Module meant this base was a real 0-1-0 rule that
+   tied the consumer's 0-1-0 selector and won by bundle order — the old bug.)
+   Order-independence is the point. Mirrors the Container precedent (#1101).
+   The .label_error / .label_disabled modifiers and the :not() hover/focus rules
+   below stay above zero specificity on purpose so they keep winning over the
+   base; how they resolve against an equal-specificity consumer override (e.g.
+   labelColor) is governed by normal specificity/source-order rules. */
 :where(.label) {
   color: var(--click-field-color-label-default);
   font: var(--click-field-typography-label-default);
@@ -13,11 +16,13 @@
 
 /* Hover/focus rules only apply when neither disabled nor error is set, matching
    the original styled-components behavior (which simply didn't emit them in
-   those states). The :not() chain also raises specificity above 0-1-0 so these
-   rules win over InputWrapper's `labelColor` override (a 0-1-0 single-class
-   styled-components selector injected later in the cascade). The .label_error
-   and .label_disabled modifiers below stay at 0-1-0 on purpose, so labelColor
-   continues to override them. */
+   those states). The :not() chain raises specificity well above 0-1-0 (the
+   :not() argument and the :hover/:focus pseudo-class each add a class), above
+   both the 0-0-0 base and a 0-1-0 consumer override (e.g. InputWrapper's
+   `labelColor`), so these rules win by specificity. The .label_error and
+   .label_disabled modifiers below stay at 0-1-0 on purpose; against an
+   equal-specificity 0-1-0 consumer override they neither guaranteed-win nor
+   guaranteed-lose — the tie is resolved by normal source order. */
 .label:not(.label_error, .label_disabled):hover {
   color: var(--click-field-color-label-hover);
   font: var(--click-field-typography-label-hover);

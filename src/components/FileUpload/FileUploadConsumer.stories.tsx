@@ -6,9 +6,11 @@ import { FileUploadItem } from './FileUploadItem';
  * Stories exercising FileUpload's `styled(Title)` / `styled(Text)` /
  * `styled(Icon)` consumers, which override the base `color` / `font` (Title,
  * Text) and the descendant `svg { width; height; color }` (Icon). The base
- * rules of those components are scoped with `:where()` so these
- * equal-specificity overrides win; without that scope the overrides are
- * silently dropped (title/description font, error color, icon sizing).
+ * rules of those components are scoped with `:where()` down to zero specificity,
+ * so these consumer overrides win by specificity regardless of source/bundle
+ * order. Without that scope the base rules tied the overrides at equal
+ * specificity and could win by bundle order, silently dropping them
+ * (title/description font, error color, icon sizing).
  */
 const meta: Meta = {
   title: 'Forms/FileUploadConsumer',

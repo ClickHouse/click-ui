@@ -4,8 +4,10 @@ import { InputWrapper } from '@/components/InputWrapper';
 /**
  * Stories exercising InputWrapper's `StyledLabel = styled(Label)` consumer,
  * which overrides the Label base `color` via the `labelColor` prop. The base
- * `.label` rule is scoped with `:where()` so this equal-specificity override
- * wins; without that scope the override is silently dropped.
+ * `.label` rule is scoped with `:where()` to zero specificity, so the
+ * consumer's 0-1-0 override wins by specificity regardless of source/bundle
+ * order. Without that scope the base was a real 0-1-0 rule that tied the
+ * override and could win by bundle order, silently dropping it.
  */
 const meta: Meta<typeof InputWrapper> = {
   component: InputWrapper,
