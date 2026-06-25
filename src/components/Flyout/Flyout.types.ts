@@ -24,6 +24,8 @@ export interface FlyoutContentProps extends HTMLAttributes<HTMLDivElement> {
   closeOnInteractOutside?: boolean;
   width?: string;
   align?: FlyoutAlignmentType;
+  /** Whether to show a shadow on the flyout */
+  hasShadow?: boolean;
   onInteractOutside?: (event: CustomEvent) => void;
   onEscapeKeyDown?: (event: KeyboardEvent) => void;
   onPointerDownOutside?: (event: CustomEvent) => void;

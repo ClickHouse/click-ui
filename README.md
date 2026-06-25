@@ -51,6 +51,7 @@ You can find the official docs for the Click UI design system and component libr
 * [Contributing](#contributing)
   - [Component RFC](#component-rfc)
   - [Conventional commits](#conventional-commits)
+  - [AI Policy](#ai-policy)
 
 ## Requirements
 
@@ -649,3 +650,7 @@ docs: 📝 Documentation only changes
 refactor: 💡 A code change that neither fixes a bug or adds a feature
 style: 💄 Markup, white-space, formatting, missing semi-colons...
 ```
+
+### AI Policy
+
+You can use AI for Click UI development — see the [AI Policy](./AI_POLICY.md) for what we encourage and what's expected of contributors.
