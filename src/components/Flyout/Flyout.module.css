@@ -1,0 +1,231 @@
+@keyframes flyout-animation-width {
+  from {
+    width: 0;
+  }
+
+  to {
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+       is the original animation target width */
+    width: fit-content;
+  }
+}
+
+.content {
+  display: flex;
+  top: 0;
+  bottom: 0;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+     is the original sizing keyword; the animation expands width to fit-content */
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: var(--click-flyout-color-background-default);
+  animation: flyout-animation-width 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.content_align_start {
+  left: 0;
+  border-right: 1px solid var(--click-flyout-color-stroke-default);
+  box-shadow: var(--click-flyout-shadow-reverse);
+}
+
+.content_align_end {
+  right: 0;
+  border-left: 1px solid var(--click-flyout-color-stroke-default);
+  box-shadow: var(--click-flyout-shadow-default);
+}
+
+.content_no-shadow {
+  box-shadow: none;
+}
+
+.content_type_default {
+  padding: 0 var(--click-flyout-space-default-x);
+}
+
+.content_type_inline {
+  padding: 0 var(--click-flyout-space-inline-x);
+}
+
+.content_strategy_relative {
+  position: relative;
+  height: 100%;
+}
+
+.content_strategy_absolute {
+  position: absolute;
+  height: auto;
+}
+
+.content_strategy_fixed {
+  position: fixed;
+  height: auto;
+}
+
+/* stylelint-disable-next-line media-feature-range-notation -- prefix notation
+   required for browser compatibility per .browserslistrc */
+@media (max-width: 1024px) {
+  .content {
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+  }
+
+  .content_strategy_relative {
+    position: absolute !important;
+  }
+
+  .content_align_start {
+    transform: translateX(calc(50px - 100%));
+  }
+
+  .content_align_end {
+    transform: translateX(calc(100% - 50px));
+  }
+
+  .content_align_start:hover,
+  .content_align_start.active,
+  .content_align_start:focus-within {
+    right: auto;
+    transform: translateX(0);
+  }
+
+  .content_align_end:hover,
+  .content_align_end.active,
+  .content_align_end:focus-within {
+    left: auto;
+    transform: translateX(0);
+  }
+}
+
+.container {
+  display: flex;
+  width: var(--flyout-width);
+  max-width: 100%;
+  gap: inherit;
+  flex-flow: column nowrap;
+}
+
+.element {
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original
+     used this same max-width fallback chain (100% → -webkit-fill-available →
+     fill-available → stretch) so the element fills the available inline space. */
+  max-width: 100%;
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.header {
+}
+
+/* Doubled class: this element renders as a <Container>, whose base class also
+   sets `padding`/`gap`. Doubling outranks the single-class Container base so the
+   Flyout override wins regardless of CSS-module bundle order (matches the
+   styled(Container) override semantics on main). */
+.element_type_default.element_type_default {
+  padding: 0 var(--click-flyout-space-default-content-x);
+  gap: var(--click-flyout-space-default-gap);
+}
+
+.element_type_inline.element_type_inline {
+  padding: 0 var(--click-flyout-space-inline-content-x);
+  gap: var(--click-flyout-space-inline-gap);
+}
+
+.header_type_default.header_type_default {
+  padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y)
+    0 var(--click-flyout-space-default-y);
+  gap: var(--click-flyout-space-default-content-row-gap)
+    var(--click-flyout-space-default-content-column-gap);
+}
+
+.header_type_inline.header_type_inline {
+  padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-y) 0
+    var(--click-flyout-space-inline-y);
+  gap: var(--click-flyout-space-inline-content-row-gap)
+    var(--click-flyout-space-inline-content-column-gap);
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  color: var(--click-flyout-color-title-default);
+}
+
+.title_type_default {
+  font: var(--click-flyout-typography-default-title-default);
+}
+
+.title_type_inline {
+  font: var(--click-flyout-typography-inline-title-default);
+}
+
+.description {
+  margin: 0;
+  padding: 0;
+  color: var(--click-flyout-color-description-default);
+}
+
+.description_type_default {
+  font: var(--click-flyout-typography-default-description-default);
+}
+
+.description_type_inline {
+  font: var(--click-flyout-typography-inline-description-default);
+}
+
+/* Doubled class: renders as a <Container> whose base sets `width`. */
+.body.body {
+  width: var(--flyout-width);
+  max-width: 100%;
+}
+
+.body_align_default.body_align_default {
+  margin-top: 0;
+}
+
+.body_align_top.body_align_top {
+  margin-top: -1rem;
+}
+
+/* Doubled class: renders as a <Container> whose base sets `width`. */
+.footer-container.footer-container {
+  width: var(--flyout-width);
+  max-width: 100%;
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.footer {
+}
+
+.footer_type_default.footer_type_default {
+  padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-content-x);
+  gap: var(--click-flyout-space-default-content-row-gap)
+    var(--click-flyout-space-default-content-column-gap);
+}
+
+.footer_type_inline.footer_type_inline {
+  padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-content-x);
+  gap: var(--click-flyout-space-inline-content-row-gap)
+    var(--click-flyout-space-inline-content-column-gap);
+}
+
+.code-block {
+  display: flex;
+  height: 100%;
+}
+
+.code-block pre {
+  flex: 1;
+  overflow-wrap: break-word;
+}
+
+.code-block pre code {
+  display: inline-block;
+  max-width: calc(100% - 1rem);
+}

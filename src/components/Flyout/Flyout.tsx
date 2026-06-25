@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode, useMemo } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -17,19 +17,17 @@ import type { ContainerProps } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
-import { styled, keyframes } from 'styled-components';
 import { CrossButton } from '@/components/CrossButton';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import { cn, cva } from '@/lib/cva';
+import styles from './Flyout.module.css';
 import type {
   FlyoutProps,
   FlyoutTriggerProps,
   FlyoutContentProps,
   FlyoutHeaderProps,
   FlyoutFooterProps,
-  FlyoutSizeType,
-  FlyoutStrategy,
   FlyoutType,
-  FlyoutAlignmentType,
 } from './Flyout.types';
 
 export const Flyout = ({ modal = false, ...props }: FlyoutProps) => {
@@ -51,104 +49,64 @@ const Trigger = ({ children, ...props }: FlyoutTriggerProps) => {
 Trigger.displayName = 'Flyout.Trigger';
 Flyout.Trigger = Trigger;
 
-const animationWidth = () =>
-  keyframes({
-    from: { width: 0 },
-    to: { width: 'fit-content' },
-  });
-
-const FlyoutContent = styled(DialogContent)<{
-  $size?: FlyoutSizeType;
-  $type?: FlyoutType;
-  $strategy: FlyoutStrategy;
-  $width?: string;
-  $align: FlyoutAlignmentType;
-  $hasShadow?: boolean;
-}>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  top: 0;
-  bottom: 0;
-  width: fit-content;
-  --flyout-width: ${({ theme, $size = 'default', $width }) =>
-    $width || theme.click.flyout.size[$size].width};
-  animation: ${animationWidth} 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  ${({ theme, $strategy, $type = 'default', $align, $hasShadow = true }) => `
-    ${$align === 'start' ? 'left' : 'right'}: 0;
-    max-width: 100%;
-    position: ${$strategy};
-    height: ${$strategy === 'relative' ? '100%' : 'auto'};
-    padding: 0 ${theme.click.flyout.space[$type].x};
-    /* Section spacing comes from the separators' own margins (Separator size), not a
-       container gap. A gap here would stack on those margins and double the spacing. */
-    gap: 0;
-    box-shadow: ${
-      $hasShadow === false
-        ? 'none'
-        : theme.click.flyout.shadow[$align === 'start' ? 'reverse' : 'default']
-    };
-    border-${$align === 'start' ? 'right' : 'left'}: 1px solid ${
-      theme.click.flyout.color.stroke.default
-    };
-    background: ${theme.click.flyout.color.background.default};
-
-    @media (max-width: 1024px) {
-      ${
-        $strategy === 'relative'
-          ? `
-            position: absolute !important;`
-          : ''
-      }
-      overflow: hidden;
-      transform: ${
-        $align === 'start'
-          ? 'translateX(calc(50px - 100%))'
-          : 'translateX(calc(100% - 50px))'
-      };
-      transition: 0.3s ease-in-out;
-      &:hover,
-      &.active,
-      &:focus-within {
-        transform: translateX(0);
-        ${$align === 'start' ? 'right' : 'left'}: auto;
-      }
-    }
-  `}
-`;
-const FlyoutContainer = styled.div`
-  display: flex;
-  gap: 0;
-  width: var(--flyout-width);
-  max-width: 100%;
-  flex-flow: column nowrap;
-  gap: inherit;
-`;
+const contentVariants = cva(styles.content, {
+  variants: {
+    type: {
+      default: styles.content_type_default,
+      inline: styles.content_type_inline,
+    },
+    strategy: {
+      relative: styles.content_strategy_relative,
+      absolute: styles.content_strategy_absolute,
+      fixed: styles.content_strategy_fixed,
+    },
+    align: {
+      start: styles.content_align_start,
+      end: styles.content_align_end,
+    },
+    hasShadow: {
+      true: '',
+      false: styles['content_no-shadow'],
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+    align: 'end',
+    hasShadow: true,
+  },
+});
 
 const Content = ({
   showOverlay = false,
   children,
   container,
   strategy = 'relative',
-  size,
+  size = 'default',
   type = 'default',
   closeOnInteractOutside = false,
   width,
   align = 'end',
   hasShadow = true,
   onInteractOutside,
+  className,
+  style,
   ...props
 }: FlyoutContentProps) => {
   const portalContainer = useResolvedPortalContainer(container);
 
+  const mergedStyle = useMemo(
+    () =>
+      ({
+        '--flyout-width': width ?? `var(--click-flyout-size-${size}-width)`,
+        ...style,
+      }) as CSSProperties,
+    [width, size, style]
+  );
+
   return (
     <DialogPortal container={portalContainer}>
       {showOverlay && <DialogOverlay className="DialogOverlay" />}
-      <FlyoutContent
-        $size={size}
-        $type={type}
-        $strategy={strategy}
+      <DialogContent
         onInteractOutside={e => {
           if (!closeOnInteractOutside) {
             e.preventDefault();
@@ -157,31 +115,29 @@ const Content = ({
             onInteractOutside(e);
           }
         }}
-        $width={width}
-        $align={align}
-        $hasShadow={hasShadow}
         {...props}
+        style={mergedStyle}
+        className={cn(contentVariants({ type, strategy, align, hasShadow }), className)}
       >
         {children}
-      </FlyoutContent>
+      </DialogContent>
     </DialogPortal>
   );
 };
 Content.displayName = 'Flyout.Content';
 Flyout.Content = Content;
 
-const FlyoutElement = styled(Container)<{
-  $type?: FlyoutType;
-}>`
-  max-width: 100%;
-  max-width: -webkit-fill-available;
-  max-width: fill-available;
-  max-width: stretch;
-  ${({ theme, $type = 'default' }) => `
-    gap: ${theme.click.flyout.space[$type].gap};
-    padding: 0 ${theme.click.flyout.space[$type].content.x};
-  `}
-`;
+const elementVariants = cva(styles.element, {
+  variants: {
+    type: {
+      default: styles.element_type_default,
+      inline: styles.element_type_inline,
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
 
 interface ElementProps extends Omit<
   ContainerProps,
@@ -191,49 +147,53 @@ interface ElementProps extends Omit<
 }
 
 const Element = ({ type, ...props }: ElementProps) => (
-  <FlyoutElement
+  <Container
     orientation="vertical"
     padding="none"
     gap="none"
-    $type={type}
     {...props}
+    className={cn(elementVariants({ type }))}
   />
 );
 
 Element.displayName = 'Flyout.Element';
 Flyout.Element = Element;
 
-const FlyoutHeaderContainer = styled(Container)<{
-  $type?: FlyoutType;
-}>`
-  ${({ theme, $type = 'default' }) => `
-    row-gap: ${theme.click.flyout.space[$type].content['row-gap']};
-    column-gap: ${theme.click.flyout.space[$type].content['column-gap']};
-    padding: ${theme.click.flyout.space[$type].y} ${theme.click.flyout.space[$type].y} 0 ${theme.click.flyout.space[$type].y};
-  `}
-`;
+const headerVariants = cva(styles.header, {
+  variants: {
+    type: {
+      default: styles.header_type_default,
+      inline: styles.header_type_inline,
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
 
-const FlyoutTitle = styled(DialogTitle)<{
-  $type?: FlyoutType;
-}>`
-  ${({ theme, $type = 'default' }) => `
-    color: ${theme.click.flyout.color.title.default};
-    font: ${theme.click.flyout.typography[$type].title.default};
-    margin: 0;
-    padding: 0;
-  `}
-`;
+const titleVariants = cva(styles.title, {
+  variants: {
+    type: {
+      default: styles.title_type_default,
+      inline: styles.title_type_inline,
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
 
-const FlyoutDescription = styled(DialogDescription)<{
-  $type?: FlyoutType;
-}>`
-  ${({ theme, $type = 'default' }) => `
-    color: ${theme.click.flyout.color.description.default};
-    font: ${theme.click.flyout.typography[$type].description.default};
-    margin: 0;
-    padding: 0;
-  `}
-`;
+const descriptionVariants = cva(styles.description, {
+  variants: {
+    type: {
+      default: styles.description_type_default,
+      inline: styles.description_type_inline,
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
 
 const Header = ({
   title,
@@ -246,9 +206,8 @@ const Header = ({
 }: FlyoutHeaderProps) => {
   if (children) {
     return (
-      <FlyoutContainer>
-        <FlyoutHeaderContainer
-          $type={type}
+      <div className={styles.container}>
+        <Container
           justifyContent="space-between"
           alignItems="start"
           padding="none"
@@ -256,6 +215,7 @@ const Header = ({
           fillWidth={false}
           isResponsive={false}
           {...props}
+          className={cn(headerVariants({ type }))}
         >
           <Container
             padding="none"
@@ -275,26 +235,26 @@ const Header = ({
               </CrossButton>
             </DialogClose>
           )}
-        </FlyoutHeaderContainer>
+        </Container>
         {showSeparator && (
           <Separator
             data-testid="flyout-header-separator"
             size="lg"
           />
         )}
-      </FlyoutContainer>
+      </div>
     );
   }
 
   return (
-    <FlyoutContainer>
-      <FlyoutHeaderContainer
-        $type={type}
+    <div className={styles.container}>
+      <Container
         justifyContent="space-between"
         alignItems="start"
         fillWidth={false}
         isResponsive={false}
         {...props}
+        className={cn(headerVariants({ type }))}
       >
         <Container
           padding="none"
@@ -302,9 +262,11 @@ const Header = ({
           orientation="vertical"
           grow="1"
         >
-          <FlyoutTitle $type={type}>{title}</FlyoutTitle>
+          <DialogTitle className={cn(titleVariants({ type }))}>{title}</DialogTitle>
           {description && (
-            <FlyoutDescription $type={type}>{description}</FlyoutDescription>
+            <DialogDescription className={cn(descriptionVariants({ type }))}>
+              {description}
+            </DialogDescription>
           )}
         </Container>
         {showClose && (
@@ -317,52 +279,61 @@ const Header = ({
             </CrossButton>
           </DialogClose>
         )}
-      </FlyoutHeaderContainer>
+      </Container>
       {showSeparator && (
         <Separator
           data-testid="flyout-header-separator"
           size="lg"
         />
       )}
-    </FlyoutContainer>
+    </div>
   );
 };
 Header.displayName = 'Flyout.Header';
 Flyout.Header = Header;
 
 type FlyoutAlign = 'default' | 'top';
-const FlyoutBody = styled(Container)<{ $align?: FlyoutAlign }>`
-  width: var(--flyout-width);
-  max-width: 100%;
-  margin-top: ${({ $align = 'default' }) => ($align === 'top' ? '-1rem' : 0)};
-`;
+
+const bodyVariants = cva(styles.body, {
+  variants: {
+    align: {
+      default: styles.body_align_default,
+      top: styles.body_align_top,
+    },
+  },
+  defaultVariants: {
+    align: 'default',
+  },
+});
 
 interface BodyProps extends ContainerProps {
   align?: FlyoutAlign;
 }
 
 const Body = ({ align, ...props }: BodyProps) => (
-  <FlyoutBody
+  <Container
     overflow="auto"
     orientation="vertical"
     grow="1"
-    $align={align}
     {...props}
+    className={cn(bodyVariants({ align }))}
   />
 );
 
 Body.displayName = 'Flyout.Body';
 Flyout.Body = Body;
 
-const FlyoutFooter = styled(Container)<{
-  type?: FlyoutType;
-}>`
-  ${({ theme, type = 'default' }) => `
-    row-gap: ${theme.click.flyout.space[type].content['row-gap']};
-    column-gap: ${theme.click.flyout.space[type].content['column-gap']};
-    padding: ${theme.click.flyout.space[type].y} ${theme.click.flyout.space[type].content.x};
-  `}
-`;
+const footerVariants = cva(styles.footer, {
+  variants: {
+    type: {
+      default: styles.footer_type_default,
+      inline: styles.footer_type_inline,
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
 
 interface FlyoutButtonProps extends Omit<ButtonProps, 'children'> {
   children?: never;
@@ -386,45 +357,29 @@ const FlyoutClose = ({
 FlyoutClose.displayName = 'Flyout.Close';
 Flyout.Close = FlyoutClose;
 
-const FooterContainer = styled(Container)`
-  width: var(--flyout-width);
-  max-width: 100%;
-`;
-
-const Footer = (props: FlyoutFooterProps) => {
+const Footer = ({ type, ...props }: FlyoutFooterProps) => {
   return (
-    <FooterContainer
+    <Container
       gap="none"
       orientation="vertical"
       alignItems="end"
+      className={styles['footer-container']}
     >
       <Separator size="xs" />
-      <FlyoutFooter
+      <Container
         justifyContent="end"
         gap="none"
         padding="none"
         isResponsive={false}
         wrap="wrap"
         {...props}
+        className={cn(footerVariants({ type }))}
       />
-    </FooterContainer>
+    </Container>
   );
 };
 Footer.displayName = 'Flyout.Footer';
 Flyout.Footer = Footer;
-
-const CustomCodeBlock = styled(CodeBlock)`
-  display: flex;
-  height: 100%;
-  pre {
-    flex: 1;
-    overflow-wrap: break-word;
-    code {
-      display: inline-block;
-      max-width: calc(100% - 1rem);
-    }
-  }
-`;
 
 interface FlyoutCodeBlockProps extends ContainerProps {
   language?: string;
@@ -450,7 +405,8 @@ const FlyoutCodeBlock = ({
       fillHeight
       {...props}
     >
-      <CustomCodeBlock
+      <CodeBlock
+        className={styles['code-block']}
         wrapLines={wrapLines}
         language={language}
         showLineNumbers={showLineNumbers}
@@ -459,7 +415,7 @@ const FlyoutCodeBlock = ({
         onCopyError={onCopyError}
       >
         {statement}
-      </CustomCodeBlock>
+      </CodeBlock>
       <Spacer size="xs" />
     </Element>
   );
