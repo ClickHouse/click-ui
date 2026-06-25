@@ -144,15 +144,16 @@ interface ElementProps extends Omit<
   'component' | 'padding' | 'gap' | 'orientation'
 > {
   type?: FlyoutType;
+  className?: string;
 }
 
-const Element = ({ type, ...props }: ElementProps) => (
+const Element = ({ type, className, ...props }: ElementProps) => (
   <Container
     orientation="vertical"
     padding="none"
     gap="none"
     {...props}
-    className={cn(elementVariants({ type }))}
+    className={cn(elementVariants({ type }), className)}
   />
 );
 
@@ -202,6 +203,7 @@ const Header = ({
   children,
   showClose = true,
   showSeparator = true,
+  className,
   ...props
 }: FlyoutHeaderProps) => {
   if (children) {
@@ -215,7 +217,7 @@ const Header = ({
           fillWidth={false}
           isResponsive={false}
           {...props}
-          className={cn(headerVariants({ type }))}
+          className={cn(headerVariants({ type }), className)}
         >
           <Container
             padding="none"
@@ -254,7 +256,7 @@ const Header = ({
         fillWidth={false}
         isResponsive={false}
         {...props}
-        className={cn(headerVariants({ type }))}
+        className={cn(headerVariants({ type }), className)}
       >
         <Container
           padding="none"
@@ -308,15 +310,16 @@ const bodyVariants = cva(styles.body, {
 
 interface BodyProps extends ContainerProps {
   align?: FlyoutAlign;
+  className?: string;
 }
 
-const Body = ({ align, ...props }: BodyProps) => (
+const Body = ({ align, className, ...props }: BodyProps) => (
   <Container
     overflow="auto"
     orientation="vertical"
     grow="1"
     {...props}
-    className={cn(bodyVariants({ align }))}
+    className={cn(bodyVariants({ align }), className)}
   />
 );
 
@@ -357,7 +360,7 @@ const FlyoutClose = ({
 FlyoutClose.displayName = 'Flyout.Close';
 Flyout.Close = FlyoutClose;
 
-const Footer = ({ type, ...props }: FlyoutFooterProps) => {
+const Footer = ({ type, className, ...props }: FlyoutFooterProps) => {
   return (
     <Container
       gap="none"
@@ -373,7 +376,7 @@ const Footer = ({ type, ...props }: FlyoutFooterProps) => {
         isResponsive={false}
         wrap="wrap"
         {...props}
-        className={cn(footerVariants({ type }))}
+        className={cn(footerVariants({ type }), className)}
       />
     </Container>
   );

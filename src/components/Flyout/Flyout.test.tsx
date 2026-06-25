@@ -112,6 +112,29 @@ describe('Flyout', () => {
     expect(queryByText('Flyout Text')).toBeNull();
   });
 
+  it('should merge a caller-provided className on subcomponents', () => {
+    const { getByText } = renderCUI(
+      <Flyout open>
+        <Flyout.Content strategy="fixed">
+          <Flyout.Header
+            title="title"
+            className="custom-header"
+          />
+          <Flyout.Body className="custom-body">Flyout Text</Flyout.Body>
+          <Flyout.Footer className="custom-footer">
+            <Flyout.Close label="Cancel" />
+          </Flyout.Footer>
+        </Flyout.Content>
+      </Flyout>
+    );
+
+    // Caller classes are merged alongside the flyout variant classes rather
+    // than overwriting them.
+    expect(getByText('title').closest('.custom-header')).not.toBeNull();
+    expect(getByText('Flyout Text').closest('.custom-body')).not.toBeNull();
+    expect(getByText('Cancel').closest('.custom-footer')).not.toBeNull();
+  });
+
   it('should remove shadow when hasShadow is false', () => {
     const { queryByText, getByRole } = renderFlyout({
       open: true,

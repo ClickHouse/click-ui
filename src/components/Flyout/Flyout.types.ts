@@ -51,6 +51,7 @@ interface TitleHeaderProps extends Omit<
   children?: never;
   showClose?: boolean;
   showSeparator?: boolean;
+  className?: string;
 }
 
 interface ChildrenHeaderProps extends Omit<
@@ -68,6 +69,7 @@ interface ChildrenHeaderProps extends Omit<
   description?: never;
   showClose?: boolean;
   showSeparator?: boolean;
+  className?: string;
 }
 
 export type FlyoutHeaderProps = TitleHeaderProps | ChildrenHeaderProps;
@@ -77,4 +79,5 @@ export interface FlyoutFooterProps extends Omit<
   'orientation' | 'justifyContent' | 'component' | 'padding' | 'gap'
 > {
   type?: FlyoutType;
+  className?: string;
 }
