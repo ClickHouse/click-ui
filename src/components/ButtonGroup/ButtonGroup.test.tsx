@@ -21,6 +21,32 @@ describe('ButtonGroup', () => {
     });
   });
 
+  it('renders icon-only buttons when iconOnly is true', () => {
+    const iconOptions = [
+      { icon: 'table' as const, value: 'table', 'aria-label': 'Table view' },
+      { icon: 'pin' as const, value: 'pin', 'aria-label': 'Pin view' },
+    ];
+
+    const { getByRole } = renderButtonGroup({
+      options: iconOptions,
+      iconOnly: true,
+      'aria-label': 'View options',
+    });
+
+    expect(getByRole('button', { name: 'Table view' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Pin view' })).toBeInTheDocument();
+  });
+
+  it('falls back to the icon name when iconOnly option has no aria-label', () => {
+    const { getByRole } = renderButtonGroup({
+      options: [{ icon: 'table', value: 'table' }],
+      iconOnly: true,
+      'aria-label': 'View options',
+    });
+
+    expect(getByRole('button', { name: 'table' })).toBeInTheDocument();
+  });
+
   it('forwards ref to the wrapper div', () => {
     const ref = createRef<HTMLDivElement>();
     renderCUI(

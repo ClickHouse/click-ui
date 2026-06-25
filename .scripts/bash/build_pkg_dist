@@ -2,24 +2,24 @@
 
 if [[ -d ./dist ]]; then
   if ! rm -rf ./dist; then
-    echo "⚠️Failed to delete dist directory"
+    echo "Failed to delete dist directory"
   fi
 fi
 
 if ! yarn typecheck; then
-  echo "👹 Oops! Found typescript issues..."
+  echo "Error: found typescript issues"
 
   exit 1
 fi
 
 if ! vite build; then
-  echo "👹 Oops! Failed to build the package..."
+  echo "Error: failed to build the package"
 
   exit 1
 fi
 
 if ! .scripts/js/generate-exports; then
-  echo "👹 Oops! Failed to generate exports..."
+  echo "Error: failed to generate exports"
 
   exit 1
 fi

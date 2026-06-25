@@ -941,7 +941,7 @@ export const CalendarRenderer = ({
       <>
         <thead>
           <tr>
-            {headers.weekDays.map(({ key, value: date }) => {
+            {headers.weekdays.map(({ key, value: date }) => {
               return (
                 <DateTableHeader key={key}>
                   {formatWeekday('system', date)}
