@@ -13,6 +13,9 @@
   cursor: pointer;
 }
 
-.empty-button:disabled {
+/* Also scoped with :where() so the disabled cursor stays at zero specificity
+   and a downstream styled(EmptyButton) `&:disabled` override wins naturally,
+   rather than tying on specificity and losing to the CSS Module by source order. */
+:where(.empty-button):disabled {
   cursor: not-allowed;
 }
