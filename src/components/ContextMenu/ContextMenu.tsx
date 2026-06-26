@@ -1,15 +1,23 @@
 import * as RightMenu from '@radix-ui/react-context-menu';
 import { styled } from 'styled-components';
-import { forwardRef } from 'react';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
 import type { HorizontalDirection } from '@/types';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import { cn, cva } from '@/lib/cva';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import type { ArrowProps, ContextMenuItemProps } from './ContextMenu.types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import styles from './ContextMenu.module.css';
 
 export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
@@ -91,34 +99,39 @@ type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
 } & ArrowProps &
   DeprecatedFields;
 
-const RightMenuContent = styled(GenericMenuPanel)<{ $showArrow?: boolean }>`
-  flex-direction: column;
-  z-index: 1;
-  ${({ $showArrow }) =>
-    $showArrow
-      ? `
-      &[data-side="bottom"] {
-        margin-top: -1px;
-      }
-      &[data-side="top"] {
-        margin-bottom: -1px;
-      }
-      &[data-side="left"] {
-        margin-right: -1px;
-        .popover-arrow {
-          margin-right: 1rem;
-        }
-      }
-      }
-      &[data-side="right"] {
-        margin-left: -1px;
-        .popover-arrow {
-          margin-left: 1rem;
-        }
-      }
-  `
-      : ''};
-`;
+const rightMenuContentVariants = cva(styles['right-menu-content'], {
+  variants: {
+    showArrow: {
+      true: styles['right-menu-content_show-arrow'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    showArrow: false,
+  },
+});
+
+type RightMenuContentComponent = <T extends ElementType = 'div'>(
+  props: ComponentProps<typeof GenericMenuPanel<T>> & { showArrow?: boolean }
+) => ReactNode;
+
+const _RightMenuContent = <T extends ElementType = 'div'>(
+  {
+    showArrow,
+    className,
+    ...props
+  }: ComponentProps<typeof GenericMenuPanel<T>> & { showArrow?: boolean },
+  ref: ComponentPropsWithRef<T>['ref']
+) => (
+  <GenericMenuPanel
+    ref={ref}
+    showArrow={showArrow}
+    {...(props as ComponentProps<typeof GenericMenuPanel>)}
+    className={cn(rightMenuContentVariants({ showArrow }), className)}
+  />
+);
+
+const RightMenuContent: RightMenuContentComponent = forwardRef(_RightMenuContent);
 
 const ContextMenuContent = ({
   sub,
@@ -140,8 +153,8 @@ const ContextMenuContent = ({
     <RightMenu.Portal container={portalContainer}>
       <RightMenuContent
         {...props}
-        $type="context-menu"
-        $showArrow={showArrow}
+        type="context-menu"
+        showArrow={showArrow}
         as={ContentElement}
         {...inputModalityProps}
       >
@@ -199,7 +212,7 @@ const ContextMenuItem = ({
   return (
     <GenericMenuItem
       as={RightMenu.Item}
-      $type={type}
+      type={type}
       {...props}
     >
       <IconWrapper

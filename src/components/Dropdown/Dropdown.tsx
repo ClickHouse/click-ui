@@ -1,7 +1,14 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { ReactNode } from 'react';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
 import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
@@ -9,16 +16,28 @@ import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import styles from './Dropdown.module.css';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
 
-const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: 'default' | 'danger' }>`
-  position: relative;
-  display: flex;
-  min-height: 32px;
-`;
+type DropdownMenuItemComponent = <T extends ElementType = 'div'>(
+  props: ComponentProps<typeof GenericMenuItem<T>>
+) => ReactNode;
+
+const _DropdownMenuItem = <T extends ElementType = 'div'>(
+  { className, ...props }: ComponentProps<typeof GenericMenuItem<T>>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => (
+  <GenericMenuItem
+    ref={ref}
+    {...(props as ComponentProps<typeof GenericMenuItem>)}
+    className={cn(styles['dropdown-menu-item'], className)}
+  />
+);
+
+const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(_DropdownMenuItem);
 
 interface SubDropdownProps {
   sub?: true;
@@ -103,12 +122,23 @@ type DropdownSubContentProps = StyledDropdownSubContentProps &
   MainDropdownProps &
   ArrowProps;
 
-const DropdownMenuContent = styled(GenericMenuPanel)`
-  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
-  flex-direction: column;
-  z-index: 1;
-  overflow-y: auto;
-`;
+type DropdownMenuContentComponent = <T extends ElementType = 'div'>(
+  props: ComponentProps<typeof GenericMenuPanel<T>>
+) => ReactNode;
+
+const _DropdownMenuContent = <T extends ElementType = 'div'>(
+  { className, ...props }: ComponentProps<typeof GenericMenuPanel<T>>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => (
+  <GenericMenuPanel
+    ref={ref}
+    {...(props as ComponentProps<typeof GenericMenuPanel>)}
+    className={cn(styles['dropdown-menu-content'], className)}
+  />
+);
+
+const DropdownMenuContent: DropdownMenuContentComponent =
+  forwardRef(_DropdownMenuContent);
 
 const DropdownContent = ({
   sub,
@@ -126,8 +156,8 @@ const DropdownContent = ({
     <DropdownMenu.Portal container={portalContainer}>
       <DropdownMenuContent
         {...props}
-        $type="dropdown-menu"
-        $showArrow={showArrow}
+        type="dropdown-menu"
+        showArrow={showArrow}
         as={ContentElement}
         sideOffset={4}
         loop
@@ -200,7 +230,7 @@ const DropdownItem = ({
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
-      $type={type}
+      type={type}
       {...props}
     >
       <IconWrapper

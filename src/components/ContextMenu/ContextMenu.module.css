@@ -1,0 +1,28 @@
+.right-menu-content {
+  z-index: 1;
+  flex-direction: column;
+}
+
+.right-menu-content_show-arrow[data-side='bottom'] {
+  margin-top: -1px;
+}
+
+.right-menu-content_show-arrow[data-side='top'] {
+  margin-bottom: -1px;
+}
+
+.right-menu-content_show-arrow[data-side='left'] {
+  margin-right: -1px;
+}
+
+.right-menu-content_show-arrow[data-side='left'] .popover-arrow {
+  margin-right: 1rem;
+}
+
+.right-menu-content_show-arrow[data-side='right'] {
+  margin-left: -1px;
+}
+
+.right-menu-content_show-arrow[data-side='right'] .popover-arrow {
+  margin-left: 1rem;
+}
