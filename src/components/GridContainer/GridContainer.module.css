@@ -7,9 +7,14 @@
      value. Resetting to `initial` makes each consuming declaration fall back to
      its own default (the second arg of `var()`) when the prop is unset,
      reproducing the per-instance scoping that styled-components gave for free.
-     `column-gap`/`row-gap` are not in this set: they are emitted inline as real
-     longhand properties (not custom properties), so there are no
-     `--grid-container-*-gap` vars to reset. */
+     `--grid-container-gap` is included for the same reason: without resetting it
+     to `initial`, a nested GridContainer would inherit an ancestor's gap token
+     instead of letting `var(--grid-container-gap, inherit)` fall back to
+     `inherit` per-element (the styled-components source used a direct
+     `gap: inherit`). `column-gap`/`row-gap` are not in this set: they are
+     emitted inline as real longhand properties (not custom properties), so
+     there are no `--grid-container-*-gap` vars to reset. */
+  --grid-container-gap: initial;
   --grid-container-auto-columns: initial;
   --grid-container-auto-flow: initial;
   --grid-container-auto-rows: initial;
