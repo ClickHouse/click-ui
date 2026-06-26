@@ -236,3 +236,23 @@ export const MaxHeightOverflow: Story = {
     </GridContainer>
   ),
 };
+
+// Exercises the md-breakpoint (max-width: 768px) behavior for the
+// `isResponsive={false}` + no `gridTemplateColumns` case. At md the source
+// resolves `grid-template-columns` to `auto`, so the children share a single
+// auto-sized column. The visual spec screenshots this story at a narrow
+// viewport (below md) so the media query actually fires.
+export const NotResponsiveNoTemplate: Story = {
+  args: {
+    isResponsive: false,
+    gap: 'md',
+  },
+  render: args => (
+    <GridContainer
+      {...args}
+      style={{ border: '1px solid grey' }}
+    >
+      <Cells />
+    </GridContainer>
+  ),
+};
