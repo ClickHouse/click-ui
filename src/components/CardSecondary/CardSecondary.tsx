@@ -75,6 +75,9 @@ const Wrapper = styled.div<{
     ${LinkIcon} {
       color: ${({ theme }) => theme.click.card.secondary.color.link.hover};
     }
+    ${LinkText} {
+      text-decoration: underline;
+    }
   }
 
   &[aria-disabled='true'],
