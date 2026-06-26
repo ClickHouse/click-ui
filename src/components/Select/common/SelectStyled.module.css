@@ -1,0 +1,294 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. genericMenu, fieldText) */
+
+.select-value {
+  overflow: hidden;
+  flex: 1;
+  gap: inherit;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.select-trigger {
+  display: flex;
+  width: 100%;
+  min-height: var(--click-genericMenu-panel-size-height);
+  padding: var(--click-field-space-y) var(--click-field-space-x);
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--click-field-space-gap);
+  border: 1px solid var(--click-field-color-stroke-default);
+  border-radius: var(--click-field-radii-all);
+  background: var(--click-field-color-background-default);
+  color: var(--click-field-color-text-default);
+  font: var(--click-field-typography-fieldText-default);
+  cursor: pointer;
+}
+
+.select-trigger span:first-of-type {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.select-trigger:hover {
+  border: 1px solid var(--click-field-color-stroke-hover);
+  background: var(--click-field-color-background-hover);
+  color: var(--click-field-color-text-hover);
+}
+
+.select-trigger_error {
+  border: 1px solid var(--click-field-color-stroke-error);
+  background: var(--click-field-color-background-active);
+  color: var(--click-field-color-text-error);
+  font: var(--click-field-typography-fieldText-error);
+}
+
+.select-trigger_error:hover {
+  border: 1px solid var(--click-field-color-stroke-error);
+  color: var(--click-field-color-text-error);
+}
+
+/* stylelint-disable no-descending-specificity -- source order mirrors the
+   styled-components cascade: the focus/open active styling is followed by
+   focus-visible and disabled, matching the original template-literal order. */
+
+/*
+  The active (focus / open) styling is suppressed in the error state: the
+  styled-components original only emitted these rules in the non-error branch,
+  so an errored trigger keeps its error styling on focus/open.
+*/
+.select-trigger:not(.select-trigger_error):focus,
+.select-trigger:not(.select-trigger_error)[data-state='open'] {
+  border: 1px solid var(--click-field-color-stroke-active);
+  background: var(--click-field-color-background-active);
+  color: var(--click-field-color-text-active);
+  font: var(--click-field-typography-fieldText-active);
+}
+
+.select-trigger:not(.select-trigger_error):focus ~ label,
+.select-trigger:not(.select-trigger_error)[data-state='open'] ~ label {
+  color: var(--click-field-color-label-active);
+  font: var(--click-field-typography-label-active);
+}
+
+.select-trigger:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
+.select-trigger:disabled {
+  border: 1px solid var(--click-field-color-stroke-disabled);
+  background: var(--click-field-color-background-disabled);
+  color: var(--click-field-color-text-disabled);
+  font: var(--click-field-typography-fieldText-disabled);
+  cursor: not-allowed;
+}
+
+/* stylelint-enable no-descending-specificity */
+
+.select-trigger [data-hide-in-trigger] {
+  display: none;
+}
+
+.select-popover-content {
+  display: flex;
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+  padding: 0.5rem 0;
+  overflow: hidden;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border: 1px solid var(--click-genericMenu-item-color-default-stroke-default);
+  border-radius: 0.25rem;
+  background: var(--click-genericMenu-item-color-default-background-default);
+  box-shadow:
+    0 1px 3px 0 rgb(16 24 40 / 10%),
+    0 1px 2px 0 rgb(16 24 40 / 6%);
+  pointer-events: auto;
+}
+
+.select-popover-content_full-width {
+  width: 100%;
+  min-width: var(--radix-popover-trigger-width);
+  max-width: var(--select-item-character-limit);
+}
+
+.search-bar-container {
+  display: flex;
+  position: relative;
+  width: auto;
+  height: 0;
+  padding: 0;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
+  font: var(--click-genericMenu-autocomplete-typography-search-term-default);
+}
+
+.search-bar-container_show-search {
+  height: auto;
+  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+}
+
+.search-bar {
+  width: 100%;
+  height: 0;
+  min-height: 0;
+  /*
+    When hidden the original collapsed all padding to 0; when shown it set only
+    padding-right (in the _show-search modifier), leaving the input's default
+    vertical padding intact — that 2px of UA padding is load-bearing for height.
+  */
+  padding: 0;
+  gap: var(--click-genericMenu-item-space-gap);
+  border: none;
+  border-bottom: 0;
+  background: transparent;
+  color: var(--click-genericMenu-autocomplete-color-searchTerm-default);
+  font: var(--click-genericMenu-autocomplete-typography-search-term-default);
+  outline: none;
+}
+
+.search-bar::placeholder {
+  color: var(--click-genericMenu-autocomplete-color-placeholder-default);
+  font: var(--click-genericMenu-autocomplete-typography-search-placeholder-default);
+}
+
+.search-bar_show-search {
+  height: initial;
+  min-height: 21px;
+  padding: revert;
+  padding-right: 24px;
+  border-bottom: 2px solid var(--click-genericMenu-button-color-stroke-default);
+}
+
+.search-close {
+  visibility: hidden;
+  position: absolute;
+  top: var(--click-genericMenu-item-space-y);
+  right: var(--click-genericMenu-item-space-x);
+}
+
+.search-close_show-close {
+  visibility: visible;
+}
+
+/*
+  Added the max-height with calc as the content should always be fit inside SelectPopoverContent
+  SelectPopoverContent has hardcoded padding and thats why we are using 1 rem instead of tokens
+  This makes sure that the content is always visible with the scrolling
+*/
+.select-list {
+  display: flex;
+  width: inherit;
+  max-height: calc(var(--radix-popover-content-available-height) - 1rem);
+  flex-direction: column;
+}
+
+.select-list-content {
+  width: inherit;
+  max-height: var(--select-list-max-height);
+  overflow: auto;
+  flex: 1;
+}
+
+.hidden-select-element {
+  visibility: hidden;
+  position: absolute;
+  z-index: -1;
+  height: 0;
+}
+
+.select-group-container {
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same width fallback chain so the container fills the available inline space. */
+  display: flex;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  color: var(--click-genericMenu-item-color-default-text-muted);
+  font: var(--click-genericMenu-item-typography-sectionHeader-default);
+}
+
+.select-group-container[aria-selected] {
+  outline: none;
+}
+
+.select-group-container[hidden] {
+  display: none;
+}
+
+.select-group-name {
+  display: flex;
+  width: 100%;
+  padding: var(--click-genericMenu-sectionHeader-space-top)
+    var(--click-genericMenu-item-space-x)
+    var(--click-genericMenu-sectionHeader-space-bottom);
+  overflow: hidden;
+  flex-direction: column;
+  gap: var(--click-genericMenu-item-space-gap);
+  border-bottom: 1px solid var(--click-genericMenu-item-color-default-stroke-default);
+  color: var(--click-genericMenu-item-color-default-text-muted);
+  font: var(--click-genericMenu-item-typography-sectionHeader-default);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.select-group-content {
+  width: inherit;
+}
+
+/*
+  The original styled-components rule omitted the semicolon after `font`, so the
+  browser dropped the malformed `font: … padding: …` declaration entirely —
+  neither font nor padding applied. Preserved here verbatim for byte-for-byte
+  parity; the font/padding are intentionally absent.
+*/
+.select-no-data-container {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: none;
+  background: var(--click-genericMenu-button-color-background-default);
+  color: var(--click-genericMenu-button-color-label-default);
+  text-align: left;
+  white-space: nowrap;
+  cursor: default;
+  text-overflow: ellipsis;
+}
+
+.select-no-data-container[hidden='true'] {
+  display: none;
+}
+
+.select-no-data-container_clickable {
+  cursor: pointer;
+}
+
+.check-icon {
+  opacity: 0;
+}
+
+.check-icon_show-check {
+  opacity: 1;
+}
+
+.select-item-description-text {
+  white-space: normal;
+}
+
+[data-disabled] .select-item-description-text,
+[disabled] .select-item-description-text {
+  color: inherit;
+}
+
+/* don't show description when item is rendered in the trigger */
+.select-trigger .select-item-description-text {
+  display: none;
+}
