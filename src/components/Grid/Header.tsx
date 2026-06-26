@@ -1,4 +1,6 @@
-import { styled } from 'styled-components';
+import { CSSProperties } from 'react';
+import { cn } from '@/lib/cva';
+import styles from './Grid.module.css';
 import {
   CellProps,
   ColumnResizeFn,
@@ -28,26 +30,6 @@ interface HeaderProps {
   resizingState: ResizingState;
 }
 
-const HeaderContainer = styled.div<{ $height: number; $scrolledVertical: boolean }>`
-  position: sticky;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  height: ${({ $height }) => $height}px;
-  ${({ $scrolledVertical, theme }) =>
-    $scrolledVertical
-      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ''}
-`;
-
-const ScrollableHeaderContainer = styled.div<{
-  $left: number;
-}>`
-  position: relative;
-  left: ${({ $left }) => $left}px;
-`;
-
 interface ColumnProps extends Pick<
   HeaderProps,
   | 'cell'
@@ -65,41 +47,8 @@ interface ColumnProps extends Pick<
   isLastColumn: boolean;
 }
 
-const HeaderCellContainer = styled.div<{
-  $width: string | number;
-  $height: number;
-  $columnPosition: number;
-}>`
-  position: absolute;
-  display: flex;
-  width: ${({ $width }) => (typeof $width === 'string' ? $width : `${$width}px`)};
-  height: ${({ $height }) => $height}px;
-  left: ${({ $columnPosition }) => $columnPosition}px;
-  &:hover [data-resize] {
-    background: ${({ theme }) => theme.click.grid.header.cell.color.stroke.selectDirect};
-  }
-`;
-
-const RowColumnContainer = styled(HeaderCellContainer)<{
-  $width: string | number;
-  $scrolledHorizontal: boolean;
-}>`
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: ${({ $width }) => (typeof $width === 'string' ? $width : `${$width}px`)};
-  text-align: right;
-  ${({ $scrolledHorizontal, theme }) =>
-    $scrolledHorizontal
-      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ''}
-`;
-
-const RowColumn = styled(StyledCell)`
-  width: 100%;
-  text-align: right;
-  overflow: hidden;
-`;
+const toCssSize = ($width: string | number): string =>
+  typeof $width === 'string' ? $width : `${$width}px`;
 
 const Column = ({
   columnIndex,
@@ -132,10 +81,15 @@ const Column = ({
 
   const columnWidth = getColumnWidth(columnIndex);
   return (
-    <HeaderCellContainer
-      $width={columnWidth}
-      $columnPosition={columnPosition}
-      $height={height}
+    <div
+      className={styles['header-cell-container']}
+      style={
+        {
+          '--header-cell-width': toCssSize(columnWidth),
+          '--header-cell-height': `${height}px`,
+          '--header-cell-left': `${columnPosition}px`,
+        } as CSSProperties
+      }
       data-header={columnIndex}
     >
       <StyledCell
@@ -166,7 +120,7 @@ const Column = ({
         columnWidth={columnWidth}
         resizingState={resizingState}
       />
-    </HeaderCellContainer>
+    </div>
   );
 };
 
@@ -192,11 +146,17 @@ const Header = ({
     type: 'all',
   });
   return (
-    <HeaderContainer
-      $height={height}
-      $scrolledVertical={scrolledVertical}
+    <div
+      className={cn(
+        styles['header-container'],
+        scrolledVertical && styles['header-container_scrolled-vertical']
+      )}
+      style={{ '--header-height': `${height}px` } as CSSProperties}
     >
-      <ScrollableHeaderContainer $left={rowNumberWidth}>
+      <div
+        className={styles['scrollable-header-container']}
+        style={{ '--scrollable-header-left': `${rowNumberWidth}px` } as CSSProperties}
+      >
         {Array.from(
           { length: maxColumn - minColumn + 1 },
           (_, index) => minColumn + index
@@ -217,15 +177,24 @@ const Header = ({
             resizingState={resizingState}
           />
         ))}
-      </ScrollableHeaderContainer>
+      </div>
       {showRowNumber && (
-        <RowColumnContainer
-          $width={rowNumberWidth}
-          $height={height}
-          $columnPosition={0}
-          $scrolledHorizontal={scrolledHorizontal}
+        <div
+          className={cn(
+            styles['header-cell-container'],
+            styles['row-column-container'],
+            scrolledHorizontal && styles['row-column-container_scrolled-horizontal']
+          )}
+          style={
+            {
+              '--header-cell-width': toCssSize(rowNumberWidth),
+              '--header-cell-height': `${height}px`,
+              '--header-cell-left': '0px',
+            } as CSSProperties
+          }
         >
-          <RowColumn
+          <StyledCell
+            className={styles['row-column']}
             data-selected={selectedAllType === 'selectDirect'}
             $type="header"
             $isFirstRow
@@ -242,10 +211,10 @@ const Header = ({
             $showBorder={showBorder}
           >
             #
-          </RowColumn>
-        </RowColumnContainer>
+          </StyledCell>
+        </div>
       )}
-    </HeaderContainer>
+    </div>
   );
 };
 

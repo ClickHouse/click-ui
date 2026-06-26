@@ -1,32 +1,17 @@
-import { PointerEventHandler, useCallback, useEffect, useRef } from 'react';
-import { styled } from 'styled-components';
+import {
+  CSSProperties,
+  PointerEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
+import { cn } from '@/lib/cva';
+import styles from './Grid.module.css';
 import { ColumnResizeFn, GetResizerPositionFn } from './types';
 import { throttle } from 'lodash-es';
 import { initialPosition, ResizingState } from './useResizingState';
 
 const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
-
-const ResizeSpan = styled.div<{ $height: number; $isPressed: boolean }>`
-  top: ${initialPosition.top};
-  left: ${initialPosition.left};
-  z-index: 1;
-  position: absolute;
-  height: ${({ $height }) => $height}px;
-  cursor: col-resize;
-  width: 4px;
-  overflow: auto;
-  &:hover,
-  &:active,
-  &:hover {
-    background: ${({ theme }) => theme.click.grid.header.cell.color.stroke.selectDirect};
-  }
-  ${({ $isPressed }) =>
-    $isPressed &&
-    `
-      height: 100%;
-      position: fixed;
-    `}
-`;
 
 interface Props {
   height: number;
@@ -138,10 +123,9 @@ const ColumnResizer = ({
   );
 
   return (
-    <ResizeSpan
+    <div
       ref={resizeRef}
-      $height={height}
-      $isPressed={isPressed}
+      className={cn(styles['resize-span'], isPressed && styles['resize-span_pressed'])}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
         e.preventDefault();
@@ -170,7 +154,12 @@ const ColumnResizer = ({
       }}
       onClick={e => e.stopPropagation()}
       data-resize
-      style={position}
+      style={
+        {
+          '--resize-span-height': `${height}px`,
+          ...position,
+        } as CSSProperties
+      }
     />
   );
 };

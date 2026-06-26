@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
   HTMLAttributes,
   KeyboardEventHandler,
   MouseEventHandler,
@@ -20,7 +21,8 @@ import {
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
 import RowNumberColumn from './RowNumberColumn';
 import Header from './Header';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
+import styles from './Grid.module.css';
 import {
   GetResizerPositionFn,
   GridContextMenuItemProps,
@@ -45,13 +47,6 @@ import useResizingState from './useResizingState';
 const NO_BUTTONS_PRESSED = 0;
 const LEFT_BUTTON_PRESSED = 1;
 const RIGHT_BUTTON_PRESSED = 2;
-
-const GridContainer = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  user-select: none;
-  overflow-anchor: none;
-`;
 
 const getRenderedCursor = (children: ReactElement[]) =>
   children.reduce(
@@ -79,31 +74,12 @@ const getRenderedCursor = (children: ReactElement[]) =>
     ]
   );
 
-const GridDataContainer = styled.div<{ $top: number; $left: number }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  ${({ $top, $left }) => `
-    margin-top: ${$top}px;
-    margin-left: ${$left}px;
-  `}
-`;
-
-const ContextMenuTrigger = styled.div<{
-  $height?: number;
-  $rounded: RoundedType;
-  $showBorder: boolean;
-}>`
-  outline: none;
-  overflow: hidden;
-  height: ${({ $height }) => ($height ? `${$height}px` : '100%')};
-  width: 100%;
-  background: ${({ theme }) => theme.click.grid.body.cell.color.background.default};
-  border-radius: ${({ theme, $rounded }) => theme.click.grid.radii[$rounded]};
-  ${({ $showBorder, theme }) =>
-    $showBorder &&
-    `border: 1px solid ${theme.click.grid.header.cell.color.stroke.default}`};
-`;
+const roundedRadii: Record<RoundedType, string> = {
+  none: 'var(--click-grid-radii-none)',
+  lg: 'var(--click-grid-radii-lg)',
+  md: 'var(--click-grid-radii-md)',
+  sm: 'var(--click-grid-radii-sm)',
+};
 
 interface InnerElementTypeTypes extends HTMLAttributes<HTMLDivElement> {
   children: ReactElement[];
@@ -446,17 +422,25 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       ({ children, ...containerProps }, ref) => {
         const [minRow, maxRow, minColumn, maxColumn] = getRenderedCursor(children);
         return (
-          <GridContainer
+          <div
             {...containerProps}
-            className={`sticky-grid__container grid-outer ${props.className ?? ''}`}
+            className={cn(
+              styles['grid-container'],
+              `sticky-grid__container grid-outer ${props.className ?? ''}`
+            )}
           >
-            <GridDataContainer
-              $top={showHeader ? headerHeight : 0}
-              $left={showRowNumber ? rowNumberWidth : 0}
+            <div
+              className={styles['grid-data-container']}
+              style={
+                {
+                  '--grid-data-top': `${showHeader ? headerHeight : 0}px`,
+                  '--grid-data-left': `${showRowNumber ? rowNumberWidth : 0}px`,
+                } as CSSProperties
+              }
               ref={ref}
             >
               {children}
-            </GridDataContainer>
+            </div>
             {showRowNumber && (
               <RowNumberColumn
                 scrolledHorizontal={scrolledHorizontal}
@@ -494,7 +478,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 resizingState={resizingState}
               />
             )}
-          </GridContainer>
+          </div>
         );
       }
     );
@@ -830,13 +814,30 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       }
     }, [rowCount, columnCount]);
 
+    const contextMenuTriggerHeight = autoHeight
+      ? rowCount * rowHeight +
+        (showHeader ? headerHeight : 0) +
+        elementBorderRef.current.scrollBarHeight
+      : undefined;
+
     return (
       <ContextMenu
         modal={false}
         onOpenChange={setContextMenuOpen}
       >
-        <ContextMenuTrigger
-          as={ContextMenu.Trigger}
+        <ContextMenu.Trigger
+          className={cn(
+            styles['context-menu-trigger'],
+            showBorder && styles['context-menu-trigger_border']
+          )}
+          style={
+            {
+              '--context-menu-trigger-radius': roundedRadii[rounded],
+              '--context-menu-trigger-height': contextMenuTriggerHeight
+                ? `${contextMenuTriggerHeight}px`
+                : '100%',
+            } as CSSProperties
+          }
           ref={mergeRefs([forwardedRef, containerRef])}
           tabIndex={0}
           onMouseDown={onMouseDown}
@@ -847,15 +848,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           onPointerLeave={setPointerCapture}
           onPointerEnter={setPointerCapture}
           onContextMenu={onContextMenu}
-          $rounded={rounded}
-          $height={
-            autoHeight
-              ? rowCount * rowHeight +
-                (showHeader ? headerHeight : 0) +
-                elementBorderRef.current.scrollBarHeight
-              : undefined
-          }
-          $showBorder={showBorder}
         >
           <AutoSizer onResize={onResize}>
             {({ height, width }) => (
@@ -886,7 +878,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
               </VariableSizeGrid>
             )}
           </AutoSizer>
-        </ContextMenuTrigger>
+        </ContextMenu.Trigger>
         <ContextMenu.Content>
           {menuOptions.map((option, index) => (
             <ContextMenu.Item
