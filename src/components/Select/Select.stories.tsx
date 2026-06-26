@@ -312,3 +312,83 @@ export const NoOptionCustomNode: StoryObj<typeof Select> = {
     </Container>
   ),
 };
+
+/**
+ * Stories below are dedicated visual-regression fixtures for the CSS Modules
+ * migration. The harness decorator carries the `data-testid="select-harness"`
+ * region the closed-state Playwright snapshots capture; open-state snapshots
+ * click the trigger and screenshot the portalled popover dialog.
+ */
+const HarnessDecorator = (Story: () => ReactElement): ReactElement => (
+  <div
+    data-testid="select-harness"
+    style={{ width: '320px', padding: '1rem' }}
+  >
+    <Story />
+  </div>
+);
+
+const VRItems = (): ReactElement => (
+  <>
+    <Select.Group heading="Group label">
+      <Select.Item
+        value="content0"
+        icon="user"
+      >
+        Content0
+      </Select.Item>
+    </Select.Group>
+    <Select.Item value="content1">Content1 long text content</Select.Item>
+    <Select.Item
+      value="content2"
+      disabled
+    >
+      Content2
+      <Select.ItemDescription>Description of a disabled item</Select.ItemDescription>
+    </Select.Item>
+    <Select.Item value="content3">
+      Content3
+      <Select.ItemDescription>Description of Content3</Select.ItemDescription>
+    </Select.Item>
+    <Select.Item
+      value="content4"
+      label="Content4"
+    />
+  </>
+);
+
+export const VRDefault: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label' },
+  render: props => <Select {...props}>{VRItems()}</Select>,
+};
+
+export const VRSelected: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', value: 'content1' },
+  render: props => <Select {...props}>{VRItems()}</Select>,
+};
+
+export const VRError: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', error: 'This field is required' },
+  render: props => <Select {...props}>{VRItems()}</Select>,
+};
+
+export const VRDisabled: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', disabled: true, value: 'content1' },
+  render: props => <Select {...props}>{VRItems()}</Select>,
+};
+
+export const VROpen: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', value: 'content1' },
+  render: props => <Select {...props}>{VRItems()}</Select>,
+};
+
+export const VROpenWithSearch: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', showSearch: true },
+  render: props => <Select {...props}>{VRItems()}</Select>,
+};
