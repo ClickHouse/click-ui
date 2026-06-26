@@ -43,7 +43,7 @@ describe('FormContainer Visual Regression', () => {
 
     for (const [name, storyId] of stories) {
       it(`${name} matches snapshot`, async ({ page }) => {
-        await page.goto(getStoryUrl(storyId), {
+        await page.goto(getStoryUrl(storyId, 'dark'), {
           waitUntil: 'networkidle',
         });
         const harness = page.locator(harnessLocator);
