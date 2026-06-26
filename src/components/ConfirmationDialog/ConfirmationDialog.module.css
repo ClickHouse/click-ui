@@ -10,6 +10,7 @@
   gap: var(--click-dialog-space-gap);
 }
 
+/* 640px = theme.breakpoint.sizes.sm; CSS media queries can't reference JS theme tokens */
 /* stylelint-disable-next-line media-feature-range-notation -- prefix notation
    required for browser compatibility per .browserslistrc */
 @media (max-width: 640px) {
