@@ -583,6 +583,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       rowHeight,
       resizableColumns,
       mobileLayout = 'list',
+      className,
       ...props
     },
     ref
@@ -845,7 +846,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           <table
             ref={ref}
             {...props}
-            className={cn(styles.table__table)}
+            className={cn(styles['table__table'], className)}
           >
             {showHeader && (
               <Thead
