@@ -1,0 +1,55 @@
+.grid-container {
+  /* These custom properties are only emitted inline when the matching prop is
+     set (grid-auto-columns, grid-auto-flow, grid-auto-rows, grid-template-area,
+     grid-template-columns, grid-template-rows, column-gap, row-gap, max-width,
+     min-width, height, max-height, min-height, overflow). Custom properties
+     inherit by default, so without this reset a nested GridContainer would
+     inherit an ancestor's value. Resetting to `initial` makes each consuming
+     declaration fall back to its own default (the second arg of `var()`) when
+     the prop is unset, reproducing the per-instance scoping that
+     styled-components gave for free. */
+  --grid-container-auto-columns: initial;
+  --grid-container-auto-flow: initial;
+  --grid-container-auto-rows: initial;
+  --grid-container-template-area: initial;
+  --grid-container-template-columns: initial;
+  --grid-container-template-rows: initial;
+  --grid-container-max-width: initial;
+  --grid-container-min-width: initial;
+  --grid-container-height: initial;
+  --grid-container-max-height: initial;
+  --grid-container-min-height: initial;
+  --grid-container-overflow: initial;
+  display: var(--grid-container-display, grid);
+  width: var(--grid-container-width, 100%);
+  min-width: var(--grid-container-min-width);
+  max-width: var(--grid-container-max-width);
+  height: var(--grid-container-height);
+  min-height: var(--grid-container-min-height);
+  max-height: var(--grid-container-max-height);
+  overflow: var(--grid-container-overflow);
+  /* stylelint-disable declaration-block-no-redundant-longhand-properties -- align/justify axes are set independently from distinct props, so the place-content/place-items shorthands can't be used */
+  justify-content: var(--grid-container-justify-content, stretch);
+  align-items: var(--grid-container-align-items, stretch);
+  align-content: var(--grid-container-align-content, stretch);
+  /* `gap` is always emitted; `column-gap`/`row-gap` are emitted inline (as real
+     longhands) only when their props are set, so they override this shorthand
+     just like the styled-components source did — and stay absent otherwise. */
+  gap: var(--grid-container-gap, inherit);
+  grid-template-columns: var(--grid-container-template-columns);
+  grid-template-rows: var(--grid-container-template-rows);
+  grid-auto-columns: var(--grid-container-auto-columns);
+  grid-auto-flow: var(--grid-container-auto-flow);
+  grid-auto-rows: var(--grid-container-auto-rows);
+  /* stylelint-disable-next-line property-no-unknown -- the styled-components original emitted `grid-template-area` (singular, invalid); preserved verbatim for byte-for-byte parity */
+  grid-template-area: var(--grid-container-template-area);
+  justify-items: var(--grid-container-justify-items, stretch);
+  /* stylelint-enable declaration-block-no-redundant-longhand-properties */
+}
+
+/* stylelint-disable-next-line media-feature-range-notation -- prefix notation required for browser compatibility per .browserslistrc */
+@media (max-width: 768px) {
+  .grid-container_responsive {
+    grid-template-columns: 1fr;
+  }
+}
