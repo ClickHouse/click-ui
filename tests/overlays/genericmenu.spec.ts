@@ -101,6 +101,34 @@ describe('GenericMenu cluster Visual Regression', () => {
             { maxDiffPixels: 100 }
           );
         });
+
+        // Exercises the Dropdown.Trigger width (fit-content) and focus outline.
+        it('trigger matches snapshot', async ({ page }) => {
+          await page.goto(getStoryUrl('display-dropdown--trigger-standalone', theme), {
+            waitUntil: 'domcontentloaded',
+          });
+          const harness = page.getByTestId('dropdown-trigger-harness');
+          await expect(harness).toBeVisible({ timeout: 10000 });
+          await expect(harness).toHaveScreenshot(`dropdown-trigger-${theme}.png`, {
+            maxDiffPixels: 100,
+          });
+        });
+
+        // Exercises the Dropdown.Trigger :focus-visible outline.
+        it('trigger focus-visible matches snapshot', async ({ page }) => {
+          await page.goto(getStoryUrl('display-dropdown--trigger-standalone', theme), {
+            waitUntil: 'domcontentloaded',
+          });
+          const harness = page.getByTestId('dropdown-trigger-harness');
+          await expect(harness).toBeVisible({ timeout: 10000 });
+          await page.locator('body').click();
+          await page.keyboard.press('Tab');
+          await page.waitForTimeout(200);
+          await expect(harness).toHaveScreenshot(
+            `dropdown-trigger-focus-${theme}.png`,
+            { maxDiffPixels: 100 }
+          );
+        });
       });
     }
   });
