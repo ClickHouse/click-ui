@@ -99,8 +99,9 @@ const Content = ({
   const mergedStyle = useMemo(() => {
     // Resolve the default width from the typed theme so an invalid `size`
     // fails at compile time, rather than silently emitting a non-existent
-    // CSS variable. An explicit `width` prop always wins.
-    const resolvedWidth = width ?? theme.click.flyout.size[size].width;
+    // CSS variable. A non-empty `width` prop always wins; `||` (matching the
+    // pre-migration styled version) also falls back on an empty-string width.
+    const resolvedWidth = width || theme.click.flyout.size[size].width;
 
     return {
       '--flyout-width': resolvedWidth,
