@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode, useMemo } from 'react';
+import { useTheme } from 'styled-components';
 import {
   Dialog,
   DialogClose,
@@ -93,15 +94,19 @@ const Content = ({
   ...props
 }: FlyoutContentProps) => {
   const portalContainer = useResolvedPortalContainer(container);
+  const theme = useTheme();
 
-  const mergedStyle = useMemo(
-    () =>
-      ({
-        '--flyout-width': width ?? `var(--click-flyout-size-${size}-width)`,
-        ...style,
-      }) as CSSProperties,
-    [width, size, style]
-  );
+  const mergedStyle = useMemo(() => {
+    // Resolve the default width from the typed theme so an invalid `size`
+    // fails at compile time, rather than silently emitting a non-existent
+    // CSS variable. An explicit `width` prop always wins.
+    const resolvedWidth = width ?? theme.click.flyout.size[size].width;
+
+    return {
+      '--flyout-width': resolvedWidth,
+      ...style,
+    } as CSSProperties;
+  }, [width, size, style, theme]);
 
   return (
     <DialogPortal container={portalContainer}>
