@@ -15,6 +15,7 @@ const variants = [
   { id: 'display-grid--no-row-number', name: 'no-row-number' },
   { id: 'display-grid--rounded-lg', name: 'rounded-lg' },
   { id: 'display-grid--focused-cell', name: 'focused-cell' },
+  { id: 'display-grid--focused-last-cell', name: 'focused-last-cell' },
 ];
 
 describe('Grid Visual Regression', () => {

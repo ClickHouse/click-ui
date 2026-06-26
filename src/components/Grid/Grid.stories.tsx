@@ -190,3 +190,13 @@ export const FocusedCell = {
     focus: { row: 2, column: 2 },
   },
 };
+
+// Focus on the bottom-right cell: it is the last row AND last column while
+// resolving to an indirect selection. This exercises the focus-vs-indirect
+// precedence for the last-edge stroke (focus must win the bottom/right border).
+export const FocusedLastCell = {
+  args: {
+    ...visualArgs,
+    focus: { row: 19, column: 19 },
+  },
+};
