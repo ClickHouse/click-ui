@@ -1,8 +1,15 @@
-import { styled } from 'styled-components';
+import { HTMLAttributes, forwardRef } from 'react';
+import { cn } from '@/lib/cva';
+import styles from './GridCenter.module.css';
 
-export const GridCenter = styled.div`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-`;
+export const GridCenter = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      {...props}
+      className={cn(styles['grid-center'], className)}
+    />
+  )
+);
+
+GridCenter.displayName = 'GridCenter';
