@@ -30,7 +30,7 @@
 }
 
 .tab {
-  --file-tabs-dismissable-width: initial;
+  --file-tabs-dismissable-columns: 1fr;
 
   display: grid;
   box-sizing: border-box;
@@ -46,7 +46,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: var(--click-tabs-fileTabs-space-gap);
-  grid-template-columns: 1fr var(--file-tabs-dismissable-width, );
+  grid-template-columns: var(--file-tabs-dismissable-columns);
   border: none;
   border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-default);
   border-radius: var(--click-tabs-fileTabs-radii-all);

@@ -223,6 +223,7 @@ const Tab = ({
   testId,
   preview,
   className,
+  style,
   ...props
 }: FileTabProps) => {
   const { selectedIndex, onClose: onCloseProp } = useSelect();
@@ -247,12 +248,14 @@ const Tab = ({
     <div
       onMouseDown={onMouseDown}
       data-testid={testId ? `${testId}-${index}` : undefined}
+      {...props}
       style={
         {
-          '--file-tabs-dismissable-width': 'var(--click-tabs-fileTabs-icon-size-width)',
+          '--file-tabs-dismissable-columns':
+            '1fr var(--click-tabs-fileTabs-icon-size-width)',
+          ...style,
         } as CSSProperties
       }
-      {...props}
       className={cn(
         tabClassName({ active: selectedIndex === index, preview }),
         className
