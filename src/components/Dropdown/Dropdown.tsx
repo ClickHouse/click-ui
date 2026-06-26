@@ -6,7 +6,6 @@ import {
   ReactNode,
   forwardRef,
 } from 'react';
-import { styled } from 'styled-components';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
@@ -53,18 +52,6 @@ type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
   SubDropdownProps;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
-const Trigger = styled(DropdownMenu.Trigger)`
-  cursor: pointer;
-  width: fit-content;
-  &[disabled] {
-    cursor: not-allowed;
-  }
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
-    outline-offset: 2px;
-  }
-`;
-
 const DropdownTrigger = ({
   sub,
   children,
@@ -88,13 +75,15 @@ const DropdownTrigger = ({
     );
   }
 
+  const { className, ...triggerProps } = props as DropdownTriggerProps;
   return (
-    <Trigger
+    <DropdownMenu.Trigger
       asChild
-      {...(props as DropdownTriggerProps)}
+      {...triggerProps}
+      className={cn(styles['dropdown-trigger'], className)}
     >
       <div>{children}</div>
-    </Trigger>
+    </DropdownMenu.Trigger>
   );
 };
 
@@ -184,26 +173,23 @@ const DropdownContent = ({
 DropdownContent.displayName = 'DropdownContent';
 Dropdown.Content = DropdownContent;
 
-const DropdownMenuGroup = styled(DropdownMenu.Group)`
-  width: 100%;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuGroup {...props} />;
+const DropdownGroup = ({ className, ...props }: DropdownMenu.DropdownMenuGroupProps) => {
+  return (
+    <DropdownMenu.Group
+      {...props}
+      className={cn(styles['dropdown-group'], className)}
+    />
+  );
 };
 
 DropdownGroup.displayName = 'DropdownGroup';
 Dropdown.Group = DropdownGroup;
 
-const DropdownMenuSub = styled(DropdownMenu.Sub)`
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuSub {...props} />;
+// DropdownMenu.Sub is a context-only Radix primitive that renders no DOM node, so
+// the original styled(DropdownMenu.Sub) border-bottom never applied (the className
+// was dropped). The migration preserves that behavior: no class is forwarded.
+const DropdownSub = (props: DropdownMenu.DropdownMenuGroupProps) => {
+  return <DropdownMenu.Sub {...props} />;
 };
 
 DropdownSub.displayName = 'DropdownSub';

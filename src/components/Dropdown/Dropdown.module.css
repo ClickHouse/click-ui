@@ -11,3 +11,26 @@
   position: relative;
   min-height: 32px;
 }
+
+.dropdown-trigger {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+     keyword on `width` is widely supported on evergreen browsers; the original
+     rule used the same value. */
+  width: fit-content;
+  cursor: pointer;
+}
+
+.dropdown-trigger[disabled] {
+  cursor: not-allowed;
+}
+
+.dropdown-trigger:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
+.dropdown-group {
+  width: 100%;
+  /* stylelint-disable-next-line custom-property-pattern -- design tokens use camelCase (e.g. genericMenu) */
+  border-bottom: 1px solid var(--click-genericMenu-item-color-default-stroke-default);
+}
