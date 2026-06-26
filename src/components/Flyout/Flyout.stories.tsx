@@ -154,6 +154,7 @@ export const Playground: Story = {
 // varies on: type, size, alignment, shadow, and body alignment.
 
 export const OpenDefault: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -166,6 +167,7 @@ export const OpenDefault: Story = {
 };
 
 export const InlineType: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -178,6 +180,7 @@ export const InlineType: Story = {
 };
 
 export const AlignStart: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -190,6 +193,7 @@ export const AlignStart: Story = {
 };
 
 export const NoShadow: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -202,6 +206,7 @@ export const NoShadow: Story = {
 };
 
 export const SizeNarrow: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -214,6 +219,7 @@ export const SizeNarrow: Story = {
 };
 
 export const SizeWide: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -226,6 +232,7 @@ export const SizeWide: Story = {
 };
 
 export const SizeWidest: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
@@ -238,6 +245,7 @@ export const SizeWidest: Story = {
 };
 
 export const BodyAlignTop: Story = {
+  tags: ['!autodocs'],
   args: {
     open: true,
     title: 'Title',
