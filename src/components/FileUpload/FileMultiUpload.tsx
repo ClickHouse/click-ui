@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { styled } from 'styled-components';
 import { FileUploadArea } from './FileUploadArea';
 import { FileUploadItem } from './FileUploadItem';
 import { useDragAndDrop } from './useDragAndDrop';
+import styles from './FileMultiUpload.module.css';
 
 export interface FileUploadItem {
   id: string;
@@ -22,14 +22,6 @@ export interface FileMultiUploadProps {
   onFileRemove?: (fileId: string) => void;
   onFileFailure?: () => void;
 }
-
-const FilesList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.click.fileUpload.sm.space.gap};
-  width: 100%;
-  margin-top: ${({ theme }) => theme.click.fileUpload.md.space.gap};
-`;
 
 export const FileMultiUpload = ({
   title,
@@ -106,7 +98,7 @@ export const FileMultiUpload = ({
       />
 
       {files.length > 0 && (
-        <FilesList>
+        <div className={styles['files-list']}>
           {files.map(file => (
             <FileUploadItem
               key={file.id}
@@ -122,7 +114,7 @@ export const FileMultiUpload = ({
               inline={false}
             />
           ))}
-        </FilesList>
+        </div>
       )}
 
       <input

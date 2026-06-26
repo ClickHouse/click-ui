@@ -1,0 +1,13 @@
+.wrapper {
+  width: 100%;
+}
+
+/* stylelint-disable-next-line media-feature-range-notation -- prefix notation
+   required for browser compatibility per .browserslistrc */
+@media (min-width: 768px) {
+  .wrapper {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+}

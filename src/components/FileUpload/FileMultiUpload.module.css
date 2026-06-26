@@ -1,0 +1,8 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. fileUpload) */
+.files-list {
+  display: flex;
+  width: 100%;
+  margin-top: var(--click-fileUpload-md-space-gap);
+  flex-direction: column;
+  gap: var(--click-fileUpload-sm-space-gap);
+}
