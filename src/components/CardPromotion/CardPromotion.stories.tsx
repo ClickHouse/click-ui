@@ -16,11 +16,13 @@ const meta: Meta<typeof CardPromotion> = {
   component: CardPromotion,
   title: 'Cards/Promotion Card',
   tags: ['cardPromotion', 'autodocs'],
-  decorators: Story => (
-    <Harness>
-      <Story />
-    </Harness>
-  ),
+  decorators: [
+    Story => (
+      <Harness>
+        <Story />
+      </Harness>
+    ),
+  ],
 };
 
 export default meta;
