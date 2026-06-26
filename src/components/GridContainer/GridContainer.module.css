@@ -1,13 +1,15 @@
 .grid-container {
   /* These custom properties are only emitted inline when the matching prop is
      set (grid-auto-columns, grid-auto-flow, grid-auto-rows, grid-template-area,
-     grid-template-columns, grid-template-rows, column-gap, row-gap, max-width,
-     min-width, height, max-height, min-height, overflow). Custom properties
-     inherit by default, so without this reset a nested GridContainer would
-     inherit an ancestor's value. Resetting to `initial` makes each consuming
-     declaration fall back to its own default (the second arg of `var()`) when
-     the prop is unset, reproducing the per-instance scoping that
-     styled-components gave for free. */
+     grid-template-columns, grid-template-rows, max-width, min-width, height,
+     max-height, min-height, overflow). Custom properties inherit by default, so
+     without this reset a nested GridContainer would inherit an ancestor's
+     value. Resetting to `initial` makes each consuming declaration fall back to
+     its own default (the second arg of `var()`) when the prop is unset,
+     reproducing the per-instance scoping that styled-components gave for free.
+     `column-gap`/`row-gap` are not in this set: they are emitted inline as real
+     longhand properties (not custom properties), so there are no
+     `--grid-container-*-gap` vars to reset. */
   --grid-container-auto-columns: initial;
   --grid-container-auto-flow: initial;
   --grid-container-auto-rows: initial;
@@ -51,5 +53,14 @@
 @media (max-width: 768px) {
   .grid-container_responsive {
     grid-template-columns: 1fr;
+  }
+
+  /* When NOT responsive, the styled-components source applied
+     `grid-template-columns: ${$gridTemplateColumns || 'auto'}` at the md
+     breakpoint — i.e. the explicit template when one was passed, otherwise
+     `auto`. The `--grid-container-template-columns` var is set inline only when
+     the prop is provided, so the `auto` fallback reproduces that exactly. */
+  .grid-container_not-responsive {
+    grid-template-columns: var(--grid-container-template-columns, auto);
   }
 }

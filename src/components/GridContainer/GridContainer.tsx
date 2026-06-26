@@ -208,7 +208,9 @@ const _GridContainer = <T extends ElementType = 'div'>(
       style={mergedStyle}
       className={cn(
         styles['grid-container'],
-        isResponsive && styles['grid-container_responsive'],
+        isResponsive
+          ? styles['grid-container_responsive']
+          : styles['grid-container_not-responsive'],
         className
       )}
     >
