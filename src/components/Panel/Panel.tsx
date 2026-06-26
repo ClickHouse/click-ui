@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import { useMemo } from 'react';
 import { cn, cva } from '@/lib/cva';
-import { PanelProps } from './Panel.types';
+import type { PanelProps } from './Panel.types';
 import styles from './Panel.module.css';
 
 const panelVariants = cva(styles.panel, {
@@ -106,6 +106,7 @@ export const Panel = ({
           hasBorder,
           hasShadow,
         }),
+        cursor && styles.panel_cursor,
         className
       )}
     >

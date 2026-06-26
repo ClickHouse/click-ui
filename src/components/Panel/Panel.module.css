@@ -1,11 +1,13 @@
 .panel {
-  --panel-cursor: initial;
   --panel-width: initial;
   --panel-height: initial;
 
   display: flex;
   width: var(--panel-width, auto);
   height: var(--panel-height, auto);
+}
+
+.panel_cursor {
   cursor: var(--panel-cursor);
 }
 
