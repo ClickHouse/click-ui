@@ -44,7 +44,7 @@ const stepVariants = cva(styles.step, {
     status: {
       active: styles.step_status_active,
       complete: styles.step_status_complete,
-      incomplete: styles.step_status_incomplete,
+      incomplete: '',
     },
     isOpen: {
       true: styles.step_open,
@@ -58,7 +58,7 @@ const triggerVariants = cva(styles.step__trigger, {
     status: {
       active: styles.step__trigger_status_active,
       complete: styles.step__trigger_status_complete,
-      incomplete: styles.step__trigger_status_incomplete,
+      incomplete: '',
     },
   },
 });
@@ -86,7 +86,7 @@ const labelVariants = cva(styles.step__label, {
     status: {
       active: styles.step__label_status_active,
       complete: styles.step__label_status_complete,
-      incomplete: styles.step__label_status_incomplete,
+      incomplete: '',
     },
   },
 });
