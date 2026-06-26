@@ -8,7 +8,7 @@ import {
   ReactNode,
   forwardRef,
 } from 'react';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import { Icon } from '@/components/Icon';
 import { EmptyButton } from '@/components/EmptyButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
@@ -58,6 +58,18 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
   container?: HTMLElement | null;
 }
 
+const menuPanelVariants = cva(styles['menu-panel'], {
+  variants: {
+    $showClose: {
+      true: styles['menu-panel_show-close'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    $showClose: false,
+  },
+});
+
 type MenuPanelComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuPanel<T>> & { $showClose?: boolean }
 ) => ReactNode;
@@ -73,11 +85,7 @@ const _MenuPanel = <T extends ElementType = 'div'>(
   <GenericMenuPanel
     ref={ref}
     {...(props as ComponentProps<typeof GenericMenuPanel>)}
-    className={cn(
-      styles['menu-panel'],
-      $showClose && styles['menu-panel_show-close'],
-      className
-    )}
+    className={cn(menuPanelVariants({ $showClose }), className)}
   />
 );
 

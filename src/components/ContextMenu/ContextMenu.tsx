@@ -11,7 +11,7 @@ import type { HorizontalDirection } from '@/types';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
@@ -99,6 +99,18 @@ type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
 } & ArrowProps &
   DeprecatedFields;
 
+const rightMenuContentVariants = cva(styles['right-menu-content'], {
+  variants: {
+    $showArrow: {
+      true: styles['right-menu-content_show-arrow'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    $showArrow: false,
+  },
+});
+
 type RightMenuContentComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuPanel<T>> & { $showArrow?: boolean }
 ) => ReactNode;
@@ -115,11 +127,7 @@ const _RightMenuContent = <T extends ElementType = 'div'>(
     ref={ref}
     $showArrow={$showArrow}
     {...(props as ComponentProps<typeof GenericMenuPanel>)}
-    className={cn(
-      styles['right-menu-content'],
-      $showArrow && styles['right-menu-content_show-arrow'],
-      className
-    )}
+    className={cn(rightMenuContentVariants({ $showArrow }), className)}
   />
 );
 
