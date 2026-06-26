@@ -77,3 +77,19 @@ export const WithStartContent: Story = {
     ),
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    label: 'Label',
+    placeholder: 'Placeholder',
+    disabled: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    label: 'Label',
+    value: '42',
+    error: 'Value is out of range',
+  },
+};

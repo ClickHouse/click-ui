@@ -1,130 +1,38 @@
 import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
 import { Label } from '@/components/Label';
-import { styled } from 'styled-components';
-import { ReactNode } from 'react';
+import { cn, cva } from '@/lib/cva';
+import {
+  ButtonHTMLAttributes,
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  SVGProps,
+  TextareaHTMLAttributes,
+  forwardRef,
+} from 'react';
+import styles from './InputWrapper.module.css';
 
-const Wrapper = styled.div<{
-  $error: boolean;
-  $resize: 'none' | 'vertical' | 'horizontal' | 'both';
-}>`
-  width: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
-
-  span:first-of-type {
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  ${({ theme, $error, $resize }) => `
-    gap: ${theme.click.field.space.gap};
-    border-radius: ${theme.click.field.radii.all};
-    font: ${theme.click.field.typography.fieldText.default};
-    color: ${theme.click.field.color.text.default};
-    border: 1px solid ${theme.click.field.color.stroke.default};
-    background: ${theme.click.field.color.background.default};
-
-    *:autofill,
-    *:-webkit-autofill  {
-      -webkit-box-shadow: 0 0 0px 50vh ${
-        theme.click.field.color.background.default
-      } inset;
-      -webkit-text-fill-color: ${theme.click.field.color.text.default};
-      caret-color: ${theme.click.field.color.text.default};
-    }
-
-    &:hover {
-      border: 1px solid ${theme.click.field.color.stroke.hover};
-      background: ${theme.click.field.color.background.hover};
-      color: ${theme.click.field.color.text.hover};
-
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${
-          theme.click.field.color.background.hover
-        } inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.hover};
-        caret-color: ${theme.click.field.color.text.hover};
-      }
-    }
-    ${
-      $resize === 'none'
-        ? ''
-        : `
-      resize: ${$resize};
-      overflow: auto;
-    `
-    }
-    ${
-      $error
-        ? `
-      font: ${theme.click.field.typography.fieldText.error};
-      border: 1px solid ${theme.click.field.color.stroke.error};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.error};
-
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.error} inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.error};
-        caret-color: ${theme.click.field.color.text.error};
-      }
-
-      &:hover {
-        border: 1px solid ${theme.click.field.color.stroke.error};
-        color: ${theme.click.field.color.text.error};
-        *:autofill,
-        *:-webkit-autofill {
-          -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.error} inset;
-          -webkit-text-fill-color: ${theme.click.field.color.text.error};
-          caret-color: ${theme.click.field.color.text.error};
-        }
-      }
-    `
-        : `
-    &:focus-within,
-    &[data-state="open"] {
-      font: ${theme.click.field.typography.fieldText.active};
-      border: 1px solid ${theme.click.field.color.stroke.active};
-      background: ${theme.click.field.color.background.active};
-      color: ${theme.click.field.color.text.active};
-
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${theme.click.field.color.background.active} inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.active};
-        caret-color: ${theme.click.field.color.text.active};
-      }
-    }
-    `
-    };
-    &:disabled, &.disabled {
-      font: ${theme.click.field.typography.fieldText.disabled};
-      border: 1px solid ${theme.click.field.color.stroke.disabled};
-      background: ${theme.click.field.color.background.disabled};
-      color: ${theme.click.field.color.text.disabled};
-
-      *:autofill,
-      *:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 50vh ${
-          theme.click.field.color.background.disabled
-        } inset;
-        -webkit-text-fill-color: ${theme.click.field.color.text.disabled};
-        caret-color: ${theme.click.field.color.text.disabled};
-      }
-    }
-  `}
-`;
-
-const StyledLabel = styled(Label)<{ $labelColor?: string }>`
-  ${({ $labelColor }) => `
-    ${$labelColor ? `color: ${$labelColor};` : ''}
-  `}
-`;
+const wrapperVariants = cva(styles.wrapper, {
+  variants: {
+    error: {
+      true: styles.wrapper_error,
+      false: '',
+    },
+    resize: {
+      none: '',
+      vertical: styles.wrapper_resize_vertical,
+      horizontal: styles.wrapper_resize_horizontal,
+      both: styles.wrapper_resize_both,
+    },
+  },
+  defaultVariants: {
+    error: false,
+    resize: 'none',
+  },
+});
 
 export interface WrapperProps {
   className?: string;
@@ -158,134 +66,156 @@ export const InputWrapper = ({
       $addLabelPadding
     >
       <FormElementContainer>
-        <Wrapper
-          $error={!!error}
-          $resize={resize}
+        <div
           data-resize={resize}
-          className={disabled ? `disabled ${className}` : className}
+          className={cn(
+            wrapperVariants({ error: !!error, resize }),
+            disabled && styles.disabled,
+            className
+          )}
         >
           {children}
-        </Wrapper>
+        </div>
         {!!error && error !== true && <Error>{error}</Error>}
       </FormElementContainer>
       {label && (
-        <StyledLabel
+        <Label
           htmlFor={id}
           disabled={disabled}
           error={!!error}
-          $labelColor={labelColor}
+          style={labelColor ? { color: labelColor } : undefined}
         >
           {label}
-        </StyledLabel>
+        </Label>
       )}
     </FormRoot>
   );
 };
 
-export const InputElement = styled.input<{
+const inputVariants = cva(styles.input, {
+  variants: {
+    hasStartContent: {
+      true: styles['input_has-start-content'],
+      false: '',
+    },
+    hasEndContent: {
+      true: styles['input_has-end-content'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    hasStartContent: false,
+    hasEndContent: false,
+  },
+});
+
+interface InputElementOwnProps {
   $hasStartContent?: boolean;
   $hasEndContent?: boolean;
-}>`
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  ${({ theme, $hasStartContent, $hasEndContent }) => `
-    padding: ${theme.click.field.space.y} 0;
-    padding-left: ${$hasStartContent ? '0' : theme.click.field.space.x};
-    padding-right: ${$hasEndContent ? '0' : theme.click.field.space.x};
-    &::placeholder {
-      color: ${theme.click.field.color.placeholder.default};
-    }
+  /** Render as a different element/component (mirrors styled-components `as`). */
+  as?: ElementType;
+}
 
-    &:disabled, &.disabled {
-      &::placeholder {
-      color: ${theme.click.field.color.placeholder.disabled};
-    }
-  `}
-`;
+export type InputElementProps<T extends ElementType = 'input'> = Omit<
+  ComponentProps<T>,
+  keyof InputElementOwnProps
+> &
+  InputElementOwnProps;
 
-export const NumberInputElement = styled(InputElement)<{ $hideControls?: boolean }>`
-  ${({ $hideControls }) => `
-    ${
-      $hideControls
-        ? `
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+type InputElementPolymorphicComponent = <T extends ElementType = 'input'>(
+  props: InputElementProps<T>
+) => ReactNode;
 
-    -moz-appearance: textfield;
-    `
-        : ''
-    }
-  `}
-`;
+const _InputElement = <T extends ElementType = 'input'>(
+  { as, $hasStartContent, $hasEndContent, className, ...props }: InputElementProps<T>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'input';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(
+        inputVariants({
+          hasStartContent: !!$hasStartContent,
+          hasEndContent: !!$hasEndContent,
+        }),
+        className
+      )}
+    />
+  );
+};
 
-export const TextAreaElement = styled.textarea`
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: inherit;
-  font: inherit;
-  resize: none;
-  ${({ theme }) => `
-    padding: ${theme.click.field.space.y} ${theme.click.field.space.x};
-    align-self: stretch;
-    &::placeholder {
-      color: ${theme.click.field.color.placeholder.default};
-    }
-  `}
-`;
+export const InputElement: InputElementPolymorphicComponent = forwardRef(_InputElement);
 
-export const IconButton = styled.button`
-  background: transparent;
-  color: inherit;
-  border: none;
-  padding: 0;
-  outline: none;
-  &:not(:disabled) {
-    cursor: pointer;
-  }
-  ${({ theme }) => `
-      padding: ${theme.click.field.space.y} 0;
-  `}
-`;
+export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputElement> {
+  $hasStartContent?: boolean;
+  $hasEndContent?: boolean;
+  $hideControls?: boolean;
+}
 
-export const IconWrapper = styled.svg`
-  ${({ theme }) => `
-    &:first-of-type {
-      padding-left: ${theme.click.field.space.gap};
-    }
-    &:last-of-type {
-      padding-right: ${theme.click.field.space.x};
-    }
-  `}
-`;
+export const NumberInputElement = forwardRef<HTMLInputElement, NumberInputElementProps>(
+  ({ $hideControls, $hasStartContent, $hasEndContent, className, ...props }, ref) => (
+    <input
+      ref={ref}
+      {...props}
+      className={cn(
+        inputVariants({
+          hasStartContent: !!$hasStartContent,
+          hasEndContent: !!$hasEndContent,
+        }),
+        $hideControls && styles['number-input_hide-controls'],
+        className
+      )}
+    />
+  )
+);
 
-export const InputStartContent = styled.div`
-  ${({ theme }) => `
-    padding-left: ${theme.click.field.space.x};
-    cursor: text;
-    gap: ${theme.click.field.space.gap};
-    display: flex;
-    align-self: stretch;
-    align-items: center;
-  `}
-`;
+export const TextAreaElement = forwardRef<
+  HTMLTextAreaElement,
+  TextareaHTMLAttributes<HTMLTextAreaElement>
+>(({ className, ...props }, ref) => (
+  <textarea
+    ref={ref}
+    {...props}
+    className={cn(styles.textarea, className)}
+  />
+));
 
-export const InputEndContent = styled.div`
-  white-space: nowrap;
-  flex-shrink: 0;
-  ${({ theme }) => `
-    padding-right: ${theme.click.field.space.x};
-    gap: ${theme.click.field.space.gap};
-    display: flex;
-    align-self: stretch;
-    align-items: center;
-  `}
-`;
+export const IconButton = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement>
+>(({ className, ...props }, ref) => (
+  <button
+    ref={ref}
+    {...props}
+    className={cn(styles['icon-button'], className)}
+  />
+));
+
+export const IconWrapper = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    className={cn(styles['icon-wrapper'], className)}
+  />
+);
+
+export const InputStartContent = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={cn(styles['start-content'], className)}
+  />
+);
+
+export const InputEndContent = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={cn(styles['end-content'], className)}
+  />
+);
