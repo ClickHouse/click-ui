@@ -22,7 +22,8 @@ const _EllipsisContent = <T extends ElementType = 'div'>(
     component,
     className,
     ...props
-  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>,
+  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> &
+    EllipsisContentProps<T> & { className?: string },
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   const Component = component ?? 'div';

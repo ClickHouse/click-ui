@@ -16,7 +16,7 @@ const meta: Meta<typeof EllipsisContent> = {
           width: '160px',
           padding: '8px',
           border: '1px solid #888',
-          background: '#fff',
+          background: 'var(--click-storybook-global-background)',
         }}
       >
         <Story />

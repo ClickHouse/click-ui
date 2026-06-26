@@ -109,7 +109,7 @@ describe('EllipsisContent Visual Regression', () => {
         waitUntil: 'networkidle',
       });
       const content = page
-        .locator(`${harnessLocator} > div`)
+        .locator(`${harnessLocator} > *`)
         .first();
       await expect(content).toHaveAttribute(
         'title',
@@ -122,7 +122,7 @@ describe('EllipsisContent Visual Regression', () => {
         waitUntil: 'networkidle',
       });
       const content = page
-        .locator(`${harnessLocator} > div`)
+        .locator(`${harnessLocator} > *`)
         .first();
       await expect(content).not.toHaveAttribute('title', /.+/);
     });
