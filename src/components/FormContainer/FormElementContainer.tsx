@@ -1,12 +1,13 @@
-import { styled } from 'styled-components';
+import { HTMLAttributes } from 'react';
+import { cn } from '@/lib/cva';
+import styles from './FormContainer.module.css';
 
-export const FormElementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  gap: ${({ theme }) => theme.click.field.space.gap};
-`;
+export const FormElementContainer = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={cn(styles['form-element-container'], className)}
+  />
+);

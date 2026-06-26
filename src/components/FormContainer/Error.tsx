@@ -1,8 +1,10 @@
-import { styled } from 'styled-components';
+import { HTMLAttributes } from 'react';
+import { cn } from '@/lib/cva';
+import styles from './FormContainer.module.css';
 
-export const Error = styled.div`
-  ${({ theme }) => `
-  font: ${theme.click.field.typography.label.error};
-  color: ${theme.click.field.color.label.error};
-`};
-`;
+export const Error = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={cn(styles.error, className)}
+  />
+);
