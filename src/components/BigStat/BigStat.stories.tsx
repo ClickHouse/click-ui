@@ -126,10 +126,7 @@ export const FillWidth: Story = {
   },
   decorators: [
     Story => (
-      <div
-        data-testid="big-stat-harness"
-        style={{ display: 'block', width: '320px', padding: '8px' }}
-      >
+      <div style={{ display: 'block', width: '320px', padding: '8px' }}>
         <Story />
       </div>
     ),
@@ -145,10 +142,7 @@ export const MaxWidth: Story = {
   },
   decorators: [
     Story => (
-      <div
-        data-testid="big-stat-harness"
-        style={{ display: 'block', width: '320px', padding: '8px' }}
-      >
+      <div style={{ display: 'block', width: '320px', padding: '8px' }}>
         <Story />
       </div>
     ),
