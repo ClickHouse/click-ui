@@ -76,10 +76,8 @@ export const StyledCell = <T extends ElementType = 'div'>({
   $isSelectedLeft,
   $isLastRow,
   $isLastColumn,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  $isFirstRow,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  $isFirstColumn,
+  $isFirstRow: _isFirstRow,
+  $isFirstColumn: _isFirstColumn,
   $height,
   $type = 'body',
   $showBorder,
@@ -89,6 +87,10 @@ export const StyledCell = <T extends ElementType = 'div'>({
   children,
   ...props
 }: StyledCellProps<T>) => {
+  // $isFirstRow / $isFirstColumn are intentionally destructured (and not used)
+  // so they are stripped from the rest props and never forwarded to the DOM.
+  void _isFirstRow;
+  void _isFirstColumn;
   const Component = (as ?? 'div') as ElementType;
   const mergedStyle = {
     height: $rowAutoHeight ? '100%' : `${$height}px`,
