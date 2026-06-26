@@ -60,32 +60,32 @@ interface PopoverContentProps extends RadixPopover.PopoverContentProps {
 
 const menuPanelVariants = cva(styles['menu-panel'], {
   variants: {
-    $showClose: {
+    showClose: {
       true: styles['menu-panel_show-close'],
       false: '',
     },
   },
   defaultVariants: {
-    $showClose: false,
+    showClose: false,
   },
 });
 
 type MenuPanelComponent = <T extends ElementType = 'div'>(
-  props: ComponentProps<typeof GenericMenuPanel<T>> & { $showClose?: boolean }
+  props: ComponentProps<typeof GenericMenuPanel<T>> & { showClose?: boolean }
 ) => ReactNode;
 
 const _MenuPanel = <T extends ElementType = 'div'>(
   {
-    $showClose,
+    showClose,
     className,
     ...props
-  }: ComponentProps<typeof GenericMenuPanel<T>> & { $showClose?: boolean },
+  }: ComponentProps<typeof GenericMenuPanel<T>> & { showClose?: boolean },
   ref: ComponentPropsWithRef<T>['ref']
 ) => (
   <GenericMenuPanel
     ref={ref}
     {...(props as ComponentProps<typeof GenericMenuPanel>)}
-    className={cn(menuPanelVariants({ $showClose }), className)}
+    className={cn(menuPanelVariants({ showClose }), className)}
   />
 );
 
@@ -116,9 +116,9 @@ const PopoverContent = ({
     >
       <MenuPanel
         as={RadixPopover.Content}
-        $type="popover"
-        $showClose={showClose}
-        $showArrow={showArrow}
+        type="popover"
+        showClose={showClose}
+        showArrow={showArrow}
         sideOffset={4}
         {...props}
       >

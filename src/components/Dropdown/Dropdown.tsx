@@ -156,8 +156,8 @@ const DropdownContent = ({
     <DropdownMenu.Portal container={portalContainer}>
       <DropdownMenuContent
         {...props}
-        $type="dropdown-menu"
-        $showArrow={showArrow}
+        type="dropdown-menu"
+        showArrow={showArrow}
         as={ContentElement}
         sideOffset={4}
         loop
@@ -230,7 +230,7 @@ const DropdownItem = ({
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
-      $type={type}
+      type={type}
       {...props}
     >
       <IconWrapper

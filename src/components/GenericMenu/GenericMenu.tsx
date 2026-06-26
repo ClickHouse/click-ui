@@ -4,24 +4,24 @@ import styles from './GenericMenu.module.css';
 
 const panelVariants = cva(styles['generic-menu-panel'], {
   variants: {
-    $type: {
+    type: {
       popover: styles['generic-menu-panel_type_popover'],
       'dropdown-menu': styles['generic-menu-panel_type_dropdown-menu'],
       'context-menu': styles['generic-menu-panel_type_context-menu'],
     },
-    $showArrow: {
+    showArrow: {
       true: styles['generic-menu-panel_show-arrow'],
       false: '',
     },
   },
   defaultVariants: {
-    $showArrow: false,
+    showArrow: false,
   },
 });
 
 type GenericMenuPanelOwnProps = {
-  $type: 'popover' | 'dropdown-menu' | 'context-menu';
-  $showArrow?: boolean;
+  type: 'popover' | 'dropdown-menu' | 'context-menu';
+  showArrow?: boolean;
 };
 
 type GenericMenuPanelComponent = <T extends ElementType = 'div'>(
@@ -32,8 +32,8 @@ type GenericMenuPanelComponent = <T extends ElementType = 'div'>(
 const _GenericMenuPanel = <T extends ElementType = 'div'>(
   {
     as,
-    $type,
-    $showArrow,
+    type,
+    showArrow,
     className,
     ...props
   }: Omit<ComponentPropsWithRef<T>, keyof GenericMenuPanelOwnProps | 'as'> &
@@ -45,7 +45,7 @@ const _GenericMenuPanel = <T extends ElementType = 'div'>(
     <Component
       ref={ref}
       {...props}
-      className={cn(panelVariants({ $type, $showArrow }), className)}
+      className={cn(panelVariants({ type, showArrow }), className)}
     />
   );
 };
@@ -54,23 +54,23 @@ export const GenericMenuPanel: GenericMenuPanelComponent = forwardRef(_GenericMe
 
 const popoverPanelVariants = cva(styles['generic-popover-menu-panel'], {
   variants: {
-    $type: {
+    type: {
       popover: styles['generic-popover-menu-panel_type_popover'],
       'hover-card': styles['generic-popover-menu-panel_type_hover-card'],
     },
-    $showArrow: {
+    showArrow: {
       true: styles['generic-popover-menu-panel_show-arrow'],
       false: '',
     },
   },
   defaultVariants: {
-    $showArrow: false,
+    showArrow: false,
   },
 });
 
 type GenericPopoverMenuPanelOwnProps = {
-  $type: 'popover' | 'hover-card';
-  $showArrow?: boolean;
+  type: 'popover' | 'hover-card';
+  showArrow?: boolean;
 };
 
 type GenericPopoverMenuPanelComponent = <T extends ElementType = 'div'>(
@@ -81,8 +81,8 @@ type GenericPopoverMenuPanelComponent = <T extends ElementType = 'div'>(
 const _GenericPopoverMenuPanel = <T extends ElementType = 'div'>(
   {
     as,
-    $type,
-    $showArrow,
+    type,
+    showArrow,
     className,
     ...props
   }: Omit<ComponentPropsWithRef<T>, keyof GenericPopoverMenuPanelOwnProps | 'as'> &
@@ -94,7 +94,7 @@ const _GenericPopoverMenuPanel = <T extends ElementType = 'div'>(
     <Component
       ref={ref}
       {...props}
-      className={cn(popoverPanelVariants({ $type, $showArrow }), className)}
+      className={cn(popoverPanelVariants({ type, showArrow }), className)}
     />
   );
 };
@@ -125,18 +125,18 @@ export const Arrow: ArrowComponent = forwardRef(_Arrow);
 
 const itemVariants = cva(styles['generic-menu-item'], {
   variants: {
-    $type: {
+    type: {
       default: styles['generic-menu-item_type_default'],
       danger: styles['generic-menu-item_type_danger'],
     },
   },
   defaultVariants: {
-    $type: 'default',
+    type: 'default',
   },
 });
 
 type GenericMenuItemOwnProps = {
-  $type?: 'default' | 'danger';
+  type?: 'default' | 'danger';
 };
 
 type GenericMenuItemComponent = <T extends ElementType = 'div'>(
@@ -147,7 +147,7 @@ type GenericMenuItemComponent = <T extends ElementType = 'div'>(
 const _GenericMenuItem = <T extends ElementType = 'div'>(
   {
     as,
-    $type = 'default',
+    type = 'default',
     className,
     ...props
   }: Omit<ComponentPropsWithRef<T>, keyof GenericMenuItemOwnProps | 'as'> &
@@ -159,7 +159,7 @@ const _GenericMenuItem = <T extends ElementType = 'div'>(
     <Component
       ref={ref}
       {...props}
-      className={cn(itemVariants({ $type }), className)}
+      className={cn(itemVariants({ type }), className)}
     />
   );
 };

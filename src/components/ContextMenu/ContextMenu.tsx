@@ -101,33 +101,33 @@ type ContextMenuSubContentProps = RightMenu.ContextMenuSubContentProps & {
 
 const rightMenuContentVariants = cva(styles['right-menu-content'], {
   variants: {
-    $showArrow: {
+    showArrow: {
       true: styles['right-menu-content_show-arrow'],
       false: '',
     },
   },
   defaultVariants: {
-    $showArrow: false,
+    showArrow: false,
   },
 });
 
 type RightMenuContentComponent = <T extends ElementType = 'div'>(
-  props: ComponentProps<typeof GenericMenuPanel<T>> & { $showArrow?: boolean }
+  props: ComponentProps<typeof GenericMenuPanel<T>> & { showArrow?: boolean }
 ) => ReactNode;
 
 const _RightMenuContent = <T extends ElementType = 'div'>(
   {
-    $showArrow,
+    showArrow,
     className,
     ...props
-  }: ComponentProps<typeof GenericMenuPanel<T>> & { $showArrow?: boolean },
+  }: ComponentProps<typeof GenericMenuPanel<T>> & { showArrow?: boolean },
   ref: ComponentPropsWithRef<T>['ref']
 ) => (
   <GenericMenuPanel
     ref={ref}
-    $showArrow={$showArrow}
+    showArrow={showArrow}
     {...(props as ComponentProps<typeof GenericMenuPanel>)}
-    className={cn(rightMenuContentVariants({ $showArrow }), className)}
+    className={cn(rightMenuContentVariants({ showArrow }), className)}
   />
 );
 
@@ -153,8 +153,8 @@ const ContextMenuContent = ({
     <RightMenu.Portal container={portalContainer}>
       <RightMenuContent
         {...props}
-        $type="context-menu"
-        $showArrow={showArrow}
+        type="context-menu"
+        showArrow={showArrow}
         as={ContentElement}
         {...inputModalityProps}
       >
@@ -212,7 +212,7 @@ const ContextMenuItem = ({
   return (
     <GenericMenuItem
       as={RightMenu.Item}
-      $type={type}
+      type={type}
       {...props}
     >
       <IconWrapper
