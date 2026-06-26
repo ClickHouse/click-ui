@@ -401,6 +401,7 @@ const FlyoutCodeBlock = ({
   showWrapButton,
   onCopy,
   onCopyError,
+  className,
   ...props
 }: FlyoutCodeBlockProps & ElementProps) => {
   return (
@@ -409,7 +410,7 @@ const FlyoutCodeBlock = ({
       {...props}
     >
       <CodeBlock
-        className={styles['code-block']}
+        className={cn(styles['code-block'], className)}
         wrapLines={wrapLines}
         language={language}
         showLineNumbers={showLineNumbers}

@@ -119,14 +119,10 @@
   /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
 }
 
-/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
-.header {
-}
-
 /* Doubled class: this element renders as a <Container>, whose base class also
    sets `padding`/`gap`. Doubling outranks the single-class Container base so the
    Flyout override wins regardless of CSS-module bundle order (matches the
-   styled(Container) override semantics on main). */
+   styled(Container) override semantics). */
 .element_type_default.element_type_default {
   padding: 0 var(--click-flyout-space-default-content-x);
   gap: var(--click-flyout-space-default-gap);
@@ -135,6 +131,10 @@
 .element_type_inline.element_type_inline {
   padding: 0 var(--click-flyout-space-inline-content-x);
   gap: var(--click-flyout-space-inline-gap);
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.header {
 }
 
 .header_type_default.header_type_default {
