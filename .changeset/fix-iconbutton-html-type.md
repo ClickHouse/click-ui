@@ -2,4 +2,12 @@
 '@clickhouse/click-ui': patch
 ---
 
- `IconButton` now accepts `htmlType` prop to support native HTML `type` attribute.
+Fix buttons unintentionally submitting their enclosing `<form>`. A native `<button>` without an explicit `type` defaults to `type="submit"`, so several components triggered form submission when used inside a form.
+
+New `htmlType` escape hatch (for general-purpose action buttons whose visual `type` prop shadows the native attribute):
+
+- `IconButton` now accepts an `htmlType` prop to set the native button `type` (mirrors `Button`).
+
+Internal buttons that are never meant to submit now default to `type="button"` (non-breaking; consumers can still override):
+
+- `ButtonGroup` options
