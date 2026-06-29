@@ -7,6 +7,7 @@ Fix buttons unintentionally submitting their enclosing `<form>`. A native `<butt
 New `htmlType` escape hatch (for general-purpose action buttons whose visual `type` prop shadows the native attribute):
 
 - `IconButton` now accepts an `htmlType` prop to set the native button `type` (mirrors `Button`).
+- `SplitButton` now accepts an `htmlType` prop to set the native `type` on its primary action button.
 
 Internal buttons that are never meant to submit now default to `type="button"` (non-breaking; consumers can still override):
 
