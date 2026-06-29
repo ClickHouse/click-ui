@@ -133,7 +133,10 @@ export const Alert = ({
       className={cn(wrapperVariants({ state, type }))}
     >
       {dismissible && type === 'banner' && (
-        <button className={styles.alert__dismiss}></button>
+        <button
+          type="button"
+          className={styles.alert__dismiss}
+        ></button>
       )}
       {showIcon && (
         <div className={cn(iconWrapperVariants({ state, size, type }))}>
@@ -151,6 +154,7 @@ export const Alert = ({
       </div>
       {dismissible && (
         <button
+          type="button"
           data-testid="click-alert-dismiss-button"
           onClick={handleDismiss}
           className={styles.alert__dismiss}

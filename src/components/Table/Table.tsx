@@ -677,6 +677,7 @@ const TableBodyRow = ({
               <EditButton
                 as={IconButton}
                 type="ghost"
+                htmlType="button"
                 disabled={isDisabled || isDeleted || !isEditable}
                 icon="pencil"
                 onClick={onEdit}
@@ -689,6 +690,7 @@ const TableBodyRow = ({
                 disabled={isDisabled || !isDeletable}
                 $isDeleted={isDeleted}
                 type="ghost"
+                htmlType="button"
                 icon="cross"
                 onClick={onDelete}
                 data-testid="table-row-delete"
