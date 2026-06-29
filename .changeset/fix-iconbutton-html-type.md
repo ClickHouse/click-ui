@@ -12,3 +12,12 @@ New `htmlType` escape hatch (for general-purpose action buttons whose visual `ty
 Internal buttons that are never meant to submit now default to `type="button"` (non-breaking; consumers can still override):
 
 - `ButtonGroup` options
+- `Alert` dismiss buttons
+- `InputWrapper` icon button
+- `Select` search clear button
+- `DatePicker` calendar title button
+- `FileTabs` close button
+- `CardPromotion` dismiss button
+- `Table` row edit/delete buttons
+- `VerticalStepper` step trigger
+- `CrossButton`

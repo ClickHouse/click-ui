@@ -63,6 +63,14 @@ describe('Select', () => {
     expect(queryByText('Content0')).not.toBeNull();
   });
 
+  it('renders the search clear button with type="button" so it does not submit a form', () => {
+    const { queryByText, getByTestId } = renderSelect({ showSearch: true });
+    const selectTrigger = queryByText('Select an option');
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(getByTestId('select-search-close')).toHaveAttribute('type', 'button');
+  });
+
   it('should show error', () => {
     const { queryByText } = renderSelect({
       error: 'Select Error',

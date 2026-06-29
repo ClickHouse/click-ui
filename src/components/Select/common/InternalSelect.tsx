@@ -503,6 +503,7 @@ export const InternalSelect = ({
                   />
                   <SearchClose
                     as={IconButton}
+                    htmlType="button"
                     icon="cross"
                     onClick={clearSearch}
                     data-testid="select-search-close"
