@@ -26,7 +26,19 @@ const iconButtonVariants = cva(styles.iconbutton, {
 });
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ type = 'primary', htmlType, icon, size, disabled, className, ...props }, ref) => {
+  (
+    {
+      type = 'primary',
+      htmlType,
+      icon,
+      size,
+      disabled,
+      className,
+      'aria-label': ariaLabel,
+      ...props
+    },
+    ref
+  ) => {
     const iconName = icon ? icon.toString() : 'unknown icon';
 
     return (
@@ -37,7 +49,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         disabled={disabled}
         ref={ref}
         role="button"
-        aria-label={iconName}
+        aria-label={ariaLabel ?? iconName}
       >
         <Icon
           name={icon}

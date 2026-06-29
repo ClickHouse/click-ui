@@ -40,12 +40,37 @@ interface CustomRendererProps {
   useInlineStyles: boolean;
 }
 
+const ButtonContainer = styled.div<{ $theme?: CodeThemeType }>`
+  position: absolute;
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+  ${({ theme, $theme }) => {
+    const themeName = ($theme ?? theme.name) as CodeThemeType;
+    const bg = theme.click.codeblock[`${themeName}Mode`].color.background.default;
+    return `
+      gap: ${theme.sizes[3]};
+      border-radius: ${theme.click.codeblock.radii.all};
+      padding: ${theme.sizes[2]};
+      top: ${theme.click.codeblock.space.y};
+      right: ${theme.click.codeblock.space.x};
+      background: color-mix(in srgb, ${bg} 90%, transparent);
+    `;
+  }}
+`;
+
 const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
   width: 100%;
   width: -webkit-fill-available;
   width: fill-available;
   width: stretch;
   position: relative;
+  &:hover ${ButtonContainer}, &:focus-within ${ButtonContainer} {
+    opacity: 1;
+  }
   ${({ theme, $theme }) => {
     const themeName = theme.name as CodeThemeType;
 
@@ -82,16 +107,6 @@ const Highlighter = styled(SyntaxHighlighter)`
 const CodeContent = styled.code`
   font-family: inherit;
   color: inherit;
-`;
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  display: flex;
-  ${({ theme }) => `
-    gap:  0.625rem;
-    top: ${theme.click.codeblock.space.y};
-    right: ${theme.click.codeblock.space.x};
-  `}
 `;
 
 export const CodeBlock = ({
@@ -140,13 +155,15 @@ export const CodeBlock = ({
       $theme={theme}
       {...props}
     >
-      <ButtonContainer>
+      <ButtonContainer $theme={theme}>
         {showWrapButton && (
           <CodeButton
             as={IconButton}
             $copied={false}
             $error={false}
             icon="document"
+            aria-label={wrap ? 'Disable line wrapping' : 'Wrap long lines'}
+            aria-pressed={wrap}
             onClick={wrapElement}
           />
         )}
@@ -155,6 +172,9 @@ export const CodeBlock = ({
           $copied={copied}
           $error={errorCopy}
           icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
+          aria-label={
+            copied ? 'Code copied' : errorCopy ? 'Failed to copy code' : 'Copy code'
+          }
           onClick={copyCodeToClipboard}
         />
       </ButtonContainer>
