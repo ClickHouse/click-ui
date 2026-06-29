@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { EmptyButton } from '@/components/EmptyButton';
 
 export const CrossButton = styled(EmptyButton).attrs<{
-  type?: 'button' | 'submit' | 'reset';
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }>(({ type = 'button' }) => ({ type }))`
   padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}
     ${({ theme }) => theme.click.button.iconButton.sm.space.x};
