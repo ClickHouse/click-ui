@@ -1,10 +1,28 @@
 import { Alert, AlertProps } from '@/components/Alert';
-import { waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Alert', () => {
   const renderAlert = (props: AlertProps) => renderCUI(<Alert {...props} />);
+
+  it('renders the dismiss button with type="button" so it does not submit a form', () => {
+    const handleSubmit = vi.fn(e => e.preventDefault());
+    const { getByTestId } = renderCUI(
+      <form onSubmit={handleSubmit}>
+        <Alert
+          text="In a form"
+          dismissible
+        />
+      </form>
+    );
+
+    const dismissButton = getByTestId('click-alert-dismiss-button');
+    expect(dismissButton).toHaveAttribute('type', 'button');
+
+    fireEvent.click(dismissButton);
+    expect(handleSubmit).not.toHaveBeenCalled();
+  });
 
   it('given a dismissible alert, should not be visible after dismissing it', async () => {
     const text = 'Test alert component';

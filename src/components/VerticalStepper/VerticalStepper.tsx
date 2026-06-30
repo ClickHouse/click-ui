@@ -114,6 +114,7 @@ const VerticalStep = ({
   return (
     <div className={cn(stepVariants({ type, status, isOpen }))}>
       <button
+        type="button"
         disabled={status === 'incomplete' || disabled}
         {...props}
         className={cn(triggerVariants({ status }), className)}

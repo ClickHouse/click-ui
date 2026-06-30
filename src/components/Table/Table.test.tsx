@@ -99,6 +99,18 @@ describe('Table', () => {
     expect(onEdit).toBeCalledTimes(1);
   });
 
+  it('renders row action buttons with type="button" so they do not submit a form', () => {
+    const { queryAllByTestId } = renderTable({
+      isSelectable: true,
+      onEdit: vi.fn(),
+      onDelete: vi.fn(),
+    });
+    [
+      ...queryAllByTestId('table-row-edit'),
+      ...queryAllByTestId('table-row-delete'),
+    ].forEach(button => expect(button).toHaveAttribute('type', 'button'));
+  });
+
   it('should resize column width on ArrowRight key press', () => {
     const { queryAllByRole } = renderTable({
       resizableColumns: true,

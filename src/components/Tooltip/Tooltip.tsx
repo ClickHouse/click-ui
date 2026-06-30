@@ -1,8 +1,9 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
-import { HTMLAttributes } from 'react';
-import { styled } from 'styled-components';
+import { CSSProperties, HTMLAttributes } from 'react';
+import { cn } from '@/lib/cva';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import { TooltipContentProps, TooltipProps } from './Tooltip.types';
+import styles from './Tooltip.module.css';
 
 export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) => {
   return (
@@ -24,31 +25,14 @@ const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
 };
 TooltipTrigger.displayName = 'TooltipTrigger';
 Tooltip.Trigger = TooltipTrigger;
-const RadixTooltipContent = styled(RadixTooltip.Content)<{ $maxWidth?: string }>`
-  display: flex;
-  align-items: flex-start;
-  ${({ theme, $maxWidth }) => `
-    padding: ${theme.click.tooltip.space.y} ${theme.click.tooltip.space.x};
-    color: ${theme.click.tooltip.color.label.default};
-    background: ${theme.click.tooltip.color.background.default};
-    border-radius: ${theme.click.tooltip.radii.all};
-    font: ${theme.click.tooltip.typography.label.default};
-    white-space: pre-wrap;
-    ${$maxWidth && `max-width: ${$maxWidth}`};
-  `}
-`;
-
-const Arrow = styled.svg`
-  ${({ theme }) => `
-    fill: ${theme.click.tooltip.color.background.default};
-  `};
-`;
 
 const TooltipContent = ({
   showArrow,
   children,
   sideOffset = 6,
   maxWidth,
+  className,
+  style,
   container,
   ...props
 }: TooltipContentProps) => {
@@ -56,20 +40,26 @@ const TooltipContent = ({
 
   return (
     <RadixTooltip.Portal container={portalContainer}>
-      <RadixTooltipContent
+      <RadixTooltip.Content
         sideOffset={sideOffset}
-        $maxWidth={maxWidth}
+        style={
+          {
+            ...(maxWidth ? { '--tooltip-max-width': maxWidth } : {}),
+            ...style,
+          } as CSSProperties
+        }
         {...props}
+        className={cn(styles.content, className)}
       >
         {showArrow && (
-          <Arrow
-            as={RadixTooltip.Arrow}
+          <RadixTooltip.Arrow
+            className={styles.arrow}
             width={20}
             height={8}
           />
         )}
         {children}
-      </RadixTooltipContent>
+      </RadixTooltip.Content>
     </RadixTooltip.Portal>
   );
 };
