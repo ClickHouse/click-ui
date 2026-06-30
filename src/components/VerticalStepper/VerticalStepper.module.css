@@ -222,6 +222,7 @@
 
 .step__bubble_type_bulleted.step__bubble_status_complete::after {
   content: "";
+  box-sizing: content-box;
   position: absolute;
   width: 50%;
   height: 50%;
