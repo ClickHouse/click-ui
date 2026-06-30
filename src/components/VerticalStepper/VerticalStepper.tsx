@@ -182,6 +182,7 @@ const VerticalStep = ({
       $isOpen={isOpen}
     >
       <StepTrigger
+        type="button"
         $status={status}
         disabled={status === 'incomplete' || disabled}
         {...props}

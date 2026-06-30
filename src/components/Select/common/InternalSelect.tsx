@@ -506,6 +506,7 @@ export const InternalSelect = ({
                       selectStyles['search-close'],
                       search.length > 0 && selectStyles['search-close_show-close']
                     )}
+                    htmlType="button"
                     icon="cross"
                     onClick={clearSearch}
                     data-testid="select-search-close"

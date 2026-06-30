@@ -8,6 +8,7 @@ import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
 
 export const SplitButton = ({
   type = 'primary',
+  htmlType,
   disabled,
   menu,
   dir,
@@ -63,6 +64,7 @@ export const SplitButton = ({
           $type={type}
           $fillWidth={fillWidth}
           {...props}
+          type={htmlType}
         >
           <ButtonData
             as={IconWrapper}
