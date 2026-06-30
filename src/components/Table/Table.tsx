@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
   FC,
   HTMLAttributes,
   MouseEvent,
@@ -12,7 +13,6 @@ import {
   useState,
   type RefObject,
 } from 'react';
-import { styled } from 'styled-components';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
 
@@ -23,6 +23,8 @@ import { HorizontalDirection } from '@/types';
 import { EllipsisContent } from '@/components/EllipsisContent';
 import { Checkbox, CheckboxProps } from '@/components/Checkbox';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
+import { cn, cva } from '@/lib/cva';
+import styles from './Table.module.css';
 
 type SortDir = 'asc' | 'desc';
 type SortFn = (sortDir: SortDir, header: TableColumnConfigProps, index: number) => void;
@@ -47,70 +49,30 @@ export interface TableColumnConfigProps extends HTMLAttributes<HTMLTableCellElem
 /** @deprecated The TableHeaderType field have been deprecated to favour TableColumnConfigProps */
 export type TableHeaderType = TableColumnConfigProps;
 
-const StyledHeader = styled.th<{ $size: TableSize; $resizable?: boolean }>`
-  ${({ theme, $size }) => `
-    padding: ${theme.click.table.header.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-    font: ${theme.click.table.header.title.default};
-    color: ${theme.click.table.header.color.title.default};
-  `}
-  text-align: left;
+const headerVariants = cva(styles.table__header, {
+  variants: {
+    size: {
+      sm: styles.table__header_size_sm,
+      md: styles.table__header_size_md,
+    },
+    resizable: {
+      true: styles.table__header_resizable,
+      false: '',
+    },
+  },
+  defaultVariants: {
+    resizable: false,
+  },
+});
 
-  ${({ $resizable }) =>
-    $resizable &&
-    `
-    position: relative;
-  `}
-`;
-
-const Resizer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 24px;
-  height: 100%;
-  cursor: col-resize;
-  user-select: none;
-  z-index: 1;
-  transition: opacity 0.2s;
-  border-radius: 0.5rem;
-  transform: translateX(50%);
-
-  &:hover {
-    opacity: 0.6;
-  }
-
-  &::before {
-    content: ' ';
-    background: ${({ theme }) => theme.click.table.header.color.checkbox.border.default};
-    display: inline-block;
-    top: 25%;
-    width: 2px;
-    height: 20px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
-    outline-offset: 2px;
-    opacity: 1;
-  }
-`;
-
-const HeaderContentWrapper = styled.div<{ $interactive: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: inherit;
-
-  ${({ $interactive }) => $interactive && 'cursor: pointer;'}
-`;
-
-const SortIcon = styled(Icon)<{ $sortDir: SortDir }>`
-  transition: all 200ms;
-  transform: rotate(${({ $sortDir }) => ($sortDir === 'desc' ? '180deg' : '0deg')});
-`;
+const sortIconVariants = cva(styles['table__sort-icon'], {
+  variants: {
+    dir: {
+      asc: styles['table__sort-icon_dir_asc'],
+      desc: styles['table__sort-icon_dir_desc'],
+    },
+  },
+});
 
 type OnKeyboardResizerDirection = 'left' | 'right';
 
@@ -138,6 +100,7 @@ const TableHeader = ({
   onResizeStart,
   onKeyboardResize,
   overflowMode,
+  className,
   ...props
 }: TableHeaderProps) => {
   if (overflowMode === 'wrap' && resizable) {
@@ -184,33 +147,35 @@ const TableHeader = ({
   };
 
   return (
-    <StyledHeader
-      $size={size}
-      $resizable={resizable}
+    <th
       {...props}
+      className={cn(headerVariants({ size, resizable }), className)}
     >
-      <HeaderContentWrapper
+      <div
         onClick={onHeaderClick}
-        $interactive={isInteractive}
+        className={cn(
+          styles['table__header-content'],
+          isInteractive && styles['table__header-content_interactive']
+        )}
       >
         {isSorted && isSortable && sortPosition == 'start' && (
-          <SortIcon
-            $sortDir={sortDir}
+          <Icon
             name="arrow-down"
             size="sm"
+            className={cn(sortIconVariants({ dir: sortDir }))}
           />
         )}
         {label}
         {isSorted && isSortable && sortPosition == 'end' && (
-          <SortIcon
-            $sortDir={sortDir}
+          <Icon
             name="arrow-down"
             size="sm"
+            className={cn(sortIconVariants({ dir: sortDir }))}
           />
         )}
-      </HeaderContentWrapper>
+      </div>
       {showResizer && (
-        <Resizer
+        <div
           ref={resizerRef}
           onMouseDown={onResizeStart}
           role="separator"
@@ -218,9 +183,10 @@ const TableHeader = ({
           aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
           tabIndex={0}
           onKeyDown={onResizerKeyDown}
+          className={cn(styles.table__resizer)}
         />
       )}
-    </StyledHeader>
+    </th>
   );
 };
 interface TheadProps {
@@ -263,7 +229,7 @@ const Thead = ({
   };
   return (
     <>
-      <StyledColGroup>
+      <colgroup className={cn(styles.table__colgroup)}>
         {isSelectable && <col width={48} />}
         {headers.map((headerProps, index) => {
           const headerLabel =
@@ -283,20 +249,23 @@ const Thead = ({
           );
         })}
         {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
-      </StyledColGroup>
-      <StyledThead ref={theadRef}>
+      </colgroup>
+      <thead
+        ref={theadRef}
+        className={cn(styles.table__thead)}
+      >
         <tr>
           {isSelectable && (
-            <StyledHeader
-              $size={size}
+            <th
               aria-label="Select column"
+              className={cn(headerVariants({ size }))}
             >
               <SelectAllCheckbox
                 onCheckedChange={onSelectAll}
                 rows={rows}
                 selectedIds={selectedIds}
               />
-            </StyledHeader>
+            </th>
           )}
           {headers.map((headerProps, index) => (
             <TableHeader
@@ -311,245 +280,70 @@ const Thead = ({
             />
           ))}
           {actionsList.length > 0 && (
-            <StyledHeader
+            <th
               aria-label="Actions"
-              $size={size}
+              className={cn(headerVariants({ size }))}
             />
           )}
         </tr>
-      </StyledThead>
+      </thead>
     </>
   );
 };
-interface TableRowProps {
-  $isSelectable?: boolean;
-  $isDeleted?: boolean;
-  $isDisabled?: boolean;
-  $isActive?: boolean;
-  $showActions?: boolean;
-  $rowHeight?: string;
-}
 
-const TableRow = styled.tr<TableRowProps>`
-  overflow: hidden;
-  ${({ theme, $isDeleted, $isDisabled, $isActive, $rowHeight }) => `
-    ${$rowHeight ? `height: ${$rowHeight};` : ''}
-    background-color: ${theme.click.table.row.color.background.default};
-    border-bottom: ${theme.click.table.cell.stroke} solid ${
-      theme.click.table.row.color.stroke.default
-    };
+const rowVariants = cva(styles.table__row, {
+  variants: {
+    isSelectable: {
+      true: styles.table__row_selectable,
+      false: '',
+    },
+    isActive: {
+      true: styles.table__row_active,
+      false: '',
+    },
+    isDisabled: {
+      true: styles.table__row_disabled,
+      false: '',
+    },
+    showActions: {
+      true: styles['table__row_show-actions'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    isSelectable: false,
+    isActive: false,
+    isDisabled: false,
+    showActions: false,
+  },
+});
 
-    ${$isActive && `background-color: ${theme.click.table.row.color.background.active};`}
+const cellVariants = cva(styles.table__data, {
+  variants: {
+    size: {
+      sm: styles.table__data_size_sm,
+      md: styles.table__data_size_md,
+    },
+  },
+});
 
-    &:active {
-      background-color: ${theme.click.table.row.color.background.active};
-    }
-    &:hover {
-      background-color: ${theme.click.table.row.color.background.hover};
-    }
-    opacity: ${$isDeleted || $isDisabled ? 0.5 : 1};
-    cursor: ${$isDeleted || $isDisabled ? 'not-allowed' : 'default'}
-  `}
+const selectDataVariants = cva(styles['table__select-data'], {
+  variants: {
+    size: {
+      sm: styles['table__select-data_size_sm'],
+      md: styles['table__select-data_size_md'],
+    },
+  },
+});
 
-  &:last-of-type, &:last-child {
-    border-bottom: none;
-  }
-
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      ${({ theme, $isSelectable = false, $showActions = false }) => `
-        border: ${theme.click.table.cell.stroke} solid ${
-          theme.click.table.row.color.stroke.default
-        };
-        border-radius: ${theme.click.table.radii.all};
-        ${
-          $isSelectable
-            ? `padding-left: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.checkbox.size.all});`
-            : ''
-        }
-        ${
-          $showActions
-            ? `padding-right: calc(${theme.click.table.body.cell.space.sm.x} + ${theme.click.table.body.cell.space.sm.x} + ${theme.click.image.sm.size.width} + ${theme.click.button.iconButton.default.space.x} + ${theme.click.button.iconButton.default.space.x});`
-            : ''
-        }
-      `}
-    }
-  }
-`;
-
-const TableData = styled.td<{ $size: TableSize }>`
-  overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
-    font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-  `}
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      width: auto;
-      min-width: 40%;
-      ${({ theme }) => `
-        padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-      `}
-    }
-  }
-`;
-
-const StyledColGroup = styled.colgroup`
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      display: none;
-    }
-  }
-`;
-const StyledThead = styled.thead`
-  tr {
-    overflow: hidden;
-    background-color: ${({ theme }) => theme.click.table.header.color.background.default};
-    ${({
-      theme,
-    }) => ` border-bottom: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
-  `}
-  }
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      display: none;
-    }
-  }
-`;
-
-const MobileHeader = styled.div`
-  display: none;
-  ${({ theme }) => `
-    color: ${theme.click.table.row.color.label.default};
-    font:  ${theme.click.table.cell.label.default};
-  `}
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      display: block;
-    }
-  }
-`;
-const Tbody = styled.tbody`
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-  }
-`;
-
-const SelectData = styled.td<{ $size: TableSize }>`
-  overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
-    font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-  `}
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      width: auto;
-      align-self: stretch;
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      ${({ theme }) => `
-        padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-        border-right: ${theme.click.table.cell.stroke} solid ${theme.click.table.row.color.stroke.default};
-      `}
-    }
-  }
-`;
-const ActionsList = styled.td<{ $size: TableSize }>`
-  overflow: hidden;
-  ${({ theme, $size }) => `
-    color: ${theme.click.table.row.color.text.default};
-    font: ${theme.click.table.cell.text.default};
-    padding: ${theme.click.table.body.cell.space[$size].y} ${theme.click.table.body.cell.space[$size].x};
-  `}
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      width: auto;
-      align-self: stretch;
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      ${({ theme }) => `
-        padding: ${theme.click.table.body.cell.space.sm.y} ${theme.click.table.body.cell.space.sm.x};
-        border-left: 1px solid ${theme.click.table.row.color.stroke.default};
-      `}
-    }
-  }
-`;
-
-const ActionsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  overflow: hidden;
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      flex-direction: column;
-      overflow: auto;
-      flex-wrap: nowrap;
-    }
-  }
-`;
-
-const TableWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-x: auto;
-  ${({ theme }) => `
-  border: ${theme.click.table.cell.stroke} solid ${theme.click.table.global.color.stroke.default};
-  border-radius: ${theme.click.table.radii.all}
-  `}
-`;
-
-const TableOuterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-`;
-
-const MobileActions = styled.div`
-  display: none;
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 ${({ theme }) => theme.click.table.body.cell.space.sm.x};
-    }
-  }
-`;
-const EditButton = styled.button`
-  &:disabled {
-    background: transparent;
-  }
-`;
-interface TableRowCloseButtonProps {
-  $isDeleted?: boolean;
-}
-
-const TableRowCloseButton = styled.button<TableRowCloseButtonProps>`
-  svg {
-    transition: transform 200ms;
-    ${({ $isDeleted }) => `
-    ${$isDeleted ? 'transform: rotate(45deg)' : ''};
-    `}
-  }
-  &:disabled {
-    background: transparent;
-  }
-`;
+const actionsCellVariants = cva(styles['table__actions-cell'], {
+  variants: {
+    size: {
+      sm: styles['table__actions-cell_size_sm'],
+      md: styles['table__actions-cell_size_md'],
+    },
+  },
+});
 
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
@@ -634,83 +428,97 @@ const TableBodyRow = ({
   size,
   actionsList,
   rowHeight,
+  className,
+  style,
   ...rowProps
 }: TableBodyRowProps) => {
   const isDeletable = typeof onDelete === 'function';
   const isEditable = typeof onEdit === 'function';
+  const rowStyle = useMemo(
+    () =>
+      ({
+        ...(rowHeight ? { '--table-row-height': rowHeight } : {}),
+        ...style,
+      }) as CSSProperties,
+    [rowHeight, style]
+  );
   return (
-    <TableRow
-      $isSelectable={isSelectable}
-      $isDeleted={isDeleted}
-      $isDisabled={isDisabled}
-      $isActive={isActive}
-      $showActions={isDeletable || isEditable}
-      $rowHeight={rowHeight}
+    <tr
+      style={rowStyle}
       {...rowProps}
+      className={cn(
+        rowVariants({
+          isSelectable,
+          isActive,
+          isDisabled: isDeleted || isDisabled,
+          showActions: isDeletable || isEditable,
+        }),
+        className
+      )}
     >
       {isSelectable && (
-        <SelectData $size={size}>
+        <td className={cn(selectDataVariants({ size }))}>
           <Checkbox
             checked={isIndeterminate ? 'indeterminate' : isSelected}
             onCheckedChange={onSelect}
             disabled={isDisabled || isDeleted}
           />
-        </SelectData>
+        </td>
       )}
-      {items.map(({ label, overflowMode, ...cellProps }, cellIndex) => (
-        <TableData
-          $size={size}
-          key={`table-cell-${cellIndex}`}
-          {...cellProps}
-        >
-          {headers[cellIndex] && <MobileHeader>{headers[cellIndex].label}</MobileHeader>}
-          <Cell
-            label={label}
-            overflowMode={overflowMode ?? headers[cellIndex]?.overflowMode}
-          />
-        </TableData>
-      ))}
+      {items.map(
+        ({ label, overflowMode, className: cellClassName, ...cellProps }, cellIndex) => (
+          <td
+            key={`table-cell-${cellIndex}`}
+            {...cellProps}
+            className={cn(cellVariants({ size }), cellClassName)}
+          >
+            {headers[cellIndex] && (
+              <div className={cn(styles['table__mobile-header'])}>
+                {headers[cellIndex].label}
+              </div>
+            )}
+            <Cell
+              label={label}
+              overflowMode={overflowMode ?? headers[cellIndex]?.overflowMode}
+            />
+          </td>
+        )
+      )}
       {actionsList.length > 0 && (
-        <ActionsList $size={size}>
-          <ActionsContainer>
+        <td className={cn(actionsCellVariants({ size }))}>
+          <div className={cn(styles.table__actions)}>
             {actionsList.includes('editAction') && (
-              <EditButton
-                as={IconButton}
+              <IconButton
                 type="ghost"
                 htmlType="button"
                 disabled={isDisabled || isDeleted || !isEditable}
                 icon="pencil"
                 onClick={onEdit}
                 data-testid="table-row-edit"
+                className={cn(styles['table__edit-button'])}
               />
             )}
             {actionsList.includes('deleteAction') && (
-              <TableRowCloseButton
-                as={IconButton}
+              <IconButton
                 disabled={isDisabled || !isDeletable}
-                $isDeleted={isDeleted}
                 type="ghost"
                 htmlType="button"
                 icon="cross"
                 onClick={onDelete}
                 data-testid="table-row-delete"
+                className={cn(
+                  styles['table__close-button'],
+                  isDeleted && styles['table__close-button_deleted']
+                )}
               />
             )}
-          </ActionsContainer>
-        </ActionsList>
+          </div>
+        </td>
       )}
-    </TableRow>
+    </tr>
   );
 };
 
-const SpanedTableData = styled(TableData)`
-  text-align: center;
-`;
-const CustomTableDataMessage = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-`;
 const LoadingData = () => {
   return (
     <>
@@ -735,16 +543,16 @@ const CustomTableRow = ({
   size,
 }: CustomTableRowProps) => {
   return (
-    <TableRow>
-      <SpanedTableData
-        $size={size}
+    <tr className={cn(rowVariants({}))}>
+      <td
         colSpan={colSpan}
+        className={cn(cellVariants({ size }), styles['table__spanned-data'])}
       >
-        <CustomTableDataMessage>
+        <div className={cn(styles['table__custom-message'])}>
           {loading ? <LoadingData /> : (noDataMessage ?? 'No Data available')}
-        </CustomTableDataMessage>
-      </SpanedTableData>
-    </TableRow>
+        </div>
+      </td>
+    </tr>
   );
 };
 interface ResizeState {
@@ -777,6 +585,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       rowHeight,
       resizableColumns,
       mobileLayout = 'list',
+      className,
       ...props
     },
     ref
@@ -1019,9 +828,12 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
     );
 
     return (
-      <TableOuterContainer data-mobile-layout={mobileLayout}>
+      <div
+        data-mobile-layout={mobileLayout}
+        className={cn(styles.table)}
+      >
         {hasRows && showHeader && (
-          <MobileActions>
+          <div className={cn(styles['table__mobile-actions'])}>
             {isSelectable && (
               <SelectAllCheckbox
                 label="Select All"
@@ -1030,12 +842,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 selectedIds={selectedIds}
               />
             )}
-          </MobileActions>
+          </div>
         )}
-        <TableWrapper>
-          <StyledTable
+        <div className={cn(styles.table__wrapper)}>
+          <table
             ref={ref}
             {...props}
+            className={cn(styles['table__table'], className)}
           >
             {showHeader && (
               <Thead
@@ -1054,7 +867,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 onKeyboardResize={resizableColumns ? onKeyboardResize : undefined}
               />
             )}
-            <Tbody>
+            <tbody className={cn(styles.table__tbody)}>
               {(loading || !hasRows) && (
                 <CustomTableRow
                   colSpan={
@@ -1092,10 +905,10 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   {...rowProps}
                 />
               ))}
-            </Tbody>
-          </StyledTable>
-        </TableWrapper>
-      </TableOuterContainer>
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   }
 );
@@ -1176,13 +989,6 @@ const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({
   );
 };
 
-const TextWrapped = styled.span`
-  overflow-wrap: break-word;
-  word-break: break-all;
-  display: inline-block;
-  max-width: 100%;
-`;
-
 const Cell = ({
   label,
   overflowMode = 'truncated',
@@ -1201,24 +1007,10 @@ const Cell = ({
   }
 
   if (overflowMode === 'wrap') {
-    return <TextWrapped>{label}</TextWrapped>;
+    return <span className={cn(styles['table__text-wrapped'])}>{label}</span>;
   }
 
   return <EllipsisContent component="div">{label}</EllipsisContent>;
 };
-
-const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  overflow: visible;
-  table-layout: fixed;
-
-  [data-mobile-layout='list'] & {
-    @media (max-width: ${({ theme }) => theme.breakpoint.sizes.md}) {
-      border: none;
-      table-layout: auto;
-    }
-  }
-`;
 
 export { Table };
