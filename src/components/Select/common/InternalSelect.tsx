@@ -50,7 +50,7 @@ import {
   SelectNoDataContainer,
   SelectItemDescriptionText,
   selectStyles,
-} from './SelectStyled';
+} from './SelectComponents';
 import { OptionContext } from './OptionContext';
 import { MultiSelectValue } from '../MultiSelectValue';
 import SingleSelectValue from '../SingleSelectValue';

@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { Content, Root, Trigger } from '@radix-ui/react-popover';
 import { cn } from '@/lib/cva';
-import styles from './SelectStyled.module.css';
+import styles from './SelectComponents.module.css';
 
 export const SelectPopoverRoot = Root;
 
