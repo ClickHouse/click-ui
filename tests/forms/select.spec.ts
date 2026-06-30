@@ -3,7 +3,7 @@
 // @covers src/components/Select
 // @covers src/components/MultiSelect
 // @covers src/components/CheckboxMultiSelect
-import { test as it, expect, Page } from '@playwright/test';
+import { test as it, expect } from '@playwright/test';
 import { getStoryUrl } from '../utils';
 
 const { describe } = it;
@@ -14,7 +14,7 @@ const triggerLocator = '[data-testid="select-trigger"]';
 
 // Closed-state: screenshot the harness region (label + trigger + value).
 const captureClosed = async (
-  page: Page,
+  page: import('@playwright/test').Page,
   storyId: string,
   theme: 'light' | 'dark',
   harnessTestId: string,
@@ -29,7 +29,7 @@ const captureClosed = async (
 
 // Open-state: click the trigger, then screenshot the portalled popover dialog.
 const captureOpen = async (
-  page: Page,
+  page: import('@playwright/test').Page,
   storyId: string,
   theme: 'light' | 'dark',
   snapshot: string
