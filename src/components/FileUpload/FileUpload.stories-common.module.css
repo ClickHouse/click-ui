@@ -2,12 +2,13 @@
   width: 100%;
 }
 
+/* 768px == --breakpoint-sizes-md (media queries can't consume a CSS var). */
 /* stylelint-disable-next-line media-feature-range-notation -- prefix notation
    required for browser compatibility per .browserslistrc */
 @media (min-width: 768px) {
   .wrapper {
     width: 100%;
-    max-width: 1024px;
+    max-width: 1024px; /* --breakpoint-sizes-lg */
     margin: 0 auto;
   }
 }
