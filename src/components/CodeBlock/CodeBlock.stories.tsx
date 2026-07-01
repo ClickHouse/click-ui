@@ -11,6 +11,17 @@ export default meta;
 
 type Story = StoryObj<typeof CodeBlock>;
 
+const Decorator: NonNullable<Story['decorators']> = [
+  Story => (
+    <div
+      data-testid="codeblock-harness"
+      style={{ display: 'inline-block', padding: '24px' }}
+    >
+      <Story />
+    </div>
+  ),
+];
+
 // Shows both the copy button and the wrap button. Both are rendered via
 // `<CodeButton as={IconButton}>` (CodeButton = styled(EmptyButton)), exercising
 // the `as`-prop path that bypasses EmptyButton's own render. This guards that
@@ -23,16 +34,45 @@ export const WithWrapButton: Story = {
     showWrapButton: true,
     wrapLines: false,
   },
-  decorators: [
-    Story => (
-      <div
-        data-testid="codeblock-harness"
-        style={{ display: 'inline-block', padding: '24px' }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
+  decorators: Decorator,
+};
+
+// Forces the light code theme via the `theme` prop regardless of the ambient
+// Storybook theme, exercising the `CodeBlockContainer` `$theme` branch.
+export const LightCodeTheme: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    theme: 'light',
+    showLineNumbers: true,
+    showWrapButton: true,
+  },
+  decorators: Decorator,
+};
+
+// Forces the dark code theme via the `theme` prop regardless of the ambient
+// Storybook theme, exercising the `CodeBlockContainer` `$theme` branch.
+export const DarkCodeTheme: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    theme: 'dark',
+    showLineNumbers: true,
+    showWrapButton: true,
+  },
+  decorators: Decorator,
+};
+
+// No line numbers — guards the `.linenumber` color rule against being applied
+// when line numbers are hidden.
+export const WithoutLineNumbers: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    showLineNumbers: false,
+    showWrapButton: true,
+  },
+  decorators: Decorator,
 };
 
 export const Playground: Story = {

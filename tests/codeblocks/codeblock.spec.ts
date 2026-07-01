@@ -12,6 +12,7 @@ const { describe, use } = it;
 // render, so this spec guards that those buttons still render correctly after
 // EmptyButton's CSS Modules migration. The WithWrapButton story shows both.
 const rootLocator = '[data-testid="codeblock-harness"]';
+const inlineLocator = '[data-testid="inline-codeblock-harness"]';
 
 describe('CodeBlock Visual Regression', () => {
   describe('Light Theme (Storybook Global)', () => {
@@ -28,6 +29,18 @@ describe('CodeBlock Visual Regression', () => {
     });
 
     it('copied state matches snapshot', async ({ page }) => {
+      // Force the copy to succeed so the copy button flips to the copied color.
+      // This exercises the `$copied` branch of the CodeButton color logic. In a
+      // headless container `navigator.clipboard.writeText` otherwise rejects, so
+      // we stub it to resolve.
+      await page.addInitScript(() => {
+        Object.defineProperty(navigator, 'clipboard', {
+          configurable: true,
+          value: {
+            writeText: () => Promise.resolve(),
+          },
+        });
+      });
       await page.goto(getStoryUrl('codeblocks-codeblock--with-wrap-button', 'light'), {
         waitUntil: 'networkidle',
       });
@@ -37,6 +50,66 @@ describe('CodeBlock Visual Regression', () => {
       await page.getByRole('button').last().click();
       await page.waitForTimeout(100);
       await expect(root).toHaveScreenshot('codeblock-copied-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('error state matches snapshot', async ({ page }) => {
+      // Force the copy to fail so the copy button flips to the error color.
+      // This exercises the `$error` branch of the CodeButton color logic.
+      await page.addInitScript(() => {
+        Object.defineProperty(navigator, 'clipboard', {
+          configurable: true,
+          value: {
+            writeText: () => Promise.reject(new Error('denied')),
+          },
+        });
+      });
+      await page.goto(getStoryUrl('codeblocks-codeblock--with-wrap-button', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+      await page.getByRole('button').last().click();
+      await page.waitForTimeout(100);
+      await expect(root).toHaveScreenshot('codeblock-error-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('without line numbers matches snapshot', async ({ page }) => {
+      await page.goto(
+        getStoryUrl('codeblocks-codeblock--without-line-numbers', 'light'),
+        { waitUntil: 'networkidle' }
+      );
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+      await expect(page.getByRole('button').first()).toBeVisible();
+      await expect(root).toHaveScreenshot('codeblock-without-line-numbers-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('light code theme matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('codeblocks-codeblock--light-code-theme', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+      await expect(page.getByRole('button').first()).toBeVisible();
+      await expect(root).toHaveScreenshot('codeblock-light-code-theme.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('dark code theme matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('codeblocks-codeblock--dark-code-theme', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+      await expect(page.getByRole('button').first()).toBeVisible();
+      await expect(root).toHaveScreenshot('codeblock-dark-code-theme.png', {
         maxDiffPixels: 100,
       });
     });
@@ -64,6 +137,30 @@ describe('CodeBlock Visual Regression', () => {
         waitUntil: 'networkidle',
       });
       await expect(page.getByRole('button')).toHaveCount(2);
+    });
+  });
+});
+
+describe('InlineCodeBlock Visual Regression', () => {
+  it('light theme matches snapshot', async ({ page }) => {
+    await page.goto(getStoryUrl('codeblocks-inline--playground', 'light'), {
+      waitUntil: 'networkidle',
+    });
+    const root = page.locator(inlineLocator);
+    await expect(root).toBeVisible({ timeout: 10000 });
+    await expect(root).toHaveScreenshot('inline-codeblock-light.png', {
+      maxDiffPixels: 100,
+    });
+  });
+
+  it('dark theme matches snapshot', async ({ page }) => {
+    await page.goto(getStoryUrl('codeblocks-inline--playground', 'dark'), {
+      waitUntil: 'networkidle',
+    });
+    const root = page.locator(inlineLocator);
+    await expect(root).toBeVisible({ timeout: 10000 });
+    await expect(root).toHaveScreenshot('inline-codeblock-dark.png', {
+      maxDiffPixels: 100,
     });
   });
 });
