@@ -11,9 +11,14 @@ const meta: Meta<typeof FileUpload> = {
   tags: ['file-upload', 'autodocs'],
   decorators: [
     Story => (
-      <Wrapper>
-        <Story />
-      </Wrapper>
+      <div
+        data-testid="file-upload-harness"
+        style={{ padding: '16px' }}
+      >
+        <Wrapper>
+          <Story />
+        </Wrapper>
+      </div>
     ),
   ],
 };
