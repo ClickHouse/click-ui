@@ -3,8 +3,8 @@ import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highligh
 
 import { IconButton } from '@/components/IconButton';
 
-import { cn, cva } from '@/lib/cva';
-import useColorStyle, { useNumbersColor } from './useColorStyle';
+import { cn } from '@/lib/cva';
+import useColorStyle, { useButtonStateColors, useNumbersColor } from './useColorStyle';
 import { CodeBlockProps } from './CodeBlock.types';
 import styles from './CodeBlock.module.css';
 
@@ -40,19 +40,6 @@ interface CustomRendererProps {
   useInlineStyles: boolean;
 }
 
-const codeButtonVariants = cva(styles['codeblock__button'], {
-  variants: {
-    state: {
-      default: '',
-      copied: styles['codeblock__button_state_copied'],
-      error: styles['codeblock__button_state_error'],
-    },
-  },
-  defaultVariants: {
-    state: 'default',
-  },
-});
-
 export const CodeBlock = ({
   children,
   language,
@@ -71,6 +58,7 @@ export const CodeBlock = ({
   const [wrap, setWrap] = useState(wrapLines);
   const customStyle = useColorStyle(theme);
   const numbersColor = useNumbersColor(theme);
+  const buttonStateColors = useButtonStateColors();
 
   const copyCodeToClipboard = async () => {
     try {
@@ -111,15 +99,22 @@ export const CodeBlock = ({
       <div className={styles['codeblock__button-container']}>
         {showWrapButton && (
           <IconButton
-            className={codeButtonVariants({ state: 'default' })}
+            className={styles['codeblock__button']}
             icon="document"
             onClick={wrapElement}
           />
         )}
         <IconButton
-          className={codeButtonVariants({
-            state: copied ? 'copied' : errorCopy ? 'error' : 'default',
-          })}
+          className={styles['codeblock__button']}
+          style={
+            {
+              '--codeblock-button': copied
+                ? buttonStateColors.success
+                : errorCopy
+                  ? buttonStateColors.danger
+                  : undefined,
+            } as React.CSSProperties
+          }
           icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
           onClick={copyCodeToClipboard}
         />

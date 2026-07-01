@@ -130,4 +130,12 @@ export const useNumbersColor = (defaultTheme?: CodeThemeType): string => {
   return theme.click.codeblock[`${themeName}Mode`].color.numbers.default;
 };
 
+export const useButtonStateColors = (): { success: string; danger: string } => {
+  const theme = useTheme();
+  return {
+    success: theme.click.alert.color.text.success,
+    danger: theme.click.alert.color.text.danger,
+  };
+};
+
 export default useColorStyle;

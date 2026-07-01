@@ -23,19 +23,13 @@
    pre-migration rendering. */
 .codeblock__button.codeblock__button {
   /* Reset so a copied/error state on one button can't inherit into another via
-     the custom property (custom properties inherit by default). */
+     the custom property (custom properties inherit by default). The copied/error
+     colors are set inline per state via --codeblock-button, matching the
+     --codeblock-numbers pattern so both track the ThemeProvider runtime. */
   --codeblock-button: initial;
   padding: 0;
   border: 0;
   color: var(--codeblock-button, inherit);
-}
-
-.codeblock__button_state_copied.codeblock__button_state_copied {
-  --codeblock-button: var(--click-alert-color-text-success);
-}
-
-.codeblock__button_state_error.codeblock__button_state_error {
-  --codeblock-button: var(--click-alert-color-text-danger);
 }
 
 .codeblock__highlighter {
