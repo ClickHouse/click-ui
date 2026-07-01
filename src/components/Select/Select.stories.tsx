@@ -392,3 +392,12 @@ export const VROpenWithSearch: StoryObj<typeof Select> = {
   args: { label: 'Label', showSearch: true },
   render: props => <Select {...props}>{VRItems()}</Select>,
 };
+
+export const VROpenNoData: StoryObj<typeof Select> = {
+  decorators: [HarnessDecorator],
+  args: {
+    label: 'Label',
+    options: [],
+    customText: 'No results found',
+  },
+};

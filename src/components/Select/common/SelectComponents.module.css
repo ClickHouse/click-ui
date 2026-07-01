@@ -245,18 +245,20 @@
 }
 
 /*
-  The original styled-components rule omitted the semicolon after `font`, so the
-  browser dropped the malformed `font: … padding: …` declaration entirely —
-  neither font nor padding applied. Preserved here verbatim for byte-for-byte
-  parity; the font/padding are intentionally absent.
+  The original styled-components rule omitted the semicolon after `font`, but
+  stylis recovered and applied both the `font` and `padding` declarations, so
+  the rendered row used the button label typography and button/item padding.
+  Both are restored here to match that rendering.
 */
 .select-no-data-container {
   display: block;
   width: 100%;
+  padding: var(--click-genericMenu-button-space-y) var(--click-genericMenu-item-space-x);
   overflow: hidden;
   border: none;
   background: var(--click-genericMenu-button-color-background-default);
   color: var(--click-genericMenu-button-color-label-default);
+  font: var(--click-genericMenu-button-typography-label-default);
   text-align: left;
   white-space: nowrap;
   cursor: default;
