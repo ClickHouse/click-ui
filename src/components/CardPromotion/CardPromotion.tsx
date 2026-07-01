@@ -86,6 +86,7 @@ export const CardPromotion = ({
 
         {dismissible && (
           <DismissWrapper
+            type="button"
             data-testid="click-alert-dismiss-button"
             onClick={() => setIsVisible(false)}
           >

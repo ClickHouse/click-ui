@@ -986,6 +986,7 @@ export const CalendarRenderer = ({
         />
         {view === DAYS && allowYearMonthSelection ? (
           <ClickableTitle
+            type="button"
             ref={el => {
               headerNavRefs.current[1] = el as HTMLButtonElement;
             }}

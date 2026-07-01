@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -240,4 +240,112 @@ export const Showcase: StoryObj<typeof CheckboxMultiSelect> = {
       </>
     );
   },
+};
+
+/**
+ * Dedicated visual-regression fixtures for the CSS Modules migration. The
+ * harness decorator carries the `data-testid="checkbox-multi-select-harness"`
+ * region the closed-state snapshots capture; open-state snapshots click the
+ * trigger and screenshot the portalled popover dialog (checkbox items).
+ */
+const HarnessDecorator = (Story: () => ReactElement): ReactElement => (
+  <div
+    data-testid="checkbox-multi-select-harness"
+    style={{ width: '320px', padding: '1rem' }}
+  >
+    <Story />
+  </div>
+);
+
+export const VRSelected: StoryObj<typeof CheckboxMultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', value: ['content1'], selectLabel: 'Columns' },
+  render: props => (
+    <CheckboxMultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VRDisabled: StoryObj<typeof CheckboxMultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: {
+    label: 'Label',
+    disabled: true,
+    value: ['content1'],
+    selectLabel: 'Columns',
+  },
+  render: props => (
+    <CheckboxMultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VRError: StoryObj<typeof CheckboxMultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', error: 'This field is required', selectLabel: 'Columns' },
+  render: props => (
+    <CheckboxMultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VROpen: StoryObj<typeof CheckboxMultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', value: ['content1'], selectLabel: 'Columns' },
+  render: props => (
+    <CheckboxMultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VROpenWithSearch: StoryObj<typeof CheckboxMultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', showSearch: true, selectLabel: 'Columns' },
+  render: props => (
+    <CheckboxMultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VRVariants: StoryObj<typeof CheckboxMultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { placeholder: 'Select', selectLabel: 'Selected' },
+  render: props => (
+    <CheckboxMultiSelect {...props}>
+      <CheckboxMultiSelect.Item
+        value="variant 1"
+        variant="var1"
+      >
+        Variant 1
+      </CheckboxMultiSelect.Item>
+      <CheckboxMultiSelect.Item
+        value="variant 2"
+        variant="var2"
+      >
+        Variant 2
+      </CheckboxMultiSelect.Item>
+      <CheckboxMultiSelect.Item
+        value="variant 4"
+        variant="var4"
+      >
+        Variant 4
+      </CheckboxMultiSelect.Item>
+      <CheckboxMultiSelect.Item
+        value="variant 6"
+        variant="var6"
+      >
+        Variant 6
+      </CheckboxMultiSelect.Item>
+    </CheckboxMultiSelect>
+  ),
 };

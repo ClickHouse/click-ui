@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
 import { EmptyButton } from '@/components/EmptyButton';
 
-export const CrossButton = styled(EmptyButton)`
+export const CrossButton = styled(EmptyButton).attrs<{
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+}>(({ type = 'button' }) => ({ type }))`
   padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}
     ${({ theme }) => theme.click.button.iconButton.sm.space.x};
   background: ${({ theme }) =>
