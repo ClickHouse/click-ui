@@ -1,0 +1,10 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. codeInline) */
+
+.inline {
+  padding: 0 var(--click-codeInline-space-x);
+  border: 1px solid var(--click-codeInline-color-stroke-default);
+  border-radius: var(--click-codeInline-radii-all);
+  background: var(--click-codeInline-color-background-default);
+  color: var(--click-codeInline-color-text-default);
+  font: var(--click-codeInline-typography-text-default);
+}
