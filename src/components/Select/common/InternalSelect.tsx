@@ -38,7 +38,6 @@ import {
   SelectPopoverContent,
   SearchBar,
   SearchBarContainer,
-  SearchClose,
   SelectList,
   SelectListContent,
   SelectPopoverRoot,
@@ -50,7 +49,8 @@ import {
   SelectGroupContent,
   SelectNoDataContainer,
   SelectItemDescriptionText,
-} from './SelectStyled';
+  selectStyles,
+} from './SelectComponents';
 import { OptionContext } from './OptionContext';
 import { MultiSelectValue } from '../MultiSelectValue';
 import SingleSelectValue from '../SingleSelectValue';
@@ -59,7 +59,7 @@ import { mergeRefs } from '@/utils/mergeRefs';
 import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
 import { getTextFromNodes } from '@/lib/getTextFromNodes';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
@@ -501,13 +501,15 @@ export const InternalSelect = ({
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
                   />
-                  <SearchClose
-                    as={IconButton}
+                  <IconButton
+                    className={cn(
+                      selectStyles['search-close'],
+                      search.length > 0 && selectStyles['search-close_show-close']
+                    )}
                     htmlType="button"
                     icon="cross"
                     onClick={clearSearch}
                     data-testid="select-search-close"
-                    $showClose={search.length > 0}
                     size="xs"
                   />
                 </SearchBarContainer>
@@ -619,10 +621,6 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
 
 SelectGroup.displayName = 'Select.Group';
 
-const CheckIcon = styled.svg<{ $showCheck: boolean }>`
-  opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
-`;
-
 export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   (
     {
@@ -694,11 +692,13 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
               children
             )}
           </IconWrapper>
-          <CheckIcon
-            as={Icon}
+          <Icon
+            className={cn(
+              selectStyles['check-icon'],
+              isChecked && selectStyles['check-icon_show-check']
+            )}
             name="check"
             size="sm"
-            $showCheck={isChecked}
           />
         </GenericMenuItem>
         {separator && <Separator size="sm" />}
