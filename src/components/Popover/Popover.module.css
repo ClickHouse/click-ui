@@ -10,3 +10,23 @@
 .menu-panel_show-close {
   padding-top: 1rem;
 }
+
+.trigger {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+     keyword on `width` is widely supported on evergreen browsers; the original
+     rule used the same value. */
+  width: fit-content;
+  border: none;
+  background: inherit;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.close-button {
+  position: absolute;
+  top: var(--click-popover-space-y);
+  right: var(--click-popover-space-x);
+  width: var(--click-popover-icon-size-width);
+  height: var(--click-popover-icon-size-height);
+}
