@@ -21,6 +21,61 @@ export default meta;
 
 type Story = StoryObj<typeof Popover>;
 
+// Visual-regression story: renders the popover content open and inline so the
+// panel extension styles (padding, showClose padding-top, border, shadow) can
+// be screenshotted deterministically.
+export const OpenContent: Story = {
+  render: () => (
+    <div
+      data-testid="popover-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 360 }}
+    >
+      <Popover
+        open
+        modal={false}
+      >
+        <Popover.Trigger>Click Here</Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          showArrow
+          showClose
+          avoidCollisions={false}
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>Click on the input element below.</Text>
+          <br />
+          <Checkbox label="This is a sample data to experiment the popover" />
+        </Popover.Content>
+      </Popover>
+    </div>
+  ),
+};
+
+export const OpenContentNoClose: Story = {
+  render: () => (
+    <div
+      data-testid="popover-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Popover
+        open
+        modal={false}
+      >
+        <Popover.Trigger>Click Here</Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          avoidCollisions={false}
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>No close button variant.</Text>
+        </Popover.Content>
+      </Popover>
+    </div>
+  ),
+};
+
 export const Playground: Story = {
   args: {
     modal: false,

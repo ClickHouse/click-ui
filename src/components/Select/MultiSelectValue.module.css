@@ -1,0 +1,19 @@
+.badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: inherit;
+  color: inherit;
+  font: inherit;
+}
+
+.multi-select-badge {
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same width fallback chain so the badge fills the available inline space up to its content width. */
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  max-width: fit-content;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+}

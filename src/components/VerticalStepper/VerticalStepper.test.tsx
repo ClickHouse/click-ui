@@ -97,6 +97,11 @@ describe('VerticalStepper', () => {
     expect(queryAllByTestId('stepper-value-4')).toHaveLength(0);
   });
 
+  test('step triggers have type="button" so they do not submit a form', () => {
+    const { getByTestId } = renderVerticalStepper({});
+    expect(getByTestId('stepper-1')).toHaveAttribute('type', 'button');
+  });
+
   test('inactive step is disabled', () => {
     const { queryAllByTestId, getByTestId } = renderVerticalStepper({});
 

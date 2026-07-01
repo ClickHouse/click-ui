@@ -1,0 +1,13 @@
+.dropdown-menu-content {
+  z-index: 1;
+  /* stylelint-disable-next-line custom-property-pattern -- design tokens use camelCase (e.g. genericMenu) */
+  min-width: var(--click-genericMenu-item-size-minWidth);
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.dropdown-menu-item {
+  display: flex;
+  position: relative;
+  min-height: 32px;
+}

@@ -50,8 +50,8 @@ const HoverCardContent = ({
     >
       <GenericPopoverMenuPanel
         as={RadixHoverCard.Content}
-        $type="hover-card"
-        $showArrow={showArrow}
+        type="hover-card"
+        showArrow={showArrow}
         {...props}
       >
         {showArrow && (

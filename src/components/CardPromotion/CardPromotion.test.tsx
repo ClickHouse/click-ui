@@ -16,5 +16,18 @@ describe('CardPromo Component', () => {
 
       expect(screen.getByText(label)).toBeDefined();
     });
+
+    it('renders the dismiss button with type="button" so it does not submit a form', () => {
+      renderCard({
+        label: 'Dismissible card',
+        icon: 'star',
+        dismissible: true,
+      });
+
+      expect(screen.getByTestId('click-alert-dismiss-button')).toHaveAttribute(
+        'type',
+        'button'
+      );
+    });
   });
 });

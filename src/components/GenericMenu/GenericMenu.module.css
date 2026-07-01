@@ -1,0 +1,176 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. genericMenu) */
+
+.generic-menu-panel {
+  display: flex;
+  overflow: hidden;
+  align-items: flex-start;
+  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
+  border-radius: var(--click-genericMenu-panel-radii-all);
+  background: var(--click-genericMenu-panel-color-background-default);
+  outline: none;
+  box-shadow: var(--click-genericMenu-panel-shadow-default);
+  pointer-events: auto;
+}
+
+.generic-menu-panel_type_popover {
+  max-width: var(--radix-popover-content-available-width);
+  max-height: var(--radix-popover-content-available-height);
+}
+
+.generic-menu-panel_type_dropdown-menu {
+  max-width: var(--radix-dropdown-menu-content-available-width);
+  max-height: var(--radix-dropdown-menu-content-available-height);
+}
+
+.generic-menu-panel_type_context-menu {
+  max-width: var(--radix-context-menu-content-available-width);
+  max-height: var(--radix-context-menu-content-available-height);
+}
+
+.generic-menu-panel_show-arrow[data-side='bottom'] {
+  margin-top: -1px;
+}
+
+.generic-menu-panel_show-arrow[data-side='top'] {
+  margin-bottom: 1px;
+}
+
+.generic-menu-panel_show-arrow[data-side='left'] {
+  margin-right: -1px;
+}
+
+.generic-menu-panel_show-arrow[data-side='right'] {
+  margin-left: -1px;
+}
+
+.generic-popover-menu-panel {
+  display: flex;
+  z-index: 1;
+  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--click-popover-color-panel-stroke-default);
+  border-radius: var(--click-popover-radii-all);
+  background: var(--click-popover-color-panel-background-default);
+  outline: none;
+  box-shadow: var(--click-popover-shadow-default);
+}
+
+.generic-popover-menu-panel_type_popover {
+  max-width: var(--radix-popover-content-available-width);
+  max-height: var(--radix-popover-content-available-height);
+}
+
+.generic-popover-menu-panel_type_hover-card {
+  max-width: var(--radix-hover-card-content-available-width);
+  max-height: var(--radix-hover-card-content-available-height);
+}
+
+.generic-popover-menu-panel_show-arrow {
+  margin: -1px 0;
+}
+
+.arrow {
+  fill: var(--click-genericMenu-panel-color-background-default);
+  filter: drop-shadow(rgb(0 0 0 / 10%) 0 4px 6px);
+  stroke: var(--click-genericMenu-panel-color-stroke-default);
+}
+
+.generic-menu-item {
+  display: flex;
+  position: relative;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same
+   width fallback chain (100% → -moz-available → -webkit-fill-available →
+   fill-available → stretch) so the item fills the available inline space. */
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  padding: var(--click-genericMenu-item-space-y) var(--click-genericMenu-item-space-x);
+  overflow: hidden;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--click-genericMenu-item-space-gap);
+  background: var(--gmi-background-default);
+  color: var(--gmi-text-default);
+  font: var(--click-genericMenu-item-typography-label-default);
+  white-space: nowrap;
+  cursor: default;
+  text-overflow: ellipsis;
+}
+
+.generic-menu-item_type_default {
+  --gmi-text-default: var(--click-genericMenu-item-color-default-text-default);
+  --gmi-text-hover: var(--click-genericMenu-item-color-default-text-hover);
+  --gmi-text-active: var(--click-genericMenu-item-color-default-text-active);
+  --gmi-text-disabled: var(--click-genericMenu-item-color-default-text-disabled);
+  --gmi-background-default: var(--click-genericMenu-item-color-default-background-default);
+  --gmi-background-hover: var(--click-genericMenu-item-color-default-background-hover);
+  --gmi-background-active: var(--click-genericMenu-item-color-default-background-active);
+}
+
+.generic-menu-item_type_danger {
+  --gmi-text-default: var(--click-genericMenu-item-color-danger-text-default);
+  --gmi-text-hover: var(--click-genericMenu-item-color-danger-text-hover);
+  --gmi-text-active: var(--click-genericMenu-item-color-danger-text-active);
+  --gmi-text-disabled: var(--click-genericMenu-item-color-danger-text-disabled);
+  --gmi-background-default: var(--click-genericMenu-item-color-danger-background-default);
+  --gmi-background-hover: var(--click-genericMenu-item-color-danger-background-hover);
+  --gmi-background-active: var(--click-genericMenu-item-color-danger-background-active);
+}
+
+.generic-menu-item:focus {
+  outline: none;
+}
+
+.generic-menu-item[data-highlighted] {
+  background: var(--gmi-background-hover);
+  color: var(--gmi-text-hover);
+  font: var(--click-genericMenu-item-typography-label-hover);
+  cursor: pointer;
+}
+
+[data-input-modality='keyboard'] .generic-menu-item[data-highlighted] {
+  outline: 2px solid var(--click-global-color-accent-default);
+  outline-offset: -2px;
+}
+
+.generic-menu-item[data-state='open'] {
+  background: var(--gmi-background-hover);
+  color: var(--gmi-text-hover);
+  font: var(--click-genericMenu-item-typography-label-hover);
+  cursor: pointer;
+}
+
+.generic-menu-item[data-state='checked'],
+.generic-menu-item[data-selected='true'] {
+  background: var(--gmi-background-active);
+  color: var(--gmi-text-active);
+  font: var(--click-genericMenu-item-typography-label-active);
+}
+
+.generic-menu-item[data-disabled] {
+  color: var(--gmi-text-disabled);
+  font: var(--click-genericMenu-item-typography-label-disabled);
+  pointer-events: none;
+}
+
+.generic-menu-item:visited {
+  color: var(--gmi-text-default);
+}
+
+.generic-menu-item:visited a {
+  color: var(--gmi-text-default);
+}
+
+.generic-menu-item:hover .dropdown-arrow,
+.generic-menu-item[data-state='open'] .dropdown-arrow {
+  left: 0.5rem;
+}
+
+.generic-menu-item[hidden] {
+  display: none;
+}
