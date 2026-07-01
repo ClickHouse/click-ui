@@ -114,6 +114,15 @@ describe('Select family Visual Regression', () => {
             `select-open-search-${theme}.png`
           );
         });
+
+        it('open menu with no data matches snapshot', async ({ page }) => {
+          await captureOpen(
+            page,
+            'forms-select--vr-open-no-data',
+            theme,
+            `select-open-no-data-${theme}.png`
+          );
+        });
       });
 
       describe('MultiSelect', () => {
