@@ -59,4 +59,47 @@ describe('Popover Visual Regression', () => {
       await expect(content.locator('svg').first()).toBeVisible();
     });
   });
+
+  // The trigger styles (`width: fit-content`, `cursor: pointer`, and the
+  // `background`/`color`/`font: inherit` + `border: none` resets) are applied via
+  // `<Popover.Trigger asChild>` onto its wrapping `<div>`. No panel snapshot covers
+  // the trigger itself, so these guard the styled(RadixPopover.Trigger) migration.
+  describe('Trigger', () => {
+    it('trigger matches snapshot (light)', async ({ page }) => {
+      await page.goto(getStoryUrl('display-popover--trigger-only', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const harness = page.getByTestId('popover-trigger-harness');
+      await expect(harness).toBeVisible({ timeout: 10000 });
+      await page.waitForTimeout(settleMs);
+      await expect(harness).toHaveScreenshot('popover-trigger-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('trigger uses the pointer cursor', async ({ page }) => {
+      await page.goto(getStoryUrl('display-popover--trigger-only', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const trigger = page.getByText('Click Here');
+      await expect(trigger).toBeVisible({ timeout: 10000 });
+      await expect(trigger).toHaveCSS('cursor', 'pointer');
+    });
+  });
+
+  describe('Trigger Dark Theme (System prefers-color-scheme)', () => {
+    use({ colorScheme: 'dark' });
+
+    it('trigger matches snapshot (dark)', async ({ page }) => {
+      await page.goto(getStoryUrl('display-popover--trigger-only'), {
+        waitUntil: 'networkidle',
+      });
+      const harness = page.getByTestId('popover-trigger-harness');
+      await expect(harness).toBeVisible({ timeout: 10000 });
+      await page.waitForTimeout(settleMs);
+      await expect(harness).toHaveScreenshot('popover-trigger-dark.png', {
+        maxDiffPixels: 100,
+      });
+    });
+  });
 });

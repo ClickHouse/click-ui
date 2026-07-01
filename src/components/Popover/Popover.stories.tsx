@@ -142,3 +142,20 @@ export const OpenWithClose: Story = {
     </GridCenter>
   ),
 };
+
+// Renders only the trigger (popover closed) so the trigger's own reset styles —
+// `width: fit-content`, `cursor: pointer`, and the `inherit`/`none` resets applied
+// via `<Popover.Trigger asChild>` onto its wrapping `<div>` — can be screenshotted
+// in isolation. Guards the styled(RadixPopover.Trigger) → CSS Modules migration.
+export const TriggerOnly: Story = {
+  render: () => (
+    <div
+      data-testid="popover-trigger-harness"
+      style={{ padding: '2rem' }}
+    >
+      <Popover modal={false}>
+        <Popover.Trigger>Click Here</Popover.Trigger>
+      </Popover>
+    </div>
+  ),
+};
