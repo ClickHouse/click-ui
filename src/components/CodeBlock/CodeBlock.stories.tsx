@@ -38,7 +38,7 @@ export const WithWrapButton: Story = {
 };
 
 // Forces the light code theme via the `theme` prop regardless of the ambient
-// Storybook theme, exercising the `CodeBlockContainer` `$theme` branch.
+// Storybook theme, verifying the `theme` prop overrides the ambient code theme.
 export const LightCodeTheme: Story = {
   args: {
     children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
@@ -51,7 +51,7 @@ export const LightCodeTheme: Story = {
 };
 
 // Forces the dark code theme via the `theme` prop regardless of the ambient
-// Storybook theme, exercising the `CodeBlockContainer` `$theme` branch.
+// Storybook theme, verifying the `theme` prop overrides the ambient code theme.
 export const DarkCodeTheme: Story = {
   args: {
     children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',

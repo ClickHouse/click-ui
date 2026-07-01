@@ -30,7 +30,7 @@ describe('CodeBlock Visual Regression', () => {
 
     it('copied state matches snapshot', async ({ page }) => {
       // Force the copy to succeed so the copy button flips to the copied color.
-      // This exercises the `$copied` branch of the CodeButton color logic. In a
+      // This exercises the copy button's copied state. In a
       // headless container `navigator.clipboard.writeText` otherwise rejects, so
       // we stub it to resolve.
       await page.addInitScript(() => {
@@ -56,7 +56,7 @@ describe('CodeBlock Visual Regression', () => {
 
     it('error state matches snapshot', async ({ page }) => {
       // Force the copy to fail so the copy button flips to the error color.
-      // This exercises the `$error` branch of the CodeButton color logic.
+      // This exercises the copy button's error state.
       await page.addInitScript(() => {
         Object.defineProperty(navigator, 'clipboard', {
           configurable: true,

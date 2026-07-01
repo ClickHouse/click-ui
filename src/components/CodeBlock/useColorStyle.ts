@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import { useTheme } from 'styled-components';
 import { CodeThemeType } from './CodeBlock.types';
 
