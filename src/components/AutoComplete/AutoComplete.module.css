@@ -1,0 +1,97 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. genericMenu, sectionHeader) */
+
+.popover-content {
+  display: flex;
+  width: var(--radix-popover-trigger-width);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.select-group-container {
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same width fallback chain so the container fills the available inline space. */
+  display: flex;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: transparent;
+  color: var(--click-genericMenu-item-color-default-text-muted);
+  font: var(--click-genericMenu-item-typography-sectionHeader-default);
+}
+
+.select-group-container[aria-selected] {
+  outline: none;
+}
+
+.select-group-container[hidden] {
+  display: none;
+}
+
+.select-group-name {
+  display: flex;
+  width: 100%;
+  padding: var(--click-genericMenu-sectionHeader-space-top)
+    var(--click-genericMenu-item-space-x)
+    var(--click-genericMenu-sectionHeader-space-bottom);
+  overflow: hidden;
+  flex-direction: column;
+  gap: var(--click-genericMenu-item-space-gap);
+  border-bottom: 1px solid var(--click-genericMenu-item-color-default-stroke-default);
+  color: var(--click-genericMenu-item-color-default-text-muted);
+  font: var(--click-genericMenu-item-typography-sectionHeader-default);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.select-group-content {
+  width: inherit;
+}
+
+.select-list-content {
+  width: inherit;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features, declaration-property-value-no-unknown, declaration-property-value-keyword-no-deprecated -- the original used `overflow: overlay` (modern browsers alias it to `auto`); preserved for byte-for-byte parity. */
+  overflow: overlay;
+  flex: 1;
+}
+
+.select-no-data-container {
+  display: block;
+  padding: var(--click-genericMenu-button-space-y) var(--click-genericMenu-item-space-x);
+  overflow: hidden;
+  border: none;
+  background: var(--click-genericMenu-button-color-background-default);
+  color: var(--click-genericMenu-button-color-label-default);
+  font: var(--click-genericMenu-button-typography-label-default);
+  text-align: left;
+  white-space: nowrap;
+  cursor: default;
+  text-overflow: ellipsis;
+}
+
+.select-no-data-container[hidden='true'] {
+  display: none;
+}
+
+.select-list {
+  display: flex;
+  width: inherit;
+  max-height: var(--radix-popover-content-available-height);
+  flex-direction: column;
+  border: 1px solid var(--click-genericMenu-item-color-default-stroke-default);
+  border-radius: 0.25rem;
+  background: var(--click-genericMenu-item-color-default-background-default);
+  box-shadow: var(--click-genericMenu-panel-shadow-default);
+}
+
+.check-icon {
+  opacity: 0;
+}
+
+.check-icon_show-check {
+  opacity: 1;
+}

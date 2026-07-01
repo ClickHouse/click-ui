@@ -15,9 +15,9 @@ import {
   useState,
 } from 'react';
 import { Portal, PopoverProps, Content, Root, Trigger } from '@radix-ui/react-popover';
-import { styled } from 'styled-components';
 
 import { HorizontalDirection } from '@/types';
+import { cn } from '@/lib/cva';
 import { SearchField } from '@/components/SearchField';
 import { Separator } from '@/components/Separator';
 import { Icon, type ImageName } from '@/components/Icon';
@@ -29,6 +29,7 @@ import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 import { useOption, useSearch } from './useOption';
 import { OptionContext } from './OptionContext';
+import styles from './AutoComplete.module.css';
 
 type DivProps = HTMLAttributes<HTMLDivElement>;
 interface SelectItemComponentProps extends Omit<
@@ -111,77 +112,11 @@ type SelectItemObject = {
 
 export type AutoCompleteProps = (SelectOptionType & Props) | (SelectChildrenType & Props);
 
-export const SelectPopoverRoot = styled(Root)`
-  width: 100%;
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-    background: ${theme.click.genericMenu.item.color.default.background.default};
-    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
-      0px 1px 2px 0px rgba(16, 24, 40, 0.06);
-    border-radius: 0.25rem;
-  `}
-  overflow: hidden;
-  display: flex;
-  padding: 0.5rem 0rem;
-  align-items: flex-start;
-  gap: 0.625rem;
-`;
-
-const PopoverContent = styled(Content)`
-  width: var(--radix-popover-trigger-width);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-`;
-const SelectGroupContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  overflow: hidden;
-  background: transparent;
-  &[aria-selected] {
-    outline: none;
-  }
-
-  ${({ theme }) => `
-    font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-    color: ${theme.click.genericMenu.item.color.default.text.muted};
-  `};
-  &[hidden] {
-    display: none;
-  }
-`;
-
-const SelectGroupName = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  ${({ theme }) => `
-     font: ${theme.click.genericMenu.item.typography.sectionHeader.default};
-     color: ${theme.click.genericMenu.item.color.default.text.muted};
-     padding: ${theme.click.genericMenu.sectionHeader.space.top} ${theme.click.genericMenu.item.space.x} ${theme.click.genericMenu.sectionHeader.space.bottom};
-     gap: ${theme.click.genericMenu.item.space.gap};
-     border-bottom: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-   `}
-`;
-
-const SelectGroupContent = styled.div`
-  width: inherit;
-`;
-
-const SelectListContent = styled.div`
-  width: inherit;
-  overflow: overlay;
-  flex: 1;
-`;
+// Popover.Root renders no DOM node (it is a context provider), so the styling
+// that previously lived on `styled(Root)` never applied — the visible popover
+// chrome comes from `.select-list` below. Kept as a bare `Root` re-export so the
+// public `SelectPopoverRoot` export is preserved.
+export const SelectPopoverRoot = Root;
 
 type CallbackProps = SelectItemObject & {
   nodeProps: SelectItemProps;
@@ -226,38 +161,6 @@ const childrenToComboboxItemArray = (
     return [];
   });
 };
-const SelectNoDataContainer = styled.div`
-  border: none;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: left;
-  cursor: default;
-  &[hidden='true'] {
-    display: none;
-  }
-  ${({ theme }) => `
-    font: ${theme.click.genericMenu.button.typography.label.default}
-    padding: ${theme.click.genericMenu.button.space.y} ${theme.click.genericMenu.item.space.x};
-    background: ${theme.click.genericMenu.button.color.background.default};
-    color: ${theme.click.genericMenu.button.color.label.default};
-  `}
-`;
-
-const SelectList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: inherit;
-  max-height: var(--radix-popover-content-available-height);
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.item.color.default.stroke.default};
-    background: ${theme.click.genericMenu.item.color.default.background.default};
-    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
-    border-radius: 0.25rem;
-  `}
-`;
-
 export const AutoComplete = ({
   onSelect: onSelectProp,
   options,
@@ -510,7 +413,8 @@ export const AutoComplete = ({
         </div>
       </Trigger>
       <Portal container={portalContainer}>
-        <PopoverContent
+        <Content
+          className={styles['popover-content']}
           sideOffset={5}
           onFocus={onFocus}
           onCloseAutoFocus={() => {
@@ -528,8 +432,8 @@ export const AutoComplete = ({
           }}
           onFocusOutside={onFocusOutside}
         >
-          <SelectList>
-            <SelectListContent>
+          <div className={styles['select-list']}>
+            <div className={styles['select-list-content']}>
               <OptionContext.Provider value={optionContextValue}>
                 {options && options.length > 0
                   ? options.map((optionProps, index) => {
@@ -563,24 +467,27 @@ export const AutoComplete = ({
                     })
                   : children}
               </OptionContext.Provider>
-            </SelectListContent>
+            </div>
             {visibleList.current.length === 0 && (
-              <SelectNoDataContainer {...props}>
+              <div
+                {...props}
+                className={cn(styles['select-no-data-container'], props.className)}
+              >
                 No Options found{search.length > 0 ? ` for "${search}" ` : ''}
-              </SelectNoDataContainer>
+              </div>
             )}
-          </SelectList>
-        </PopoverContent>
+          </div>
+        </Content>
       </Portal>
     </SelectPopoverRoot>
   );
 };
 
 export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
-  ({ children, heading, ...props }, forwardedRef) => {
+  ({ children, heading, className, ...props }, forwardedRef) => {
     useSearch();
     return (
-      <SelectGroupContainer
+      <div
         {...props}
         ref={mergeRefs([
           forwardedRef,
@@ -594,19 +501,16 @@ export const Group = forwardRef<HTMLDivElement, SelectGroupProps>(
             node?.setAttribute('aria-hidden', hidden.toString());
           },
         ])}
+        className={cn(styles['select-group-container'], className)}
       >
-        <SelectGroupName>{heading}</SelectGroupName>
-        <SelectGroupContent>{children}</SelectGroupContent>
-      </SelectGroupContainer>
+        <div className={styles['select-group-name']}>{heading}</div>
+        <div className={styles['select-group-content']}>{children}</div>
+      </div>
     );
   }
 );
 
 Group.displayName = 'AutoComplete.Group';
-
-const CheckIcon = styled.svg<{ $showCheck: boolean }>`
-  opacity: ${({ $showCheck }) => ($showCheck ? 1 : 0)};
-`;
 
 export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
   (
@@ -667,11 +571,13 @@ export const Item = forwardRef<HTMLDivElement, SelectItemProps>(
           >
             {label ?? children}
           </IconWrapper>
-          <CheckIcon
-            as={Icon}
+          <Icon
+            className={cn(
+              styles['check-icon'],
+              isChecked && styles['check-icon_show-check']
+            )}
             name="check"
             size="sm"
-            $showCheck={isChecked}
           />
         </GenericMenuItem>
         {separator && <Separator size="sm" />}
