@@ -1,0 +1,94 @@
+.loading {
+  transform: scaleX(-1);
+}
+
+.loading-animated {
+  animation: loaders-spin 1s infinite linear;
+}
+
+.horizontal-loading circle {
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-name: horizontal-loading;
+  animation-timing-function: linear;
+}
+
+.horizontal-loading circle:nth-child(1) {
+  animation-name: loaders-horizontal-circle-1;
+}
+
+.horizontal-loading circle:nth-child(2) {
+  animation-name: loaders-horizontal-circle-2;
+}
+
+.horizontal-loading circle:nth-child(3) {
+  animation-name: loaders-horizontal-circle-3;
+}
+
+@keyframes loaders-spin {
+  from {
+    transform: rotate(0deg) scaleX(-1);
+  }
+
+  to {
+    transform: rotate(360deg) scaleX(-1);
+  }
+}
+
+@keyframes loaders-horizontal-circle-1 {
+  0 {
+    r: 0;
+  }
+
+  30% {
+    r: 1.5;
+  }
+
+  60% {
+    r: 0;
+  }
+
+  100% {
+    r: 0;
+  }
+}
+
+@keyframes loaders-horizontal-circle-2 {
+  0 {
+    r: 0;
+  }
+
+  20% {
+    r: 0;
+  }
+
+  40% {
+    r: 1.5;
+  }
+
+  80% {
+    r: 0;
+  }
+
+  100% {
+    r: 0;
+  }
+}
+
+@keyframes loaders-horizontal-circle-3 {
+  0 {
+    r: 0;
+  }
+
+  40% {
+    r: 0;
+  }
+
+  80% {
+    r: 1.5;
+  }
+
+  100% {
+    r: 0;
+  }
+}
