@@ -11,6 +11,30 @@ export default meta;
 
 type Story = StoryObj<typeof CodeBlock>;
 
+// Shows both the copy button and the wrap button. Both are rendered via
+// `<CodeButton as={IconButton}>` (CodeButton = styled(EmptyButton)), exercising
+// the `as`-prop path that bypasses EmptyButton's own render. This guards that
+// path against the EmptyButton CSS Modules migration.
+export const WithWrapButton: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    showLineNumbers: true,
+    showWrapButton: true,
+    wrapLines: false,
+  },
+  decorators: [
+    Story => (
+      <div
+        data-testid="codeblock-harness"
+        style={{ display: 'inline-block', padding: '24px' }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 export const Playground: Story = {
   args: {
     children: `SELECT

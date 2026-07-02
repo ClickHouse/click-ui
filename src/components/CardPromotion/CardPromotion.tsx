@@ -30,6 +30,7 @@ export const CardPromotion = ({
 
         {dismissible && (
           <button
+            type="button"
             data-testid="click-alert-dismiss-button"
             onClick={() => setIsVisible(false)}
             className={styles.dismisswrapper}

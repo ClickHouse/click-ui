@@ -1,0 +1,10 @@
+.select-value-container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  align-items: center;
+  white-space: nowrap;
+  cursor: inherit;
+  pointer-events: inherit;
+  text-overflow: ellipsis;
+}

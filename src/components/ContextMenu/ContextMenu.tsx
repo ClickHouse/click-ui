@@ -1,5 +1,4 @@
 import * as RightMenu from '@radix-ui/react-context-menu';
-import { styled } from 'styled-components';
 import {
   ComponentProps,
   ComponentPropsWithRef,
@@ -23,23 +22,17 @@ export const ContextMenu = (props: RightMenu.ContextMenuProps) => (
   <RightMenu.Root {...props} />
 );
 
-const TriggerDiv = styled.div`
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
-    outline-offset: 2px;
-  }
-`;
-
 const ContextMenuTrigger = forwardRef<HTMLDivElement, RightMenu.ContextMenuTriggerProps>(
-  ({ disabled, ...props }, ref) => {
+  ({ disabled, className, ...props }, ref) => {
     return (
       <RightMenu.Trigger
         asChild
         disabled={disabled}
       >
-        <TriggerDiv
+        <div
           ref={ref}
           {...props}
+          className={cn(styles.trigger, className)}
         />
       </RightMenu.Trigger>
     );
@@ -177,26 +170,20 @@ const ContextMenuContent = ({
 ContextMenuContent.displayName = 'ContextMenuContent';
 ContextMenu.Content = ContextMenuContent;
 
-const RightMenuGroup = styled(RightMenu.Group)`
-  width: 100%;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-const ContextMenuGroup = (props: RightMenu.ContextMenuGroupProps) => {
-  return <RightMenuGroup {...props} />;
+const ContextMenuGroup = ({ className, ...props }: RightMenu.ContextMenuGroupProps) => {
+  return (
+    <RightMenu.Group
+      {...props}
+      className={cn(styles.group, className)}
+    />
+  );
 };
 
 ContextMenuGroup.displayName = 'ContextMenuGroup';
 ContextMenu.Group = ContextMenuGroup;
 
-const RightMenuSub = styled(RightMenu.Sub)`
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
 const ContextMenuSub = ({ ...props }: RightMenu.ContextMenuGroupProps) => {
-  return <RightMenuSub {...props} />;
+  return <RightMenu.Sub {...props} />;
 };
 
 ContextMenuSub.displayName = 'ContextMenuSub';

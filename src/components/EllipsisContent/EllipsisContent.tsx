@@ -6,24 +6,9 @@ import {
   forwardRef,
 } from 'react';
 import { mergeRefs } from '@/utils/mergeRefs';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
+import styles from './EllipsisContent.module.css';
 
-const EllipsisContainer = styled.div`
-  display: inline-block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  vertical-align: text-bottom;
-  overflow: hidden;
-  justify-content: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
 export interface EllipsisContentProps<T extends ElementType = 'div'> {
   component?: T;
 }
@@ -35,13 +20,15 @@ type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
 const _EllipsisContent = <T extends ElementType = 'div'>(
   {
     component,
+    className,
     ...props
-  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>,
+  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> &
+    EllipsisContentProps<T> & { className?: string },
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
+  const Component = component ?? 'div';
   return (
-    <EllipsisContainer
-      as={component ?? 'div'}
+    <Component
       ref={mergeRefs([
         ref,
         node => {
@@ -51,6 +38,7 @@ const _EllipsisContent = <T extends ElementType = 'div'>(
         },
       ])}
       {...props}
+      className={cn(styles['ellipsis-content'], className)}
     />
   );
 };

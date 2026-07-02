@@ -62,6 +62,7 @@ import Nodejs from '../Nodejs';
 import Onelake from '../Onelake';
 import OVH from '../OVH';
 import Planetscale from '../Planetscale';
+import Polaris from '../Polaris';
 import Postgres from '../Postgres';
 import Prequel from '../Prequel';
 import Python from '../Python';
@@ -137,6 +138,7 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   onelake: Onelake,
   ovh: OVH,
   planetscale: Planetscale,
+  polaris: Polaris,
   postgres: Postgres,
   prequel: Prequel,
   python: Python,

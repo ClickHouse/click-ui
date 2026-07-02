@@ -1,15 +1,16 @@
-import { styled } from 'styled-components';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { cn } from '@/lib/cva';
+import styles from './EmptyButton.module.css';
 
-export const EmptyButton = styled.button`
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  &:disabled {
-    cursor: not-allowed;
-  }
-`;
+export const EmptyButton = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement>
+>(({ className, ...props }, ref) => (
+  <button
+    ref={ref}
+    {...props}
+    className={cn(styles['empty-button'], className)}
+  />
+));
+
+EmptyButton.displayName = 'EmptyButton';

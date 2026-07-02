@@ -333,9 +333,9 @@ const PredefinedTimes = ({
 
           const rangeIsSelected =
             selectedEndDate &&
-            selectedEndDate === endDate &&
+            selectedEndDate.getTime() === endDate.getTime() &&
             selectedStartDate &&
-            selectedStartDate === startDate;
+            selectedStartDate.getTime() === startDate.getTime();
 
           return (
             <StyledDropdownItem

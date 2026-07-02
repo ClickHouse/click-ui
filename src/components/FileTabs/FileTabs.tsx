@@ -368,6 +368,7 @@ const Tab = ({
       </TabContent>
       <EmptyButton
         as={IconButton}
+        htmlType="button"
         icon="cross"
         onClick={onClose}
         data-type="close"

@@ -1,0 +1,77 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. bigStat) */
+.big-stat {
+  --big-stat-max-width: initial;
+
+  display: flex;
+  box-sizing: border-box;
+  max-width: var(--big-stat-max-width, none);
+  min-height: var(--big-stat-height, auto);
+  padding: var(--click-bigStat-space-all);
+  justify-content: center;
+  border: var(--click-bigStat-stroke) solid var(--big-stat-stroke-color);
+  border-radius: var(--click-bigStat-radii-all);
+  background-color: var(--big-stat-background);
+  color: var(--big-stat-label-color);
+  font: var(--big-stat-label-font);
+}
+
+/* State drives the color/background tokens. The `default` and `muted`
+   typography tokens are byte-identical, so font is dispatched on size only. */
+.big-stat_state_default {
+  --big-stat-background: var(--click-bigStat-color-background-default);
+  --big-stat-label-color: var(--click-bigStat-color-label-default);
+  --big-stat-title-color: var(--click-bigStat-color-title-default);
+  --big-stat-stroke-color: var(--click-bigStat-color-stroke-default);
+}
+
+.big-stat_state_muted {
+  --big-stat-background: var(--click-bigStat-color-background-muted);
+  --big-stat-label-color: var(--click-bigStat-color-label-muted);
+  --big-stat-title-color: var(--click-bigStat-color-title-muted);
+  --big-stat-stroke-color: var(--click-bigStat-color-stroke-muted);
+}
+
+.big-stat_size_lg {
+  --big-stat-label-font: var(--click-bigStat-typography-lg-label-default);
+  --big-stat-title-font: var(--click-bigStat-typography-lg-title-default);
+}
+
+.big-stat_size_sm {
+  --big-stat-label-font: var(--click-bigStat-typography-sm-label-default);
+  --big-stat-title-font: var(--click-bigStat-typography-sm-title-default);
+}
+
+.big-stat_error {
+  --big-stat-label-color: var(--click-bigStat-color-label-danger);
+  --big-stat-stroke-color: var(--click-bigStat-color-stroke-danger);
+}
+
+.big-stat_order_title-top {
+  flex-direction: column;
+}
+
+.big-stat_order_title-bottom {
+  flex-direction: column-reverse;
+}
+
+.big-stat_fill-width {
+  width: 100%;
+}
+
+.big-stat_spacing_sm {
+  gap: var(--click-bigStat-space-sm-gap);
+}
+
+.big-stat_spacing_lg {
+  gap: var(--click-bigStat-space-lg-gap);
+}
+
+.big-stat__label {
+  color: var(--big-stat-label-color);
+  font: var(--big-stat-label-font);
+}
+
+.big-stat__title {
+  color: var(--big-stat-title-color);
+  font: var(--big-stat-title-font);
+}
