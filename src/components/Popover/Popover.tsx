@@ -1,6 +1,5 @@
 import * as RadixPopover from '@radix-ui/react-popover';
 import { Arrow, GenericMenuPanel } from '@/components/GenericMenu';
-import { styled } from 'styled-components';
 import {
   ComponentProps,
   ComponentPropsWithRef,
@@ -10,7 +9,6 @@ import {
 } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { Icon } from '@/components/Icon';
-import { EmptyButton } from '@/components/EmptyButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import styles from './Popover.module.css';
@@ -19,14 +17,6 @@ export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
   return <RadixPopover.Root {...props}>{children}</RadixPopover.Root>;
 };
 
-const Trigger = styled(RadixPopover.Trigger)`
-  background: inherit;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  width: fit-content;
-`;
 interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
 }
@@ -34,12 +24,12 @@ interface TriggerProps extends RadixPopover.PopoverTriggerProps {
 const PopoverTrigger = ({ anchor, children, ...props }: TriggerProps) => {
   return (
     <>
-      <Trigger
+      <RadixPopover.Trigger
         asChild
         {...props}
       >
-        <div>{children}</div>
-      </Trigger>
+        <div className={styles.trigger}>{children}</div>
+      </RadixPopover.Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>
   );
@@ -91,14 +81,6 @@ const _MenuPanel = <T extends ElementType = 'div'>(
 
 const MenuPanel: MenuPanelComponent = forwardRef(_MenuPanel);
 
-const CloseButton = styled(EmptyButton)`
-  position: absolute;
-  top: ${({ theme }) => theme.click.popover.space.y};
-  right: ${({ theme }) => theme.click.popover.space.x};
-  width: ${({ theme }) => theme.click.popover.icon.size.width};
-  height: ${({ theme }) => theme.click.popover.icon.size.height};
-`;
-
 const PopoverContent = ({
   children,
   showArrow,
@@ -123,12 +105,12 @@ const PopoverContent = ({
         {...props}
       >
         {showClose && (
-          <CloseButton
-            as={RadixPopover.Close}
+          <RadixPopover.Close
             asChild
+            className={styles['close-button']}
           >
             <Icon name="cross" />
-          </CloseButton>
+          </RadixPopover.Close>
         )}
         {showArrow && (
           <Arrow
