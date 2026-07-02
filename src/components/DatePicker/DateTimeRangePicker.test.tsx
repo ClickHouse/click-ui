@@ -1175,6 +1175,52 @@ describe('DateTimeRangePicker', () => {
 
       expect(predefinedDateLabel).toBe('Past hour');
     });
+
+    it('marks the predefined range matching the provided start and end dates as selected', async () => {
+      const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+      const pastHour = predefinedTimesList.find(item => item.label === 'Past hour');
+      if (!pastHour) {
+        throw new Error('expected a "Past hour" predefined range');
+      }
+
+      const { getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={predefinedTimesList}
+          startDate={new Date(pastHour.dateRange.startDate)}
+          endDate={new Date(pastHour.dateRange.endDate)}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(getByTestId('Past hour')).toHaveAttribute('data-selected', 'true');
+      expect(getByTestId('Past 15 minutes')).toHaveAttribute('data-selected', 'false');
+    });
+
+    it('marks exactly one predefined range as selected for a matching range', async () => {
+      const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+      const pastHour = predefinedTimesList.find(item => item.label === 'Past hour');
+      if (!pastHour) {
+        throw new Error('expected a "Past hour" predefined range');
+      }
+
+      const { getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={predefinedTimesList}
+          startDate={new Date(pastHour.dateRange.startDate)}
+          endDate={new Date(pastHour.dateRange.endDate)}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      const selected = document.querySelectorAll(
+        '[data-testid="predefined-times-list"] [data-selected="true"]'
+      );
+      expect(selected).toHaveLength(1);
+    });
   });
 
   describe('when configured for the UTC timezone', () => {

@@ -56,6 +56,11 @@ describe('FileTabs', () => {
     expect(tabElements).toHaveLength(3);
   });
 
+  it('renders close buttons with type="button" so they do not submit a form', () => {
+    const { getByTestId } = renderTabs({});
+    expect(getByTestId('tab-element-0-close')).toHaveAttribute('type', 'button');
+  });
+
   it('should call onSelect on clicking tab', () => {
     const { getByTestId } = renderTabs({});
     const tabElement = getByTestId('tab-element-0');

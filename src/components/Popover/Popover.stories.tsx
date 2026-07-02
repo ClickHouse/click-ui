@@ -115,3 +115,30 @@ export const Playground: Story = {
     </GridCenter>
   ),
 };
+
+// Open-by-default so visual regression can screenshot the content panel and its
+// close button without an interaction step. The close button is rendered via
+// `<CloseButton as={RadixPopover.Close}>` (CloseButton = styled(EmptyButton)),
+// exercising the `as`-prop path that bypasses EmptyButton's own render. This
+// guards that path against the EmptyButton CSS Modules migration.
+export const OpenWithClose: Story = {
+  args: {
+    modal: false,
+    open: true,
+  },
+  render: args => (
+    <GridCenter>
+      <Popover {...args}>
+        <Popover.Trigger>Click Here</Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          showClose
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>Popover with a close button.</Text>
+        </Popover.Content>
+      </Popover>
+    </GridCenter>
+  ),
+};

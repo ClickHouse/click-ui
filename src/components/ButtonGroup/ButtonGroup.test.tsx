@@ -265,4 +265,27 @@ describe('ButtonGroup', () => {
       expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'false');
     });
   });
+
+  describe('native button type', () => {
+    it('renders options with type="button" so they do not submit a form', () => {
+      const { getByText } = renderButtonGroup({ options });
+
+      options.forEach(option => {
+        expect(getByText(option.label)).toHaveAttribute('type', 'button');
+      });
+    });
+
+    it('does not submit an enclosing form when an option is clicked', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+      const { getByText } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <ButtonGroup options={options} />
+        </form>
+      );
+
+      fireEvent.click(getByText('Option 1'));
+
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+  });
 });

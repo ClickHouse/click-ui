@@ -1,108 +1,71 @@
 import type { DragEvent, FC, ReactNode } from 'react';
-import { styled, css } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { Text } from '@/components/Text';
 import { Title } from '@/components/Title';
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
+import styles from './FileUploadArea.module.css';
 
-const UploadArea = styled.div<{
-  $isDragging: boolean;
-  $size: 'sm' | 'md';
-  $hasFile: boolean;
-  $isError?: boolean;
-}>`
-  container-type: inline-size;
-  container-name: uploadArea;
-  box-sizing: border-box;
-  width: 100%;
-  background-color: ${({ theme }) => theme.click.fileUpload.color.background.default};
-  border: ${({ theme }) => `1px solid ${theme.click.fileUpload.color.stroke.default}`};
-  border-radius: ${({ theme, $hasFile }) =>
-    $hasFile
-      ? `${theme.click.fileUpload.sm.radii.all}`
-      : `${theme.click.fileUpload.md.radii.all}`};
-  padding: ${({ theme, $hasFile, $size }) =>
-    $hasFile || $size === 'sm'
-      ? `${theme.click.fileUpload.sm.space.y} ${theme.click.fileUpload.sm.space.x}`
-      : `${theme.click.fileUpload.md.space.y} ${theme.click.fileUpload.md.space.x}`};
-  min-height: ${({ theme, $size }) =>
-    $size === 'sm'
-      ? `calc(${theme.click.fileUpload.sm.space.y} * 2 + ${theme.sizes[8]})`
-      : 'auto'};
-  display: flex;
-  flex-direction: ${props =>
-    props.$hasFile ? 'row' : props.$size === 'sm' ? 'row' : 'column'};
-  align-items: center;
-  justify-content: ${props =>
-    props.$hasFile ? 'space-between' : props.$size === 'sm' ? 'space-between' : 'center'};
-  gap: ${({ theme, $size }) =>
-    $size === 'sm'
-      ? theme.click.fileUpload.sm.space.gap
-      : theme.click.fileUpload.md.space.gap};
-  cursor: ${props => (props.$hasFile ? 'default' : 'pointer')};
-  transition: ${({ theme }) => theme.click.fileUpload.transitions.all};
+const uploadAreaVariants = cva(styles['upload-area'], {
+  variants: {
+    radius: {
+      sm: styles['upload-area_radius_sm'],
+      md: styles['upload-area_radius_md'],
+    },
+    padding: {
+      sm: styles['upload-area_padding_sm'],
+      md: styles['upload-area_padding_md'],
+    },
+    minHeight: {
+      sm: styles['upload-area_min-height_sm'],
+      md: styles['upload-area_min-height_md'],
+    },
+    direction: {
+      row: styles['upload-area_direction_row'],
+      column: styles['upload-area_direction_column'],
+    },
+    justify: {
+      'space-between': styles['upload-area_justify_space-between'],
+      center: styles['upload-area_justify_center'],
+    },
+    gap: {
+      sm: styles['upload-area_gap_sm'],
+      md: styles['upload-area_gap_md'],
+    },
+    cursor: {
+      default: styles['upload-area_cursor_default'],
+      pointer: styles['upload-area_cursor_pointer'],
+    },
+    dashed: {
+      true: styles['upload-area_dashed_true'],
+    },
+    dragging: {
+      true: styles['upload-area_dragging_true'],
+    },
+    error: {
+      true: styles['upload-area_error_true'],
+    },
+  },
+});
 
-  ${props =>
-    !props.$hasFile &&
-    css`
-      border-style: dashed;
-      border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.default};
+const titleVariants = cva(styles.title, {
+  variants: {
+    notSupported: {
+      true: styles['title_not-supported_true'],
+    },
+  },
+});
 
-      ${props.$isDragging &&
-      css`
-        background-color: ${({ theme }) =>
-          theme.click.fileUpload.color.background.active};
-        border-color: ${({ theme }) => theme.click.fileUpload.color.stroke.active};
-      `}
-    `}
-
-  ${props =>
-    props.$isError &&
-    css`
-      background-color: ${({ theme }) => theme.click.fileUpload.color.background.error};
-      border-color: transparent;
-    `}
-`;
-
-const FileUploadTitle = styled(Title)<{ $isNotSupported: boolean }>`
-  font: ${({ theme }) => theme.click.fileUpload.typography.title.default};
-  color: ${({ theme, $isNotSupported }) =>
-    $isNotSupported
-      ? theme.click.fileUpload.color.title.error
-      : theme.click.fileUpload.color.title.default};
-`;
-
-const FileUploadDescription = styled(Text)`
-  font: ${({ theme }) => theme.click.fileUpload.typography.description.default};
-  color: ${({ theme }) => theme.click.fileUpload.color.description.default};
-`;
-
-const UploadIcon = styled(Icon)`
-  svg {
-    width: ${({ theme }) => theme.click.fileUpload.md.icon.size.width};
-    height: ${({ theme }) => theme.click.fileUpload.md.icon.size.height};
-    color: ${({ theme }) => theme.click.fileUpload.md.color.icon.default};
-  }
-`;
-
-const UploadText = styled.div<{ $size: 'sm' | 'md'; $hasFile: boolean }>`
-  text-align: ${props => (props.$hasFile || props.$size === 'sm' ? 'left' : 'center')};
-  ${props =>
-    (props.$hasFile || props.$size === 'sm') &&
-    css`
-      flex: 1;
-    `}
-
-  ${props =>
-    !props.$hasFile &&
-    props.$size === 'md' &&
-    css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    `}
-`;
+const uploadTextVariants = cva(styles['upload-text'], {
+  variants: {
+    centered: {
+      true: styles['upload-text_centered_true'],
+    },
+    grow: {
+      true: styles['upload-text_grow_true'],
+    },
+  },
+});
 
 export interface FileUploadAreaProps {
   title: string;
@@ -137,12 +100,24 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
   onClick,
   children,
 }) => {
+  const isCompact = hasFile || size === 'sm';
+
   return (
-    <UploadArea
-      $isDragging={isDragging}
-      $size={size}
-      $hasFile={hasFile}
-      $isError={isError}
+    <div
+      className={cn(
+        uploadAreaVariants({
+          radius: hasFile ? 'sm' : 'md',
+          padding: isCompact ? 'sm' : 'md',
+          minHeight: size === 'sm' ? 'sm' : 'md',
+          direction: hasFile || size === 'sm' ? 'row' : 'column',
+          justify: hasFile || size === 'sm' ? 'space-between' : 'center',
+          gap: size === 'sm' ? 'sm' : 'md',
+          cursor: hasFile ? 'default' : 'pointer',
+          dashed: !hasFile,
+          dragging: !hasFile && isDragging,
+          error: isError,
+        })
+      )}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
@@ -151,30 +126,37 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
     >
       {!hasFile ? (
         <>
-          <UploadIcon name="upload" />
-          <UploadText
-            $size={size}
-            $hasFile={false}
+          <Icon
+            name="upload"
+            className={styles['upload-icon']}
+          />
+          <div
+            className={cn(
+              uploadTextVariants({
+                centered: !hasFile && size === 'md',
+                grow: hasFile || size === 'sm',
+              })
+            )}
           >
             {isNotSupported ? (
-              <FileUploadTitle
-                $isNotSupported
+              <Title
                 type="h1"
+                className={cn(titleVariants({ notSupported: true }))}
               >
                 Unsupported file type
-              </FileUploadTitle>
+              </Title>
             ) : (
-              <FileUploadTitle
-                $isNotSupported={isNotSupported}
+              <Title
                 type="h1"
+                className={cn(titleVariants({ notSupported: isNotSupported }))}
               >
                 {title}
-              </FileUploadTitle>
+              </Title>
             )}
-            <FileUploadDescription>
+            <Text className={styles.description}>
               Files supported: {supportedFileTypes.join(', ')}
-            </FileUploadDescription>
-          </UploadText>
+            </Text>
+          </div>
           <Button
             type={'secondary'}
             onClick={e => {
@@ -188,6 +170,6 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
       ) : (
         children
       )}
-    </UploadArea>
+    </div>
   );
 };

@@ -200,3 +200,21 @@ export const OpenContentWithArrow: Story = {
     </div>
   ),
 };
+
+// Visual-regression story: isolates the Dropdown.Trigger so its width
+// (fit-content) and :focus-visible outline can be screenshotted deterministically.
+export const TriggerStandalone: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-trigger-harness"
+      style={{ padding: '2rem', minHeight: 120 }}
+    >
+      <Dropdown>
+        <Dropdown.Trigger>Trigger text</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item>Item</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};

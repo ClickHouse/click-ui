@@ -30,8 +30,6 @@
 }
 
 .tab {
-  --file-tabs-dismissable-columns: 1fr;
-
   display: grid;
   box-sizing: border-box;
   max-width: 100%;
@@ -46,7 +44,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: var(--click-tabs-fileTabs-space-gap);
-  grid-template-columns: var(--file-tabs-dismissable-columns);
+  grid-template-columns: 1fr;
   border: none;
   border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-default);
   border-radius: var(--click-tabs-fileTabs-radii-all);
@@ -105,6 +103,10 @@
   font-style: italic;
 }
 
+.tab_dismissable {
+  grid-template-columns: 1fr var(--click-tabs-fileTabs-icon-size-width);
+}
+
 .indicator {
   position: relative;
 }
@@ -117,7 +119,27 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background: var(--file-tabs-indicator-color);
+  background: transparent;
+}
+
+.indicator[data-indicator='success']::after {
+  background: var(--click-alert-color-text-success);
+}
+
+.indicator[data-indicator='neutral']::after {
+  background: var(--click-alert-color-text-neutral);
+}
+
+.indicator[data-indicator='danger']::after {
+  background: var(--click-alert-color-text-danger);
+}
+
+.indicator[data-indicator='warning']::after {
+  background: var(--click-alert-color-text-warning);
+}
+
+.indicator[data-indicator='info']::after {
+  background: var(--click-alert-color-text-info);
 }
 
 .tab-content {

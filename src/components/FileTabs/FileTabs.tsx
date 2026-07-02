@@ -12,7 +12,7 @@ import {
   useRef,
   CSSProperties,
 } from 'react';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import type { IconName } from '@/components/Icon/Icon.types';
@@ -195,24 +195,31 @@ export const FileTabs = ({
   );
 };
 
-const tabClassName = ({
-  active,
-  preview,
-  fixed,
-}: {
-  active: boolean;
-  preview?: boolean;
-  fixed?: boolean;
-}) =>
-  cn(
-    styles.tab,
-    active ? styles.tab_active : styles.tab_inactive,
-    fixed ? styles.tab_fixed : styles['tab_full-width'],
-    preview && styles.tab_preview
-  );
-
-const indicatorColor = (status: FileTabStatusType) =>
-  status === 'default' ? 'transparent' : `var(--click-alert-color-text-${status})`;
+const tabVariants = cva(styles.tab, {
+  variants: {
+    active: {
+      true: styles.tab_active,
+      false: styles.tab_inactive,
+    },
+    fixed: {
+      true: styles.tab_fixed,
+      false: styles['tab_full-width'],
+    },
+    preview: {
+      true: styles.tab_preview,
+      false: '',
+    },
+    dismissable: {
+      true: styles.tab_dismissable,
+      false: '',
+    },
+  },
+  defaultVariants: {
+    fixed: false,
+    preview: false,
+    dismissable: false,
+  },
+});
 
 const Tab = ({
   text,
@@ -223,7 +230,6 @@ const Tab = ({
   testId,
   preview,
   className,
-  style,
   ...props
 }: FileTabProps) => {
   const { selectedIndex, onClose: onCloseProp } = useSelect();
@@ -249,15 +255,12 @@ const Tab = ({
       onMouseDown={onMouseDown}
       data-testid={testId ? `${testId}-${index}` : undefined}
       {...props}
-      style={
-        {
-          '--file-tabs-dismissable-columns':
-            '1fr var(--click-tabs-fileTabs-icon-size-width)',
-          ...style,
-        } as CSSProperties
-      }
       className={cn(
-        tabClassName({ active: selectedIndex === index, preview }),
+        tabVariants({
+          active: selectedIndex === index,
+          preview,
+          dismissable: true,
+        }),
         className
       )}
     >
@@ -267,6 +270,7 @@ const Tab = ({
       </div>
       <IconButton
         className={styles['empty-button']}
+        htmlType="button"
         icon="cross"
         onClick={onClose}
         data-type="close"
@@ -276,7 +280,6 @@ const Tab = ({
         className={styles.indicator}
         data-indicator={status}
         data-testid={testId ? `${testId}-${index}-status` : undefined}
-        style={{ '--file-tabs-indicator-color': indicatorColor(status) } as CSSProperties}
       />
     </div>
   );
@@ -302,7 +305,7 @@ export const FileTabElement = ({
   return (
     <div
       {...props}
-      className={cn(tabClassName({ active, preview, fixed: true }), className)}
+      className={cn(tabVariants({ active, preview, fixed: true }), className)}
     >
       {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
       {children && <span className={styles['tab-content-text']}>{children}</span>}
