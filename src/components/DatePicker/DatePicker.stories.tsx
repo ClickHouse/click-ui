@@ -101,3 +101,19 @@ export const TimezoneLocalVsUTC = {
     );
   },
 };
+
+export const HasClearButton = {
+  ...defaultStory,
+  render: (args: Args) => {
+    const date = args.date ? new Date(args.date) : new Date('2026-04-15');
+    return (
+      <DatePicker
+        date={date}
+        hasClearButton
+        onSelectDate={args.onSelectDate}
+        placeholder={args.placeholder}
+        responsivePositioning={false}
+      />
+    );
+  },
+};

@@ -51,6 +51,32 @@ export const Default: Story = {
   },
 };
 
+export const HasClearButton: Story = {
+  args: {
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : new Date('2026-04-30');
+    const startDate = args.startDate ? new Date(args.startDate) : new Date('2026-04-15');
+
+    return (
+      <DateTimeRangePicker
+        key="default"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={args.futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        hasClearButton
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
+      />
+    );
+  },
+};
+
 export const DateTimeRangePickerLeftSide: Story = {
   render: (args: Args) => {
     const endDate = args.endDate ? new Date(args.endDate) : undefined;

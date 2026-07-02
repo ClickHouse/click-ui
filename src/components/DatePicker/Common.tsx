@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { InputElement, InputStartContent, InputWrapper } from '@/components/InputWrapper';
 import {
   KeyboardEvent,
+  MouseEvent,
   ReactNode,
   useCallback,
   useEffect,
@@ -45,9 +46,10 @@ const yearsOffset = Math.floor(totalYears / 2);
 const HighlightedInputWrapper = styled(InputWrapper)<{
   $isActive: boolean;
   $width?: string;
+  $minWidth?: string;
   error?: boolean;
 }>`
-  ${({ $isActive, $width, error, theme }) => {
+  ${({ $isActive, $width, $minWidth, error, theme }) => {
     let borderColor = $isActive
       ? theme.click.datePicker.dateOption.color.stroke.active
       : theme.click.field.color.stroke.default;
@@ -58,21 +60,37 @@ const HighlightedInputWrapper = styled(InputWrapper)<{
 
     return `border: ${theme.click.datePicker.dateOption.stroke} solid ${borderColor};
     width: ${$width ? $width : explicitWidth};
-    ${$width && `min-width: ${explicitWidth};`}
+    ${$minWidth ? `min-width: ${$minWidth};` : ''}
     `;
   }}
 }`;
 
-interface DatePickerInputProps {
-  isActive: boolean;
-  disabled: boolean;
-  id?: string;
-  partialMonth?: number;
-  partialYear?: number;
-  placeholder?: string;
-  selectedDate?: Date;
-  timezone?: Timezone;
-}
+// This span is rendered in the Date*PickerInputs, which are children of a Popover Trigger
+// which are buttons. So using an IconButton will cause React to throw an error since a button can't be inside a button
+const ClearButton = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  ${({ theme }) => `
+    padding: ${theme.click.button.iconButton.default.space.y} ${theme.click.button.iconButton.default.space.x};
+    border: 1px solid ${theme.click.button.iconButton.color.primary.stroke.default};
+    border-radius: ${theme.click.button.iconButton.radii.all};
+    color: ${theme.click.button.iconButton.color.primary.text.default};
+    background-color: ${theme.click.button.iconButton.color.primary.background.default};
+
+    &:hover {
+      border-color: ${theme.click.button.iconButton.color.primary.stroke.hover};
+      background-color: ${theme.click.button.iconButton.color.primary.background.hover};
+    }
+
+    &:active {
+      border-color: ${theme.click.button.iconButton.color.primary.stroke.active};
+      background-color: ${theme.click.button.iconButton.color.primary.background.active};
+    }
+  `}
+`;
 
 const formatPartialDate = (
   timezone: Timezone,
@@ -99,10 +117,25 @@ const formatPartialDate = (
   return '';
 };
 
+interface DatePickerInputProps {
+  isActive: boolean;
+  disabled: boolean;
+  hasClearButton?: boolean;
+  id?: string;
+  onClear?: () => void;
+  partialMonth?: number;
+  partialYear?: number;
+  placeholder?: string;
+  selectedDate?: Date;
+  timezone?: Timezone;
+}
+
 export const DatePickerInput = ({
   isActive,
   disabled,
+  hasClearButton,
   id,
+  onClear,
   partialMonth,
   partialYear,
   placeholder,
@@ -115,6 +148,17 @@ export const DatePickerInput = ({
     selectedDate,
     partialYear,
     partialMonth
+  );
+
+  // Stop propagation to keep the event from bubbling up to the dropdown trigger and opening the dropdown
+  const handleClear = useCallback(
+    (event: MouseEvent<HTMLSpanElement>) => {
+      event.stopPropagation();
+      if (onClear) {
+        onClear();
+      }
+    },
+    [onClear]
   );
 
   return (
@@ -133,6 +177,19 @@ export const DatePickerInput = ({
         readOnly
         value={formattedSelectedDate}
       />
+      {hasClearButton && !disabled && (
+        <ClearButton
+          role="button"
+          aria-label="clear input"
+          data-testid="datepicker-input-clear"
+          onClick={handleClear}
+        >
+          <Icon
+            name="cross"
+            size="sm"
+          />
+        </ClearButton>
+      )}
     </HighlightedInputWrapper>
   );
 };
@@ -140,7 +197,9 @@ export const DatePickerInput = ({
 interface DateRangePickerInputProps {
   isActive: boolean;
   disabled: boolean;
+  hasClearButton?: boolean;
   id?: string;
+  onClear?: () => void;
   placeholder?: string;
   selectedEndDate?: Date;
   selectedStartDate?: Date;
@@ -150,13 +209,32 @@ interface DateRangePickerInputProps {
 export const DateRangePickerInput = ({
   isActive,
   disabled,
+  hasClearButton,
   id,
+  onClear,
   placeholder,
   selectedEndDate,
   selectedStartDate,
   timezone = 'system',
 }: DateRangePickerInputProps) => {
   const defaultId = useId();
+
+  // Stop propagation to keep the event from bubbling up to the dropdown trigger and opening the dropdown
+  const handleClear = useCallback(
+    (event: MouseEvent<HTMLSpanElement>) => {
+      event.stopPropagation();
+      if (onClear) {
+        onClear();
+      }
+    },
+    [onClear]
+  );
+
+  // The Dropdown.Trigger wrapping this input toggles on pointerdown, so stop
+  // pointerdown (and click) from bubbling up to it when clearing.
+  const handleClearPointerDown = useCallback((event: MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+  }, []);
 
   let formattedValue = (
     <Text
@@ -192,6 +270,7 @@ export const DateRangePickerInput = ({
   return (
     <HighlightedInputWrapper
       $isActive={isActive}
+      $width={hasClearButton ? 'max-content' : undefined}
       disabled={disabled}
       id={id ?? defaultId}
     >
@@ -205,6 +284,20 @@ export const DateRangePickerInput = ({
       >
         {formattedValue}
       </InputElement>
+      {hasClearButton && !disabled && (
+        <ClearButton
+          role="button"
+          aria-label="clear input"
+          data-testid="daterangepicker-input-clear"
+          onPointerDown={handleClearPointerDown}
+          onClick={handleClear}
+        >
+          <Icon
+            name="cross"
+            size="sm"
+          />
+        </ClearButton>
+      )}
     </HighlightedInputWrapper>
   );
 };
@@ -212,7 +305,9 @@ export const DateRangePickerInput = ({
 interface DateTimeRangePickerInputProps {
   isActive: boolean;
   disabled: boolean;
+  hasClearButton?: boolean;
   id?: string;
+  onClear?: () => void;
   placeholder?: string;
   selectedEndDate?: Date;
   selectedStartDate?: Date;
@@ -223,7 +318,9 @@ interface DateTimeRangePickerInputProps {
 export const DateTimeRangePickerInput = ({
   isActive,
   disabled,
+  hasClearButton,
   id,
+  onClear,
   placeholder,
   selectedEndDate,
   selectedStartDate,
@@ -231,6 +328,23 @@ export const DateTimeRangePickerInput = ({
   timezone = 'system',
 }: DateTimeRangePickerInputProps) => {
   const defaultId = useId();
+
+  // Stop propagation to keep the event from bubbling up to the dropdown trigger and opening the dropdown
+  const handleClear = useCallback(
+    (event: MouseEvent<HTMLSpanElement>) => {
+      event.stopPropagation();
+      if (onClear) {
+        onClear();
+      }
+    },
+    [onClear]
+  );
+
+  // The Dropdown.Trigger wrapping this input toggles on pointerdown, so stop
+  // pointerdown (and click) from bubbling up to it when clearing.
+  const handleClearPointerDown = useCallback((event: MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation();
+  }, []);
 
   const formatDateTime = useCallback(
     (date: Date) => {
@@ -299,6 +413,7 @@ export const DateTimeRangePickerInput = ({
     <HighlightedInputWrapper
       $isActive={isActive}
       $width="max-content"
+      $minWidth={explicitWidth}
       disabled={disabled}
       error={startDateIsAfterEndDate}
       id={id ?? defaultId}
@@ -313,6 +428,20 @@ export const DateTimeRangePickerInput = ({
       >
         {formattedValue}
       </InputElement>
+      {hasClearButton && !disabled && (
+        <ClearButton
+          role="button"
+          aria-label="clear input"
+          data-testid="datetimepicker-input-clear"
+          onPointerDown={handleClearPointerDown}
+          onClick={handleClear}
+        >
+          <Icon
+            name="cross"
+            size="sm"
+          />
+        </ClearButton>
+      )}
     </HighlightedInputWrapper>
   );
 };
