@@ -1,17 +1,18 @@
-import { styled } from 'styled-components';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { cn } from '@/lib/cva';
 import { EmptyButton } from '@/components/EmptyButton';
+import styles from './CrossButton.module.css';
 
-export const CrossButton = styled(EmptyButton).attrs<{
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-}>(({ type = 'button' }) => ({ type }))`
-  padding: ${({ theme }) => theme.click.button.iconButton.sm.space.y}
-    ${({ theme }) => theme.click.button.iconButton.sm.space.x};
-  background: ${({ theme }) =>
-    theme.click.button.iconButton.color.primary.background.default};
-  border-radius: ${({ theme }) => theme.click.button.iconButton.radii.all};
+export const CrossButton = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement>
+>(({ type = 'button', className, ...props }, ref) => (
+  <EmptyButton
+    ref={ref}
+    type={type}
+    {...props}
+    className={cn(styles['cross-button'], className)}
+  />
+));
 
-  &:hover {
-    background: ${({ theme }) =>
-      theme.click.button.iconButton.color.primary.background.hover};
-  }
-`;
+CrossButton.displayName = 'CrossButton';
