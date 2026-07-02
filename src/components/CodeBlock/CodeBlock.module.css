@@ -1,0 +1,48 @@
+.codeblock {
+  position: relative;
+  width: 100%;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original
+     styled-components rule used this same width fallback chain (100% →
+     -webkit-fill-available → fill-available → stretch) so the block fills the
+     available inline space. */
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  color: var(--codeblock-numbers);
+}
+
+/* This class is applied alongside the IconButton module classes on the same
+   <button>. `color`, `padding`, and `border` are set by both; the
+   styled-components original won them via source order. Double the class so
+   those three win regardless of CSS-module bundle order, matching the
+   pre-migration rendering. */
+.codeblock__button.codeblock__button {
+  /* Reset so a copied/error state on one button can't inherit into another via
+     the custom property (custom properties inherit by default). The copied/error
+     colors are set inline per state via --codeblock-button, matching the
+     --codeblock-numbers pattern so both track the ThemeProvider runtime. */
+  --codeblock-button: initial;
+  padding: 0;
+  border: 0;
+  color: var(--codeblock-button, inherit);
+}
+
+.codeblock__highlighter {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.codeblock__content {
+  color: inherit;
+  font-family: inherit;
+}
+
+.codeblock__button-container {
+  display: flex;
+  position: absolute;
+  top: var(--click-codeblock-space-y);
+  right: var(--click-codeblock-space-x);
+  gap: 0.625rem;
+}

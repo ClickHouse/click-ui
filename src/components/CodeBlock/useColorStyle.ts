@@ -1,7 +1,8 @@
+import type { CSSProperties } from 'react';
 import { useTheme } from 'styled-components';
 import { CodeThemeType } from './CodeBlock.types';
 
-const useColorStyle = (defaultTheme?: CodeThemeType) => {
+const useColorStyle = (defaultTheme?: CodeThemeType): Record<string, CSSProperties> => {
   const theme = useTheme();
   const inheritedThemeName = theme.name as CodeThemeType;
   const themeName = !defaultTheme ? inheritedThemeName : defaultTheme;
@@ -119,6 +120,21 @@ const useColorStyle = (defaultTheme?: CodeThemeType) => {
     'hljs-strong': {
       fontWeight: 'bold',
     },
+  };
+};
+
+export const useNumbersColor = (defaultTheme?: CodeThemeType): string => {
+  const theme = useTheme();
+  const inheritedThemeName = theme.name as CodeThemeType;
+  const themeName = !defaultTheme ? inheritedThemeName : defaultTheme;
+  return theme.click.codeblock[`${themeName}Mode`].color.numbers.default;
+};
+
+export const useButtonStateColors = (): { success: string; danger: string } => {
+  const theme = useTheme();
+  return {
+    success: theme.click.alert.color.text.success,
+    danger: theme.click.alert.color.text.danger,
   };
 };
 
