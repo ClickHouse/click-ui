@@ -10,7 +10,7 @@ import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
 import { Select } from '@/components/Select';
 import { Text } from '@/components/Text';
-import { styled } from 'styled-components';
+import styles from './Pagination.module.css';
 
 export interface PaginationProps extends Omit<
   ContainerProps<'div'>,
@@ -43,9 +43,6 @@ export interface PaginationProps extends Omit<
   /** Whether to show "All rows" option in the dropdown */
   allowAllRows?: boolean;
 }
-const CustomSelect = styled.div`
-  width: 150px;
-`;
 
 export const Pagination = ({
   totalPages,
@@ -193,8 +190,8 @@ export const Pagination = ({
         />
       </Container>
       {maxRowsPerPageList.length > 0 && (
-        <CustomSelect
-          as={Select}
+        <Select
+          className={styles['custom-select']}
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
         >
@@ -207,7 +204,7 @@ export const Pagination = ({
               {option} rows
             </Select.Item>
           ))}
-        </CustomSelect>
+        </Select>
       )}
     </Container>
   );
