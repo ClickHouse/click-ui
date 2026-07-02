@@ -1,0 +1,22 @@
+.row-number-column {
+  position: sticky;
+  top: var(--row-number-column-top);
+  left: 0;
+  width: var(--row-number-column-width);
+  height: 100%;
+}
+
+.row-number-column_scrolled-horizontal {
+  box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
+}
+
+.row-number-column__cell {
+  position: absolute;
+  top: var(--row-number-cell-top);
+  left: 0;
+  width: 100%;
+  height: var(--row-number-cell-height);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
