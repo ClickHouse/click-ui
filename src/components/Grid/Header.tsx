@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import { cn } from '@/lib/cva';
-import styles from './Grid.module.css';
+import styles from './Header.module.css';
 import {
   CellProps,
   ColumnResizeFn,
@@ -43,7 +43,6 @@ interface ColumnProps extends Pick<
   | 'resizingState'
 > {
   columnIndex: number;
-  isFirstColumn: boolean;
   isLastColumn: boolean;
 }
 
@@ -56,7 +55,6 @@ const Column = ({
   getColumnWidth,
   getColumnHorizontalPosition,
   getSelectionType,
-  isFirstColumn,
   isLastColumn,
   onColumnResize,
   height,
@@ -82,7 +80,7 @@ const Column = ({
   const columnWidth = getColumnWidth(columnIndex);
   return (
     <div
-      className={styles['header-cell-container']}
+      className={styles['header__cell']}
       style={
         {
           '--header-cell-width': toCssSize(columnWidth),
@@ -97,14 +95,12 @@ const Column = ({
         as={cell}
         columnIndex={columnIndex}
         type="header-cell"
-        $isFirstColumn={isFirstColumn}
         $selectionType={selectionType}
         $isLastColumn={isLastColumn}
         $isFocused={false}
         $isSelectedLeft={isSelectedLeft}
         $isSelectedTop={isSelected}
         $isLastRow={false}
-        $isFirstRow
         $height={height}
         data-grid-row={-1}
         data-grid-column={columnIndex}
@@ -148,14 +144,14 @@ const Header = ({
   return (
     <div
       className={cn(
-        styles['header-container'],
-        scrolledVertical && styles['header-container_scrolled-vertical']
+        styles['header'],
+        scrolledVertical && styles['header_scrolled-vertical']
       )}
       style={{ '--header-height': `${height}px` } as CSSProperties}
     >
       <div
-        className={styles['scrollable-header-container']}
-        style={{ '--scrollable-header-left': `${rowNumberWidth}px` } as CSSProperties}
+        className={styles['header__scrollable']}
+        style={{ '--header-scrollable-left': `${rowNumberWidth}px` } as CSSProperties}
       >
         {Array.from(
           { length: maxColumn - minColumn + 1 },
@@ -168,7 +164,6 @@ const Header = ({
             getColumnWidth={getColumnWidth}
             getColumnHorizontalPosition={getColumnHorizontalPosition}
             cell={cell}
-            isFirstColumn={columnIndex === 0 && !showRowNumber}
             isLastColumn={columnIndex + 1 === columnCount}
             onColumnResize={onColumnResize}
             height={height}
@@ -181,9 +176,9 @@ const Header = ({
       {showRowNumber && (
         <div
           className={cn(
-            styles['header-cell-container'],
-            styles['row-column-container'],
-            scrolledHorizontal && styles['row-column-container_scrolled-horizontal']
+            styles['header__cell'],
+            styles['header__row-column'],
+            scrolledHorizontal && styles['header__row-column_scrolled-horizontal']
           )}
           style={
             {
@@ -194,11 +189,9 @@ const Header = ({
           }
         >
           <StyledCell
-            className={styles['row-column']}
+            data-align="right"
             data-selected={selectedAllType === 'selectDirect'}
             $type="header"
-            $isFirstRow
-            $isFirstColumn
             $selectionType={selectedAllType}
             $isLastRow={false}
             $isLastColumn={false}

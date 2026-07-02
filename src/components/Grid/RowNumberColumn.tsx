@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 import { cn } from '@/lib/cva';
-import styles from './Grid.module.css';
+import styles from './RowNumberColumn.module.css';
 import { SelectionTypeFn } from './types';
 import { StyledCell } from './StyledCell';
 
@@ -12,7 +12,6 @@ interface RowNumberColumnProps {
   rowWidth: number;
   getSelectionType: SelectionTypeFn;
   rowCount: number;
-  showHeader: boolean;
   scrolledHorizontal: boolean;
   rowStart: number;
   showBorder: boolean;
@@ -24,7 +23,6 @@ interface RowNumberProps extends Pick<
 > {
   rowIndex: number;
   isLastRow: boolean;
-  isFirstRow: boolean;
   rowAutoHeight?: boolean;
 }
 const RowNumber = ({
@@ -32,7 +30,6 @@ const RowNumber = ({
   rowHeight,
   getSelectionType,
   isLastRow,
-  isFirstRow,
   showBorder,
   rowStart,
   rowAutoHeight,
@@ -53,7 +50,7 @@ const RowNumber = ({
 
   return (
     <div
-      className={styles['row-number-cell']}
+      className={styles['row-number-column__cell']}
       style={
         {
           '--row-number-cell-top': `${rowHeight * rowIndex}px`,
@@ -65,9 +62,7 @@ const RowNumber = ({
         $height={rowHeight}
         $isLastColumn={false}
         $selectionType={selectionType}
-        $isFirstColumn
         $type="header"
-        $isFirstRow={isFirstRow}
         $isFocused={false}
         $isLastRow={isLastRow}
         $isSelectedLeft={isSelected}
@@ -94,7 +89,6 @@ const RowNumberColumn = ({
   rowWidth,
   getSelectionType,
   rowCount,
-  showHeader,
   scrolledHorizontal,
   rowStart = 0,
   showBorder,
@@ -103,8 +97,8 @@ const RowNumberColumn = ({
   return (
     <div
       className={cn(
-        styles['row-number-column-container'],
-        scrolledHorizontal && styles['row-number-column-container_scrolled-horizontal']
+        styles['row-number-column'],
+        scrolledHorizontal && styles['row-number-column_scrolled-horizontal']
       )}
       style={
         {
@@ -121,7 +115,6 @@ const RowNumberColumn = ({
             rowHeight={rowHeight}
             rowIndex={rowIndex}
             isLastRow={rowIndex === rowCount}
-            isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
             rowStart={rowStart}
             rowAutoHeight={rowAutoHeight}

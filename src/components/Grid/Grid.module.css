@@ -1,8 +1,23 @@
-/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. selectDirect) */
+/*
+ * `.grid` is the Grid's outer container. It is rendered as the ContextMenu.Trigger
+ * (the root element the whole grid mounts into), which is why the trigger carries
+ * the grid's own box styling rather than a context-menu-specific class.
+ */
+.grid {
+  width: 100%;
+  height: var(--grid-height, 100%);
+  overflow: hidden;
+  border-radius: var(--grid-radius);
+  background: var(--click-grid-body-cell-color-background-default);
+  outline: none;
+}
 
-/* ===== Grid.tsx ===== */
+.grid_bordered {
+  border: 1px solid var(--click-grid-header-cell-color-stroke-default);
+}
 
-.grid-container {
+/* react-window's inner element that lays out the scrolling cell grid */
+.grid__inner {
   display: flex;
   flex-direction: column-reverse;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- the original styled rule used overflow-anchor */
@@ -10,277 +25,10 @@
   user-select: none;
 }
 
-.grid-data-container {
+.grid__data {
   position: absolute;
   top: 0;
   left: 0;
   margin-top: var(--grid-data-top, 0);
   margin-left: var(--grid-data-left, 0);
-}
-
-.context-menu-trigger {
-  width: 100%;
-  height: var(--context-menu-trigger-height, 100%);
-  overflow: hidden;
-  border-radius: var(--context-menu-trigger-radius);
-  background: var(--click-grid-body-cell-color-background-default);
-  outline: none;
-}
-
-.context-menu-trigger_border {
-  border: 1px solid var(--click-grid-header-cell-color-stroke-default);
-}
-
-/*
- * ===== StyledCell.tsx =====
- *
- * The original styled-component dispatches background / text colour / border
- * colour off `$type` (body|header) and `$selectionType`, and toggles individual
- * borders / a `::before` overlay off boolean flags. Colours are aliased to local
- * custom properties (set by the type + selection modifiers) so the shared border
- * / overlay rules can reference them once. Class source-order mirrors the order
- * the styled-component composed its interpolations.
- */
-
-.cell {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  padding: var(--cell-space-y) var(--cell-space-x);
-  overflow: hidden;
-  border: 1px solid var(--cell-stroke-default);
-  background: var(--cell-background);
-  color: var(--cell-color);
-  font: var(--click-grid-cell-text-default);
-  text-align: left;
-  white-space: nowrap;
-  cursor: default;
-  text-overflow: ellipsis;
-}
-
-.cell[data-align='right'] {
-  text-align: right;
-}
-
-.cell_type_body {
-  --cell-stroke-default: var(--click-grid-body-cell-color-stroke-default);
-  --cell-stroke-select-direct: var(--click-grid-body-cell-color-stroke-selectDirect);
-  --cell-stroke-last: var(--click-grid-body-cell-color-stroke-default);
-  --cell-space-y: var(--click-grid-body-cell-space-y);
-  --cell-space-x: var(--click-grid-body-cell-space-x);
-  --cell-background: var(--click-grid-body-cell-color-background-default);
-  --cell-color: var(--click-grid-body-cell-color-text-default);
-}
-
-.cell_type_body.cell_selection_select-indirect {
-  --cell-stroke-last: var(--click-grid-body-cell-color-stroke-selectIndirect);
-  --cell-background: var(--click-grid-body-cell-color-background-selectIndirect);
-  --cell-color: var(--click-grid-body-cell-color-text-selectIndirect);
-}
-
-.cell_type_body.cell_selection_select-direct {
-  --cell-stroke-last: var(--click-grid-body-cell-color-stroke-selectDirect);
-  --cell-background: var(--click-grid-body-cell-color-background-selectDirect);
-  --cell-color: var(--click-grid-body-cell-color-text-selectDirect);
-}
-
-.cell_type_header {
-  --cell-stroke-default: var(--click-grid-header-cell-color-stroke-default);
-  --cell-stroke-select-direct: var(--click-grid-header-cell-color-stroke-selectDirect);
-  --cell-stroke-last: var(--click-grid-header-cell-color-stroke-default);
-  --cell-space-y: var(--click-grid-header-cell-space-y);
-  --cell-space-x: var(--click-grid-header-cell-space-x);
-  --cell-background: var(--click-grid-header-cell-color-background-default);
-  --cell-color: var(--click-grid-header-cell-color-title-default);
-}
-
-.cell_type_header.cell_selection_select-indirect {
-  --cell-stroke-last: var(--click-grid-header-cell-color-stroke-selectIndirect);
-  --cell-background: var(--click-grid-header-cell-color-background-selectIndirect);
-  --cell-color: var(--click-grid-header-cell-color-title-selectIndirect);
-}
-
-.cell_type_header.cell_selection_select-direct {
-  --cell-stroke-last: var(--click-grid-header-cell-color-stroke-selectDirect);
-  --cell-background: var(--click-grid-header-cell-color-background-selectDirect);
-  --cell-color: var(--click-grid-header-cell-color-title-selectDirect);
-}
-
-/* header cell with no border removes top/left edges on the corner cells */
-.cell_type_header.cell_no-border[data-grid-row='-1'] {
-  border-top: none;
-}
-
-.cell_type_header.cell_no-border[data-grid-column='-1'] {
-  border-left: none;
-}
-
-/* a focused cell draws its last-edge borders with the select-direct stroke */
-.cell_focused {
-  box-shadow: inset 0 0 0 1px var(--cell-stroke-select-direct);
-}
-
-/*
- * Focus must win the last-edge stroke colour over any selection state. The
- * original styled-component resolved the last-row / last-column border colour
- * inline as `stroke[$isFocused ? 'selectDirect' : $selectionType]`, so focus
- * always overrode the selection stroke. The `.cell_type_*.cell_selection_*`
- * rules above set `--cell-stroke-last` at (0,2,0) specificity, so the focus
- * override is qualified with the type class to match that specificity and,
- * coming later in source order, take precedence. `.cell_focused` always
- * co-occurs with a type class.
- */
-.cell_type_body.cell_focused,
-.cell_type_header.cell_focused {
-  --cell-stroke-last: var(--cell-stroke-select-direct);
-}
-
-/* last row: keep bottom border, colored by focus/selection; otherwise remove it */
-.cell_last-row {
-  border-bottom-color: var(--cell-stroke-last);
-}
-
-.cell_not-last-row {
-  border-bottom: none;
-}
-
-/* last column: keep right border, colored by focus/selection; otherwise remove it */
-.cell_last-column {
-  border-right-color: var(--cell-stroke-last);
-}
-
-.cell_not-last-column {
-  border-right: none;
-}
-
-/* rowAutoHeight resets the entire border last, overriding every rule above */
-.cell_row-auto-height {
-  min-height: auto;
-  overflow-y: auto;
-  border: none;
-}
-
-/* selection / focus overlay drawn on top of the cell so adjacent borders meet */
-.cell__overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-}
-
-.cell__overlay_selected-top::before {
-  border-top: 1px solid var(--cell-stroke-select-direct);
-}
-
-.cell__overlay_selected-left::before {
-  border-left: 1px solid var(--cell-stroke-select-direct);
-}
-
-.cell__overlay_selected-bottom::before {
-  border-bottom: 1px solid var(--cell-stroke-select-direct);
-}
-
-.cell__overlay_selected-right::before {
-  border-right: 1px solid var(--cell-stroke-select-direct);
-}
-
-.cell__overlay_row-auto-height::before {
-  border: none;
-}
-
-/* ===== Header.tsx ===== */
-
-.header-container {
-  display: flex;
-  position: sticky;
-  top: 0;
-  left: 0;
-  height: var(--header-height);
-  flex-direction: row;
-}
-
-.header-container_scrolled-vertical {
-  box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
-}
-
-.scrollable-header-container {
-  position: relative;
-  left: var(--scrollable-header-left);
-}
-
-.header-cell-container {
-  display: flex;
-  position: absolute;
-  left: var(--header-cell-left);
-  width: var(--header-cell-width);
-  height: var(--header-cell-height);
-}
-
-.header-cell-container:hover [data-resize] {
-  background: var(--click-grid-header-cell-color-stroke-selectDirect);
-}
-
-.row-column-container {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: var(--header-cell-width);
-  text-align: right;
-}
-
-.row-column-container_scrolled-horizontal {
-  box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
-}
-
-.row-column {
-  width: 100%;
-  overflow: hidden;
-  text-align: right;
-}
-
-/* ===== RowNumberColumn.tsx ===== */
-
-.row-number-column-container {
-  position: sticky;
-  top: var(--row-number-column-top);
-  left: 0;
-  width: var(--row-number-column-width);
-  height: 100%;
-}
-
-.row-number-column-container_scrolled-horizontal {
-  box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
-}
-
-.row-number-cell {
-  position: absolute;
-  top: var(--row-number-cell-top);
-  left: 0;
-  width: 100%;
-  height: var(--row-number-cell-height);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-/* ===== ColumnResizer.tsx ===== */
-
-.resize-span {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: calc(100% - 4px);
-  width: 4px;
-  height: var(--resize-span-height);
-  overflow: auto;
-  cursor: col-resize;
-}
-
-.resize-span:hover,
-.resize-span:active {
-  background: var(--click-grid-header-cell-color-stroke-selectDirect);
-}
-
-.resize-span_pressed {
-  position: fixed;
-  height: 100%;
 }

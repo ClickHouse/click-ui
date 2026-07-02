@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react';
 import { cn } from '@/lib/cva';
-import styles from './Grid.module.css';
+import styles from './ColumnResizer.module.css';
 import { ColumnResizeFn, GetResizerPositionFn } from './types';
 import { throttle } from 'lodash-es';
 import { initialPosition, ResizingState } from './useResizingState';
@@ -125,7 +125,10 @@ const ColumnResizer = ({
   return (
     <div
       ref={resizeRef}
-      className={cn(styles['resize-span'], isPressed && styles['resize-span_pressed'])}
+      className={cn(
+        styles['column-resizer'],
+        isPressed && styles['column-resizer_pressed']
+      )}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
         e.preventDefault();
@@ -156,7 +159,7 @@ const ColumnResizer = ({
       data-resize
       style={
         {
-          '--resize-span-height': `${height}px`,
+          '--column-resizer-height': `${height}px`,
           ...position,
         } as CSSProperties
       }

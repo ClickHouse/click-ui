@@ -1,0 +1,154 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. selectDirect) */
+
+/*
+ * The original styled-component dispatches background / text colour / border
+ * colour off `$type` (body|header) and `$selectionType`, and toggles individual
+ * borders / a `::before` overlay off boolean flags. Colours are aliased to local
+ * custom properties (set by the type + selection modifiers) so the shared border
+ * / overlay rules can reference them once.
+ */
+
+.cell {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--cell-space-y) var(--cell-space-x);
+  overflow: hidden;
+  border: 1px solid var(--cell-stroke-default);
+  background: var(--cell-background);
+  color: var(--cell-color);
+  font: var(--click-grid-cell-text-default);
+  text-align: left;
+  white-space: nowrap;
+  cursor: default;
+  text-overflow: ellipsis;
+}
+
+.cell[data-align='right'] {
+  text-align: right;
+}
+
+.cell_type_body {
+  --cell-stroke-default: var(--click-grid-body-cell-color-stroke-default);
+  --cell-stroke-select-direct: var(--click-grid-body-cell-color-stroke-selectDirect);
+  --cell-stroke-last: var(--click-grid-body-cell-color-stroke-default);
+  --cell-space-y: var(--click-grid-body-cell-space-y);
+  --cell-space-x: var(--click-grid-body-cell-space-x);
+  --cell-background: var(--click-grid-body-cell-color-background-default);
+  --cell-color: var(--click-grid-body-cell-color-text-default);
+}
+
+.cell_type_body.cell_selection_select-indirect {
+  --cell-stroke-last: var(--click-grid-body-cell-color-stroke-selectIndirect);
+  --cell-background: var(--click-grid-body-cell-color-background-selectIndirect);
+  --cell-color: var(--click-grid-body-cell-color-text-selectIndirect);
+}
+
+.cell_type_body.cell_selection_select-direct {
+  --cell-stroke-last: var(--click-grid-body-cell-color-stroke-selectDirect);
+  --cell-background: var(--click-grid-body-cell-color-background-selectDirect);
+  --cell-color: var(--click-grid-body-cell-color-text-selectDirect);
+}
+
+.cell_type_header {
+  --cell-stroke-default: var(--click-grid-header-cell-color-stroke-default);
+  --cell-stroke-select-direct: var(--click-grid-header-cell-color-stroke-selectDirect);
+  --cell-stroke-last: var(--click-grid-header-cell-color-stroke-default);
+  --cell-space-y: var(--click-grid-header-cell-space-y);
+  --cell-space-x: var(--click-grid-header-cell-space-x);
+  --cell-background: var(--click-grid-header-cell-color-background-default);
+  --cell-color: var(--click-grid-header-cell-color-title-default);
+}
+
+.cell_type_header.cell_selection_select-indirect {
+  --cell-stroke-last: var(--click-grid-header-cell-color-stroke-selectIndirect);
+  --cell-background: var(--click-grid-header-cell-color-background-selectIndirect);
+  --cell-color: var(--click-grid-header-cell-color-title-selectIndirect);
+}
+
+.cell_type_header.cell_selection_select-direct {
+  --cell-stroke-last: var(--click-grid-header-cell-color-stroke-selectDirect);
+  --cell-background: var(--click-grid-header-cell-color-background-selectDirect);
+  --cell-color: var(--click-grid-header-cell-color-title-selectDirect);
+}
+
+/* header cell with no border removes top/left edges on the corner cells */
+.cell_type_header.cell_no-border[data-grid-row='-1'] {
+  border-top: none;
+}
+
+.cell_type_header.cell_no-border[data-grid-column='-1'] {
+  border-left: none;
+}
+
+/* a focused cell draws its last-edge borders with the select-direct stroke */
+.cell_focused {
+  box-shadow: inset 0 0 0 1px var(--cell-stroke-select-direct);
+}
+
+/*
+ * Focus must win the last-edge stroke colour over any selection state. The
+ * original styled-component resolved the last-row / last-column border colour
+ * inline as `stroke[$isFocused ? 'selectDirect' : $selectionType]`, so focus
+ * always overrode the selection stroke. The `.cell_type_*.cell_selection_*`
+ * rules above set `--cell-stroke-last` at (0,2,0) specificity, so the focus
+ * override is qualified with the type class to match that specificity and,
+ * coming later in source order, take precedence. `.cell_focused` always
+ * co-occurs with a type class.
+ */
+.cell_type_body.cell_focused,
+.cell_type_header.cell_focused {
+  --cell-stroke-last: var(--cell-stroke-select-direct);
+}
+
+/* last row: keep bottom border, colored by focus/selection; otherwise remove it */
+.cell_last-row {
+  border-bottom-color: var(--cell-stroke-last);
+}
+
+.cell_not-last-row {
+  border-bottom: none;
+}
+
+/* last column: keep right border, colored by focus/selection; otherwise remove it */
+.cell_last-column {
+  border-right-color: var(--cell-stroke-last);
+}
+
+.cell_not-last-column {
+  border-right: none;
+}
+
+/* rowAutoHeight resets the entire border last, overriding every rule above */
+.cell_row-auto-height {
+  min-height: auto;
+  overflow-y: auto;
+  border: none;
+}
+
+/* selection / focus overlay drawn on top of the cell so adjacent borders meet */
+.cell__overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.cell__overlay_selected-top::before {
+  border-top: 1px solid var(--cell-stroke-select-direct);
+}
+
+.cell__overlay_selected-left::before {
+  border-left: 1px solid var(--cell-stroke-select-direct);
+}
+
+.cell__overlay_selected-bottom::before {
+  border-bottom: 1px solid var(--cell-stroke-select-direct);
+}
+
+.cell__overlay_selected-right::before {
+  border-right: 1px solid var(--cell-stroke-select-direct);
+}
+
+.cell__overlay_row-auto-height::before {
+  border: none;
+}

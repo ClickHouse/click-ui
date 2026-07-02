@@ -425,12 +425,12 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           <div
             {...containerProps}
             className={cn(
-              styles['grid-container'],
+              styles['grid__inner'],
               `sticky-grid__container grid-outer ${props.className ?? ''}`
             )}
           >
             <div
-              className={styles['grid-data-container']}
+              className={styles['grid__data']}
               style={
                 {
                   '--grid-data-top': `${showHeader ? headerHeight : 0}px`,
@@ -451,7 +451,6 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
                 rowWidth={rowNumberWidth}
                 rowCount={rowCount}
                 getSelectionType={getSelectionType}
-                showHeader={showHeader}
                 rowStart={rowStart}
                 showBorder={showBorder}
                 rowAutoHeight={rowAutoHeight}
@@ -826,14 +825,11 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         onOpenChange={setContextMenuOpen}
       >
         <ContextMenu.Trigger
-          className={cn(
-            styles['context-menu-trigger'],
-            showBorder && styles['context-menu-trigger_border']
-          )}
+          className={cn(styles['grid'], showBorder && styles['grid_bordered'])}
           style={
             {
-              '--context-menu-trigger-radius': roundedRadii[rounded],
-              '--context-menu-trigger-height': contextMenuTriggerHeight
+              '--grid-radius': roundedRadii[rounded],
+              '--grid-height': contextMenuTriggerHeight
                 ? `${contextMenuTriggerHeight}px`
                 : '100%',
             } as CSSProperties
