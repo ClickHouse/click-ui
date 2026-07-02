@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { cn, cva } from '@/lib/cva';
-import styles from './FormContainer.module.css';
+import styles from './FormRoot.module.css';
 
 const formRootVariants = cva(styles['form-root'], {
   variants: {
