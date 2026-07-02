@@ -9,6 +9,14 @@
   width: 100%;
 }
 
+.text_no-wrap {
+  white-space: nowrap;
+}
+
+.text_wrap {
+  white-space: normal;
+}
+
 /* font shorthand depends on both size and weight; one class per pairing
    mirrors the single `font:` declaration emitted by styled-components. */
 
