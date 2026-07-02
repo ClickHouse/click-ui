@@ -4,9 +4,11 @@ import {
   ElementType,
   ReactNode,
   forwardRef,
+  useState,
 } from 'react';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { cn } from '@/lib/cva';
+import { Tooltip } from '@/components/Tooltip';
 import styles from './EllipsisContent.module.css';
 
 export interface EllipsisContentProps<T extends ElementType = 'div'> {
@@ -17,7 +19,7 @@ type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>
 ) => ReactNode;
 
-const _EllipsisContent = <T extends ElementType = 'div'>(
+const EllipsisContentComponent = <T extends ElementType = 'div'>(
   {
     component,
     className,
@@ -27,13 +29,17 @@ const _EllipsisContent = <T extends ElementType = 'div'>(
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   const Component = component ?? 'div';
-  return (
+  const [tooltipContent, setTooltipContent] = useState<string | null>(null);
+
+  const content = (
     <Component
       ref={mergeRefs([
         ref,
         node => {
-          if (node && node.scrollWidth > node.clientWidth) {
-            node.title = node.innerText;
+          if (node) {
+            setTooltipContent(
+              node.scrollWidth > node.clientWidth ? node.innerText : null
+            );
           }
         },
       ])}
@@ -41,6 +47,19 @@ const _EllipsisContent = <T extends ElementType = 'div'>(
       className={cn(styles['ellipsis-content'], className)}
     />
   );
+
+  if (!tooltipContent) {
+    return content;
+  }
+
+  return (
+    <Tooltip>
+      <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
+      <Tooltip.Content>{tooltipContent}</Tooltip.Content>
+    </Tooltip>
+  );
 };
 
-export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(_EllipsisContent);
+export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(
+  EllipsisContentComponent
+);
