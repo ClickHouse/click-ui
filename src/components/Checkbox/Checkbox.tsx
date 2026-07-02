@@ -56,6 +56,12 @@ export const Checkbox = ({
           <Icon
             name={checked === 'indeterminate' ? 'minus' : 'check'}
             size="sm"
+            // The `check` glyph was scaled up 1.25x at the SVG level; render it
+            // here at 1rem / 1.25 = 0.8rem so the checkmark keeps its original
+            // size inside the box. `minus` (indeterminate) is unaffected.
+            {...(checked === 'indeterminate'
+              ? {}
+              : { width: '0.8rem', height: '0.8rem' })}
           />
         </RadixCheckbox.Indicator>
       </RadixCheckbox.Root>
