@@ -132,3 +132,15 @@ export const FillWidth: Story = {
     menu: menuItems,
   },
 };
+
+// Renders with the dropdown open so the visual-regression spec can screenshot the
+// portaled menu content — exercises the `as={Dropdown.Content}` path and the
+// dynamic min-width that SplitButton derives from the measured trigger width.
+export const PrimaryOpen: Story = {
+  args: {
+    type: 'primary',
+    defaultOpen: true,
+    children: 'Split button',
+    menu: menuItems,
+  },
+};
