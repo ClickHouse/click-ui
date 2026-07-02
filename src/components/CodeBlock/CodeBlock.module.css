@@ -12,10 +12,6 @@
   color: var(--codeblock-numbers);
 }
 
-.codeblock .linenumber {
-  color: var(--codeblock-numbers);
-}
-
 /* This class is applied alongside the IconButton module classes on the same
    <button>. `color`, `padding`, and `border` are set by both; the
    styled-components original won them via source order. Double the class so

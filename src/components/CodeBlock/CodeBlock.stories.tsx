@@ -63,8 +63,7 @@ export const DarkCodeTheme: Story = {
   decorators: Decorator,
 };
 
-// No line numbers — guards the `.linenumber` color rule against being applied
-// when line numbers are hidden.
+// No line numbers — VR coverage for the line-numbers-hidden layout.
 export const WithoutLineNumbers: Story = {
   args: {
     children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
