@@ -1,3 +1,10 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. genericMenu) */
+
+.trigger:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
 .right-menu-content {
   z-index: 1;
   flex-direction: column;
@@ -25,4 +32,9 @@
 
 .right-menu-content_show-arrow[data-side='right'] .popover-arrow {
   margin-left: 1rem;
+}
+
+.group {
+  width: 100%;
+  border-bottom: 1px solid var(--click-genericMenu-item-color-default-stroke-default);
 }
