@@ -86,9 +86,6 @@
 }
 
 .table__resizer {
-  /* No positive z-index: the resizer is absolutely positioned and the last child of the header, so
-     it already paints above the (statically positioned) header content. A positive z-index instead
-     lifted it above portaled overlays (dropdowns, flyouts), leaving the delimiters bleeding on top. */
   position: absolute;
   top: 0;
   right: 0;
