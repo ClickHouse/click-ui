@@ -39,6 +39,21 @@ describe('Button', () => {
     expect(button).toBeDisabled();
   });
 
+  describe('accessible name', () => {
+    it('should fall back to the icon name when no aria-label is given', () => {
+      const { getByRole } = renderButton({ icon: 'trash' });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'trash');
+    });
+
+    it('should use a consumer-supplied aria-label instead of the icon name', () => {
+      const { getByRole } = renderButton({
+        icon: 'trash',
+        'aria-label': 'Delete item',
+      });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'Delete item');
+    });
+  });
+
   describe('Button HTML types', () => {
     it('should not default to any type when consumer does not specify it, thus behaving as type=submit', () => {
       const handleSubmit = vi.fn();
