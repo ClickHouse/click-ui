@@ -37,10 +37,11 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         disabled={disabled}
         ref={ref}
         role="button"
-        aria-label={props['aria-label'] ?? iconName}
+        aria-label={props['aria-label'] || iconName}
       >
         <Icon
           name={icon}
+          aria-hidden
           size="sm"
         />
       </button>
