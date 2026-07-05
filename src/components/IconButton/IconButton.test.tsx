@@ -40,7 +40,7 @@ describe('Button', () => {
   });
 
   describe('Button HTML types', () => {
-    it('should not default to any type when consumer does not specify it, thus behaving as type=submit', () => {
+    it('should default to type=button so it does not submit an enclosing form', () => {
       const handleSubmit = vi.fn();
 
       const { getByRole } = renderCUI(
@@ -51,8 +51,23 @@ describe('Button', () => {
 
       const button = getByRole('button');
 
-      expect(handleSubmit).not.toHaveBeenCalled();
+      expect(button).toHaveAttribute('type', 'button');
       fireEvent.click(button);
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
+    it('should submit an enclosing form when htmlType="submit" is set explicitly', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+
+      const { getByRole } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <IconButton icon="user" htmlType="submit" />
+        </form>
+      );
+
+      const button = getByRole('button');
+      fireEvent.click(button);
+
       expect(handleSubmit).toHaveBeenCalled();
     });
 
