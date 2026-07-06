@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { FileTabs, FileTabStatusType } from '@/components/FileTabs';
 import { renderCUI } from '@/utils/test-utils';
@@ -69,45 +68,28 @@ describe('FileTabs', () => {
     expect(onSelect).toBeCalledTimes(1);
   });
 
-  // TODO: Move to visual regression test instead, JSDOM (used by Vitest/Jest) does not evaluate CSS :hover pseudo-class rules — it fires the mouseenter/mouseover events but doesn't apply the associated stylesheet rules. This means toHaveStyle({ display: 'block' }) after userEvent.hover() will not reflect the CSS hover state and these two tests are likely to fail or give false results. To make hover tests meaningful, the component needs to manage visibility via JS state (e.g., onMouseEnter/onMouseLeave handlers toggling a state variable, then using inline styles or data-* attributes that get asserted).
+  // The hover-driven show/hide of the close button and status indicator is
+  // expressed entirely in CSS (`[data-type='close']` / `[data-indicator]`
+  // toggled under `:hover`). JSDOM does not evaluate those stylesheet rules,
+  // so the visual behavior is asserted in the Playwright visual-regression
+  // spec (tests/display/filetabs.spec.ts) instead. The unit tests here cover
+  // only the data-attribute contract that JS controls.
   describe('On hover interactions', () => {
     describe('Close button', () => {
-      it('should be hidden by default', () => {
+      it('renders with the close data attribute', () => {
         const { getByTestId } = renderTabs({});
         const closeButton = getByTestId('tab-element-0-close');
 
         expect(closeButton).toHaveAttribute('data-type', 'close');
-        expect(closeButton).toHaveStyle({ display: 'none' });
-      });
-
-      it('should become visible when tab is hovered', async () => {
-        const { getByTestId } = renderTabs({});
-        const tabElement = getByTestId('tab-element-0');
-        const closeButton = getByTestId('tab-element-0-close');
-
-        await userEvent.hover(tabElement);
-
-        expect(closeButton).toHaveStyle({ display: 'block' });
       });
     });
 
     describe('Status indicator', () => {
-      it('should be visible by default', () => {
+      it('reflects the status via the data-indicator attribute', () => {
         const { getByTestId } = renderTabs({ status: 'warning' });
         const indicator = getByTestId('tab-element-0-status');
 
         expect(indicator).toHaveAttribute('data-indicator', 'warning');
-        expect(indicator).toHaveStyle({ display: 'block' });
-      });
-
-      it('should be hidden when tab is hovered', async () => {
-        const { getByTestId } = renderTabs({ status: 'warning' });
-        const tabElement = getByTestId('tab-element-0');
-        const indicator = getByTestId('tab-element-0-status');
-
-        await userEvent.hover(tabElement);
-
-        expect(indicator).toHaveStyle({ display: 'none' });
       });
     });
   });
