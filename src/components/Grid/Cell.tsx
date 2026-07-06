@@ -15,8 +15,6 @@ export const Cell = memo(
       focus,
       columnCount,
       rowCount,
-      showRowNumber,
-      showHeader,
       rowHeight,
       rowStart,
       rowAutoHeight,
@@ -90,8 +88,6 @@ export const Cell = memo(
           $isFocused={isFocused}
           $isLastRow={rowCount - 1 === rowIndex}
           $isLastColumn={columnCount - 1 === columnIndex}
-          $isFirstColumn={columnIndex === 0 && !showRowNumber}
-          $isFirstRow={rowIndex === 0 && !showHeader}
           $selectionType={selectionType}
           $height={rowHeight}
           data-grid-row={currentRowIndex}

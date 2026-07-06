@@ -1,0 +1,22 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. selectDirect) */
+
+.column-resizer {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: calc(100% - 4px);
+  width: 4px;
+  height: var(--column-resizer-height);
+  overflow: auto;
+  cursor: col-resize;
+}
+
+.column-resizer:hover,
+.column-resizer:active {
+  background: var(--click-grid-header-cell-color-stroke-selectDirect);
+}
+
+.column-resizer_pressed {
+  position: fixed;
+  height: 100%;
+}

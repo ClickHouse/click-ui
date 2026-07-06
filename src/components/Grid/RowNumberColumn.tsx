@@ -1,42 +1,9 @@
-import { styled } from 'styled-components';
+import { CSSProperties } from 'react';
+import { cn } from '@/lib/cva';
+import styles from './RowNumberColumn.module.css';
 import { SelectionTypeFn } from './types';
 import { StyledCell } from './StyledCell';
-const RowNumberColumnContainer = styled.div<{
-  $height: number;
-  $width: number;
-  $scrolledHorizontal: boolean;
-  $rowAutoHeight?: boolean;
-}>`
-  position: sticky;
-  left: 0;
-  ${({ $height, $width }) => `
-    top: ${$height}px;
-    width: ${$width}px;
-    height: 100%;
-  `}
 
-  ${({ $scrolledHorizontal, theme }) =>
-    $scrolledHorizontal
-      ? `box-shadow: 0px 0 0px 1px ${theme.click.grid.header.cell.color.stroke.default};`
-      : ''}
-`;
-
-const RowNumberCell = styled.div<{
-  $height: number;
-  $rowNumber: number;
-  $rowAutoHeight?: boolean;
-}>`
-  position: absolute;
-  left: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  ${({ $height, $rowNumber, $rowAutoHeight }) => `
-    top: ${$height * $rowNumber}px;
-    height: ${$rowAutoHeight ? '100%' : `${$height}px`};
-  `}
-`;
 interface RowNumberColumnProps {
   minRow: number;
   maxRow: number;
@@ -45,7 +12,6 @@ interface RowNumberColumnProps {
   rowWidth: number;
   getSelectionType: SelectionTypeFn;
   rowCount: number;
-  showHeader: boolean;
   scrolledHorizontal: boolean;
   rowStart: number;
   showBorder: boolean;
@@ -57,7 +23,6 @@ interface RowNumberProps extends Pick<
 > {
   rowIndex: number;
   isLastRow: boolean;
-  isFirstRow: boolean;
   rowAutoHeight?: boolean;
 }
 const RowNumber = ({
@@ -65,7 +30,6 @@ const RowNumber = ({
   rowHeight,
   getSelectionType,
   isLastRow,
-  isFirstRow,
   showBorder,
   rowStart,
   rowAutoHeight,
@@ -85,18 +49,20 @@ const RowNumber = ({
     topSelectionType !== selectionType;
 
   return (
-    <RowNumberCell
-      $rowNumber={rowIndex}
-      $height={rowHeight}
-      $rowAutoHeight={rowAutoHeight}
+    <div
+      className={styles['row-number-column__cell']}
+      style={
+        {
+          '--row-number-cell-top': `${rowHeight * rowIndex}px`,
+          '--row-number-cell-height': rowAutoHeight ? '100%' : `${rowHeight}px`,
+        } as CSSProperties
+      }
     >
       <StyledCell
         $height={rowHeight}
         $isLastColumn={false}
         $selectionType={selectionType}
-        $isFirstColumn
         $type="header"
-        $isFirstRow={isFirstRow}
         $isFocused={false}
         $isLastRow={isLastRow}
         $isSelectedLeft={isSelected}
@@ -111,7 +77,7 @@ const RowNumber = ({
       >
         {currentRowIndex}
       </StyledCell>
-    </RowNumberCell>
+    </div>
   );
 };
 
@@ -123,18 +89,23 @@ const RowNumberColumn = ({
   rowWidth,
   getSelectionType,
   rowCount,
-  showHeader,
   scrolledHorizontal,
   rowStart = 0,
   showBorder,
   rowAutoHeight,
 }: RowNumberColumnProps) => {
   return (
-    <RowNumberColumnContainer
-      $height={headerHeight}
-      $width={rowWidth}
-      $scrolledHorizontal={scrolledHorizontal}
-      $rowAutoHeight={rowAutoHeight}
+    <div
+      className={cn(
+        styles['row-number-column'],
+        scrolledHorizontal && styles['row-number-column_scrolled-horizontal']
+      )}
+      style={
+        {
+          '--row-number-column-top': `${headerHeight}px`,
+          '--row-number-column-width': `${rowWidth}px`,
+        } as CSSProperties
+      }
     >
       {Array.from({ length: maxRow - minRow + 1 }, (_, index) => minRow + index).map(
         rowIndex => (
@@ -144,14 +115,13 @@ const RowNumberColumn = ({
             rowHeight={rowHeight}
             rowIndex={rowIndex}
             isLastRow={rowIndex === rowCount}
-            isFirstRow={!showHeader && rowIndex === 0}
             showBorder={showBorder}
             rowStart={rowStart}
             rowAutoHeight={rowAutoHeight}
           />
         )
       )}
-    </RowNumberColumnContainer>
+    </div>
   );
 };
 
