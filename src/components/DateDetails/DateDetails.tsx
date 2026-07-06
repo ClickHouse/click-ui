@@ -1,16 +1,10 @@
-import { styled } from 'styled-components';
-
 import { Popover } from '@/components/Popover';
 import { Text } from '@/components/Text';
-import { linkStyles, StyledLinkProps } from '@/styles/linkStyles';
+import { Link } from '@/components/Link';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';
 
 import { dayjs, Dayjs, formatTimezone } from '@/utils/date';
-
-const UnderlinedTrigger = styled(Popover.Trigger)<StyledLinkProps>`
-  ${linkStyles}
-`;
 
 const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   const isCurrentYear = dayjs().year() === date.year();
@@ -61,17 +55,21 @@ export const DateDetails = ({
 
   return (
     <Popover>
-      <UnderlinedTrigger
-        $size="sm"
-        $weight="medium"
-      >
-        <Text
-          size={size}
-          weight={weight}
+      <Popover.Trigger>
+        <Link
+          component="span"
+          size="sm"
+          weight="medium"
         >
-          {dayjs.utc(date).fromNow()}
-        </Text>
-      </UnderlinedTrigger>
+          <Text
+            component="span"
+            size={size}
+            weight={weight}
+          >
+            {dayjs.utc(date).fromNow()}
+          </Text>
+        </Link>
+      </Popover.Trigger>
       <Popover.Content
         side={side}
         showArrow

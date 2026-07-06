@@ -44,19 +44,22 @@ describe('DateDetails Visual Regression', () => {
       });
     });
 
-    // Guards the styled(Popover.Trigger) → CSS Modules cascade: the trigger's
-    // linkStyles color and typography must win over the Popover trigger's
-    // `color: inherit` / `font: inherit` resets that land on the same element.
-    it('trigger renders the link color and medium/sm typography', async ({ page }) => {
+    // The trigger reuses the Link component for its styling, but the trigger is
+    // a popover button — not a navigation link. It renders as a non-anchor
+    // element (no `href`, no link role) so assistive tech doesn't announce a
+    // link whose activation opens a popover instead of navigating. Guards that
+    // no anchor is emitted and that the reused Link styling still resolves.
+    it('trigger renders link styling without an anchor element', async ({ page }) => {
       await page.goto(getStoryUrl('display-datedetails--trigger', 'light'), {
         waitUntil: 'networkidle',
       });
       const trigger = page.locator(triggerLocator);
       await expect(trigger).toBeVisible({ timeout: 10000 });
-      await expect(trigger).toHaveCSS('color', 'rgb(67, 126, 239)');
-      await expect(trigger).toHaveCSS('font-weight', '500');
-      await expect(trigger).toHaveCSS('font-size', '12px');
-      await expect(trigger).toHaveCSS('cursor', 'pointer');
+      await expect(trigger.locator('a')).toHaveCount(0);
+      const link = trigger.locator('span').first();
+      await expect(link).toHaveCSS('color', 'rgb(67, 126, 239)');
+      await expect(link).toHaveCSS('font-weight', '500');
+      await expect(link).toHaveCSS('font-size', '12px');
     });
   });
 
