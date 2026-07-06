@@ -1,7 +1,7 @@
 // Affected-spec coverage for scoped visual-regression runs in CI.
 // See .scripts/js/affected-visual-specs
 // @covers src/components/DatePicker
-import { test as it, expect, Page } from '@playwright/test';
+import { test as it, expect } from '@playwright/test';
 import { getStoryUrl } from '../utils';
 
 const { describe } = it;
@@ -17,7 +17,10 @@ const STORY = 'display-datepicker--vr-date-picker';
 const popper = '[data-radix-popper-content-wrapper]';
 const settleMs = 300;
 
-const openCalendar = async (page: Page, theme: 'light' | 'dark') => {
+const openCalendar = async (
+  page: import('@playwright/test').Page,
+  theme: 'light' | 'dark'
+) => {
   await page.clock.setFixedTime(FIXED_NOW);
   await page.goto(getStoryUrl(STORY, theme), { waitUntil: 'networkidle' });
   const input = page.getByTestId('datepicker-input');
