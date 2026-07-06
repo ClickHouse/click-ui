@@ -87,7 +87,6 @@
 
 .table__resizer {
   position: absolute;
-  z-index: 1;
   top: 0;
   right: 0;
   width: 24px;
