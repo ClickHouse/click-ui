@@ -1450,6 +1450,7 @@
   --click-feedback-color-neutral-background: rgb(41.176% 43.137% 47.451% / 0.1);
   --click-feedback-color-neutral-foreground: #53575f;
   --click-feedback-color-neutral-stroke: #e6e7e9;
+  --click-progressBar-color-text-default: #ffffff;
   --click-storybook-global-background: #ffffff;
   --click-chart-color-default-blue: #437eef;
   --click-chart-color-default-orange: #ff7729;
