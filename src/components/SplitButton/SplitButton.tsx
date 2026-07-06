@@ -1,10 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
-import { styled } from 'styled-components';
+import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Button/BaseButton';
 import { IconWrapper } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
-import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
+import { cn, cva } from '@/lib/cva';
+import { SplitButtonProps, Menu } from './SplitButton.types';
+import styles from './SplitButton.module.css';
+
+const triggerVariants = cva(styles['split-button'], {
+  variants: {
+    type: {
+      primary: styles['split-button_type_primary'],
+      secondary: styles['split-button_type_secondary'],
+    },
+    fillWidth: {
+      true: styles['split-button_fill-width'],
+    },
+    disabled: {
+      true: styles['split-button_disabled'],
+    },
+  },
+  defaultVariants: {
+    type: 'primary',
+  },
+});
+
+const primaryVariants = cva(styles['split-button__primary'], {
+  variants: {
+    fillWidth: {
+      true: styles['split-button__primary_fill-width'],
+    },
+  },
+});
 
 export const SplitButton = ({
   type = 'primary',
@@ -21,6 +48,7 @@ export const SplitButton = ({
   children,
   icon,
   iconDir = 'start',
+  className,
   ...props
 }: SplitButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -45,6 +73,14 @@ export const SplitButton = ({
     };
   }, []);
 
+  const contentStyle = useMemo(
+    () =>
+      ({
+        '--split-button-dropdown-min-width': `${width}px`,
+      }) as CSSProperties,
+    [width]
+  );
+
   return (
     <Dropdown
       dir={dir}
@@ -53,33 +89,29 @@ export const SplitButton = ({
       onOpenChange={onOpenChange}
       modal={modal}
     >
-      <SplitButtonTrigger
-        $disabled={disabled}
-        $fillWidth={fillWidth}
+      <div
         ref={ref}
-        $type={type}
+        className={cn(triggerVariants({ type, fillWidth, disabled }))}
       >
-        <PrimaryButton
+        <BaseButton
           disabled={disabled}
-          $type={type}
-          $fillWidth={fillWidth}
           {...props}
           type={htmlType}
+          className={cn(primaryVariants({ fillWidth }), className)}
         >
-          <ButtonData
-            as={IconWrapper}
+          <IconWrapper
+            className={styles['split-button__button-data']}
             icon={icon}
             iconDir={iconDir}
           >
             {children}
-          </ButtonData>
-        </PrimaryButton>
-        <SecondaryButton
-          as={Dropdown.Trigger}
+          </IconWrapper>
+        </BaseButton>
+        <Dropdown.Trigger
           disabled={disabled}
-          $type={type}
           asChild
           data-testid="split-button-dropdown"
+          className={styles['split-button__secondary']}
         >
           <span>
             <Icon
@@ -87,14 +119,14 @@ export const SplitButton = ({
               size="sm"
             />
           </span>
-        </SecondaryButton>
-      </SplitButtonTrigger>
-      <DropdownContent
-        as={Dropdown.Content}
+        </Dropdown.Trigger>
+      </div>
+      <Dropdown.Content
         side={side}
-        $width={width}
         sideOffset={4}
         align="end"
+        className={styles['split-button__dropdown-content']}
+        style={contentStyle}
       >
         {menu.map((item: Menu, index: number) => (
           <MenuContentItem
@@ -103,14 +135,10 @@ export const SplitButton = ({
             {...item}
           />
         ))}
-      </DropdownContent>
+      </Dropdown.Content>
     </Dropdown>
   );
 };
-
-const DropdownContent = styled.div<{ $width: number }>`
-  min-width: ${({ $width }) => $width}px;
-`;
 
 const MenuContentItem = ({
   items = [],
@@ -173,95 +201,3 @@ const MenuContentItem = ({
     );
   }
 };
-
-const SplitButtonTrigger = styled.div<{
-  $disabled?: boolean;
-  $type: ButtonType;
-  $fillWidth?: boolean;
-}>`
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  user-select: none;
-  ${({ theme, $disabled = false, $type, $fillWidth }) => `
-    width: ${$fillWidth ? '100%' : 'revert'};
-    border-radius: ${theme.click.button.radii.all};
-    border: 1px solid ${theme.click.button.split[$type].stroke.default};
-    ${
-      $disabled
-        ? `
-          cursor: not-allowed;
-          border-color: ${theme.click.button.split[$type].stroke.disabled};
-        `
-        : `
-          &:hover {
-            border-color: ${theme.click.button.split[$type].stroke.hover};
-          }
-          &:focus-within {
-            border-color: ${theme.click.button.split[$type].stroke.active};
-          }
-        `
-    }
-  `}
-`;
-
-const PrimaryButton = styled(BaseButton)<{
-  $type: ButtonType;
-  $fillWidth?: boolean;
-}>`
-  border: none;
-  align-self: stretch;
-  border-radius: 0;
-  align-items: center;
-  padding: ${({ theme }) =>
-    `${theme.click.button.split.space.y} ${theme.click.button.split.space.x}`};
-  ${({ theme, $type, $fillWidth }) => `
-    width: ${$fillWidth ? '100%' : 'revert'};
-    justify-content: center;
-    background: ${theme.click.button.split[$type].background.main.default};
-    color: ${theme.click.button.split[$type].text.default};
-    font: ${theme.click.button.split.typography.label.default};
-    &:hover {
-      background: ${theme.click.button.split[$type].background.main.hover};
-      color: ${theme.click.button.split[$type].text.hover};
-      font: ${theme.click.button.split.typography.label.hover};
-    }
-    &:focus {
-      background: ${theme.click.button.split[$type].background.main.active};
-      color: ${theme.click.button.split[$type].text.active};
-      font: ${theme.click.button.split.typography.label.active};
-    }
-    &:disabled {
-      background: ${theme.click.button.split[$type].background.main.disabled};
-      color: ${theme.click.button.split[$type].text.disabled};
-      font: ${theme.click.button.split.typography.label.disabled};
-    }
-  `}
-`;
-
-const SecondaryButton = styled(BaseButton)<{ $type: ButtonType }>`
-  border: none;
-  align-self: stretch;
-  border-radius: 0;
-  ${({ theme, $type }) => `
-    padding: ${theme.click.button.split.icon.space.y} ${theme.click.button.split.icon.space.x};
-    background: ${theme.click.button.split[$type].background.action.default};
-    color: ${theme.click.button.split[$type].text.default};
-    &:hover {
-      background: ${theme.click.button.split[$type].background.action.hover};
-      color: ${theme.click.button.split[$type].text.hover};
-    }
-    &:focus {
-      background: ${theme.click.button.split[$type].background.action.active};
-      color: ${theme.click.button.split[$type].text.active};
-    }
-    &[data-disabled] {
-      background: ${theme.click.button.split[$type].background.action.disabled};
-      color: ${theme.click.button.split[$type].text.disabled};
-    }
-  `}
-`;
-
-const ButtonData = styled.div`
-  width: auto;
-`;

@@ -102,6 +102,20 @@ describe('SplitButton Visual Regression', () => {
         maxDiffPixels: 100,
       });
     });
+
+    // Screenshots the portaled dropdown content (rendered via as={Dropdown.Content})
+    // whose min-width is derived from the measured trigger width.
+    it('open content matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('buttons-splitbutton--primary-open', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const menu = page.getByRole('menu');
+      await expect(menu).toBeVisible({ timeout: 10000 });
+      await page.waitForTimeout(200);
+      await expect(menu).toHaveScreenshot('splitbutton-open-content-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
   });
 
   describe('Dark Theme (System prefers-color-scheme)', () => {
@@ -136,6 +150,18 @@ describe('SplitButton Visual Regression', () => {
       const harness = page.locator(harnessLocator);
       await expect(harness).toBeVisible({ timeout: 10000 });
       await expect(harness).toHaveScreenshot('splitbutton-primary-disabled-dark.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('open content matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('buttons-splitbutton--primary-open'), {
+        waitUntil: 'networkidle',
+      });
+      const menu = page.getByRole('menu');
+      await expect(menu).toBeVisible({ timeout: 10000 });
+      await page.waitForTimeout(200);
+      await expect(menu).toHaveScreenshot('splitbutton-open-content-dark.png', {
         maxDiffPixels: 100,
       });
     });

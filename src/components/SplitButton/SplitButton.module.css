@@ -1,0 +1,138 @@
+.split-button {
+  display: inline-flex;
+  width: revert;
+  overflow: hidden;
+  align-items: center;
+  border: 1px solid var(--split-stroke-default);
+  border-radius: var(--click-button-radii-all);
+  user-select: none;
+}
+
+.split-button_type_primary {
+  --split-stroke-default: var(--click-button-split-primary-stroke-default);
+  --split-stroke-hover: var(--click-button-split-primary-stroke-hover);
+  --split-stroke-active: var(--click-button-split-primary-stroke-active);
+  --split-stroke-disabled: var(--click-button-split-primary-stroke-disabled);
+  --split-bg-main-default: var(--click-button-split-primary-background-main-default);
+  --split-bg-main-hover: var(--click-button-split-primary-background-main-hover);
+  --split-bg-main-active: var(--click-button-split-primary-background-main-active);
+  --split-bg-main-disabled: var(--click-button-split-primary-background-main-disabled);
+  --split-bg-action-default: var(--click-button-split-primary-background-action-default);
+  --split-bg-action-hover: var(--click-button-split-primary-background-action-hover);
+  --split-bg-action-active: var(--click-button-split-primary-background-action-active);
+  --split-bg-action-disabled: var(--click-button-split-primary-background-action-disabled);
+  --split-text-default: var(--click-button-split-primary-text-default);
+  --split-text-hover: var(--click-button-split-primary-text-hover);
+  --split-text-active: var(--click-button-split-primary-text-active);
+  --split-text-disabled: var(--click-button-split-primary-text-disabled);
+}
+
+.split-button_type_secondary {
+  --split-stroke-default: var(--click-button-split-secondary-stroke-default);
+  --split-stroke-hover: var(--click-button-split-secondary-stroke-hover);
+  --split-stroke-active: var(--click-button-split-secondary-stroke-active);
+  --split-stroke-disabled: var(--click-button-split-secondary-stroke-disabled);
+  --split-bg-main-default: var(--click-button-split-secondary-background-main-default);
+  --split-bg-main-hover: var(--click-button-split-secondary-background-main-hover);
+  --split-bg-main-active: var(--click-button-split-secondary-background-main-active);
+  --split-bg-main-disabled: var(--click-button-split-secondary-background-main-disabled);
+  --split-bg-action-default: var(--click-button-split-secondary-background-action-default);
+  --split-bg-action-hover: var(--click-button-split-secondary-background-action-hover);
+  --split-bg-action-active: var(--click-button-split-secondary-background-action-active);
+  --split-bg-action-disabled: var(--click-button-split-secondary-background-action-disabled);
+  --split-text-default: var(--click-button-split-secondary-text-default);
+  --split-text-hover: var(--click-button-split-secondary-text-hover);
+  --split-text-active: var(--click-button-split-secondary-text-active);
+  --split-text-disabled: var(--click-button-split-secondary-text-disabled);
+}
+
+.split-button_fill-width {
+  width: 100%;
+}
+
+.split-button:hover {
+  border-color: var(--split-stroke-hover);
+}
+
+.split-button:focus-within {
+  border-color: var(--split-stroke-active);
+}
+
+/* stylelint-disable no-descending-specificity -- disabled state intentionally
+   defined after hover/focus-within to mirror the source cascade order; the
+   pre-migration original omitted the hover/focus-within rules entirely when
+   disabled, so the disabled border-color must win over them. */
+.split-button_disabled,
+.split-button_disabled:hover,
+.split-button_disabled:focus-within {
+  border-color: var(--split-stroke-disabled);
+  cursor: not-allowed;
+}
+/* stylelint-enable no-descending-specificity */
+
+.split-button__primary {
+  width: revert;
+  padding: var(--click-button-split-space-y) var(--click-button-split-space-x);
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border: none;
+  border-radius: 0;
+  background: var(--split-bg-main-default);
+  color: var(--split-text-default);
+  font: var(--click-button-split-typography-label-default);
+}
+
+.split-button__primary_fill-width {
+  width: 100%;
+}
+
+.split-button__primary:hover {
+  background: var(--split-bg-main-hover);
+  color: var(--split-text-hover);
+  font: var(--click-button-split-typography-label-hover);
+}
+
+.split-button__primary:focus {
+  background: var(--split-bg-main-active);
+  color: var(--split-text-active);
+  font: var(--click-button-split-typography-label-active);
+}
+
+.split-button__primary:disabled {
+  background: var(--split-bg-main-disabled);
+  color: var(--split-text-disabled);
+  font: var(--click-button-split-typography-label-disabled);
+}
+
+.split-button__secondary {
+  padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
+  align-self: stretch;
+  border: none;
+  border-radius: 0;
+  background: var(--split-bg-action-default);
+  color: var(--split-text-default);
+}
+
+.split-button__secondary:hover {
+  background: var(--split-bg-action-hover);
+  color: var(--split-text-hover);
+}
+
+.split-button__secondary:focus {
+  background: var(--split-bg-action-active);
+  color: var(--split-text-active);
+}
+
+.split-button__secondary[data-disabled] {
+  background: var(--split-bg-action-disabled);
+  color: var(--split-text-disabled);
+}
+
+.split-button__button-data {
+  width: auto;
+}
+
+.split-button__dropdown-content {
+  min-width: var(--split-button-dropdown-min-width, 0);
+}
