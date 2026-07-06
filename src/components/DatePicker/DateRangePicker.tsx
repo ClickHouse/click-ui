@@ -1,7 +1,10 @@
 import {
+  ComponentProps,
   Dispatch,
+  forwardRef,
   KeyboardEvent,
   MouseEvent,
+  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
@@ -10,7 +13,6 @@ import {
   useState,
 } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
-import { styled } from 'styled-components';
 import { Dropdown } from '@/components/Dropdown';
 import {
   Body,
@@ -22,6 +24,8 @@ import {
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';
 import { Icon } from '@/components/Icon';
+import { cn } from '@/lib/cva';
+import styles from './DateRangePicker.module.css';
 import {
   DateRange,
   datesAreWithinMaxRange,
@@ -35,53 +39,79 @@ import {
 
 type OpenDirection = 'left' | 'right';
 
-const calendarWidth = 275;
+const PredefinedCalendarContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Panel>) => (
+  <Panel
+    {...props}
+    className={cn(styles['predefined-calendar-container'], className)}
+  />
+);
 
-const PredefinedCalendarContainer = styled(Panel)`
-  align-items: start;
-  background: ${({ theme }) => theme.click.panel.color.background.muted};
-`;
+const PredefinedDatesContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Container>) => (
+  <Container
+    {...props}
+    className={cn(styles['predefined-dates-container'], className)}
+  />
+);
 
-const PredefinedDatesContainer = styled(Container)`
-  width: ${calendarWidth}px;
-`;
+const CalendarRendererContainer = forwardRef<
+  HTMLDivElement,
+  { openDirection?: OpenDirection; children: ReactNode }
+>(({ openDirection, children }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      styles['calendar-renderer-container'],
+      openDirection === 'left'
+        ? styles['calendar-renderer-container_left']
+        : styles['calendar-renderer-container_right']
+    )}
+  >
+    {children}
+  </div>
+));
+CalendarRendererContainer.displayName = 'CalendarRendererContainer';
 
-// left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
-const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>`
-  border: ${({ theme }) =>
-    `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  box-shadow:
-    lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
-    lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  ${({ $openDirection }) => ($openDirection === 'left' ? 'right: 100%;' : 'left: 276px;')}
-  position: absolute;
-  top: 0;
-`;
+const StyledCalendarRenderer = ({
+  className,
+  ...props
+}: ComponentProps<typeof CalendarRenderer>) => (
+  <CalendarRenderer
+    {...props}
+    className={cn(styles['styled-calendar-renderer'], className)}
+  />
+);
 
-// Height of 221px is height the height the calendar needs to match the PredefinedDatesContainer
-const StyledCalendarRenderer = styled(CalendarRenderer)`
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  min-height: 221px;
-`;
+const ScrollableContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Container>) => (
+  <Container
+    {...props}
+    className={cn(styles['scrollable-container'], className)}
+  />
+);
 
-// max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
-const ScrollableContainer = styled(Container)`
-  max-height: 210px;
-  overflow-y: auto;
-`;
-
-const DateRangeTableCell = styled(DateTableCell)<{
-  $shouldShowRangeIndicator?: boolean;
-}>`
-  ${({ $shouldShowRangeIndicator, theme }) =>
-    $shouldShowRangeIndicator &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.range};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
-    border-radius: 0;
-    `}
-`;
+const DateRangeTableCell = ({
+  shouldShowRangeIndicator,
+  className,
+  ...props
+}: ComponentProps<typeof DateTableCell> & {
+  shouldShowRangeIndicator?: boolean;
+}) => (
+  <DateTableCell
+    {...props}
+    className={cn(
+      shouldShowRangeIndicator && styles['date-range-table-cell_indicator'],
+      className
+    )}
+  />
+);
 
 interface CalendarProps {
   calendarBody: Body;
@@ -185,13 +215,13 @@ const Calendar = ({
           };
           return (
             <DateRangeTableCell
-              $shouldShowRangeIndicator={
+              shouldShowRangeIndicator={
                 !isSelected && (shouldShowRangeIndicator || isBetweenStartAndEndDates)
               }
-              $isCurrentMonth={isCurrentMonth}
-              $isDisabled={isDisabled}
-              $isSelected={isSelected}
-              $isPresent={isPresent}
+              isCurrentMonth={isCurrentMonth}
+              isDisabled={isDisabled}
+              isSelected={Boolean(isSelected)}
+              isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
@@ -467,7 +497,7 @@ export const DateRangePicker = ({
 
             {shouldShowCustomRange && (
               <CalendarRendererContainer
-                $openDirection={calendarOpenDirection}
+                openDirection={calendarOpenDirection}
                 ref={calendarContainerRef}
               >
                 <StyledCalendarRenderer

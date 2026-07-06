@@ -1,7 +1,10 @@
 import {
+  ComponentProps,
   Dispatch,
+  forwardRef,
   KeyboardEvent,
   MouseEvent,
+  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
@@ -10,7 +13,6 @@ import {
   useState,
 } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
-import { styled } from 'styled-components';
 import { Dropdown } from '../Dropdown/Dropdown';
 import {
   Body,
@@ -37,75 +39,123 @@ import { TextField } from '@/components/TextField';
 import { ButtonGroup } from '../ButtonGroup/ButtonGroup';
 import { Label } from '../Label/Label';
 import { Text } from '../Text';
+import { cn } from '@/lib/cva';
+import styles from './DateTimeRangePicker.module.css';
 
 const calendarFullWidth = '258px';
 
-const PredefinedCalendarContainer = styled(Panel)`
-  align-items: start;
-  background: ${({ theme }) => theme.click.panel.color.background.muted};
-`;
+const PredefinedCalendarContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Panel>) => (
+  <Panel
+    {...props}
+    className={cn(styles['predefined-calendar-container'], className)}
+  />
+);
 
-const PredefinedTimesContainer = styled(Container)`
-  width: ${calendarFullWidth};
-`;
+const PredefinedTimesContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Container>) => (
+  <Container
+    {...props}
+    className={cn(styles['predefined-times-container'], className)}
+  />
+);
 
 type OpenDirection = 'left' | 'right';
 
-// left value of 259px is the width of the PredefinedTimesContainer + 1 pixel for border
-const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>`
-  background: ${({ theme }) =>
-    `${theme.click.datePicker.dateOption.color.background.default}`};
-  border: ${({ theme }) =>
-    `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  box-shadow:
-    lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
-    lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  ${({ $openDirection }) => ($openDirection === 'left' ? 'right: 100%;' : 'left: 259px;')}
-  position: absolute;
-  top: 0;
-`;
+const CalendarRendererContainer = forwardRef<
+  HTMLDivElement,
+  { openDirection?: OpenDirection; children: ReactNode }
+>(({ openDirection, children }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      styles['calendar-renderer-container'],
+      openDirection === 'left'
+        ? styles['calendar-renderer-container_left']
+        : styles['calendar-renderer-container_right']
+    )}
+  >
+    {children}
+  </div>
+));
+CalendarRendererContainer.displayName = 'CalendarRendererContainer';
 
-const NoOverflowDropdownContent = styled(Dropdown.Content)`
-  overflow-y: hidden;
-`;
+const NoOverflowDropdownContent = ({
+  className,
+  ...props
+}: ComponentProps<typeof Dropdown.Content>) => (
+  <Dropdown.Content
+    {...props}
+    className={cn(styles['no-overflow-dropdown-content'], className)}
+  />
+);
 
-// Height of 221px is height the height the calendar needs to match the PredefinedTimesContainer
-const StyledCalendarRenderer = styled(CalendarRenderer)`
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  min-height: 221px;
-`;
+const StyledCalendarRenderer = ({
+  className,
+  ...props
+}: ComponentProps<typeof CalendarRenderer>) => (
+  <CalendarRenderer
+    {...props}
+    className={cn(styles['styled-calendar-renderer'], className)}
+  />
+);
 
-const BottomPaddingTabs = styled(Tabs)`
-  padding-bottom: ${({ theme }) => `${theme.sizes[3]};`};
-`;
+const BottomPaddingTabs = ({ className, ...props }: ComponentProps<typeof Tabs>) => (
+  <Tabs
+    {...props}
+    className={cn(styles['bottom-padding-tabs'], className)}
+  />
+);
 
-const StyledTriggerList = styled(Tabs.TriggersList)`
-  justify-content: space-around;
-`;
+const StyledTriggerList = ({
+  className,
+  ...props
+}: ComponentProps<typeof Tabs.TriggersList>) => (
+  <Tabs.TriggersList
+    {...props}
+    className={cn(styles['styled-trigger-list'], className)}
+  />
+);
 
-// max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
-const ScrollableContainer = styled(Container)`
-  max-height: 210px;
-  overflow-y: auto;
-`;
+const ScrollableContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Container>) => (
+  <Container
+    {...props}
+    className={cn(styles['scrollable-container'], className)}
+  />
+);
 
-const TimeInputContainer = styled(Container)`
-  background: ${({ theme }) =>
-    theme.click.datePicker.dateOption.color.background.default};
-`;
+const TimeInputContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof Container>) => (
+  <Container
+    {...props}
+    className={cn(styles['time-input-container'], className)}
+  />
+);
 
-const DateRangeTableCell = styled(DateTableCell)<{
-  $shouldShowRangeIndicator?: boolean;
-}>`
-  ${({ $shouldShowRangeIndicator, theme }) =>
-    $shouldShowRangeIndicator &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.range};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
-    border-radius: 0;
-    `}
-`;
+const DateRangeTableCell = ({
+  shouldShowRangeIndicator,
+  className,
+  ...props
+}: ComponentProps<typeof DateTableCell> & {
+  shouldShowRangeIndicator?: boolean;
+}) => (
+  <DateTableCell
+    {...props}
+    className={cn(
+      shouldShowRangeIndicator && styles['date-range-table-cell_indicator'],
+      className
+    )}
+  />
+);
 
 type CalendarType = 'startDate' | 'endDate';
 
@@ -266,13 +316,13 @@ const Calendar = ({
 
           return (
             <DateRangeTableCell
-              $shouldShowRangeIndicator={
+              shouldShowRangeIndicator={
                 shouldShowRangeIndicator || isBetweenStartAndEndDates
               }
-              $isCurrentMonth={isCurrentMonth}
-              $isDisabled={isDisabled}
-              $isSelected={isSelected}
-              $isPresent={isCurrentDate}
+              isCurrentMonth={isCurrentMonth}
+              isDisabled={isDisabled}
+              isSelected={Boolean(isSelected)}
+              isPresent={isCurrentDate}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
@@ -1004,7 +1054,7 @@ export const DateTimeRangePicker = ({
 
               {shouldShowCustomRange && (
                 <CalendarRendererContainer
-                  $openDirection={calendarOpenDirection}
+                  openDirection={calendarOpenDirection}
                   ref={calendarContainerRef}
                 >
                   <TabbedCalendar

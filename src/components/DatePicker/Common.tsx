@@ -1,6 +1,8 @@
-import { styled } from 'styled-components';
 import { InputElement, InputStartContent, InputWrapper } from '@/components/InputWrapper';
 import {
+  ComponentProps,
+  forwardRef,
+  HTMLAttributes,
   KeyboardEvent,
   ReactNode,
   useCallback,
@@ -14,6 +16,8 @@ import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Text';
+import { cn } from '@/lib/cva';
+import styles from './Common.module.css';
 import {
   dateRangeIsValid,
   formatDateHeader,
@@ -26,8 +30,6 @@ import {
 } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 import { Dropdown } from '@/components/Dropdown';
-
-const explicitWidth = '250px';
 
 const viewGridMonths = {
   columns: 4,
@@ -42,26 +44,36 @@ const viewGridYears = {
 const totalYears = viewGridYears.columns * viewGridYears.rows;
 const yearsOffset = Math.floor(totalYears / 2);
 
-const HighlightedInputWrapper = styled(InputWrapper)<{
-  $isActive: boolean;
-  $width?: string;
+interface HighlightedInputWrapperProps extends Omit<
+  ComponentProps<typeof InputWrapper>,
+  'error'
+> {
+  isActive: boolean;
   error?: boolean;
-}>`
-  ${({ $isActive, $width, error, theme }) => {
-    let borderColor = $isActive
-      ? theme.click.datePicker.dateOption.color.stroke.active
-      : theme.click.field.color.stroke.default;
+  wide?: boolean;
+}
 
-    if (error) {
-      borderColor = theme.click.field.color.stroke.error;
-    }
-
-    return `border: ${theme.click.datePicker.dateOption.stroke} solid ${borderColor};
-    width: ${$width ? $width : explicitWidth};
-    ${$width && `min-width: ${explicitWidth};`}
-    `;
-  }}
-}`;
+// The resting default border and the error border are identical to what the
+// InputWrapper base / `.wrapper_error` already render, so only the width and the
+// active border are overridden here (see Common.module.css).
+const HighlightedInputWrapper = ({
+  isActive,
+  error,
+  wide,
+  className,
+  ...props
+}: HighlightedInputWrapperProps) => (
+  <InputWrapper
+    {...props}
+    error={error}
+    className={cn(
+      styles['highlighted-input-wrapper'],
+      wide && styles['highlighted-input-wrapper_wide'],
+      isActive && !error && styles['highlighted-input-wrapper_active'],
+      className
+    )}
+  />
+);
 
 interface DatePickerInputProps {
   isActive: boolean;
@@ -119,7 +131,7 @@ export const DatePickerInput = ({
 
   return (
     <HighlightedInputWrapper
-      $isActive={isActive}
+      isActive={isActive}
       disabled={disabled}
       id={id ?? defaultId}
     >
@@ -191,7 +203,7 @@ export const DateRangePickerInput = ({
 
   return (
     <HighlightedInputWrapper
-      $isActive={isActive}
+      isActive={isActive}
       disabled={disabled}
       id={id ?? defaultId}
     >
@@ -297,8 +309,8 @@ export const DateTimeRangePickerInput = ({
 
   return (
     <HighlightedInputWrapper
-      $isActive={isActive}
-      $width="max-content"
+      isActive={isActive}
+      wide
       disabled={disabled}
       error={startDateIsAfterEndDate}
       id={id ?? defaultId}
@@ -317,213 +329,40 @@ export const DateTimeRangePickerInput = ({
   );
 };
 
-const DatePickerContainer = styled(Container)`
-  background: ${({ theme }) =>
-    theme.click.datePicker.dateOption.color.background.default};
-`;
+interface DateTableCellProps extends HTMLAttributes<HTMLTableCellElement> {
+  isCurrentMonth?: boolean;
+  isDisabled?: boolean;
+  isSelected?: boolean;
+  isPresent?: boolean;
+}
 
-const ClickableTitle = styled.button`
-  background: transparent;
-  border: 1px solid transparent;
-  cursor: pointer;
-  outline: none;
-  padding: 0.25rem 0.5rem;
-  user-select: none;
+export const DateTableCell = forwardRef<HTMLTableCellElement, DateTableCellProps>(
+  ({ isCurrentMonth, isDisabled, isSelected, isPresent, className, ...props }, ref) => (
+    <td
+      ref={ref}
+      {...props}
+      className={cn(
+        styles['date-table-cell'],
+        (!isCurrentMonth || isDisabled) && styles['date-table-cell_muted'],
+        isDisabled && styles['date-table-cell_disabled'],
+        isSelected && styles['date-table-cell_selected'],
+        isPresent && !isSelected && styles['date-table-cell_present'],
+        className
+      )}
+    />
+  )
+);
+DateTableCell.displayName = 'DateTableCell';
 
-  ${({ theme }) => `
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    color: ${theme.click.datePicker.color.title.default};
-    font: ${theme.click.datePicker.typography.title.default};
-  `};
-
-  &:hover {
-    background: ${({ theme }) =>
-      theme.click.datePicker.dateOption.color.background.hover};
-  }
-
-  &:focus,
-  &:focus-visible {
-    border-color: ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
-  }
-`;
-
-const UnselectableTitle = styled.h2`
-  margin: 0;
-  padding: 0;
-  user-select: none;
-
-  ${({ theme }) => `
-    color: ${theme.click.datePicker.color.title.default};
-    font: ${theme.click.datePicker.typography.title.default};
-  `}
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  padding: 0.25rem 0 0;
-
-  ${({ theme }) => `
-    gap: calc(${theme.click.datePicker.space.gap} * 2);
-  `}
-`;
-
-const MonthsGrid = styled(GridContainer)`
-  grid-template-columns: repeat(${viewGridMonths.columns}, 1fr);
-  grid-template-rows: repeat(${viewGridMonths.rows}, 1fr);
-`;
-
-const YearsGrid = styled(GridContainer)`
-  grid-template-columns: repeat(${viewGridYears.columns}, 1fr);
-  grid-template-rows: repeat(${viewGridYears.rows}, 1fr);
-`;
-
-const GridCell = styled.button<{ $isActive?: boolean; $isPresent?: boolean }>`
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  min-height: 26px;
-  padding: 8px 4px;
-  text-align: center;
-
-  ${({ theme }) => `
-    background: ${theme.click.datePicker.dateOption.color.background.default};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    color: ${theme.click.datePicker.dateOption.color.label.default};
-    font: ${theme.click.datePicker.dateOption.typography.label.default};
-  `}
-
-  ${({ $isActive, theme }) =>
-    $isActive &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.active};
-    color: ${theme.click.datePicker.dateOption.color.label.active};
-  `}
-
-  ${({ $isActive, $isPresent, theme }) =>
-    $isPresent &&
-    !$isActive &&
-    `background: ${theme.click.datePicker.dateOption.color.background.range};`}
-
-  ${({ theme }) => `
-    &:hover {
-      border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-    }
-
-    &:focus {
-      outline: none;
-      border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-    }
-
-    &:focus-visible {
-      outline: none;
-      border-color: ${theme.click.datePicker.dateOption.color.stroke.hover};
-    }
-  `}
-`;
-
-const DateTable = styled.table`
-  border-collapse: separate;
-  border-spacing: 0;
-  font: ${({ theme }) => theme.typography.styles.product.text.normal.md};
-  table-layout: fixed;
-  user-select: none;
-  width: ${explicitWidth};
-
-  thead tr {
-    height: ${({ theme }) => theme.click.datePicker.dateOption.size.height};
-  }
-
-  tbody {
-    cursor: pointer;
-  }
-
-  td,
-  th {
-    padding: 4px;
-  }
-`;
-
-const DateTableHeader = styled.th`
-  ${({ theme }) => `
-    color: ${theme.click.datePicker.color.daytitle.default};
-    font: ${theme.click.datePicker.typography.daytitle.default};
-  `}
-
-  width: 14%;
-`;
-
-export const DateTableCell = styled.td<{
-  $isCurrentMonth?: boolean;
-  $isDisabled?: boolean;
-  $isSelected?: boolean;
-  $isPresent?: boolean;
-}>`
-  ${({ theme }) => `
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.stroke.default};
-    border-radius: ${theme.click.datePicker.dateOption.radii.default};
-    font: ${theme.click.datePicker.dateOption.typography.label.default};
-  `}
-
-  ${({ $isCurrentMonth, $isDisabled, theme }) =>
-    (!$isCurrentMonth || $isDisabled) &&
-    `
-    color: ${theme.click.datePicker.dateOption.color.label.disabled};
-    font: ${theme.click.datePicker.dateOption.typography.label.disabled};
-  `}
-
-  ${({ $isSelected, theme }) =>
-    $isSelected &&
-    `
-      background: ${theme.click.datePicker.dateOption.color.background.active} !important;
-      color: ${theme.click.datePicker.dateOption.color.label.active};
-    `}
-
-  ${({ $isSelected, $isPresent, theme }) =>
-    $isPresent &&
-    !$isSelected &&
-    `background: ${theme.click.datePicker.dateOption.color.background.range};`}
-
-  text-align: center;
-  outline: none;
-
-  &:hover {
-    ${({ $isDisabled, $isPresent, theme }) =>
-      `border: ${theme.click.datePicker.dateOption.stroke} solid ${
-        $isDisabled
-          ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
-      };
-      background: ${$isPresent ? theme.click.datePicker.dateOption.color.background.range : ''};
-      border-radius: ${theme.click.datePicker.dateOption.radii.default};`};
-  }
-
-  &:focus {
-    ${({ $isDisabled, theme }) =>
-      `outline: none;
-      border: ${theme.click.datePicker.dateOption.stroke} solid ${
-        $isDisabled
-          ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
-      };`};
-  }
-
-  &:focus-visible {
-    ${({ $isDisabled, theme }) =>
-      `outline: none;
-      border: ${theme.click.datePicker.dateOption.stroke} solid ${
-        $isDisabled
-          ? theme.click.datePicker.dateOption.color.stroke.disabled
-          : theme.click.datePicker.dateOption.color.stroke.hover
-      };`};
-  }
-`;
-
-export const StyledDropdownItem = styled(Dropdown.Item)`
-  box-sizing: content-box;
-  min-height: 24px;
-`;
+export const StyledDropdownItem = ({
+  className,
+  ...props
+}: ComponentProps<typeof Dropdown.Item>) => (
+  <Dropdown.Item
+    {...props}
+    className={cn(styles['styled-dropdown-item'], className)}
+  />
+);
 
 export type Body = ReturnType<typeof useCalendar>['body'];
 
@@ -535,27 +374,36 @@ interface CalendarRendererProps {
   onMonthSelect?: (year: number, month: number) => void;
   selectedDate?: Date;
   timezone?: Timezone;
+  className?: string;
+  'data-testid'?: string;
 }
 
 const monthAbbreviations = getMonthNames('short');
 
 type DateViewOption = 'days' | 'months' | 'years';
 
-const PickerNavControl = styled(IconButton)`
-  && {
-    &:focus,
-    &:focus-visible {
-      outline: none;
-      border: ${({ theme }) => theme.click.datePicker.dateOption.stroke} solid
-        ${({ theme }) => theme.click.datePicker.dateOption.color.stroke.hover};
-    }
-  }
-`;
+const PickerNavControl = forwardRef<HTMLButtonElement, ComponentProps<typeof IconButton>>(
+  ({ className, ...props }, ref) => (
+    <IconButton
+      ref={ref}
+      {...props}
+      className={cn(styles['picker-nav-control'], className)}
+    />
+  )
+);
+PickerNavControl.displayName = 'PickerNavControl';
 
-const EmptyDateSelectNav = styled(PickerNavControl)`
-  visibility: hidden;
-  pointer-events: none;
-`;
+const EmptyDateSelectNav = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof IconButton>
+>(({ className, ...props }, ref) => (
+  <PickerNavControl
+    ref={ref}
+    {...props}
+    className={cn(styles['empty-date-select-nav'], className)}
+  />
+));
+EmptyDateSelectNav.displayName = 'EmptyDateSelectNav';
 
 const DateSelectNav = ({
   id,
@@ -611,6 +459,7 @@ export const CalendarRenderer = ({
   onMonthSelect,
   selectedDate,
   timezone = 'system',
+  className,
   ...props
 }: CalendarRendererProps) => {
   // useCalendar reads dates as local; shiftToTimezone is a no-op in local mode.
@@ -825,7 +674,8 @@ export const CalendarRenderer = ({
     const selectedYear = shiftedSelected?.getFullYear();
 
     return (
-      <MonthsGrid
+      <div
+        className={cn(styles['grid-container'], styles['months-grid'])}
         data-testid="months-grid"
         role="grid"
         aria-label="Select month"
@@ -843,13 +693,21 @@ export const CalendarRenderer = ({
             monthGridRef.current[index] = element;
           };
 
+          const isActive = Boolean(
+            selectedDate && index === selectedMonth && year === selectedYear
+          );
+          const isPresent = index === thisMonth && year === thisYear;
+
           return (
-            <GridCell
+            <button
               key={month}
               type="button"
               ref={ref}
-              $isActive={selectedDate && index === selectedMonth && year === selectedYear}
-              $isPresent={index === thisMonth && year === thisYear}
+              className={cn(
+                styles['grid-cell'],
+                isActive && styles['grid-cell_active'],
+                isPresent && !isActive && styles['grid-cell_present']
+              )}
               onClick={handleClick}
               onKeyDown={handleKeyDown}
               data-testid={`month-cell-${index}`}
@@ -857,10 +715,10 @@ export const CalendarRenderer = ({
               aria-label={month}
             >
               {month}
-            </GridCell>
+            </button>
           );
         })}
-      </MonthsGrid>
+      </div>
     );
   };
 
@@ -877,7 +735,8 @@ export const CalendarRenderer = ({
     }
 
     return (
-      <YearsGrid
+      <div
+        className={cn(styles['grid-container'], styles['years-grid'])}
         data-testid="years-grid"
         role="grid"
         aria-label="Select year"
@@ -895,13 +754,19 @@ export const CalendarRenderer = ({
             onYearGridKeyDown(event, index, currentYear);
           };
 
+          const isActive = Boolean(selectedDate && currentYear === selectedYear);
+          const isPresent = currentYear === thisYear;
+
           return (
-            <GridCell
+            <button
               key={currentYear}
               type="button"
               ref={ref}
-              $isActive={selectedDate && currentYear === selectedYear}
-              $isPresent={currentYear === thisYear}
+              className={cn(
+                styles['grid-cell'],
+                isActive && styles['grid-cell_active'],
+                isPresent && !isActive && styles['grid-cell_present']
+              )}
               onClick={handleClick}
               onKeyDown={handleKeyDown}
               data-testid={`year-cell-${currentYear}`}
@@ -909,10 +774,10 @@ export const CalendarRenderer = ({
               aria-label={String(currentYear)}
             >
               {currentYear}
-            </GridCell>
+            </button>
           );
         })}
-      </YearsGrid>
+      </div>
     );
   };
 
@@ -943,9 +808,12 @@ export const CalendarRenderer = ({
           <tr>
             {headers.weekdays.map(({ key, value: date }) => {
               return (
-                <DateTableHeader key={key}>
+                <th
+                  key={key}
+                  className={styles['date-table-header']}
+                >
                   {formatWeekday('system', date)}
-                </DateTableHeader>
+                </th>
               );
             })}
           </tr>
@@ -956,13 +824,14 @@ export const CalendarRenderer = ({
   };
 
   return (
-    <DatePickerContainer
+    <Container
       data-testid="datepicker-calendar-container"
       isResponsive={false}
       fillWidth={false}
       orientation="vertical"
       padding="sm"
       {...props}
+      className={cn(styles['date-picker-container'], className)}
     >
       <Container
         isResponsive={false}
@@ -985,8 +854,9 @@ export const CalendarRenderer = ({
           }}
         />
         {view === DAYS && allowYearMonthSelection ? (
-          <ClickableTitle
+          <button
             type="button"
+            className={styles['clickable-title']}
             ref={el => {
               headerNavRefs.current[1] = el as HTMLButtonElement;
             }}
@@ -996,9 +866,9 @@ export const CalendarRenderer = ({
             tabIndex={0}
           >
             {getHeaderTitle(view)}
-          </ClickableTitle>
+          </button>
         ) : (
-          <UnselectableTitle>{getHeaderTitle(view)}</UnselectableTitle>
+          <h2 className={styles['unselectable-title']}>{getHeaderTitle(view)}</h2>
         )}
         <DateSelectNav
           id="calendar-next-month"
@@ -1016,7 +886,7 @@ export const CalendarRenderer = ({
           }}
         />
       </Container>
-      <DateTable>{renderTableContent()}</DateTable>
-    </DatePickerContainer>
+      <table className={styles['date-table']}>{renderTableContent()}</table>
+    </Container>
   );
 };

@@ -1,0 +1,219 @@
+/* Design tokens use camelCase segments (e.g. datePicker, dateOption). */
+/* stylelint-disable custom-property-pattern */
+
+/* HighlightedInputWrapper = styled(InputWrapper). The doubled class beats the
+   InputWrapper base `.wrapper` (0,1,0) for the width override and the active
+   border. The resting default border and the error border are identical to
+   what the InputWrapper base / `.wrapper_error` already render, so they are not
+   re-declared here. */
+.highlighted-input-wrapper.highlighted-input-wrapper {
+  width: 250px;
+}
+
+.highlighted-input-wrapper_wide.highlighted-input-wrapper_wide {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- the original styled-components used this width; preserved for byte-for-byte parity. */
+  width: max-content;
+  min-width: 250px;
+}
+
+.highlighted-input-wrapper_active.highlighted-input-wrapper_active {
+  border-color: var(--click-datePicker-dateOption-color-stroke-active);
+}
+
+/* Base `.wrapper:hover` (0,1,1) loses to the doubled active class, so re-assert
+   the hover border for the active (non-error) input to preserve the original
+   hover-over-active behavior. */
+.highlighted-input-wrapper_active.highlighted-input-wrapper_active:hover {
+  border-color: var(--click-field-color-stroke-hover);
+}
+
+.date-picker-container {
+  background: var(--click-datePicker-dateOption-color-background-default);
+}
+
+.clickable-title {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--click-datePicker-dateOption-radii-default);
+  background: transparent;
+  color: var(--click-datePicker-color-title-default);
+  font: var(--click-datePicker-typography-title-default);
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.clickable-title:hover {
+  background: var(--click-datePicker-dateOption-color-background-hover);
+}
+
+.clickable-title:focus,
+.clickable-title:focus-visible {
+  border-color: var(--click-datePicker-dateOption-color-stroke-hover);
+}
+
+.unselectable-title {
+  margin: 0;
+  padding: 0;
+  color: var(--click-datePicker-color-title-default);
+  font: var(--click-datePicker-typography-title-default);
+  user-select: none;
+}
+
+.grid-container {
+  display: grid;
+  padding: 0.25rem 0 0;
+  gap: calc(var(--click-datePicker-space-gap) * 2);
+}
+
+.months-grid {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.years-grid {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.grid-cell {
+  display: flex;
+  min-height: 26px;
+  padding: 8px 4px;
+  justify-content: center;
+  align-items: center;
+  border: var(--click-datePicker-dateOption-stroke) solid
+    var(--click-datePicker-dateOption-color-stroke-default);
+  border-radius: var(--click-datePicker-dateOption-radii-default);
+  background: var(--click-datePicker-dateOption-color-background-default);
+  color: var(--click-datePicker-dateOption-color-label-default);
+  font: var(--click-datePicker-dateOption-typography-label-default);
+  text-align: center;
+  cursor: pointer;
+}
+
+.grid-cell_active {
+  background: var(--click-datePicker-dateOption-color-background-active);
+  color: var(--click-datePicker-dateOption-color-label-active);
+}
+
+.grid-cell_present {
+  background: var(--click-datePicker-dateOption-color-background-range);
+}
+
+.grid-cell:hover {
+  border-color: var(--click-datePicker-dateOption-color-stroke-hover);
+}
+
+.grid-cell:focus {
+  border-color: var(--click-datePicker-dateOption-color-stroke-hover);
+  outline: none;
+}
+
+.grid-cell:focus-visible {
+  border-color: var(--click-datePicker-dateOption-color-stroke-hover);
+  outline: none;
+}
+
+.date-table {
+  width: 250px;
+  font: var(--typography-styles-product-text-normal-md);
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  user-select: none;
+}
+
+.date-table thead tr {
+  height: var(--click-datePicker-dateOption-size-height);
+}
+
+.date-table tbody {
+  cursor: pointer;
+}
+
+.date-table td,
+.date-table th {
+  padding: 4px;
+}
+
+.date-table-header {
+  width: 14%;
+  color: var(--click-datePicker-color-daytitle-default);
+  font: var(--click-datePicker-typography-daytitle-default);
+}
+
+.date-table-cell {
+  border: var(--click-datePicker-dateOption-stroke) solid
+    var(--click-datePicker-dateOption-color-stroke-default);
+  border-radius: var(--click-datePicker-dateOption-radii-default);
+  font: var(--click-datePicker-dateOption-typography-label-default);
+  text-align: center;
+  outline: none;
+}
+
+/* (!isCurrentMonth || isDisabled) */
+.date-table-cell_muted {
+  color: var(--click-datePicker-dateOption-color-label-disabled);
+  font: var(--click-datePicker-dateOption-typography-label-disabled);
+}
+
+/* Declared after `_muted` so the selected color wins for a selected out-of-month
+   cell, matching the styled-components source order. */
+.date-table-cell_selected {
+  background: var(--click-datePicker-dateOption-color-background-active) !important;
+  color: var(--click-datePicker-dateOption-color-label-active);
+}
+
+/* isPresent && !isSelected */
+.date-table-cell_present {
+  background: var(--click-datePicker-dateOption-color-background-range);
+}
+
+.date-table-cell:hover {
+  border: var(--click-datePicker-dateOption-stroke) solid
+    var(--click-datePicker-dateOption-color-stroke-hover);
+  border-radius: var(--click-datePicker-dateOption-radii-default);
+}
+
+.date-table-cell_present:hover {
+  background: var(--click-datePicker-dateOption-color-background-range);
+}
+
+.date-table-cell_disabled:hover {
+  border-color: var(--click-datePicker-dateOption-color-stroke-disabled);
+}
+
+.date-table-cell:focus,
+.date-table-cell:focus-visible {
+  border: var(--click-datePicker-dateOption-stroke) solid
+    var(--click-datePicker-dateOption-color-stroke-hover);
+  outline: none;
+}
+
+.date-table-cell_disabled:focus,
+.date-table-cell_disabled:focus-visible {
+  border-color: var(--click-datePicker-dateOption-color-stroke-disabled);
+}
+
+/* StyledDropdownItem = styled(Dropdown.Item). Doubled to beat the
+   `.dropdown-menu-item` base min-height (0,1,0). */
+.styled-dropdown-item.styled-dropdown-item {
+  box-sizing: content-box;
+  min-height: 24px;
+}
+
+/* PickerNavControl = styled(IconButton) with `&&`. The IconButton ghost focus
+   rule is `.iconbutton_type_ghost:not([disabled]):focus` (0,3,0), so the focus
+   override needs (0,4,0) — a tripled class plus the pseudo — to win. */
+.picker-nav-control.picker-nav-control.picker-nav-control:focus,
+.picker-nav-control.picker-nav-control.picker-nav-control:focus-visible {
+  border: var(--click-datePicker-dateOption-stroke) solid
+    var(--click-datePicker-dateOption-color-stroke-hover);
+  outline: none;
+}
+
+.empty-date-select-nav {
+  visibility: hidden;
+  pointer-events: none;
+}
