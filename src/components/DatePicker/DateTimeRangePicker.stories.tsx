@@ -361,6 +361,64 @@ export const TimezoneLocalVsUTC: Story = {
   },
 };
 
+// Visual-regression fixtures: fixed start/end dates so the tabbed calendar,
+// time input, predefined-times panel, and error state render deterministically.
+// The spec pins the clock so the "today" highlight is stable.
+export const VRDateTimeRangePicker: Story = {
+  args: {
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => (
+    <DateTimeRangePicker
+      key="vr"
+      startDate={new Date('2026-07-10T10:00:00')}
+      endDate={new Date('2026-07-20T14:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+    />
+  ),
+};
+
+export const VRDateTimeRangePickerError: Story = {
+  args: {
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => (
+    <DateTimeRangePicker
+      key="vr"
+      startDate={new Date('2026-07-20T14:00:00')}
+      endDate={new Date('2026-07-20T10:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+    />
+  ),
+};
+
+export const VRDateTimeRangePickerPredefined: Story = {
+  render: (args: Args) => (
+    <DateTimeRangePicker
+      key="vr"
+      startDate={new Date('2026-07-10T10:00:00')}
+      endDate={new Date('2026-07-20T14:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+      predefinedTimesList={[
+        {
+          dateRange: {
+            startDate: new Date('2026-07-19T14:00:00'),
+            endDate: new Date('2026-07-20T14:00:00'),
+          },
+          label: 'Past day',
+        },
+        {
+          dateRange: {
+            startDate: new Date('2026-07-13T14:00:00'),
+            endDate: new Date('2026-07-20T14:00:00'),
+          },
+          label: 'Past week',
+        },
+      ]}
+    />
+  ),
+};
+
 export const DontFireIfInvalid: Story = {
   args: {
     maxRangeLength: 15,
