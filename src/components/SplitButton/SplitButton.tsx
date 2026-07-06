@@ -8,7 +8,7 @@ import { SplitButtonProps, Menu, ButtonType } from './SplitButton.types';
 
 export const SplitButton = ({
   type = 'primary',
-  htmlType,
+  htmlType = 'button',
   disabled,
   menu,
   dir,
