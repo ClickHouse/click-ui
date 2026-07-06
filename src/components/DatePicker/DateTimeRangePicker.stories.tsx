@@ -285,7 +285,9 @@ export const PredefinedTimesWithSetStartAndEndDate: Story = {
     maxRangeLength: 15,
   },
   render: (args: Args) => {
-    const endDate = args.endDate ? new Date(args.endDate) : new Date();
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('July 4, 2026 11:25 AM');
     const startDate = new Date(endDate.getTime() - oneHourInMilliseconds);
 
     const futureDatesDisabled = args.futureDatesDisabled ?? true;
