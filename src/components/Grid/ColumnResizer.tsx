@@ -5,13 +5,19 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { cn } from '@/lib/cva';
+import { cva } from '@/lib/cva';
 import styles from './ColumnResizer.module.css';
 import { ColumnResizeFn, GetResizerPositionFn } from './types';
 import { throttle } from 'lodash-es';
 import { initialPosition, ResizingState } from './useResizingState';
 
 const DOUBLE_CLICK_THRESHOLD_MSEC = 300;
+
+const resizerVariants = cva(styles['column-resizer'], {
+  variants: {
+    pressed: { true: styles['column-resizer_pressed'] },
+  },
+});
 
 interface Props {
   height: number;
@@ -125,10 +131,7 @@ const ColumnResizer = ({
   return (
     <div
       ref={resizeRef}
-      className={cn(
-        styles['column-resizer'],
-        isPressed && styles['column-resizer_pressed']
-      )}
+      className={resizerVariants({ pressed: isPressed })}
       onPointerDown={onPointerDown}
       onPointerUp={e => {
         e.preventDefault();

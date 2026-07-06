@@ -14,7 +14,8 @@
   width: 100%;
   padding: var(--cell-space-y) var(--cell-space-x);
   overflow: hidden;
-  border: 1px solid var(--cell-stroke-default);
+  border-top: 1px solid var(--cell-stroke-default);
+  border-left: 1px solid var(--cell-stroke-default);
   background: var(--cell-background);
   color: var(--cell-color);
   font: var(--click-grid-cell-text-default);
@@ -38,13 +39,13 @@
   --cell-color: var(--click-grid-body-cell-color-text-default);
 }
 
-.cell_type_body.cell_selection_select-indirect {
+.cell_type_body.cell_selection_indirect {
   --cell-stroke-last: var(--click-grid-body-cell-color-stroke-selectIndirect);
   --cell-background: var(--click-grid-body-cell-color-background-selectIndirect);
   --cell-color: var(--click-grid-body-cell-color-text-selectIndirect);
 }
 
-.cell_type_body.cell_selection_select-direct {
+.cell_type_body.cell_selection_direct {
   --cell-stroke-last: var(--click-grid-body-cell-color-stroke-selectDirect);
   --cell-background: var(--click-grid-body-cell-color-background-selectDirect);
   --cell-color: var(--click-grid-body-cell-color-text-selectDirect);
@@ -60,13 +61,13 @@
   --cell-color: var(--click-grid-header-cell-color-title-default);
 }
 
-.cell_type_header.cell_selection_select-indirect {
+.cell_type_header.cell_selection_indirect {
   --cell-stroke-last: var(--click-grid-header-cell-color-stroke-selectIndirect);
   --cell-background: var(--click-grid-header-cell-color-background-selectIndirect);
   --cell-color: var(--click-grid-header-cell-color-title-selectIndirect);
 }
 
-.cell_type_header.cell_selection_select-direct {
+.cell_type_header.cell_selection_direct {
   --cell-stroke-last: var(--click-grid-header-cell-color-stroke-selectDirect);
   --cell-background: var(--click-grid-header-cell-color-background-selectDirect);
   --cell-color: var(--click-grid-header-cell-color-title-selectDirect);
@@ -101,22 +102,13 @@
   --cell-stroke-last: var(--cell-stroke-select-direct);
 }
 
-/* last row: keep bottom border, colored by focus/selection; otherwise remove it */
+/* only the last row/column draw the closing border, colored by focus/selection */
 .cell_last-row {
-  border-bottom-color: var(--cell-stroke-last);
+  border-bottom: 1px solid var(--cell-stroke-last);
 }
 
-.cell_not-last-row {
-  border-bottom: none;
-}
-
-/* last column: keep right border, colored by focus/selection; otherwise remove it */
 .cell_last-column {
-  border-right-color: var(--cell-stroke-last);
-}
-
-.cell_not-last-column {
-  border-right: none;
+  border-right: 1px solid var(--cell-stroke-last);
 }
 
 /* rowAutoHeight resets the entire border last, overriding every rule above */
@@ -133,19 +125,19 @@
   inset: 0;
 }
 
-.cell__overlay_selected-top::before {
+.cell__overlay_selected_top::before {
   border-top: 1px solid var(--cell-stroke-select-direct);
 }
 
-.cell__overlay_selected-left::before {
+.cell__overlay_selected_left::before {
   border-left: 1px solid var(--cell-stroke-select-direct);
 }
 
-.cell__overlay_selected-bottom::before {
+.cell__overlay_selected_bottom::before {
   border-bottom: 1px solid var(--cell-stroke-select-direct);
 }
 
-.cell__overlay_selected-right::before {
+.cell__overlay_selected_right::before {
   border-right: 1px solid var(--cell-stroke-select-direct);
 }
 

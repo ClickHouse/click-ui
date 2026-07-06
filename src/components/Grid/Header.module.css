@@ -13,9 +13,9 @@
   box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
 }
 
-.header__scrollable {
+.header__scroll-area {
   position: relative;
-  left: var(--header-scrollable-left);
+  left: var(--header-scroll-area-left);
 }
 
 .header__cell {

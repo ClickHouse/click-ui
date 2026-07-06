@@ -150,8 +150,8 @@ const Header = ({
       style={{ '--header-height': `${height}px` } as CSSProperties}
     >
       <div
-        className={styles['header__scrollable']}
-        style={{ '--header-scrollable-left': `${rowNumberWidth}px` } as CSSProperties}
+        className={styles['header__scroll-area']}
+        style={{ '--header-scroll-area-left': `${rowNumberWidth}px` } as CSSProperties}
       >
         {Array.from(
           { length: maxColumn - minColumn + 1 },

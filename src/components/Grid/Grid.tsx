@@ -21,7 +21,7 @@ import {
 import AutoSizer, { Size } from 'react-virtualized-auto-sizer';
 import RowNumberColumn from './RowNumberColumn';
 import Header from './Header';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import styles from './Grid.module.css';
 import {
   GetResizerPositionFn,
@@ -43,6 +43,12 @@ import { createToast } from '@/components/Toast/toastEmitter';
 import copyGridElements from './copyGridElements';
 import useColumns from './useColumns';
 import useResizingState from './useResizingState';
+
+const gridVariants = cva(styles['grid'], {
+  variants: {
+    bordered: { true: styles['grid_bordered'] },
+  },
+});
 
 const NO_BUTTONS_PRESSED = 0;
 const LEFT_BUTTON_PRESSED = 1;
@@ -825,7 +831,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
         onOpenChange={setContextMenuOpen}
       >
         <ContextMenu.Trigger
-          className={cn(styles['grid'], showBorder && styles['grid_bordered'])}
+          className={gridVariants({ bordered: showBorder })}
           style={
             {
               '--grid-radius': roundedRadii[rounded],
