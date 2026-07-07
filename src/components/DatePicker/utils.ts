@@ -1,3 +1,4 @@
+import { isSameDate } from '@h6s/calendar';
 import { dayjs } from '@/utils/date';
 
 export type Timezone = 'system' | 'UTC';
@@ -179,6 +180,14 @@ export const getNextNDatesForDatePickerAllowOnlyList = (numberOfDays: number): D
     now.add(i, 'day').startOf('day').toDate()
   );
 };
+
+export const isDateNotInAllowList = (
+  allowList: Array<Date> | undefined,
+  date: Date
+): boolean =>
+  !!allowList &&
+  allowList.length > 0 &&
+  !allowList.some(allowedDate => isSameDate(allowedDate, date));
 
 export const datesAreWithinMaxRange = (
   startDate: Date,

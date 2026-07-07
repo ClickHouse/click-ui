@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -28,6 +29,7 @@ import {
   formatDateHeader,
   formatSelectedDate,
   shiftFromTimezone,
+  isDateNotInAllowList,
   isDateRangeTheWholeMonth,
   Timezone,
   shiftToTimezone,
@@ -84,6 +86,7 @@ const DateRangeTableCell = styled(DateTableCell)<{
 `;
 
 interface CalendarProps {
+  allowOnlyDatesList?: Array<Date>;
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
@@ -96,6 +99,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({
+  allowOnlyDatesList,
   calendarBody,
   closeDatepicker,
   futureDatesDisabled,
@@ -111,6 +115,12 @@ const Calendar = ({
   const today = shiftToTimezone(new Date(), timezone);
   const shiftedStart = startDate ? shiftToTimezone(startDate, timezone) : undefined;
   const shiftedEnd = endDate ? shiftToTimezone(endDate, timezone) : undefined;
+
+  const shiftedAllowList = useMemo(() => {
+    return allowOnlyDatesList?.map(date => {
+      return shiftToTimezone(date, timezone);
+    });
+  }, [allowOnlyDatesList, timezone]);
 
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
@@ -144,6 +154,10 @@ const Calendar = ({
             !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength) &&
             fullDate > shiftedStart
           ) {
+            isDisabled = true;
+          }
+
+          if (isDateNotInAllowList(shiftedAllowList, fullDate)) {
             isDisabled = true;
           }
 
@@ -292,6 +306,7 @@ const PredefinedDates = ({
 };
 
 export interface DateRangePickerProps {
+  allowOnlyDatesList?: Array<Date>;
   endDate?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
@@ -307,6 +322,7 @@ export interface DateRangePickerProps {
 }
 
 export const DateRangePicker = ({
+  allowOnlyDatesList,
   endDate,
   startDate,
   disabled = false,
@@ -478,6 +494,7 @@ export const DateRangePicker = ({
                 >
                   {(body: Body) => (
                     <Calendar
+                      allowOnlyDatesList={allowOnlyDatesList}
                       calendarBody={body}
                       closeDatepicker={closeDatePicker}
                       futureDatesDisabled={futureDatesDisabled}
@@ -502,6 +519,7 @@ export const DateRangePicker = ({
           >
             {(body: Body) => (
               <Calendar
+                allowOnlyDatesList={allowOnlyDatesList}
                 calendarBody={body}
                 closeDatepicker={closeDatePicker}
                 futureDatesDisabled={futureDatesDisabled}
