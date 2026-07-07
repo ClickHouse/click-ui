@@ -41,22 +41,36 @@ type OpenDirection = 'left' | 'right';
 
 const PredefinedCalendarContainer = ({
   className,
-  ...props
+  children,
+  gap,
+  orientation,
+  padding,
 }: ComponentProps<typeof Panel>) => (
   <Panel
-    {...props}
+    gap={gap}
+    orientation={orientation}
+    padding={padding}
     className={cn(styles['predefined-calendar-container'], className)}
-  />
+  >
+    {children}
+  </Panel>
 );
 
 const PredefinedDatesContainer = ({
   className,
-  ...props
-}: ComponentProps<typeof Container>) => (
+  children,
+  isResponsive,
+  orientation,
+  'data-testid': dataTestId,
+}: ComponentProps<typeof Container> & { 'data-testid'?: string }) => (
   <Container
-    {...props}
+    isResponsive={isResponsive}
+    orientation={orientation}
+    data-testid={dataTestId}
     className={cn(styles['predefined-dates-container'], className)}
-  />
+  >
+    {children}
+  </Container>
 );
 
 const CalendarRendererContainer = forwardRef<
@@ -79,38 +93,65 @@ CalendarRendererContainer.displayName = 'CalendarRendererContainer';
 
 const StyledCalendarRenderer = ({
   className,
-  ...props
+  children,
+  calendarOptions,
+  allowYearMonthSelection,
+  selectedDate,
+  timezone,
 }: ComponentProps<typeof CalendarRenderer>) => (
   <CalendarRenderer
-    {...props}
+    calendarOptions={calendarOptions}
+    allowYearMonthSelection={allowYearMonthSelection}
+    selectedDate={selectedDate}
+    timezone={timezone}
     className={cn(styles['styled-calendar-renderer'], className)}
-  />
+  >
+    {children}
+  </CalendarRenderer>
 );
 
 const ScrollableContainer = ({
   className,
-  ...props
+  children,
+  orientation,
 }: ComponentProps<typeof Container>) => (
   <Container
-    {...props}
+    orientation={orientation}
     className={cn(styles['scrollable-container'], className)}
-  />
+  >
+    {children}
+  </Container>
 );
 
 const DateRangeTableCell = ({
   shouldShowRangeIndicator,
   className,
-  ...props
+  children,
+  isCurrentMonth,
+  isDisabled,
+  isSelected,
+  isPresent,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
 }: ComponentProps<typeof DateTableCell> & {
   shouldShowRangeIndicator?: boolean;
 }) => (
   <DateTableCell
-    {...props}
+    isCurrentMonth={isCurrentMonth}
+    isDisabled={isDisabled}
+    isSelected={isSelected}
+    isPresent={isPresent}
+    onClick={onClick}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
     className={cn(
       shouldShowRangeIndicator && styles['date-range-table-cell_indicator'],
       className
     )}
-  />
+  >
+    {children}
+  </DateTableCell>
 );
 
 interface CalendarProps {

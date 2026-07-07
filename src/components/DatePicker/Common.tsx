@@ -50,7 +50,7 @@ interface HighlightedInputWrapperProps extends Omit<
 > {
   isActive: boolean;
   error?: boolean;
-  wide?: boolean;
+  fillWidth?: boolean;
 }
 
 // The resting default border and the error border are identical to what the
@@ -59,20 +59,25 @@ interface HighlightedInputWrapperProps extends Omit<
 const HighlightedInputWrapper = ({
   isActive,
   error,
-  wide,
+  fillWidth,
+  disabled,
+  id,
+  children,
   className,
-  ...props
 }: HighlightedInputWrapperProps) => (
   <InputWrapper
-    {...props}
     error={error}
+    disabled={disabled}
+    id={id}
     className={cn(
       styles['highlighted-input-wrapper'],
-      wide && styles['highlighted-input-wrapper_wide'],
+      fillWidth && styles['highlighted-input-wrapper_fill-width'],
       isActive && !error && styles['highlighted-input-wrapper_active'],
       className
     )}
-  />
+  >
+    {children}
+  </InputWrapper>
 );
 
 interface DatePickerInputProps {
@@ -310,7 +315,7 @@ export const DateTimeRangePickerInput = ({
   return (
     <HighlightedInputWrapper
       isActive={isActive}
-      wide
+      fillWidth
       disabled={disabled}
       error={startDateIsAfterEndDate}
       id={id ?? defaultId}
@@ -337,10 +342,26 @@ interface DateTableCellProps extends HTMLAttributes<HTMLTableCellElement> {
 }
 
 export const DateTableCell = forwardRef<HTMLTableCellElement, DateTableCellProps>(
-  ({ isCurrentMonth, isDisabled, isSelected, isPresent, className, ...props }, ref) => (
+  (
+    {
+      isCurrentMonth,
+      isDisabled,
+      isSelected,
+      isPresent,
+      className,
+      children,
+      onClick,
+      onKeyDown,
+      onMouseEnter,
+      onMouseLeave,
+      role,
+      tabIndex,
+      'aria-label': ariaLabel,
+    },
+    ref
+  ) => (
     <td
       ref={ref}
-      {...props}
       className={cn(
         styles['date-table-cell'],
         (!isCurrentMonth || isDisabled) && styles['date-table-cell_muted'],
@@ -349,19 +370,33 @@ export const DateTableCell = forwardRef<HTMLTableCellElement, DateTableCellProps
         isPresent && !isSelected && styles['date-table-cell_present'],
         className
       )}
-    />
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      role={role}
+      tabIndex={tabIndex}
+      aria-label={ariaLabel}
+    >
+      {children}
+    </td>
   )
 );
 DateTableCell.displayName = 'DateTableCell';
 
 export const StyledDropdownItem = ({
   className,
-  ...props
-}: ComponentProps<typeof Dropdown.Item>) => (
+  children,
+  onClick,
+  'data-testid': dataTestId,
+}: ComponentProps<typeof Dropdown.Item> & { 'data-testid'?: string }) => (
   <Dropdown.Item
-    {...props}
+    onClick={onClick}
+    data-testid={dataTestId}
     className={cn(styles['styled-dropdown-item'], className)}
-  />
+  >
+    {children}
+  </Dropdown.Item>
 );
 
 export type Body = ReturnType<typeof useCalendar>['body'];
@@ -382,11 +417,32 @@ const monthAbbreviations = getMonthNames('short');
 
 type DateViewOption = 'days' | 'months' | 'years';
 
-const PickerNavControl = forwardRef<HTMLButtonElement, ComponentProps<typeof IconButton>>(
-  ({ className, ...props }, ref) => (
+const PickerNavControl = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof IconButton> & { 'data-testid'?: string }
+>(
+  (
+    {
+      className,
+      icon,
+      onClick,
+      onKeyDown,
+      size,
+      type,
+      tabIndex,
+      'data-testid': dataTestId,
+    },
+    ref
+  ) => (
     <IconButton
       ref={ref}
-      {...props}
+      icon={icon}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      size={size}
+      type={type}
+      tabIndex={tabIndex}
+      data-testid={dataTestId}
       className={cn(styles['picker-nav-control'], className)}
     />
   )
@@ -395,14 +451,24 @@ PickerNavControl.displayName = 'PickerNavControl';
 
 const EmptyDateSelectNav = forwardRef<
   HTMLButtonElement,
-  ComponentProps<typeof IconButton>
->(({ className, ...props }, ref) => (
-  <PickerNavControl
-    ref={ref}
-    {...props}
-    className={cn(styles['empty-date-select-nav'], className)}
-  />
-));
+  ComponentProps<typeof IconButton> & { 'data-testid'?: string }
+>(
+  (
+    { className, icon, onKeyDown, size, type, tabIndex, 'data-testid': dataTestId },
+    ref
+  ) => (
+    <PickerNavControl
+      ref={ref}
+      icon={icon}
+      onKeyDown={onKeyDown}
+      size={size}
+      type={type}
+      tabIndex={tabIndex}
+      data-testid={dataTestId}
+      className={cn(styles['empty-date-select-nav'], className)}
+    />
+  )
+);
 EmptyDateSelectNav.displayName = 'EmptyDateSelectNav';
 
 const DateSelectNav = ({

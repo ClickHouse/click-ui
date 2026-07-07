@@ -1,24 +1,6 @@
 /* Design tokens use camelCase segments (e.g. datePicker, dateOption). */
 /* stylelint-disable custom-property-pattern */
 
-/* PredefinedCalendarContainer = styled(Panel). Doubled to beat the Panel
-   `.panel_align-items_center` / `.panel_color_default` default modifiers (0,1,0). */
-.predefined-calendar-container.predefined-calendar-container {
-  align-items: start;
-  background: var(--click-panel-color-background-muted);
-}
-
-/* styled(Container) — Container's base is `:where(.container)` (0,0,0), so a
-   single class wins. */
-.predefined-dates-container {
-  width: 275px;
-}
-
-.scrollable-container {
-  max-height: 210px;
-  overflow-y: auto;
-}
-
 /* left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border */
 .calendar-renderer-container {
   position: absolute;
@@ -40,12 +22,6 @@
   left: 276px;
 }
 
-/* Height of 221px is the height the calendar needs to match the PredefinedDatesContainer */
-.styled-calendar-renderer {
-  min-height: 221px;
-  border-radius: var(--click-datePicker-dateOption-radii-default);
-}
-
 /* DateRangeTableCell = styled(DateTableCell). Doubled to beat DateTableCell's
    base border/border-radius and `.date-table-cell_present` background (0,1,0). */
 .date-range-table-cell_indicator.date-range-table-cell_indicator {
@@ -53,4 +29,28 @@
     var(--click-datePicker-dateOption-color-background-range);
   border-radius: 0;
   background: var(--click-datePicker-dateOption-color-background-range);
+}
+
+/* PredefinedCalendarContainer = styled(Panel). Doubled to beat the Panel
+   `.panel_align-items_center` / `.panel_color_default` default modifiers (0,1,0). */
+.predefined-calendar-container.predefined-calendar-container {
+  align-items: start;
+  background: var(--click-panel-color-background-muted);
+}
+
+/* styled(Container) — Container's base is `:where(.container)` (0,0,0), so a
+   single class wins. */
+.predefined-dates-container {
+  width: 275px;
+}
+
+.scrollable-container {
+  max-height: 210px;
+  overflow-y: auto;
+}
+
+/* Height of 221px is the height the calendar needs to match the PredefinedDatesContainer */
+.styled-calendar-renderer {
+  min-height: 221px;
+  border-radius: var(--click-datePicker-dateOption-radii-default);
 }

@@ -1,24 +1,8 @@
 /* Design tokens use camelCase segments (e.g. datePicker, dateOption). */
 /* stylelint-disable custom-property-pattern */
 
-/* PredefinedCalendarContainer = styled(Panel). Doubled to beat the Panel
-   `.panel_align-items_center` / `.panel_color_default` default modifiers (0,1,0). */
-.predefined-calendar-container.predefined-calendar-container {
-  align-items: start;
-  background: var(--click-panel-color-background-muted);
-}
-
-.predefined-times-container {
-  width: 258px;
-}
-
-.scrollable-container {
-  max-height: 210px;
-  overflow-y: auto;
-}
-
-.time-input-container {
-  background: var(--click-datePicker-dateOption-color-background-default);
+.bottom-padding-tabs {
+  padding-bottom: var(--sizes-3);
 }
 
 /* left value of 259px is the width of the PredefinedTimesContainer + 1 pixel for border */
@@ -43,10 +27,35 @@
   left: 259px;
 }
 
+/* DateRangeTableCell = styled(DateTableCell). Doubled to beat DateTableCell's
+   base border/border-radius and `.date-table-cell_present` background (0,1,0). */
+.date-range-table-cell_indicator.date-range-table-cell_indicator {
+  border: var(--click-datePicker-dateOption-stroke) solid
+    var(--click-datePicker-dateOption-color-background-range);
+  border-radius: 0;
+  background: var(--click-datePicker-dateOption-color-background-range);
+}
+
 /* NoOverflowDropdownContent = styled(Dropdown.Content). Doubled to beat the
    `.dropdown-menu-content` base `overflow-y: auto` (0,1,0). */
 .no-overflow-dropdown-content.no-overflow-dropdown-content {
   overflow-y: hidden;
+}
+
+/* PredefinedCalendarContainer = styled(Panel). Doubled to beat the Panel
+   `.panel_align-items_center` / `.panel_color_default` default modifiers (0,1,0). */
+.predefined-calendar-container.predefined-calendar-container {
+  align-items: start;
+  background: var(--click-panel-color-background-muted);
+}
+
+.predefined-times-container {
+  width: 258px;
+}
+
+.scrollable-container {
+  max-height: 210px;
+  overflow-y: auto;
 }
 
 /* Height of 221px is the height the calendar needs to match the PredefinedTimesContainer */
@@ -55,19 +64,10 @@
   border-radius: var(--click-datePicker-dateOption-radii-default);
 }
 
-.bottom-padding-tabs {
-  padding-bottom: var(--sizes-3);
-}
-
 .styled-trigger-list {
   justify-content: space-around;
 }
 
-/* DateRangeTableCell = styled(DateTableCell). Doubled to beat DateTableCell's
-   base border/border-radius and `.date-table-cell_present` background (0,1,0). */
-.date-range-table-cell_indicator.date-range-table-cell_indicator {
-  border: var(--click-datePicker-dateOption-stroke) solid
-    var(--click-datePicker-dateOption-color-background-range);
-  border-radius: 0;
-  background: var(--click-datePicker-dateOption-color-background-range);
+.time-input-container {
+  background: var(--click-datePicker-dateOption-color-background-default);
 }

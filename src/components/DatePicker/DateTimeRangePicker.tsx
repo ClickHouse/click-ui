@@ -46,22 +46,36 @@ const calendarFullWidth = '258px';
 
 const PredefinedCalendarContainer = ({
   className,
-  ...props
+  children,
+  gap,
+  orientation,
+  padding,
 }: ComponentProps<typeof Panel>) => (
   <Panel
-    {...props}
+    gap={gap}
+    orientation={orientation}
+    padding={padding}
     className={cn(styles['predefined-calendar-container'], className)}
-  />
+  >
+    {children}
+  </Panel>
 );
 
 const PredefinedTimesContainer = ({
   className,
-  ...props
-}: ComponentProps<typeof Container>) => (
+  children,
+  isResponsive,
+  orientation,
+  'data-testid': dataTestId,
+}: ComponentProps<typeof Container> & { 'data-testid'?: string }) => (
   <Container
-    {...props}
+    isResponsive={isResponsive}
+    orientation={orientation}
+    data-testid={dataTestId}
     className={cn(styles['predefined-times-container'], className)}
-  />
+  >
+    {children}
+  </Container>
 );
 
 type OpenDirection = 'left' | 'right';
@@ -86,75 +100,126 @@ CalendarRendererContainer.displayName = 'CalendarRendererContainer';
 
 const NoOverflowDropdownContent = ({
   className,
-  ...props
-}: ComponentProps<typeof Dropdown.Content>) => (
+  children,
+  align,
+  responsivePositioning,
+}: {
+  className?: string;
+  children?: ReactNode;
+  align?: 'start' | 'center' | 'end';
+  responsivePositioning?: boolean;
+}) => (
   <Dropdown.Content
-    {...props}
+    align={align}
+    responsivePositioning={responsivePositioning}
     className={cn(styles['no-overflow-dropdown-content'], className)}
-  />
+  >
+    {children}
+  </Dropdown.Content>
 );
 
 const StyledCalendarRenderer = ({
   className,
-  ...props
+  children,
+  calendarOptions,
+  timezone,
 }: ComponentProps<typeof CalendarRenderer>) => (
   <CalendarRenderer
-    {...props}
+    calendarOptions={calendarOptions}
+    timezone={timezone}
     className={cn(styles['styled-calendar-renderer'], className)}
-  />
+  >
+    {children}
+  </CalendarRenderer>
 );
 
-const BottomPaddingTabs = ({ className, ...props }: ComponentProps<typeof Tabs>) => (
+const BottomPaddingTabs = ({
+  className,
+  children,
+  onValueChange,
+  value,
+}: ComponentProps<typeof Tabs>) => (
   <Tabs
-    {...props}
+    onValueChange={onValueChange}
+    value={value}
     className={cn(styles['bottom-padding-tabs'], className)}
-  />
+  >
+    {children}
+  </Tabs>
 );
 
 const StyledTriggerList = ({
   className,
-  ...props
+  children,
 }: ComponentProps<typeof Tabs.TriggersList>) => (
-  <Tabs.TriggersList
-    {...props}
-    className={cn(styles['styled-trigger-list'], className)}
-  />
+  <Tabs.TriggersList className={cn(styles['styled-trigger-list'], className)}>
+    {children}
+  </Tabs.TriggersList>
 );
 
 const ScrollableContainer = ({
   className,
-  ...props
+  children,
+  orientation,
 }: ComponentProps<typeof Container>) => (
   <Container
-    {...props}
+    orientation={orientation}
     className={cn(styles['scrollable-container'], className)}
-  />
+  >
+    {children}
+  </Container>
 );
 
 const TimeInputContainer = ({
   className,
-  ...props
+  children,
+  gap,
+  padding,
+  maxWidth,
+  orientation,
+  justifyContent,
 }: ComponentProps<typeof Container>) => (
   <Container
-    {...props}
+    gap={gap}
+    padding={padding}
+    maxWidth={maxWidth}
+    orientation={orientation}
+    justifyContent={justifyContent}
     className={cn(styles['time-input-container'], className)}
-  />
+  >
+    {children}
+  </Container>
 );
 
 const DateRangeTableCell = ({
   shouldShowRangeIndicator,
   className,
-  ...props
+  children,
+  isCurrentMonth,
+  isDisabled,
+  isSelected,
+  isPresent,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
 }: ComponentProps<typeof DateTableCell> & {
   shouldShowRangeIndicator?: boolean;
 }) => (
   <DateTableCell
-    {...props}
+    isCurrentMonth={isCurrentMonth}
+    isDisabled={isDisabled}
+    isSelected={isSelected}
+    isPresent={isPresent}
+    onClick={onClick}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
     className={cn(
       shouldShowRangeIndicator && styles['date-range-table-cell_indicator'],
       className
     )}
-  />
+  >
+    {children}
+  </DateTableCell>
 );
 
 type CalendarType = 'startDate' | 'endDate';
