@@ -113,7 +113,9 @@ describe('DatePicker utils', () => {
     it('matches by calendar day, ignoring the time of day', () => {
       const allowList = [new Date('2025-07-04T00:00:00')];
       // Same calendar day, different time — still counts as allowed.
-      expect(isDateNotInAllowList(allowList, new Date('2025-07-04T23:59:59'))).toBe(false);
+      expect(isDateNotInAllowList(allowList, new Date('2025-07-04T23:59:59'))).toBe(
+        false
+      );
     });
   });
 
