@@ -117,6 +117,7 @@ export const Alert = ({
   dismissible,
   onDismiss,
   customIcon,
+  className,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -130,7 +131,7 @@ export const Alert = ({
     <div
       data-testid="click-alert"
       {...delegated}
-      className={cn(wrapperVariants({ state, type }))}
+      className={cn(wrapperVariants({ state, type }), className)}
     >
       {dismissible && type === 'banner' && (
         <button

@@ -24,6 +24,18 @@ describe('Alert', () => {
     expect(handleSubmit).not.toHaveBeenCalled();
   });
 
+  it('forwards a consumer className onto the root element (does not overwrite it)', () => {
+    const { getByTestId } = renderAlert({
+      text: 'With custom class',
+      className: 'custom-class',
+    });
+
+    const root = getByTestId('click-alert');
+    expect(root).toHaveClass('custom-class');
+    // the component's own base class must still be present alongside it
+    expect(root.className).not.toBe('custom-class');
+  });
+
   it('given a dismissible alert, should not be visible after dismissing it', async () => {
     const text = 'Test alert component';
     const { queryAllByText, getByTestId } = renderAlert({
