@@ -24,7 +24,7 @@ import {
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';
 import { Icon } from '@/components/Icon';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import styles from './DateRangePicker.module.css';
 import {
   DateRange,
@@ -73,18 +73,23 @@ const PredefinedDatesContainer = ({
   </Container>
 );
 
+const calendarRendererContainerVariants = cva(styles['calendar-renderer-container'], {
+  variants: {
+    openDirection: {
+      left: styles['calendar-renderer-container_left'],
+      right: styles['calendar-renderer-container_right'],
+    },
+  },
+  defaultVariants: { openDirection: 'right' },
+});
+
 const CalendarRendererContainer = forwardRef<
   HTMLDivElement,
   { openDirection?: OpenDirection; children: ReactNode }
 >(({ openDirection, children }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      styles['calendar-renderer-container'],
-      openDirection === 'left'
-        ? styles['calendar-renderer-container_left']
-        : styles['calendar-renderer-container_right']
-    )}
+    className={calendarRendererContainerVariants({ openDirection })}
   >
     {children}
   </div>
@@ -123,6 +128,12 @@ const ScrollableContainer = ({
   </Container>
 );
 
+const dateRangeTableCellVariants = cva(undefined, {
+  variants: {
+    showRangeIndicator: { true: styles['date-range-table-cell_indicator'] },
+  },
+});
+
 const DateRangeTableCell = ({
   shouldShowRangeIndicator,
   className,
@@ -146,7 +157,7 @@ const DateRangeTableCell = ({
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
     className={cn(
-      shouldShowRangeIndicator && styles['date-range-table-cell_indicator'],
+      dateRangeTableCellVariants({ showRangeIndicator: shouldShowRangeIndicator }),
       className
     )}
   >

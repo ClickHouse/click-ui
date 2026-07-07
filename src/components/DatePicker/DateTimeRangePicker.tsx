@@ -39,7 +39,7 @@ import { TextField } from '@/components/TextField';
 import { ButtonGroup } from '../ButtonGroup/ButtonGroup';
 import { Label } from '../Label/Label';
 import { Text } from '../Text';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import styles from './DateTimeRangePicker.module.css';
 
 const calendarFullWidth = '258px';
@@ -80,18 +80,23 @@ const PredefinedTimesContainer = ({
 
 type OpenDirection = 'left' | 'right';
 
+const calendarRendererContainerVariants = cva(styles['calendar-renderer-container'], {
+  variants: {
+    openDirection: {
+      left: styles['calendar-renderer-container_left'],
+      right: styles['calendar-renderer-container_right'],
+    },
+  },
+  defaultVariants: { openDirection: 'right' },
+});
+
 const CalendarRendererContainer = forwardRef<
   HTMLDivElement,
   { openDirection?: OpenDirection; children: ReactNode }
 >(({ openDirection, children }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      styles['calendar-renderer-container'],
-      openDirection === 'left'
-        ? styles['calendar-renderer-container_left']
-        : styles['calendar-renderer-container_right']
-    )}
+    className={calendarRendererContainerVariants({ openDirection })}
   >
     {children}
   </div>
@@ -191,6 +196,12 @@ const TimeInputContainer = ({
   </Container>
 );
 
+const dateRangeTableCellVariants = cva(undefined, {
+  variants: {
+    showRangeIndicator: { true: styles['date-range-table-cell_indicator'] },
+  },
+});
+
 const DateRangeTableCell = ({
   shouldShowRangeIndicator,
   className,
@@ -214,7 +225,7 @@ const DateRangeTableCell = ({
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
     className={cn(
-      shouldShowRangeIndicator && styles['date-range-table-cell_indicator'],
+      dateRangeTableCellVariants({ showRangeIndicator: shouldShowRangeIndicator }),
       className
     )}
   >

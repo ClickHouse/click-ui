@@ -16,7 +16,7 @@ import { Container } from '@/components/Container';
 import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Text';
-import { cn } from '@/lib/cva';
+import { cn, cva } from '@/lib/cva';
 import styles from './Common.module.css';
 import {
   dateRangeIsValid,
@@ -44,6 +44,29 @@ const viewGridYears = {
 const totalYears = viewGridYears.columns * viewGridYears.rows;
 const yearsOffset = Math.floor(totalYears / 2);
 
+const highlightedInputWrapperVariants = cva(styles['highlighted-input-wrapper'], {
+  variants: {
+    fillWidth: { true: styles['highlighted-input-wrapper_fill-width'] },
+    active: { true: styles['highlighted-input-wrapper_active'] },
+  },
+});
+
+const dateTableCellVariants = cva(styles['date-table-cell'], {
+  variants: {
+    muted: { true: styles['date-table-cell_muted'] },
+    disabled: { true: styles['date-table-cell_disabled'] },
+    selected: { true: styles['date-table-cell_selected'] },
+    present: { true: styles['date-table-cell_present'] },
+  },
+});
+
+const gridCellVariants = cva(styles['grid-cell'], {
+  variants: {
+    active: { true: styles['grid-cell_active'] },
+    present: { true: styles['grid-cell_present'] },
+  },
+});
+
 interface HighlightedInputWrapperProps extends Omit<
   ComponentProps<typeof InputWrapper>,
   'error'
@@ -70,9 +93,7 @@ const HighlightedInputWrapper = ({
     disabled={disabled}
     id={id}
     className={cn(
-      styles['highlighted-input-wrapper'],
-      fillWidth && styles['highlighted-input-wrapper_fill-width'],
-      isActive && !error && styles['highlighted-input-wrapper_active'],
+      highlightedInputWrapperVariants({ fillWidth, active: isActive && !error }),
       className
     )}
   >
@@ -363,11 +384,12 @@ export const DateTableCell = forwardRef<HTMLTableCellElement, DateTableCellProps
     <td
       ref={ref}
       className={cn(
-        styles['date-table-cell'],
-        (!isCurrentMonth || isDisabled) && styles['date-table-cell_muted'],
-        isDisabled && styles['date-table-cell_disabled'],
-        isSelected && styles['date-table-cell_selected'],
-        isPresent && !isSelected && styles['date-table-cell_present'],
+        dateTableCellVariants({
+          muted: !isCurrentMonth || isDisabled,
+          disabled: isDisabled,
+          selected: isSelected,
+          present: isPresent && !isSelected,
+        }),
         className
       )}
       onClick={onClick}
@@ -769,11 +791,10 @@ export const CalendarRenderer = ({
               key={month}
               type="button"
               ref={ref}
-              className={cn(
-                styles['grid-cell'],
-                isActive && styles['grid-cell_active'],
-                isPresent && !isActive && styles['grid-cell_present']
-              )}
+              className={gridCellVariants({
+                active: isActive,
+                present: isPresent && !isActive,
+              })}
               onClick={handleClick}
               onKeyDown={handleKeyDown}
               data-testid={`month-cell-${index}`}
@@ -828,11 +849,10 @@ export const CalendarRenderer = ({
               key={currentYear}
               type="button"
               ref={ref}
-              className={cn(
-                styles['grid-cell'],
-                isActive && styles['grid-cell_active'],
-                isPresent && !isActive && styles['grid-cell_present']
-              )}
+              className={gridCellVariants({
+                active: isActive,
+                present: isPresent && !isActive,
+              })}
               onClick={handleClick}
               onKeyDown={handleKeyDown}
               data-testid={`year-cell-${currentYear}`}
