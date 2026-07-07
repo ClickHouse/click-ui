@@ -3,7 +3,12 @@ import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import * as Popover from '@radix-ui/react-popover';
 import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
-import { shiftFromTimezone, shiftToTimezone, Timezone } from './utils';
+import {
+  isDateNotInAllowList,
+  shiftFromTimezone,
+  shiftToTimezone,
+  Timezone,
+} from './utils';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 const DAYS_IN_WEEK = 7;
@@ -153,12 +158,7 @@ const Calendar = ({
           const isSelected = shiftedSelected && isSameDate(shiftedSelected, fullDate);
           const isPresent = isSameDate(today, fullDate);
 
-          const isNotAllowed =
-            shiftedAllowList &&
-            shiftedAllowList.length > 0 &&
-            !shiftedAllowList.some((shiftedDate: Date) => {
-              return isSameDate(shiftedDate, fullDate);
-            });
+          const isNotAllowed = isDateNotInAllowList(shiftedAllowList, fullDate);
 
           const isFutureDisabled = futureDatesDisabled && fullDate > today;
           const isDisabled = isNotAllowed || isFutureDisabled;

@@ -190,6 +190,90 @@ describe('DateRangePicker', () => {
       fireEvent.click(await findByText('15'));
       expect(handleSelectDate).toHaveBeenCalled();
     });
+
+    it('disables selecting dates not in allowOnlyDatesList', async () => {
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      // Jul 5 is not in the allow list
+      user.click(await findByText('5'));
+
+      // A disabled date must not be selectable as the start date
+      expect(getByText('start date – end date')).toBeInTheDocument();
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+
+    it('allows selecting an end date that is in allowOnlyDatesList', async () => {
+      const startDate = new Date('07-04-2020');
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          startDate={startDate}
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      // Jul 6 is in the allow list
+      fireEvent.click(await findByText('6'));
+
+      const [selectedStart, selectedEnd] = handleSelectDate.mock.lastCall ?? [];
+      expect(selectedStart).toEqual(new Date('2020-07-04 00:00.00'));
+      expect(selectedEnd).toEqual(new Date('2020-07-06 00:00.00'));
+    });
+
+    it('treats an empty allowOnlyDatesList as no restriction', async () => {
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={[]}
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      fireEvent.click(await findByText('10'));
+
+      // With no restriction, Jul 10 is selectable as the start date
+      expect(getByText('Jul 10, 2020')).toBeInTheDocument();
+    });
+
+    it('disables future dates in allowOnlyDatesList when futureDatesDisabled', async () => {
+      // System time is July 4, 2020
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          futureDatesDisabled
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      // Jul 6 is in the allow list but is a future date
+      user.click(await findByText('6'));
+
+      expect(getByText('start date – end date')).toBeInTheDocument();
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
   });
 
   describe('when a range is already selected and maxRangeLength is set', () => {

@@ -1,7 +1,10 @@
 import { Args, Meta, StoryObj } from '@storybook/react-vite';
 import dayjs from 'dayjs';
 import { DateRangePicker } from './DateRangePicker';
-import { getPredefinedMonthsForDateRangePicker } from './utils';
+import {
+  getNextNDatesForDatePickerAllowOnlyList,
+  getPredefinedMonthsForDateRangePicker,
+} from './utils';
 import { Text } from '../Text';
 
 const meta: Meta<typeof DateRangePicker> = {
@@ -31,6 +34,32 @@ export const Default: Story = {
     return (
       <DateRangePicker
         key="default"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={args.futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+      />
+    );
+  },
+};
+
+export const DateRangePickerAllowOnlyNext30Days: Story = {
+  args: {
+    allowOnlyDatesList: getNextNDatesForDatePickerAllowOnlyList(30),
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+    return (
+      <DateRangePicker
+        key="default"
+        allowOnlyDatesList={args.allowOnlyDatesList}
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
