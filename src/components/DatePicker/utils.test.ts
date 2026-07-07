@@ -5,6 +5,7 @@ import {
   formatSelectedDate,
   formatSelectedDateTime,
   shiftFromTimezone,
+  isDateNotInAllowList,
   isDateRangeTheWholeMonth,
   shiftToTimezone,
 } from './utils';
@@ -87,6 +88,32 @@ describe('DatePicker utils', () => {
         const endDate = new Date('2026-04-30T23:59:59.999Z');
         expect(isDateRangeTheWholeMonth({ startDate, endDate }, 'UTC')).toBeTruthy();
       });
+    });
+  });
+
+  describe('checking if a date is excluded by an allow-list', () => {
+    it('returns false when there is no allow-list (undefined)', () => {
+      expect(isDateNotInAllowList(undefined, new Date('07-04-2025'))).toBe(false);
+    });
+
+    it('returns false when the allow-list is empty', () => {
+      expect(isDateNotInAllowList([], new Date('07-04-2025'))).toBe(false);
+    });
+
+    it('returns false when the date is in the allow-list', () => {
+      const allowList = [new Date('07-04-2025'), new Date('07-06-2025')];
+      expect(isDateNotInAllowList(allowList, new Date('07-06-2025'))).toBe(false);
+    });
+
+    it('returns true when the date is not in the allow-list', () => {
+      const allowList = [new Date('07-04-2025'), new Date('07-06-2025')];
+      expect(isDateNotInAllowList(allowList, new Date('07-05-2025'))).toBe(true);
+    });
+
+    it('matches by calendar day, ignoring the time of day', () => {
+      const allowList = [new Date('2025-07-04T00:00:00')];
+      // Same calendar day, different time — still counts as allowed.
+      expect(isDateNotInAllowList(allowList, new Date('2025-07-04T23:59:59'))).toBe(false);
     });
   });
 

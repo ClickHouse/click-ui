@@ -185,7 +185,7 @@ export const isDateNotInAllowList = (
   allowList: Array<Date> | undefined,
   date: Date
 ): boolean =>
-  !!allowList &&
+  Array.isArray(allowList) &&
   allowList.length > 0 &&
   !allowList.some(allowedDate => isSameDate(allowedDate, date));
 
