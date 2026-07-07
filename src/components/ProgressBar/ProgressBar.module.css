@@ -1,3 +1,5 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. progressBar) */
+
 .progressbar {
   display: flex;
   min-height: 2px;
