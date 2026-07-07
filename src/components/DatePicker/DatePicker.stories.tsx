@@ -74,10 +74,7 @@ export const ResponsivePositioningDisabled = {
   },
 };
 
-// Visual-regression fixture: a fixed selected date so the opened calendar,
-// its selected/present cells, and the month/year grids render deterministically.
-// The spec pins the clock so the "today" highlight is stable.
-export const VRDatePicker = {
+export const SelectedDate = {
   ...defaultStory,
   render: () => (
     <DatePicker

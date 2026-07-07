@@ -203,16 +203,13 @@ export const ResponsivePositioningDisabled: Story = {
   },
 };
 
-// Visual-regression fixtures: fixed start/end dates so the opened calendar's
-// range indicator and selected cells render deterministically. The spec pins
-// the clock so the "today" highlight is stable.
-export const VRDateRangePicker: Story = {
+export const SelectedDate: Story = {
   args: {
     predefinedDatesList: [],
   },
   render: (args: Args) => (
     <DateRangePicker
-      key="vr"
+      key="selected-date"
       startDate={new Date('2026-07-10T12:00:00')}
       endDate={new Date('2026-07-20T12:00:00')}
       onSelectDateRange={args.onSelectDateRange}
@@ -220,10 +217,10 @@ export const VRDateRangePicker: Story = {
   ),
 };
 
-export const VRDateRangePickerPredefined: Story = {
+export const PredefinedDatesWithSelectedDate: Story = {
   render: (args: Args) => (
     <DateRangePicker
-      key="vr"
+      key="predefined-dates-with-selected-date"
       startDate={new Date('2026-07-10T12:00:00')}
       endDate={new Date('2026-07-20T12:00:00')}
       onSelectDateRange={args.onSelectDateRange}

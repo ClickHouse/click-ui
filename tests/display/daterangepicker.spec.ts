@@ -12,8 +12,8 @@ const themes = ['light', 'dark'] as const;
 // present-day cell is deterministic. The stories select 2026-07-10 – 2026-07-20.
 const FIXED_NOW = new Date('2026-07-15T12:00:00');
 
-const PLAIN = 'display-daterangepicker--vr-date-range-picker';
-const PREDEFINED = 'display-daterangepicker--vr-date-range-picker-predefined';
+const PLAIN = 'display-daterangepicker--selected-date';
+const PREDEFINED = 'display-daterangepicker--predefined-dates-with-selected-date';
 const popper = '[data-radix-popper-content-wrapper]';
 const settleMs = 300;
 

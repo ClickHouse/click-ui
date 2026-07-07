@@ -9,12 +9,13 @@ const { describe } = it;
 const themes = ['light', 'dark'] as const;
 
 // The calendar highlights "today" from `new Date()`; pin the clock so the
-// present-day cell is deterministic. The stories select 2026-07-10 – 2026-07-20.
+// present-day cell is deterministic across the fixed-date stories.
 const FIXED_NOW = new Date('2026-07-15T12:00:00');
 
-const TABBED = 'display-datetimerangepicker--vr-date-time-range-picker';
-const ERROR = 'display-datetimerangepicker--vr-date-time-range-picker-error';
-const PREDEFINED = 'display-datetimerangepicker--vr-date-time-range-picker-predefined';
+const TABBED = 'display-datetimerangepicker--set-start-and-end-date';
+const ERROR = 'display-datetimerangepicker--invalid-dates';
+const PREDEFINED =
+  'display-datetimerangepicker--predefined-times-with-set-start-and-end-date';
 const popper = '[data-radix-popper-content-wrapper]';
 const settleMs = 300;
 

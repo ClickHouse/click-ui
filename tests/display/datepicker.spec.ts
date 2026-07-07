@@ -13,7 +13,7 @@ const themes = ['light', 'dark'] as const;
 // offsets can't cross a day boundary. The story selects 2026-07-20.
 const FIXED_NOW = new Date('2026-07-15T12:00:00');
 
-const STORY = 'display-datepicker--vr-date-picker';
+const STORY = 'display-datepicker--selected-date';
 const popper = '[data-radix-popper-content-wrapper]';
 const settleMs = 300;
 
