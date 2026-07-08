@@ -3532,11 +3532,10 @@ const theme = {
         },
       },
     },
-    gareth: {
-      test: {
-        main: {
-          text: '#161517',
-          danger: '#c10000',
+    progressBar: {
+      color: {
+        text: {
+          default: '#ffffff',
         },
       },
     },

@@ -1479,8 +1479,7 @@
   --click-serviceCard-color-background-hover: #fbfcff;
   --click-serviceCard-color-stroke-default: #e6e7e9;
   --click-serviceCard-color-stroke-hover: #cccfd3;
-  --click-gareth-test-main-text: #161517;
-  --click-gareth-test-main-danger: #c10000;
+  --click-progressBar-color-text-default: #ffffff;
   --transition-default: all 100ms ease-in 0ms;
   --transition-duration-slow: 300ms;
   --transition-duration-smooth: 150ms;
