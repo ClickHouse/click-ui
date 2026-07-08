@@ -1261,4 +1261,76 @@ describe('DateTimeRangePicker', () => {
       expect((timeInputs[0] as HTMLInputElement).value).toBe('08:00');
     });
   });
+
+  describe('clearing the selected date range', () => {
+    it('hides the clear control until it is explicitly enabled', () => {
+      const { queryByTestId } = renderCUI(
+        <DateTimeRangePicker onSelectDateRange={vi.fn()} />
+      );
+
+      expect(queryByTestId('datetimepicker-input-clear')).not.toBeInTheDocument();
+    });
+
+    it('offers a clear control when enabled', () => {
+      const { getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          hasClearButton
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      expect(getByTestId('datetimepicker-input-clear')).toBeInTheDocument();
+    });
+
+    it('withholds the clear control while the picker is disabled', () => {
+      const { queryByTestId } = renderCUI(
+        <DateTimeRangePicker
+          disabled
+          hasClearButton
+          onSelectDateRange={vi.fn()}
+        />
+      );
+
+      expect(queryByTestId('datetimepicker-input-clear')).not.toBeInTheDocument();
+    });
+
+    describe('when the clear control is clicked', () => {
+      it('removes both the start and end dates', async () => {
+        const startDate = new Date('07-04-2020');
+        const endDate = new Date('07-05-2020');
+        const { getByTestId } = renderCUI(
+          <DateTimeRangePicker
+            hasClearButton
+            startDate={startDate}
+            endDate={endDate}
+            onSelectDateRange={vi.fn()}
+          />
+        );
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 04, 12:00 pm – Jul 05, 12:00 pm'
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input-clear'));
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'start date – end date'
+        );
+      });
+
+      it('leaves the calendar closed', async () => {
+        const { getByTestId, queryByTestId } = renderCUI(
+          <DateTimeRangePicker
+            hasClearButton
+            startDate={new Date('07-04-2020')}
+            onSelectDateRange={vi.fn()}
+          />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input-clear'));
+
+        expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+      });
+    });
+  });
 });

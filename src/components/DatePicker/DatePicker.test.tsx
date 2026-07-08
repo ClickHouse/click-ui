@@ -623,4 +623,67 @@ describe('DatePicker', () => {
       });
     });
   });
+
+  describe('clearing the selected date', () => {
+    it('hides the clear control until it is explicitly enabled', () => {
+      const { queryByTestId } = renderCUI(<DatePicker onSelectDate={vi.fn()} />);
+
+      expect(queryByTestId('datepicker-input-clear')).not.toBeInTheDocument();
+    });
+
+    it('offers a clear control when enabled', () => {
+      const { getByTestId } = renderCUI(
+        <DatePicker
+          hasClearButton
+          onSelectDate={vi.fn()}
+        />
+      );
+
+      expect(getByTestId('datepicker-input-clear')).toBeInTheDocument();
+    });
+
+    it('withholds the clear control while the picker is disabled', () => {
+      const { queryByTestId } = renderCUI(
+        <DatePicker
+          disabled
+          hasClearButton
+          onSelectDate={vi.fn()}
+        />
+      );
+
+      expect(queryByTestId('datepicker-input-clear')).not.toBeInTheDocument();
+    });
+
+    describe('when the clear control is clicked', () => {
+      it('removes the currently selected date', async () => {
+        const { getByTestId } = renderCUI(
+          <DatePicker
+            hasClearButton
+            date={new Date('07-04-2020')}
+            onSelectDate={vi.fn()}
+          />
+        );
+
+        expect(getByTestId('datepicker-input')).toHaveValue('Jul 04, 2020');
+
+        await userEvent.click(getByTestId('datepicker-input-clear'));
+
+        expect(getByTestId('datepicker-input')).toHaveValue('');
+      });
+
+      it('leaves the calendar closed', async () => {
+        const { getByTestId, queryByTestId } = renderCUI(
+          <DatePicker
+            hasClearButton
+            date={new Date('07-04-2020')}
+            onSelectDate={vi.fn()}
+          />
+        );
+
+        await userEvent.click(getByTestId('datepicker-input-clear'));
+
+        expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
+      });
+    });
+  });
 });
