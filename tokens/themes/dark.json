@@ -5227,15 +5227,11 @@
         }
       }
     },
-    "gareth": {
-      "test": {
-        "main": {
-          "text": {
-            "value": "{global.color.text.default}",
-            "type": "color"
-          },
-          "danger": {
-            "value": "{click.global.color.text.danger}",
+    "progressBar": {
+      "color": {
+        "text": {
+          "default": {
+            "value": "{palette.slate.100}",
             "type": "color"
           }
         }
