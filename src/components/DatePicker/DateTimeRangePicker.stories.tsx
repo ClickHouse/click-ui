@@ -361,6 +361,20 @@ export const TimezoneLocalVsUTC: Story = {
   },
 };
 
+export const InvalidDates: Story = {
+  args: {
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => (
+    <DateTimeRangePicker
+      key="invalid-dates"
+      startDate={new Date('2026-07-20T14:00:00')}
+      endDate={new Date('2026-07-20T10:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+    />
+  ),
+};
+
 export const DontFireIfInvalid: Story = {
   args: {
     maxRangeLength: 15,

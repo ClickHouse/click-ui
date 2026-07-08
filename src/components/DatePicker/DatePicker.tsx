@@ -1,7 +1,6 @@
 import { KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
 import * as Popover from '@radix-ui/react-popover';
-import { styled } from 'styled-components';
 import { Body, CalendarRenderer, DatePickerInput, DateTableCell } from './Common';
 import {
   isDateNotInAllowList,
@@ -10,40 +9,9 @@ import {
   Timezone,
 } from './utils';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import styles from './DatePicker.module.css';
 
 const DAYS_IN_WEEK = 7;
-
-const PopoverTrigger = styled(Popover.Trigger)`
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: fit-content;
-
-  &:disabled {
-    cursor: not-allowed;
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
-`;
-
-const PopoverContent = styled(Popover.Content)`
-  z-index: 1;
-  outline: none;
-
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.panel.color.stroke.default};
-    background: ${theme.click.genericMenu.panel.color.background.default};
-    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
-    border-radius: ${theme.click.genericMenu.panel.radii.all};
-  `}
-
-  &:focus {
-    outline: none;
-  }
-`;
 
 interface CalendarProps {
   allowOnlyDatesList?: Array<Date>;
@@ -178,10 +146,10 @@ const Calendar = ({
               ref={el => {
                 dayRefs.current[currentIndex] = el;
               }}
-              $isCurrentMonth={isCurrentMonth}
-              $isDisabled={isDisabled}
-              $isSelected={isSelected}
-              $isPresent={isPresent}
+              isCurrentMonth={isCurrentMonth}
+              isDisabled={isDisabled}
+              isSelected={Boolean(isSelected)}
+              isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onKeyDown={e => onDayKeyDown(e, currentIndex, fullDate, isDisabled)}
@@ -293,7 +261,8 @@ export const DatePicker = ({
       onOpenChange={onOpenChange}
       open={isOpen}
     >
-      <PopoverTrigger
+      <Popover.Trigger
+        className={styles['popover-trigger']}
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >
@@ -307,9 +276,10 @@ export const DatePicker = ({
           selectedDate={selectedDate}
           timezone={timezone}
         />
-      </PopoverTrigger>
+      </Popover.Trigger>
       <Popover.Portal container={portalContainer}>
-        <PopoverContent
+        <Popover.Content
+          className={styles['popover-content']}
           align="start"
           avoidCollisions={responsivePositioning}
           sideOffset={4}
@@ -334,7 +304,7 @@ export const DatePicker = ({
               />
             )}
           </CalendarRenderer>
-        </PopoverContent>
+        </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
   );

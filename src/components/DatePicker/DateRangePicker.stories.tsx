@@ -232,6 +232,45 @@ export const ResponsivePositioningDisabled: Story = {
   },
 };
 
+export const SelectedDate: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => (
+    <DateRangePicker
+      key="selected-date"
+      startDate={new Date('2026-07-10T12:00:00')}
+      endDate={new Date('2026-07-20T12:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+    />
+  ),
+};
+
+export const PredefinedDatesWithSelectedDate: Story = {
+  render: (args: Args) => (
+    <DateRangePicker
+      key="predefined-dates-with-selected-date"
+      startDate={new Date('2026-07-10T12:00:00')}
+      endDate={new Date('2026-07-20T12:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+      predefinedDatesList={[
+        {
+          startDate: new Date('2026-07-01T12:00:00'),
+          endDate: new Date('2026-07-31T12:00:00'),
+        },
+        {
+          startDate: new Date('2026-06-01T12:00:00'),
+          endDate: new Date('2026-06-30T12:00:00'),
+        },
+        {
+          startDate: new Date('2026-05-01T12:00:00'),
+          endDate: new Date('2026-05-31T12:00:00'),
+        },
+      ]}
+    />
+  ),
+};
+
 export const TimezoneLocalVsUTC: Story = {
   render: (args: Args) => {
     const startDate = args.startDate
