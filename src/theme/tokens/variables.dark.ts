@@ -3496,13 +3496,6 @@ const theme = {
         },
       },
     },
-    progressBar: {
-      color: {
-        text: {
-          default: '#e6e7e9',
-        },
-      },
-    },
     storybook: {
       global: {
         background: '#1b1c1d',

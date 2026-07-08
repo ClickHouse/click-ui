@@ -4131,16 +4131,6 @@
         }
       }
     },
-    "progressBar": {
-      "color": {
-        "text": {
-          "default": {
-            "value": "{palette.slate.100}",
-            "type": "color"
-          }
-        }
-      }
-    },
     "panel": {
       "color": {
         "background": {

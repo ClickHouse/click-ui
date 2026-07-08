@@ -3579,16 +3579,6 @@
         }
       }
     },
-    "progressBar": {
-      "color": {
-        "text": {
-          "default": {
-            "value": "{palette.neutral.0}",
-            "type": "color"
-          }
-        }
-      }
-    },
     "radio": {
       "color": {
         "background": {
