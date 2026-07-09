@@ -1,9 +1,9 @@
-/* Kept at zero specificity via :where() so that downstream styled-components
-   overrides on a styled(EmptyButton) (e.g. CrossButton overriding background and
-   padding, the Popover/CodeBlock close/copy buttons overriding color and padding)
-   win without needing a specificity hack — EmptyButton is a CSS Module, whose
-   rules otherwise beat equal-specificity styled-components by source order. */
-:where(.empty-button) {
+/* This base lands in the `clickui.block` cascade layer. Higher click-ui layers
+   and any unlayered consumer style override it by layer order — e.g.
+   CrossButton's `.cross-button` (clickui.override) and the Collapsible trigger's
+   `.collapsible__trigger` (clickui.elem) win over these base rules — so no
+   specificity hack is needed. */
+.empty-button {
   padding: 0;
   border: 0;
   background: transparent;
@@ -13,9 +13,6 @@
   cursor: pointer;
 }
 
-/* Also scoped with :where() so the disabled cursor stays at zero specificity
-   and a downstream styled(EmptyButton) `&:disabled` override wins naturally,
-   rather than tying on specificity and losing to the CSS Module by source order. */
-:where(.empty-button):disabled {
+.empty-button:disabled {
   cursor: not-allowed;
 }

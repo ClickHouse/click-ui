@@ -7,13 +7,15 @@ const run = async (css: string): Promise<string> => {
   return result.css;
 };
 
-const ORDER = '@layer clickui.block, clickui.elem, clickui.mod;';
+const ORDER = '@layer clickui.block, clickui.elem, clickui.mod, clickui.override;';
 
 describe('wrapInClickuiLayers', () => {
   it('prepends the sub-layer order declaration exactly once', async () => {
     const out = await run('.alert { color: red; }');
     expect(out.startsWith(ORDER)).toBe(true);
-    expect(out.match(/@layer clickui\.block, clickui\.elem, clickui\.mod;/g)).toHaveLength(1);
+    expect(
+      out.match(/@layer clickui\.block, clickui\.elem, clickui\.mod, clickui\.override;/g)
+    ).toHaveLength(1);
   });
 
   it('routes a block rule to clickui.block', async () => {
@@ -63,11 +65,15 @@ describe('wrapInClickuiLayers', () => {
     );
     // block-role inner rule under clickui.block, modifier under clickui.mod
     expect(out).toMatch(/@layer clickui\.block\s*{\s*@media[^{]*{\s*\.container\s*{/);
-    expect(out).toMatch(/@layer clickui\.mod\s*{\s*@media[^{]*{\s*\.container_responsive\s*{/);
+    expect(out).toMatch(
+      /@layer clickui\.mod\s*{\s*@media[^{]*{\s*\.container_responsive\s*{/
+    );
   });
 
   it('leaves @keyframes unlayered', async () => {
-    const out = await run('@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }');
+    const out = await run(
+      '@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }'
+    );
     expect(out).toContain('@keyframes spin');
     // keyframes must not be nested inside a clickui.* layer
     expect(out).not.toMatch(/@layer clickui\.[a-z]+\s*{\s*@keyframes/);
@@ -78,6 +84,18 @@ describe('wrapInClickuiLayers', () => {
     // .form-root (has a class) is layered; bare svg is not
     expect(out).toMatch(/@layer clickui\.block\s*{\s*\.form-root/);
     expect(out).not.toMatch(/@layer clickui\.[a-z]+\s*{[^}]*svg\s*{\s*fill/);
+  });
+
+  it('routes an annotated rule to clickui.override regardless of class name', async () => {
+    const out = await run('/* @clickui-layer override */\n.body { width: 20rem; }');
+    expect(out).toMatch(/@layer clickui\.override\s*{[^}]*\.body\s*{/);
+    // and NOT in the block layer despite being a block-role name
+    expect(out).not.toMatch(/@layer clickui\.block\s*{[^}]*\.body\s*{/);
+  });
+
+  it('honors an override annotation on an element/descendant selector', async () => {
+    const out = await run('/* @clickui-layer override */\n.header h3 { color: red; }');
+    expect(out).toMatch(/@layer clickui\.override\s*{[^}]*\.header h3\s*{/);
   });
 
   it('is idempotent — running twice does not double-wrap', async () => {

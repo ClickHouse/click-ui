@@ -1,5 +1,11 @@
 /* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. sqlSidebar) */
+
+/* SidebarCollapsibleTitle renders this wrapper `as={Collapsible.Trigger}`, so
+   the element also carries `.collapsible__trigger`. The cross-component cascade
+   between these two rules is now governed by layer order rather than the old
+   doubled-class specificity boost. */
 .wrapper {
+  display: inline-flex;
   /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original styled rule used this
    same width fallback chain (100% → -webkit-fill-available → fill-available →
    stretch) so the title fills the available inline space. */
@@ -11,41 +17,27 @@
   padding: 0;
   padding-left: var(--title-pad-left);
   overflow: hidden;
+  align-items: center;
   border: none;
   background: transparent;
+  color: var(--title-color-default);
+  font: var(--click-sidebar-navigation-title-typography-default);
   white-space: nowrap;
+  cursor: pointer;
 
   /* Not collapsible by default: reserve the icon-column width on the left.
-     The single-class modifiers below override this; keep these defaults at
-     single-class specificity so they can. */
+     The `collapsible` modifier overrides this. */
   --title-pad-left: var(--click-image-sm-size-width);
 }
 
-/* Doubled class → specificity (0,2,0). SidebarCollapsibleTitle renders this
-   wrapper `as={Collapsible.Trigger}`, so the element also carries
-   `.collapsible__trigger`, whose `display/align-items/color/font/cursor`
-   resets would otherwise win on CSS-module bundle order and strip the title's
-   own typography. The original styled-components cascade resolved in the
-   title's favour; the doubled class makes that deterministic. Only the
-   properties that actually conflict with the trigger live here — box metrics
-   and the `--title-*` custom properties stay single-class above/below so the
-   `type`/`collapsible` modifiers still override them. */
-.wrapper.wrapper {
-  display: inline-flex;
-  align-items: center;
-  color: var(--title-color-default);
-  font: var(--click-sidebar-navigation-title-typography-default);
-  cursor: pointer;
-}
-
-.wrapper.wrapper:hover {
+.wrapper:hover {
   color: var(--title-color-hover);
   font: var(--click-sidebar-navigation-title-typography-hover);
 }
 
-.wrapper.wrapper:active,
-.wrapper.wrapper[data-state='open'],
-.wrapper.wrapper[data-selected='true'] {
+.wrapper:active,
+.wrapper[data-state='open'],
+.wrapper[data-selected='true'] {
   color: var(--title-color-active);
   font: var(--click-sidebar-navigation-title-typography-active);
 }

@@ -13,11 +13,11 @@
 }
 
 /* This class is applied alongside the IconButton module classes on the same
-   <button>. `color`, `padding`, and `border` are set by both; the
-   styled-components original won them via source order. Double the class so
-   those three win regardless of CSS-module bundle order, matching the
-   pre-migration rendering. */
-.codeblock__button.codeblock__button {
+   <button>; `color`, `padding`, and `border` are set by both. The color
+   competitor is IconButton's `.iconbutton_type_primary` (a clickui.mod rule),
+   so @clickui-layer override makes all three win by layer order. */
+/* @clickui-layer override */
+.codeblock__button {
   /* Reset so a copied/error state on one button can't inherit into another via
      the custom property (custom properties inherit by default). The copied/error
      colors are set inline per state via --codeblock-button, matching the

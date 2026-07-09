@@ -1,9 +1,6 @@
-/* The wrapper class is applied alongside FormRoot's styled-components class.
-   The .wrapper.wrapper double-class boost matches the specificity behavior of
-   the original `styled(FormRoot)` chain so these overrides reliably beat
-   FormRoot's `align-items: flex-start` regardless of stylesheet insertion
-   order between CSS Modules and the runtime-injected styled-components. */
-.wrapper.wrapper {
+/* Checkbox wrapper. Lands in `clickui.block`, so an unlayered consumer
+   override wins regardless of source order — no specificity hack needed. */
+.wrapper {
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
      keyword on `max-width` is widely supported on evergreen browsers; the original
      styled-components rule used the same value. */

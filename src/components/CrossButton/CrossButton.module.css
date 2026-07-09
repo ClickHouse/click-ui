@@ -1,5 +1,9 @@
 /* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconButton) */
 
+/* Renders as an <EmptyButton>; padding and background override the EmptyButton
+   base (a clickui.block rule) on the same node. @clickui-layer override wins by
+   layer order (both rules share the layer, so :hover still beats the base). */
+/* @clickui-layer override */
 .cross-button {
   padding: var(--click-button-iconButton-sm-space-y)
     var(--click-button-iconButton-sm-space-x);
@@ -7,6 +11,7 @@
   background: var(--click-button-iconButton-color-primary-background-default);
 }
 
+/* @clickui-layer override */
 .cross-button:hover {
   background: var(--click-button-iconButton-color-primary-background-hover);
 }

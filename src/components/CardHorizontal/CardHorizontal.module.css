@@ -1,3 +1,7 @@
+/* Renders as a <Container>; max-width and gap override the Container base
+   (a clickui.block rule) on the same node — @clickui-layer override wins by
+   layer order. */
+/* @clickui-layer override */
 .header {
   max-width: 100%;
   gap: inherit;

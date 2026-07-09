@@ -1,10 +1,17 @@
-import { AtRule, Comment, Rule, type ChildNode, type Container, type Plugin } from 'postcss';
+import {
+  AtRule,
+  Comment,
+  Rule,
+  type ChildNode,
+  type Container,
+  type Plugin,
+} from 'postcss';
 
 /**
  * PostCSS plugin: wrap every click-ui component rule in a nested set of BEM
  * cascade layers so overrides are predictable without specificity hacks.
  *
- *   @layer clickui.block, clickui.elem, clickui.mod;
+ *   @layer clickui.block, clickui.elem, clickui.mod, clickui.override;
  *   @layer clickui.block { .alert { … } }
  *   @layer clickui.elem  { .alert__icon { … } }
  *   @layer clickui.mod   { .alert_type_default { … } }
@@ -19,19 +26,45 @@ import { AtRule, Comment, Rule, type ChildNode, type Container, type Plugin } fr
  *  2. Any unlayered consumer style (an app rule, or a `styled(Component)`
  *     override) beats every `clickui.*` layer, with zero configuration.
  *
- * The public contract is just the top-level `clickui` layer; `block`/`elem`/
- * `mod` are an internal implementation detail.
+ * The highest sub-layer, `clickui.override`, is not derived from a class name;
+ * a rule opts in with a `/* @clickui-layer override *​/` comment. It is for the
+ * rare case where one click-ui component composes another and must override the
+ * composed component's own block/elem/mod rules on the same node (which the
+ * block/elem/mod order alone can't express). It still sits below unlayered
+ * styles, so consumer overrides keep winning.
+ *
+ * The public contract is just the top-level `clickui` layer; the sub-layers are
+ * an internal implementation detail.
  *
  * Must run BEFORE CSS-Modules name scoping so it classifies the original BEM
  * class names (in both pipelines it is ordered ahead of postcss-modules).
  */
 
 const TOP_LAYER = 'clickui';
-const ROLES = ['block', 'elem', 'mod'] as const;
-type Role = (typeof ROLES)[number];
+// Name-based classification yields block | elem | mod. `override` is the
+// highest internal sub-layer and is reachable ONLY via an explicit
+// `/* @clickui-layer override */` annotation — for a click-ui rule that
+// intentionally overrides a DIFFERENT click-ui component composed on the same
+// node (e.g. Flyout.Body overriding Container's width, DatePicker overriding a
+// Panel modifier). The block/elem/mod order can't express that cross-component
+// precedence, but `override` still sits below any unlayered consumer style, so
+// consumer overrides keep winning.
+const SUBLAYERS = ['block', 'elem', 'mod', 'override'] as const;
+type Layer = (typeof SUBLAYERS)[number];
 
 /** The order declaration that fixes sub-layer precedence, emitted once per file. */
-const ORDER_PARAMS = ROLES.map(r => `${TOP_LAYER}.${r}`).join(', ');
+const ORDER_PARAMS = SUBLAYERS.map(l => `${TOP_LAYER}.${l}`).join(', ');
+
+/** `/* @clickui-layer <layer> *​/` forces the next rule into that sub-layer. */
+const LAYER_ANNOTATION = /@clickui-layer\s+(block|elem|mod|override)\b/;
+
+const annotatedLayer = (comments: Comment[]): Layer | null => {
+  for (const comment of comments) {
+    const match = comment.text.match(LAYER_ANNOTATION);
+    if (match) return match[1] as Layer;
+  }
+  return null;
+};
 
 /**
  * Classify a single BEM local class name.
@@ -43,7 +76,7 @@ const ORDER_PARAMS = ROLES.map(r => `${TOP_LAYER}.${r}`).join(', ');
  * `selector-class-pattern` rule enforces that `_` is only ever a modifier
  * separator, which is what makes this heuristic reliable.)
  */
-function classRole(local: string): Role {
+function classRole(local: string): Layer {
   const noElemSep = local.split('__').join('·');
   if (noElemSep.includes('_')) return 'mod';
   return local.includes('__') ? 'elem' : 'block';
@@ -51,7 +84,9 @@ function classRole(local: string): Role {
 
 /** Extract the `.class` tokens from a selector (ignores elements/pseudos/attrs). */
 function classTokens(selector: string): string[] {
-  return (selector.match(/\.[a-zA-Z0-9_-]+/g) ?? []).map((token: string) => token.slice(1));
+  return (selector.match(/\.[a-zA-Z0-9_-]+/g) ?? []).map((token: string) =>
+    token.slice(1)
+  );
 }
 
 /**
@@ -59,7 +94,7 @@ function classTokens(selector: string): string[] {
  * else `elem` if any targets an element, else `block`. Returns null when the
  * selector has no class token at all (global/element rule → left unlayered).
  */
-function selectorRole(selector: string): Role | null {
+function selectorRole(selector: string): Layer | null {
   const roles = classTokens(selector).map(classRole);
   if (roles.length === 0) return null;
   if (roles.includes('mod')) return 'mod';
@@ -89,9 +124,19 @@ function splitSelectorList(selector: string): string[] {
 /** Conditional group at-rules whose children participate in the cascade. */
 const CONDITIONAL_AT_RULES = new Set(['media', 'supports', 'container']);
 
-type Buckets = { block: ChildNode[]; elem: ChildNode[]; mod: ChildNode[]; unlayered: ChildNode[] };
+type Bucket = Layer | 'unlayered';
+type Buckets = Record<Bucket, ChildNode[]>;
 
-const emptyBuckets = (): Buckets => ({ block: [], elem: [], mod: [], unlayered: [] });
+// block → elem → mod → override → unlayered; drives both split order and output.
+const BUCKET_ORDER: Bucket[] = ['block', 'elem', 'mod', 'override', 'unlayered'];
+
+const emptyBuckets = (): Buckets => ({
+  block: [],
+  elem: [],
+  mod: [],
+  override: [],
+  unlayered: [],
+});
 
 /**
  * Sort the children of a container into block/elem/mod/unlayered buckets.
@@ -114,9 +159,20 @@ function bucketize(nodes: ChildNode[]): Buckets {
 
     if (node.type === 'rule') {
       const rule = node as Rule;
+
+      // An explicit annotation forces the whole rule into one sub-layer,
+      // overriding name-based classification (used for cross-component
+      // overrides the block/elem/mod order can't express).
+      const forced = annotatedLayer(pendingComments);
+      if (forced) {
+        flushInto(buckets[forced]);
+        buckets[forced].push(rule.clone());
+        continue;
+      }
+
       // Group this rule's selectors by role, splitting a mixed-role list so
       // each part lands in its own layer (`.link, .link_size_xs` → two rules).
-      const byRole = new Map<Role | 'unlayered', string[]>();
+      const byRole = new Map<Bucket, string[]>();
       for (const selector of splitSelectorList(rule.selector)) {
         const role = selectorRole(selector) ?? 'unlayered';
         const list = byRole.get(role) ?? [];
@@ -126,7 +182,7 @@ function bucketize(nodes: ChildNode[]): Buckets {
 
       let first = true;
       // Deterministic order so a split rule reads block → elem → mod.
-      for (const role of ['block', 'elem', 'mod', 'unlayered'] as const) {
+      for (const role of BUCKET_ORDER) {
         const selectors = byRole.get(role);
         if (!selectors) continue;
         const clone = rule.clone();
@@ -146,7 +202,7 @@ function bucketize(nodes: ChildNode[]): Buckets {
         // layers, each carrying only the children of that role.
         const inner = bucketize((atRule.nodes ?? []) as ChildNode[]);
         let first = true;
-        for (const role of ['block', 'elem', 'mod', 'unlayered'] as const) {
+        for (const role of BUCKET_ORDER) {
           if (inner[role].length === 0) continue;
           const clone = atRule.clone();
           clone.removeAll();
@@ -202,12 +258,12 @@ export function wrapInClickuiLayers(): Plugin {
       };
       appendInto(root, buckets.unlayered);
 
-      // 3. One `@layer clickui.<role> { … }` block per non-empty role.
-      for (const role of ROLES) {
-        if (buckets[role].length === 0) continue;
-        const layer = new AtRule({ name: 'layer', params: `${TOP_LAYER}.${role}` });
-        appendInto(layer, buckets[role]);
-        root.append(layer);
+      // 3. One `@layer clickui.<layer> { … }` block per non-empty sub-layer.
+      for (const layer of SUBLAYERS) {
+        if (buckets[layer].length === 0) continue;
+        const layerNode = new AtRule({ name: 'layer', params: `${TOP_LAYER}.${layer}` });
+        appendInto(layerNode, buckets[layer]);
+        root.append(layerNode);
       }
     },
   };

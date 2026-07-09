@@ -126,7 +126,12 @@
   height: var(--click-card-primary-size-icon-sm-all);
 }
 
-.header.header h3 {
+/* The h3 is a <Title>, whose default color (`.title_color_default`) is a
+   clickui.mod rule. Placing this in clickui.mod lets its descendant specificity
+   (0,1,1) beat Title's (0,1,0), while `.header_disabled h3` below still
+   overrides it. */
+/* @clickui-layer mod */
+.header h3 {
   color: var(--click-global-color-text-default);
 }
 

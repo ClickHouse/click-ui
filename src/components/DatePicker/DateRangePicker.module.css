@@ -22,28 +22,36 @@
   left: 276px;
 }
 
-/* DateRangeTableCell = styled(DateTableCell). Doubled to beat DateTableCell's
-   base border/border-radius and `.date-table-cell_present` background (0,1,0). */
-.date-range-table-cell_indicator.date-range-table-cell_indicator {
+/* DateRangeTableCell wraps a DateTableCell and overrides its base border/radius
+   (clickui.block) and its `.date-table-cell_present` background (clickui.mod)
+   on the same node — @clickui-layer override wins over both by layer order. */
+/* @clickui-layer override */
+.date-range-table-cell_indicator {
   border: var(--click-datePicker-dateOption-stroke) solid
     var(--click-datePicker-dateOption-color-background-range);
   border-radius: 0;
   background: var(--click-datePicker-dateOption-color-background-range);
 }
 
-/* PredefinedCalendarContainer = styled(Panel). Doubled to beat the Panel
-   `.panel_align-items_center` / `.panel_color_default` default modifiers (0,1,0). */
-.predefined-calendar-container.predefined-calendar-container {
+/* PredefinedCalendarContainer wraps a Panel and overrides its default
+   `.panel_align-items_center` / `.panel_color_default` modifiers (clickui.mod)
+   on the same node — @clickui-layer override wins by layer order. */
+/* @clickui-layer override */
+.predefined-calendar-container {
   align-items: start;
   background: var(--click-panel-color-background-muted);
 }
 
-/* styled(Container) — Container's base is `:where(.container)` (0,0,0), so a
-   single class wins. */
+/* Wraps a Container and overrides its base `width` on the same node.
+   @clickui-layer override wins over Container's clickui.block base by layer order. */
+/* @clickui-layer override */
 .predefined-dates-container {
   width: 275px;
 }
 
+/* Renders as a <Container>; max-height/overflow override the Container base
+   (a clickui.block rule) on the same node. */
+/* @clickui-layer override */
 .scrollable-container {
   max-height: 210px;
   overflow-y: auto;

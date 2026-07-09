@@ -119,16 +119,15 @@
   /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
 }
 
-/* Doubled class: this element renders as a <Container>, whose base class also
-   sets `padding`/`gap`. Doubling outranks the single-class Container base so the
-   Flyout override wins regardless of CSS-module bundle order (matches the
-   styled(Container) override semantics). */
-.element_type_default.element_type_default {
+/* These elements render as a <Container> whose base also sets `padding`/`gap`.
+   The `_type_` modifier classes land in `clickui.mod`, so they win over
+   Container's `clickui.block` base by layer order. */
+.element_type_default {
   padding: 0 var(--click-flyout-space-default-content-x);
   gap: var(--click-flyout-space-default-gap);
 }
 
-.element_type_inline.element_type_inline {
+.element_type_inline {
   padding: 0 var(--click-flyout-space-inline-content-x);
   gap: var(--click-flyout-space-inline-gap);
 }
@@ -137,14 +136,14 @@
 .header {
 }
 
-.header_type_default.header_type_default {
+.header_type_default {
   padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y)
     0 var(--click-flyout-space-default-y);
   gap: var(--click-flyout-space-default-content-row-gap)
     var(--click-flyout-space-default-content-column-gap);
 }
 
-.header_type_inline.header_type_inline {
+.header_type_inline {
   padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-y) 0
     var(--click-flyout-space-inline-y);
   gap: var(--click-flyout-space-inline-content-row-gap)
@@ -179,22 +178,24 @@
   font: var(--click-flyout-typography-inline-description-default);
 }
 
-/* Doubled class: renders as a <Container> whose base sets `width`. */
-.body.body {
+/* Renders as a <Container> whose base sets `width`; override that composed base. */
+/* @clickui-layer override */
+.body {
   width: var(--flyout-width);
   max-width: 100%;
 }
 
-.body_align_default.body_align_default {
+.body_align_default {
   margin-top: 0;
 }
 
-.body_align_top.body_align_top {
+.body_align_top {
   margin-top: -1rem;
 }
 
-/* Doubled class: renders as a <Container> whose base sets `width`. */
-.footer-container.footer-container {
+/* Renders as a <Container> whose base sets `width`; override that composed base. */
+/* @clickui-layer override */
+.footer-container {
   width: var(--flyout-width);
   max-width: 100%;
 }
@@ -203,13 +204,13 @@
 .footer {
 }
 
-.footer_type_default.footer_type_default {
+.footer_type_default {
   padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-content-x);
   gap: var(--click-flyout-space-default-content-row-gap)
     var(--click-flyout-space-default-content-column-gap);
 }
 
-.footer_type_inline.footer_type_inline {
+.footer_type_inline {
   padding: var(--click-flyout-space-inline-y) var(--click-flyout-space-inline-content-x);
   gap: var(--click-flyout-space-inline-content-row-gap)
     var(--click-flyout-space-inline-content-column-gap);
