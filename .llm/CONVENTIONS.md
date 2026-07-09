@@ -49,6 +49,20 @@ When using CSS Modules (migration in progress from styled-components):
 - Use CSS custom properties from theme tokens: `var(--click-button-basic-color-primary-background-default)`
 - Always include `:focus-visible` styles for keyboard accessibility, never use `outline: none` without replacement
 
+### Cascade Layers & Composition Discipline
+
+All component CSS is wrapped in a single `clickui` [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) at build time (a PostCSS plugin, `plugins/css-colocate/postcss-clickui-layers.ts`, runs in both the Vite `css.postcss` pipeline and the per-component `css-preprocess.ts`). Do **not** write `@layer` by hand in component CSS — the plugin owns it.
+
+What the layer does and does not do:
+
+- **Consumer overridability is solved by the layer, full stop.** Any unlayered consumer style (a plain rule, a CSS Module class, a `styled(...)` override) beats every click-ui style, regardless of import order or specificity. That is the entire public contract; everything else here is an internal detail.
+- **The layer does nothing for conflicts _between_ click-ui components.** Inside the `clickui` layer, precedence is ordinary CSS: specificity + source order. Layers do not buy us an easier life here — writing CSS still takes the same discipline it always has. Don't reach for layer tricks (sub-layers, `:where()` to zero out specificity, doubled classes) to resolve internal conflicts; write a selector that is specific enough to win on its own.
+
+Resolving internal conflicts:
+
+- **Conflicts come from composition, and composition is deterministic.** When component A composes component B (via `as={B}`, `styled(B)`, or rendering `<B className="a__elem" />`), A knows exactly how it uses B. So it is **A's responsibility** to write selectors that win where they should — e.g. `.a .a__elem { … }` (specificity `(0,2,0)`) naturally beats B's own `.b_size_md` `(0,1,0)`.
+- **A component may know what it composes; it must never guess how it will be composed.** It is fine for A to target B because A controls that relationship. It is not fine for B to add specificity hacks defending against hypothetical consumers — B cannot know who wraps it, and unlayered consumer styles win anyway. Prefer more specific classes over `:where()`.
+
 ### Accessibility (Mandatory)
 
 - Interactive elements need `role`, `aria-label`, `aria-describedby`
