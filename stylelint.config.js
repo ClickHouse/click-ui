@@ -113,6 +113,10 @@ export default {
     // TODO: Maybe create an utility or test to make sure
     // its computed correctly
     // NOTE: BEM naming convention (block-name__elem-name_mod-name_mod-val) per naming convention https://en.bem.info/methodology/naming-convention
+    // This also backs the cascade-layer classifier in
+    // plugins/css-colocate/postcss-clickui-layers.ts, which routes rules to the
+    // clickui.block/elem/mod layers by BEM role: it relies on `_` being ONLY a
+    // modifier separator and `__` ONLY an element separator (words use `-`).
     'selector-class-pattern': [
       '^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z][a-z0-9]*(-[a-z0-9]+)*)?(_[a-z][a-z0-9]*(-[a-z0-9]+)*)?(_[a-z][a-z0-9]*(-[a-z0-9]+)*)?$',
       {

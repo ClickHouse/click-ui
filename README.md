@@ -191,6 +191,29 @@ Most modern React frameworks support CSS Modules out of the box, including Next.
 
 CSS Modules align naturally with component-level imports. When you import a component like `Button`, its `Button.module.css` is automatically included. If you don't use the component, neither the JavaScript, or CSS will be bundled in your application's output. Only the necessary stylesheets will be included in the output bundle.
 
+#### Overriding styles
+
+All click-ui component styles live in a single CSS [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) named `clickui`. Cascade layers make overrides predictable: any style you write **outside** a layer — a plain rule, a CSS Module class, or a `styled(...)` override — always beats click-ui's styles, regardless of stylesheet import order or selector specificity. No `!important` or specificity hacks required.
+
+```css
+/* Your app — unlayered, so it always wins over click-ui */
+.my-button {
+  background: hotpink;
+}
+```
+
+If your app organizes its own styles into cascade layers, declare your layer **after** `clickui` so it still takes precedence:
+
+```css
+@layer clickui, app;
+
+@layer app {
+  .my-button {
+    background: hotpink;
+  }
+}
+```
+
 #### Custom Build Configurations
 
 Although most modern React setups have CSS Modules built-in, if your build tool doesn't support it by default, you'll need to configure it.
