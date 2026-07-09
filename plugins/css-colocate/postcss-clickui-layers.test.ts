@@ -17,7 +17,6 @@ describe('wrapInClickuiLayers', () => {
     const out = await run(
       '.alert { color: red; }\n.alert__icon { width: 1rem; }\n.alert_type_danger { color: blue; }'
     );
-    // Exactly one clickui layer, holding all three rules in source order.
     expect(out.match(/@layer clickui\s*{/g)).toHaveLength(1);
     const inner = out.slice(out.indexOf('{') + 1);
     expect(inner.indexOf('.alert ')).toBeLessThan(inner.indexOf('.alert__icon'));
@@ -31,39 +30,33 @@ describe('wrapInClickuiLayers', () => {
     expect(out).toMatch(/@layer clickui\s*{\s*@media[^{]*{\s*\.container\s*{/);
   });
 
-  it('leaves @keyframes unlayered', async () => {
+  it('keeps @keyframes inside the layer (a uniquely-named keyframes resolves the same either way)', async () => {
     const out = await run(
       '.spinner { animation: spin 1s; }\n@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }'
     );
-    expect(out).toContain('@keyframes spin');
-    // keyframes must NOT be nested inside the clickui layer
-    expect(out).not.toMatch(/@layer clickui\s*{[^]*@keyframes/);
-    // the rule still gets layered
-    expect(out).toMatch(/@layer clickui\s*{\s*\.spinner/);
+    expect(out.match(/@layer clickui\s*{/g)).toHaveLength(1);
+    expect(out).toMatch(/@layer clickui\s*{[^]*@keyframes spin/);
   });
 
-  it('leaves a file untouched when it has nothing layerable', async () => {
-    const css = '@keyframes spin { from { opacity: 0; } to { opacity: 1; } }';
-    const out = await run(css);
-    expect(out).not.toContain('@layer');
-    expect(out).toContain('@keyframes spin');
+  it('wraps a global theme-token stylesheet (:root / [data-cui-theme]) too', async () => {
+    const out = await run(
+      ':root, [data-cui-theme="light"] { --click-x: 1rem; }',
+      '/x/theme/styles/tokens-light.css'
+    );
+    expect(out).toMatch(/@layer clickui\s*{\s*:root, \[data-cui-theme="light"\]/);
+  });
+
+  it('hoists @import/@charset above the layer (CSS forbids them inside @layer)', async () => {
+    const out = await run('@import "reset.css";\n.alert { color: red; }');
+    // @import must precede the layer block…
+    expect(out.indexOf('@import')).toBeLessThan(out.indexOf('@layer clickui'));
+    // …and the rule is still wrapped.
+    expect(out).toMatch(/@layer clickui\s*{\s*\.alert/);
   });
 
   it('keeps a leading comment with the rule it annotates, inside the layer', async () => {
     const out = await run('/* base */\n.alert { color: red; }');
     expect(out).toMatch(/@layer clickui\s*{\s*\/\* base \*\/\s*\.alert/);
-  });
-
-  it('wraps a component CSS Module file', async () => {
-    const out = await run('.alert { color: red; }', '/x/Alert/Alert.module.css');
-    expect(out).toMatch(/@layer clickui\s*{\s*\.alert/);
-  });
-
-  it('leaves a non-module global stylesheet (e.g. theme tokens) unlayered', async () => {
-    const css = ':root { --click-x: 1rem; }';
-    const out = await run(css, '/x/theme/styles/tokens-light.css');
-    expect(out).not.toContain('@layer');
-    expect(out).toBe(css);
   });
 
   it('is idempotent — running twice does not double-wrap', async () => {

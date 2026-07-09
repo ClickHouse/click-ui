@@ -51,7 +51,7 @@ When using CSS Modules (migration in progress from styled-components):
 
 ### Cascade Layers & Composition Discipline
 
-All component CSS is wrapped in a single `clickui` [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) at build time (a PostCSS plugin, `plugins/css-colocate/postcss-clickui-layers.ts`, runs in both the Vite `css.postcss` pipeline and the per-component `css-preprocess.ts`). Do **not** write `@layer` by hand in component CSS — the plugin owns it.
+All click-ui CSS — component rules and the theme design tokens alike — is wrapped in a single `clickui` [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) at build time (a PostCSS plugin, `plugins/css-colocate/postcss-clickui-layers.ts`, runs in the Vite `css.postcss` pipeline, the per-component `css-preprocess.ts`, and the `copyCssFiles` pass for standalone globals). Do **not** write `@layer` by hand — the plugin owns it.
 
 What the layer does and does not do:
 

@@ -193,7 +193,7 @@ CSS Modules align naturally with component-level imports. When you import a comp
 
 #### Overriding styles
 
-All click-ui component styles live in a single CSS [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) named `clickui`. Cascade layers make overrides predictable: any style you write **outside** a layer — a plain rule, a CSS Module class, or a `styled(...)` override — always beats click-ui's styles, regardless of stylesheet import order or selector specificity. No `!important` or specificity hacks required.
+All click-ui styles — component rules **and** the theme design tokens — live in a single CSS [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) named `clickui`. Cascade layers make overrides predictable: any style you write **outside** a layer — a plain rule, a CSS Module class, or a `styled(...)` override — always beats click-ui's styles, regardless of stylesheet import order or selector specificity. No `!important` or specificity hacks required. The same rule applies to theming variables: an unlayered `--click-*` custom-property override wins over click-ui's token defaults.
 
 ```css
 /* Your app — unlayered, so it always wins over click-ui */
