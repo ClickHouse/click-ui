@@ -38,13 +38,17 @@ export function wrapInClickuiLayers(): Plugin {
       const nodes = root.nodes as ChildNode[];
       if (nodes.length === 0) return;
 
-      // Idempotency guard: a top-level `@layer clickui` means we already wrapped
-      // this root (the plugin can see a file more than once — e.g. HMR).
+      // Idempotency guard: a top-level `@layer clickui { … }` block means we
+      // already wrapped this root (the plugin can see a file more than once —
+      // e.g. HMR). Require the block form: a bare `@layer clickui;` order
+      // statement (postcss `nodes === undefined`) declares the layer but wraps
+      // nothing, so it is not proof of wrapping and must not short-circuit.
       const alreadyWrapped = nodes.some(
         node =>
           node.type === 'atrule' &&
           (node as AtRule).name === 'layer' &&
-          (node as AtRule).params === LAYER
+          (node as AtRule).params === LAYER &&
+          (node as AtRule).nodes !== undefined
       );
       if (alreadyWrapped) return;
 

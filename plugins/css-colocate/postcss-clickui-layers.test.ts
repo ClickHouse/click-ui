@@ -59,6 +59,14 @@ describe('wrapInClickuiLayers', () => {
     expect(out).toMatch(/@layer clickui\s*{\s*\/\* base \*\/\s*\.alert/);
   });
 
+  it('does not treat a bare `@layer clickui;` order statement as already-wrapped', async () => {
+    // A statement (no block) declares the layer but wraps nothing, so the
+    // following rule must still be layered — otherwise it stays unlayered and
+    // defeats the override contract.
+    const out = await run('@layer clickui;\n.alert { color: red; }');
+    expect(out).toMatch(/@layer clickui\s*{[^]*\.alert/);
+  });
+
   it('is idempotent — running twice does not double-wrap', async () => {
     const once = await run('.alert { color: red; }\n@keyframes spin { from {} to {} }');
     const twice = await run(once);
