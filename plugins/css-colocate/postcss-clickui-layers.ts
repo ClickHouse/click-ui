@@ -14,22 +14,23 @@ import { AtRule, type ChildNode, type Plugin } from 'postcss';
  * the layer, precedence is ordinary CSS (specificity + source order).
  *
  * Everything is wrapped, including the theme token files, so the whole library
- * sits behind the one boundary consumers override. Only the at-rules CSS
- * forbids inside `@layer` are hoisted out above it; `@keyframes`, `@font-face`
- * and `@property` are valid inside a layer and stay wrapped.
- *
- * Runs in both build pipelines: Vite's `css.postcss` (dev, Storybook, the
- * visual-regression suite, the bundled `dist` CSS) and, for the standalone
- * `dist` stylesheets, `copyCssFiles`.
+ * sits behind the one boundary consumers override. Only the block-less
+ * statement at-rules — `@charset`, `@import`, `@namespace` — are hoisted out
+ * above the layer, since CSS forbids them inside `@layer`.
  */
 
 const LAYER = 'clickui';
 
-/** At-rules CSS forbids inside `@layer` — they must sit at the stylesheet top level. */
-const HOIST_AT_RULES = new Set(['charset', 'import', 'namespace']);
-
+/**
+ * A block-less "statement" at-rule, which PostCSS reports with
+ * `nodes === undefined` (`@charset`/`@import`/`@namespace`, and a bare
+ * `@layer …;`). CSS forbids these inside `@layer`, and being block-less they
+ * carry no style rules, so they are hoisted above it. Testing the structure
+ * rather than a name list is forward-compatible with any future statement
+ * at-rule.
+ */
 const isHoisted = (node: ChildNode): boolean =>
-  node.type === 'atrule' && HOIST_AT_RULES.has((node as AtRule).name.toLowerCase());
+  node.type === 'atrule' && (node as AtRule).nodes === undefined;
 
 export function wrapInClickuiLayers(): Plugin {
   return {
