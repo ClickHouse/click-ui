@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import postcss from 'postcss';
 import { wrapInClickuiLayers } from './postcss-clickui-layers';
 
-const run = async (css: string): Promise<string> => {
-  const result = await postcss([wrapInClickuiLayers()]).process(css, { from: undefined });
+const run = async (css: string, from?: string): Promise<string> => {
+  const result = await postcss([wrapInClickuiLayers()]).process(css, { from });
   return result.css;
 };
 
@@ -52,6 +52,18 @@ describe('wrapInClickuiLayers', () => {
   it('keeps a leading comment with the rule it annotates, inside the layer', async () => {
     const out = await run('/* base */\n.alert { color: red; }');
     expect(out).toMatch(/@layer clickui\s*{\s*\/\* base \*\/\s*\.alert/);
+  });
+
+  it('wraps a component CSS Module file', async () => {
+    const out = await run('.alert { color: red; }', '/x/Alert/Alert.module.css');
+    expect(out).toMatch(/@layer clickui\s*{\s*\.alert/);
+  });
+
+  it('leaves a non-module global stylesheet (e.g. theme tokens) unlayered', async () => {
+    const css = ':root { --click-x: 1rem; }';
+    const out = await run(css, '/x/theme/styles/tokens-light.css');
+    expect(out).not.toContain('@layer');
+    expect(out).toBe(css);
   });
 
   it('is idempotent — running twice does not double-wrap', async () => {

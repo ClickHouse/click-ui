@@ -33,6 +33,14 @@ import { AtRule, type ChildNode, type Plugin } from 'postcss';
  * visual-regression suite via `css.postcss`, and per-component dist CSS via
  * css-preprocess.ts), so the cascade that ships is exactly the one the
  * visual-regression suite validates.
+ *
+ * Scope is component CSS Modules ONLY. Vite's `css.postcss` runs on every
+ * stylesheet, including global files like the `theme/styles/tokens-*.css`
+ * imported by ThemeProvider — those must stay unlayered (they carry the design
+ * tokens, not component styles, and `copyCssFiles` ships them to dist verbatim,
+ * so layering them would make the combined `click-ui.css` disagree with the
+ * per-module dist). We gate on the `.module.css` suffix to match
+ * css-preprocess.ts, which only ever feeds it `*.module.css`.
  */
 
 const LAYER = 'clickui';
@@ -55,6 +63,12 @@ export function wrapInClickuiLayers(): Plugin {
   return {
     postcssPlugin: 'postcss-clickui-layers',
     Once(root) {
+      // Only layer component CSS Modules. Skip any stylesheet we can positively
+      // identify as non-module (e.g. the global theme token files); a file with
+      // no known name — inline processing, unit tests — is still processed.
+      const file = root.source?.input.file;
+      if (file && !file.endsWith('.module.css')) return;
+
       const nodes = root.nodes as ChildNode[];
       if (nodes.length === 0) return;
 

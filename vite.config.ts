@@ -89,10 +89,12 @@ const viteConfig = defineConfig({
     // combined dist `click-ui.css`, keeping their cascade identical to what the
     // per-component dist files get from css-preprocess.ts.
     postcss: {
-      // Cast: Vite bundles its own `postcss` install, structurally identical
-      // to the repo's top-level `postcss` but a distinct nominal type. The
-      // plugin is runtime-compatible with both.
-      plugins: [wrapInClickuiLayers() as unknown as never],
+      // Vite bundles its own `postcss` install — structurally identical to the
+      // repo's top-level `postcss` but a distinct nominal type, so the plugin's
+      // `Plugin` type is not assignable to Vite's. It is runtime-compatible with
+      // both; `any` is the escape hatch for the duplicate-package type clash.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      plugins: [wrapInClickuiLayers() as any],
     },
   },
   plugins: [
