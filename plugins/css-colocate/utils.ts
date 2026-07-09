@@ -1,6 +1,8 @@
 import fs from 'fs-extra';
 import { glob } from 'glob';
 import path from 'path';
+import postcss from 'postcss';
+import { wrapInClickuiLayers } from './postcss-clickui-layers';
 
 /**
  * Shared CSS modules scoped name pattern.
@@ -69,7 +71,16 @@ export const copyCssFiles = async (rootDir: string, distDir: string): Promise<vo
       }
 
       await fs.ensureDir(path.dirname(dest));
-      await fs.copy(file, dest, { overwrite: true });
+      // Wrap non-module globals (e.g. the theme token files) in the `clickui`
+      // layer too — fs.copy would bypass PostCSS and ship them unlayered, which
+      // would beat a consumer's `@layer app` overrides and break the contract.
+      // This mirrors the Vite css.postcss pass so the standalone dist
+      // stylesheets and the bundled CSS layer identically.
+      const css = await fs.readFile(file, 'utf-8');
+      const { css: wrapped } = await postcss([wrapInClickuiLayers()]).process(css, {
+        from: file,
+      });
+      await fs.writeFile(dest, wrapped);
     })
   );
 };
