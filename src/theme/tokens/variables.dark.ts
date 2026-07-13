@@ -1388,7 +1388,7 @@ const theme = {
               disabled: 'rgb(17.794% 17.794% 17.794%)',
             },
             stroke: {
-              default: '#c10000',
+              default: '#ff2323',
               hover: '#ff7575',
               active: '#ff7575',
               disabled: '#606060',

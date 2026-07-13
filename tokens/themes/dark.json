@@ -2241,7 +2241,7 @@
             },
             "stroke": {
               "default": {
-                "value": "{palette.danger.600}",
+                "value": "{palette.danger.400}",
                 "type": "color"
               },
               "hover": {
