@@ -80,6 +80,14 @@
   --checkbox-stroke-active: var(--click-checkbox-color-variations-var6-stroke-active);
 }
 
+.checkinput_variant_var7 {
+  --checkbox-bg-default: var(--click-checkbox-color-variations-var7-background-default);
+  --checkbox-bg-hover: var(--click-checkbox-color-variations-var7-background-hover);
+  --checkbox-bg-active: var(--click-checkbox-color-variations-var7-background-active);
+  --checkbox-stroke-default: var(--click-checkbox-color-variations-var7-stroke-default);
+  --checkbox-stroke-active: var(--click-checkbox-color-variations-var7-stroke-active);
+}
+
 .checkinput:hover {
   background: var(--checkbox-bg-hover);
 }

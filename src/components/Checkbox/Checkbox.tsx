@@ -18,6 +18,7 @@ const checkInputVariants = cva(styles.checkinput, {
       var4: styles['checkinput_variant_var4'],
       var5: styles['checkinput_variant_var5'],
       var6: styles['checkinput_variant_var6'],
+      var7: styles['checkinput_variant_var7'],
     },
   },
   defaultVariants: {

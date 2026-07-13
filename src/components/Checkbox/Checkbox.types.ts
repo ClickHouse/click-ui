@@ -8,7 +8,8 @@ export type CheckboxVariants =
   | 'var3'
   | 'var4'
   | 'var5'
-  | 'var6';
+  | 'var6'
+  | 'var7';
 
 export interface CheckboxProps extends RadixCheckbox.CheckboxProps {
   label?: ReactNode;

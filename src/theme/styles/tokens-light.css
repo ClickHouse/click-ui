@@ -636,6 +636,18 @@
   --click-checkbox-color-variations-var6-check-hover: #ffffff;
   --click-checkbox-color-variations-var6-check-active: #ffffff;
   --click-checkbox-color-variations-var6-check-disabled: #a0a0a0;
+  --click-checkbox-color-variations-var7-background-default: #f6f7fa;
+  --click-checkbox-color-variations-var7-background-hover: #f6f7fa;
+  --click-checkbox-color-variations-var7-background-active: #ff2323;
+  --click-checkbox-color-variations-var7-background-disabled: #dfdfdf;
+  --click-checkbox-color-variations-var7-stroke-default: #ff5353;
+  --click-checkbox-color-variations-var7-stroke-hover: #ff5353;
+  --click-checkbox-color-variations-var7-stroke-active: #ff5353;
+  --click-checkbox-color-variations-var7-stroke-disabled: #c0c0c0;
+  --click-checkbox-color-variations-var7-check-default: #ffffff;
+  --click-checkbox-color-variations-var7-check-hover: #ffffff;
+  --click-checkbox-color-variations-var7-check-active: #ffffff;
+  --click-checkbox-color-variations-var7-check-disabled: #a0a0a0;
   --click-checkbox-color-check-default: #ffffff;
   --click-checkbox-color-check-hover: #ffffff;
   --click-checkbox-color-check-active: #ffffff;
