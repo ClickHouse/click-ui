@@ -639,6 +639,18 @@
   --click-checkbox-color-variations-var6-check-hover: #ffffff;
   --click-checkbox-color-variations-var6-check-active: #ffffff;
   --click-checkbox-color-variations-var6-check-disabled: #a0a0a0;
+  --click-checkbox-color-variations-var7-background-default: rgb(17.794% 17.794% 17.794%);
+  --click-checkbox-color-variations-var7-background-hover: rgb(17.794% 17.794% 17.794%);
+  --click-checkbox-color-variations-var7-background-active: #ff2323;
+  --click-checkbox-color-variations-var7-background-disabled: rgb(17.794% 17.794% 17.794%);
+  --click-checkbox-color-variations-var7-stroke-default: #ff2323;
+  --click-checkbox-color-variations-var7-stroke-hover: #ff7575;
+  --click-checkbox-color-variations-var7-stroke-active: #ff7575;
+  --click-checkbox-color-variations-var7-stroke-disabled: #606060;
+  --click-checkbox-color-variations-var7-check-default: #ffffff;
+  --click-checkbox-color-variations-var7-check-hover: #ffffff;
+  --click-checkbox-color-variations-var7-check-active: #ffffff;
+  --click-checkbox-color-variations-var7-check-disabled: #a0a0a0;
   --click-checkbox-color-background-default: rgb(17.794% 17.794% 17.794%);
   --click-checkbox-color-background-hover: rgb(17.794% 17.794% 17.794%);
   --click-checkbox-color-background-active: #faff69;

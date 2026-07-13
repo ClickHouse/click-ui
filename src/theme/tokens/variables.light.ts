@@ -1374,6 +1374,26 @@ const theme = {
               disabled: '#a0a0a0',
             },
           },
+          var7: {
+            background: {
+              default: '#f6f7fa',
+              hover: '#f6f7fa',
+              active: '#ff2323',
+              disabled: '#dfdfdf',
+            },
+            stroke: {
+              default: '#ff5353',
+              hover: '#ff5353',
+              active: '#ff5353',
+              disabled: '#c0c0c0',
+            },
+            check: {
+              default: '#ffffff',
+              hover: '#ffffff',
+              active: '#ffffff',
+              disabled: '#a0a0a0',
+            },
+          },
         },
         check: {
           default: '#ffffff',

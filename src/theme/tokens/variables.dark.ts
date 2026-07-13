@@ -1380,6 +1380,26 @@ const theme = {
               disabled: '#a0a0a0',
             },
           },
+          var7: {
+            background: {
+              default: 'rgb(17.794% 17.794% 17.794%)',
+              hover: 'rgb(17.794% 17.794% 17.794%)',
+              active: '#ff2323',
+              disabled: 'rgb(17.794% 17.794% 17.794%)',
+            },
+            stroke: {
+              default: '#ff2323',
+              hover: '#ff7575',
+              active: '#ff7575',
+              disabled: '#606060',
+            },
+            check: {
+              default: '#ffffff',
+              hover: '#ffffff',
+              active: '#ffffff',
+              disabled: '#a0a0a0',
+            },
+          },
         },
         background: {
           default: 'rgb(17.794% 17.794% 17.794%)',

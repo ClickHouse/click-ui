@@ -131,6 +131,12 @@ export const CheckboxMultiSelectVariants: StoryObj<typeof CheckboxMultiSelect> =
         >
           Variant 6
         </CheckboxMultiSelect.Item>
+        <CheckboxMultiSelect.Item
+          value="variant 7"
+          variant="var7"
+        >
+          Variant 7
+        </CheckboxMultiSelect.Item>
       </CheckboxMultiSelect>
     );
   },

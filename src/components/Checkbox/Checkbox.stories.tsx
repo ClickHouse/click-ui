@@ -126,6 +126,14 @@ export const Var6Checked: Story = {
   },
 };
 
+export const Var7Checked: Story = {
+  args: {
+    ...baseArgs,
+    variant: 'var7',
+    checked: true,
+  },
+};
+
 export const OrientationVerticalDirStart: Story = {
   args: {
     ...baseArgs,
