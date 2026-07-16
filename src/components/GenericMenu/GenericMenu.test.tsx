@@ -1,15 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@/providers';
 import {
   GenericMenuPanel,
   GenericPopoverMenuPanel,
   GenericMenuItem,
 } from './GenericMenu';
-import { themes } from '@/theme/theme.core';
 
 const renderWithTheme = (component: React.ReactNode) => {
-  return render(<ThemeProvider theme={themes.dark}>{component}</ThemeProvider>);
+  return render(<ThemeProvider theme="dark">{component}</ThemeProvider>);
 };
 
 describe('GenericMenu', () => {

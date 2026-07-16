@@ -1,24 +1,39 @@
 import { useState, useEffect, ReactNode } from "react";
 import type { Preview } from "@storybook/react-vite";
 import { Decorator } from "@storybook/react-vite";
-import { styled } from "styled-components";
 import { themes } from "storybook/theming";
 import { ClickUIProvider } from "../src/providers";
+import { useTheme } from "../src/theme/ThemeContext";
 
-const ThemeBlock = styled.div<{ $left?: boolean; $bfill?: boolean }>(
-  ({ $left, $bfill: fill, theme }) => `
-      position: absolute;
-      top: 0.5rem;
-      left: ${$left || fill ? 0 : "50vw"};
-      right: 0;
-      height: fit-content;
-      bottom: 0;
-      overflow: auto;
-      padding: 1rem;
-      box-sizing: border-box;
-      background: ${theme.click.storybook.global.background};
-    `
-);
+const ThemeBlock = ({
+  left,
+  bfill,
+  children,
+}: {
+  left?: boolean;
+  bfill?: boolean;
+  children: ReactNode;
+}) => {
+  const theme = useTheme();
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "0.5rem",
+        left: left || bfill ? 0 : "50vw",
+        right: 0,
+        height: "fit-content",
+        bottom: 0,
+        overflow: "auto",
+        padding: "1rem",
+        boxSizing: "border-box",
+        background: theme.click.storybook.global.background,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const globalTypes = {
   theme: {
@@ -70,7 +85,7 @@ const ThemeWrapper = ({ themeSelection, children }: ThemeWrapperProps) => {
 
   return (
     <ClickUIProvider theme={theme} config={{ tooltip: { delayDuration: 0 } }}>
-      <ThemeBlock $left>{children}</ThemeBlock>
+      <ThemeBlock left>{children}</ThemeBlock>
     </ClickUIProvider>
   );
 };

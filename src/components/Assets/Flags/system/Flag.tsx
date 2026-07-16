@@ -1,5 +1,5 @@
 import { SVGAttributes } from 'react';
-import { useTheme } from 'styled-components';
+import { useTheme } from '@/theme/ThemeContext';
 import { getFallbackThemeName } from '@/theme/theme.utils';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { FlagName, FlagProps } from './types';

@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import {
   GenericMenuPanel,
   GenericPopoverMenuPanel,
   Arrow,
   GenericMenuItem,
 } from './GenericMenu';
-import { styled } from 'styled-components';
 
 const meta: Meta = {
   title: 'Components/GenericMenu',
@@ -18,12 +17,19 @@ const meta: Meta = {
 
 export default meta;
 
-const DemoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-`;
+const demoContainerStyle: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
+  padding: '2rem',
+};
+
+const DemoContainer = ({ style, ...props }: ComponentProps<'div'>) => (
+  <div
+    {...props}
+    style={{ ...demoContainerStyle, ...style }}
+  />
+);
 
 const DemoPanel = (props: ComponentProps<typeof GenericMenuPanel<'div'>>) => (
   <GenericMenuPanel

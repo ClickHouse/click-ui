@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useTheme } from 'styled-components';
+import { useTheme } from '@/theme/ThemeContext';
 import { CodeThemeType } from './CodeBlock.types';
 
 const useColorStyle = (defaultTheme?: CodeThemeType): Record<string, CSSProperties> => {
