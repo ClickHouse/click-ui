@@ -1,8 +1,8 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
-import { CSSProperties, HTMLAttributes } from 'react';
+import { CSSProperties } from 'react';
 import { cn } from '@/lib/cva';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
-import { TooltipContentProps, TooltipProps } from './Tooltip.types';
+import { TooltipContentProps, TooltipProps, TooltipTriggerProps } from './Tooltip.types';
 import styles from './Tooltip.module.css';
 
 export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) => {
@@ -16,10 +16,10 @@ export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) =>
   );
 };
 
-const TooltipTrigger = (props: HTMLAttributes<HTMLDivElement>) => {
+const TooltipTrigger = ({ asChild, children, ...props }: TooltipTriggerProps) => {
   return (
     <RadixTooltip.Trigger asChild>
-      <div {...props} />
+      {asChild ? children : <div {...props}>{children}</div>}
     </RadixTooltip.Trigger>
   );
 };
