@@ -37,7 +37,9 @@ export const useInitialTheme = ({
     return defaultTheme;
   });
 
-  // TODO: Remove mounted once migrated from styled-components
+  // `mounted` gates against SSR/hydration mismatches: it flips true only after
+  // the client-side effect runs, letting consumers defer theme-dependent output
+  // until the stored theme has been reconciled.
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
