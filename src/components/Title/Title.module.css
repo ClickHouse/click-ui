@@ -22,7 +22,7 @@
 }
 
 /* font shorthand depends on both family and size; one class per pairing
-   mirrors the single `font:` declaration emitted by styled-components. */
+   emits a single `font:` declaration. */
 
 .title_font_product-xs {
   font: var(--typography-styles-product-titles-xs);

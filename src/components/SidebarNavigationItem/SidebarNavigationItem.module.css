@@ -1,7 +1,7 @@
 /* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. sqlSidebar) */
 .wrapper {
   display: flex;
-  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original styled rule used this
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the pre-migration styling used this
    same width fallback chain (100% → -webkit-fill-available → fill-available →
    stretch) so the item fills the available inline space. */
   width: 100%;
@@ -67,7 +67,7 @@
   cursor: not-allowed;
 }
 
-/* stylelint-disable-next-line media-feature-range-notation -- prefix syntax matches the original styled rule and is more broadly supported than range syntax */
+/* stylelint-disable-next-line media-feature-range-notation -- prefix syntax matches the pre-migration styling and is more broadly supported than range syntax */
 @media (max-width: 640px) {
   .wrapper {
     padding: var(--item-mobile-space-y) var(--item-mobile-space-right)

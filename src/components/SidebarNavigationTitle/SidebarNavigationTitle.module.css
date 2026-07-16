@@ -1,6 +1,6 @@
 /* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. sqlSidebar) */
 .wrapper {
-  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original styled rule used this
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the pre-migration styling used this
    same width fallback chain (100% → -webkit-fill-available → fill-available →
    stretch) so the title fills the available inline space. */
   width: 100%;
@@ -25,8 +25,8 @@
    wrapper `as={Collapsible.Trigger}`, so the element also carries
    `.collapsible__trigger`, whose `display/align-items/color/font/cursor`
    resets would otherwise win on CSS-module bundle order and strip the title's
-   own typography. The original styled-components cascade resolved in the
-   title's favour; the doubled class makes that deterministic. Only the
+   own typography. The pre-migration cascade resolved in the title's favour;
+   the doubled class makes that deterministic. Only the
    properties that actually conflict with the trigger live here — box metrics
    and the `--title-*` custom properties stay single-class above/below so the
    `type`/`collapsible` modifiers still override them. */

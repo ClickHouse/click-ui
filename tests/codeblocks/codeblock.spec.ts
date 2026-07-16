@@ -1,16 +1,14 @@
 // Affected-spec coverage for scoped visual-regression runs in CI.
 // See .scripts/js/affected-visual-specs
 // @covers src/components/CodeBlock
-// @covers src/components/EmptyButton
+// @covers src/components/IconButton
 import { test as it, expect } from '@playwright/test';
 import { getStoryUrl } from '../utils';
 
 const { describe, use } = it;
 
-// The copy and wrap buttons are rendered via `<CodeButton as={IconButton}>` where
-// CodeButton = styled(EmptyButton). The `as` prop bypasses EmptyButton's own
-// render, so this spec guards that those buttons still render correctly after
-// EmptyButton's CSS Modules migration. The WithWrapButton story shows both.
+// The copy and wrap buttons are rendered via IconButton. This spec guards that
+// those buttons still render correctly. The WithWrapButton story shows both.
 const rootLocator = '[data-testid="codeblock-harness"]';
 const inlineLocator = '[data-testid="inline-codeblock-harness"]';
 
