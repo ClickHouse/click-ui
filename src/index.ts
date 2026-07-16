@@ -356,22 +356,3 @@ export type { HoverCardProps } from '@radix-ui/react-hover-card';
  * Consider using click-ui's Popover component API instead.
  */
 export type { PopoverProps } from '@radix-ui/react-popover';
-
-// ================================================
-// Deprecated Exports
-// These exports are deprecated and will be removed in a future version.
-// They are kept here temporarily for backward compatibility.
-// ================================================
-
-/**
- * @deprecated Use the `Link` component with the `component` prop instead.
- * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
- */
-export { linkStyles } from './styles/linkStyles';
-
-/**
- * @deprecated Use the `Link` component with the `component` prop instead.
- * This type exposes internal styled-components implementation details.
- * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
- */
-export type { StyledLinkProps } from './styles/linkStyles';
