@@ -23,7 +23,10 @@ const ChartColorsDemo = () => {
           <Container
             maxWidth="40px"
             padding="md"
-            style={{ backgroundColor: hex, borderRadius: '4px' }}
+            style={{
+              backgroundColor: hex,
+              borderRadius: 'var(--click-grid-radii-sm)',
+            }}
           />
           <Text>{hex}</Text>
         </Container>
