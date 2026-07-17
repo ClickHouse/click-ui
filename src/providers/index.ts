@@ -8,4 +8,4 @@ export { PortalProvider } from './PortalProvider';
 export { usePortalContainer, useResolvedPortalContainer } from './PortalContext';
 export type { PortalContainer } from './PortalContext';
 export type { PortalProviderProps } from './PortalProvider';
-export { ThemeProvider } from './ThemeProvider';
+export { ThemeProvider } from '@/theme/ThemeProvider';

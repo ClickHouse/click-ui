@@ -5,7 +5,7 @@ import {
 import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
 import { THEMES } from '@/theme/theme.core';
 import type { ThemeName } from '@/theme/theme.types';
-import { ThemeProvider } from './ThemeProvider';
+import { ThemeProvider } from '@/theme/ThemeProvider';
 import { ReactNode, useEffect } from 'react';
 import { setRootThemeAttribute, removeRootThemeAttribute } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
