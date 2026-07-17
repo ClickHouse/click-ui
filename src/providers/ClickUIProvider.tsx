@@ -1,15 +1,21 @@
+'use client';
+
 import {
   Provider as TooltipProvider,
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
 import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
-import { THEMES } from '@/theme/theme.core';
+import { THEMES, themes } from '@/theme/theme.core';
 import type { ThemeName } from '@/theme/theme.types';
-import { ThemeProvider } from '@/theme/ThemeProvider';
+import { ThemeContext } from '@/theme/ThemeContext';
 import { ReactNode, useEffect } from 'react';
 import { setRootThemeAttribute, removeRootThemeAttribute } from '@/utils/dom';
 import { CUI_THEME_STORAGE_KEY } from '@/utils/localStorage';
 import { isValidThemeName, getFallbackThemeName } from '@/theme/theme.utils';
+
+import '@/theme/styles/tokens-light.css';
+import '@/theme/styles/tokens-dark.css';
+import '@/theme/styles/global.css';
 
 interface Props {
   config?: {
@@ -62,10 +68,10 @@ export const ClickUIProvider = ({
   }, [safeTheme, persistTheme, storageKey]);
 
   return (
-    <ThemeProvider theme={safeTheme}>
+    <ThemeContext.Provider value={themes[safeTheme]}>
       <ToastProvider {...toast}>
         <TooltipProvider {...tooltip}>{children}</TooltipProvider>
       </ToastProvider>
-    </ThemeProvider>
+    </ThemeContext.Provider>
   );
 };

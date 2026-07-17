@@ -290,12 +290,9 @@ export type {
 // Providers
 // ================================================
 
-// TODO: Having both ClickUIProvider and ThemeProvider exported is confusing.
-// Consider consolidating to a single public provider API. For example, have ThemeProvider only!
 export {
   ClickUIProvider,
   PortalProvider,
-  ThemeProvider,
   usePortalContainer,
   useResolvedPortalContainer,
 } from './providers';

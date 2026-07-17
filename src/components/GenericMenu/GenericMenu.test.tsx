@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '@/providers';
+import { ClickUIProvider } from '@/providers';
 import {
   GenericMenuPanel,
   GenericPopoverMenuPanel,
@@ -8,7 +8,7 @@ import {
 } from './GenericMenu';
 
 const renderWithTheme = (component: React.ReactNode) => {
-  return render(<ThemeProvider theme="dark">{component}</ThemeProvider>);
+  return render(<ClickUIProvider theme="dark">{component}</ClickUIProvider>);
 };
 
 describe('GenericMenu', () => {
