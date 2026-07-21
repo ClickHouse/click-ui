@@ -102,14 +102,10 @@ jobs:
         if: steps.verify-merge.outputs.is_release == 'true'
         uses: actions/setup-node@v6
         with:
-          node-version: '23.x'
+          # Node 24.x bundles npm >= 11.5.1, which supports OIDC trusted publishing,
+          # so no global npm upgrade is needed. registry-url is required for OIDC.
+          node-version: '24.x'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Upgrade npm for OIDC support
-        if: steps.verify-merge.outputs.is_release == 'true'
-        run: |
-          npm install -g npm@latest
-          echo "npm version: $(npm --version)"
 
       - name: Enable Corepack
         if: steps.verify-merge.outputs.is_release == 'true'

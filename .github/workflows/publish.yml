@@ -78,14 +78,10 @@ jobs:
           npm pkg set version=$NEW_VERSION --no-git-tag-version
       - uses: actions/setup-node@v6
         with:
-          node-version: '23.x'
-          # registry-url is required for OIDC trusted publishing. Avoid `npm install -g npm@latest`
-          # on hosted runners — it can leave npm broken (e.g. MODULE_NOT_FOUND / promise-retry).
+          # Node 24.x bundles npm >= 11.5.1, which supports OIDC trusted publishing,
+          # so no global npm upgrade is needed. registry-url is required for OIDC.
+          node-version: '24.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Upgrade npm for OIDC support
-        run: |
-          npm install -g npm@latest
-          echo "npm version: $(npm --version)"
       - name: Enable Corepack
         run: corepack enable
       - name: Install dependencies
