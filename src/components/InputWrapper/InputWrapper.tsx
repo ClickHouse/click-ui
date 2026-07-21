@@ -112,7 +112,7 @@ const inputVariants = cva(styles.input, {
 interface InputElementOwnProps {
   $hasStartContent?: boolean;
   $hasEndContent?: boolean;
-  /** Render as a different element/component (mirrors styled-components `as`). */
+  /** Render as a different element/component. */
   as?: ElementType;
 }
 

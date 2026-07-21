@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode, useMemo } from 'react';
-import { useTheme } from 'styled-components';
+import { useTheme } from '@/theme/ThemeContext';
 import {
   Dialog,
   DialogClose,

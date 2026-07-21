@@ -18,8 +18,8 @@
 }
 
 /* stylelint-disable no-descending-specificity -- disabled state intentionally
-   defined after hover/focus to neutralize them; the original styled-components
-   emits no hover/focus rules when disabled is true. */
+   defined after hover/focus to neutralize them; the pre-migration styling
+   emitted no hover/focus rules when disabled is true. */
 .generic-label.generic-label_disabled,
 .generic-label.generic-label_disabled:hover,
 .generic-label.generic-label_disabled:focus,

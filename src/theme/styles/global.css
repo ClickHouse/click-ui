@@ -1,0 +1,8 @@
+/* Page-level defaults: apply the theme's global text/background colors to
+   <body>, swapping with the active `data-cui-theme`. Replaces the old
+   styled-components `createGlobalStyle` rule. Wrapped in the `clickui` cascade
+   layer (like all click-ui styles), so any consumer `body` rule overrides it. */
+body {
+  color: var(--click-global-color-text-default);
+  background-color: var(--click-global-color-background-default);
+}

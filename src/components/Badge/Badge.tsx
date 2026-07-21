@@ -33,12 +33,11 @@ const wrapperVariants = cva(styles.wrapper, {
   },
 });
 
-// The original `BadgeContent = styled(IconWrapper)` only forwarded `$state` —
-// `$type` and `$size` were NOT passed and defaulted to `'opaque'` and `'md'`
-// inside the styled rule. So the descendant <svg> color always came from the
-// opaque-text-* tokens (regardless of the badge's actual `type`) and the
-// SVG dimensions were always md (regardless of the badge's actual `size`).
-// To preserve byte-for-byte behavior, this variant set keys off `state` only.
+// This variant set intentionally keys off `state` only: the descendant <svg>
+// color always comes from the opaque-text-* tokens (regardless of the badge's
+// `type`) and the SVG dimensions are always md (regardless of its `size`).
+// This matches the pre-migration behavior, where the content wrapper never
+// received `type`/`size` and defaulted to `'opaque'`/`'md'`.
 const badgeContentVariants = cva(styles.badgecontent, {
   variants: {
     state: {

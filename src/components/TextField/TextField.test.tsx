@@ -43,9 +43,9 @@ describe('TextField', () => {
       // `.label { color: var(--click-field-color-label-default) }`, which
       // jsdom does not load. Visual parity is covered by the Playwright
       // suite at tests/display/label.spec.ts. The assertion below verifies
-      // the InputWrapper does not inject a styled-components color override
-      // when no labelColor prop is passed (element.style.color is the empty
-      // string when no inline `color` is set).
+      // the InputWrapper does not inject an inline color override when no
+      // labelColor prop is passed (element.style.color is the empty string
+      // when no inline `color` is set).
       expect(labelElement.style.color).toBe('');
     });
 

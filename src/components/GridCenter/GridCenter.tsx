@@ -9,7 +9,7 @@ import { cn } from '@/lib/cva';
 import styles from './GridCenter.module.css';
 
 interface GridCenterOwnProps {
-  /** Render as a different element/component (mirrors styled-components `as`). */
+  /** Render as a different element/component. */
   as?: ElementType;
 }
 

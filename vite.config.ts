@@ -98,19 +98,7 @@ const viteConfig = defineConfig({
     },
   },
   plugins: [
-    react({
-      // TODO: On styled-components migration completion
-      // remove styled-components babel plugins
-      babel: {
-        plugins: [['babel-plugin-styled-components', { displayName: false }]],
-
-        env: {
-          development: {
-            plugins: [['babel-plugin-styled-components', { displayName: true }]],
-          },
-        },
-      },
-    }),
+    react(),
     dts({
       outDir: 'dist/types',
       include: ['src/**/*'],

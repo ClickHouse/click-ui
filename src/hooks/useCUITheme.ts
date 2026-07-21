@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from 'styled-components';
+import { useTheme } from '@/theme/ThemeContext';
 import type { Theme } from '@/theme/theme.types';
 
 export type CUIThemeType = Pick<Theme, 'breakpoint' | 'global' | 'name' | 'sizes'>;

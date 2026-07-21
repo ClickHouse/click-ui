@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { GridContainer } from '@/components/GridContainer';
 import { Text } from '@/components/Text';
-import { styled } from 'styled-components';
+import type { CSSProperties } from 'react';
 
-const GridCenter = styled.div`
-  display: grid;
-  justify-items: center;
-  width: 100%;
-  height: 120px;
-`;
+const gridCenterStyle: CSSProperties = {
+  display: 'grid',
+  justifyItems: 'center',
+  width: '100%',
+  height: '120px',
+};
 
 const meta: Meta<typeof GridContainer> = {
   component: GridContainer,
@@ -49,7 +49,7 @@ export const Playground: Story = {
     rowGap: 'none',
   },
   render: args => (
-    <GridCenter>
+    <div style={gridCenterStyle}>
       <GridContainer
         {...args}
         style={{ border: '1px solid grey' }}
@@ -57,7 +57,7 @@ export const Playground: Story = {
         <Text>Parent container</Text>
         <Cells />
       </GridContainer>
-    </GridCenter>
+    </div>
   ),
 };
 

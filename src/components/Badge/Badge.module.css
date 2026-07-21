@@ -108,9 +108,9 @@
   font: var(--click-badge-typography-label-md-default);
 }
 
-/* Content row — mirrors the inner Content styled component. The original
-   `Content` was never passed `$size`, so its `gap` always defaulted to the
-   md token regardless of the badge's actual `size`. Preserved verbatim. */
+/* Content row `gap` always uses the md token regardless of the badge's actual
+   `size` — matching the pre-migration behavior, where the row was never passed
+   a size. Preserved verbatim. */
 
 .content {
   display: inline-flex;
@@ -120,28 +120,25 @@
   gap: var(--click-badge-space-md-gap);
 }
 
-/* BadgeContent — wraps the IconWrapper. The original styled(IconWrapper) set
-   `width: auto; overflow: hidden;` on the IconWrapper's rendered root and
-   styled the descendant <svg> with color, height, width, and `gap: inherit`.
+/* BadgeContent — wraps the IconWrapper. Sets `width: auto; overflow: hidden;`
+   on the IconWrapper's root and styles the descendant <svg> with color,
+   height, width, and `gap: inherit`.
 
-   The styled-components version only forwarded `$state` to BadgeContent;
-   `$type` and `$size` were NOT passed and defaulted to `'opaque'` and `'md'`
-   inside the styled rule. To preserve that behavior verbatim, the descendant
-   <svg> rules below key off `state` only — color always comes from the
-   opaque-text-* tokens, and dimensions are always md, regardless of the
-   badge's actual `type`/`size`.
+   The content wrapper is keyed off `state` only — `type` and `size` are not
+   applied and effectively default to `'opaque'` and `'md'`, matching the
+   pre-migration behavior. So the descendant <svg> color always comes from the
+   opaque-text-* tokens and dimensions are always md, regardless of the badge's
+   actual `type`/`size`.
 
    The doubled-class selectors below (e.g. `.badgecontent.badgecontent svg`)
    raise specificity to (0,2,1) so these rules win over the Icon component's
-   own runtime-injected styled-components rule `.<sc-class> svg { width: ... }`
-   (specificity 0,1,1). styled-components used to inject the BadgeContent
-   stylesheet AFTER Icon's stylesheet at render time, so source order let
-   BadgeContent win at equal specificity; CSS Modules now bundle Badge's
-   stylesheet earlier than the runtime SC stylesheet, so we need the bump. */
+   own `svg` rule `.<icon-class> svg { width: ... }` (specificity 0,1,1). Badge
+   and Icon are both CSS Modules in the same cascade layer, and Badge's rule
+   bundles earlier, so at equal specificity Icon would win on source order —
+   the bump keeps BadgeContent's <svg> sizing authoritative. */
 
 /* stylelint-disable no-descending-specificity -- doubled-class selectors below
-   raise specificity so they win over the Icon component's runtime-injected
-   styled-components `& svg` rule. */
+   raise specificity so they win over the Icon component's `& svg` rule. */
 
 .badgecontent {
   width: auto;
@@ -184,19 +181,17 @@
 
 /* stylelint-enable no-descending-specificity */
 
-/* Close icon — mirrors the SvgContainer styled.svg with as={Icon}. The
-   styled-components version only passed $state (size and type defaulted),
-   so width/height come from the default md/opaque tokens, and color from
-   the opaque-text-<state> token.
+/* Close icon — rendered as an Icon, keyed off `state` only (size and type
+   default), so width/height come from the default md/opaque tokens and color
+   from the opaque-text-<state> token.
 
    The state classes below use doubled-class specificity (0,2,1) so they
-   always win over Icon's internal `SvgWrapper` styled-component rule that
-   sets `color: currentColor` on the same element at single-class specificity.
-   Without the bump, stylesheet-order would decide and CSS Modules bundle
-   before runtime SC styles, so the close icon would inherit the wrapper's
-   color (e.g. opaque-text-info for an info badge, but solid-text-info for
-   a solid info badge). Doubled class keeps the close icon on opaque-text-*
-   regardless. */
+   always win over Icon's own `svg` rule that sets `color: currentColor` on
+   the same element at single-class specificity. Without the bump, source
+   order would decide — Badge and Icon are CSS Modules in the same layer and
+   Badge bundles first — so the close icon would inherit the wrapper's color
+   (e.g. opaque-text-info for an info badge, but solid-text-info for a solid
+   info badge). Doubled class keeps the close icon on opaque-text-* regardless. */
 
 .closeicon {
   width: var(--click-badge-icon-md-size-width);

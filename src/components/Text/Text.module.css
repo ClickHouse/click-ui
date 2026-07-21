@@ -10,7 +10,7 @@
 }
 
 /* font shorthand depends on both size and weight; one class per pairing
-   mirrors the single `font:` declaration emitted by styled-components. */
+   emits a single `font:` declaration. */
 
 .text_font_normal-xs {
   font: var(--typography-styles-product-text-normal-xs);
