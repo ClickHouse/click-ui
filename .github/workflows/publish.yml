@@ -78,8 +78,8 @@ jobs:
           npm pkg set version=$NEW_VERSION --no-git-tag-version
       - uses: actions/setup-node@v6
         with:
-          # Node 24.x bundles npm >= 11.5.1, which supports OIDC trusted publishing,
-          # so no global npm upgrade is needed. registry-url is required for OIDC.
+          # Node 24.x bundles npm >= 11.5.1, which supports OIDC trusted publishing.
+          # registry-url is required for OIDC.
           node-version: '24.x'
           registry-url: 'https://registry.npmjs.org'
       - name: Enable Corepack
