@@ -2,6 +2,9 @@
   --tooltip-max-width: initial;
 
   display: flex;
+  /* Sit above the z-index:1 overlay tier (Dropdown, Menu, ContextMenu, DatePicker)
+     so a tooltip triggered from inside one of them isn't occluded by it. */
+  z-index: 2;
   max-width: var(--tooltip-max-width);
   padding: var(--click-tooltip-space-y) var(--click-tooltip-space-x);
   align-items: flex-start;
