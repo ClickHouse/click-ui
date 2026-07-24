@@ -291,6 +291,18 @@ const Thead = ({
   );
 };
 
+const tableVariants = cva(styles.table__table, {
+  variants: {
+    layout: {
+      auto: styles.table__table_layout_auto,
+      fixed: styles.table__table_layout_fixed,
+    },
+  },
+  defaultVariants: {
+    layout: 'auto',
+  },
+});
+
 const rowVariants = cva(styles.table__row, {
   variants: {
     isSelectable: {
@@ -380,6 +392,7 @@ interface CommonTableProps extends Omit<
   rowHeight?: string;
   resizableColumns?: boolean;
   mobileLayout?: MobileLayoutProp;
+  tableLayout?: 'auto' | 'fixed';
 }
 
 type SelectReturnValue = {
@@ -586,6 +599,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       resizableColumns,
       mobileLayout = 'list',
       className,
+      tableLayout = 'auto',
       ...props
     },
     ref
@@ -848,7 +862,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
           <table
             ref={ref}
             {...props}
-            className={cn(styles['table__table'], className)}
+            className={tableVariants({ layout: tableLayout, className })}
           >
             {showHeader && (
               <Thead
