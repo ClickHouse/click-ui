@@ -242,7 +242,7 @@ export const InternalSelect = ({
     [search]
   );
 
-  const list = useMemo<SelectItemObject[]>(() => {
+  const normalizedOptions = useMemo<SelectItemObject[]>(() => {
     const lowerCasedSearch = search.toLowerCase();
 
     if (options) {
@@ -295,7 +295,7 @@ export const InternalSelect = ({
       const visibleItemsList: string[] = [];
       const navigatableList: string[] = [];
       const searchLowerCase = search.toLowerCase();
-      list.forEach(item => {
+      normalizedOptions.forEach(item => {
         if (
           item.title.includes(searchLowerCase) ||
           item.heading?.includes(searchLowerCase)
@@ -315,7 +315,7 @@ export const InternalSelect = ({
         setHighlighted(navigatableList[0] ?? null);
       }
     },
-    [highlighted, list]
+    [highlighted, normalizedOptions]
   );
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -451,7 +451,7 @@ export const InternalSelect = ({
               value={selectedValues}
               onChange={() => null}
             >
-              {list.map(item => (
+              {normalizedOptions.map(item => (
                 <option
                   key={item.value}
                   value={item.value}
