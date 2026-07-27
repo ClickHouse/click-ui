@@ -8,7 +8,6 @@ import {
   forwardRef,
   isValidElement,
   useCallback,
-  useEffect,
   useId,
   useMemo,
   useRef,
@@ -20,7 +19,6 @@ import {
   SelectGroupProps,
   SelectItemObject,
   SelectItemProps,
-  SelectOptionListItem,
 } from './types';
 import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
 import { Portal } from '@radix-ui/react-popover';
@@ -230,8 +228,7 @@ export const InternalSelect = ({
   const visibleList = useRef<string[]>([]);
   const navigatable = useRef<string[]>([]);
   const valueNode = useRef<Map<string, SelectItemProps>>(new Map());
-  const [isInitialized, setInitialized] = useState(false);
-  const [list, setList] = useState<SelectItemObject[]>([]);
+
   const updateElements = useCallback(
     ({ disabled, value, title, heading, nodeProps }: CallbackProps) => {
       if (title.includes(search) || heading?.includes(search)) {
@@ -244,6 +241,53 @@ export const InternalSelect = ({
     },
     [search]
   );
+
+  const list = useMemo<SelectItemObject[]>(() => {
+    const lowerCasedSearch = search.toLowerCase();
+
+    if (options) {
+      return options.flatMap(option => {
+        if ('options' in option) {
+          const heading = getTextFromNodes(option.heading).toLowerCase();
+          return (option.options ?? []).map(item => {
+            valueNode.current.set(item.value, item);
+            const title = getTextFromNodes(item.label).toLowerCase();
+            if (title.includes(lowerCasedSearch) || heading?.includes(lowerCasedSearch)) {
+              visibleList.current.push(item.value);
+              if (!disabled) {
+                navigatable.current.push(item.value);
+              }
+            }
+            return {
+              heading,
+              disabled: item.disabled,
+              value: item.value,
+              title,
+            };
+          });
+        } else {
+          valueNode.current.set(option.value, option);
+          const title = getTextFromNodes(option.label).toLowerCase();
+          if (title.includes(lowerCasedSearch)) {
+            visibleList.current.push(option.value);
+            if (!disabled) {
+              navigatable.current.push(option.value);
+            }
+          }
+          return {
+            disabled: option.disabled,
+            value: option.value,
+            title: getTextFromNodes(option.label),
+          };
+        }
+      });
+    } else if (children) {
+      return childrenToComboboxItemArray(children, updateElements);
+    }
+
+    return [];
+  }, [children, disabled, options, search, updateElements]);
+
   const onUpdateSearch = useCallback(
     (search: string) => {
       setSearch(search);
@@ -273,62 +317,6 @@ export const InternalSelect = ({
     },
     [highlighted, list]
   );
-
-  const updateList = useCallback(
-    (children?: ReactNode, options?: SelectOptionListItem[]) => {
-      const lowerCasedSearch = search.toLowerCase();
-      if (options) {
-        setList(
-          options.flatMap(option => {
-            if ('options' in option) {
-              const heading = getTextFromNodes(option.heading).toLowerCase();
-              return (option.options ?? []).map(item => {
-                valueNode.current.set(item.value, item);
-                const title = getTextFromNodes(item.label).toLowerCase();
-                if (
-                  title.includes(lowerCasedSearch) ||
-                  heading?.includes(lowerCasedSearch)
-                ) {
-                  visibleList.current.push(item.value);
-                  if (!disabled) {
-                    navigatable.current.push(item.value);
-                  }
-                }
-                return {
-                  heading,
-                  disabled: item.disabled,
-                  value: item.value,
-                  title,
-                };
-              });
-            } else {
-              valueNode.current.set(option.value, option);
-              const title = getTextFromNodes(option.label).toLowerCase();
-              if (title.includes(lowerCasedSearch)) {
-                visibleList.current.push(option.value);
-                if (!disabled) {
-                  navigatable.current.push(option.value);
-                }
-              }
-              return {
-                disabled: option.disabled,
-                value: option.value,
-                title: getTextFromNodes(option.label),
-              };
-            }
-          })
-        );
-      } else if (children) {
-        setList(childrenToComboboxItemArray(children, updateElements));
-      }
-    },
-    [disabled, search, updateElements]
-  );
-
-  useEffect(() => {
-    updateList(children, options);
-    setInitialized(true);
-  }, [children, options, updateList]);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputModalityProps = useInputModality();
@@ -427,31 +415,29 @@ export const InternalSelect = ({
             data-testid="select-trigger"
             {...triggerProps}
           >
-            {isInitialized && (
-              <SelectValue>
-                {selectedValues.length === 0 ? (
-                  placeholder
-                ) : multiple ? (
-                  <MultiSelectValue
-                    disabled={disabled ?? false}
-                    onSelect={onSelect}
-                    selectedValues={selectedValues}
-                    sortable={!disabled && sortable}
-                    valueNode={valueNode.current}
-                    onChange={onChange}
-                  />
-                ) : (
-                  <SingleSelectValue
-                    valueNode={
-                      checkbox && selectLabel
-                        ? { label: selectLabel as string, value: selectLabel as string }
-                        : valueNode.current.get(selectedValues[0])
-                    }
-                    value={selectedValues[0]}
-                  />
-                )}
-              </SelectValue>
-            )}
+            <SelectValue>
+              {selectedValues.length === 0 ? (
+                placeholder
+              ) : multiple ? (
+                <MultiSelectValue
+                  disabled={disabled ?? false}
+                  onSelect={onSelect}
+                  selectedValues={selectedValues}
+                  sortable={!disabled && sortable}
+                  valueNode={valueNode.current}
+                  onChange={onChange}
+                />
+              ) : (
+                <SingleSelectValue
+                  valueNode={
+                    checkbox && selectLabel
+                      ? { label: selectLabel as string, value: selectLabel as string }
+                      : valueNode.current.get(selectedValues[0])
+                  }
+                  value={selectedValues[0]}
+                />
+              )}
+            </SelectValue>
             <Icon
               name="sort"
               size="sm"
