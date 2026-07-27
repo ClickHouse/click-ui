@@ -254,7 +254,7 @@ export const InternalSelect = ({
             const title = getTextFromNodes(item.label).toLowerCase();
             if (title.includes(lowerCasedSearch) || heading?.includes(lowerCasedSearch)) {
               visibleList.current.push(item.value);
-              if (!disabled) {
+              if (!item.disabled) {
                 navigatable.current.push(item.value);
               }
             }
@@ -270,7 +270,7 @@ export const InternalSelect = ({
           const title = getTextFromNodes(option.label).toLowerCase();
           if (title.includes(lowerCasedSearch)) {
             visibleList.current.push(option.value);
-            if (!disabled) {
+            if (!option.disabled) {
               navigatable.current.push(option.value);
             }
           }
@@ -286,7 +286,7 @@ export const InternalSelect = ({
     }
 
     return [];
-  }, [children, disabled, options, search, updateElements]);
+  }, [children, options, search, updateElements]);
 
   const onUpdateSearch = useCallback(
     (search: string) => {
