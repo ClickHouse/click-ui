@@ -17,7 +17,6 @@ import {
   NoAvailableOptionsFactoryProps,
   SelectContainerProps,
   SelectGroupProps,
-  SelectItemObject,
   SelectItemProps,
 } from './types';
 import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
@@ -58,12 +57,21 @@ import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import { cn } from '@/lib/cva';
-import { getTextFromNodes } from '@/lib/getTextFromNodes';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
-type CallbackProps = SelectItemObject & {
-  nodeProps: SelectItemProps;
+// Structural only; searchable text is read from the DOM, not the React tree.
+type NormalizedOption = {
+  value: string;
+  disabled?: boolean;
 };
+
+type RegisterItem = (value: string, nodeProps: SelectItemProps) => void;
+
+const toValues = (options: NormalizedOption[]): string[] =>
+  options.map(option => option.value);
+
+const toNavigatable = (options: NormalizedOption[]): string[] =>
+  options.filter(option => !option.disabled).map(option => option.value);
 
 interface NoOptionsDisplayProps {
   allowCreateOption: boolean;
@@ -150,40 +158,21 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   );
 };
 
-const childrenToComboboxItemArray = (
+const childrenToNormalizedOptions = (
   children: ReactNode,
-  callback: (props: CallbackProps) => void,
-  heading?: string
-): SelectItemObject[] => {
+  register: RegisterItem
+): NormalizedOption[] => {
   return Children.toArray(children).flatMap(child => {
     if (isValidElement(child) && child && typeof child === 'object') {
       const type = child.type as FunctionComponent;
       if (type.displayName === 'Select.Group') {
-        const groupChildren = child.props.children;
-        return childrenToComboboxItemArray(
-          groupChildren,
-          callback,
-          getTextFromNodes(child.props.heading).toLowerCase()
-        );
+        return childrenToNormalizedOptions(child.props.children, register);
       } else if (type.displayName === 'Select.Item') {
-        const title = getTextFromNodes(child).toLowerCase();
-        const value = child.props.value;
-        const disabled = child.props.disabled;
-        callback({
-          disabled,
-          value,
-          title,
-          heading,
-          nodeProps: child.props,
-        });
-        return {
-          disabled,
-          value,
-          title,
-          heading,
-        };
+        const { value, disabled } = child.props;
+        register(value, child.props);
+        return { value, disabled };
       } else if ('props' in child && child.props.children) {
-        return childrenToComboboxItemArray(child.props.children, callback, heading);
+        return childrenToNormalizedOptions(child.props.children, register);
       }
     }
     return [];
@@ -225,98 +214,78 @@ export const InternalSelect = ({
   const defaultId = useId();
   const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState<string | undefined>();
-  const visibleList = useRef<string[]>([]);
-  const navigatable = useRef<string[]>([]);
+  // value -> lowercased rendered text (item + its group heading).
+  const [searchSource, setSearchSource] = useState<Map<string, string>>(() => new Map());
   const valueNode = useRef<Map<string, SelectItemProps>>(new Map());
 
-  const updateElements = useCallback(
-    ({ disabled, value, title, heading, nodeProps }: CallbackProps) => {
-      if (title.includes(search) || heading?.includes(search)) {
-        visibleList.current.push(value);
-        if (!disabled) {
-          navigatable.current.push(value);
-        }
-      }
-      valueNode.current.set(value, nodeProps);
-    },
-    [search]
-  );
+  const registerValueNode = useCallback<RegisterItem>((value, nodeProps) => {
+    valueNode.current.set(value, nodeProps);
+  }, []);
 
-  const normalizedOptions = useMemo<SelectItemObject[]>(() => {
-    const lowerCasedSearch = search.toLowerCase();
-
+  const normalizedOptions = useMemo<NormalizedOption[]>(() => {
     if (options) {
       return options.flatMap(option => {
         if ('options' in option) {
-          const heading = getTextFromNodes(option.heading).toLowerCase();
           return (option.options ?? []).map(item => {
             valueNode.current.set(item.value, item);
-            const title = getTextFromNodes(item.label).toLowerCase();
-            if (title.includes(lowerCasedSearch) || heading?.includes(lowerCasedSearch)) {
-              visibleList.current.push(item.value);
-              if (!item.disabled) {
-                navigatable.current.push(item.value);
-              }
-            }
-            return {
-              heading,
-              disabled: item.disabled,
-              value: item.value,
-              title,
-            };
+            return { value: item.value, disabled: item.disabled };
           });
-        } else {
-          valueNode.current.set(option.value, option);
-          const title = getTextFromNodes(option.label).toLowerCase();
-          if (title.includes(lowerCasedSearch)) {
-            visibleList.current.push(option.value);
-            if (!option.disabled) {
-              navigatable.current.push(option.value);
-            }
-          }
-          return {
-            disabled: option.disabled,
-            value: option.value,
-            title: getTextFromNodes(option.label),
-          };
         }
+        valueNode.current.set(option.value, option);
+        return { value: option.value, disabled: option.disabled };
       });
     } else if (children) {
-      return childrenToComboboxItemArray(children, updateElements);
+      return childrenToNormalizedOptions(children, registerValueNode);
     }
 
     return [];
-  }, [children, options, search, updateElements]);
+  }, [children, options, registerValueNode]);
 
-  const onUpdateSearch = useCallback(
-    (search: string) => {
-      setSearch(search);
-      let hasHighlightedValue = false;
-      const visibleItemsList: string[] = [];
-      const navigatableList: string[] = [];
-      const searchLowerCase = search.toLowerCase();
-      normalizedOptions.forEach(item => {
-        if (
-          item.title.includes(searchLowerCase) ||
-          item.heading?.includes(searchLowerCase)
-        ) {
-          if (item.value === highlighted) {
-            hasHighlightedValue = true;
-          }
-          visibleItemsList.push(item.value);
-          if (!item.disabled) {
-            navigatableList.push(item.value);
-          }
-        }
-      });
-      navigatable.current = navigatableList;
-      visibleList.current = visibleItemsList;
-      if (!hasHighlightedValue) {
-        setHighlighted(navigatableList[0] ?? null);
+  // Radix mounts the popover content a commit after `open` flips, so the item
+  // text is read once the list node itself commits.
+  const listRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node) {
+        return;
       }
+      setSearchSource(prev => {
+        // Keep prior entries: items filtered out right now aren't in the DOM to re-read.
+        const next = new Map(prev);
+        node
+          .querySelectorAll<HTMLElement>('[cui-select-item][data-value]')
+          .forEach(el => {
+            const value = el.getAttribute('data-value');
+            if (value === null) {
+              return;
+            }
+            const group = el.closest('[cui-select-group]');
+            const heading =
+              group?.querySelector('[cui-select-group-name]')?.textContent ?? '';
+            next.set(value, `${el.textContent ?? ''} ${heading}`.toLowerCase());
+          });
+        return next;
+      });
     },
-    [highlighted, normalizedOptions]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- depend on normalizedOptions to re-read DOM if options change
+    [normalizedOptions]
   );
+
+  const matched = useMemo(() => {
+    if (search === '') {
+      return normalizedOptions;
+    }
+    const searchLowerCase = search.toLowerCase();
+    return normalizedOptions.filter(item =>
+      (searchSource.get(item.value) ?? '').includes(searchLowerCase)
+    );
+  }, [search, normalizedOptions, searchSource]);
+
+  const visibleSet = useMemo(() => new Set(toValues(matched)), [matched]);
+  const navigatable = useMemo(() => toNavigatable(matched), [matched]);
+
+  // `highlighted` is the user's last pointer; honor it only while it stays navigable.
+  const effectiveHighlight =
+    highlighted && navigatable.includes(highlighted) ? highlighted : navigatable[0];
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputModalityProps = useInputModality();
@@ -327,42 +296,42 @@ export const InternalSelect = ({
   };
 
   const clearSearch = () => {
-    onUpdateSearch('');
+    setSearch('');
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (!e.defaultPrevented) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        if (highlighted) {
-          onSelect(highlighted, undefined, e);
-        } else if (visibleList.current.length === 0 && allowCreateOption) {
+        if (effectiveHighlight) {
+          onSelect(effectiveHighlight, undefined, e);
+        } else if (matched.length === 0 && allowCreateOption) {
           onSelect(search, 'custom', e);
         }
       } else if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
         e.preventDefault();
-        let nextHighlightedValue = highlighted;
-        const highlightedIndex = navigatable.current.findIndex(
-          value => value === highlighted
+        let nextHighlightedValue = effectiveHighlight;
+        const highlightedIndex = navigatable.findIndex(
+          value => value === effectiveHighlight
         );
         if (e.key === 'ArrowUp') {
           if (highlightedIndex === 0) {
-            nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
+            nextHighlightedValue = navigatable[navigatable.length - 1];
           } else {
-            nextHighlightedValue = navigatable.current[highlightedIndex - 1];
+            nextHighlightedValue = navigatable[highlightedIndex - 1];
           }
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
-          if (highlightedIndex === navigatable.current.length - 1) {
-            nextHighlightedValue = navigatable.current[0];
+          if (highlightedIndex === navigatable.length - 1) {
+            nextHighlightedValue = navigatable[0];
           } else {
-            nextHighlightedValue = navigatable.current[highlightedIndex + 1];
+            nextHighlightedValue = navigatable[highlightedIndex + 1];
           }
         } else if (e.key === 'End') {
           e.preventDefault();
-          nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
+          nextHighlightedValue = navigatable[navigatable.length - 1];
         } else if (e.key === 'Home') {
-          nextHighlightedValue = navigatable.current[0];
+          nextHighlightedValue = navigatable[0];
           e.preventDefault();
         }
         setHighlighted(nextHighlightedValue);
@@ -370,22 +339,20 @@ export const InternalSelect = ({
     }
   };
   const isHidden = useCallback(
-    (value?: string) => {
-      return !visibleList.current.includes(value ?? '');
-    },
-    [visibleList]
+    (value?: string) => !visibleSet.has(value ?? ''),
+    [visibleSet]
   );
 
   const optionContextValue = useMemo(() => {
     return {
       search,
       updateHighlighted: setHighlighted,
-      highlighted,
+      highlighted: effectiveHighlight,
       isHidden,
       onSelect,
       selectedValues,
     };
-  }, [search, highlighted, isHidden, onSelect, selectedValues]);
+  }, [search, effectiveHighlight, isHidden, onSelect, selectedValues]);
 
   const onCreateOption = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -468,10 +435,7 @@ export const InternalSelect = ({
               sideOffset={5}
               onFocus={onFocus}
               onCloseAutoFocus={() => {
-                onUpdateSearch('');
-              }}
-              onOpenAutoFocus={() => {
-                setHighlighted(visibleList.current[0]);
+                setSearch('');
               }}
               align="start"
               $useFullWidthItems={useFullWidthItems}
@@ -482,7 +446,7 @@ export const InternalSelect = ({
                   <SearchBar
                     ref={inputRef}
                     value={search}
-                    onChange={e => onUpdateSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                     data-testid="select-search-input"
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
@@ -499,7 +463,10 @@ export const InternalSelect = ({
                     size="xs"
                   />
                 </SearchBarContainer>
-                <SelectListContent $maxHeight={maxHeight}>
+                <SelectListContent
+                  ref={listRef}
+                  $maxHeight={maxHeight}
+                >
                   <OptionContext.Provider value={optionContextValue}>
                     {options && options.length > 0
                       ? options.map((props, index) => {
@@ -548,18 +515,17 @@ export const InternalSelect = ({
                       : children}
                   </OptionContext.Provider>
                 </SelectListContent>
-                {visibleList.current.length === 0 &&
-                  (allowCreateOption || !!noAvailableOptions) && (
-                    <NoOptionsDisplay
-                      allowCreateOption={allowCreateOption}
-                      search={search}
-                      customText={customText}
-                      noAvailableOptions={noAvailableOptions}
-                      onCreateOption={onCreateOption}
-                      onOpenChange={onOpenChange}
-                      containerProps={props}
-                    />
-                  )}
+                {matched.length === 0 && (allowCreateOption || !!noAvailableOptions) && (
+                  <NoOptionsDisplay
+                    allowCreateOption={allowCreateOption}
+                    search={search}
+                    customText={customText}
+                    noAvailableOptions={noAvailableOptions}
+                    onCreateOption={onCreateOption}
+                    onOpenChange={onOpenChange}
+                    containerProps={props}
+                  />
+                )}
               </SelectList>
             </SelectPopoverContent>
           </Portal>
@@ -585,6 +551,7 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
     return (
       <SelectGroupContainer
         {...props}
+        cui-select-group=""
         ref={mergeRefs([
           forwardedRef,
           node => {
@@ -598,7 +565,7 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
           },
         ])}
       >
-        <SelectGroupName>{heading}</SelectGroupName>
+        <SelectGroupName cui-select-group-name="">{heading}</SelectGroupName>
         <SelectGroupContent>{children}</SelectGroupContent>
       </SelectGroupContainer>
     );
