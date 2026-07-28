@@ -220,11 +220,11 @@ export const InternalSelect = ({
       return options.flatMap(option => {
         if ('options' in option) {
           return (option.options ?? []).map(item => {
-            valueNode.current.set(item.value, item);
+            registerValueNode(item.value, item);
             return { value: item.value, disabled: item.disabled };
           });
         }
-        valueNode.current.set(option.value, option);
+        registerValueNode(option.value, option);
         return { value: option.value, disabled: option.disabled };
       });
     } else if (children) {
