@@ -59,19 +59,12 @@ import { useInputModality } from '@/hooks/internal';
 import { cn } from '@/lib/cva';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
-// Structural only; searchable text is read from the DOM, not the React tree.
 type NormalizedOption = {
   value: string;
   disabled?: boolean;
 };
 
 type RegisterItem = (value: string, nodeProps: SelectItemProps) => void;
-
-const toValues = (options: NormalizedOption[]): string[] =>
-  options.map(option => option.value);
-
-const toNavigatable = (options: NormalizedOption[]): string[] =>
-  options.filter(option => !option.disabled).map(option => option.value);
 
 interface NoOptionsDisplayProps {
   allowCreateOption: boolean;
@@ -270,7 +263,7 @@ export const InternalSelect = ({
     [normalizedOptions]
   );
 
-  const matched = useMemo(() => {
+  const matchedOptions = useMemo(() => {
     if (search === '') {
       return normalizedOptions;
     }
@@ -280,12 +273,20 @@ export const InternalSelect = ({
     );
   }, [search, normalizedOptions, searchSource]);
 
-  const visibleSet = useMemo(() => new Set(toValues(matched)), [matched]);
-  const navigatable = useMemo(() => toNavigatable(matched), [matched]);
+  const visibleValues = useMemo(
+    () => new Set(matchedOptions.map(o => o.value)),
+    [matchedOptions]
+  );
+  const navigableValues = useMemo(
+    () => matchedOptions.filter(o => !o.disabled).map(o => o.value),
+    [matchedOptions]
+  );
 
   // `highlighted` is the user's last pointer; honor it only while it stays navigable.
   const effectiveHighlight =
-    highlighted && navigatable.includes(highlighted) ? highlighted : navigatable[0];
+    highlighted && navigableValues.includes(highlighted)
+      ? highlighted
+      : navigableValues[0];
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputModalityProps = useInputModality();
@@ -305,33 +306,33 @@ export const InternalSelect = ({
         e.preventDefault();
         if (effectiveHighlight) {
           onSelect(effectiveHighlight, undefined, e);
-        } else if (matched.length === 0 && allowCreateOption) {
+        } else if (matchedOptions.length === 0 && allowCreateOption) {
           onSelect(search, 'custom', e);
         }
       } else if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
         e.preventDefault();
         let nextHighlightedValue = effectiveHighlight;
-        const highlightedIndex = navigatable.findIndex(
+        const highlightedIndex = navigableValues.findIndex(
           value => value === effectiveHighlight
         );
         if (e.key === 'ArrowUp') {
           if (highlightedIndex === 0) {
-            nextHighlightedValue = navigatable[navigatable.length - 1];
+            nextHighlightedValue = navigableValues[navigableValues.length - 1];
           } else {
-            nextHighlightedValue = navigatable[highlightedIndex - 1];
+            nextHighlightedValue = navigableValues[highlightedIndex - 1];
           }
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
-          if (highlightedIndex === navigatable.length - 1) {
-            nextHighlightedValue = navigatable[0];
+          if (highlightedIndex === navigableValues.length - 1) {
+            nextHighlightedValue = navigableValues[0];
           } else {
-            nextHighlightedValue = navigatable[highlightedIndex + 1];
+            nextHighlightedValue = navigableValues[highlightedIndex + 1];
           }
         } else if (e.key === 'End') {
           e.preventDefault();
-          nextHighlightedValue = navigatable[navigatable.length - 1];
+          nextHighlightedValue = navigableValues[navigableValues.length - 1];
         } else if (e.key === 'Home') {
-          nextHighlightedValue = navigatable[0];
+          nextHighlightedValue = navigableValues[0];
           e.preventDefault();
         }
         setHighlighted(nextHighlightedValue);
@@ -339,8 +340,8 @@ export const InternalSelect = ({
     }
   };
   const isHidden = useCallback(
-    (value?: string) => !visibleSet.has(value ?? ''),
-    [visibleSet]
+    (value?: string) => !visibleValues.has(value ?? ''),
+    [visibleValues]
   );
 
   const optionContextValue = useMemo(() => {
@@ -515,17 +516,18 @@ export const InternalSelect = ({
                       : children}
                   </OptionContext.Provider>
                 </SelectListContent>
-                {matched.length === 0 && (allowCreateOption || !!noAvailableOptions) && (
-                  <NoOptionsDisplay
-                    allowCreateOption={allowCreateOption}
-                    search={search}
-                    customText={customText}
-                    noAvailableOptions={noAvailableOptions}
-                    onCreateOption={onCreateOption}
-                    onOpenChange={onOpenChange}
-                    containerProps={props}
-                  />
-                )}
+                {matchedOptions.length === 0 &&
+                  (allowCreateOption || !!noAvailableOptions) && (
+                    <NoOptionsDisplay
+                      allowCreateOption={allowCreateOption}
+                      search={search}
+                      customText={customText}
+                      noAvailableOptions={noAvailableOptions}
+                      onCreateOption={onCreateOption}
+                      onOpenChange={onOpenChange}
+                      containerProps={props}
+                    />
+                  )}
               </SelectList>
             </SelectPopoverContent>
           </Portal>

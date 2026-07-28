@@ -162,6 +162,23 @@ describe('InternalSelect search', () => {
       type(getByTestId, 'ban');
       expect(queryByText('Banana')).not.toBeNull();
     });
+
+    it('matches text in an option description', () => {
+      const { getByTestId, queryByText } = renderCUI(
+        <Select
+          label="s"
+          showSearch
+          options={[
+            { value: 'a', label: 'Apple', description: 'a red fruit' },
+            { value: 'b', label: 'Banana', description: 'a yellow fruit' },
+          ]}
+        />
+      );
+      open(getByTestId);
+      type(getByTestId, 'yellow');
+      expect(queryByText('Banana')).not.toBeNull();
+      expect(queryByText('Apple')).toBeNull();
+    });
   });
 
   describe('group heading', () => {
