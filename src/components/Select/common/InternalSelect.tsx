@@ -241,23 +241,18 @@ export const InternalSelect = ({
       if (!node) {
         return;
       }
-      setSearchSource(prev => {
-        // Keep prior entries: items filtered out right now aren't in the DOM to re-read.
-        const next = new Map(prev);
-        node
-          .querySelectorAll<HTMLElement>('[cui-select-item][data-value]')
-          .forEach(el => {
-            const value = el.getAttribute('data-value');
-            if (value === null) {
-              return;
-            }
-            const group = el.closest('[cui-select-group]');
-            const heading =
-              group?.querySelector('[cui-select-group-name]')?.textContent ?? '';
-            next.set(value, `${el.textContent ?? ''} ${heading}`.toLowerCase());
-          });
-        return next;
+      const next = new Map<string, string>();
+      node.querySelectorAll<HTMLElement>('[cui-select-item][data-value]').forEach(el => {
+        const value = el.getAttribute('data-value');
+        if (value === null) {
+          return;
+        }
+        const group = el.closest('[cui-select-group]');
+        const heading =
+          group?.querySelector('[cui-select-group-name]')?.textContent ?? '';
+        next.set(value, `${el.textContent ?? ''} ${heading}`.toLowerCase());
       });
+      setSearchSource(next);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- depend on normalizedOptions to re-read DOM if options change
     [normalizedOptions]
@@ -557,7 +552,8 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
         ref={mergeRefs([
           forwardedRef,
           node => {
-            const hidden = node?.querySelectorAll('[cui-select-item]').length === 0;
+            const hidden =
+              node?.querySelectorAll('[cui-select-item]:not([hidden])').length === 0;
             if (hidden) {
               node?.setAttribute('hidden', '');
             } else {
@@ -612,15 +608,16 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       }
     };
 
-    if (isHidden(value)) {
-      return null;
-    }
+    // Filtered items stay mounted (just hidden) so their text remains readable
+    // from the DOM for search; see the searchSource capture in InternalSelect.
+    const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
 
     return (
       <>
         <GenericMenuItem
           {...props}
+          hidden={hidden}
           data-value={value}
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
@@ -656,7 +653,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             size="sm"
           />
         </GenericMenuItem>
-        {separator && <Separator size="sm" />}
+        {separator && !hidden && <Separator size="sm" />}
       </>
     );
   }
@@ -711,16 +708,16 @@ export const MultiSelectCheckboxItem = forwardRef<
       }
     };
 
-    if (isHidden(value)) {
-      return null;
-    }
-
+    // Filtered items stay mounted (just hidden) so their text remains readable
+    // from the DOM for search; see the searchSource capture in InternalSelect.
+    const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
 
     return (
       <>
         <GenericMenuItem
           {...props}
+          hidden={hidden}
           data-value={value}
           onClick={handleMenuItemClick}
           onMouseOver={handleMenuItemMouseOver}
@@ -761,7 +758,7 @@ export const MultiSelectCheckboxItem = forwardRef<
             </IconWrapper>
           </Container>
         </GenericMenuItem>
-        {separator && <Separator size="sm" />}
+        {separator && !hidden && <Separator size="sm" />}
       </>
     );
   }

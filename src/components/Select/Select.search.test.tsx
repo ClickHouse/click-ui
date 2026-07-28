@@ -49,8 +49,8 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'ban');
-      expect(queryByText('Banana')).not.toBeNull();
-      expect(queryByText('Apple')).toBeNull();
+      expect(queryByText('Banana')).toBeVisible();
+      expect(queryByText('Apple')).not.toBeVisible();
     });
 
     it('matches text supplied via the `label` prop', () => {
@@ -68,8 +68,8 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'ban');
-      expect(queryByText('Banana')).not.toBeNull();
-      expect(queryByText('Apple')).toBeNull();
+      expect(queryByText('Banana')).toBeVisible();
+      expect(queryByText('Apple')).not.toBeVisible();
     });
 
     it('matches numeric children', () => {
@@ -81,8 +81,8 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, '2025');
-      expect(queryByText('2025')).not.toBeNull();
-      expect(queryByText('2024')).toBeNull();
+      expect(queryByText('2025')).toBeVisible();
+      expect(queryByText('2024')).not.toBeVisible();
     });
 
     it('matches text rendered by a custom child component (the reported case)', () => {
@@ -98,8 +98,8 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'bill');
-      expect(queryByText('Billing')).not.toBeNull();
-      expect(queryByText('Analytics')).toBeNull();
+      expect(queryByText('Billing')).toBeVisible();
+      expect(queryByText('Analytics')).not.toBeVisible();
     });
 
     it('restores every item when the search is cleared', () => {
@@ -115,10 +115,10 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'bill');
-      expect(queryByText('Analytics')).toBeNull();
+      expect(queryByText('Analytics')).not.toBeVisible();
       type(getByTestId, '');
-      expect(queryByText('Analytics')).not.toBeNull();
-      expect(queryByText('Billing')).not.toBeNull();
+      expect(queryByText('Analytics')).toBeVisible();
+      expect(queryByText('Billing')).toBeVisible();
     });
   });
 
@@ -136,8 +136,8 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'bill');
-      expect(queryByText('Billing')).not.toBeNull();
-      expect(queryByText('Analytics')).toBeNull();
+      expect(queryByText('Billing')).toBeVisible();
+      expect(queryByText('Analytics')).not.toBeVisible();
     });
 
     it('makes options added while open searchable without reopening', () => {
@@ -160,7 +160,7 @@ describe('InternalSelect search', () => {
         />
       );
       type(getByTestId, 'ban');
-      expect(queryByText('Banana')).not.toBeNull();
+      expect(queryByText('Banana')).toBeVisible();
     });
 
     it('matches text in an option description', () => {
@@ -176,8 +176,8 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'yellow');
-      expect(queryByText('Banana')).not.toBeNull();
-      expect(queryByText('Apple')).toBeNull();
+      expect(queryByText('Banana')).toBeVisible();
+      expect(queryByText('Apple')).not.toBeVisible();
     });
   });
 
@@ -196,9 +196,9 @@ describe('InternalSelect search', () => {
       );
       open(getByTestId);
       type(getByTestId, 'fruit');
-      expect(queryByText('Apple')).not.toBeNull();
-      expect(queryByText('Banana')).not.toBeNull();
-      expect(queryByText('Carrot')).toBeNull();
+      expect(queryByText('Apple')).toBeVisible();
+      expect(queryByText('Banana')).toBeVisible();
+      expect(queryByText('Carrot')).not.toBeVisible();
     });
   });
 
