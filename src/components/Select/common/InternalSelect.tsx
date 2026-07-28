@@ -617,6 +617,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
         <GenericMenuItem
           {...props}
           hidden={hidden}
+          className={cn(selectStyles['select-item'], props.className)}
           data-value={value}
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
@@ -716,6 +717,7 @@ export const MultiSelectCheckboxItem = forwardRef<
         <GenericMenuItem
           {...props}
           hidden={hidden}
+          className={cn(selectStyles['select-item'], props.className)}
           data-value={value}
           onClick={handleMenuItemClick}
           onMouseOver={handleMenuItemMouseOver}
