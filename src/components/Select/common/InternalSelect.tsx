@@ -608,8 +608,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       }
     };
 
-    // Filtered items stay mounted (just hidden) so their text remains readable
-    // from the DOM for search; see the searchSource capture in InternalSelect.
+    // Render hidden rather than unmounting so the text stays in the DOM for search.
     const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
 
@@ -708,8 +707,7 @@ export const MultiSelectCheckboxItem = forwardRef<
       }
     };
 
-    // Filtered items stay mounted (just hidden) so their text remains readable
-    // from the DOM for search; see the searchSource capture in InternalSelect.
+    // Render hidden rather than unmounting so the text stays in the DOM for search.
     const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
 
