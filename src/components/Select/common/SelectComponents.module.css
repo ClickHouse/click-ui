@@ -224,6 +224,10 @@
   display: none;
 }
 
+.select-item[hidden] {
+  display: none;
+}
+
 .select-group-name {
   display: flex;
   width: 100%;
