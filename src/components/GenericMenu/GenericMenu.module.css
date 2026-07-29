@@ -20,6 +20,20 @@
 .generic-menu-panel_type_dropdown-menu {
   max-width: var(--radix-dropdown-menu-content-available-width);
   max-height: var(--radix-dropdown-menu-content-available-height);
+  /* Dropdown.module.css's `.dropdown-menu-content` also declares
+     `overflow-y: auto`, but that rule lives in a different colocated
+     stylesheet than this base panel's `overflow: hidden` (above). The
+     css-colocate build always injects a file's own CSS import at the very
+     top of its JS module (see plugins/css-colocate/import-inject.ts
+     `insertAtTop`), so Dropdown's stylesheet is registered *before*
+     GenericMenu's own -- inverting the intended override order and letting
+     the base's `overflow: hidden` win the cascade (equal specificity, later
+     rule wins). Declaring the scroll override here instead keeps it in the
+     same stylesheet as the property it overrides, after it in source order,
+     so it is never at the mercy of cross-file injection order -- and it also
+     covers any consumer that renders GenericMenuPanel type="dropdown-menu"
+     directly, without going through Dropdown.Content. */
+  overflow-y: auto;
 }
 
 .generic-menu-panel_type_context-menu {
