@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Select } from '@/components/Select';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -12,6 +12,14 @@ import { renderCUI } from '@/utils/test-utils';
 
 // A row whose visible text comes from a prop, not from string children.
 const ServiceRow = ({ name }: { name: string }) => <span>{name}</span>;
+
+// A row that renders one text on mount and settles on another via its own
+// state — i.e. its text changes after the menu has already opened.
+const LateRow = () => {
+  const [text, setText] = useState('Loading');
+  useEffect(() => setText('Analytics'), []);
+  return <span>{text}</span>;
+};
 
 const open = (getByTestId: (id: string) => HTMLElement) =>
   fireEvent.click(getByTestId('select-trigger'));
@@ -100,6 +108,22 @@ describe('InternalSelect search', () => {
       type(getByTestId, 'bill');
       expect(queryByText('Billing')).toBeVisible();
       expect(queryByText('Analytics')).not.toBeVisible();
+    });
+
+    it('matches text a row settled on after the menu opened', () => {
+      const { getByTestId, queryByText } = renderChildren(
+        <>
+          <Select.Item value="a">
+            <LateRow />
+          </Select.Item>
+          <Select.Item value="b">Billing</Select.Item>
+        </>
+      );
+      open(getByTestId);
+      // LateRow now reads "Analytics"; the snapshot is taken on this keystroke.
+      type(getByTestId, 'analyt');
+      expect(queryByText('Analytics')).toBeVisible();
+      expect(queryByText('Billing')).not.toBeVisible();
     });
 
     it('restores every item when the search is cleared', () => {
