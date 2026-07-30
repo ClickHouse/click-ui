@@ -93,6 +93,21 @@ describe('Pagination', () => {
     expect(onChange).toHaveBeenCalledTimes(0);
   });
 
+  it('should not call onChange when input is cleared', () => {
+    const onChange = vi.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      onChange,
+    });
+    const pageInput = getByDisplayValue('1');
+    fireEvent.input(pageInput, {
+      target: {
+        value: '',
+      },
+    });
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
   it('should not call onChange when input is greater than totalPages', () => {
     const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({
