@@ -35,6 +35,8 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
 
 import { DateDetailsProps } from './DateDetails.types';
 
+const fallbackSystemTimeZone = 'America/New_York';
+
 export const DateDetails = ({
   date,
   side = 'top',
@@ -45,11 +47,13 @@ export const DateDetails = ({
   const dayjsDate = dayjs(date);
 
   let systemTime;
-  if (systemTimeZone) {
+  let resolvedSystemTimeZone = systemTimeZone;
+  if (resolvedSystemTimeZone) {
     try {
-      systemTime = dayjsDate.tz(systemTimeZone);
+      systemTime = dayjsDate.tz(resolvedSystemTimeZone);
     } catch {
-      systemTime = dayjsDate.tz('America/New_York');
+      resolvedSystemTimeZone = fallbackSystemTimeZone;
+      systemTime = dayjsDate.tz(resolvedSystemTimeZone);
     }
   }
 
@@ -107,10 +111,10 @@ export const DateDetails = ({
 
               <Container justifyContent="end">
                 <Text size="sm">
-                  {formatDateDetails(systemTime, systemTimeZone)} (
+                  {formatDateDetails(systemTime, resolvedSystemTimeZone)} (
                   {formatTimezone({
                     date: systemTime,
-                    timezone: systemTimeZone,
+                    timezone: resolvedSystemTimeZone,
                   })}
                   )
                 </Text>
