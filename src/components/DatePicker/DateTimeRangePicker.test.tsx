@@ -452,6 +452,29 @@ describe('DateTimeRangePicker', () => {
       expect(handleSelectDate).toHaveBeenCalled();
     });
 
+    it('measures the max range length in calendar days, ignoring the time of day', async () => {
+      const startDate = new Date('07-04-2020 11:30');
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          startDate={startDate}
+          onSelectDateRange={handleSelectDate}
+          maxRangeLength={15}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+      await userEvent.click(getByText('End date'));
+
+      // Jul 19 would make Jul 4 – Jul 19 a 16 day range.
+      await userEvent.click(getByText('19'));
+      expect(handleSelectDate).not.toHaveBeenCalled();
+
+      await userEvent.click(getByText('18'));
+      expect(handleSelectDate).toHaveBeenCalled();
+    });
+
     it('allows picking an end date before the start date when an end date is already set', async () => {
       const handleSelectDate = vi.fn();
       const startDate = new Date('07-10-2020 12:00');

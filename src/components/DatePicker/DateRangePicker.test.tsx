@@ -319,6 +319,27 @@ describe('DateRangePicker', () => {
 
       expect(handleSelectDate).not.toHaveBeenCalled();
     });
+
+    it('counts the start date towards the max range length', async () => {
+      const startDate = new Date('07-04-2020');
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, findByText } = renderCUI(
+        <DateRangePicker
+          startDate={startDate}
+          onSelectDateRange={handleSelectDate}
+          maxRangeLength={5}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      // Jul 9 would make Jul 4 – Jul 9 a 6 day range.
+      await userEvent.click(await findByText('9'));
+      expect(handleSelectDate).not.toHaveBeenCalled();
+
+      await userEvent.click(await findByText('8'));
+      expect(handleSelectDate).toHaveBeenCalledWith(startDate, new Date('07-08-2020'));
+    });
   });
 
   describe('predefined date ranges', () => {
