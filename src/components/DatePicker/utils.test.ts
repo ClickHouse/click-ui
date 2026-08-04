@@ -1,6 +1,7 @@
 import {
   DateRange,
   dateRangeIsValid,
+  dateRangeMatchesPredefinedRange,
   datesAreWithinMaxRange,
   formatSelectedDate,
   formatSelectedDateTime,
@@ -42,6 +43,105 @@ describe('DatePicker utils', () => {
       expect(
         datesAreWithinMaxRange(startDate, new Date('07-16-2025 00:00'), 15)
       ).toBeFalsy();
+    });
+  });
+
+  describe('matching a selected range against a predefined range', () => {
+    const pastWeek: DateRange = {
+      startDate: new Date('July 28 2025 14:30'),
+      endDate: new Date('August 04 2025 14:30'),
+    };
+
+    it('matches a multi-day range picked by hand on the same dates', () => {
+      const handPicked: DateRange = {
+        startDate: new Date('July 28 2025 12:00'),
+        endDate: new Date('August 04 2025 12:00'),
+      };
+
+      expect(dateRangeMatchesPredefinedRange(handPicked, pastWeek)).toBeTruthy();
+    });
+
+    it('does not match a multi-day range on different dates', () => {
+      const handPicked: DateRange = {
+        startDate: new Date('July 27 2025 12:00'),
+        endDate: new Date('August 04 2025 12:00'),
+      };
+
+      expect(dateRangeMatchesPredefinedRange(handPicked, pastWeek)).toBeFalsy();
+    });
+
+    it('tolerates the drift of a predefined list rebuilt a moment later', () => {
+      const rebuilt: DateRange = {
+        startDate: new Date('July 28 2025 14:30:02'),
+        endDate: new Date('August 04 2025 14:30:02'),
+      };
+
+      expect(dateRangeMatchesPredefinedRange(rebuilt, pastWeek)).toBeTruthy();
+    });
+
+    describe('when configured for the UTC timezone', () => {
+      it('matches on UTC calendar days, not local ones', () => {
+        // Same UTC days at both ends, but times that land on a different local day.
+        const predefinedRange: DateRange = {
+          startDate: new Date('2025-08-04T02:00:00Z'),
+          endDate: new Date('2025-08-11T02:00:00Z'),
+        };
+        const middleOfTheUtcDay: DateRange = {
+          startDate: new Date('2025-08-04T12:00:00Z'),
+          endDate: new Date('2025-08-11T12:00:00Z'),
+        };
+        const endOfTheUtcDay: DateRange = {
+          startDate: new Date('2025-08-04T22:00:00Z'),
+          endDate: new Date('2025-08-11T22:00:00Z'),
+        };
+
+        expect(
+          dateRangeMatchesPredefinedRange(middleOfTheUtcDay, predefinedRange, 'UTC')
+        ).toBeTruthy();
+        expect(
+          dateRangeMatchesPredefinedRange(endOfTheUtcDay, predefinedRange, 'UTC')
+        ).toBeTruthy();
+      });
+
+      it('does not match a range on a different UTC day', () => {
+        const predefinedRange: DateRange = {
+          startDate: new Date('2025-08-04T02:00:00Z'),
+          endDate: new Date('2025-08-11T02:00:00Z'),
+        };
+        const aDayLate: DateRange = {
+          startDate: new Date('2025-08-05T02:00:00Z'),
+          endDate: new Date('2025-08-11T02:00:00Z'),
+        };
+
+        expect(
+          dateRangeMatchesPredefinedRange(aDayLate, predefinedRange, 'UTC')
+        ).toBeFalsy();
+      });
+    });
+
+    describe('for ranges shorter than a day', () => {
+      const pastHour: DateRange = {
+        startDate: new Date('August 04 2025 13:30'),
+        endDate: new Date('August 04 2025 14:30'),
+      };
+
+      it('matches on time, within a minute of drift', () => {
+        const rebuilt: DateRange = {
+          startDate: new Date('August 04 2025 13:30:20'),
+          endDate: new Date('August 04 2025 14:30:20'),
+        };
+
+        expect(dateRangeMatchesPredefinedRange(rebuilt, pastHour)).toBeTruthy();
+      });
+
+      it('does not match another range on the same dates', () => {
+        const pastSixHours: DateRange = {
+          startDate: new Date('August 04 2025 08:30'),
+          endDate: new Date('August 04 2025 14:30'),
+        };
+
+        expect(dateRangeMatchesPredefinedRange(pastSixHours, pastHour)).toBeFalsy();
+      });
     });
   });
 

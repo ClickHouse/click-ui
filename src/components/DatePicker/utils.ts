@@ -202,6 +202,35 @@ export const datesAreWithinMaxRange = (
   return daysDifference < maxRangeLength;
 };
 
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+const toleranceMs = 60 * 1000;
+
+export const dateRangeMatchesPredefinedRange = (
+  selectedRange: DateRange,
+  predefinedRange: DateRange,
+  timezone: Timezone = 'system'
+): boolean => {
+  const { startDate, endDate } = predefinedRange;
+
+  if (endDate.getTime() - startDate.getTime() < ONE_DAY_MS) {
+    return (
+      Math.abs(selectedRange.startDate.getTime() - startDate.getTime()) <= toleranceMs &&
+      Math.abs(selectedRange.endDate.getTime() - endDate.getTime()) <= toleranceMs
+    );
+  }
+
+  // Shifted the same way the calendar is, so the check agrees with the days it marks.
+  const shiftedSelectedStart = shiftToTimezone(selectedRange.startDate, timezone);
+  const shiftedSelectedEnd = shiftToTimezone(selectedRange.endDate, timezone);
+  const shiftedStart = shiftToTimezone(startDate, timezone);
+  const shiftedEnd = shiftToTimezone(endDate, timezone);
+
+  return (
+    isSameDate(shiftedSelectedStart, shiftedStart) &&
+    isSameDate(shiftedSelectedEnd, shiftedEnd)
+  );
+};
+
 export const isDateRangeTheWholeMonth = (
   { startDate, endDate }: DateRange,
   timezone: Timezone = 'system'

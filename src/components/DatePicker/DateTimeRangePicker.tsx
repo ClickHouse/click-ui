@@ -26,6 +26,7 @@ import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
 import {
   DateRangeListItem,
+  dateRangeMatchesPredefinedRange,
   datesAreWithinMaxRange,
   shiftFromTimezone,
   Meridiem,
@@ -426,6 +427,7 @@ interface PredefinedTimesProps {
   setStartDate: Dispatch<SetStateAction<Date | undefined>>;
   shouldShowCustomRange: boolean;
   showCustomDateRange: Dispatch<SetStateAction<boolean>>;
+  timezone: Timezone;
 }
 
 const PredefinedTimes = ({
@@ -437,6 +439,7 @@ const PredefinedTimes = ({
   setStartDate,
   shouldShowCustomRange,
   showCustomDateRange,
+  timezone,
 }: PredefinedTimesProps) => {
   const handleCustomTimePeriodClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -450,18 +453,23 @@ const PredefinedTimes = ({
       orientation="vertical"
     >
       <ScrollableContainer orientation="vertical">
-        {predefinedTimesList.map(({ dateRange: { startDate, endDate }, label }) => {
+        {predefinedTimesList.map(({ dateRange, label }) => {
+          const { startDate, endDate } = dateRange;
+
           const handleItemClick = () => {
             setStartDate(startDate);
             setEndDate(endDate);
             onSelectDateRange(startDate, endDate, label);
           };
 
+          const selectedRange =
+            selectedStartDate && selectedEndDate
+              ? { startDate: selectedStartDate, endDate: selectedEndDate }
+              : undefined;
+
           const rangeIsSelected =
-            selectedEndDate &&
-            selectedEndDate.getTime() === endDate.getTime() &&
-            selectedStartDate &&
-            selectedStartDate.getTime() === startDate.getTime();
+            selectedRange !== undefined &&
+            dateRangeMatchesPredefinedRange(selectedRange, dateRange, timezone);
 
           return (
             <StyledDropdownItem
@@ -1126,6 +1134,7 @@ export const DateTimeRangePicker = ({
                 setStartDate={setSelectedStartDate}
                 shouldShowCustomRange={shouldShowCustomRange}
                 showCustomDateRange={setShouldShowCustomRange}
+                timezone={timezone}
               />
 
               {shouldShowCustomRange && (
