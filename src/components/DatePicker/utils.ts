@@ -194,9 +194,12 @@ export const datesAreWithinMaxRange = (
   endDate: Date,
   maxRangeLength: number
 ): boolean => {
-  const daysDifference = Math.abs(dayjs(startDate).diff(dayjs(endDate), 'days'));
+  // Compare calendar days; dayjs would otherwise drop a partial day from the diff.
+  const daysDifference = Math.abs(
+    dayjs(startDate).startOf('day').diff(dayjs(endDate).startOf('day'), 'days')
+  );
 
-  return daysDifference <= maxRangeLength;
+  return daysDifference < maxRangeLength;
 };
 
 export const isDateRangeTheWholeMonth = (

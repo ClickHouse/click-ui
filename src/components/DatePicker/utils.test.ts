@@ -26,11 +26,22 @@ describe('DatePicker utils', () => {
       expect(datesAreWithinMaxRange(startDate, endDate, 15)).toBeFalsy();
     });
 
-    it('is inclusive with dates', () => {
+    it('counts both endpoints towards the range', () => {
       const startDate = new Date('07-01-2025');
-      const endDate = new Date('07-16-2025');
 
-      expect(datesAreWithinMaxRange(startDate, endDate, 15)).toBeTruthy();
+      expect(datesAreWithinMaxRange(startDate, new Date('07-15-2025'), 15)).toBeTruthy();
+      expect(datesAreWithinMaxRange(startDate, new Date('07-16-2025'), 15)).toBeFalsy();
+    });
+
+    it('ignores the time of day', () => {
+      const startDate = new Date('07-01-2025 12:00');
+
+      expect(
+        datesAreWithinMaxRange(startDate, new Date('07-15-2025 00:00'), 15)
+      ).toBeTruthy();
+      expect(
+        datesAreWithinMaxRange(startDate, new Date('07-16-2025 00:00'), 15)
+      ).toBeFalsy();
     });
   });
 
