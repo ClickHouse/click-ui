@@ -26,12 +26,13 @@ import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
 import {
   DateRangeListItem,
-  datesAreWithinMaxRange,
-  shiftFromTimezone,
   Meridiem,
   Timezone,
+  areDatesWithinMaxRange,
+  isDateRangeValid,
+  isDateRangeWithinRange,
+  shiftFromTimezone,
   shiftToTimezone,
-  dateRangeIsValid,
 } from './utils';
 import { dayjs, Dayjs } from '@/utils/date';
 import { Tabs } from '../Tabs/Tabs';
@@ -301,7 +302,7 @@ const Calendar = ({
           if (
             maxRangeLength > 1 &&
             shiftedStart &&
-            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
+            !areDatesWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
           ) {
             isDisabled = true;
           }
@@ -426,6 +427,7 @@ interface PredefinedTimesProps {
   setStartDate: Dispatch<SetStateAction<Date | undefined>>;
   shouldShowCustomRange: boolean;
   showCustomDateRange: Dispatch<SetStateAction<boolean>>;
+  timezone: Timezone;
 }
 
 const PredefinedTimes = ({
@@ -437,6 +439,7 @@ const PredefinedTimes = ({
   setStartDate,
   shouldShowCustomRange,
   showCustomDateRange,
+  timezone,
 }: PredefinedTimesProps) => {
   const handleCustomTimePeriodClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -450,18 +453,23 @@ const PredefinedTimes = ({
       orientation="vertical"
     >
       <ScrollableContainer orientation="vertical">
-        {predefinedTimesList.map(({ dateRange: { startDate, endDate }, label }) => {
+        {predefinedTimesList.map(({ dateRange, label }) => {
+          const { startDate, endDate } = dateRange;
+
           const handleItemClick = () => {
             setStartDate(startDate);
             setEndDate(endDate);
             onSelectDateRange(startDate, endDate, label);
           };
 
+          const selectedRange =
+            selectedStartDate && selectedEndDate
+              ? { startDate: selectedStartDate, endDate: selectedEndDate }
+              : undefined;
+
           const rangeIsSelected =
-            selectedEndDate &&
-            selectedEndDate.getTime() === endDate.getTime() &&
-            selectedStartDate &&
-            selectedStartDate.getTime() === startDate.getTime();
+            selectedRange !== undefined &&
+            isDateRangeWithinRange(selectedRange, dateRange, timezone);
 
           return (
             <StyledDropdownItem
@@ -806,7 +814,7 @@ const TabbedCalendar = ({
   }
 
   const startDateIsAfterEndDate =
-    startDate && endDate && !dateRangeIsValid({ startDate, endDate });
+    startDate && endDate && !isDateRangeValid({ startDate, endDate });
 
   return (
     <BottomPaddingTabs
@@ -1033,7 +1041,7 @@ export const DateTimeRangePicker = ({
         if (selectedEndDate) {
           if (
             !shouldFireIfInvalid &&
-            !dateRangeIsValid({ startDate: selectedDate, endDate: selectedEndDate })
+            !isDateRangeValid({ startDate: selectedDate, endDate: selectedEndDate })
           ) {
             return;
           }
@@ -1052,7 +1060,7 @@ export const DateTimeRangePicker = ({
         if (selectedStartDate) {
           if (
             !shouldFireIfInvalid &&
-            !dateRangeIsValid({ startDate: selectedStartDate, endDate: selectedDate })
+            !isDateRangeValid({ startDate: selectedStartDate, endDate: selectedDate })
           ) {
             return;
           }
@@ -1126,6 +1134,7 @@ export const DateTimeRangePicker = ({
                 setStartDate={setSelectedStartDate}
                 shouldShowCustomRange={shouldShowCustomRange}
                 showCustomDateRange={setShouldShowCustomRange}
+                timezone={timezone}
               />
 
               {shouldShowCustomRange && (

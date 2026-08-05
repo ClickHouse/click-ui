@@ -1244,9 +1244,103 @@ describe('DateTimeRangePicker', () => {
       );
       expect(selected).toHaveLength(1);
     });
+
+    it('marks a multi-day predefined range as selected when the dates were picked by hand', async () => {
+      const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+      const pastMonth = predefinedTimesList.find(item => item.label === 'Past month');
+      if (!pastMonth) {
+        throw new Error('expected a "Past month" predefined range');
+      }
+
+      const { getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={predefinedTimesList}
+          startDate={new Date('June 04 2020 12:00')}
+          endDate={new Date('July 04 2020 12:00')}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(getByTestId('Past month')).toHaveAttribute('data-selected', 'true');
+
+      const selected = document.querySelectorAll(
+        '[data-testid="predefined-times-list"] [data-selected="true"]'
+      );
+      expect(selected).toHaveLength(1);
+    });
+
+    it('keeps a predefined range selected when the list is rebuilt on a later render', async () => {
+      const pastHour = getPredefinedTimePeriodsForDateTimePicker().find(
+        item => item.label === 'Past hour'
+      );
+      if (!pastHour) {
+        throw new Error('expected a "Past hour" predefined range');
+      }
+
+      const { getByTestId, rerender } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={getPredefinedTimePeriodsForDateTimePicker()}
+          startDate={new Date(pastHour.dateRange.startDate)}
+          endDate={new Date(pastHour.dateRange.endDate)}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      vi.setSystemTime(new Date('07-04-2020 11:30:20 AM'));
+
+      rerender(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={getPredefinedTimePeriodsForDateTimePicker()}
+          startDate={new Date(pastHour.dateRange.startDate)}
+          endDate={new Date(pastHour.dateRange.endDate)}
+        />
+      );
+
+      expect(getByTestId('Past hour')).toHaveAttribute('data-selected', 'true');
+    });
   });
 
   describe('when configured for the UTC timezone', () => {
+    it('checks the predefined range covering the same UTC days as the selection', async () => {
+      const predefinedTimesList = [
+        {
+          dateRange: {
+            startDate: new Date('2026-04-24T02:00:00Z'),
+            endDate: new Date('2026-05-01T02:00:00Z'),
+          },
+          label: 'Past week',
+        },
+        {
+          dateRange: {
+            startDate: new Date('2026-04-17T02:00:00Z'),
+            endDate: new Date('2026-05-01T02:00:00Z'),
+          },
+          label: 'Past 2 weeks',
+        },
+      ];
+
+      // The same UTC days as "Past week", at a time that falls on a different local day.
+      const { getByTestId } = renderCUI(
+        <DateTimeRangePicker
+          endDate={new Date('2026-05-01T22:00:00Z')}
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={predefinedTimesList}
+          startDate={new Date('2026-04-24T22:00:00Z')}
+          timezone="UTC"
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(getByTestId('Past week')).toHaveAttribute('data-selected', 'true');
+      expect(getByTestId('Past 2 weeks')).toHaveAttribute('data-selected', 'false');
+    });
+
     it('renders both endpoints from their UTC date and time fields', () => {
       const startDate = new Date('2026-04-30T08:00:00Z');
       const endDate = new Date('2026-04-30T14:30:00Z');

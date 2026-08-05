@@ -189,7 +189,7 @@ export const isDateNotInAllowList = (
   allowList.length > 0 &&
   !allowList.some(allowedDate => isSameDate(allowedDate, date));
 
-export const datesAreWithinMaxRange = (
+export const areDatesWithinMaxRange = (
   startDate: Date,
   endDate: Date,
   maxRangeLength: number
@@ -200,6 +200,35 @@ export const datesAreWithinMaxRange = (
   );
 
   return daysDifference < maxRangeLength;
+};
+
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+const toleranceMs = 60 * 1000;
+
+export const isDateRangeWithinRange = (
+  selectedRange: DateRange,
+  predefinedRange: DateRange,
+  timezone: Timezone = 'system'
+): boolean => {
+  const { startDate, endDate } = predefinedRange;
+
+  if (endDate.getTime() - startDate.getTime() < ONE_DAY_MS) {
+    return (
+      Math.abs(selectedRange.startDate.getTime() - startDate.getTime()) <= toleranceMs &&
+      Math.abs(selectedRange.endDate.getTime() - endDate.getTime()) <= toleranceMs
+    );
+  }
+
+  // Shifted the same way the calendar is, so the check agrees with the days it marks.
+  const shiftedSelectedStart = shiftToTimezone(selectedRange.startDate, timezone);
+  const shiftedSelectedEnd = shiftToTimezone(selectedRange.endDate, timezone);
+  const shiftedStart = shiftToTimezone(startDate, timezone);
+  const shiftedEnd = shiftToTimezone(endDate, timezone);
+
+  return (
+    isSameDate(shiftedSelectedStart, shiftedStart) &&
+    isSameDate(shiftedSelectedEnd, shiftedEnd)
+  );
 };
 
 export const isDateRangeTheWholeMonth = (
@@ -219,7 +248,7 @@ export const isDateRangeTheWholeMonth = (
   return startDateIsFirstDay && endDateIsLastDay;
 };
 
-export const dateRangeIsValid = (dateRange: DateRange): boolean => {
+export const isDateRangeValid = (dateRange: DateRange): boolean => {
   if (!dateRange?.startDate || !dateRange?.endDate) {
     return false;
   }

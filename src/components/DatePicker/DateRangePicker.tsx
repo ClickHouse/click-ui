@@ -29,13 +29,13 @@ import { cn, cva } from '@/lib/cva';
 import styles from './DateRangePicker.module.css';
 import {
   DateRange,
-  datesAreWithinMaxRange,
+  Timezone,
+  areDatesWithinMaxRange,
   formatDateHeader,
   formatSelectedDate,
-  shiftFromTimezone,
   isDateNotInAllowList,
   isDateRangeTheWholeMonth,
-  Timezone,
+  shiftFromTimezone,
   shiftToTimezone,
 } from './utils';
 
@@ -233,7 +233,7 @@ const Calendar = ({
           if (
             maxRangeLength > 1 &&
             shiftedStart &&
-            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength) &&
+            !areDatesWithinMaxRange(shiftedStart, fullDate, maxRangeLength) &&
             fullDate > shiftedStart
           ) {
             isDisabled = true;
