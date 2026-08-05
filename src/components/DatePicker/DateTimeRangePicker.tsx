@@ -26,13 +26,13 @@ import { Panel } from '../Panel/Panel';
 import { Icon } from '../Icon/Icon';
 import {
   DateRangeListItem,
-  dateRangeMatchesPredefinedRange,
-  datesAreWithinMaxRange,
-  shiftFromTimezone,
   Meridiem,
   Timezone,
+  areDatesWithinMaxRange,
+  isDateRangeValid,
+  isDateRangeWithinRange,
+  shiftFromTimezone,
   shiftToTimezone,
-  dateRangeIsValid,
 } from './utils';
 import { dayjs, Dayjs } from '@/utils/date';
 import { Tabs } from '../Tabs/Tabs';
@@ -302,7 +302,7 @@ const Calendar = ({
           if (
             maxRangeLength > 1 &&
             shiftedStart &&
-            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
+            !areDatesWithinMaxRange(shiftedStart, fullDate, maxRangeLength)
           ) {
             isDisabled = true;
           }
@@ -469,7 +469,7 @@ const PredefinedTimes = ({
 
           const rangeIsSelected =
             selectedRange !== undefined &&
-            dateRangeMatchesPredefinedRange(selectedRange, dateRange, timezone);
+            isDateRangeWithinRange(selectedRange, dateRange, timezone);
 
           return (
             <StyledDropdownItem
@@ -814,7 +814,7 @@ const TabbedCalendar = ({
   }
 
   const startDateIsAfterEndDate =
-    startDate && endDate && !dateRangeIsValid({ startDate, endDate });
+    startDate && endDate && !isDateRangeValid({ startDate, endDate });
 
   return (
     <BottomPaddingTabs
@@ -1041,7 +1041,7 @@ export const DateTimeRangePicker = ({
         if (selectedEndDate) {
           if (
             !shouldFireIfInvalid &&
-            !dateRangeIsValid({ startDate: selectedDate, endDate: selectedEndDate })
+            !isDateRangeValid({ startDate: selectedDate, endDate: selectedEndDate })
           ) {
             return;
           }
@@ -1060,7 +1060,7 @@ export const DateTimeRangePicker = ({
         if (selectedStartDate) {
           if (
             !shouldFireIfInvalid &&
-            !dateRangeIsValid({ startDate: selectedStartDate, endDate: selectedDate })
+            !isDateRangeValid({ startDate: selectedStartDate, endDate: selectedDate })
           ) {
             return;
           }

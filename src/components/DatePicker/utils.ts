@@ -189,7 +189,7 @@ export const isDateNotInAllowList = (
   allowList.length > 0 &&
   !allowList.some(allowedDate => isSameDate(allowedDate, date));
 
-export const datesAreWithinMaxRange = (
+export const areDatesWithinMaxRange = (
   startDate: Date,
   endDate: Date,
   maxRangeLength: number
@@ -205,7 +205,7 @@ export const datesAreWithinMaxRange = (
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const toleranceMs = 60 * 1000;
 
-export const dateRangeMatchesPredefinedRange = (
+export const isDateRangeWithinRange = (
   selectedRange: DateRange,
   predefinedRange: DateRange,
   timezone: Timezone = 'system'
@@ -248,7 +248,7 @@ export const isDateRangeTheWholeMonth = (
   return startDateIsFirstDay && endDateIsLastDay;
 };
 
-export const dateRangeIsValid = (dateRange: DateRange): boolean => {
+export const isDateRangeValid = (dateRange: DateRange): boolean => {
   if (!dateRange?.startDate || !dateRange?.endDate) {
     return false;
   }
