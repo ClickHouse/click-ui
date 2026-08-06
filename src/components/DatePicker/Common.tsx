@@ -15,14 +15,14 @@ import { useCalendar, UseCalendarOptions } from '@h6s/calendar';
 import { IconButton, IconButtonSize } from '@/components/IconButton';
 import { Text } from '@/components/Text';
 import {
-  dateRangeIsValid,
+  Timezone,
   formatDateHeader,
   formatSelectedDate,
   formatSelectedDateTime,
   formatSelectedDateTimeWithSeconds,
   formatWeekday,
+  isDateRangeValid,
   shiftToTimezone,
-  Timezone,
 } from './utils';
 import { getMonthNames, DAYS, MONTHS, YEARS, DAYS_IN_WEEK } from '@/utils/date';
 import { Dropdown } from '@/components/Dropdown';
@@ -290,7 +290,7 @@ export const DateTimeRangePickerInput = ({
   const startDateIsAfterEndDate =
     selectedStartDate &&
     selectedEndDate &&
-    !dateRangeIsValid({
+    !isDateRangeValid({
       startDate: selectedStartDate,
       endDate: selectedEndDate,
     });
