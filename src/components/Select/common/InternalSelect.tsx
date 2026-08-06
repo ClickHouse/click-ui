@@ -234,29 +234,34 @@ export const InternalSelect = ({
     return [];
   }, [children, options, registerValueNode]);
 
-  // Radix mounts the popover content a commit after `open` flips, so the item
-  // text is read once the list node itself commits.
-  const listRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (!node) {
+  const listNode = useRef<HTMLDivElement | null>(null);
+
+  const captureSearchSource = useCallback(() => {
+    const root = listNode.current;
+    if (!root) {
+      return;
+    }
+    const next = new Map<string, string>();
+    root.querySelectorAll<HTMLElement>('[cui-select-item][data-value]').forEach(el => {
+      const value = el.getAttribute('data-value');
+      if (value === null) {
         return;
       }
-      const next = new Map<string, string>();
-      node.querySelectorAll<HTMLElement>('[cui-select-item][data-value]').forEach(el => {
-        const value = el.getAttribute('data-value');
-        if (value === null) {
-          return;
-        }
-        const group = el.closest('[cui-select-group]');
-        const heading =
-          group?.querySelector('[cui-select-group-name]')?.textContent ?? '';
-        next.set(value, `${el.textContent ?? ''} ${heading}`.toLowerCase());
-      });
-      setSearchSource(next);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- depend on normalizedOptions to re-read DOM if options change
-    [normalizedOptions]
-  );
+      const group = el.closest('[cui-select-group]');
+      const heading = group?.querySelector('[cui-select-group-name]')?.textContent ?? '';
+      next.set(value, `${el.textContent ?? ''} ${heading}`.toLowerCase());
+    });
+    setSearchSource(next);
+  }, []);
+
+  const onSearchChange = (next: string) => {
+    if (search === '' && next !== '') {
+      // recapture searchable text from DOM when a new search begins
+      // to make sure it's not stale (e.g. an item changed its contents for any reason)
+      captureSearchSource();
+    }
+    setSearch(next);
+  };
 
   const matchedOptions = useMemo(() => {
     if (search === '') {
@@ -442,7 +447,7 @@ export const InternalSelect = ({
                   <SearchBar
                     ref={inputRef}
                     value={search}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={e => onSearchChange(e.target.value)}
                     data-testid="select-search-input"
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
@@ -460,7 +465,7 @@ export const InternalSelect = ({
                   />
                 </SearchBarContainer>
                 <SelectListContent
-                  ref={listRef}
+                  ref={listNode}
                   $maxHeight={maxHeight}
                 >
                   <OptionContext.Provider value={optionContextValue}>
