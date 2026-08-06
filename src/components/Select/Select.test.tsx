@@ -261,11 +261,11 @@ describe('Select', () => {
       expect(selectTrigger).not.toBeNull();
       selectTrigger && fireEvent.click(selectTrigger);
 
-      expect(queryByText('Content0')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).not.toBeNull();
-      expect(queryByText('Content2')).not.toBeNull();
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content4')).not.toBeNull();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
     });
 
     it('filter by text', () => {
@@ -277,16 +277,16 @@ describe('Select', () => {
       selectTrigger && fireEvent.click(selectTrigger);
 
       expect(queryByText('Group label')).toBeVisible();
-      expect(queryByText('Content0')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).not.toBeNull();
-      expect(queryByText('Content2')).not.toBeNull();
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content4')).not.toBeNull();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'content3' },
       });
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).toBeNull();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
     });
 
@@ -300,16 +300,16 @@ describe('Select', () => {
       selectTrigger && fireEvent.click(selectTrigger);
 
       expect(queryByText('Group label')).toBeVisible();
-      expect(queryByText('Content0')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).not.toBeNull();
-      expect(queryByText('Content2')).not.toBeNull();
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content4')).not.toBeNull();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'content3' },
       });
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).toBeNull();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
     });
 
@@ -325,16 +325,16 @@ describe('Select', () => {
       fireEvent.change(selectInput, {
         target: { value: 'content3' },
       });
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).toBeNull();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
       fireEvent.click(getByTestId('select-search-close'));
       expect(queryByText('Group label')).toBeVisible();
-      expect(queryByText('Content0')).not.toBeNull();
-      expect(queryByText('Content1 long text content')).not.toBeNull();
-      expect(queryByText('Content2')).not.toBeNull();
-      expect(queryByText('Content3')).not.toBeNull();
-      expect(queryByText('Content4')).not.toBeNull();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
       expect(document.activeElement).toBe(selectInput);
     });
     it('on no options available show no data', () => {
@@ -348,8 +348,8 @@ describe('Select', () => {
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'nodata' },
       });
-      expect(queryByText('Content2')).toBeNull();
-      expect(queryByText('Content1 long text content')).toBeNull();
+      expect(queryByText('Content2')).not.toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
       const btn = queryByText(/No Options found/i);
       expect(btn).not.toBeNull();
@@ -371,8 +371,8 @@ describe('Select', () => {
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'nodata' },
       });
-      expect(queryByText('Content2')).toBeNull();
-      expect(queryByText('Content1 long text content')).toBeNull();
+      expect(queryByText('Content2')).not.toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
       const btn = queryByText(/No Field found/i);
       expect(btn).not.toBeNull();

@@ -8,7 +8,6 @@ import {
   forwardRef,
   isValidElement,
   useCallback,
-  useEffect,
   useId,
   useMemo,
   useRef,
@@ -18,9 +17,7 @@ import {
   NoAvailableOptionsFactoryProps,
   SelectContainerProps,
   SelectGroupProps,
-  SelectItemObject,
   SelectItemProps,
-  SelectOptionListItem,
 } from './types';
 import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
 import { Portal } from '@radix-ui/react-popover';
@@ -60,12 +57,14 @@ import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import { cn } from '@/lib/cva';
-import { getTextFromNodes } from '@/lib/getTextFromNodes';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
-type CallbackProps = SelectItemObject & {
-  nodeProps: SelectItemProps;
+type NormalizedOption = {
+  value: string;
+  disabled?: boolean;
 };
+
+type RegisterItem = (value: string, nodeProps: SelectItemProps) => void;
 
 interface NoOptionsDisplayProps {
   allowCreateOption: boolean;
@@ -152,40 +151,21 @@ const NoOptionsDisplay: React.FC<NoOptionsDisplayProps> = ({
   );
 };
 
-const childrenToComboboxItemArray = (
+const childrenToNormalizedOptions = (
   children: ReactNode,
-  callback: (props: CallbackProps) => void,
-  heading?: string
-): SelectItemObject[] => {
+  register: RegisterItem
+): NormalizedOption[] => {
   return Children.toArray(children).flatMap(child => {
     if (isValidElement(child) && child && typeof child === 'object') {
       const type = child.type as FunctionComponent;
       if (type.displayName === 'Select.Group') {
-        const groupChildren = child.props.children;
-        return childrenToComboboxItemArray(
-          groupChildren,
-          callback,
-          getTextFromNodes(child.props.heading).toLowerCase()
-        );
+        return childrenToNormalizedOptions(child.props.children, register);
       } else if (type.displayName === 'Select.Item') {
-        const title = getTextFromNodes(child).toLowerCase();
-        const value = child.props.value;
-        const disabled = child.props.disabled;
-        callback({
-          disabled,
-          value,
-          title,
-          heading,
-          nodeProps: child.props,
-        });
-        return {
-          disabled,
-          value,
-          title,
-          heading,
-        };
+        const { value, disabled } = child.props;
+        register(value, child.props);
+        return { value, disabled };
       } else if ('props' in child && child.props.children) {
-        return childrenToComboboxItemArray(child.props.children, callback, heading);
+        return childrenToNormalizedOptions(child.props.children, register);
       }
     }
     return [];
@@ -227,108 +207,81 @@ export const InternalSelect = ({
   const defaultId = useId();
   const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState<string | undefined>();
-  const visibleList = useRef<string[]>([]);
-  const navigatable = useRef<string[]>([]);
+  // value -> lowercased rendered text (item + its group heading).
+  const [searchSource, setSearchSource] = useState<Map<string, string>>(() => new Map());
   const valueNode = useRef<Map<string, SelectItemProps>>(new Map());
-  const [isInitialized, setInitialized] = useState(false);
-  const [list, setList] = useState<SelectItemObject[]>([]);
-  const updateElements = useCallback(
-    ({ disabled, value, title, heading, nodeProps }: CallbackProps) => {
-      if (title.includes(search) || heading?.includes(search)) {
-        visibleList.current.push(value);
-        if (!disabled) {
-          navigatable.current.push(value);
+
+  const registerValueNode = useCallback<RegisterItem>((value, nodeProps) => {
+    valueNode.current.set(value, nodeProps);
+  }, []);
+
+  const normalizedOptions = useMemo<NormalizedOption[]>(() => {
+    if (options) {
+      return options.flatMap(option => {
+        if ('options' in option) {
+          return (option.options ?? []).map(item => {
+            registerValueNode(item.value, item);
+            return { value: item.value, disabled: item.disabled };
+          });
         }
-      }
-      valueNode.current.set(value, nodeProps);
-    },
-    [search]
-  );
-  const onUpdateSearch = useCallback(
-    (search: string) => {
-      setSearch(search);
-      let hasHighlightedValue = false;
-      const visibleItemsList: string[] = [];
-      const navigatableList: string[] = [];
-      const searchLowerCase = search.toLowerCase();
-      list.forEach(item => {
-        if (
-          item.title.includes(searchLowerCase) ||
-          item.heading?.includes(searchLowerCase)
-        ) {
-          if (item.value === highlighted) {
-            hasHighlightedValue = true;
-          }
-          visibleItemsList.push(item.value);
-          if (!item.disabled) {
-            navigatableList.push(item.value);
-          }
-        }
+        registerValueNode(option.value, option);
+        return { value: option.value, disabled: option.disabled };
       });
-      navigatable.current = navigatableList;
-      visibleList.current = visibleItemsList;
-      if (!hasHighlightedValue) {
-        setHighlighted(navigatableList[0] ?? null);
+    } else if (children) {
+      return childrenToNormalizedOptions(children, registerValueNode);
+    }
+
+    return [];
+  }, [children, options, registerValueNode]);
+
+  // Radix mounts the popover content a commit after `open` flips, so the item
+  // text is read once the list node itself commits.
+  const listRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node) {
+        return;
       }
+      const next = new Map<string, string>();
+      node.querySelectorAll<HTMLElement>('[cui-select-item][data-value]').forEach(el => {
+        const value = el.getAttribute('data-value');
+        if (value === null) {
+          return;
+        }
+        const group = el.closest('[cui-select-group]');
+        const heading =
+          group?.querySelector('[cui-select-group-name]')?.textContent ?? '';
+        next.set(value, `${el.textContent ?? ''} ${heading}`.toLowerCase());
+      });
+      setSearchSource(next);
     },
-    [highlighted, list]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- depend on normalizedOptions to re-read DOM if options change
+    [normalizedOptions]
   );
 
-  const updateList = useCallback(
-    (children?: ReactNode, options?: SelectOptionListItem[]) => {
-      const lowerCasedSearch = search.toLowerCase();
-      if (options) {
-        setList(
-          options.flatMap(option => {
-            if ('options' in option) {
-              const heading = getTextFromNodes(option.heading).toLowerCase();
-              return (option.options ?? []).map(item => {
-                valueNode.current.set(item.value, item);
-                const title = getTextFromNodes(item.label).toLowerCase();
-                if (
-                  title.includes(lowerCasedSearch) ||
-                  heading?.includes(lowerCasedSearch)
-                ) {
-                  visibleList.current.push(item.value);
-                  if (!disabled) {
-                    navigatable.current.push(item.value);
-                  }
-                }
-                return {
-                  heading,
-                  disabled: item.disabled,
-                  value: item.value,
-                  title,
-                };
-              });
-            } else {
-              valueNode.current.set(option.value, option);
-              const title = getTextFromNodes(option.label).toLowerCase();
-              if (title.includes(lowerCasedSearch)) {
-                visibleList.current.push(option.value);
-                if (!disabled) {
-                  navigatable.current.push(option.value);
-                }
-              }
-              return {
-                disabled: option.disabled,
-                value: option.value,
-                title: getTextFromNodes(option.label),
-              };
-            }
-          })
-        );
-      } else if (children) {
-        setList(childrenToComboboxItemArray(children, updateElements));
-      }
-    },
-    [disabled, search, updateElements]
+  const matchedOptions = useMemo(() => {
+    if (search === '') {
+      return normalizedOptions;
+    }
+    const searchLowerCase = search.toLowerCase();
+    return normalizedOptions.filter(item =>
+      (searchSource.get(item.value) ?? '').includes(searchLowerCase)
+    );
+  }, [search, normalizedOptions, searchSource]);
+
+  const visibleValues = useMemo(
+    () => new Set(matchedOptions.map(o => o.value)),
+    [matchedOptions]
+  );
+  const navigableValues = useMemo(
+    () => matchedOptions.filter(o => !o.disabled).map(o => o.value),
+    [matchedOptions]
   );
 
-  useEffect(() => {
-    updateList(children, options);
-    setInitialized(true);
-  }, [children, options, updateList]);
+  // `highlighted` is the user's last pointer; honor it only while it stays navigable.
+  const effectiveHighlight =
+    highlighted && navigableValues.includes(highlighted)
+      ? highlighted
+      : navigableValues[0];
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputModalityProps = useInputModality();
@@ -339,42 +292,42 @@ export const InternalSelect = ({
   };
 
   const clearSearch = () => {
-    onUpdateSearch('');
+    setSearch('');
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (!e.defaultPrevented) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        if (highlighted) {
-          onSelect(highlighted, undefined, e);
-        } else if (visibleList.current.length === 0 && allowCreateOption) {
+        if (effectiveHighlight) {
+          onSelect(effectiveHighlight, undefined, e);
+        } else if (matchedOptions.length === 0 && allowCreateOption) {
           onSelect(search, 'custom', e);
         }
       } else if (['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
         e.preventDefault();
-        let nextHighlightedValue = highlighted;
-        const highlightedIndex = navigatable.current.findIndex(
-          value => value === highlighted
+        let nextHighlightedValue = effectiveHighlight;
+        const highlightedIndex = navigableValues.findIndex(
+          value => value === effectiveHighlight
         );
         if (e.key === 'ArrowUp') {
           if (highlightedIndex === 0) {
-            nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
+            nextHighlightedValue = navigableValues[navigableValues.length - 1];
           } else {
-            nextHighlightedValue = navigatable.current[highlightedIndex - 1];
+            nextHighlightedValue = navigableValues[highlightedIndex - 1];
           }
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
-          if (highlightedIndex === navigatable.current.length - 1) {
-            nextHighlightedValue = navigatable.current[0];
+          if (highlightedIndex === navigableValues.length - 1) {
+            nextHighlightedValue = navigableValues[0];
           } else {
-            nextHighlightedValue = navigatable.current[highlightedIndex + 1];
+            nextHighlightedValue = navigableValues[highlightedIndex + 1];
           }
         } else if (e.key === 'End') {
           e.preventDefault();
-          nextHighlightedValue = navigatable.current[navigatable.current.length - 1];
+          nextHighlightedValue = navigableValues[navigableValues.length - 1];
         } else if (e.key === 'Home') {
-          nextHighlightedValue = navigatable.current[0];
+          nextHighlightedValue = navigableValues[0];
           e.preventDefault();
         }
         setHighlighted(nextHighlightedValue);
@@ -382,22 +335,20 @@ export const InternalSelect = ({
     }
   };
   const isHidden = useCallback(
-    (value?: string) => {
-      return !visibleList.current.includes(value ?? '');
-    },
-    [visibleList]
+    (value?: string) => !visibleValues.has(value ?? ''),
+    [visibleValues]
   );
 
   const optionContextValue = useMemo(() => {
     return {
       search,
       updateHighlighted: setHighlighted,
-      highlighted,
+      highlighted: effectiveHighlight,
       isHidden,
       onSelect,
       selectedValues,
     };
-  }, [search, highlighted, isHidden, onSelect, selectedValues]);
+  }, [search, effectiveHighlight, isHidden, onSelect, selectedValues]);
 
   const onCreateOption = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -427,31 +378,29 @@ export const InternalSelect = ({
             data-testid="select-trigger"
             {...triggerProps}
           >
-            {isInitialized && (
-              <SelectValue>
-                {selectedValues.length === 0 ? (
-                  placeholder
-                ) : multiple ? (
-                  <MultiSelectValue
-                    disabled={disabled ?? false}
-                    onSelect={onSelect}
-                    selectedValues={selectedValues}
-                    sortable={!disabled && sortable}
-                    valueNode={valueNode.current}
-                    onChange={onChange}
-                  />
-                ) : (
-                  <SingleSelectValue
-                    valueNode={
-                      checkbox && selectLabel
-                        ? { label: selectLabel as string, value: selectLabel as string }
-                        : valueNode.current.get(selectedValues[0])
-                    }
-                    value={selectedValues[0]}
-                  />
-                )}
-              </SelectValue>
-            )}
+            <SelectValue>
+              {selectedValues.length === 0 ? (
+                placeholder
+              ) : multiple ? (
+                <MultiSelectValue
+                  disabled={disabled ?? false}
+                  onSelect={onSelect}
+                  selectedValues={selectedValues}
+                  sortable={!disabled && sortable}
+                  valueNode={valueNode.current}
+                  onChange={onChange}
+                />
+              ) : (
+                <SingleSelectValue
+                  valueNode={
+                    checkbox && selectLabel
+                      ? { label: selectLabel as string, value: selectLabel as string }
+                      : valueNode.current.get(selectedValues[0])
+                  }
+                  value={selectedValues[0]}
+                />
+              )}
+            </SelectValue>
             <Icon
               name="sort"
               size="sm"
@@ -465,7 +414,7 @@ export const InternalSelect = ({
               value={selectedValues}
               onChange={() => null}
             >
-              {list.map(item => (
+              {normalizedOptions.map(item => (
                 <option
                   key={item.value}
                   value={item.value}
@@ -482,10 +431,7 @@ export const InternalSelect = ({
               sideOffset={5}
               onFocus={onFocus}
               onCloseAutoFocus={() => {
-                onUpdateSearch('');
-              }}
-              onOpenAutoFocus={() => {
-                setHighlighted(visibleList.current[0]);
+                setSearch('');
               }}
               align="start"
               $useFullWidthItems={useFullWidthItems}
@@ -496,7 +442,7 @@ export const InternalSelect = ({
                   <SearchBar
                     ref={inputRef}
                     value={search}
-                    onChange={e => onUpdateSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                     data-testid="select-search-input"
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
@@ -513,7 +459,10 @@ export const InternalSelect = ({
                     size="xs"
                   />
                 </SearchBarContainer>
-                <SelectListContent $maxHeight={maxHeight}>
+                <SelectListContent
+                  ref={listRef}
+                  $maxHeight={maxHeight}
+                >
                   <OptionContext.Provider value={optionContextValue}>
                     {options && options.length > 0
                       ? options.map((props, index) => {
@@ -562,7 +511,7 @@ export const InternalSelect = ({
                       : children}
                   </OptionContext.Provider>
                 </SelectListContent>
-                {visibleList.current.length === 0 &&
+                {matchedOptions.length === 0 &&
                   (allowCreateOption || !!noAvailableOptions) && (
                     <NoOptionsDisplay
                       allowCreateOption={allowCreateOption}
@@ -599,10 +548,12 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
     return (
       <SelectGroupContainer
         {...props}
+        cui-select-group=""
         ref={mergeRefs([
           forwardedRef,
           node => {
-            const hidden = node?.querySelectorAll('[cui-select-item]').length === 0;
+            const hidden =
+              node?.querySelectorAll('[cui-select-item]:not([hidden])').length === 0;
             if (hidden) {
               node?.setAttribute('hidden', '');
             } else {
@@ -612,7 +563,7 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
           },
         ])}
       >
-        <SelectGroupName>{heading}</SelectGroupName>
+        <SelectGroupName cui-select-group-name="">{heading}</SelectGroupName>
         <SelectGroupContent>{children}</SelectGroupContent>
       </SelectGroupContainer>
     );
@@ -657,15 +608,16 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       }
     };
 
-    if (isHidden(value)) {
-      return null;
-    }
+    // Render hidden rather than unmounting so the text stays in the DOM for search.
+    const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
 
     return (
       <>
         <GenericMenuItem
           {...props}
+          hidden={hidden}
+          className={cn(selectStyles['select-item'], props.className)}
           data-value={value}
           onClick={onSelectValue}
           onMouseOver={onMouseOver}
@@ -701,7 +653,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             size="sm"
           />
         </GenericMenuItem>
-        {separator && <Separator size="sm" />}
+        {separator && !hidden && <Separator size="sm" />}
       </>
     );
   }
@@ -756,16 +708,16 @@ export const MultiSelectCheckboxItem = forwardRef<
       }
     };
 
-    if (isHidden(value)) {
-      return null;
-    }
-
+    // Render hidden rather than unmounting so the text stays in the DOM for search.
+    const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
 
     return (
       <>
         <GenericMenuItem
           {...props}
+          hidden={hidden}
+          className={cn(selectStyles['select-item'], props.className)}
           data-value={value}
           onClick={handleMenuItemClick}
           onMouseOver={handleMenuItemMouseOver}
@@ -806,7 +758,7 @@ export const MultiSelectCheckboxItem = forwardRef<
             </IconWrapper>
           </Container>
         </GenericMenuItem>
-        {separator && <Separator size="sm" />}
+        {separator && !hidden && <Separator size="sm" />}
       </>
     );
   }
