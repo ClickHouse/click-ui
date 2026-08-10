@@ -11,7 +11,7 @@ const Poland = (props: SVGAssetProps) => (
   >
     <g
       fillRule="evenodd"
-      clipPath="url(#a)"
+      clipPath="url(#Poland__a)"
       clipRule="evenodd"
     >
       <path
@@ -24,7 +24,7 @@ const Poland = (props: SVGAssetProps) => (
       />
     </g>
     <defs>
-      <clipPath id="a">
+      <clipPath id="Poland__a">
         <rect
           width={30}
           height={20}

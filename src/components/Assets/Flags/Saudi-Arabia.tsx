@@ -9,9 +9,9 @@ const Saudi_Arabia = (props: SVGAssetProps) => (
     viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#a)">
+    <g clipPath="url(#Saudi_Arabia__a)">
       <mask
-        id="b"
+        id="Saudi_Arabia__b"
         width={30}
         height={20}
         x={0}
@@ -29,7 +29,7 @@ const Saudi_Arabia = (props: SVGAssetProps) => (
       <g
         fillRule="evenodd"
         clipRule="evenodd"
-        mask="url(#b)"
+        mask="url(#Saudi_Arabia__b)"
       >
         <path
           fill="#165D31"
@@ -98,7 +98,7 @@ const Saudi_Arabia = (props: SVGAssetProps) => (
       </g>
     </g>
     <defs>
-      <clipPath id="a">
+      <clipPath id="Saudi_Arabia__a">
         <rect
           width={30}
           height={20}

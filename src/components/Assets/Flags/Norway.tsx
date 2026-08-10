@@ -9,7 +9,7 @@ const Norway = (props: SVGAssetProps) => (
     viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#a)">
+    <g clipPath="url(#Norway__a)">
       <path
         fill="#ED2939"
         d="M0 0H30V20H0V0Z"
@@ -32,7 +32,7 @@ const Norway = (props: SVGAssetProps) => (
       />
     </g>
     <defs>
-      <clipPath id="a">
+      <clipPath id="Norway__a">
         <rect
           width={30}
           height={20}

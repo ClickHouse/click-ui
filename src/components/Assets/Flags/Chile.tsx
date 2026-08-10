@@ -9,9 +9,9 @@ const Chile = (props: SVGAssetProps) => (
     viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#a)">
+    <g clipPath="url(#Chile__a)">
       <mask
-        id="b"
+        id="Chile__b"
         width={31}
         height={20}
         x={0}
@@ -29,7 +29,7 @@ const Chile = (props: SVGAssetProps) => (
       <g
         fillRule="evenodd"
         clipRule="evenodd"
-        mask="url(#b)"
+        mask="url(#Chile__b)"
       >
         <path
           fill="#fff"
@@ -50,7 +50,7 @@ const Chile = (props: SVGAssetProps) => (
       </g>
     </g>
     <defs>
-      <clipPath id="a">
+      <clipPath id="Chile__a">
         <rect
           width={30}
           height={20}

@@ -137,7 +137,7 @@ const regenerateAssetRegistry = (config) => {
   );
 };
 
-const normalizeSvg = (svgPath, tempPath) => {
+const normalizeSvg = (svgPath, tempPath, idPrefix) => {
   console.log('🔧 Normalizing SVG...');
 
   try {
@@ -154,6 +154,13 @@ const normalizeSvg = (svgPath, tempPath) => {
               convertPathData: false
             }
           }
+        },
+        // preset-default's cleanupIds minifies ids down to "a", "b", ... Assets render as
+        // inline SVGs, so without a per-component prefix those ids collide whenever two
+        // assets mount together and url(#a) binds to the wrong node.
+        {
+          name: 'prefixIds',
+          params: { prefix: idPrefix, delim: '__' }
         }
       ]
     });
@@ -378,7 +385,11 @@ if (!skipNormalize) {
   tempNormalizedPath = path.join(tempDir, `normalized-${Date.now()}.svg`);
 
   try {
-    svgToConvert = normalizeSvg(svgPath, tempNormalizedPath);
+    svgToConvert = normalizeSvg(
+      svgPath,
+      tempNormalizedPath,
+      componentName.replace(/[^a-zA-Z0-9]/g, '_')
+    );
   } catch (error) {
     console.error('💡 Try running with --skip-normalize if normalization causes issues');
     process.exit(1);

@@ -13,6 +13,10 @@ export default {
           },
         },
       },
+      // preset-default's cleanupIds minifies ids down to "a", "b", ... Assets render as
+      // inline SVGs, so without a per-component prefix those ids collide whenever two
+      // assets mount together and url(#a) binds to the wrong node.
+      'prefixIds',
     ],
   },
   template: (variables, { tpl }) => {
