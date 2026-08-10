@@ -1,36 +1,34 @@
-import React from 'react';
 import type { SVGAssetProps } from '@/types';
 
-const Indonesia = (props: SVGAssetProps): React.ReactElement => (
+const Indonesia = (props: SVGAssetProps) => (
   <svg
-    width="30"
-    height="20"
-    viewBox="0 0 30 20"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    width={30}
+    height={20}
+    fill="none"
+    viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#clip0_15665_475)">
+    <g clipPath="url(#a)">
       <path
+        fill="#fff"
         d="M0 0H30V20H0V0Z"
-        fill="white"
       />
       <path
+        fill="#E70011"
         d="M0 0H30V10H0V0Z"
-        fill="#FF0000"
       />
     </g>
     <defs>
-      <clipPath id="clip0_15665_475">
+      <clipPath id="a">
         <rect
-          width="30"
-          height="20"
-          rx="1"
-          fill="white"
+          width={30}
+          height={20}
+          fill="#fff"
+          rx={1}
         />
       </clipPath>
     </defs>
   </svg>
 );
-
 export default Indonesia;

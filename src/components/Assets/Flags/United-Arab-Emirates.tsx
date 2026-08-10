@@ -1,44 +1,42 @@
-import React from 'react';
 import type { SVGAssetProps } from '@/types';
 
-const UnitedArabEmirates = (props: SVGAssetProps): React.ReactElement => (
+const United_Arab_Emirates = (props: SVGAssetProps) => (
   <svg
-    width="30"
-    height="20"
-    viewBox="0 0 30 20"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    width={30}
+    height={20}
+    fill="none"
+    viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#clip0_10582_2024)">
+    <g clipPath="url(#a)">
       <path
-        d="M30 0H0V20H30V0Z"
         fill="#00732F"
+        d="M0 0H30V6.66667H0V0Z"
       />
       <path
-        d="M30 6.6665H0V19.9998H30V6.6665Z"
-        fill="white"
+        fill="#fff"
+        d="M0 6.6665H30V13.3332H0V6.6665Z"
       />
       <path
-        d="M30 13.3335H0V20.0002H30V13.3335Z"
-        fill="black"
+        fill="#000001"
+        d="M0 13.3335H30V20.0002H0V13.3335Z"
       />
       <path
-        d="M7.5 0H0V20H7.5V0Z"
-        fill="#FF0000"
+        fill="red"
+        d="M0 0H10.3125V20H0V0Z"
       />
     </g>
     <defs>
-      <clipPath id="clip0_10582_2024">
+      <clipPath id="a">
         <rect
-          width="30"
-          height="20"
-          fill="white"
-          rx="1"
+          width={30}
+          height={20}
+          fill="#fff"
+          rx={1}
         />
       </clipPath>
     </defs>
   </svg>
 );
-
-export default UnitedArabEmirates;
+export default United_Arab_Emirates;

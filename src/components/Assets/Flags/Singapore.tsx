@@ -1,41 +1,40 @@
-import React from 'react';
 import type { SVGAssetProps } from '@/types';
 
-const Singapore = (props: SVGAssetProps): React.ReactElement => (
+const Singapore = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
     height={20}
-    viewBox="0 0 30 20"
     fill="none"
+    viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#singaporeFlagClipPath1)">
-      <g clipPath="url(#singaporeFlagClipPath2)">
+    <g clipPath="url(#a)">
+      <g clipPath="url(#b)">
         <path
           fill="#fff"
-          d="M0 0h30v20H0V0Z"
+          d="M0 0H30V20H0V0Z"
         />
         <path
-          fill="#ED2939"
-          d="M0 0h30v10H0V0Z"
-        />
-        <path
-          fill="#fff"
-          d="M6.336 8.68a3.68 3.68 0 1 0 0-7.36 3.68 3.68 0 0 0 0 7.36Z"
-        />
-        <path
-          fill="#ED2939"
-          d="M8.003 8.68a3.68 3.68 0 1 0 0-7.36 3.68 3.68 0 0 0 0 7.36Z"
+          fill="#DF0000"
+          d="M0 0H30V10H0V0Z"
         />
         <path
           fill="#fff"
-          d="m8.35 1.93-.563 1.734L9.26 2.593H7.438l1.475 1.071-.563-1.733ZM11.269 4.051H9.446l1.475 1.072-.563-1.734-.564 1.734L11.27 4.05ZM6.546 7.483 8.02 6.412H6.198l1.474 1.071L7.11 5.75l-.563 1.733ZM10.154 7.483 9.591 5.75l-.563 1.733 1.474-1.071H8.68l1.474 1.071ZM5.431 4.052l1.475 1.071-.564-1.734-.563 1.734 1.475-1.071H5.43Z"
+          d="M6.33583 8.68045C8.36854 8.68045 10.0164 7.03261 10.0164 4.99989C10.0164 2.96718 8.36854 1.31934 6.33583 1.31934C4.30311 1.31934 2.65527 2.96718 2.65527 4.99989C2.65527 7.03261 4.30311 8.68045 6.33583 8.68045Z"
+        />
+        <path
+          fill="#DF0000"
+          d="M8.00282 8.68045C10.0355 8.68045 11.6834 7.03261 11.6834 4.99989C11.6834 2.96718 10.0355 1.31934 8.00282 1.31934C5.97011 1.31934 4.32227 2.96718 4.32227 4.99989C4.32227 7.03261 5.97011 8.68045 8.00282 8.68045Z"
+        />
+        <path
+          fill="#fff"
+          d="M8.34991 1.93066 7.78661 3.66431 9.26133 2.59286H7.43848L8.9132 3.66431 8.34991 1.93066ZM11.269 4.05139 9.44609 4.05139 10.9208 5.12284 10.3575 3.3892 9.79423 5.12284 11.269 4.05139ZM6.54584 7.48332 8.02056 6.41187 6.19771 6.41187 7.67243 7.48332 7.10914 5.74968 6.54584 7.48332ZM10.1542 7.48348 9.59095 5.74984 9.02765 7.48348 10.5024 6.41203 8.67952 6.41203 10.1542 7.48348ZM5.43106 4.05164 6.90578 5.12309 6.34249 3.38944 5.7792 5.12309 7.25392 4.05164 5.43106 4.05164Z"
         />
       </g>
     </g>
     <defs>
-      <clipPath id="singaporeFlagClipPath1">
+      <clipPath id="a">
         <rect
           width={30}
           height={20}
@@ -43,14 +42,13 @@ const Singapore = (props: SVGAssetProps): React.ReactElement => (
           rx={1}
         />
       </clipPath>
-      <clipPath id="singaporeFlagClipPath2">
+      <clipPath id="b">
         <path
           fill="#fff"
-          d="M0 0h30v20H0z"
+          d="M0 0H30V20H0z"
         />
       </clipPath>
     </defs>
   </svg>
 );
-
 export default Singapore;

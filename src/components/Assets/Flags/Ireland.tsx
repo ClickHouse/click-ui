@@ -1,33 +1,32 @@
-import React from 'react';
 import type { SVGAssetProps } from '@/types';
 
-const Ireland = (props: SVGAssetProps): React.ReactElement => (
+const Ireland = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
     height={20}
-    viewBox="0 0 30 20"
     fill="none"
+    viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#irelandFlagClipPath1)">
-      <g clipPath="url(#irelandFlagClipPath1)">
+    <g clipPath="url(#a)">
+      <g clipPath="url(#b)">
         <path
-          fill="#169B62"
-          d="M10 0H0v20h10V0Z"
+          fill="#009A49"
+          d="M10 0H0V20H10V0Z"
         />
         <path
           fill="#fff"
-          d="M20 0H10v20h10V0Z"
+          d="M20 0H10V20H20V0Z"
         />
         <path
-          fill="#FF883E"
-          d="M30 0H20v20h10V0Z"
+          fill="#FF7900"
+          d="M30 0H20V20H30V0Z"
         />
       </g>
     </g>
     <defs>
-      <clipPath id="irelandFlagClipPath1">
+      <clipPath id="a">
         <rect
           width={30}
           height={20}
@@ -35,14 +34,13 @@ const Ireland = (props: SVGAssetProps): React.ReactElement => (
           rx={1}
         />
       </clipPath>
-      <clipPath id="irelandFlagClipPath2">
+      <clipPath id="b">
         <path
           fill="#fff"
-          d="M0 0h30v20H0z"
+          d="M0 0H30V20H0z"
         />
       </clipPath>
     </defs>
   </svg>
 );
-
 export default Ireland;
