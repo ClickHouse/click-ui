@@ -155,9 +155,7 @@ const normalizeSvg = (svgPath, tempPath, idPrefix) => {
             }
           }
         },
-        // preset-default's cleanupIds minifies ids down to "a", "b", ... Assets render as
-        // inline SVGs, so without a per-component prefix those ids collide whenever two
-        // assets mount together and url(#a) binds to the wrong node.
+        // Assets render inline, so ids need a per-component prefix to avoid colliding.
         {
           name: 'prefixIds',
           params: { prefix: idPrefix, delim: '__' }
@@ -385,11 +383,7 @@ if (!skipNormalize) {
   tempNormalizedPath = path.join(tempDir, `normalized-${Date.now()}.svg`);
 
   try {
-    svgToConvert = normalizeSvg(
-      svgPath,
-      tempNormalizedPath,
-      componentName.replace(/[^a-zA-Z0-9]/g, '_')
-    );
+    svgToConvert = normalizeSvg(svgPath, tempNormalizedPath, toPascalCase(componentName));
   } catch (error) {
     console.error('💡 Try running with --skip-normalize if normalization causes issues');
     process.exit(1);
