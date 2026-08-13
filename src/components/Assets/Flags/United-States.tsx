@@ -10,7 +10,7 @@ const UnitedStates = (props: SVGAssetProps): React.ReactElement => (
     fill="none"
     {...props}
   >
-    <g clipPath="url(#a)">
+    <g clipPath="url(#UnitedStates__a)">
       <path
         fill="#B22234"
         d="M0 0h30v20H0V0Z"
@@ -29,7 +29,7 @@ const UnitedStates = (props: SVGAssetProps): React.ReactElement => (
       />
     </g>
     <defs>
-      <clipPath id="a">
+      <clipPath id="UnitedStates__a">
         <rect
           width={30}
           height={20}

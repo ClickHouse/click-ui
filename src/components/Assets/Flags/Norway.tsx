@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const United_Arab_Emirates = (props: SVGAssetProps) => (
+const Norway = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
@@ -9,26 +9,30 @@ const United_Arab_Emirates = (props: SVGAssetProps) => (
     viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#UnitedArabEmirates__a)">
+    <g clipPath="url(#Norway__a)">
       <path
-        fill="#00732F"
-        d="M0 0H30V6.66667H0V0Z"
+        fill="#ED2939"
+        d="M0 0H30V20H0V0Z"
       />
       <path
         fill="#fff"
-        d="M0 6.6665H30V13.3332H0V6.6665Z"
+        d="M8.4375 0H14.0625V20H8.4375V0Z"
       />
       <path
-        fill="#000001"
-        d="M0 13.3335H30V20.0002H0V13.3335Z"
+        fill="#fff"
+        d="M0 7.5H30V12.5H0V7.5Z"
       />
       <path
-        fill="red"
-        d="M0 0H10.3125V20H0V0Z"
+        fill="#002664"
+        d="M9.84375 0H12.6562V20H9.84375V0Z"
+      />
+      <path
+        fill="#002664"
+        d="M0 8.75H30V11.25H0V8.75Z"
       />
     </g>
     <defs>
-      <clipPath id="UnitedArabEmirates__a">
+      <clipPath id="Norway__a">
         <rect
           width={30}
           height={20}
@@ -39,4 +43,4 @@ const United_Arab_Emirates = (props: SVGAssetProps) => (
     </defs>
   </svg>
 );
-export default United_Arab_Emirates;
+export default Norway;

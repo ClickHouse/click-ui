@@ -9,7 +9,7 @@ const Mexico = (props: SVGAssetProps) => (
     viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#a)">
+    <g clipPath="url(#Mexico__a)">
       <path
         fill="#ce1126"
         d="M0 0h30v20H0z"
@@ -631,7 +631,7 @@ const Mexico = (props: SVGAssetProps) => (
         d="M12.268 9.138a.067.067 0 0 1 .096.012.07.07 0 0 1-.007.097.067.067 0 0 1-.095-.012.07.07 0 0 1 .006-.097l.003.003zm.087.019a.056.056 0 0 0-.08-.01.06.06 0 0 0-.009.077l.004.005c.02.025.057.03.08.01.024-.02.026-.057.005-.082"
       />
       <path
-        fill="url(#b)"
+        fill="url(#Mexico__b)"
         d="M13.738 10.457c.073.01.146-.07.163-.18s-.03-.207-.103-.219c-.073-.01-.146.07-.163.18s.029.207.103.219"
       />
       <path
@@ -647,7 +647,7 @@ const Mexico = (props: SVGAssetProps) => (
         d="M12.37 9.278s-.012.01-.007.033l.014.07-.057-.127.03-.011z"
       />
       <path
-        fill="url(#c)"
+        fill="url(#Mexico__c)"
         d="M12.419 9.744c.054.106.157.163.229.126.071-.036.085-.153.03-.26-.054-.106-.156-.162-.228-.126-.071.037-.085.153-.031.26"
       />
       <path
@@ -691,7 +691,7 @@ const Mexico = (props: SVGAssetProps) => (
         d="M17.437 10.174a.067.067 0 0 0-.095-.013.07.07 0 0 0-.018.095c.021.03.064.036.095.013a.07.07 0 0 0 .018-.095l-.004.002zm-.09-.005a.057.057 0 0 1 .081.01.06.06 0 0 1-.01.078l-.005.004a.057.057 0 0 1-.08-.01.06.06 0 0 1 .015-.082"
       />
       <path
-        fill="url(#d)"
+        fill="url(#Mexico__d)"
         d="M17.14 10.722c-.08.09-.193.12-.254.066-.06-.053-.044-.17.035-.259.08-.09.192-.119.253-.066.06.054.045.17-.035.26"
       />
       <path
@@ -1777,7 +1777,7 @@ const Mexico = (props: SVGAssetProps) => (
     </g>
     <defs>
       <radialGradient
-        id="b"
+        id="Mexico__b"
         cx={0}
         cy={0}
         r={1}
@@ -1791,7 +1791,7 @@ const Mexico = (props: SVGAssetProps) => (
         />
       </radialGradient>
       <radialGradient
-        id="c"
+        id="Mexico__c"
         cx={0}
         cy={0}
         r={1}
@@ -1805,7 +1805,7 @@ const Mexico = (props: SVGAssetProps) => (
         />
       </radialGradient>
       <radialGradient
-        id="d"
+        id="Mexico__d"
         cx={0}
         cy={0}
         r={1}
@@ -1818,7 +1818,7 @@ const Mexico = (props: SVGAssetProps) => (
           stopColor="#f15770"
         />
       </radialGradient>
-      <clipPath id="a">
+      <clipPath id="Mexico__a">
         <rect
           width={30}
           height={20}

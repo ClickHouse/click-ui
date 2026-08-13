@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const Sweden = (props: SVGAssetProps) => (
+const Bahrain = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={30}
@@ -9,18 +9,18 @@ const Sweden = (props: SVGAssetProps) => (
     viewBox="0 0 30 20"
     {...props}
   >
-    <g clipPath="url(#Sweden__a)">
+    <g clipPath="url(#Bahrain__a)">
       <path
-        fill="#005293"
-        d="M0 0H30V20H0V0Z"
+        fill="#fff"
+        d="M0 0H30V20H0"
       />
       <path
-        fill="#FECB00"
-        d="M0 8H9.375V0H13.125V8H30V12H13.125V20H9.375V12H0V8Z"
+        fill="#CE1126"
+        d="M30 0H4.5L9.68906 2L4.5 4L9.68906 6L4.5 8L9.68906 10L4.5 12L9.68906 14L4.5 16L9.68906 18L4.5 20H30"
       />
     </g>
     <defs>
-      <clipPath id="Sweden__a">
+      <clipPath id="Bahrain__a">
         <rect
           width={30}
           height={20}
@@ -31,4 +31,4 @@ const Sweden = (props: SVGAssetProps) => (
     </defs>
   </svg>
 );
-export default Sweden;
+export default Bahrain;
