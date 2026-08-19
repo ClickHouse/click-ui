@@ -101,3 +101,29 @@ LIMIT
     wrapLines: false,
   },
 };
+
+// Exercises every category of the ClickHouse-lexer SQL highlighting: keywords,
+// functions vs. identifiers, strings, numbers with digit-group underlines, quoted
+// identifiers, comments, rainbow brackets by nesting depth and an un-lexable tail.
+export const ClickHouseSqlHighlighting: Story = {
+  args: {
+    children: `-- Top spenders, with a deliberately deep expression
+SELECT
+    customer_id,
+    "quoted column",
+    sum(if(quantity > 0, toUInt64(quantity * price), 0)) AS total_spent,
+    count(DISTINCT order_id) AS total_orders,
+    1234567.89 + 42
+FROM orders AS o /* inline comment */
+WHERE order_date BETWEEN '2022-01-01' AND '2022-12-31'
+GROUP BY customer_id
+HAVING total_spent > 100000
+ORDER BY total_spent DESC
+LIMIT 10;`,
+    language: 'sql',
+    showLineNumbers: true,
+    showWrapButton: true,
+    wrapLines: false,
+  },
+  decorators: Decorator,
+};
