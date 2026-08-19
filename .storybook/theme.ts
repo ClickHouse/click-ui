@@ -13,5 +13,5 @@ export default create({
   fontBase:  `"Inter", "SF Pro Display", -apple-system,
   BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
   "Open Sans", "Helvetica Neue", sans-serif;`,
-  fontCode: `"Inconsolata", "SFMono Regular", monospace;`,
+  fontCode: `"DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace;`,
 });
