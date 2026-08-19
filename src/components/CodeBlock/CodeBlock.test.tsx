@@ -20,7 +20,9 @@ const queryOf = (container: HTMLElement): HTMLElement => {
 describe('CodeBlock', () => {
   it('highlights SQL with the ClickHouse lexer', async () => {
     const { container } = renderCUI(
-      <CodeBlock language="sql">{"SELECT sum(x) FROM numbers WHERE s = 'str' -- c"}</CodeBlock>
+      <CodeBlock language="sql">
+        {"SELECT sum(x) FROM numbers WHERE s = 'str' -- c"}
+      </CodeBlock>
     );
 
     await waitFor(() => expect(container.querySelector('.q-kw')).not.toBeNull());
@@ -31,12 +33,14 @@ describe('CodeBlock', () => {
 
     // `sum` is followed by `(`, so it is a function; `numbers`, `x` and `s` are plain
     // identifiers.
-    expect(
-      Array.from(code.querySelectorAll('.q-fn')).map(el => el.textContent)
-    ).toEqual(['sum']);
-    expect(
-      Array.from(code.querySelectorAll('.q-id')).map(el => el.textContent)
-    ).toEqual(['x', 'numbers', 's']);
+    expect(Array.from(code.querySelectorAll('.q-fn')).map(el => el.textContent)).toEqual([
+      'sum',
+    ]);
+    expect(Array.from(code.querySelectorAll('.q-id')).map(el => el.textContent)).toEqual([
+      'x',
+      'numbers',
+      's',
+    ]);
 
     expect(code.querySelector('.q-str')?.textContent).toBe("'str'");
     expect(code.querySelector('.q-com')?.textContent).toBe('-- c');
@@ -55,12 +59,12 @@ describe('CodeBlock', () => {
     const code = queryOf(container);
 
     // f(...) is depth 0, g(...) is depth 1.
-    expect(
-      Array.from(code.querySelectorAll('.q-br0')).map(el => el.textContent)
-    ).toEqual(['(', ')']);
-    expect(
-      Array.from(code.querySelectorAll('.q-br1')).map(el => el.textContent)
-    ).toEqual(['(', ')']);
+    expect(Array.from(code.querySelectorAll('.q-br0')).map(el => el.textContent)).toEqual(
+      ['(', ')']
+    );
+    expect(Array.from(code.querySelectorAll('.q-br1')).map(el => el.textContent)).toEqual(
+      ['(', ')']
+    );
 
     // `([)]` breaks the nesting: none of its brackets gets a rainbow color.
     expect(code.querySelectorAll('[class^="q-br"]').length).toBe(4);
