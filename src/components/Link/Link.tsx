@@ -7,10 +7,12 @@ import {
   forwardRef,
 } from 'react';
 import { Icon } from '@/components/Icon';
-import type { IconName } from '@/components/Icon/Icon.types';
 import { cn, cva } from '@/lib/cva';
-import styles from './Link.module.css';
+
+import type { IconName } from '@/components/Icon/Icon.types';
 import type { TextSize, TextWeight } from '@/components/Text';
+
+import styles from './Link.module.css';
 
 export interface LinkProps<T extends ElementType = 'a'> {
   /** The font size of the link text */

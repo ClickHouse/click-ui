@@ -1,7 +1,6 @@
 .link {
   display: inline-flex;
   margin: 0;
-  margin-right: var(--link-gap);
   align-items: center;
   gap: var(--link-gap);
   color: var(--click-global-color-text-link-default);
