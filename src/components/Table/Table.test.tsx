@@ -4,6 +4,12 @@ import { renderCUI } from '@/utils/test-utils';
 
 const headers = [{ label: 'Company' }, { label: 'Contact' }, { label: 'Country' }];
 
+const headersWithWidths = [
+  { label: 'Company', width: '100px' },
+  { label: 'Contact', width: '200px' },
+  { label: 'Country', width: '300px' },
+];
+
 const rows = [
   {
     id: 'row-1',
@@ -147,6 +153,42 @@ describe('Table', () => {
     const { container } = renderTable({ mobileLayout: 'scroll' });
     const outerContainer = container.querySelector('[data-mobile-layout]');
     expect(outerContainer).toHaveAttribute('data-mobile-layout', 'scroll');
+  });
+
+  it('should render configured column widths if the header is visible', () => {
+    const { container } = renderCUI(
+      <Table
+        headers={headersWithWidths}
+        rows={rows}
+      />
+    );
+    const columns = container.querySelectorAll('col');
+
+    expect(container.querySelector('colgroup')).not.toBeNull();
+    expect(Array.from(columns).map(column => column.getAttribute('width'))).toEqual([
+      '100px',
+      '200px',
+      '300px',
+    ]);
+  });
+
+  it('should render configured column widths if the header is hidden', () => {
+    const { container } = renderCUI(
+      <Table
+        headers={headersWithWidths}
+        rows={rows}
+        showHeader={false}
+      />
+    );
+    const columns = container.querySelectorAll('col');
+
+    expect(container.querySelector('thead')).toBeNull();
+    expect(container.querySelector('colgroup')).not.toBeNull();
+    expect(Array.from(columns).map(column => column.getAttribute('width'))).toEqual([
+      '100px',
+      '200px',
+      '300px',
+    ]);
   });
 
   it('should handle column reordering with resizable columns without NaN values', () => {
