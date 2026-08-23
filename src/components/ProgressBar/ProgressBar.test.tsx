@@ -29,6 +29,18 @@ describe('Progress bar', () => {
     expect(progressBar[0].textContent).not.toContain('38%');
   });
 
+  it('should preserve progress if a custom style is provided', () => {
+    const { getByTestId } = renderPopover({
+      type: 'default',
+      progress: 42,
+      style: { height: '20px' },
+    });
+    const progressBar = getByTestId('progressbar');
+
+    expect(progressBar).toHaveStyle({ height: '20px' });
+    expect(progressBar.style.getPropertyValue('--progress')).toBe('42%');
+  });
+
   it('should show close Button if dismissable is true', () => {
     const onCancel = vi.fn();
     const { queryAllByTestId } = renderPopover({

@@ -46,18 +46,19 @@ export const ProgressBar = ({
   orientation = 'horizontal',
   dir = 'start',
   className,
+  style,
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
+  const mergedStyle = {
+    '--progress': `${progress}%`,
+    ...style,
+  } as CSSProperties;
 
   return (
     <div
       // Using a CSS variable avoids generating a new class per progress value.
-      style={
-        {
-          '--progress': `${progress}%`,
-        } as CSSProperties
-      }
+      style={mergedStyle}
       {...props}
       className={cn(
         progressBarVariants({ type, orientation, dir, completed }),
