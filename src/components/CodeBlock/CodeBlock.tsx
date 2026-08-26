@@ -4,8 +4,14 @@ import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highligh
 import { IconButton } from '@/components/IconButton';
 
 import { cn } from '@/lib/cva';
-import useColorStyle, { useButtonStateColors, useNumbersColor } from './useColorStyle';
+import useColorStyle, {
+  useButtonStateColors,
+  useNumbersColor,
+  useSqlColorStyle,
+} from './useColorStyle';
 import { CodeBlockProps } from './CodeBlock.types';
+import { SQL_KIND_CLASS, SqlLine } from './sql/highlight';
+import useClickHouseSql from './sql/useClickHouseSql';
 import styles from './CodeBlock.module.css';
 
 /* eslint-disable import/extensions */
@@ -59,6 +65,12 @@ export const CodeBlock = ({
   const customStyle = useColorStyle(theme);
   const numbersColor = useNumbersColor(theme);
   const buttonStateColors = useButtonStateColors();
+  // SQL is highlighted with ClickHouse's own lexer (compiled to WASM), exactly as the
+  // ClickHouse Web UI does it. While the module instantiates — or when WebAssembly is
+  // unavailable or the lexer rejects the text — this is null and the generic
+  // highlight.js rendering below is used instead.
+  const sqlLines = useClickHouseSql(children, language === 'sql');
+  const sqlColorStyle = useSqlColorStyle(theme);
 
   const copyCodeToClipboard = async () => {
     try {
@@ -90,6 +102,74 @@ export const CodeBlock = ({
       className={cn(styles['codeblock__content'], props.className)}
     />
   );
+
+  // Render the ClickHouse-lexer highlighting with the same DOM the SyntaxHighlighter
+  // path produces (pre > code > one span per line, with the same inline line-number
+  // spans), so both paths look identical apart from the token colors.
+  const renderSqlLines = (lines: SqlLine[]) => {
+    const wrapped = wrap || wrapLines;
+    const lineNumberStyle: React.CSSProperties = {
+      display: 'inline-block',
+      minWidth: `${String(lines.length).length}.25em`,
+      paddingRight: '1em',
+      textAlign: 'right',
+      userSelect: 'none',
+    };
+
+    return (
+      <pre
+        className={styles['codeblock__highlighter']}
+        style={customStyle.hljs}
+      >
+        <CodeWithRef
+          className="language-sql"
+          style={{ whiteSpace: wrapped ? 'pre-wrap' : 'pre' }}
+        >
+          {lines.map((line, lineIndex) => {
+            const content = (
+              <>
+                {line.map((span, spanIndex) => (
+                  <span
+                    key={spanIndex}
+                    className={span.kind ? SQL_KIND_CLASS[span.kind] : undefined}
+                    style={
+                      span.underline
+                        ? {
+                            ...sqlColorStyle[span.kind ?? 'number'],
+                            textDecoration: 'underline',
+                          }
+                        : span.kind
+                          ? sqlColorStyle[span.kind]
+                          : undefined
+                    }
+                  >
+                    {span.text}
+                  </span>
+                ))}
+                {lineIndex < lines.length - 1 ? '\n' : null}
+              </>
+            );
+            return (
+              <span
+                key={lineIndex}
+                style={wrapped && showLineNumbers ? { display: 'flex' } : undefined}
+              >
+                {showLineNumbers && (
+                  <span
+                    className="comment linenumber react-syntax-highlighter-line-number"
+                    style={lineNumberStyle}
+                  >
+                    {lineIndex + 1}
+                  </span>
+                )}
+                {showLineNumbers ? <span>{content}</span> : content}
+              </span>
+            );
+          })}
+        </CodeWithRef>
+      </pre>
+    );
+  };
   return (
     <div
       {...props}
@@ -119,48 +199,52 @@ export const CodeBlock = ({
           onClick={copyCodeToClipboard}
         />
       </div>
-      <SyntaxHighlighter
-        language={language}
-        style={customStyle}
-        CodeTag={CodeWithRef}
-        className={styles['codeblock__highlighter']}
-        renderer={({ rows, stylesheet, useInlineStyles }: CustomRendererProps) => {
-          return rows.map((row, index) => {
-            const children = row.children;
-            const lineNumberElement = children?.shift();
+      {sqlLines ? (
+        renderSqlLines(sqlLines)
+      ) : (
+        <SyntaxHighlighter
+          language={language}
+          style={customStyle}
+          CodeTag={CodeWithRef}
+          className={styles['codeblock__highlighter']}
+          renderer={({ rows, stylesheet, useInlineStyles }: CustomRendererProps) => {
+            return rows.map((row, index) => {
+              const children = row.children;
+              const lineNumberElement = children?.shift();
 
-            /**
-             * We will take current structure of the rows and rebuild it
-             * according to the suggestion here https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/376#issuecomment-1246115899
-             */
-            if (lineNumberElement) {
-              row.children = [
-                lineNumberElement,
-                {
-                  children,
-                  properties: {
-                    className: [],
+              /**
+               * We will take current structure of the rows and rebuild it
+               * according to the suggestion here https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/376#issuecomment-1246115899
+               */
+              if (lineNumberElement) {
+                row.children = [
+                  lineNumberElement,
+                  {
+                    children,
+                    properties: {
+                      className: [],
+                    },
+                    tagName: 'span',
+                    type: 'element',
                   },
-                  tagName: 'span',
-                  type: 'element',
-                },
-              ];
-            }
+                ];
+              }
 
-            return createElement({
-              node: row,
-              stylesheet,
-              useInlineStyles,
-              key: index,
+              return createElement({
+                node: row,
+                stylesheet,
+                useInlineStyles,
+                key: index,
+              });
             });
-          });
-        }}
-        showLineNumbers={showLineNumbers}
-        wrapLines={wrap || wrapLines}
-        wrapLongLines={wrap || wrapLines}
-      >
-        {children}
-      </SyntaxHighlighter>
+          }}
+          showLineNumbers={showLineNumbers}
+          wrapLines={wrap || wrapLines}
+          wrapLongLines={wrap || wrapLines}
+        >
+          {children}
+        </SyntaxHighlighter>
+      )}
     </div>
   );
 };
