@@ -16,6 +16,7 @@
   - [Create a new release](#create-a-new-release)
   - [Updating a pending release version](#updating-a-pending-release-version)
   - [Promoting to stable release](#promoting-to-stable-release)
+  - [Emergency release with skip prerelease](#emergency-release-with-skip-prerelease)
 
 **TLDR;** Use the [Create a new release Pull Request](#create-a-new-release-pull-request) for automated process.
 
@@ -59,6 +60,9 @@ You can find the pull requests in the GitHub tab [Pull Request](https://github.c
 > [!WARNING]
 > Releasing a "stable" or "latest" version requires that you have previously published a pre-release version (e.g. test or rc / release candidate). This process exists to help us maintain quality standards.
 > Only promote a release to "stable" or "latest" when you are confident it is production-ready, e.g., after thorough testing and gathering feedback from users or consumers. Take extra caution with "latest" in particular, as it becomes the default version installed by users.
+
+> [!CAUTION]
+> The workflow includes a `skip_prerelease` option that bypasses both the prerelease requirement and maintenance branch safeguards. **Use only in emergencies** (e.g., critical security hotfixes). This publishes directly from `main` without validation, increasing risk of shipping untested code to production.
 
 Once the pull request is approved and merged, it'll trigger the release of a new version to [npm registry](https://www.npmjs.com/package/@clickhouse/click-ui?activeTab=versions).
 
@@ -258,3 +262,28 @@ git push origin chore/sync-v1.0.0-changes-back-to-main
 
 > [!IMPORTANT]
 > This step is critical. The `main` branch must reflect the stable release state to ensure future pre-releases start from the correct version baseline.
+
+### Emergency release with skip prerelease
+
+In exceptional circumstances (e.g., critical security vulnerabilities), you may need to publish a `stable` or `latest` release immediately without a prerelease.
+
+> [!CAUTION]
+> This bypasses quality safeguards. Only use when the risk of **not** releasing immediately exceeds the risk of potential regressions.
+
+Follow these steps:
+
+1. Ensure the fix is committed to `main` and thoroughly tested locally
+
+2. Run the [Create Release](https://github.com/ClickHouse/click-ui/actions/workflows/create-release.yml) workflow from `main`:
+   - Select `stable` or `latest` as the release type
+   - **Enable `skip_prerelease`** (checkbox in the workflow inputs)
+   - Confirm the release type and branch name
+
+3. Review the PR carefully (there is no pre-release validation)
+
+4. Squash and merge when confident
+
+The commit message will include a `[skip-prerelease]` marker for audit purposes. After release, verify the fix in production immediately and prepare/update a proper maintenance release if needed.
+
+> [!WARNING]
+> In the scenario where you skip the release-cycle and a maintenance branch's already exist, you may be interested in updating it by cherry-picking any critical changes, e.g. made a stable/latest release for `v1.6.0` from `main` which might contain changes not reflected in maintenance branch `chore/v1.6.0`.

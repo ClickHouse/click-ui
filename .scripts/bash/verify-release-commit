@@ -3,7 +3,7 @@
 # Verify that a commit message matches the expected release format
 # Usage: verify-release-commit <commit_message>
 # Returns: 0 if valid, 1 if invalid
-# On success: outputs "VERSION RELEASE_TYPE" (e.g., "1.2.3 latest")
+# On success: outputs "VERSION RELEASE_TYPE [skip_prerelease]" (e.g., "1.2.3 latest" or "1.2.3 latest skip_prerelease")
 # On failure: outputs error messages to stderr only
 
 if [[ $# -lt 1 ]]; then
@@ -13,7 +13,7 @@ fi
 
 COMMIT_MSG="$1"
 
-RELEASE_PATTERN='^chore: 🤖 release v([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?) \((latest|rc|test|stable)\)( \(#[0-9]+\)| #[0-9]+)?$'
+RELEASE_PATTERN='^chore: 🤖 release v([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?) \((latest|rc|test|stable)\)( \[skip-prerelease\])?( \(#[0-9]+\)| #[0-9]+)?$'
 
 if [[ -z "$COMMIT_MSG" ]]; then
   echo "👹 Oops! Commit message is empty"
@@ -50,14 +50,23 @@ if [[ ! "$COMMIT_MSG" =~ $RELEASE_PATTERN ]]; then
   exit 1
 fi
 
-if [[ "$COMMIT_MSG" =~ ^chore:\ 🤖\ release\ v([0-9.a-zA-Z-]+)\ \((latest|rc|test|stable)\) ]]; then
+if [[ "$COMMIT_MSG" =~ ^chore:\ 🤖\ release\ v([0-9.a-zA-Z-]+)\ \((latest|rc|test|stable)\)(.*)$ ]]; then
   VERSION="${BASH_REMATCH[1]}"
   RELEASE_TYPE="${BASH_REMATCH[2]}"
+  SUFFIX="${BASH_REMATCH[3]}"
+
+  if [[ "$SUFFIX" =~ \[skip-prerelease\] ]]; then
+    SKIP_PRERELEASE="true"
+  fi
 else
   echo "🦖 Skip! Failed to extract version and release type"
   exit 1
 fi
 
-echo "${VERSION} ${RELEASE_TYPE}"
+if [[ "$SKIP_PRERELEASE" == "true" ]]; then
+  echo "${VERSION} ${RELEASE_TYPE} skip_prerelease"
+else
+  echo "${VERSION} ${RELEASE_TYPE}"
+fi
 
 exit 0

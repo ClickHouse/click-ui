@@ -637,6 +637,9 @@ Use the [Create a new release Pull Request](./docs/package-release.md#create-a-n
 
 See [Package Release](./docs/package-release.md) for detailed instructions, including use-cases.
 
+> [!CAUTION]
+> A `skip_prerelease` option exists for emergency scenarios but **bypasses quality safeguards**. Only use when absolutely necessary. See [emergency release documentation](./docs/package-release.md#emergency-release-with-skip-prerelease).
+
 ### Component RFC
 
 To propose a new component, open an RFC using the [Component RFC template](https://github.com/ClickHouse/click-ui/compare/main...branchName?template=component_rfc.md).
