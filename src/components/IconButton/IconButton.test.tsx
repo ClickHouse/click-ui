@@ -82,6 +82,21 @@ describe('Button', () => {
       expect(handleSubmit).not.toHaveBeenCalled();
     });
 
+    it('should submit an enclosing form when htmlType="submit" is set explicitly', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+
+      const { getByRole } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <IconButton icon="user" htmlType="submit" />
+        </form>
+      );
+
+      const button = getByRole('button');
+      fireEvent.click(button);
+
+      expect(handleSubmit).toHaveBeenCalled();
+    });
+
     it.each(['submit', 'button', 'reset'] as const)(
       'should use htmlType to set type=%s',
       type => {
