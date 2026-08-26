@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://clickhouse.com" target="_blank">
     <img
-      alt="Clickhouse logo"
       src="./.repo/images/banner.jpg?202601211122"
+      alt="Clickhouse logo"
     />
   </a>
 </p>
