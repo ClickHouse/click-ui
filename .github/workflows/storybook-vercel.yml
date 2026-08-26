@@ -20,6 +20,10 @@ env:
 
 jobs:
   deploy:
+    # Fork PRs can't access repo secrets (VERCEL_TOKEN + GitHub App), so we skip
+    # the Storybook preview deploy for forks; fork contributors get a hosted
+    # Storybook via Chromatic instead.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,7 +42,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '23.x'
+          node-version: '24.x'
 
       - name: Enable Corepack
         run: corepack enable
