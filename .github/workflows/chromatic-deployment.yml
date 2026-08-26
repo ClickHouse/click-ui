@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 'latest'
+          node-version: '24.x'
 
       - name: Enable Corepack
         run: corepack enable
@@ -25,6 +25,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Publish to Chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@v18
         with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Chromatic project tokens are write-only, it's safe in plaintext for
+          # open-source forks (https://www.chromatic.com/docs/github-actions/).
+          projectToken: chpt_0dfc604a45b596a
