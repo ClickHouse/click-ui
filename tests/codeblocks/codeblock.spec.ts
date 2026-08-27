@@ -26,6 +26,28 @@ describe('CodeBlock Visual Regression', () => {
       });
     });
 
+    // The controls sit at opacity 0 until the block is hovered or focused.
+    // This guards that hovering actually fades them in.
+    it('hovered controls match snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('codeblocks-codeblock--with-wrap-button', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+
+      // The container wrapping both IconButtons carries the opacity transition,
+      // so assert on its computed value instead of waiting a fixed delay.
+      const controls = page.getByRole('button').first().locator('..');
+      await expect(controls).toHaveCSS('opacity', '0');
+
+      await root.hover();
+      await expect(controls).toHaveCSS('opacity', '1');
+
+      await expect(root).toHaveScreenshot('codeblock-hovered-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
     it('copied state matches snapshot', async ({ page }) => {
       // Force the copy to succeed so the copy button flips to the copied color.
       // This exercises the copy button's copied state. In a
@@ -44,6 +66,8 @@ describe('CodeBlock Visual Regression', () => {
       });
       const root = page.locator(rootLocator);
       await expect(root).toBeVisible({ timeout: 10000 });
+      // The controls are pointer-events: none until hover, so hover first.
+      await root.hover();
       // The last button is the copy button; clicking it flips to the copied state.
       await page.getByRole('button').last().click();
       await page.waitForTimeout(100);
@@ -68,6 +92,8 @@ describe('CodeBlock Visual Regression', () => {
       });
       const root = page.locator(rootLocator);
       await expect(root).toBeVisible({ timeout: 10000 });
+      // The controls are pointer-events: none until hover, so hover first.
+      await root.hover();
       await page.getByRole('button').last().click();
       await page.waitForTimeout(100);
       await expect(root).toHaveScreenshot('codeblock-error-light.png', {

@@ -2,14 +2,76 @@
 
 PORT="8282"
 COMPOSE_FILE="docker-compose.playwright.yml"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+RESOLVER="$ROOT_DIR/.scripts/js/resolve-visual-specs"
+
+# Playwright options that consume the argument after them, so the value in
+# `-g "copied state"` is never mistaken for a component name.
+VALUE_FLAGS=" -c --config -g --grep --grep-invert -j --workers -p --project --repeat-each --reporter --retries --shard --timeout --max-failures --output "
+
+# Rewrites the argument list so a bare component name becomes a spec path:
+#
+#   CodeBlock                    -> tests/codeblocks/codeblock.spec.ts
+#   tests/…/x.spec.ts, -g "…"    -> passed through to Playwright untouched
+#
+# Sets RESOLVED_ARGS. Returns non-zero if a name matched no spec, so a typo
+# fails fast instead of falling back to the full suite.
+resolve_args() {
+  local names=() passthrough=() expect_value=0 arg
+
+  for arg in "$@"; do
+    if [ "$expect_value" -eq 1 ]; then
+      passthrough+=("$arg")
+      expect_value=0
+      continue
+    fi
+    case "$arg" in
+      -*)
+        passthrough+=("$arg")
+        case "$VALUE_FLAGS" in *" $arg "*) expect_value=1 ;; esac
+        ;;
+      */* | *.spec.ts)
+        passthrough+=("$arg")
+        ;;
+      *)
+        names+=("$arg")
+        ;;
+    esac
+  done
+
+  RESOLVED_ARGS=()
+
+  if [ ${#names[@]} -gt 0 ]; then
+    local specs
+    specs="$(node "$RESOLVER" "${names[@]}")" || return 1
+    # Word splitting is intended here: the resolver emits space-separated paths.
+    for arg in $specs; do
+      RESOLVED_ARGS+=("$arg")
+    done
+  fi
+
+  if [ ${#passthrough[@]} -gt 0 ]; then
+    RESOLVED_ARGS+=("${passthrough[@]}")
+  fi
+
+  return 0
+}
 
 case "${1:-}" in
   update)
     shift
+    resolve_args "$@" || exit 1
     docker compose -f "$COMPOSE_FILE" run --rm --entrypoint "" playwright \
-      npx playwright test --update-snapshots=all "$@"
+      npx playwright test --update-snapshots=all "${RESOLVED_ARGS[@]}"
+    ;;
+  names)
+    node "$RESOLVER" --list
     ;;
   ui)
+    if [ "$#" -gt 1 ]; then
+      echo "ℹ️  UI mode ignores filters — use the search box in the UI instead."
+    fi
+
     docker rm -f playwright-ui 2>/dev/null
 
     echo "🎭 Starting Playwright UI at http://localhost:$PORT..."
@@ -24,7 +86,8 @@ case "${1:-}" in
     npx playwright show-report
     ;;
   *)
+    resolve_args "$@" || exit 1
     docker compose -f "$COMPOSE_FILE" run --rm --entrypoint "" playwright \
-      npx playwright test "$@"
+      npx playwright test "${RESOLVED_ARGS[@]}"
     ;;
 esac

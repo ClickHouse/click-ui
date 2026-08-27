@@ -69,5 +69,13 @@
   z-index: 0;
   inset: 0;
   border-radius: var(--spaces-1); 
+}
+
+/* custom conditional theming can be later replaced with semantic color tokens */
+[data-cui-theme="light"] .codeblock__button-container::before {
+  background: var(--palette-indigo-100);
+}
+
+[data-cui-theme="dark"] .codeblock__button-container::before {
   background: var(--palette-neutral-900);
 }

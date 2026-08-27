@@ -32,7 +32,12 @@ yarn test:visual          # Run tests
 yarn test:visual:update   # Update snapshots
 yarn test:visual:ui       # UI mode (opens at http://localhost:8282)
 yarn test:visual:report   # View HTML report
+yarn test:visual names    # List the component names you can scope a run to
 ```
+
+> [!TIP]
+> `test:visual` and `test:visual:update` accept a component name, e.g.
+> `yarn test:visual CodeBlock`. See [Run a single component](#run-a-single-component).
 
 > [!NOTE]
 > The port number is declared in the Docker compose and playwright-docker bash script, which should be in sync.
@@ -99,11 +104,49 @@ Alternatively, launch UI mode for a browser like experience with timeline, conso
 yarn test:visual:ui
 ```
 
+### Run a single component
+
+The full suite takes around 20 minutes, so scope it to what you are working on.
+Pass a component name to either command and only the specs guarding that
+component run:
+
+```sh
+yarn test:visual CodeBlock          # run CodeBlock's visual tests
+yarn test:visual:update CodeBlock   # update only CodeBlock's baselines
+```
+
+Names are case- and separator-insensitive, so `CodeBlock`, `codeblock` and
+`code-block` are equivalent. You can also name:
+
+| What you type | What runs |
+| --- | --- |
+| a component (`IconButton`) | every spec that declares `@covers src/components/IconButton` — including other components' specs that render it |
+| a spec file name (`inputfield`) | that spec |
+| a suite directory (`buttons`) | every spec in `tests/buttons/` |
+| a 3+ character fragment (`card`) | every name containing it, listed back to you before the run |
+
+Resolution is driven by the `@covers` directives at the top of each spec, the
+same source of truth CI uses to scope its runs. To see every name you can use:
+
+```sh
+yarn test:visual names
+```
+
+An unknown name exits immediately rather than falling back to the full suite, so
+a typo costs a second instead of 20 minutes.
+
 ### Run specific test files
+
+Paths and Playwright flags still work, and can be mixed with names:
 
 ```sh
 yarn test:visual tests/buttons/overview.spec.ts
+yarn test:visual CodeBlock -g "hovered controls"
 ```
+
+> [!NOTE]
+> UI mode (`yarn test:visual:ui`) ignores name filters — use the search box in
+> the UI instead.
 
 ### Show report
 

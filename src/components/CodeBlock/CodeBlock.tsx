@@ -82,7 +82,8 @@ export const CodeBlock = ({
     }
   };
 
-  const codeRegionLabel = ariaLabel ?? (language ? `${language} code block` : 'Code block');
+  const codeRegionLabel =
+    ariaLabel ?? (language ? `${language} code block` : 'Code block');
 
   const wrapElement = () => {
     setWrap(wrap => !wrap);
