@@ -47,6 +47,7 @@ export const CodeBlock = ({
   showLineNumbers,
   showWrapButton = false,
   wrapLines = false,
+  ariaLabel,
   onCopy,
   onCopyError,
   className,
@@ -80,6 +81,9 @@ export const CodeBlock = ({
       setTimeout(() => setErrorCopy(false), 2000);
     }
   };
+
+  const codeRegionLabel = ariaLabel ?? (language ? `${language} code block` : 'Code block');
+
   const wrapElement = () => {
     setWrap(wrap => !wrap);
   };
@@ -120,6 +124,9 @@ export const CodeBlock = ({
         />
       </div>
       <SyntaxHighlighter
+        tabIndex={0}
+        role="group"
+        aria-label={codeRegionLabel}
         language={language}
         style={customStyle}
         CodeTag={CodeWithRef}
