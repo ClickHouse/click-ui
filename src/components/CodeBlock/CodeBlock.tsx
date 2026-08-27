@@ -101,29 +101,6 @@ export const CodeBlock = ({
       style={{ '--codeblock-numbers': numbersColor, ...style } as React.CSSProperties}
       className={cn(styles.codeblock, className)}
     >
-      <div className={styles['codeblock__button-container']}>
-        {showWrapButton && (
-          <IconButton
-            className={styles['codeblock__button']}
-            icon="document"
-            onClick={wrapElement}
-          />
-        )}
-        <IconButton
-          className={styles['codeblock__button']}
-          style={
-            {
-              '--codeblock-button': copied
-                ? buttonStateColors.success
-                : errorCopy
-                  ? buttonStateColors.danger
-                  : undefined,
-            } as React.CSSProperties
-          }
-          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
-          onClick={copyCodeToClipboard}
-        />
-      </div>
       <SyntaxHighlighter
         tabIndex={0}
         role="group"
@@ -169,6 +146,29 @@ export const CodeBlock = ({
       >
         {children}
       </SyntaxHighlighter>
+      <div className={styles['codeblock__button-container']}>
+        {showWrapButton && (
+          <IconButton
+            className={styles['codeblock__button']}
+            icon="document"
+            onClick={wrapElement}
+          />
+        )}
+        <IconButton
+          className={styles['codeblock__button']}
+          style={
+            {
+              '--codeblock-button': copied
+                ? buttonStateColors.success
+                : errorCopy
+                  ? buttonStateColors.danger
+                  : undefined,
+            } as React.CSSProperties
+          }
+          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
+          onClick={copyCodeToClipboard}
+        />
+      </div>
     </div>
   );
 };
