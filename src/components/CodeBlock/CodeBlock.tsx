@@ -47,6 +47,7 @@ export const CodeBlock = ({
   showLineNumbers,
   showWrapButton = false,
   wrapLines = false,
+  ariaLabel,
   onCopy,
   onCopyError,
   className,
@@ -80,6 +81,10 @@ export const CodeBlock = ({
       setTimeout(() => setErrorCopy(false), 2000);
     }
   };
+
+  const codeRegionLabel =
+    ariaLabel ?? (language ? `${language} code block` : 'Code block');
+
   const wrapElement = () => {
     setWrap(wrap => !wrap);
   };
@@ -96,30 +101,10 @@ export const CodeBlock = ({
       style={{ '--codeblock-numbers': numbersColor, ...style } as React.CSSProperties}
       className={cn(styles.codeblock, className)}
     >
-      <div className={styles['codeblock__button-container']}>
-        {showWrapButton && (
-          <IconButton
-            className={styles['codeblock__button']}
-            icon="document"
-            onClick={wrapElement}
-          />
-        )}
-        <IconButton
-          className={styles['codeblock__button']}
-          style={
-            {
-              '--codeblock-button': copied
-                ? buttonStateColors.success
-                : errorCopy
-                  ? buttonStateColors.danger
-                  : undefined,
-            } as React.CSSProperties
-          }
-          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
-          onClick={copyCodeToClipboard}
-        />
-      </div>
       <SyntaxHighlighter
+        tabIndex={0}
+        role="group"
+        aria-label={codeRegionLabel}
         language={language}
         style={customStyle}
         CodeTag={CodeWithRef}
@@ -161,6 +146,29 @@ export const CodeBlock = ({
       >
         {children}
       </SyntaxHighlighter>
+      <div className={styles['codeblock__button-container']}>
+        {showWrapButton && (
+          <IconButton
+            className={styles['codeblock__button']}
+            icon="document"
+            onClick={wrapElement}
+          />
+        )}
+        <IconButton
+          className={styles['codeblock__button']}
+          style={
+            {
+              '--codeblock-button': copied
+                ? buttonStateColors.success
+                : errorCopy
+                  ? buttonStateColors.danger
+                  : undefined,
+            } as React.CSSProperties
+          }
+          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
+          onClick={copyCodeToClipboard}
+        />
+      </div>
     </div>
   );
 };
