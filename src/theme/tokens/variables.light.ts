@@ -1428,7 +1428,7 @@ const theme = {
       typography: {
         text: {
           default:
-            '500 0.875rem/1.7 "Inconsolata", Consolas, "SFMono Regular", monospace',
+            '500 0.875rem/normal "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
         },
       },
       numbers: {
@@ -1501,7 +1501,7 @@ const theme = {
       typography: {
         text: {
           default:
-            '500 0.875rem/1.7 "Inconsolata", Consolas, "SFMono Regular", monospace',
+            '500 0.875rem/normal "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
         },
       },
       radii: {
@@ -2273,7 +2273,7 @@ const theme = {
       cell: {
         text: {
           default:
-            '500 0.875rem/1.5 "Inconsolata", Consolas, "SFMono Regular", monospace',
+            '500 0.875rem/1.5 "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
         },
       },
       radii: {
@@ -3804,7 +3804,7 @@ const theme = {
       families: {
         regular:
           '"Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
-        mono: '"Inconsolata", Consolas, "SFMono Regular", monospace',
+        mono: '"DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
         display:
           '\'Basier Square\', "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
       },
@@ -3862,10 +3862,10 @@ const theme = {
             lg: '600 1rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
           },
           mono: {
-            xs: '500 0.625rem/1.6 "Inconsolata", Consolas, "SFMono Regular", monospace',
-            sm: '500 0.75rem/1.6 "Inconsolata", Consolas, "SFMono Regular", monospace',
-            md: '500 0.875rem/1.7 "Inconsolata", Consolas, "SFMono Regular", monospace',
-            lg: '500 1rem/1.6 "Inconsolata", Consolas, "SFMono Regular", monospace',
+            xs: '500 0.625rem/normal "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
+            sm: '500 0.75rem/normal "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
+            md: '500 0.875rem/normal "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
+            lg: '500 1rem/normal "DejaVu Sans Mono", "Liberation Mono", MonoLisa, Consolas, monospace',
           },
           bold: {
             xs: '700 0.625rem/1.5 "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;',
