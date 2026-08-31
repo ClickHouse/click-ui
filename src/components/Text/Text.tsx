@@ -12,6 +12,7 @@ export type TextSize = 'xs' | 'sm' | 'md' | 'lg';
 export type TextWeight = 'normal' | 'medium' | 'semibold' | 'bold' | 'mono';
 export type TextAlignment = 'left' | 'center' | 'right';
 export type TextColor = 'default' | 'muted' | 'danger' | 'disabled' | 'warning';
+export type TextWrap = 'wrap' | 'nowrap' | 'break-word' | 'break-all';
 
 export interface TextProps<T extends ElementType = 'p'> {
   /** The text content to display */
@@ -30,8 +31,8 @@ export interface TextProps<T extends ElementType = 'p'> {
   component?: T;
   /** Whether the text should fill the full width of its container */
   fillWidth?: boolean;
-  /** Whether the text should stay on a single line */
-  noWrap?: boolean;
+  /** Text wrapping, unset by default - inherits from parent */
+  wrap?: TextWrap;
 }
 
 type TextPolymorphicComponent = <T extends ElementType = 'p'>(
@@ -55,9 +56,11 @@ const textVariants = cva(styles.text, {
     fillWidth: {
       true: styles['text_fill-width'],
     },
-    noWrap: {
-      true: styles['text_no-wrap'],
-      false: styles['text_wrap'],
+    wrap: {
+      wrap: styles['text_wrap_wrap'],
+      nowrap: styles['text_wrap_nowrap'],
+      'break-word': styles['text_wrap_break-word'],
+      'break-all': styles['text_wrap_break-all'],
     },
     size: {
       xs: '',
@@ -113,7 +116,7 @@ const _Text = <T extends ElementType = 'p'>(
     children,
     component,
     fillWidth,
-    noWrap,
+    wrap,
     ...props
   }: Omit<ComponentProps<T>, keyof TextProps<T>> & TextProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
@@ -124,7 +127,7 @@ const _Text = <T extends ElementType = 'p'>(
       ref={ref}
       {...props}
       className={cn(
-        textVariants({ color, align, size, weight, fillWidth, noWrap }),
+        textVariants({ color, align, size, weight, fillWidth, wrap }),
         className
       )}
     >

@@ -117,13 +117,43 @@ export const FillWidth: Story = {
   ),
 };
 
-export const NoWrap: Story = {
+// Wrapping
+
+const wrapSample = 'Query rows in system.query_log_with_a_very_long_column_name';
+
+const wrapValues: Array<NonNullable<TextProps['wrap']>> = [
+  'wrap',
+  'nowrap',
+  'break-word',
+  'break-all',
+];
+
+export const Wrap: Story = {
   render: () => (
     <div
       data-testid="text-harness"
-      style={{ display: 'inline-block', padding: '8px', width: '120px' }}
+      style={{
+        display: 'inline-flex',
+        flexDirection: 'column',
+        gap: '12px',
+        padding: '8px',
+        width: '200px',
+      }}
     >
-      <Text noWrap>{sample}</Text>
+      {wrapValues.map(wrap => (
+        <div
+          key={wrap}
+          style={{ overflow: 'hidden', width: '160px' }}
+        >
+          <Text
+            size="xs"
+            color="muted"
+          >
+            {wrap}
+          </Text>
+          <Text wrap={wrap}>{wrapSample}</Text>
+        </div>
+      ))}
     </div>
   ),
 };

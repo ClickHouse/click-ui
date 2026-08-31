@@ -9,12 +9,24 @@
   width: 100%;
 }
 
-.text_no-wrap {
+.text_wrap_wrap {
+  white-space: normal;
+}
+
+.text_wrap_nowrap {
   white-space: nowrap;
 }
 
-.text_wrap {
+.text_wrap_break-word {
   white-space: normal;
+  /* `anywhere` rather than `break-word` so long words also shrink the
+   min-content width, which is what flex and table layouts measure. */
+  overflow-wrap: anywhere;
+}
+
+.text_wrap_break-all {
+  white-space: normal;
+  word-break: break-all;
 }
 
 /* font shorthand depends on both size and weight; one class per pairing
