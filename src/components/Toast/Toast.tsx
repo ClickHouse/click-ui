@@ -189,7 +189,12 @@ export const ToastProvider = ({
           />
         ))}
       </ToastContext.Provider>
-      <RadixUIToast.Viewport className={cn(viewportVariants({ align }))} />
+      {/* aria-live exempts the viewport from the aria-hidden sweep modal layers
+          run, keeping toasts over a Dialog or Select in the accessibility tree. */}
+      <RadixUIToast.Viewport
+        aria-live="off"
+        className={cn(viewportVariants({ align }))}
+      />
     </RadixUIToast.Provider>
   );
 };
