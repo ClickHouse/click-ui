@@ -8,7 +8,7 @@ import {
   forwardRef,
 } from 'react';
 import { cn, cva } from '@/lib/cva';
-import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import styles from './Popover.module.css';
@@ -109,7 +109,12 @@ const PopoverContent = ({
             asChild
             className={styles['close-button']}
           >
-            <Icon name="cross" />
+            <IconButton
+              icon="cross"
+              type="ghost"
+              aria-label="Close"
+              iconSize="md"
+            />
           </RadixPopover.Close>
         )}
         {showArrow && (
