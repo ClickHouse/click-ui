@@ -29,4 +29,5 @@
   right: var(--click-popover-space-x);
   width: var(--click-popover-icon-size-width);
   height: var(--click-popover-icon-size-height);
+  cursor: pointer;
 }
