@@ -102,6 +102,7 @@ const PopoverContent = ({
         showClose={showClose}
         showArrow={showArrow}
         sideOffset={4}
+        onOpenAutoFocus={e => e.preventDefault()}
         {...props}
       >
         {showClose && (
