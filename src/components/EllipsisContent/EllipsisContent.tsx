@@ -9,11 +9,8 @@ import {
 import { mergeRefs } from '@/utils/mergeRefs';
 import { cn } from '@/lib/cva';
 import { Tooltip } from '@/components/Tooltip';
+import { EllipsisContentProps } from './EllipsisContent.types';
 import styles from './EllipsisContent.module.css';
-
-export interface EllipsisContentProps<T extends ElementType = 'div'> {
-  component?: T;
-}
 
 type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>
@@ -23,6 +20,7 @@ const EllipsisContentComponent = <T extends ElementType = 'div'>(
   {
     component,
     className,
+    tooltipProps,
     ...props
   }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> &
     EllipsisContentProps<T> & { className?: string },
@@ -55,7 +53,7 @@ const EllipsisContentComponent = <T extends ElementType = 'div'>(
   return (
     <Tooltip>
       <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
-      <Tooltip.Content>{tooltipContent}</Tooltip.Content>
+      <Tooltip.Content {...tooltipProps}>{tooltipContent}</Tooltip.Content>
     </Tooltip>
   );
 };

@@ -133,6 +133,24 @@ describe('GenericMenu cluster Visual Regression', () => {
     }
   });
 
+  describe('Dropdown item truncation tooltip', () => {
+    it('opens the item tooltip on the side given by tooltipProps', async ({ page }) => {
+      await page.goto(
+        getStoryUrl('display-dropdown--truncated-items-tooltip-on-right', 'light'),
+        { waitUntil: 'domcontentloaded' }
+      );
+      const item = page.getByRole('menuitem').first();
+      await expect(item).toBeVisible({ timeout: 10000 });
+      await item.hover();
+      // data-side is only on the portaled tooltip panel, never on the trigger.
+      const panel = page.locator(
+        '[data-side][data-state="instant-open"], [data-side][data-state="delayed-open"]'
+      );
+      await expect(panel).toBeVisible({ timeout: 10000 });
+      await expect(panel).toHaveAttribute('data-side', 'right');
+    });
+  });
+
   describe('Popover content extension', () => {
     for (const theme of themes) {
       describe(`${theme} theme`, () => {

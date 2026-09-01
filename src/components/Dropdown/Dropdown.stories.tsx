@@ -218,3 +218,33 @@ export const TriggerStandalone: Story = {
     </div>
   ),
 };
+
+// A menu whose item labels are too long for the panel: the truncation tooltip is
+// moved to the right so it does not cover the items above the hovered one.
+export const TruncatedItemsTooltipOnRight: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+          style={{ width: 180 }}
+        >
+          <Dropdown.Item tooltipProps={{ side: 'right' }}>
+            A menu item label far too long for this panel
+          </Dropdown.Item>
+          <Dropdown.Item tooltipProps={{ side: 'right' }}>
+            Another menu item label far too long for this panel
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
