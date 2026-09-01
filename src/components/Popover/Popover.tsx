@@ -104,6 +104,20 @@ const PopoverContent = ({
         sideOffset={4}
         {...props}
       >
+        {showClose && (
+          <RadixPopover.Close
+            asChild
+            className={styles['close-button']}
+            tabIndex={-1}
+          >
+            <IconButton
+              icon="cross"
+              type="ghost"
+              aria-label="Close"
+              iconSize="md"
+            />
+          </RadixPopover.Close>
+        )}
         {showArrow && (
           <Arrow
             asChild
@@ -115,19 +129,6 @@ const PopoverContent = ({
           </Arrow>
         )}
         {children}
-        {showClose && (
-          <RadixPopover.Close
-            asChild
-            className={styles['close-button']}
-          >
-            <IconButton
-              icon="cross"
-              type="ghost"
-              aria-label="Close"
-              iconSize="md"
-            />
-          </RadixPopover.Close>
-        )}
       </MenuPanel>
     </RadixPopover.Portal>
   );
