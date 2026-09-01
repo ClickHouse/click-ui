@@ -33,3 +33,6 @@ jobs:
 
       - name: Circular Dependencies
         run: yarn circular-dependency:check
+
+      - name: Storybook deploy decision table
+        run: yarn verify:deploy-channels

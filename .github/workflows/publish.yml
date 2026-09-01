@@ -23,6 +23,9 @@ env:
 
 jobs:
   build:
+    # Releases tagged with "storybook-test" exist only to exercise the
+    # storybook-vercel release trigger. They must never reach npm.
+    if: ${{ github.event_name != 'release' || !contains(github.event.release.tag_name, 'storybook-test') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write      # For git push and tagging
@@ -32,8 +35,11 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "GITHUB_TAG=${{ github.event.inputs.tag }}" >> "$GITHUB_ENV"
-          # Check if input is a semantic version (e.g., 0.0.242) or a tag name (e.g., beta, scss-deprecation)
-          if [[ "${{ github.event.inputs.tag }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
+          # Check if input is a semantic version (e.g., 0.0.242 or v0.0.242) or a
+          # tag name (e.g., beta, scss-deprecation). The optional leading "v" matters:
+          # without it a "v0.11.0" input is misread as a tag name and generates a
+          # garbage prerelease version like "0.10.0-v0.11.0.0".
+          if [[ "${{ github.event.inputs.tag }}" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
             echo "IS_VERSION_INPUT=true" >> "$GITHUB_ENV"
           else
             echo "IS_VERSION_INPUT=false" >> "$GITHUB_ENV"
@@ -64,7 +70,9 @@ jobs:
       - name: Bump package version (for version inputs)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
-          npm pkg set version=$GITHUB_TAG
+          # Tags are "vX.Y.Z"; package.json versions must not carry the "v".
+          # Copying the tag verbatim once wrote "version": "v0.10.0" into main.
+          npm pkg set version="${GITHUB_TAG#v}"
       - name: Generate prerelease version (for tag inputs)
         if: ${{ env.IS_VERSION_INPUT == 'false' }}
         run: |

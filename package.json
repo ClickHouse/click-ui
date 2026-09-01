@@ -1,6 +1,6 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "v0.10.0",
+  "version": "0.10.0",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
@@ -396,6 +396,7 @@
     "test:visual:ui": ".scripts/bash/playwright-docker ui",
     "test:visual:update": ".scripts/bash/playwright-docker update",
     "test:watch": "DEBUG_PRINT_LIMIT=100000 vitest --watch",
+    "verify:deploy-channels": ".scripts/bash/storybook-deploy-channels-test",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

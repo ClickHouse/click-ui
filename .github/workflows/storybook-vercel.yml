@@ -1,11 +1,34 @@
 name: Publish storybook to vercel
 
+# Storybook has three deploy channels:
+#
+#   preview  - per-PR throwaway URL on the release Vercel project
+#   canary   - production URL of the CANARY Vercel project; every merge to main
+#   release  - production URL of the RELEASE Vercel project; released code only
+#
+# The release channel used to be gated purely on the head commit message
+# matching the changesets release format. Releases are published by hand from
+# GitHub instead, which pushes a "bump version to vX.Y.Z" commit that never
+# matched, and there was no release: trigger at all - so the stable Storybook
+# went 3.5 months without a deploy while every run stayed green. The channel
+# decision now lives in .scripts/bash/storybook-deploy-channels, is covered by
+# .scripts/bash/storybook-deploy-channels-test, and always writes its reasoning
+# to the run summary.
+
 on:
   push:
     branches:
       - main
   pull_request:
+  release:
+    types: [published]
   workflow_dispatch:
+    inputs:
+      deploy_production:
+        description: 'Deploy the release channel (production). Leave off for a build-only dry run.'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -15,6 +38,9 @@ env:
   HUSKY: 0
   STORYBOOK_BUILD_DIR: .storybook/out
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  # Release project. The canary step overrides VERCEL_PROJECT_ID at step level;
+  # these env vars are the documented way to target a project headlessly and
+  # take precedence over anything left behind in .vercel/.
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
@@ -22,14 +48,60 @@ jobs:
   deploy:
     # Fork PRs can't access repo secrets (VERCEL_TOKEN + GitHub App), so we skip
     # the Storybook preview deploy for forks; fork contributors get a hosted
-    # Storybook via Chromatic instead.
+    # Storybook via Chromatic instead. push, release and workflow_dispatch
+    # events all pass on the first clause.
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # On a release event this lands on the release tag, so the release
+        # channel serves exactly the code that was released.
         uses: actions/checkout@v6
 
+      - name: Decide deploy channels
+        id: channels
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          IS_PRERELEASE: ${{ github.event.release.prerelease }}
+          DEPLOY_PRODUCTION: ${{ inputs.deploy_production }}
+        run: |
+          COMMIT_MSG=$(git log -1 --format=%s)
+          .scripts/bash/storybook-deploy-channels \
+            "$EVENT_NAME" \
+            "$REF" \
+            "$COMMIT_MSG" \
+            "$IS_PRERELEASE" \
+            "$DEPLOY_PRODUCTION" \
+            | tee -a "$GITHUB_OUTPUT"
+
+      - name: Report deploy decisions
+        # Written before the build so the reasoning survives a build failure.
+        # No decision is ever silent - that is what hid the broken release
+        # channel for 3.5 months.
+        env:
+          DEPLOY_PREVIEW: ${{ steps.channels.outputs.deploy_preview }}
+          DEPLOY_CANARY: ${{ steps.channels.outputs.deploy_canary }}
+          DEPLOY_RELEASE: ${{ steps.channels.outputs.deploy_release }}
+          REASON_PREVIEW: ${{ steps.channels.outputs.reason_preview }}
+          REASON_CANARY: ${{ steps.channels.outputs.reason_canary }}
+          REASON_RELEASE: ${{ steps.channels.outputs.reason_release }}
+        run: |
+          icon() { [[ "$1" == "true" ]] && echo "✅ yes" || echo "⏭️ no"; }
+
+          {
+            echo "## Storybook deploy channels"
+            echo ""
+            echo "| Channel | Deploying | Why |"
+            echo "| --- | --- | --- |"
+            echo "| Preview | $(icon "$DEPLOY_PREVIEW") | $REASON_PREVIEW |"
+            echo "| Canary | $(icon "$DEPLOY_CANARY") | $REASON_CANARY |"
+            echo "| Release | $(icon "$DEPLOY_RELEASE") | $REASON_RELEASE |"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Generate GitHub workflow token
+        if: steps.channels.outputs.deploy_preview == 'true'
         id: gh-workflow-token
         # NOTE: Upgrade v3 due to gh node20 deprecation
         # at time of writing there's only "v3.0.0-beta.2"
@@ -57,14 +129,10 @@ jobs:
       - name: Build Storybook
         run: yarn storybook:build
 
-      - name: Pull Vercel Environment Information
-        run: |
-          vercel pull \
-            --yes \
-            --environment=preview \
-            --token=${{ secrets.VERCEL_TOKEN }}
-
       - name: Create Vercel Build Output
+        # Hand-built Build Output API v3 static output, so there is no
+        # `vercel pull` / `vercel build` step to feed - project targeting comes
+        # from VERCEL_ORG_ID + VERCEL_PROJECT_ID alone.
         run: |
           mkdir -p .vercel/output/static
           cp -r ${{ env.STORYBOOK_BUILD_DIR }}/* .vercel/output/static/
@@ -74,19 +142,20 @@ jobs:
           }
           EOF
 
-      - name: Deploy to Vercel (Preview)
-        if: github.event_name == 'pull_request'
+      - name: Deploy to Vercel (preview)
+        if: steps.channels.outputs.deploy_preview == 'true'
         id: deploy
         run: |
           DEPLOYMENT_URL=$(vercel deploy \
             --prebuilt \
             --yes \
-            --token=${{ secrets.VERCEL_TOKEN }})
-          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+            --token="$VERCEL_TOKEN")
+          echo "url=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
           echo "Preview deployed to: $DEPLOYMENT_URL"
+          echo "✅ **Preview** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Comment PR with Preview URL
-        if: github.event_name == 'pull_request'
+        if: steps.channels.outputs.deploy_preview == 'true'
         uses: mshick/add-pr-comment@v2
         with:
           message: |
@@ -99,23 +168,43 @@ jobs:
           repo-token: ${{ steps.gh-workflow-token.outputs.token }}
           refresh-message-position: true
 
-      - name: Deploy to Vercel (Production)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Deploy to Vercel (canary channel)
+        if: steps.channels.outputs.deploy_canary == 'true'
+        env:
+          # Separate Vercel project, no git connection, CLI deploys only.
+          # Overrides the workflow-level release project id for this step.
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_CANARY }}
         run: |
-          COMMIT_MSG=$(git log -1 --format=%s)
-
-          if OUTPUT=$(.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
-            VERSION=$(echo "$OUTPUT" | awk '{print $1}')
-            RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
-            echo "Detected release commit for version $VERSION ($RELEASE_TYPE) will deploy..."
-          else
-            echo "Skip! Commit message does not match release format"
-            exit 0
+          if [[ -z "$VERCEL_PROJECT_ID" ]]; then
+            {
+              echo "> [!CAUTION]"
+              echo "> **The canary channel is not configured.** The repo secret"
+              echo "> \`VERCEL_PROJECT_ID_CANARY\` is empty, so there is nowhere to deploy."
+              echo ">"
+              echo "> Fix: create a Vercel project for the canary channel (same team, **no git"
+              echo "> connection**), then add its project ID as \`VERCEL_PROJECT_ID_CANARY\` under"
+              echo "> Settings → Secrets and variables → Actions."
+              echo ""
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::VERCEL_PROJECT_ID_CANARY is not set, cannot deploy the canary channel"
+            exit 1
           fi
 
           DEPLOYMENT_URL=$(vercel deploy \
             --prebuilt \
             --yes \
             --prod \
-            --token=${{ secrets.VERCEL_TOKEN }})
-          echo "Deployed v$VERSION ($RELEASE_TYPE) to $DEPLOYMENT_URL"
+            --token="$VERCEL_TOKEN")
+          echo "Canary deployed to: $DEPLOYMENT_URL"
+          echo "✅ **Canary channel** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Deploy to Vercel (release channel)
+        if: steps.channels.outputs.deploy_release == 'true'
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy \
+            --prebuilt \
+            --yes \
+            --prod \
+            --token="$VERCEL_TOKEN")
+          echo "Release channel deployed to: $DEPLOYMENT_URL"
+          echo "✅ **Release channel** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"

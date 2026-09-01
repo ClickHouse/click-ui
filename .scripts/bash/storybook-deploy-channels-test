@@ -1,0 +1,100 @@
+#!/bin/bash
+#
+# Pins the Storybook deploy decision table: event x ref x commit message -> channel.
+# Usage: storybook-deploy-channels-test
+# Returns: 0 if every case matches, 1 otherwise.
+#
+# This exists because the release channel silently stopped deploying for 3.5
+# months and every workflow run stayed green. If you change the decision
+# script, change this table in the same commit and say why.
+
+set -uo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DECIDE="$SCRIPT_DIR/storybook-deploy-channels"
+
+RELEASE_COMMIT='chore: 🤖 release v0.6.0 (latest) (#1031)'
+LEGACY_BUMP_COMMIT='bump version to v0.10.0'
+
+PASS=0
+FAIL=0
+
+# expect <description> <expected preview/canary/release> -- <args to decide script>
+expect() {
+  local description="$1"
+  local expected="$2"
+  shift 3 # description, expected, "--"
+
+  local output
+  output=$("$DECIDE" "$@" 2>&1)
+  local actual
+  actual="$(echo "$output" | grep '^deploy_preview=' | cut -d= -f2)/"
+  actual+="$(echo "$output" | grep '^deploy_canary=' | cut -d= -f2)/"
+  actual+="$(echo "$output" | grep '^deploy_release=' | cut -d= -f2)"
+
+  if [[ "$actual" == "$expected" ]]; then
+    echo "  ✅ $description -> $actual"
+    PASS=$((PASS + 1))
+  else
+    echo "  ❌ $description"
+    echo "     expected preview/canary/release = $expected"
+    echo "     actual   preview/canary/release = $actual"
+    FAIL=$((FAIL + 1))
+  fi
+
+  # Every case must explain itself; a blank reason means a silent skip.
+  local channel
+  for channel in preview canary release; do
+    if [[ -z "$(echo "$output" | grep "^reason_$channel=" | cut -d= -f2-)" ]]; then
+      echo "  ❌ $description: reason_$channel is empty"
+      FAIL=$((FAIL + 1))
+    fi
+  done
+}
+
+echo "Storybook deploy decision table"
+echo ""
+echo "pull_request:"
+expect "PR from a branch"                      "true/false/false" -- pull_request refs/pull/1/merge "feat: whatever"        "" ""
+
+echo ""
+echo "push:"
+expect "merge to main, ordinary commit"        "false/true/false" -- push refs/heads/main "$LEGACY_BUMP_COMMIT"             "" ""
+expect "merge to main, changesets release"     "false/true/true"  -- push refs/heads/main "$RELEASE_COMMIT"                 "" ""
+expect "push to a feature branch"              "false/false/false" -- push refs/heads/feature/x "$RELEASE_COMMIT"          "" ""
+
+echo ""
+echo "release:"
+expect "release published, full release"       "false/false/true"  -- release refs/tags/v0.10.0 "" "false" ""
+expect "release published, prerelease (rc)"    "false/false/false" -- release refs/tags/v0.10.0-rc1 "" "true" ""
+
+echo ""
+echo "workflow_dispatch:"
+expect "dispatch, deploy_production=false"     "false/false/false" -- workflow_dispatch refs/heads/main "" "" "false"
+expect "dispatch, deploy_production=true"      "false/false/true"  -- workflow_dispatch refs/heads/main "" "" "true"
+
+echo ""
+echo "gate replay (the commit messages that caused the bug):"
+if ! "$SCRIPT_DIR/verify-release-commit" "$LEGACY_BUMP_COMMIT" >/dev/null 2>&1; then
+  echo "  ✅ '$LEGACY_BUMP_COMMIT' is rejected by verify-release-commit"
+  PASS=$((PASS + 1))
+else
+  echo "  ❌ '$LEGACY_BUMP_COMMIT' should be rejected by verify-release-commit"
+  FAIL=$((FAIL + 1))
+fi
+if "$SCRIPT_DIR/verify-release-commit" "$RELEASE_COMMIT" >/dev/null 2>&1; then
+  echo "  ✅ '$RELEASE_COMMIT' is accepted by verify-release-commit"
+  PASS=$((PASS + 1))
+else
+  echo "  ❌ '$RELEASE_COMMIT' should be accepted by verify-release-commit"
+  FAIL=$((FAIL + 1))
+fi
+
+echo ""
+if [[ $FAIL -gt 0 ]]; then
+  echo "👹 $FAIL check(s) failed, $PASS passed"
+  exit 1
+fi
+
+echo "🎉 All $PASS checks passed"
+exit 0

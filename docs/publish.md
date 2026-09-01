@@ -10,3 +10,4 @@
 5. Publish the release. ![Release](./images/publish3.png)
 6. Wait until the [GitHub Actions](https://github.com/ClickHouse/click-ui/actions) complete.
 7. Verify that the new version is published on [npm](https://www.npmjs.com/package/@clickhouse/click-ui).
+8. Publishing the release also deploys the release channel of Storybook, unless you marked the release as a prerelease. See [Storybook deploy channels](./storybook-deploy-channels.md).

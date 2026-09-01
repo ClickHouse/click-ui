@@ -1,0 +1,106 @@
+#!/bin/bash
+#
+# Decide which Storybook channels a workflow run should deploy to.
+#
+# Usage:
+#   storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>
+#
+# Channels:
+#   preview - throwaway per-PR deployment on the release Vercel project
+#   canary  - production URL of the CANARY Vercel project; every merge to main
+#   release - production URL of the RELEASE Vercel project; released code only
+#
+# Emits key=value lines on stdout, ready to append to $GITHUB_OUTPUT:
+#   deploy_preview / deploy_canary / deploy_release  -> true | false
+#   reason_preview / reason_canary / reason_release  -> single-line explanation
+#
+# Every decision carries a reason so a skipped deploy is never silent. A
+# regex-gated production deploy silently skipped every release for 3.5 months
+# because the skip path just exited 0.
+
+set -uo pipefail
+
+if [[ $# -lt 5 ]]; then
+  echo "👹 Oops! Usage: storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>" >&2
+  exit 1
+fi
+
+EVENT_NAME="$1"
+REF="$2"
+COMMIT_MSG="$3"
+PRERELEASE="$4"
+DEPLOY_PRODUCTION="$5"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+deploy_preview=false
+deploy_canary=false
+deploy_release=false
+
+# ---------------------------------------------------------------- preview ----
+if [[ "$EVENT_NAME" == "pull_request" ]]; then
+  deploy_preview=true
+  reason_preview="pull_request event: deploying a preview URL."
+else
+  reason_preview="Not a pull_request event (got '$EVENT_NAME'); no preview deploy."
+fi
+
+# ----------------------------------------------------------------- canary ----
+# Unconditional on merges to main. No commit-message gate: that gate is what
+# broke the release channel, and canary exists precisely so that every merge
+# lands somewhere visible.
+if [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]]; then
+  deploy_canary=true
+  reason_canary="push to main: deploying the canary channel."
+else
+  reason_canary="Not a push to main (event '$EVENT_NAME', ref '$REF'); canary untouched."
+fi
+
+# ---------------------------------------------------------------- release ----
+case "$EVENT_NAME" in
+  release)
+    # Primary path today: releases are published by hand from GitHub.
+    # Prereleases are excluded on purpose - manual rc releases are marked
+    # prerelease=true and their content must not overwrite stable Storybook.
+    if [[ "$PRERELEASE" == "true" ]]; then
+      reason_release="release event but the release is marked as a prerelease; stable Storybook left untouched."
+    else
+      deploy_release=true
+      reason_release="release event (not a prerelease): deploying the release channel from the release tag."
+    fi
+    ;;
+  push)
+    if [[ "$REF" != "refs/heads/main" ]]; then
+      reason_release="Push to '$REF' rather than main; release channel untouched."
+    # Keeps the changesets chain working: a bot-token release emits no
+    # release: event, so its squash-merge commit message is the only signal.
+    elif VERIFY_OUTPUT=$("$SCRIPT_DIR/verify-release-commit" "$COMMIT_MSG" 2>&1); then
+      deploy_release=true
+      VERSION=$(echo "$VERIFY_OUTPUT" | awk '{print $1}')
+      RELEASE_TYPE=$(echo "$VERIFY_OUTPUT" | awk '{print $2}')
+      reason_release="push to main with a release commit for v$VERSION ($RELEASE_TYPE): deploying the release channel."
+    else
+      reason_release="Push to main is not a release commit ($(echo "$VERIFY_OUTPUT" | tr '\n' ' ' | sed 's/ *$//')); release channel untouched. Publishing a GitHub Release is what deploys it."
+    fi
+    ;;
+  workflow_dispatch)
+    if [[ "$DEPLOY_PRODUCTION" == "true" ]]; then
+      deploy_release=true
+      reason_release="workflow_dispatch with deploy_production=true: deploying the release channel."
+    else
+      reason_release="workflow_dispatch with deploy_production=false: build only, nothing deployed. Re-run with deploy_production=true to deploy."
+    fi
+    ;;
+  *)
+    reason_release="Event '$EVENT_NAME' never deploys the release channel."
+    ;;
+esac
+
+echo "deploy_preview=$deploy_preview"
+echo "deploy_canary=$deploy_canary"
+echo "deploy_release=$deploy_release"
+echo "reason_preview=$reason_preview"
+echo "reason_canary=$reason_canary"
+echo "reason_release=$reason_release"
+
+exit 0
