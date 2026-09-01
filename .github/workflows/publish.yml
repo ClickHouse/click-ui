@@ -23,6 +23,8 @@ env:
 
 jobs:
   build:
+    # TEMP: safeguard for testing, can be removed after all release flows validated
+    if: ${{ !contains(github.event.release.tag_name, 'storybook-test') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write      # For git push and tagging

@@ -1,43 +1,100 @@
 name: Publish storybook to vercel
 
+# NOTE: see .scripts/bash/storybook-deploy-channels for extra info
+
 on:
   push:
     branches:
       - main
   pull_request:
+  release:
+    types: [published]
   workflow_dispatch:
+    inputs:
+      deploy_production:
+        description: 'Deploy the release channel (production). Leave off for a build-only dry run.'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
   pull-requests: write
 
+# One group per PR (stale preview builds cancel); everything else shares one
+# group - Vercel's production alias goes to whichever deploy finishes last.
+concurrency:
+  group: storybook-vercel-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'release' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   HUSKY: 0
   STORYBOOK_BUILD_DIR: .storybook/out
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
   deploy:
-    # Fork PRs can't access repo secrets (VERCEL_TOKEN + GitHub App), so we skip
-    # the Storybook preview deploy for forks; fork contributors get a hosted
-    # Storybook via Chromatic instead.
+    # Fork PRs have no repo secrets: skip the preview deploy - forks get a
+    # hosted Storybook via Chromatic instead.
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
+      # ======================================================================
+      # DECIDE - which channels does this run deploy, and why
+      # ======================================================================
+
       - name: Checkout
+        # On release events this lands on the release tag.
         uses: actions/checkout@v6
 
-      - name: Generate GitHub workflow token
-        id: gh-workflow-token
-        # NOTE: Upgrade v3 due to gh node20 deprecation
-        # at time of writing there's only "v3.0.0-beta.2"
-        # see https://github.com/actions/create-github-app-token/releases
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
-          private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
+      - name: Decide deploy channels
+        id: channels
+        # shell: bash enables pipefail; the implicit default shell does not,
+        # and `tee` would then mask a script failure. Releases on tags that
+        # predate this script fail here - deploy those via workflow_dispatch.
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          IS_PRERELEASE: ${{ github.event.release.prerelease }}
+          DEPLOY_PRODUCTION: ${{ inputs.deploy_production }}
+        run: |
+          COMMIT_MSG=$(git log -1 --format=%s)
+          .scripts/bash/storybook-deploy-channels \
+            "$EVENT_NAME" \
+            "$REF" \
+            "$COMMIT_MSG" \
+            "$IS_PRERELEASE" \
+            "$DEPLOY_PRODUCTION" \
+            | tee -a "$GITHUB_OUTPUT"
+
+      - name: Report deploy decisions
+        # Written before the build so the reasoning survives a build failure.
+        env:
+          SITUATION: ${{ steps.channels.outputs.situation }}
+          DESCRIPTION: ${{ steps.channels.outputs.description }}
+          CHANNELS: ${{ steps.channels.outputs.channels }}
+          DEPLOY_PREVIEW: ${{ steps.channels.outputs.deploy_preview }}
+          DEPLOY_RELEASE: ${{ steps.channels.outputs.deploy_release }}
+        run: |
+          icon() { [[ "$1" == "true" ]] && echo "✅ yes" || echo "⏭️ no"; }
+
+          {
+            echo "## Storybook deploy channels"
+            echo ""
+            echo "**Situation:** \`$SITUATION\` → deploying **$CHANNELS**"
+            echo ""
+            echo "$DESCRIPTION"
+            echo ""
+            echo "| Channel | Deploying |"
+            echo "| --- | --- |"
+            echo "| Preview | $(icon "$DEPLOY_PREVIEW") |"
+            echo "| Release | $(icon "$DEPLOY_RELEASE") |"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ======================================================================
+      # BUILD - produce .vercel/output, identical for every channel
+      # ======================================================================
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -51,71 +108,83 @@ jobs:
         run: yarn install --immutable
 
       - name: Install Vercel CLI
-        # NOTE: Pinned to avoid broken @vercel/hono@0.2.67 dep in newer versions can revisit when Vercel publishes a fix
+        # Pinned: newer versions pull a broken @vercel/hono dep
         run: npm install --global vercel@41.7.3
 
       - name: Build Storybook
         run: yarn storybook:build
 
-      - name: Pull Vercel Environment Information
-        run: |
-          vercel pull \
-            --yes \
-            --environment=preview \
-            --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Create Vercel Build Output
+      - name: Package Storybook for Vercel
+        # Static Build Output API v3, hand-built: no `vercel pull` / `vercel build`
+        # needed. Project targeting comes from VERCEL_ORG_ID + VERCEL_PROJECT_ID.
         run: |
           mkdir -p .vercel/output/static
-          cp -r ${{ env.STORYBOOK_BUILD_DIR }}/* .vercel/output/static/
+          cp -r "$STORYBOOK_BUILD_DIR"/* .vercel/output/static/
           cat > .vercel/output/config.json << EOF
           {
             "version": 3
           }
           EOF
 
-      - name: Deploy to Vercel (Preview)
-        if: github.event_name == 'pull_request'
-        id: deploy
+      # ======================================================================
+      # DEPLOY - one step per channel. --prod is the only difference between
+      # a preview deployment and a production one.
+      # ======================================================================
+
+      - name: Deploy preview
+        if: steps.channels.outputs.deploy_preview == 'true'
+        id: preview
+        # Step-scoped on purpose: workflow-level env would expose the token
+        # to install scripts and third-party actions.
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           DEPLOYMENT_URL=$(vercel deploy \
             --prebuilt \
             --yes \
-            --token=${{ secrets.VERCEL_TOKEN }})
-          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+            --token="$VERCEL_TOKEN")
+          echo "url=$DEPLOYMENT_URL" >> "$GITHUB_OUTPUT"
           echo "Preview deployed to: $DEPLOYMENT_URL"
+          echo "✅ **Preview** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Comment PR with Preview URL
-        if: github.event_name == 'pull_request'
+      - name: Generate GitHub workflow token
+        # Only used to post the preview-URL PR comment below.
+        if: steps.channels.outputs.deploy_preview == 'true'
+        id: gh-workflow-token
+        # TODO: bump to v3 once it leaves beta (gh node20 deprecation)
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
+          private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
+
+      - name: Comment PR with preview URL
+        if: steps.channels.outputs.deploy_preview == 'true'
         uses: mshick/add-pr-comment@v2
         with:
           message: |
             ## Storybook Preview Deployed
 
-            ✅ Preview URL: ${{ steps.deploy.outputs.url }}
+            ✅ Preview URL: ${{ steps.preview.outputs.url }}
 
             Built from commit: `${{ github.sha }}`
           message-id: storybook-preview
           repo-token: ${{ steps.gh-workflow-token.outputs.token }}
           refresh-message-position: true
 
-      - name: Deploy to Vercel (Production)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Deploy release channel
+        if: steps.channels.outputs.deploy_release == 'true'
+        # Step-scoped credentials - see "Deploy preview".
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          COMMIT_MSG=$(git log -1 --format=%s)
-
-          if OUTPUT=$(.scripts/bash/verify-release-commit "$COMMIT_MSG"); then
-            VERSION=$(echo "$OUTPUT" | awk '{print $1}')
-            RELEASE_TYPE=$(echo "$OUTPUT" | awk '{print $2}')
-            echo "Detected release commit for version $VERSION ($RELEASE_TYPE) will deploy..."
-          else
-            echo "Skip! Commit message does not match release format"
-            exit 0
-          fi
-
           DEPLOYMENT_URL=$(vercel deploy \
             --prebuilt \
             --yes \
             --prod \
-            --token=${{ secrets.VERCEL_TOKEN }})
-          echo "Deployed v$VERSION ($RELEASE_TYPE) to $DEPLOYMENT_URL"
+            --token="$VERCEL_TOKEN")
+          echo "Release channel deployed to: $DEPLOYMENT_URL"
+          echo "✅ **Release channel** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"
