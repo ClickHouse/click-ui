@@ -20,7 +20,7 @@ if command -v yarn &> /dev/null; then
     --ignorePattern="$IGNORE_PATTERNS" \
     --exitCodeOnCircularDependencies=1 < /dev/null > "$TEMP_OUTPUT" 2>&1 || true
 else
-  echo "👹 Oops! The package skott is missing, have you installed the project dependencies?"
+  echo "❌ Error: The package skott is missing, have you installed the project dependencies?"
 
   exit 1
 fi
@@ -38,7 +38,7 @@ elif grep -q "✓.*no circular dependencies found" "$TEMP_OUTPUT"; then
 
   exit 0
 else
-  echo "⚠️  Warning: Could not determine circular dependency status from skott output"
+  echo "⚠️ Warning: Could not determine circular dependency status from skott output"
   cat "$TEMP_OUTPUT"
 
   exit 1

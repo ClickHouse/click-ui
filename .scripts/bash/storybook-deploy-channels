@@ -21,7 +21,7 @@
 set -uo pipefail
 
 if [[ $# -lt 5 ]]; then
-  echo "👹 Oops! Usage: storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>" >&2
+  echo "❌ Error: Usage: storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>" >&2
   exit 1
 fi
 
@@ -138,7 +138,7 @@ case "$SITUATION" in
     ;;
 
   *)
-    echo "👹 Oops! Situation '$SITUATION' has no row in the deploy table" >&2
+    echo "❌ Error: Situation '$SITUATION' has no row in the deploy table" >&2
     exit 1
     ;;
 esac
