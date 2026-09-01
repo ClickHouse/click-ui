@@ -11,6 +11,7 @@ import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
+import type { IconWrapperProps } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
@@ -42,6 +43,8 @@ interface SubDropdownProps {
   sub?: true;
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  /** Props for the tooltip shown when the label is truncated */
+  tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
 interface MainDropdownProps {
@@ -58,7 +61,8 @@ const DropdownTrigger = ({
   ...props
 }: DropdownSubTriggerProps | DropdownTriggerProps) => {
   if (sub) {
-    const { icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
+    const { icon, iconDir, tooltipProps, ...menuProps } =
+      props as DropdownSubTriggerProps;
     return (
       <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
@@ -67,6 +71,7 @@ const DropdownTrigger = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
+          tooltipProps={tooltipProps}
         >
           {children}
         </IconWrapper>
@@ -202,6 +207,8 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
   type?: 'default' | 'danger';
+  /** Props for the tooltip shown when the label is truncated */
+  tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
 export type { DropdownItemProps };
@@ -210,6 +217,7 @@ const DropdownItem = ({
   icon,
   iconDir,
   type = 'default',
+  tooltipProps,
   children,
   ...props
 }: DropdownItemProps) => {
@@ -222,6 +230,7 @@ const DropdownItem = ({
       <IconWrapper
         icon={icon}
         iconDir={iconDir}
+        tooltipProps={tooltipProps}
       >
         {children}
       </IconWrapper>
