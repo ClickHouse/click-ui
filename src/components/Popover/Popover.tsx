@@ -102,9 +102,19 @@ const PopoverContent = ({
         showClose={showClose}
         showArrow={showArrow}
         sideOffset={4}
-        onOpenAutoFocus={e => e.preventDefault()}
         {...props}
       >
+        {showArrow && (
+          <Arrow
+            asChild
+            as={RadixPopover.Arrow}
+            width={20}
+            height={10}
+          >
+            <Popover_Arrow />
+          </Arrow>
+        )}
+        {children}
         {showClose && (
           <RadixPopover.Close
             asChild
@@ -118,17 +128,6 @@ const PopoverContent = ({
             />
           </RadixPopover.Close>
         )}
-        {showArrow && (
-          <Arrow
-            asChild
-            as={RadixPopover.Arrow}
-            width={20}
-            height={10}
-          >
-            <Popover_Arrow />
-          </Arrow>
-        )}
-        {children}
       </MenuPanel>
     </RadixPopover.Portal>
   );
