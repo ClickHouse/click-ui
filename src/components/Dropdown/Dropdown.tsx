@@ -43,7 +43,10 @@ interface SubDropdownProps {
   sub?: true;
   icon?: IconName;
   iconDir?: HorizontalDirection;
-  /** Props for the tooltip shown when the label is truncated */
+  /**
+   * Positions the tooltip shown when the label is truncated. Defaults to
+   * `side: 'right'` so the tooltip does not cover the items above it.
+   */
   tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
@@ -71,7 +74,7 @@ const DropdownTrigger = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
-          tooltipProps={tooltipProps}
+          tooltipProps={{ side: 'right', ...tooltipProps }}
         >
           {children}
         </IconWrapper>
@@ -207,7 +210,10 @@ interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
   iconDir?: HorizontalDirection;
   /** The type of the menu item */
   type?: 'default' | 'danger';
-  /** Props for the tooltip shown when the label is truncated */
+  /**
+   * Positions the tooltip shown when the label is truncated. Defaults to
+   * `side: 'right'` so the tooltip does not cover the items above it.
+   */
   tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
@@ -230,7 +236,7 @@ const DropdownItem = ({
       <IconWrapper
         icon={icon}
         iconDir={iconDir}
-        tooltipProps={tooltipProps}
+        tooltipProps={{ side: 'right', ...tooltipProps }}
       >
         {children}
       </IconWrapper>
