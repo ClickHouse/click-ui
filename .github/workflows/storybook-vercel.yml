@@ -21,10 +21,12 @@ permissions:
   contents: read
   pull-requests: write
 
-# One group per PR (stale preview builds cancel); everything else shares one
-# group - Vercel's production alias goes to whichever deploy finishes last.
+# One group per PR (stale preview builds cancel). Non-PR runs group by sha:
+# GitHub keeps only one pending run per group, so a shared group would let an
+# ordinary main push evict a queued release deploy. Prod-deploying runs are
+# rare pre-canary; revisit serialization when canary lands.
 concurrency:
-  group: storybook-vercel-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'release' }}
+  group: storybook-vercel-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.sha }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:

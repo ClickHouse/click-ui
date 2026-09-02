@@ -33,6 +33,12 @@ DEPLOY_PRODUCTION="$5"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+VERIFIER="$SCRIPT_DIR/verify-release-commit"
+if [[ ! -x "$VERIFIER" ]]; then
+  echo "❌ Error: $VERIFIER is missing or not executable" >&2
+  exit 1
+fi
+
 # ============================================================================
 # 1. CLASSIFY
 #
@@ -53,13 +59,14 @@ elif [[ "$EVENT_NAME" == "release" ]]; then
   SITUATION="release-published"
 
 elif [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]] &&
-  VERIFY_OUTPUT=$("$SCRIPT_DIR/verify-release-commit" "$COMMIT_MSG" 2>&1); then
+  VERIFY_OUTPUT=$("$VERIFIER" "$COMMIT_MSG" 2>&1); then
   RELEASE_VERSION=$(echo "$VERIFY_OUTPUT" | awk '{print $1}')
   RELEASE_TYPE=$(echo "$VERIFY_OUTPUT" | awk '{print $2}')
-  if [[ "$RELEASE_TYPE" == "rc" || "$RELEASE_TYPE" == "test" ]]; then
-    SITUATION="prerelease-commit-on-main"
-  else
+  # Allowlist: only known-stable types reach prod; a new type fails closed.
+  if [[ "$RELEASE_TYPE" == "latest" || "$RELEASE_TYPE" == "stable" ]]; then
     SITUATION="release-commit-on-main"
+  else
+    SITUATION="prerelease-commit-on-main"
   fi
 
 elif [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]]; then
@@ -109,7 +116,7 @@ case "$SITUATION" in
 
   prerelease-commit-on-main)
     CHANNELS=""
-    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main, but rc/test content must not overwrite the stable Storybook, so nothing is deployed. The prerelease still publishes to npm."
+    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main, but only latest/stable releases update the stable Storybook, so nothing is deployed. The release still publishes to npm."
     ;;
 
   merge-to-main)
