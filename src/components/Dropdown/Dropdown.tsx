@@ -40,8 +40,14 @@ const _DropdownMenuItem = <T extends ElementType = 'div'>(
 
 const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(_DropdownMenuItem);
 
-interface SubDropdownProps {
+// `sub` alone discriminates the two shapes of Trigger and Content. The label
+// fields live separately so only the sub-trigger accepts them — Content spreads
+// what it does not read straight onto the Radix element, i.e. into the DOM.
+interface SubDiscriminant {
   sub?: true;
+}
+
+interface SubTriggerFields {
   icon?: IconName;
   iconDir?: HorizontalDirection;
   /**
@@ -56,7 +62,8 @@ interface MainDropdownProps {
 }
 
 type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
-  SubDropdownProps;
+  SubDiscriminant &
+  SubTriggerFields;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
 const DropdownTrigger = ({
@@ -111,7 +118,7 @@ interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubCont
   responsivePositioning?: boolean;
 }
 
-type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownContentProps = StyledDropdownContentProps & SubDiscriminant & ArrowProps;
 type DropdownSubContentProps = StyledDropdownSubContentProps &
   MainDropdownProps &
   ArrowProps;

@@ -161,6 +161,12 @@ describe('GenericMenu cluster Visual Regression', () => {
     it('lets the item override the default side', async ({ page }) => {
       await expect(await hoverItem(page, 2)).toHaveAttribute('data-side', 'bottom');
     });
+
+    it('defaults the sub-trigger tooltip to the right as well', async ({ page }) => {
+      // Dropdown.Trigger sub is its own branch, and the submenu it opens on hover
+      // reports data-state="open", so it never matches the tooltip selector.
+      await expect(await hoverItem(page, 3)).toHaveAttribute('data-side', 'right');
+    });
   });
 
   describe('Popover content extension', () => {

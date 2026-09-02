@@ -221,7 +221,8 @@ export const TriggerStandalone: Story = {
 
 // A menu whose item labels are too long for the panel. The first two items take the
 // default truncation tooltip, which opens to the right so it does not cover the items
-// above the hovered one; the third overrides it.
+// above the hovered one; the third overrides it. The sub-trigger takes the same
+// default through its own branch of Dropdown.Trigger.
 export const TruncatedItems: Story = {
   render: () => (
     <div
@@ -245,6 +246,14 @@ export const TruncatedItems: Story = {
           <Dropdown.Item tooltipProps={{ side: 'bottom' }}>
             A third label, too long again, opting out of the default
           </Dropdown.Item>
+          <Dropdown.Sub>
+            <Dropdown.Trigger sub>
+              A sub menu trigger label far too long for this panel
+            </Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
         </Dropdown.Content>
       </Dropdown>
     </div>
