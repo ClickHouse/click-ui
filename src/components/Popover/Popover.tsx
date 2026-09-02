@@ -104,16 +104,6 @@ const PopoverContent = ({
         sideOffset={4}
         {...props}
       >
-        {showClose && (
-          <RadixPopover.Close asChild>
-            <IconButton
-              className={styles['close-button']}
-              icon="cross"
-              type="ghost"
-              aria-label="Close"
-            />
-          </RadixPopover.Close>
-        )}
         {showArrow && (
           <Arrow
             asChild
@@ -125,6 +115,17 @@ const PopoverContent = ({
           </Arrow>
         )}
         {children}
+        {/* Rendered last so it takes focus after the panel's interactive elements */}
+        {showClose && (
+          <RadixPopover.Close asChild>
+            <IconButton
+              className={styles['close-button']}
+              icon="cross"
+              type="ghost"
+              aria-label="Close"
+            />
+          </RadixPopover.Close>
+        )}
       </MenuPanel>
     </RadixPopover.Portal>
   );
