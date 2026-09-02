@@ -16,6 +16,7 @@ import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
@@ -97,10 +98,6 @@ const DropdownTrigger = ({
 
 DropdownTrigger.displayName = 'DropdownTrigger';
 Dropdown.Trigger = DropdownTrigger;
-
-export type ArrowProps = {
-  showArrow?: boolean;
-};
 
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
@@ -202,22 +199,6 @@ const DropdownSub = (props: DropdownMenu.DropdownMenuGroupProps) => {
 
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
-
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
-  /** Icon to display in the menu item */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The type of the menu item */
-  type?: 'default' | 'danger';
-  /**
-   * Positions the tooltip shown when the label is truncated. Defaults to
-   * `side: 'right'` so the tooltip does not cover the items above it.
-   */
-  tooltipProps?: IconWrapperProps['tooltipProps'];
-}
-
-export type { DropdownItemProps };
 
 const DropdownItem = ({
   icon,

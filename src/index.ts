@@ -126,6 +126,7 @@ export type {
 
 // Dropdown
 export { Dropdown } from './components/Dropdown';
+export type { DropdownItemProps } from './components/Dropdown';
 
 // Ellipsis Content
 export { EllipsisContent } from './components/EllipsisContent';
