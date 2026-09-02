@@ -12,7 +12,7 @@ export interface IconWrapperProps extends HTMLAttributes<HTMLDivElement> {
   height?: number | string;
   children: ReactNode;
   ellipsisContent?: boolean;
-  /** Props for the truncation tooltip. Ignored when `ellipsisContent` is `false`. */
+  /** Positions the truncation tooltip. Ignored when `ellipsisContent` is `false`. */
   tooltipProps?: EllipsisContentProps['tooltipProps'];
   gap?: GapOptions;
   isResponsive?: boolean;

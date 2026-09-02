@@ -12,4 +12,4 @@
 <Dropdown.Item tooltipProps={{ side: 'right' }}>{organization.name}</Dropdown.Item>
 ```
 
-`tooltipProps` takes any `Tooltip.Content` prop (`side`, `align`, `sideOffset`, `maxWidth`, `showArrow`, …). `TooltipContentProps` and `EllipsisContentProps` are now exported for typing wrappers around it. Omitting `tooltipProps` keeps today's behavior.
+`tooltipProps` is positioning only — `side`, `align` and `sideOffset`. `TooltipContentProps` and `EllipsisContentProps` are now exported for typing wrappers around it. Omitting `tooltipProps` keeps today's behavior.
