@@ -105,16 +105,12 @@ const PopoverContent = ({
         {...props}
       >
         {showClose && (
-          <RadixPopover.Close
-            asChild
-            className={styles['close-button']}
-            tabIndex={-1}
-          >
+          <RadixPopover.Close asChild>
             <IconButton
+              className={styles['close-button']}
               icon="cross"
               type="ghost"
               aria-label="Close"
-              iconSize="md"
             />
           </RadixPopover.Close>
         )}

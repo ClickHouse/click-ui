@@ -24,14 +24,8 @@
 }
 
 .menu-panel .close-button {
-  display: flex;
   position: absolute;
   top: var(--click-popover-space-y);
   right: var(--click-popover-space-x);
-  width: var(--click-popover-icon-size-width);
-  height: var(--click-popover-icon-size-height);
   padding: 0;
-  justify-content: center;
-  align-items: center;
-  border: 0;
 }

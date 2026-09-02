@@ -27,16 +27,7 @@ const iconButtonVariants = cva(styles.iconbutton, {
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   (
-    {
-      type = 'primary',
-      htmlType = 'button',
-      icon,
-      size,
-      iconSize = 'sm',
-      disabled,
-      className,
-      ...props
-    },
+    { type = 'primary', htmlType = 'button', icon, size, disabled, className, ...props },
     ref
   ) => {
     const iconName = icon ? icon.toString() : 'unknown icon';
@@ -53,7 +44,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       >
         <Icon
           name={icon}
-          size={iconSize}
+          size="sm"
         />
       </button>
     );
