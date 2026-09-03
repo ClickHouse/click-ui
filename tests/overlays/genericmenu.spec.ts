@@ -134,20 +134,38 @@ describe('GenericMenu cluster Visual Regression', () => {
   });
 
   describe('Dropdown item truncation tooltip', () => {
-    it('opens the item tooltip on the side given by tooltipProps', async ({ page }) => {
-      await page.goto(
-        getStoryUrl('display-dropdown--truncated-items-tooltip-on-right', 'light'),
-        { waitUntil: 'domcontentloaded' }
-      );
-      const item = page.getByRole('menuitem').first();
-      await expect(item).toBeVisible({ timeout: 10000 });
-      await item.hover();
-      // data-side is only on the portaled tooltip panel, never on the trigger.
-      const panel = page.locator(
+    // data-side is only on the portaled tooltip panel, never on the trigger.
+    const tooltipPanel = (page: import('@playwright/test').Page) =>
+      page.locator(
         '[data-side][data-state="instant-open"], [data-side][data-state="delayed-open"]'
       );
+
+    const hoverItem = async (page: import('@playwright/test').Page, index: number) => {
+      await page.goto(getStoryUrl('display-dropdown--truncated-items', 'light'), {
+        waitUntil: 'domcontentloaded',
+      });
+      const item = page.getByRole('menuitem').nth(index);
+      await expect(item).toBeVisible({ timeout: 10000 });
+      await item.hover();
+      const panel = tooltipPanel(page);
       await expect(panel).toBeVisible({ timeout: 10000 });
-      await expect(panel).toHaveAttribute('data-side', 'right');
+      return panel;
+    };
+
+    it('opens the item tooltip on the right by default', async ({ page }) => {
+      // No tooltipProps on the item: the default has to reach EllipsisContent
+      // through Dropdown.Item -> IconWrapper.
+      await expect(await hoverItem(page, 0)).toHaveAttribute('data-side', 'right');
+    });
+
+    it('lets the item override the default side', async ({ page }) => {
+      await expect(await hoverItem(page, 2)).toHaveAttribute('data-side', 'bottom');
+    });
+
+    it('defaults the sub-trigger tooltip to the right as well', async ({ page }) => {
+      // Dropdown.Trigger sub is its own branch, and the submenu it opens on hover
+      // reports data-state="open", so it never matches the tooltip selector.
+      await expect(await hoverItem(page, 3)).toHaveAttribute('data-side', 'right');
     });
   });
 

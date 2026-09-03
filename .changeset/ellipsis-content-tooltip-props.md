@@ -8,8 +8,8 @@
 
 ```tsx
 <EllipsisContent tooltipProps={{ side: 'right' }}>{organization.name}</EllipsisContent>
-
-<Dropdown.Item tooltipProps={{ side: 'right' }}>{organization.name}</Dropdown.Item>
 ```
 
-`tooltipProps` takes any `Tooltip.Content` prop (`side`, `align`, `sideOffset`, `maxWidth`, `showArrow`, …). `TooltipContentProps` and `EllipsisContentProps` are now exported for typing wrappers around it. Omitting `tooltipProps` keeps today's behavior.
+`tooltipProps` is positioning only — `side`, `align` and `sideOffset`. `TooltipContentProps` and `EllipsisContentProps` are now exported for typing wrappers around it. On `EllipsisContent` and `IconWrapper`, omitting it keeps today's behavior.
+
+`Dropdown.Item` and `Dropdown.Trigger sub` are the exception: they now default their truncation tooltip to `side: 'right'` rather than inheriting `side="top"`. A tooltip covering the item above the hovered one is wrong in any menu, so the good default belongs here instead of in every caller. Pass `tooltipProps` to override it. When the menu sits at the edge of the viewport, Radix's collision handling flips the tooltip to `left`, never back to `top`.

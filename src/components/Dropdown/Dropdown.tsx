@@ -16,6 +16,7 @@ import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
@@ -39,11 +40,20 @@ const _DropdownMenuItem = <T extends ElementType = 'div'>(
 
 const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(_DropdownMenuItem);
 
-interface SubDropdownProps {
+// `sub` alone discriminates the two shapes of Trigger and Content. The label
+// fields live separately so only the sub-trigger accepts them — Content spreads
+// what it does not read straight onto the Radix element, i.e. into the DOM.
+interface SubDiscriminant {
   sub?: true;
+}
+
+interface SubTriggerFields {
   icon?: IconName;
   iconDir?: HorizontalDirection;
-  /** Props for the tooltip shown when the label is truncated */
+  /**
+   * Positions the tooltip shown when the label is truncated. Defaults to
+   * `side: 'right'` so the tooltip does not cover the items above it.
+   */
   tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
@@ -52,7 +62,8 @@ interface MainDropdownProps {
 }
 
 type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
-  SubDropdownProps;
+  SubDiscriminant &
+  SubTriggerFields;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
 const DropdownTrigger = ({
@@ -71,7 +82,7 @@ const DropdownTrigger = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
-          tooltipProps={tooltipProps}
+          tooltipProps={{ side: 'right', ...tooltipProps }}
         >
           {children}
         </IconWrapper>
@@ -95,10 +106,6 @@ const DropdownTrigger = ({
 DropdownTrigger.displayName = 'DropdownTrigger';
 Dropdown.Trigger = DropdownTrigger;
 
-export type ArrowProps = {
-  showArrow?: boolean;
-};
-
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
   container?: HTMLElement | null;
@@ -111,7 +118,7 @@ interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubCont
   responsivePositioning?: boolean;
 }
 
-type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownContentProps = StyledDropdownContentProps & SubDiscriminant & ArrowProps;
 type DropdownSubContentProps = StyledDropdownSubContentProps &
   MainDropdownProps &
   ArrowProps;
@@ -200,19 +207,6 @@ const DropdownSub = (props: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
-  /** Icon to display in the menu item */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The type of the menu item */
-  type?: 'default' | 'danger';
-  /** Props for the tooltip shown when the label is truncated */
-  tooltipProps?: IconWrapperProps['tooltipProps'];
-}
-
-export type { DropdownItemProps };
-
 const DropdownItem = ({
   icon,
   iconDir,
@@ -230,7 +224,7 @@ const DropdownItem = ({
       <IconWrapper
         icon={icon}
         iconDir={iconDir}
-        tooltipProps={tooltipProps}
+        tooltipProps={{ side: 'right', ...tooltipProps }}
       >
         {children}
       </IconWrapper>
