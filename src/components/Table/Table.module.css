@@ -18,6 +18,13 @@
   width: 100%;
   overflow: visible;
   border-collapse: collapse;
+}
+
+.table__table_layout_auto {
+  table-layout: auto;
+}
+
+.table__table_layout_fixed {
   table-layout: fixed;
 }
 
