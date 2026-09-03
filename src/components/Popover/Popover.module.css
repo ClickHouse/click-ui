@@ -1,3 +1,5 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconButton) */
+
 .menu-panel {
   display: block;
   padding: var(--click-popover-space-y) var(--click-popover-space-x);
@@ -23,10 +25,9 @@
   cursor: pointer;
 }
 
-.close-button {
+.menu-panel .close-button {
+  /* Offset by the button's own padding so the cross sits at the panel inset */
   position: absolute;
-  top: var(--click-popover-space-y);
-  right: var(--click-popover-space-x);
-  width: var(--click-popover-icon-size-width);
-  height: var(--click-popover-icon-size-height);
+  top: calc(var(--click-popover-space-y) - var(--click-button-iconButton-sm-space-y));
+  right: calc(var(--click-popover-space-x) - var(--click-button-iconButton-sm-space-x));
 }
