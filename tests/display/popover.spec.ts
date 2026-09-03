@@ -7,10 +7,6 @@ import { getStoryUrl } from '../utils';
 
 const { describe, use } = it;
 
-// The popover close button is rendered via `<CloseButton as={RadixPopover.Close}>`
-// where CloseButton = styled(EmptyButton). The `as` prop bypasses EmptyButton's
-// own render, so this spec guards that the close button still renders correctly
-// after EmptyButton's CSS Modules migration.
 const contentLocator = '[data-radix-popper-content-wrapper]';
 
 // Popover has no open/close animation, but give the portal a beat to mount.
@@ -54,9 +50,7 @@ describe('Popover Visual Regression', () => {
       });
       const content = page.locator(contentLocator).first();
       await expect(content).toBeVisible({ timeout: 10000 });
-      // CloseButton renders `as={RadixPopover.Close}` with `asChild`, merging the
-      // close behavior onto the cross Icon (an svg), so there is no button role.
-      await expect(content.locator('svg').first()).toBeVisible();
+      await expect(content.getByRole('button', { name: 'Close' })).toBeVisible();
     });
   });
 
