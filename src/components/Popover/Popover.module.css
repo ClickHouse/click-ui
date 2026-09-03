@@ -27,5 +27,6 @@
   position: absolute;
   top: var(--click-popover-space-y);
   right: var(--click-popover-space-x);
+  /* Temporary override to match current Figma; revisit once it specifies a WCAG 2.5.8 target size */
   padding: 0;
 }
