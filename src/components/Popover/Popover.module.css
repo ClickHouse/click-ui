@@ -1,3 +1,5 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconButton) */
+
 .menu-panel {
   display: block;
   padding: var(--click-popover-space-y) var(--click-popover-space-x);
