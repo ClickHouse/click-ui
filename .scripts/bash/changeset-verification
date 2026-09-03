@@ -10,7 +10,7 @@ if [[ -n "$pendingChangesetList" ]]; then
 fi
 
 if ! echo "$pendingChangesetList" | grep -qE "$changesetArtifactsRegex"; then
-  echo "👹 Oops! Couldn't locate any changeset. Did you forget to include one?"
+  echo "❌ Error: Couldn't locate any changeset. Did you forget to include one?"
   echo "💡 Run the command yarn changeset:add"
 
   exit 1

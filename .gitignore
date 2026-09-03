@@ -25,3 +25,4 @@ playwright-report
 
 .install
 .vscode
+.claude-logs
