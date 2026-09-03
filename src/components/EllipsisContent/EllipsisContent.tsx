@@ -51,7 +51,7 @@ const EllipsisContentComponent = <T extends ElementType = 'div'>(
   }
 
   return (
-    <Tooltip>
+    <Tooltip disableHoverableContent>
       <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
       <Tooltip.Content {...tooltipProps}>{tooltipContent}</Tooltip.Content>
     </Tooltip>
