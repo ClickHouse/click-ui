@@ -122,6 +122,7 @@ const PopoverContent = ({
               className={styles['close-button']}
               icon="cross"
               type="ghost"
+              size="sm"
               aria-label="Close"
             />
           </RadixPopover.Close>

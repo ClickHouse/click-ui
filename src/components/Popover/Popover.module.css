@@ -24,9 +24,8 @@
 }
 
 .menu-panel .close-button {
+  /* Offset by the button's own padding so the cross sits at the panel inset */
   position: absolute;
-  top: var(--click-popover-space-y);
-  right: var(--click-popover-space-x);
-  /* Temporary override to match current Figma; revisit once it specifies a WCAG 2.5.8 target size */
-  padding: 0;
+  top: calc(var(--click-popover-space-y) - var(--click-button-iconButton-sm-space-y));
+  right: calc(var(--click-popover-space-x) - var(--click-button-iconButton-sm-space-x));
 }

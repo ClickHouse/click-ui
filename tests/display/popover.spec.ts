@@ -52,6 +52,17 @@ describe('Popover Visual Regression', () => {
       await expect(content).toBeVisible({ timeout: 10000 });
       await expect(content.getByRole('button', { name: 'Close' })).toBeVisible();
     });
+
+    it('gives the close button a WCAG 2.5.8 target size', async ({ page }) => {
+      await page.goto(getStoryUrl('display-popover--open-with-close', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const content = page.locator(contentLocator).first();
+      await expect(content).toBeVisible({ timeout: 10000 });
+      const box = await content.getByRole('button', { name: 'Close' }).boundingBox();
+      expect(box?.width).toBeGreaterThanOrEqual(24);
+      expect(box?.height).toBeGreaterThanOrEqual(24);
+    });
   });
 
   // The trigger styles (`width: fit-content`, `cursor: pointer`, and the
