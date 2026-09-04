@@ -1,6 +1,7 @@
 import { ProgressBar } from '@/components/ProgressBar';
 import type { ProgressBarProps } from '@/components/ProgressBar';
 import { fireEvent } from '@testing-library/react';
+import type { CSSProperties } from 'react';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Progress bar', () => {
@@ -27,6 +28,28 @@ describe('Progress bar', () => {
     const progressBar = queryAllByTestId('progressbar');
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).not.toContain('38%');
+  });
+
+  it('should preserve progress if a custom style is provided', () => {
+    const { getByTestId } = renderPopover({
+      type: 'default',
+      progress: 42,
+      style: { height: '20px' },
+    });
+    const progressBar = getByTestId('progressbar');
+
+    expect(progressBar).toHaveStyle({ height: '20px' });
+    expect(progressBar.style.getPropertyValue('--progress')).toBe('42%');
+  });
+
+  it('should allow overriding progress if a custom CSS variable is provided', () => {
+    const { getByTestId } = renderPopover({
+      type: 'default',
+      progress: 42,
+      style: { '--progress': '25%' } as CSSProperties,
+    });
+
+    expect(getByTestId('progressbar').style.getPropertyValue('--progress')).toBe('25%');
   });
 
   it('should show close Button if dismissable is true', () => {
