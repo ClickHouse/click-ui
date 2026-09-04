@@ -8,7 +8,7 @@ import {
   forwardRef,
 } from 'react';
 import { cn, cva } from '@/lib/cva';
-import { Icon } from '@/components/Icon';
+import { IconButton } from '@/components/IconButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import styles from './Popover.module.css';
@@ -104,14 +104,6 @@ const PopoverContent = ({
         sideOffset={4}
         {...props}
       >
-        {showClose && (
-          <RadixPopover.Close
-            asChild
-            className={styles['close-button']}
-          >
-            <Icon name="cross" />
-          </RadixPopover.Close>
-        )}
         {showArrow && (
           <Arrow
             asChild
@@ -123,6 +115,18 @@ const PopoverContent = ({
           </Arrow>
         )}
         {children}
+        {/* Rendered last so it takes focus after the panel's interactive elements */}
+        {showClose && (
+          <RadixPopover.Close asChild>
+            <IconButton
+              className={styles['close-button']}
+              icon="cross"
+              type="ghost"
+              size="sm"
+              aria-label="Close"
+            />
+          </RadixPopover.Close>
+        )}
       </MenuPanel>
     </RadixPopover.Portal>
   );

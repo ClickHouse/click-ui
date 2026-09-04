@@ -5,11 +5,11 @@ import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Popover', () => {
-  const renderPopover = (props: PopoverProps) =>
+  const renderPopover = (props: PopoverProps, showClose = false) =>
     renderCUI(
       <Popover {...props}>
         <Popover.Trigger>Click Here</Popover.Trigger>
-        <Popover.Content>
+        <Popover.Content showClose={showClose}>
           <div>
             Click on the input element below
             <Checkbox />
@@ -38,5 +38,21 @@ describe('Popover', () => {
     const checkbox = getByTestId('checkbox');
     fireEvent.click(checkbox);
     expect(getByText('Click on the input element below')).not.toBeNull();
+  });
+
+  it('should render the close control as a button named "Close"', () => {
+    const { getByText, getByRole } = renderPopover({}, true);
+    fireEvent.click(getByText('Click Here'));
+
+    expect(getByRole('button', { name: 'Close' })).not.toBeNull();
+  });
+
+  it('should close popover on clicking the close control', () => {
+    const { getByText, getByRole, queryByText } = renderPopover({}, true);
+    fireEvent.click(getByText('Click Here'));
+    expect(getByText('Click on the input element below')).not.toBeNull();
+
+    fireEvent.click(getByRole('button', { name: 'Close' }));
+    expect(queryByText('Click on the input element below')).toBeNull();
   });
 });
