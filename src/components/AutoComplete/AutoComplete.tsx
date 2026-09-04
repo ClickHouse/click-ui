@@ -267,7 +267,7 @@ export const AutoComplete = ({
                   heading?.includes(lowerCasedSearch)
                 ) {
                   visibleList.current.push(item.value);
-                  if (!disabled) {
+                  if (!item.disabled) {
                     navigatable.current.push(item.value);
                   }
                 }
@@ -283,7 +283,7 @@ export const AutoComplete = ({
               const title = getTextFromNodes(option.label).toLowerCase();
               if (title.includes(lowerCasedSearch)) {
                 visibleList.current.push(option.value);
-                if (!disabled) {
+                if (!option.disabled) {
                   navigatable.current.push(option.value);
                 }
               }
@@ -423,7 +423,7 @@ export const AutoComplete = ({
           }}
           onOpenAutoFocus={e => {
             e.preventDefault();
-            setHighlighted(visibleList.current[0]);
+            setHighlighted(navigatable.current[0]);
             inputRef.current?.focus();
           }}
           align="start"
