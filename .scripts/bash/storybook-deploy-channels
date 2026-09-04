@@ -1,0 +1,168 @@
+#!/bin/bash
+#
+# Decide which Storybook channels a workflow run should deploy to.
+#
+# Usage:
+#   storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>
+#
+# Channels:
+#   preview - throwaway per-PR deployment; only the PR links to it
+#   release - the stable Storybook production URL; released code only
+#
+# Three sections, one job each:
+#   1. CLASSIFY  - sort the run into exactly one situation
+#   2. TABLE     - one row per situation: which channels, and what it means
+#   3. DERIVE    - turn the channel list into the flags the workflow reads
+#
+# Emits key=value lines on stdout, ready to append to $GITHUB_OUTPUT:
+#   situation / description / channels
+#   deploy_preview / deploy_release  -> true | false
+
+set -uo pipefail
+
+if [[ $# -lt 5 ]]; then
+  echo "❌ Error: Usage: storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>" >&2
+  exit 1
+fi
+
+EVENT_NAME="$1"
+REF="$2"
+COMMIT_MSG="$3"
+PRERELEASE="$4"
+DEPLOY_PRODUCTION="$5"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+VERIFIER="$SCRIPT_DIR/verify-release-commit"
+if [[ ! -x "$VERIFIER" ]]; then
+  echo "❌ Error: $VERIFIER is missing or not executable" >&2
+  exit 1
+fi
+
+# ============================================================================
+# 1. CLASSIFY
+#
+# First match wins: specific before general. The release-commit checks MUST
+# precede merge-to-main, or changesets releases stop deploying.
+# ============================================================================
+
+RELEASE_VERSION=""
+RELEASE_TYPE=""
+
+if [[ "$EVENT_NAME" == "pull_request" ]]; then
+  SITUATION="pull-request"
+
+elif [[ "$EVENT_NAME" == "release" && "$PRERELEASE" == "true" ]]; then
+  SITUATION="prerelease-published"
+
+elif [[ "$EVENT_NAME" == "release" ]]; then
+  SITUATION="release-published"
+
+elif [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]] &&
+  VERIFY_OUTPUT=$("$VERIFIER" "$COMMIT_MSG" 2>&1); then
+  RELEASE_VERSION=$(echo "$VERIFY_OUTPUT" | awk '{print $1}')
+  RELEASE_TYPE=$(echo "$VERIFY_OUTPUT" | awk '{print $2}')
+  # Allowlist: only known-stable types reach prod; a new type fails closed.
+  if [[ "$RELEASE_TYPE" == "latest" || "$RELEASE_TYPE" == "stable" ]]; then
+    SITUATION="release-commit-on-main"
+  else
+    SITUATION="prerelease-commit-on-main"
+  fi
+
+elif [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]]; then
+  SITUATION="merge-to-main"
+
+elif [[ "$EVENT_NAME" == "push" ]]; then
+  SITUATION="push-to-other-branch"
+
+elif [[ "$EVENT_NAME" == "workflow_dispatch" && "$DEPLOY_PRODUCTION" == "true" ]]; then
+  SITUATION="manual-deploy"
+
+elif [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+  SITUATION="manual-dry-run"
+
+else
+  SITUATION="unrecognised-event"
+fi
+
+# ============================================================================
+# 2. TABLE
+#
+# Every row sets CHANNELS (space-separated, "" = deploy nothing) and
+# DESCRIPTION. No defaults on purpose: set -u turns a forgotten assignment
+# into a hard error instead of a silent "deploy nothing".
+# ============================================================================
+
+case "$SITUATION" in
+  pull-request)
+    CHANNELS="preview"
+    DESCRIPTION="A pull request from a branch in this repo. Deploying a preview URL for reviewers."
+    ;;
+
+  release-published)
+    CHANNELS="release"
+    DESCRIPTION="A GitHub Release was published and is not marked as a prerelease. Checkout lands on the release tag, so the stable Storybook serves exactly the released code."
+    ;;
+
+  prerelease-published)
+    CHANNELS=""
+    DESCRIPTION="A GitHub Release was published but is marked as a prerelease (an rc). rc content must not overwrite the stable Storybook, so nothing is deployed. The rc still publishes to npm."
+    ;;
+
+  release-commit-on-main)
+    CHANNELS="release"
+    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main. The changesets chain creates its GitHub Release with a bot token, which emits no release: event, so this commit message is the only signal."
+    ;;
+
+  prerelease-commit-on-main)
+    CHANNELS=""
+    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main, but only latest/stable releases update the stable Storybook, so nothing is deployed. The release still publishes to npm."
+    ;;
+
+  merge-to-main)
+    CHANNELS=""
+    DESCRIPTION="An ordinary merge to main. Nothing is deployed - publishing a GitHub Release is what updates the stable Storybook."
+    ;;
+
+  push-to-other-branch)
+    CHANNELS=""
+    DESCRIPTION="A push to '$REF', which is not main. Nothing is deployed."
+    ;;
+
+  manual-deploy)
+    CHANNELS="release"
+    DESCRIPTION="Manually dispatched with deploy_production=true. Deploying the release channel from whichever ref was dispatched."
+    ;;
+
+  manual-dry-run)
+    CHANNELS=""
+    DESCRIPTION="Manually dispatched with deploy_production=false. Storybook is built but nothing is deployed. Re-run with deploy_production=true to deploy."
+    ;;
+
+  unrecognised-event)
+    CHANNELS=""
+    DESCRIPTION="Event '$EVENT_NAME' on ref '$REF' matches no known situation, so nothing is deployed. If it should deploy something, add it to CLASSIFY and give it a row in TABLE."
+    ;;
+
+  *)
+    echo "❌ Error: Situation '$SITUATION' has no row in the deploy table" >&2
+    exit 1
+    ;;
+esac
+
+# ============================================================================
+# 3. DERIVE
+# ============================================================================
+
+deploy_preview=false
+deploy_release=false
+[[ " $CHANNELS " == *" preview "* ]] && deploy_preview=true
+[[ " $CHANNELS " == *" release "* ]] && deploy_release=true
+
+echo "situation=$SITUATION"
+echo "description=$DESCRIPTION"
+echo "channels=${CHANNELS:-nothing}"
+echo "deploy_preview=$deploy_preview"
+echo "deploy_release=$deploy_release"
+
+exit 0

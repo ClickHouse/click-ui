@@ -126,9 +126,11 @@ export type {
 
 // Dropdown
 export { Dropdown } from './components/Dropdown';
+export type { DropdownItemProps } from './components/Dropdown';
 
 // Ellipsis Content
 export { EllipsisContent } from './components/EllipsisContent';
+export type { EllipsisContentProps } from './components/EllipsisContent';
 
 // File Upload & Tabs
 export { FileMultiUpload, FileUpload } from './components/FileUpload';
@@ -269,7 +271,7 @@ export type { CUIThemeType, UseThemeParams } from './hooks';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
-export type { TooltipProps } from './components/Tooltip';
+export type { TooltipContentProps, TooltipProps } from './components/Tooltip';
 
 // Text
 export { Text } from './components/Text';

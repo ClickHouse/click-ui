@@ -23,6 +23,8 @@ env:
 
 jobs:
   build:
+    # TEMP: safeguard for testing, can be removed after all release flows validated
+    if: ${{ !contains(github.event.release.tag_name, 'storybook-test') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write      # For git push and tagging
@@ -32,8 +34,9 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "GITHUB_TAG=${{ github.event.inputs.tag }}" >> "$GITHUB_ENV"
-          # Check if input is a semantic version (e.g., 0.0.242) or a tag name (e.g., beta, scss-deprecation)
-          if [[ "${{ github.event.inputs.tag }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
+          # Check if input is a semantic version (e.g., 0.0.242 or v0.0.242) or a
+          # tag name (e.g., beta, dev).
+          if [[ "${{ github.event.inputs.tag }}" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
             echo "IS_VERSION_INPUT=true" >> "$GITHUB_ENV"
           else
             echo "IS_VERSION_INPUT=false" >> "$GITHUB_ENV"
@@ -64,7 +67,8 @@ jobs:
       - name: Bump package version (for version inputs)
         if: ${{ env.IS_VERSION_INPUT == 'true' }}
         run: |
-          npm pkg set version=$GITHUB_TAG
+          # Tags are "vX.Y.Z" but package.json versions must not carry the "v".
+          npm pkg set version="${GITHUB_TAG#v}"
       - name: Generate prerelease version (for tag inputs)
         if: ${{ env.IS_VERSION_INPUT == 'false' }}
         run: |

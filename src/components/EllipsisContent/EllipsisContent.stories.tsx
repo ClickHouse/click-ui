@@ -54,6 +54,13 @@ export const AsSpan: Story = {
   },
 };
 
+export const TooltipOnRight: Story = {
+  args: {
+    children: 'This is a very long line of text whose tooltip opens to the right',
+    tooltipProps: { side: 'right' },
+  },
+};
+
 export const WithChildElement: Story = {
   args: {
     children: <span>This is a very long line of text inside a child span</span>,
