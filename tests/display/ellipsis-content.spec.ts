@@ -139,6 +139,20 @@ describe('EllipsisContent Visual Regression', () => {
       await expect(panel).toContainText(fullText);
     });
 
+    it('opens the tooltip on the side given by tooltipProps', async ({ page }) => {
+      await page.goto(
+        getStoryUrl('display-ellipsiscontent--tooltip-on-right', 'light'),
+        {
+          waitUntil: 'networkidle',
+        }
+      );
+      const content = page.locator(`${harnessLocator} > *`).first();
+      await content.hover();
+      const panel = tooltipPanel(page);
+      await expect(panel).toBeVisible({ timeout: 10000 });
+      await expect(panel).toHaveAttribute('data-side', 'right');
+    });
+
     it('does not show a tooltip when the text fits', async ({ page }) => {
       await page.goto(getStoryUrl('display-ellipsiscontent--not-truncated', 'light'), {
         waitUntil: 'networkidle',

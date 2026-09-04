@@ -11,11 +11,11 @@ export const IconWrapper = ({
   height,
   children,
   ellipsisContent = true,
+  tooltipProps,
   gap = 'sm',
   isResponsive = true,
   ...props
 }: IconWrapperProps) => {
-  const TextWrapper = ellipsisContent ? EllipsisContent : 'div';
   return (
     <Container
       orientation="horizontal"
@@ -32,11 +32,16 @@ export const IconWrapper = ({
           height={height}
         />
       )}
-      <TextWrapper
-        data-testid={`${ellipsisContent ? 'ellipsed' : 'normal'}-icon-wrapper-text`}
-      >
-        {children}
-      </TextWrapper>
+      {ellipsisContent ? (
+        <EllipsisContent
+          data-testid="ellipsed-icon-wrapper-text"
+          tooltipProps={tooltipProps}
+        >
+          {children}
+        </EllipsisContent>
+      ) : (
+        <div data-testid="normal-icon-wrapper-text">{children}</div>
+      )}
       {icon && iconDir === 'end' && (
         <Icon
           name={icon}

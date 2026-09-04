@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+/**
+ * Turns component names into Playwright spec paths, so a scoped visual run can
+ * be asked for by name instead of by file path:
+ *
+ *   yarn test:visual CodeBlock          -> tests/codeblocks/codeblock.spec.ts
+ *   yarn test:visual:update codeblock   -> same, updating baselines
+ *   yarn test:visual IconButton         -> every spec that @covers IconButton
+ *
+ * A name is matched against the component a spec `@covers`, the spec's own file
+ * name, and its suite directory — case- and separator-insensitive. Names of
+ * three or more characters fall back to a substring match, so `card` reaches all
+ * four card specs.
+ *
+ * Called by `.scripts/bash/playwright-docker`, which passes only the bare words
+ * from the command line (paths and flags go straight to Playwright).
+ *
+ * Output: the resolved spec paths, space-separated, on stdout. Reasoning goes to
+ * stderr so it stays out of the captured result. Exits 1 on an unknown name —
+ * better than quietly running the whole 20-minute suite because of a typo.
+ *
+ * Usage: resolve-visual-specs <name> [<name>...]
+ *        resolve-visual-specs --list
+ */
+
+import { resolveNames, buildNameIndex } from './shared/visual-spec-utils.mjs';
+
+const log = msg => process.stderr.write(`${msg}\n`);
+
+const printAvailableNames = () => {
+  const { index, labels } = buildNameIndex();
+  const names = [...index.keys()]
+    .map(key => labels.get(key))
+    .sort((a, b) => {
+      // Component names first (they are the ones people mean), then file names.
+      const aIsComponent = /[A-Z]/.test(a);
+      const bIsComponent = /[A-Z]/.test(b);
+      if (aIsComponent !== bIsComponent) return aIsComponent ? -1 : 1;
+      return a.localeCompare(b);
+    });
+  log('\nAvailable names:');
+  log(names.map(n => `  ${n}`).join('\n'));
+};
+
+const main = () => {
+  const args = process.argv.slice(2);
+
+  if (args.length === 0) {
+    log('resolve-visual-specs: no names given.');
+    process.exit(1);
+  }
+
+  if (args.includes('--list')) {
+    printAvailableNames();
+    return;
+  }
+
+  const { specs, resolutions, notFound } = resolveNames(args);
+
+  if (notFound.length > 0) {
+    log(`Unknown visual-test target: ${notFound.join(', ')}`);
+    printAvailableNames();
+    process.exit(1);
+  }
+
+  for (const { name, how, specs: matched } of resolutions) {
+    const suffix = how === 'partial' ? ' (partial match)' : '';
+    log(`${name}${suffix} -> ${matched.join(' ')}`);
+  }
+
+  process.stdout.write(specs.join(' '));
+};
+
+main();

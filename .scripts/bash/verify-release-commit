@@ -7,7 +7,7 @@
 # On failure: outputs error messages to stderr only
 
 if [[ $# -lt 1 ]]; then
-  echo "👹 Oops! Missing argument..."
+  echo "❌ Error: Missing argument..."
   exit 1
 fi
 
@@ -16,37 +16,37 @@ COMMIT_MSG="$1"
 RELEASE_PATTERN='^chore: 🤖 release v([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?) \((latest|rc|test|stable)\)( \(#[0-9]+\)| #[0-9]+)?$'
 
 if [[ -z "$COMMIT_MSG" ]]; then
-  echo "👹 Oops! Commit message is empty"
+  echo "❌ Error: Commit message is empty"
   exit 1
 fi
 
 if [[ ! "$COMMIT_MSG" =~ ^chore: ]]; then
-  echo "🦖 Skip! Commit message does not start with 'chore:'"
+  echo "⏩ Skipped: Commit message does not start with 'chore:'"
   exit 1
 fi
 
 if [[ ! "$COMMIT_MSG" =~ 🤖 ]]; then
-  echo "🦖 Skip! Commit message is missing the 🤖 emoji"
+  echo "⏩ Skipped: Commit message is missing the 🤖 emoji"
   exit 1
 fi
 
 if [[ ! "$COMMIT_MSG" =~ release ]]; then
-  echo "🦖 Skip! Commit message does not contain 'release'"
+  echo "⏩ Skipped: Commit message does not contain 'release'"
   exit 1
 fi
 
 if [[ ! "$COMMIT_MSG" =~ v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-  echo "🦖 Skip! Commit message does not contain a valid version number"
+  echo "⏩ Skipped: Commit message does not contain a valid version number"
   exit 1
 fi
 
 if [[ ! "$COMMIT_MSG" =~ \((latest|rc|test|stable)\) ]]; then
-  echo "🦖 Skip! Commit message does not contain a valid release type"
+  echo "⏩ Skipped: Commit message does not contain a valid release type"
   exit 1
 fi
 
 if [[ ! "$COMMIT_MSG" =~ $RELEASE_PATTERN ]]; then
-  echo "🦖 Skip! Commit message format is invalid"
+  echo "⏩ Skipped: Commit message format is invalid"
   exit 1
 fi
 
@@ -54,7 +54,7 @@ if [[ "$COMMIT_MSG" =~ ^chore:\ 🤖\ release\ v([0-9.a-zA-Z-]+)\ \((latest|rc|t
   VERSION="${BASH_REMATCH[1]}"
   RELEASE_TYPE="${BASH_REMATCH[2]}"
 else
-  echo "🦖 Skip! Failed to extract version and release type"
+  echo "⏩ Skipped: Failed to extract version and release type"
   exit 1
 fi
 

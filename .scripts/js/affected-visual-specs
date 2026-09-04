@@ -35,12 +35,13 @@
 import { execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = path.resolve(__dirname, '../..');
-const testsDir = path.join(rootDir, 'tests');
-const componentsDir = path.join(rootDir, 'src/components');
+import {
+  buildCoverageMap,
+  componentsDir,
+  rootDir,
+  toPosix,
+  walk,
+} from './shared/visual-spec-utils.mjs';
 
 const baseRef = process.argv[2] || 'origin/main';
 
@@ -53,8 +54,6 @@ const git = args => {
     return '';
   }
 };
-
-const toPosix = p => p.split(path.sep).join('/');
 
 /** Every changed path relative to the repo root: PR diff + uncommitted work. */
 const getChangedFiles = () => {
@@ -71,54 +70,6 @@ const getChangedFiles = () => {
     }
   }
   return [...files];
-};
-
-/** Walk a directory returning absolute paths of files matching `filter`. */
-const walk = (dir, filter, acc = []) => {
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) walk(full, filter, acc);
-    else if (filter(entry.name)) acc.push(full);
-  }
-  return acc;
-};
-
-/**
- * Build the coverage map from `@covers` directives.
- * Returns Map<coveredDir (repo-relative posix), Set<spec (repo-relative posix)>>.
- * Throws if a spec lacks a directive or points at a path that does not exist,
- * so the map can never silently drift out of sync with the suite.
- */
-const buildCoverageMap = () => {
-  const specFiles = walk(testsDir, name => name.endsWith('.spec.ts'));
-  const map = new Map();
-  const directiveRe = /@covers\s+(\S+)/g;
-
-  for (const specAbs of specFiles) {
-    const specRel = toPosix(path.relative(rootDir, specAbs));
-    const src = fs.readFileSync(specAbs, 'utf-8');
-    const covered = [...src.matchAll(directiveRe)].map(m => m[1]);
-
-    if (covered.length === 0) {
-      throw new Error(
-        `Spec "${specRel}" has no "@covers <path>" directive. Add one so the ` +
-          `affected-spec resolver knows which source it guards (see ` +
-          `.scripts/js/affected-visual-specs).`
-      );
-    }
-
-    for (const coveredPath of covered) {
-      if (!fs.existsSync(path.join(rootDir, coveredPath))) {
-        throw new Error(
-          `Spec "${specRel}" declares "@covers ${coveredPath}" but that path ` +
-            `does not exist.`
-        );
-      }
-      if (!map.has(coveredPath)) map.set(coveredPath, new Set());
-      map.get(coveredPath).add(specRel);
-    }
-  }
-  return map;
 };
 
 /**

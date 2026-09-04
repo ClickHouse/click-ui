@@ -63,7 +63,7 @@ const getAssetType = (args) => {
   const type = typeFlag.replace('--type=', '');
 
   if (typeof ASSET_TYPES[type] === 'undefined') {
-    console.error(`👹 Oops! Unknown type: ${type}. Use logos, icons, or flags`);
+    console.error(`❌ Error: Unknown type: ${type}. Use logos, icons, or flags`);
     process.exit(1);
   }
 
@@ -167,7 +167,7 @@ const normalizeSvg = (svgPath, tempPath, idPrefix) => {
     console.log('✅ SVG normalized successfully');
     return tempPath;
   } catch (error) {
-    console.error('👹 Oops! SVG normalization failed:', error.message);
+    console.error('❌ Error: SVG normalization failed:', error.message);
     throw error;
   }
 };
@@ -207,7 +207,7 @@ export default \${variables.componentName};
   try {
     output = execSync(cmd, { encoding: 'utf8' });
   } catch (error) {
-    console.error(`👹 Oops! Failed to convert ${svgPath}:`, error.message);
+    console.error(`❌ Error: Failed to convert ${svgPath}:`, error.message);
     process.exit(1);
   }
 
@@ -262,7 +262,7 @@ const cleanUp = (files) => {
     const prettierCmd = `npx prettier --write --config .prettierrc ${files.join(' ')}`;
     execSync(prettierCmd, { encoding: 'utf8', stdio: 'inherit' });
   } catch (error) {
-    console.warn('⚠️Code format fix failed due to:', error.message);
+    console.warn('⚠️ Code format fix failed due to:', error.message);
     countErrors++;
   }
 
@@ -331,7 +331,7 @@ if (isRegenerate) {
 }
 
 if (args.length < 1) {
-  console.error('👹 Oops! The SVG file path is required');
+  console.error('❌ Error: The SVG file path is required');
   console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags] [--skip-normalize]');
   console.error('💡 Or use: convert-svg-to-react-component --regenerate [--type=logos|icons|flags|payments]');
   console.error('💡 Note: SVGs are automatically normalized before conversion. Use --skip-normalize to disable.');
@@ -349,7 +349,7 @@ if (!componentName) {
 }
 
 if (!componentName.match(/^[A-Z][a-zA-Z0-9_-]*$/)) {
-  console.error('👹 Oops! The component name must start with uppercase and use only letters, numbers, hyphens, or underscores.');
+  console.error('❌ Error: The component name must start with uppercase and use only letters, numbers, hyphens, or underscores.');
   process.exit(1);
 }
 
@@ -358,7 +358,7 @@ if (type === 'icons' && componentName.length > 1) {
   const isCamelCase = componentName.match(/[a-z][A-Z]/);
 
   if (isCamelCase && !hasMultipleWords) {
-    console.error(`👹 Icon name "${componentName}" must use dashes to separate words, e.g., Arrow-Down not ArrowDown.`);
+    console.error(`❌ Error: Icon name "${componentName}" must use dashes to separate words, e.g., Arrow-Down not ArrowDown.`);
     console.log(`💡 This ensures consistent kebab-case registry keys, e.g., 'arrow-down').`);
     process.exit(1);
   }
@@ -409,5 +409,5 @@ regenerateAssetRegistry(config);
 console.log(`🧹 Cleaning ${componentName}...\n`);
 cleanUp([outputPath, typesPath, lightFile, darkFile]);
 
-console.log(`\n👍 Done! Created ${componentName}`);
+console.log(`\n✅ Done! Created ${componentName}`);
 console.log('💡 Test it! When happy, remember to commit your changes');

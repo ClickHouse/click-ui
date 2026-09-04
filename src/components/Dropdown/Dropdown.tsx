@@ -11,10 +11,12 @@ import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
+import type { IconWrapperProps } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
@@ -38,10 +40,21 @@ const _DropdownMenuItem = <T extends ElementType = 'div'>(
 
 const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(_DropdownMenuItem);
 
-interface SubDropdownProps {
+// `sub` alone discriminates the two shapes of Trigger and Content. The label
+// fields live separately so only the sub-trigger accepts them — Content spreads
+// what it does not read straight onto the Radix element, i.e. into the DOM.
+interface SubDiscriminant {
   sub?: true;
+}
+
+interface SubTriggerFields {
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  /**
+   * Positions the tooltip shown when the label is truncated. Defaults to
+   * `side: 'right'` so the tooltip does not cover the items above it.
+   */
+  tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
 interface MainDropdownProps {
@@ -49,7 +62,8 @@ interface MainDropdownProps {
 }
 
 type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
-  SubDropdownProps;
+  SubDiscriminant &
+  SubTriggerFields;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
 
 const DropdownTrigger = ({
@@ -58,7 +72,8 @@ const DropdownTrigger = ({
   ...props
 }: DropdownSubTriggerProps | DropdownTriggerProps) => {
   if (sub) {
-    const { icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
+    const { icon, iconDir, tooltipProps, ...menuProps } =
+      props as DropdownSubTriggerProps;
     return (
       <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
@@ -67,6 +82,7 @@ const DropdownTrigger = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
+          tooltipProps={{ side: 'right', ...tooltipProps }}
         >
           {children}
         </IconWrapper>
@@ -90,10 +106,6 @@ const DropdownTrigger = ({
 DropdownTrigger.displayName = 'DropdownTrigger';
 Dropdown.Trigger = DropdownTrigger;
 
-export type ArrowProps = {
-  showArrow?: boolean;
-};
-
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
   container?: HTMLElement | null;
@@ -106,7 +118,7 @@ interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubCont
   responsivePositioning?: boolean;
 }
 
-type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownContentProps = StyledDropdownContentProps & SubDiscriminant & ArrowProps;
 type DropdownSubContentProps = StyledDropdownSubContentProps &
   MainDropdownProps &
   ArrowProps;
@@ -195,21 +207,11 @@ const DropdownSub = (props: DropdownMenu.DropdownMenuGroupProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
-  /** Icon to display in the menu item */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The type of the menu item */
-  type?: 'default' | 'danger';
-}
-
-export type { DropdownItemProps };
-
 const DropdownItem = ({
   icon,
   iconDir,
   type = 'default',
+  tooltipProps,
   children,
   ...props
 }: DropdownItemProps) => {
@@ -222,6 +224,7 @@ const DropdownItem = ({
       <IconWrapper
         icon={icon}
         iconDir={iconDir}
+        tooltipProps={{ side: 'right', ...tooltipProps }}
       >
         {children}
       </IconWrapper>
