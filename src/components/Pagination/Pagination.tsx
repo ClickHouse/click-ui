@@ -44,6 +44,18 @@ export interface PaginationProps extends Omit<
   allowAllRows?: boolean;
 }
 
+const NoWrapText = styled(Text)`
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  flex-shrink: 0;
+`;
+
+const PageInputWrapper = styled.div<{ $digitCount: number }>`
+  flex: 0 0 auto;
+  width: ${({ $digitCount }) => `clamp(44px, calc(${$digitCount}ch + 2.5rem), 72px)`};
+`;
+
 export const Pagination = ({
   totalPages,
   currentPage,
@@ -65,6 +77,11 @@ export const Pagination = ({
 }: PaginationProps): ReactElement => {
   const hasRowCount = ['number', 'string'].includes(typeof rowCount);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pageDigits = Math.max(
+    2,
+    currentPage.toString().length,
+    (totalPages ?? 0).toString().length
+  );
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat('en').format(value);
   };
@@ -127,6 +144,7 @@ export const Pagination = ({
   return (
     <Container
       gap={gap}
+      isResponsive={false}
       justifyContent={
         justifyContent ??
         (rowCount || maxRowsPerPageList.length > 0 ? 'space-between' : 'center')
@@ -135,16 +153,17 @@ export const Pagination = ({
       {...props}
     >
       {hasRowCount && (
-        <Text
+        <NoWrapText
           component="div"
           color="muted"
           size="sm"
         >
           {typeof rowCount === 'number' ? formatNumber(rowCount) : rowCount} rows
-        </Text>
+        </NoWrapText>
       )}
       <Container
         gap="xxs"
+        isResponsive={false}
         fillWidth={false}
       >
         <IconButton
@@ -154,10 +173,7 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        <Container
-          maxWidth="50px"
-          fillWidth={false}
-        >
+        <PageInputWrapper $digitCount={pageDigits}>
           <NumberField
             ref={inputRef}
             onChange={onChange}
@@ -171,15 +187,15 @@ export const Pagination = ({
             onBlur={onPageNumberBlur}
             disabled={leftButtonDisabled && rightButtonDisabled}
           />
-        </Container>
+        </PageInputWrapper>
         {!!totalPages && (
-          <Text
+          <NoWrapText
             component="div"
             color="muted"
             size="sm"
           >
             of {formatNumber(totalPages)}
-          </Text>
+          </NoWrapText>
         )}
         <IconButton
           icon="chevron-right"
