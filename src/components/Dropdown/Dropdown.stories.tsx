@@ -6,7 +6,7 @@ import { GridCenter } from '@/components/GridCenter';
 import { Button } from '@/components/Button';
 import { Key } from 'react';
 
-import type { DropdownItemProps } from '@/components/Dropdown/Dropdown';
+import type { DropdownItemProps } from '@/components/Dropdown';
 
 interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;
@@ -213,6 +213,47 @@ export const TriggerStandalone: Story = {
         <Dropdown.Trigger>Trigger text</Dropdown.Trigger>
         <Dropdown.Content>
           <Dropdown.Item>Item</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
+// A menu whose item labels are too long for the panel. The first two items take the
+// default truncation tooltip, which opens to the right so it does not cover the items
+// above the hovered one; the third overrides it. The sub-trigger takes the same
+// default through its own branch of Dropdown.Trigger.
+export const TruncatedItems: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+          style={{ width: 180 }}
+        >
+          <Dropdown.Item>A menu item label far too long for this panel</Dropdown.Item>
+          <Dropdown.Item>
+            Another menu item label far too long for this panel
+          </Dropdown.Item>
+          <Dropdown.Item tooltipProps={{ side: 'bottom' }}>
+            A third label, too long again, opting out of the default
+          </Dropdown.Item>
+          <Dropdown.Sub>
+            <Dropdown.Trigger sub>
+              A sub menu trigger label far too long for this panel
+            </Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
         </Dropdown.Content>
       </Dropdown>
     </div>

@@ -30,7 +30,7 @@ The only collateral change you may need: a narrow TypeScript widening (e.g. `HTM
 1. The component still uses `styled-components` (check `src/components/<Name>/<Name>.tsx`).
 2. The component's design tokens already exist as CSS variables in `packages/design-tokens/dist/tokens.css` (search for `--click-<component-name>-*`).
 3. The `Button` precedent is readable: `src/components/Button/Button.tsx` and `src/components/Button/Button.module.css`.
-4. `yarn test:visual` and `yarn test:visual:update` work (they invoke `.scripts/bash/playwright-docker`, which runs Playwright inside a Linux container). If they don't work, **fix the tooling first as its own commit** — don't work around it locally.
+4. `yarn test:visual` and `yarn test:visual:update` work (they invoke `.scripts/bash/playwright-docker`, which runs Playwright inside a Linux container; both take a component name to scope the run, e.g. `yarn test:visual <Name>`). If they don't work, **fix the tooling first as its own commit** — don't work around it locally.
 
 ## Commit structure
 
@@ -65,7 +65,7 @@ If you need to fix repo tooling (broken script, version mismatch) to even run `y
   // @covers src/components/<Name>
   ```
 
-  CI reads these directives to run only the specs a PR's diff touches instead of the whole suite (`.github/workflows/visual-regression-tests.yml` → `.scripts/js/affected-visual-specs`). The resolver **throws if any spec lacks a `@covers` directive**, so the visual-regression job fails fast until you add one. Point it at the component's source directory — the resolver verifies the path exists. If the spec screenshots more than one component (e.g. an overview spec), add one `@covers` line per component directory. The visual specs navigate to Storybook stories by string id rather than importing the component, so this directive is the *only* link the resolver has between a `src/` change and its spec — there is no fallback.
+  CI reads these directives to run only the specs a PR's diff touches instead of the whole suite (`.github/workflows/visual-regression-tests.yml` → `.scripts/js/affected-visual-specs`). The same directives let you scope a local run by name — `yarn test:visual <Name>` — so adding one immediately pays off in your own feedback loop. The resolver **throws if any spec lacks a `@covers` directive**, so the visual-regression job fails fast until you add one. Point it at the component's source directory — the resolver verifies the path exists. If the spec screenshots more than one component (e.g. an overview spec), add one `@covers` line per component directory. The visual specs navigate to Storybook stories by string id rather than importing the component, so this directive is the *only* link the resolver has between a `src/` change and its spec — there is no fallback.
 
   Mirror the structure from `tests/buttons/button.spec.ts` or `tests/buttons/buttongroup.spec.ts`. Cover:
   - Light + dark theme via `getStoryUrl(storyId, theme)` from `tests/utils/index.ts` (imported as `from '../utils'` from a sibling test folder)
@@ -89,14 +89,17 @@ If you need to fix repo tooling (broken script, version mismatch) to even run `y
 **Always** generate snapshots fresh via:
 
 ```
-yarn test:visual:update tests/<area>/<name>.spec.ts
+yarn test:visual:update <Name>              # e.g. yarn test:visual:update CodeBlock
+yarn test:visual:update tests/<area>/<name>.spec.ts   # equivalent, pinned to one file
 ```
 
-This runs Playwright inside the Linux Docker container (`.scripts/bash/playwright-docker`), so snapshots are named `-chromium-linux.png` and match what CI generates on `ubuntu-latest`. The same snapshots work on any host OS because the runtime is normalized via Docker; you do not need platform-agnostic snapshots.
+Both commands run Playwright inside the Linux Docker container (`.scripts/bash/playwright-docker`), so snapshots are named `-chromium-linux.png` and match what CI generates on `ubuntu-latest`. The same snapshots work on any host OS because the runtime is normalized via Docker; you do not need platform-agnostic snapshots.
+
+The name form resolves through the `@covers` directives (see `.scripts/js/resolve-visual-specs`) and is the faster way to iterate — the full suite takes ~20 minutes. **Use the path form when you need exactly one spec:** a name reaches *every* spec covering that component, so `yarn test:visual Button` also runs `overview.spec.ts` and `splitbutton.spec.ts`. That is fine while iterating, but the acceptance gates below name the path so "zero regenerations" is a claim about this spec alone. `yarn test:visual names` lists every name available.
 
 **Never** cherry-pick PNG baselines from another branch or PR. They were captured against a different point in time and may hide drift that landed on `main` since.
 
-After generating, run `yarn test:visual tests/<area>/<name>.spec.ts` to confirm green, then `git add` everything together (stories + spec + snapshots) and commit.
+After generating, run `yarn test:visual <Name>` to confirm green, then `git add` everything together (stories + spec + snapshots) and commit.
 
 ### Acceptance
 
@@ -178,7 +181,7 @@ After generating, run `yarn test:visual tests/<area>/<name>.spec.ts` to confirm 
 
 ### The byte-for-byte rule
 
-Run `yarn test:visual tests/<area>/<name>.spec.ts`. **Every snapshot must pass with zero regenerations.** If even one fails:
+Run `yarn test:visual tests/<area>/<name>.spec.ts` (the path form, so the result is about this spec and nothing else). **Every snapshot must pass with zero regenerations.** If even one fails:
 
 1. The CSS doesn't match the styled-components rendering.
 2. Open the failing snapshot side-by-side (`yarn test:visual:report`) and diff the actual vs expected.

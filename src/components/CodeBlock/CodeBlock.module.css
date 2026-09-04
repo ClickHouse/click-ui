@@ -23,9 +23,12 @@
      colors are set inline per state via --codeblock-button, matching the
      --codeblock-numbers pattern so both track the ThemeProvider runtime. */
   --codeblock-button: initial;
+  /* assign context to be above pseudo-element 
+     can be cleaned up when background is a regular color variable with alpha */
+  z-index: 1;
   padding: 0;
   border: 0;
-  color: var(--codeblock-button, inherit);
+  color: var(--codeblock-button, inherit); 
 }
 
 .codeblock__highlighter {
@@ -41,8 +44,38 @@
 
 .codeblock__button-container {
   display: flex;
+  opacity: 0;
   position: absolute;
   top: var(--click-codeblock-space-y);
   right: var(--click-codeblock-space-x);
-  gap: 0.625rem;
+  padding: var(--spaces-1);
+  gap: var(--spaces-1);
+  pointer-events: none;
+  transition: opacity 200ms ease-in-out;
+}
+
+.codeblock:hover .codeblock__button-container,
+.codeblock:focus-within .codeblock__button-container {
+  opacity: 1;
+  pointer-events: auto;
+  transition-duration: 150ms;
+}
+
+/* this element can be refactored to a color var with alpha when available */
+.codeblock__button-container::before {
+  content: "";
+  opacity: 0.85;
+  position: absolute;  
+  z-index: 0;
+  inset: 0;
+  border-radius: var(--spaces-1); 
+}
+
+/* custom conditional theming can be later replaced with semantic color tokens */
+[data-cui-theme="light"] .codeblock__button-container::before {
+  background: var(--palette-indigo-100);
+}
+
+[data-cui-theme="dark"] .codeblock__button-container::before {
+  background: var(--palette-neutral-900);
 }
