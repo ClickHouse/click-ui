@@ -14,11 +14,10 @@ const goto = async (
   await page.goto(getStoryUrl(story, theme), { waitUntil: 'networkidle' });
 };
 
-// The toast root is portaled by Radix into the viewport. Radix renders two
-// role="status" nodes — an off-screen announce element and the real toast <li>.
-// The real toast is the one carrying data-state="open".
+// Radix portals the toast out of the story root; the open one is the <li>
+// carrying data-state="open".
 const toast = (page: import('@playwright/test').Page) =>
-  page.locator('li[role="status"][data-state="open"]');
+  page.locator('li[data-state="open"]');
 
 const stories = [
   { id: 'default', name: 'default' },
