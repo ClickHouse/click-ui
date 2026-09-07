@@ -114,7 +114,13 @@ jobs:
         run: npm install --global vercel@41.7.3
 
       - name: Build Storybook
-        run: yarn storybook:build
+        # The version badge in the Storybook UI comes from package.json on the
+        # checked-out ref (the release tag on release events).
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "📦 Building Storybook for @clickhouse/click-ui v$VERSION (commit $GITHUB_SHA)" | tee -a "$GITHUB_STEP_SUMMARY"
+          yarn storybook:build
 
       - name: Package Storybook for Vercel
         # Static Build Output API v3, hand-built: no `vercel pull` / `vercel build`

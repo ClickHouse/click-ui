@@ -73,16 +73,17 @@ export const Pagination = ({
     (!!totalPages && currentPage === totalPages) || disableNextButton;
 
   const onChange = (value: string) => {
-    const sanitizedValue = parseInt(value, 10);
+    const pageNumber = parseInt(value, 10);
     if (
-      sanitizedValue < 1 ||
+      Number.isNaN(pageNumber) ||
+      pageNumber < 1 ||
       inputRef.current?.disabled ||
-      (typeof totalPages !== 'undefined' ? sanitizedValue > totalPages : false)
+      (typeof totalPages !== 'undefined' ? pageNumber > totalPages : false)
     ) {
       return;
     }
 
-    onChangeProp(sanitizedValue);
+    onChangeProp(pageNumber);
   };
 
   const onPageSizeChange = (value: string) => {
