@@ -39,10 +39,8 @@ export const Playground: Story = {
 const STABLE_DURATION = 1000000;
 
 /**
- * Auto-opens a single toast on mount (no click needed) so the portaled toast
- * is rendered deterministically for visual-regression snapshots. The toast is
- * given a very long duration so it stays on screen, and animations are disabled
- * via the decorator below so the slide-in frame is stable.
+ * Opens a toast on mount so snapshots need no click, with a duration long
+ * enough that it never auto-dismisses mid-run.
  */
 const AutoToast = (props: ToastProps) => {
   const { createToast } = useToast();
@@ -53,10 +51,10 @@ const AutoToast = (props: ToastProps) => {
   return null;
 };
 
-// Disable Radix toast animations so the captured frame is deterministic.
+// Freeze the slide-in so snapshots capture the toast's resting frame.
 const noAnimationStyle = (
   <style>{`
-    [data-radix-toast-viewport] li {
+    li[data-state] {
       animation: none !important;
       transition: none !important;
     }
