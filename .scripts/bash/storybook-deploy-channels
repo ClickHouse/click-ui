@@ -7,6 +7,7 @@
 #
 # Channels:
 #   preview - throwaway per-PR deployment; only the PR links to it
+#   canary  - tracks the tip of main; updated on every push to main
 #   release - the stable Storybook production URL; released code only
 #
 # Three sections, one job each:
@@ -16,7 +17,7 @@
 #
 # Emits key=value lines on stdout, ready to append to $GITHUB_OUTPUT:
 #   situation / description / channels
-#   deploy_preview / deploy_release  -> true | false
+#   deploy_preview / deploy_canary / deploy_release  -> true | false
 
 set -uo pipefail
 
@@ -110,18 +111,18 @@ case "$SITUATION" in
     ;;
 
   release-commit-on-main)
-    CHANNELS="release"
-    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main. The changesets chain creates its GitHub Release with a bot token, which emits no release: event, so this commit message is the only signal."
+    CHANNELS="canary release"
+    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main. The changesets chain creates its GitHub Release with a bot token, which emits no release: event, so this commit message is the only signal. Canary follows main as always."
     ;;
 
   prerelease-commit-on-main)
-    CHANNELS=""
-    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main, but only latest/stable releases update the stable Storybook, so nothing is deployed. The release still publishes to npm."
+    CHANNELS="canary"
+    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main, but only latest/stable releases update the stable Storybook. Canary still follows main; the release publishes to npm."
     ;;
 
   merge-to-main)
-    CHANNELS=""
-    DESCRIPTION="An ordinary merge to main. Nothing is deployed - publishing a GitHub Release is what updates the stable Storybook."
+    CHANNELS="canary"
+    DESCRIPTION="An ordinary merge to main. Deploying the canary Storybook so it tracks the tip of main - publishing a GitHub Release is what updates the stable Storybook."
     ;;
 
   push-to-other-branch)
@@ -155,14 +156,17 @@ esac
 # ============================================================================
 
 deploy_preview=false
+deploy_canary=false
 deploy_release=false
 [[ " $CHANNELS " == *" preview "* ]] && deploy_preview=true
+[[ " $CHANNELS " == *" canary "* ]] && deploy_canary=true
 [[ " $CHANNELS " == *" release "* ]] && deploy_release=true
 
 echo "situation=$SITUATION"
 echo "description=$DESCRIPTION"
 echo "channels=${CHANNELS:-nothing}"
 echo "deploy_preview=$deploy_preview"
+echo "deploy_canary=$deploy_canary"
 echo "deploy_release=$deploy_release"
 
 exit 0
