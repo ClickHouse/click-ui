@@ -186,6 +186,8 @@ export const FileTabs = ({
                 selectedIndex === index || (selectedIndex == null && index === 0) ? 0 : -1
               }
               role="tab"
+              // Explicit name so the close button's aria-label is not folded into the tab.
+              aria-label={child.props.text}
               aria-selected={selectedIndex === index}
               onClick={onSelect(index)}
               onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {

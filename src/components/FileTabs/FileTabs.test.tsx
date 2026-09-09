@@ -68,6 +68,15 @@ describe('FileTabs', () => {
     expect(onSelect).toBeCalledTimes(1);
   });
 
+  it('does not include the close control in the tab accessible name', () => {
+    const { getByRole } = renderTabs({ selectedIndex: 0 });
+    const tab = getByRole('tab', { name: 'Tab 0 value-tab1' });
+
+    expect(tab).toHaveAccessibleName('Tab 0 value-tab1');
+    expect(tab).not.toHaveAccessibleName(/Close/);
+    expect(getByRole('button', { name: 'Close Tab 0 value-tab1' })).toBeInTheDocument();
+  });
+
   it('does not announce the first tab as selected when selectedIndex is omitted', () => {
     const { getAllByRole } = renderTabs({});
     const tabElements = getAllByRole('tab');
