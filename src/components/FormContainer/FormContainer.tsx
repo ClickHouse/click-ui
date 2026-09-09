@@ -16,7 +16,8 @@ export const FormContainer = ({
   ...props
 }: FormContainerProps) => {
   const controlId = htmlFor ?? id;
-  const errorId = controlId && !!error && error !== true ? `${controlId}-error` : undefined;
+  const errorId =
+    controlId && !!error && error !== true ? `${controlId}-error` : undefined;
   return (
     <FormRoot
       $orientation={orientation}

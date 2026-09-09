@@ -76,9 +76,7 @@ export const InputWrapper = ({
       $addLabelPadding
     >
       <FormElementContainer>
-        <FieldErrorContext.Provider
-          value={{ invalid: !!error, describedBy: errorId }}
-        >
+        <FieldErrorContext.Provider value={{ invalid: !!error, describedBy: errorId }}>
           <div
             data-resize={resize}
             className={cn(
@@ -170,7 +168,8 @@ const InputElementInner = <T extends ElementType = 'input'>(
   );
 };
 
-export const InputElement: InputElementPolymorphicComponent = forwardRef(InputElementInner);
+export const InputElement: InputElementPolymorphicComponent =
+  forwardRef(InputElementInner);
 
 export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputElement> {
   $hasStartContent?: boolean;
