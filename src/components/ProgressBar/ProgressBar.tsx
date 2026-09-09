@@ -47,6 +47,9 @@ export const ProgressBar = ({
   dir = 'start',
   className,
   style,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
@@ -57,6 +60,9 @@ export const ProgressBar = ({
 
   const progressAria = {
     role: 'progressbar' as const,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    'aria-describedby': ariaDescribedBy,
     'aria-valuemin': 0,
     'aria-valuemax': 100,
     'aria-valuenow': progress,

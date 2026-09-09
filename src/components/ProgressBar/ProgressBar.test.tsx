@@ -66,6 +66,19 @@ describe('Progress bar', () => {
     expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
+  it('names the default progressbar from a consumer aria-label', () => {
+    const { getByRole, getByTestId } = renderPopover({
+      type: 'default',
+      progress: 38,
+      'aria-label': 'File upload',
+    });
+    expect(getByRole('progressbar', { name: 'File upload' })).toHaveAttribute(
+      'aria-valuenow',
+      '38'
+    );
+    expect(getByTestId('progressbar')).not.toHaveAttribute('aria-label');
+  });
+
   it('should show close Button if dismissable is true', () => {
     const onCancel = vi.fn();
     const { queryAllByTestId } = renderPopover({
