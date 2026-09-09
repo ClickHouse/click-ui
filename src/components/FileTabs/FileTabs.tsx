@@ -5,6 +5,7 @@ import {
   ReactElement,
   Children,
   useState,
+  KeyboardEvent,
   MouseEvent,
   useEffect,
   ReactNode,
@@ -181,10 +182,37 @@ export const FileTabs = ({
         >
           {Children.map(children, (child, index) => (
             <div
-              tabIndex={(selectedIndex ?? 0) === index ? 0 : -1}
+              tabIndex={
+                selectedIndex === index || (selectedIndex == null && index === 0) ? 0 : -1
+              }
               role="tab"
-              aria-selected={(selectedIndex ?? 0) === index}
+              aria-selected={selectedIndex === index}
               onClick={onSelect(index)}
+              onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+                const tabs =
+                  e.currentTarget.parentElement?.querySelectorAll<HTMLElement>(
+                    '[role="tab"]'
+                  );
+                if (!tabs || tabs.length === 0) {
+                  return;
+                }
+                const last = tabs.length - 1;
+                let nextIndex: number | undefined;
+                if (e.key === 'ArrowRight') {
+                  nextIndex = index >= last ? 0 : index + 1;
+                } else if (e.key === 'ArrowLeft') {
+                  nextIndex = index <= 0 ? last : index - 1;
+                } else if (e.key === 'Home') {
+                  nextIndex = 0;
+                } else if (e.key === 'End') {
+                  nextIndex = last;
+                } else {
+                  return;
+                }
+                e.preventDefault();
+                onSelectProp(nextIndex);
+                tabs[nextIndex]?.focus();
+              }}
               key={`tab-element-${index}`}
             >
               {child}

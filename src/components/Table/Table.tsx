@@ -274,6 +274,7 @@ const Thead = ({
               className={cn(headerVariants({ size }))}
             >
               <SelectAllCheckbox
+                aria-label="Select all rows"
                 onCheckedChange={onSelectAll}
                 rows={rows}
                 selectedIds={selectedIds}
@@ -476,6 +477,7 @@ const TableBodyRow = ({
             checked={isIndeterminate ? 'indeterminate' : isSelected}
             onCheckedChange={onSelect}
             disabled={isDisabled || isDeleted}
+            aria-label="Select row"
           />
         </td>
       )}

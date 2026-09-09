@@ -55,18 +55,21 @@ export const ProgressBar = ({
     ...style,
   } as CSSProperties;
 
+  const progressAria = {
+    role: 'progressbar' as const,
+    'aria-valuemin': 0,
+    'aria-valuemax': 100,
+    'aria-valuenow': progress,
+    'aria-valuetext':
+      completed && typeof successMessage === 'string' ? successMessage : undefined,
+  };
+
   return (
     <div
       // Using a CSS variable avoids generating a new class per progress value.
       style={mergedStyle}
       {...props}
-      role="progressbar"
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={progress}
-      aria-valuetext={
-        completed && typeof successMessage === 'string' ? successMessage : undefined
-      }
+      {...(type === 'small' ? progressAria : undefined)}
       className={cn(
         progressBarVariants({ type, orientation, dir, completed }),
         className
@@ -74,7 +77,10 @@ export const ProgressBar = ({
     >
       {type === 'default' && (
         <>
-          <span className={styles.progresstext}>
+          <span
+            {...progressAria}
+            className={styles.progresstext}
+          >
             {successMessage && completed ? successMessage : `${progress}%`}
           </span>
           <IconButton

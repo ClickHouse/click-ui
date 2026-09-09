@@ -52,6 +52,20 @@ describe('Progress bar', () => {
     expect(getByTestId('progressbar').style.getPropertyValue('--progress')).toBe('25%');
   });
 
+  it('keeps the cancel button outside the progressbar role', () => {
+    const onCancel = vi.fn();
+    const { getByRole } = renderPopover({
+      type: 'default',
+      progress: 38,
+      dismissable: true,
+      onCancel,
+    });
+    const progressbar = getByRole('progressbar');
+    expect(progressbar).toHaveAttribute('aria-valuenow', '38');
+    expect(progressbar.querySelector('[data-testid="progressbar-close"]')).toBeNull();
+    expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+  });
+
   it('should show close Button if dismissable is true', () => {
     const onCancel = vi.fn();
     const { queryAllByTestId } = renderPopover({
