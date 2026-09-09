@@ -6,6 +6,7 @@ import { FormContainerProps } from './FormContainer.types';
 
 export const FormContainer = ({
   id,
+  htmlFor,
   label,
   orientation,
   dir,
@@ -13,24 +14,35 @@ export const FormContainer = ({
   children,
   addLabelPadding,
   ...props
-}: FormContainerProps) => (
-  <FormRoot
-    $orientation={orientation}
-    $dir={dir}
-    $addLabelPadding={addLabelPadding}
-    {...props}
-  >
-    <FormElementContainer>
-      {children}
-      {!!error && error !== true && <Error>{error}</Error>}
-    </FormElementContainer>
-    {label && (
-      <Label
-        htmlFor={id}
-        error={!!error}
-      >
-        {label}
-      </Label>
-    )}
-  </FormRoot>
-);
+}: FormContainerProps) => {
+  const controlId = htmlFor ?? id;
+  const errorId = controlId && !!error && error !== true ? `${controlId}-error` : undefined;
+  return (
+    <FormRoot
+      $orientation={orientation}
+      $dir={dir}
+      $addLabelPadding={addLabelPadding}
+      {...props}
+    >
+      <FormElementContainer>
+        {children}
+        {!!error && error !== true && (
+          <Error
+            id={errorId}
+            role="alert"
+          >
+            {error}
+          </Error>
+        )}
+      </FormElementContainer>
+      {label && (
+        <Label
+          htmlFor={controlId}
+          error={!!error}
+        >
+          {label}
+        </Label>
+      )}
+    </FormRoot>
+  );
+};

@@ -116,6 +116,7 @@ const VerticalStep = ({
       <button
         type="button"
         disabled={status === 'incomplete' || disabled}
+        aria-current={status === 'active' ? 'step' : undefined}
         {...props}
         className={cn(triggerVariants({ status }), className)}
       >
@@ -125,6 +126,7 @@ const VerticalStep = ({
               name="check"
               size="xs"
               className={styles.step__check}
+              aria-hidden
             />
           ) : null}
         </div>

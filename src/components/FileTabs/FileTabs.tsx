@@ -181,8 +181,9 @@ export const FileTabs = ({
         >
           {Children.map(children, (child, index) => (
             <div
-              tabIndex={index + 1}
+              tabIndex={(selectedIndex ?? 0) === index ? 0 : -1}
               role="tab"
+              aria-selected={(selectedIndex ?? 0) === index}
               onClick={onSelect(index)}
               key={`tab-element-${index}`}
             >
@@ -265,7 +266,14 @@ const Tab = ({
       )}
     >
       <div className={styles['tab-content']}>
-        {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
+        {typeof icon === 'string' ? (
+          <Icon
+            name={icon as IconName}
+            aria-hidden
+          />
+        ) : (
+          icon
+        )}
         <span className={styles['tab-content-text']}>{text}</span>
       </div>
       <IconButton
@@ -274,6 +282,7 @@ const Tab = ({
         icon="cross"
         onClick={onClose}
         data-type="close"
+        aria-label={`Close ${text}`}
         data-testid={testId ? `${testId}-${index}-close` : undefined}
       />
       <div
@@ -307,7 +316,14 @@ export const FileTabElement = ({
       {...props}
       className={cn(tabVariants({ active, preview, fixed: true }), className)}
     >
-      {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
+      {typeof icon === 'string' ? (
+        <Icon
+          name={icon as IconName}
+          aria-hidden
+        />
+      ) : (
+        icon
+      )}
       {children && <span className={styles['tab-content-text']}>{children}</span>}
     </div>
   );

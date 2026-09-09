@@ -60,6 +60,13 @@ export const ProgressBar = ({
       // Using a CSS variable avoids generating a new class per progress value.
       style={mergedStyle}
       {...props}
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={progress}
+      aria-valuetext={
+        completed && typeof successMessage === 'string' ? successMessage : undefined
+      }
       className={cn(
         progressBarVariants({ type, orientation, dir, completed }),
         className
@@ -76,6 +83,9 @@ export const ProgressBar = ({
             icon="cross"
             onClick={onCancel}
             data-testid="progressbar-close"
+            aria-label="Cancel"
+            aria-hidden={!dismissable || undefined}
+            tabIndex={dismissable ? undefined : -1}
             className={closeButtonVariants({ dismissable })}
           />
         </>

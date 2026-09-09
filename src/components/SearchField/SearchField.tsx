@@ -18,6 +18,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
           <Icon
             name={isFilter ? 'filter' : 'search'}
             size="sm"
+            aria-hidden
           />
         }
         clear={clear}

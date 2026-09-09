@@ -156,7 +156,8 @@ const CollapsipleTrigger = ({
   return (
     <EmptyButton
       onClick={onClick}
-      aria-label="trigger children"
+      aria-expanded={open}
+      aria-label="Toggle section"
       {...props}
       className={cn(styles.collapsible__trigger, className)}
     >
@@ -166,6 +167,7 @@ const CollapsipleTrigger = ({
           name="chevron-right"
           data-open={open.toString()}
           size="sm"
+          aria-hidden
         />
       )}
       {children && (
@@ -182,6 +184,7 @@ const CollapsipleTrigger = ({
           name="chevron-right"
           data-open={open.toString()}
           size="sm"
+          aria-hidden
         />
       )}
     </EmptyButton>

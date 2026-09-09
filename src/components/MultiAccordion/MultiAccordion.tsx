@@ -229,13 +229,14 @@ const MultiAccordionItem = ({
             <Icon
               name="chevron-right"
               size={iconSize ?? customSize}
-              aria-label="accordion icon"
+              aria-hidden
             />
           </div>
           {icon ? (
             <Icon
               name={icon}
               size={iconSize ?? customSize}
+              aria-hidden
             />
           ) : null}
         </div>
@@ -264,7 +265,7 @@ const MultiAccordionItem = ({
               )}
               name={isCompleted ? 'check-in-circle' : 'circle'}
               size={iconSize ?? customSize}
-              aria-label="accordion icon status"
+              aria-hidden
               onClick={onClickStatus}
               data-icon="accordion-status"
               data-testid="accordion-status-icon"

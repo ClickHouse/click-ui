@@ -193,6 +193,15 @@
    (e.g. opaque-text-info for an info badge, but solid-text-info for a solid
    info badge). Doubled class keeps the close icon on opaque-text-* regardless. */
 
+.closebutton {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
 .closeicon {
   width: var(--click-badge-icon-md-size-width);
   height: var(--click-badge-icon-md-size-height);

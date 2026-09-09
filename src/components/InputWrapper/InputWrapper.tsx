@@ -5,6 +5,7 @@ import {
   ButtonHTMLAttributes,
   ComponentProps,
   ComponentPropsWithRef,
+  createContext,
   ElementType,
   HTMLAttributes,
   InputHTMLAttributes,
@@ -12,6 +13,7 @@ import {
   SVGProps,
   TextareaHTMLAttributes,
   forwardRef,
+  useContext,
 } from 'react';
 import styles from './InputWrapper.module.css';
 
@@ -33,6 +35,13 @@ const wrapperVariants = cva(styles.wrapper, {
     resize: 'none',
   },
 });
+
+type FieldErrorContextValue = {
+  invalid?: boolean;
+  describedBy?: string;
+};
+
+const FieldErrorContext = createContext<FieldErrorContextValue>({});
 
 export interface WrapperProps {
   className?: string;
@@ -59,6 +68,7 @@ export const InputWrapper = ({
   dir,
   resize = 'none',
 }: WrapperProps) => {
+  const errorId = !!error && error !== true ? `${id}-error` : undefined;
   return (
     <FormRoot
       $orientation={orientation}
@@ -66,17 +76,28 @@ export const InputWrapper = ({
       $addLabelPadding
     >
       <FormElementContainer>
-        <div
-          data-resize={resize}
-          className={cn(
-            wrapperVariants({ error: !!error, resize }),
-            disabled && styles.disabled,
-            className
-          )}
+        <FieldErrorContext.Provider
+          value={{ invalid: !!error, describedBy: errorId }}
         >
-          {children}
-        </div>
-        {!!error && error !== true && <Error>{error}</Error>}
+          <div
+            data-resize={resize}
+            className={cn(
+              wrapperVariants({ error: !!error, resize }),
+              disabled && styles.disabled,
+              className
+            )}
+          >
+            {children}
+          </div>
+        </FieldErrorContext.Provider>
+        {!!error && error !== true && (
+          <Error
+            id={errorId}
+            role="alert"
+          >
+            {error}
+          </Error>
+        )}
       </FormElementContainer>
       {label && (
         <Label
@@ -131,9 +152,12 @@ const _InputElement = <T extends ElementType = 'input'>(
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   const Component = as ?? 'input';
+  const { invalid, describedBy } = useContext(FieldErrorContext);
   return (
     <Component
       ref={ref}
+      aria-invalid={invalid || undefined}
+      aria-describedby={describedBy}
       {...props}
       className={cn(
         inputVariants({
@@ -155,32 +179,42 @@ export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputEl
 }
 
 export const NumberInputElement = forwardRef<HTMLInputElement, NumberInputElementProps>(
-  ({ $hideControls, $hasStartContent, $hasEndContent, className, ...props }, ref) => (
-    <input
-      ref={ref}
-      {...props}
-      className={cn(
-        inputVariants({
-          hasStartContent: !!$hasStartContent,
-          hasEndContent: !!$hasEndContent,
-        }),
-        $hideControls && styles['number-input_hide-controls'],
-        className
-      )}
-    />
-  )
+  ({ $hideControls, $hasStartContent, $hasEndContent, className, ...props }, ref) => {
+    const { invalid, describedBy } = useContext(FieldErrorContext);
+    return (
+      <input
+        ref={ref}
+        aria-invalid={invalid || undefined}
+        aria-describedby={describedBy}
+        {...props}
+        className={cn(
+          inputVariants({
+            hasStartContent: !!$hasStartContent,
+            hasEndContent: !!$hasEndContent,
+          }),
+          $hideControls && styles['number-input_hide-controls'],
+          className
+        )}
+      />
+    );
+  }
 );
 
 export const TextAreaElement = forwardRef<
   HTMLTextAreaElement,
   TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ className, ...props }, ref) => (
-  <textarea
-    ref={ref}
-    {...props}
-    className={cn(styles.textarea, className)}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { invalid, describedBy } = useContext(FieldErrorContext);
+  return (
+    <textarea
+      ref={ref}
+      aria-invalid={invalid || undefined}
+      aria-describedby={describedBy}
+      {...props}
+      className={cn(styles.textarea, className)}
+    />
+  );
+});
 
 export const IconButton = forwardRef<
   HTMLButtonElement,

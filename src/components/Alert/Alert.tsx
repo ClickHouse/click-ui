@@ -130,14 +130,15 @@ export const Alert = ({
   return isVisible ? (
     <div
       data-testid="click-alert"
+      role={state === 'danger' || state === 'warning' ? 'alert' : 'status'}
       {...delegated}
       className={cn(wrapperVariants({ state, type }), className)}
     >
       {dismissible && type === 'banner' && (
-        <button
-          type="button"
+        <span
+          aria-hidden
           className={styles.alert__dismiss}
-        ></button>
+        />
       )}
       {showIcon && (
         <div className={cn(iconWrapperVariants({ state, size, type }))}>
@@ -158,11 +159,12 @@ export const Alert = ({
           type="button"
           data-testid="click-alert-dismiss-button"
           onClick={handleDismiss}
+          aria-label="Dismiss"
           className={styles.alert__dismiss}
         >
           <Icon
             name="cross"
-            aria-label="close"
+            aria-hidden
           />
         </button>
       )}

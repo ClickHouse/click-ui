@@ -154,6 +154,7 @@ export const Pagination = ({
           disabled={leftButtonDisabled}
           onClick={onPrevClick}
           data-testid="prev-btn"
+          aria-label="Previous page"
         />
         <Container
           maxWidth="50px"
@@ -164,7 +165,7 @@ export const Pagination = ({
             onChange={onChange}
             value={currentPage}
             loading={false}
-            aria-label={currentPage.toString()}
+            aria-label="Page"
             min={1}
             max={totalPages}
             onFocus={onPageNumberFocus}
@@ -188,6 +189,7 @@ export const Pagination = ({
           disabled={rightButtonDisabled}
           onClick={onNextClick}
           data-testid="next-btn"
+          aria-label="Next page"
         />
       </Container>
       {maxRowsPerPageList.length > 0 && (
@@ -195,6 +197,7 @@ export const Pagination = ({
           className={styles['custom-select']}
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
+          aria-label="Rows per page"
         >
           {allowAllRows && <Select.Item value="-1">All rows</Select.Item>}
           {maxRowsPerPageList.map(option => (

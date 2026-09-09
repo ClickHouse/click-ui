@@ -91,6 +91,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
           $hideControls={hideControls}
           $hasStartContent={hasStartContent}
           $hasEndContent={hasEndContent}
+          aria-busy={loading || undefined}
           {...props}
         />
         {hasEndContent && (
@@ -100,6 +101,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
               <Icon
                 name="loading-animated"
                 size="sm"
+                aria-hidden
               />
             )}
           </InputEndContent>

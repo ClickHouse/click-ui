@@ -73,10 +73,13 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
             <IconButton
               disabled={disabled}
               onClick={togglePasswordViewer}
+              aria-label={viewPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={viewPassword}
             >
               <Icon
                 name={viewPassword ? 'eye-closed' : 'eye'}
                 size="md"
+                aria-hidden
               />
             </IconButton>
           </InputEndContent>
