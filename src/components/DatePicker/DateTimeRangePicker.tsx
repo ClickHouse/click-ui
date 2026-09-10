@@ -20,6 +20,7 @@ import {
   DateTimeRangePickerInput,
   DateTableCell,
   StyledDropdownItem,
+  useCalendarDayKeyboard,
 } from './Common';
 import { Container } from '../Container/Container';
 import { Panel } from '../Panel/Panel';
@@ -203,36 +204,22 @@ const dateRangeTableCellVariants = cva(undefined, {
   },
 });
 
-const DateRangeTableCell = ({
-  shouldShowRangeIndicator,
-  className,
-  children,
-  isCurrentMonth,
-  isDisabled,
-  isSelected,
-  isPresent,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
-}: ComponentProps<typeof DateTableCell> & {
-  shouldShowRangeIndicator?: boolean;
-}) => (
+const DateRangeTableCell = forwardRef<
+  HTMLTableCellElement,
+  ComponentProps<typeof DateTableCell> & {
+    shouldShowRangeIndicator?: boolean;
+  }
+>(({ shouldShowRangeIndicator, className, ...props }, ref) => (
   <DateTableCell
-    isCurrentMonth={isCurrentMonth}
-    isDisabled={isDisabled}
-    isSelected={isSelected}
-    isPresent={isPresent}
-    onClick={onClick}
-    onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave}
+    ref={ref}
     className={cn(
       dateRangeTableCellVariants({ showRangeIndicator: shouldShowRangeIndicator }),
       className
     )}
-  >
-    {children}
-  </DateTableCell>
-);
+    {...props}
+  />
+));
+DateRangeTableCell.displayName = 'DateRangeTableCell';
 
 type CalendarType = 'startDate' | 'endDate';
 
@@ -250,6 +237,7 @@ interface CalendarProps {
   startDate?: Date;
   endDate?: Date;
   timezone: Timezone;
+  autoFocus?: boolean;
 }
 
 const Calendar = ({
@@ -262,6 +250,7 @@ const Calendar = ({
   startDate,
   endDate,
   timezone,
+  autoFocus = false,
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
 
@@ -269,9 +258,23 @@ const Calendar = ({
   const shiftedStart = startDate ? shiftToTimezone(startDate, timezone) : undefined;
   const shiftedEnd = endDate ? shiftToTimezone(endDate, timezone) : undefined;
 
+  const allDays = calendarBody.value.flatMap(week => week.value);
+  const focusDate =
+    calendarType === 'startDate'
+      ? (shiftedStart ?? today)
+      : (shiftedEnd ?? shiftedStart ?? today);
+  const initialFocusIndex = allDays.findIndex(day => isSameDate(focusDate, day.value));
+  const { focusedDayIndex, dayRefs, onDayKeyDown } = useCalendarDayKeyboard(
+    allDays.length,
+    initialFocusIndex,
+    autoFocus
+  );
+
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
   };
+
+  let dayIndex = 0;
 
   return calendarBody.value.map(({ key: weekKey, value: week }) => {
     return (
@@ -391,8 +394,14 @@ const Calendar = ({
             setSelectedDate(originalFullDate, calendarType);
           };
 
+          const currentIndex = dayIndex;
+          dayIndex++;
+
           return (
             <DateRangeTableCell
+              ref={el => {
+                dayRefs.current[currentIndex] = el;
+              }}
               shouldShowRangeIndicator={
                 shouldShowRangeIndicator || isBetweenStartAndEndDates
               }
@@ -404,6 +413,10 @@ const Calendar = ({
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseOut}
+              onKeyDown={e => onDayKeyDown(e, currentIndex, handleClick)}
+              tabIndex={currentIndex === focusedDayIndex ? 0 : -1}
+              role="gridcell"
+              aria-label={fullDate.toDateString()}
             >
               {date}
             </DateRangeTableCell>
@@ -757,6 +770,7 @@ interface TabbedCalendarProps {
   shouldShowSeconds: boolean;
   startDate: Date | undefined;
   timezone: Timezone;
+  autoFocus?: boolean;
 }
 
 const TabbedCalendar = ({
@@ -771,6 +785,7 @@ const TabbedCalendar = ({
   shouldShowSeconds,
   startDate,
   timezone,
+  autoFocus = false,
 }: TabbedCalendarProps) => {
   const [activeTab, setActiveTab] = useState<Tab>(defaultActiveTab);
 
@@ -842,6 +857,7 @@ const TabbedCalendar = ({
         >
           {(body: Body) => (
             <Calendar
+              autoFocus={autoFocus && activeTab === 'startDate'}
               calendarBody={body}
               calendarType="startDate"
               endDate={endDate}
@@ -868,6 +884,7 @@ const TabbedCalendar = ({
         >
           {(body: Body) => (
             <Calendar
+              autoFocus={autoFocus && activeTab === 'endDate'}
               calendarBody={body}
               calendarType="endDate"
               endDate={endDate}
@@ -947,6 +964,7 @@ export const DateTimeRangePicker = ({
   const [shouldShowCustomRange, setShouldShowCustomRange] = useState<boolean>(false);
   const [calendarOpenDirection, setCalendarOpenDirection] =
     useState<OpenDirection>(openDirection);
+  const [autoFocusCalendar, setAutoFocusCalendar] = useState<boolean>(false);
   const calendarContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -1011,6 +1029,7 @@ export const DateTimeRangePicker = ({
     if (!isOpen) {
       setShouldShowCustomRange(false);
       setCalendarOpenDirection('right');
+      setAutoFocusCalendar(false);
     }
   }, []);
 
@@ -1086,8 +1105,11 @@ export const DateTimeRangePicker = ({
 
   const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setIsOpen(true);
+      setAutoFocusCalendar(true);
+      if (e.key === ' ') {
+        e.preventDefault();
+        setIsOpen(true);
+      }
     }
   }, []);
 
@@ -1143,6 +1165,7 @@ export const DateTimeRangePicker = ({
                   ref={calendarContainerRef}
                 >
                   <TabbedCalendar
+                    autoFocus={autoFocusCalendar}
                     defaultActiveTab={defaultActiveTab}
                     endDate={selectedEndDate}
                     futureDatesDisabled={futureDatesDisabled}
@@ -1161,6 +1184,7 @@ export const DateTimeRangePicker = ({
           ) : (
             <>
               <TabbedCalendar
+                autoFocus={autoFocusCalendar}
                 defaultActiveTab={defaultActiveTab}
                 endDate={selectedEndDate}
                 futureDatesDisabled={futureDatesDisabled}

@@ -1,3 +1,19 @@
+.trigger {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: default;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
 .content {
   --tooltip-max-width: initial;
 

@@ -41,6 +41,17 @@ export const ConfirmationDialog = ({
         showClose={showClose}
         {...props}
         className={cn(styles.content, className)}
+        onOpenAutoFocus={event => {
+          const content = event.currentTarget;
+          if (!(content instanceof HTMLElement)) {
+            return;
+          }
+          const titleEl = content.querySelector('[data-testid="click-dialog-title"]');
+          if (titleEl instanceof HTMLElement) {
+            event.preventDefault();
+            titleEl.focus();
+          }
+        }}
       >
         <Container
           overflow="auto"
@@ -60,7 +71,6 @@ export const ConfirmationDialog = ({
             disabled={!!disabled || !!loading}
             type={primaryActionType}
             label={primaryActionLabel}
-            autoFocus={open}
             onClick={() => {
               if (onConfirm) {
                 onConfirm();

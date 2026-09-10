@@ -13,12 +13,37 @@ describe('Tooltip', () => {
       </Tooltip>
     );
 
+  it('renders a button trigger by default', () => {
+    const { getByRole } = renderTooltip({});
+    expect(getByRole('button', { name: 'Hover Here' })).toHaveAttribute('type', 'button');
+  });
+
   it('should open tooltip on hover', async () => {
     const { getAllByText, findAllByText } = renderTooltip({});
     const TooltipTrigger = getAllByText('Hover Here');
     expect(TooltipTrigger.length).toEqual(1);
     await userEvent.hover(TooltipTrigger[0]);
     expect(await findAllByText('Tooltip content')).not.toBeNull();
+  });
+
+  it('should open tooltip on keyboard focus', async () => {
+    const { getByRole, findByTestId } = renderTooltip({});
+    await userEvent.tab();
+    expect(getByRole('button', { name: 'Hover Here' })).toHaveFocus();
+    expect(await findByTestId('tooltip-content')).not.toBeNull();
+  });
+
+  it('uses the child as the trigger when asChild is set', () => {
+    const { getByRole, queryByRole } = renderCUI(
+      <Tooltip>
+        <Tooltip.Trigger asChild>
+          <a href="#section">Link trigger</a>
+        </Tooltip.Trigger>
+        <Tooltip.Content>Tooltip content</Tooltip.Content>
+      </Tooltip>
+    );
+    expect(getByRole('link', { name: 'Link trigger' })).not.toBeNull();
+    expect(queryByRole('button')).toBeNull();
   });
 
   it('should show the tooltip if the open prop is true', async () => {

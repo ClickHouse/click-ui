@@ -1,9 +1,10 @@
-import type { DragEvent, FC, ReactNode } from 'react';
+import type { DragEvent, FC, KeyboardEvent, ReactNode } from 'react';
+import { useId } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { Text } from '@/components/Text';
 import { Title } from '@/components/Title';
 import { Icon } from '@/components/Icon';
-import { Button } from '@/components/Button';
+import buttonStyles from '@/components/Button/Button.module.css';
 import styles from './FileUploadArea.module.css';
 
 const uploadAreaVariants = cva(styles['upload-area'], {
@@ -101,6 +102,18 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
   children,
 }) => {
   const isCompact = hasFile || size === 'sm';
+  const titleId = useId();
+  const isInteractive = !hasFile && typeof onClick === 'function';
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!isInteractive) {
+      return;
+    }
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick?.();
+    }
+  };
 
   return (
     <div
@@ -118,11 +131,15 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
           error: isError,
         })
       )}
+      role={isInteractive ? 'button' : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
+      aria-labelledby={isInteractive ? titleId : undefined}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
       onDrop={onDrop}
       onClick={!hasFile ? onClick : undefined}
+      onKeyDown={isInteractive ? handleKeyDown : undefined}
     >
       {!hasFile ? (
         <>
@@ -141,6 +158,7 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
           >
             {isNotSupported ? (
               <Title
+                id={titleId}
                 type="h1"
                 className={cn(titleVariants({ notSupported: true }))}
               >
@@ -148,6 +166,7 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
               </Title>
             ) : (
               <Title
+                id={titleId}
                 type="h1"
                 className={cn(titleVariants({ notSupported: isNotSupported }))}
               >
@@ -158,15 +177,18 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
               Files supported: {supportedFileTypes.join(', ')}
             </Text>
           </div>
-          <Button
-            type={'secondary'}
-            onClick={e => {
-              e.stopPropagation();
-              onClick?.();
-            }}
+          <span
+            className={cn(
+              buttonStyles.button,
+              buttonStyles.button_secondary,
+              buttonStyles['button_align-center']
+            )}
+            aria-hidden
           >
-            {multiple ? 'Browse files' : 'Browse file'}
-          </Button>
+            <span className={buttonStyles.button__label}>
+              {multiple ? 'Browse files' : 'Browse file'}
+            </span>
+          </span>
         </>
       ) : (
         children

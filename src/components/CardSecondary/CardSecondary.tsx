@@ -42,8 +42,6 @@ export const CardSecondary = ({
   const InfoComponent = isInfoLink ? 'a' : 'div';
   return (
     <div
-      aria-disabled={disabled}
-      tabIndex={0}
       {...props}
       className={cn(wrapperVariants({ shadow: hasShadow }), className)}
     >

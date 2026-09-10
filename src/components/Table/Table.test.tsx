@@ -122,6 +122,41 @@ describe('Table', () => {
     ].forEach(button => expect(button).toHaveAttribute('type', 'button'));
   });
 
+  it('puts only one column resizer in the tab order', () => {
+    const { queryAllByRole } = renderTable({
+      resizableColumns: true,
+    });
+
+    const resizers = queryAllByRole('separator');
+    expect(resizers.length).toBe(2);
+    expect(resizers[0]).toHaveAttribute('tabIndex', '0');
+    expect(resizers[1]).toHaveAttribute('tabIndex', '-1');
+  });
+
+  it('moves resizer focus with ArrowDown, ArrowUp, Home, and End', () => {
+    const { queryAllByRole } = renderTable({
+      resizableColumns: true,
+    });
+
+    const resizers = queryAllByRole('separator');
+    resizers[0].focus();
+    expect(resizers[0]).toHaveFocus();
+
+    fireEvent.keyDown(resizers[0], { key: 'ArrowDown' });
+    expect(resizers[1]).toHaveFocus();
+    expect(resizers[0]).toHaveAttribute('tabIndex', '-1');
+    expect(resizers[1]).toHaveAttribute('tabIndex', '0');
+
+    fireEvent.keyDown(resizers[1], { key: 'ArrowUp' });
+    expect(resizers[0]).toHaveFocus();
+
+    fireEvent.keyDown(resizers[0], { key: 'End' });
+    expect(resizers[1]).toHaveFocus();
+
+    fireEvent.keyDown(resizers[1], { key: 'Home' });
+    expect(resizers[0]).toHaveFocus();
+  });
+
   it('should resize column width on ArrowRight key press', () => {
     const { queryAllByRole } = renderTable({
       resizableColumns: true,
@@ -212,6 +247,6 @@ describe('Table', () => {
     }).not.toThrow();
 
     expect(resizers[0]).toHaveAttribute('tabIndex', '0');
-    expect(resizers[1]).toHaveAttribute('tabIndex', '0');
+    expect(resizers[1]).toHaveAttribute('tabIndex', '-1');
   });
 });

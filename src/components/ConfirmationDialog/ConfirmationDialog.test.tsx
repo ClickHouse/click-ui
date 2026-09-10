@@ -4,6 +4,7 @@ import {
   ConfirmationDialogProps,
 } from '@/components/ConfirmationDialog';
 import { fireEvent } from '@testing-library/dom';
+import { waitFor } from '@testing-library/react';
 
 describe('Dialog Component', () => {
   const renderDialog = (
@@ -134,11 +135,13 @@ describe('Dialog Component', () => {
     spy.mockRestore();
   });
 
-  it('focuses the confirm button when dialog opens', async () => {
+  it('focuses the dialog title when dialog opens', async () => {
     const { getByTestId } = renderDialog({ open: true });
-    const confirmButton = getByTestId('confirm-action-button');
 
-    expect(document.activeElement).toBe(confirmButton);
+    await waitFor(() => {
+      expect(document.activeElement).toBe(getByTestId('click-dialog-title'));
+    });
+    expect(document.activeElement).not.toBe(getByTestId('confirm-action-button'));
   });
 
   it('does not focus when dialog is closed', () => {

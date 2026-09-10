@@ -1,3 +1,4 @@
+import { KeyboardEvent, MouseEvent, SyntheticEvent } from 'react';
 import { Badge } from '@/components/Badge';
 import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
@@ -82,14 +83,20 @@ export const CardHorizontal = ({
   className,
   ...props
 }: CardHorizontalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const hasActionButton = Boolean(infoText);
+  const wouldBeControl =
+    !hasActionButton &&
+    (isSelectable || typeof onButtonClick === 'function' || Boolean(infoUrl));
+  const isCardControl = wouldBeControl && !disabled;
+
+  const handleActivate = (e: SyntheticEvent<HTMLElement>) => {
     if (disabled) {
       e.preventDefault();
       return;
     }
 
     if (typeof onButtonClick === 'function') {
-      onButtonClick(e);
+      onButtonClick(e as MouseEvent<HTMLElement>);
     }
     if (infoUrl && infoUrl.length > 0) {
       window.open(infoUrl, '_blank');
@@ -97,13 +104,24 @@ export const CardHorizontal = ({
   };
   const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    handleClick(e);
+    handleActivate(e);
+  };
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!isCardControl) {
+      return;
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleActivate(e);
+    }
   };
   return (
     <div
-      tabIndex={disabled ? -1 : 0}
-      aria-disabled={disabled}
-      onClick={handleClick}
+      role={isCardControl ? 'button' : undefined}
+      tabIndex={isCardControl ? 0 : undefined}
+      aria-disabled={wouldBeControl ? disabled : undefined}
+      onClick={handleActivate}
+      onKeyDown={isCardControl ? handleKeyDown : undefined}
       {...props}
       className={cn(
         wrapperVariants({
