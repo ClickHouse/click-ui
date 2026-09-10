@@ -2,6 +2,7 @@ import {
   CSSProperties,
   FC,
   HTMLAttributes,
+  KeyboardEvent,
   MouseEvent,
   ReactNode,
   forwardRef,
@@ -76,15 +77,17 @@ const sortIconVariants = cva(styles['table__sort-icon'], {
 
 type OnKeyboardResizerDirection = 'left' | 'right';
 
+const MIN_COLUMN_WIDTH = 120;
+
 interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
   onSort?: () => void;
   size: TableSize;
   showResizer?: boolean;
+  resizerTabIndex?: number;
+  columnWidth?: number;
   onResizeStart?: (e: MouseEvent) => void;
-  onKeyboardResize?: (
-    e: React.KeyboardEvent,
-    direction: OnKeyboardResizerDirection
-  ) => void;
+  onResizerFocus?: () => void;
+  onKeyboardResize?: (e: KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
 }
 
 const TableHeader = ({
@@ -97,7 +100,10 @@ const TableHeader = ({
   size,
   resizable,
   showResizer,
+  resizerTabIndex = -1,
+  columnWidth,
   onResizeStart,
+  onResizerFocus,
   onKeyboardResize,
   overflowMode,
   className,
@@ -124,21 +130,44 @@ const TableHeader = ({
     }
   };
 
-  const onResizerKeyDown = (e: React.KeyboardEvent) => {
-    if (!onKeyboardResize) {
-      return;
-    }
+  const onResizerKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const separators = e.currentTarget
+      .closest('tr')
+      ?.querySelectorAll<HTMLElement>('[role="separator"]');
+    const resizerCount = separators?.length ?? 0;
+    const currentIndex = separators
+      ? Array.from(separators).indexOf(e.currentTarget)
+      : -1;
 
-    if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-      e.preventDefault();
-    }
+    const focusResizer = (nextIndex: number) => {
+      if (!separators || resizerCount === 0) {
+        return;
+      }
+      const next = ((nextIndex % resizerCount) + resizerCount) % resizerCount;
+      separators[next]?.focus();
+    };
 
     switch (e.key) {
       case 'ArrowLeft':
-        onKeyboardResize(e, 'left');
-        break;
       case 'ArrowRight':
-        onKeyboardResize(e, 'right');
+        e.preventDefault();
+        onKeyboardResize?.(e, e.key === 'ArrowLeft' ? 'left' : 'right');
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        focusResizer(currentIndex + 1);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        focusResizer(currentIndex - 1);
+        break;
+      case 'Home':
+        e.preventDefault();
+        focusResizer(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        focusResizer(resizerCount - 1);
         break;
       case 'Escape':
         resizerRef.current?.blur();
@@ -190,10 +219,13 @@ const TableHeader = ({
         <div
           ref={resizerRef}
           onMouseDown={onResizeStart}
+          onFocus={onResizerFocus}
           role="separator"
           aria-orientation="vertical"
           aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
-          tabIndex={0}
+          aria-valuemin={MIN_COLUMN_WIDTH}
+          aria-valuenow={columnWidth}
+          tabIndex={resizerTabIndex}
           onKeyDown={onResizerKeyDown}
           className={cn(styles.table__resizer)}
         />
@@ -215,7 +247,7 @@ interface TheadProps {
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
     columnIndex: number
-  ) => (e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
+  ) => (e: KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
   theadRef?: RefObject<HTMLTableSectionElement>;
 }
 
@@ -234,6 +266,10 @@ const Thead = ({
   theadRef,
   onKeyboardResize,
 }: TheadProps) => {
+  const [focusedResizerIndex, setFocusedResizerIndex] = useState(0);
+  const lastResizerIndex = Math.max(0, headers.length - 2);
+  const activeResizerIndex = Math.min(focusedResizerIndex, lastResizerIndex);
+
   const onSort = (header: TableColumnConfigProps, headerIndex: number) => () => {
     if (typeof onSortProp === 'function' && header.isSortable) {
       onSortProp(header.sortDir === 'asc' ? 'desc' : 'asc', header, headerIndex);
@@ -281,18 +317,29 @@ const Thead = ({
               />
             </th>
           )}
-          {headers.map((headerProps, index) => (
-            <TableHeader
-              key={`table-header-${index}`}
-              onSort={onSort(headerProps, index)}
-              size={size}
-              resizable={resizableColumns}
-              showResizer={resizableColumns && index < headers.length - 1}
-              onResizeStart={onResizeStart?.(index)}
-              onKeyboardResize={onKeyboardResize?.(index)}
-              {...headerProps}
-            />
-          ))}
+          {headers.map((headerProps, index) => {
+            const headerLabel =
+              typeof headerProps.label === 'string'
+                ? headerProps.label
+                : `__index_${index}`;
+            return (
+              <TableHeader
+                key={`table-header-${index}`}
+                onSort={onSort(headerProps, index)}
+                size={size}
+                resizable={resizableColumns}
+                showResizer={resizableColumns && index < headers.length - 1}
+                resizerTabIndex={
+                  resizableColumns && index === activeResizerIndex ? 0 : -1
+                }
+                columnWidth={columnWidths?.get(headerLabel)}
+                onResizeStart={onResizeStart?.(index)}
+                onResizerFocus={() => setFocusedResizerIndex(index)}
+                onKeyboardResize={onKeyboardResize?.(index)}
+                {...headerProps}
+              />
+            );
+          })}
           {actionsList.length > 0 && (
             <th
               scope="col"
@@ -583,9 +630,6 @@ interface ResizeState {
   nextStartWidth: number;
 }
 
-// TODO: What is an acceptable minimum column width?
-const MIN_COLUMN_WIDTH = 120;
-
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
     {
@@ -792,7 +836,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
     const onKeyboardResize = useCallback(
       (columnIndex: number) =>
-        (_e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => {
+        (_e: KeyboardEvent, direction: OnKeyboardResizerDirection) => {
           if (!columnWidths) {
             return;
           }

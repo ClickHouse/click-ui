@@ -33,7 +33,7 @@ const TooltipExample = ({
       disabled={disabled}
     >
       <Tooltip.Trigger>
-        <Text>Tooltip Trigger(Hover)</Text>
+        <Text component="span">Tooltip trigger</Text>
       </Tooltip.Trigger>
 
       <Tooltip.Content
@@ -55,6 +55,14 @@ const meta: Meta<typeof TooltipExample> = {
   },
   title: 'Display/Tooltip',
   tags: ['form-field', 'tooltip', 'autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Tooltip.Trigger now renders a `button` by default so the tooltip can open on keyboard focus. If the child is already interactive (`Button`, `IconButton`, `Link`, `<a>`), pass `asChild` to avoid a nested button.',
+      },
+    },
+  },
   argTypes: {
     open: { control: 'radio', options: ['default', 'open', 'closed'] },
     disabled: { control: 'boolean' },

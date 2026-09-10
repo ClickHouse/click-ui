@@ -16,10 +16,20 @@ export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) =>
   );
 };
 
-const TooltipTrigger = ({ asChild, children, ...props }: TooltipTriggerProps) => {
+const TooltipTrigger = ({
+  asChild,
+  children,
+  className,
+  ...props
+}: TooltipTriggerProps) => {
   return (
-    <RadixTooltip.Trigger asChild>
-      {asChild ? children : <div {...props}>{children}</div>}
+    <RadixTooltip.Trigger
+      asChild={asChild}
+      type={asChild ? undefined : 'button'}
+      className={asChild ? className : cn(styles.trigger, className)}
+      {...props}
+    >
+      {children}
     </RadixTooltip.Trigger>
   );
 };

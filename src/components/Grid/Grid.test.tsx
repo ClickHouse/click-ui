@@ -145,4 +145,12 @@ describe('Grid', () => {
     const computedHeight = window.getComputedStyle(cell).height;
     expect(computedHeight).toBe('100%');
   });
+
+  it('has a single tab stop on the grid widget', () => {
+    const { getByTestId } = renderGrid({});
+    const outer = getByTestId('grid-outer-element');
+    expect(outer).not.toHaveAttribute('tabindex');
+    expect(outer.closest('[tabindex="0"]')).not.toBeNull();
+    expect(outer.querySelector('[tabindex="0"]')).toBeNull();
+  });
 });
