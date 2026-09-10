@@ -147,7 +147,6 @@ export type IconName =
   | 'services'
   | 'settings'
   | 'share'
-  | 'share-arrow'
   | 'share-network'
   | 'sleep'
   | 'slide-in'
