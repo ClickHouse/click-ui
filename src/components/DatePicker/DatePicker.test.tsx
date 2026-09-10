@@ -30,7 +30,7 @@ describe('DatePicker', () => {
 
     expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
 
-    getByTestId('datepicker-input').focus();
+    getByTestId('datepicker-input').closest('button')?.focus();
     await userEvent.keyboard('{Enter}');
 
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
@@ -52,7 +52,7 @@ describe('DatePicker', () => {
 
     expect(queryByTestId('datepicker-calendar-container')).not.toBeInTheDocument();
 
-    getByTestId('datepicker-input').focus();
+    getByTestId('datepicker-input').closest('button')?.focus();
     await userEvent.keyboard(' ');
 
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
@@ -64,14 +64,14 @@ describe('DatePicker', () => {
   it('sets the value of the DatePicker input to the date passed in', () => {
     const handleSelectDate = vi.fn();
     const date = new Date('07-04-2020');
-    const { getByDisplayValue } = renderCUI(
+    const { getByTestId } = renderCUI(
       <DatePicker
         date={date}
         onSelectDate={handleSelectDate}
       />
     );
 
-    expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+    expect(getByTestId('datepicker-input')).toHaveTextContent('Jul 04, 2020');
   });
 
   it('calls onSelectDate when a date is selected and passes in the selected date', async () => {
@@ -188,7 +188,7 @@ describe('DatePicker', () => {
   describe('when configured for the UTC timezone', () => {
     it('renders the selected date from its UTC fields', () => {
       const date = new Date('2026-04-30T01:00:00Z');
-      const { getByDisplayValue } = renderCUI(
+      const { getByTestId } = renderCUI(
         <DatePicker
           date={date}
           onSelectDate={vi.fn()}
@@ -196,7 +196,7 @@ describe('DatePicker', () => {
         />
       );
 
-      expect(getByDisplayValue('Apr 30, 2026')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent('Apr 30, 2026');
     });
 
     it('emits midnight UTC when the user picks a calendar day', async () => {
@@ -224,49 +224,49 @@ describe('DatePicker', () => {
       const onSelectDate = vi.fn();
       const date = new Date('07-04-2020');
 
-      const { getByTestId, getByDisplayValue } = renderCUI(
+      const { getByTestId } = renderCUI(
         <DatePicker
           date={date}
           onSelectDate={onSelectDate}
         />
       );
 
-      expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent('Jul 04, 2020');
 
       await userEvent.click(getByTestId('datepicker-input'));
       await userEvent.click(getByTestId('calendar-title'));
 
       await userEvent.click(getByTestId('year-cell-2020'));
 
-      expect(getByDisplayValue('2020')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent(/^2020$/);
 
       await userEvent.click(getByTestId('month-cell-0'));
 
-      expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent('Jan 2020');
     });
 
     it('reverts input to selected date when picker closes without completing selection', async () => {
       const onSelectDate = vi.fn();
       const date = new Date('07-04-2020');
 
-      const { getByTestId, getByDisplayValue } = renderCUI(
+      const { getByTestId } = renderCUI(
         <DatePicker
           date={date}
           onSelectDate={onSelectDate}
         />
       );
 
-      expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent('Jul 04, 2020');
 
       await userEvent.click(getByTestId('datepicker-input'));
       await userEvent.click(getByTestId('calendar-title'));
 
       await userEvent.click(getByTestId('year-cell-2020'));
-      expect(getByDisplayValue('2020')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent(/^2020$/);
 
       await userEvent.keyboard('{Escape}');
 
-      expect(getByDisplayValue('Jul 04, 2020')).toBeInTheDocument();
+      expect(getByTestId('datepicker-input')).toHaveTextContent('Jul 04, 2020');
     });
 
     it('selects 4th August 1986 using year and month selection', async () => {
@@ -367,7 +367,7 @@ describe('DatePicker', () => {
         const onSelectDate = vi.fn();
         const date = new Date('07-04-2020');
 
-        const { getByTestId, getByDisplayValue } = renderCUI(
+        const { getByTestId } = renderCUI(
           <DatePicker
             date={date}
             onSelectDate={onSelectDate}
@@ -388,7 +388,7 @@ describe('DatePicker', () => {
         await userEvent.keyboard('{Enter}');
 
         expect(getByTestId('months-grid')).toBeInTheDocument();
-        expect(getByDisplayValue('2020')).toBeInTheDocument();
+        expect(getByTestId('datepicker-input')).toHaveTextContent(/^2020$/);
       });
 
       it('supports arrow key navigation', async () => {
@@ -456,7 +456,7 @@ describe('DatePicker', () => {
         const onSelectDate = vi.fn();
         const date = new Date('07-04-2020');
 
-        const { getByTestId, getByDisplayValue } = renderCUI(
+        const { getByTestId } = renderCUI(
           <DatePicker
             date={date}
             onSelectDate={onSelectDate}
@@ -475,7 +475,7 @@ describe('DatePicker', () => {
 
         await userEvent.keyboard(' ');
 
-        expect(getByDisplayValue('Jan 2020')).toBeInTheDocument();
+        expect(getByTestId('datepicker-input')).toHaveTextContent('Jan 2020');
       });
 
       it('supports arrow key navigation', async () => {

@@ -162,15 +162,27 @@ export const DatePickerInput = ({
       id={id ?? defaultId}
     >
       <InputStartContent>
-        <Icon name="calendar" />
+        <Icon
+          name="calendar"
+          aria-hidden
+        />
       </InputStartContent>
       <InputElement
         $hasStartContent
+        as="div"
         data-testid="datepicker-input"
-        placeholder={placeholder}
-        readOnly
-        value={formattedSelectedDate}
-      />
+      >
+        {formattedSelectedDate ? (
+          formattedSelectedDate
+        ) : (
+          <Text
+            color="muted"
+            component="span"
+          >
+            {placeholder ?? ''}
+          </Text>
+        )}
+      </InputElement>
     </HighlightedInputWrapper>
   );
 };
@@ -234,7 +246,10 @@ export const DateRangePickerInput = ({
       id={id ?? defaultId}
     >
       <InputStartContent>
-        <Icon name="calendar" />
+        <Icon
+          name="calendar"
+          aria-hidden
+        />
       </InputStartContent>
       <InputElement
         $hasStartContent
@@ -342,7 +357,10 @@ export const DateTimeRangePickerInput = ({
       id={id ?? defaultId}
     >
       <InputStartContent>
-        <Icon name="calendar" />
+        <Icon
+          name="calendar"
+          aria-hidden
+        />
       </InputStartContent>
       <InputElement
         $hasStartContent
@@ -405,6 +423,74 @@ export const DateTableCell = forwardRef<HTMLTableCellElement, DateTableCellProps
   )
 );
 DateTableCell.displayName = 'DateTableCell';
+
+export const getCalendarDayNavIndex = (
+  key: string,
+  index: number,
+  totalDays: number
+): number | null => {
+  switch (key) {
+    case 'ArrowRight':
+      return (index + 1) % totalDays;
+    case 'ArrowLeft':
+      return (index - 1 + totalDays) % totalDays;
+    case 'ArrowDown':
+      return (index + DAYS_IN_WEEK) % totalDays;
+    case 'ArrowUp':
+      return (index - DAYS_IN_WEEK + totalDays) % totalDays;
+    default:
+      return null;
+  }
+};
+
+export const useCalendarDayKeyboard = (
+  totalDays: number,
+  initialFocusIndex: number,
+  autoFocus = false
+) => {
+  const [focusedDayIndex, setFocusedDayIndex] = useState(
+    initialFocusIndex >= 0 ? initialFocusIndex : 0
+  );
+  const dayRefs = useRef<Array<HTMLTableCellElement | null>>([]);
+
+  useEffect(() => {
+    dayRefs.current[focusedDayIndex]?.focus();
+  }, [focusedDayIndex]);
+
+  useEffect(() => {
+    if (autoFocus && initialFocusIndex >= 0) {
+      const timeoutId = setTimeout(() => {
+        dayRefs.current[initialFocusIndex]?.focus();
+      }, 0);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [autoFocus, initialFocusIndex]);
+
+  const onDayKeyDown = useCallback(
+    (
+      event: KeyboardEvent<HTMLTableCellElement>,
+      index: number,
+      onActivate: () => void
+    ) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        onActivate();
+        return;
+      }
+
+      const newIndex = getCalendarDayNavIndex(event.key, index, totalDays);
+      if (newIndex === null) {
+        return;
+      }
+
+      event.preventDefault();
+      setFocusedDayIndex(newIndex);
+    },
+    [totalDays]
+  );
+
+  return { focusedDayIndex, dayRefs, onDayKeyDown };
+};
 
 export const StyledDropdownItem = ({
   className,
@@ -921,7 +1007,7 @@ export const CalendarRenderer = ({
       <>
         <thead>
           <tr>
-            {headers.weekdays.map(({ key, value: date }) => {
+            {headers.weekDays.map(({ key, value: date }) => {
               return (
                 <th
                   key={key}

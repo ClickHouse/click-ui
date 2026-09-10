@@ -106,6 +106,7 @@ const DialogContent = ({
                 <RadixDialog.Title
                   data-testid="click-dialog-title"
                   className={styles.title}
+                  tabIndex={-1}
                 >
                   {title}
                 </RadixDialog.Title>

@@ -21,6 +21,7 @@ import {
   DateRangePickerInput,
   DateTableCell,
   StyledDropdownItem,
+  useCalendarDayKeyboard,
 } from './Common';
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';
@@ -136,36 +137,22 @@ const dateRangeTableCellVariants = cva(undefined, {
   },
 });
 
-const DateRangeTableCell = ({
-  shouldShowRangeIndicator,
-  className,
-  children,
-  isCurrentMonth,
-  isDisabled,
-  isSelected,
-  isPresent,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
-}: ComponentProps<typeof DateTableCell> & {
-  shouldShowRangeIndicator?: boolean;
-}) => (
+const DateRangeTableCell = forwardRef<
+  HTMLTableCellElement,
+  ComponentProps<typeof DateTableCell> & {
+    shouldShowRangeIndicator?: boolean;
+  }
+>(({ shouldShowRangeIndicator, className, ...props }, ref) => (
   <DateTableCell
-    isCurrentMonth={isCurrentMonth}
-    isDisabled={isDisabled}
-    isSelected={isSelected}
-    isPresent={isPresent}
-    onClick={onClick}
-    onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave}
+    ref={ref}
     className={cn(
       dateRangeTableCellVariants({ showRangeIndicator: shouldShowRangeIndicator }),
       className
     )}
-  >
-    {children}
-  </DateTableCell>
-);
+    {...props}
+  />
+));
+DateRangeTableCell.displayName = 'DateRangeTableCell';
 
 interface CalendarProps {
   allowOnlyDatesList?: Array<Date>;
@@ -178,6 +165,7 @@ interface CalendarProps {
   startDate?: Date;
   endDate?: Date;
   timezone: Timezone;
+  autoFocus?: boolean;
 }
 
 const Calendar = ({
@@ -191,6 +179,7 @@ const Calendar = ({
   startDate,
   endDate,
   timezone,
+  autoFocus = false,
 }: CalendarProps) => {
   const [hoveredDate, setHoveredDate] = useState<Date>();
 
@@ -204,9 +193,25 @@ const Calendar = ({
     });
   }, [allowOnlyDatesList, timezone]);
 
+  const allDays = calendarBody.value.flatMap(week => week.value);
+  const initialFocusIndex = allDays.findIndex(day =>
+    shiftedStart
+      ? isSameDate(shiftedStart, day.value)
+      : shiftedEnd
+        ? isSameDate(shiftedEnd, day.value)
+        : isSameDate(today, day.value)
+  );
+  const { focusedDayIndex, dayRefs, onDayKeyDown } = useCalendarDayKeyboard(
+    allDays.length,
+    initialFocusIndex,
+    autoFocus
+  );
+
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
   };
+
+  let dayIndex = 0;
 
   return calendarBody.value.map(({ key: weekKey, value: week }) => {
     return (
@@ -279,8 +284,13 @@ const Calendar = ({
               return;
             }
           };
+          const currentIndex = dayIndex;
+          dayIndex++;
           return (
             <DateRangeTableCell
+              ref={el => {
+                dayRefs.current[currentIndex] = el;
+              }}
               shouldShowRangeIndicator={
                 !isSelected && (shouldShowRangeIndicator || isBetweenStartAndEndDates)
               }
@@ -292,6 +302,10 @@ const Calendar = ({
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseOut}
+              onKeyDown={e => onDayKeyDown(e, currentIndex, handleClick)}
+              tabIndex={currentIndex === focusedDayIndex ? 0 : -1}
+              role="gridcell"
+              aria-label={fullDate.toDateString()}
             >
               {date}
             </DateRangeTableCell>
@@ -424,6 +438,7 @@ export const DateRangePicker = ({
   const [shouldShowCustomRange, setShouldShowCustomRange] = useState<boolean>(false);
   const [calendarOpenDirection, setCalendarOpenDirection] =
     useState<OpenDirection>(openDirection);
+  const [autoFocusCalendar, setAutoFocusCalendar] = useState<boolean>(false);
   const calendarContainerRef = useRef<HTMLDivElement>(null);
 
   const calendarOptions: UseCalendarOptions = {};
@@ -467,6 +482,7 @@ export const DateRangePicker = ({
     if (!isOpen) {
       setShouldShowCustomRange(false);
       setCalendarOpenDirection(openDirection);
+      setAutoFocusCalendar(false);
     }
   };
 
@@ -514,8 +530,11 @@ export const DateRangePicker = ({
 
   const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setIsOpen(true);
+      setAutoFocusCalendar(true);
+      if (e.key === ' ') {
+        e.preventDefault();
+        setIsOpen(true);
+      }
     }
   }, []);
 
@@ -577,6 +596,7 @@ export const DateRangePicker = ({
                   {(body: Body) => (
                     <Calendar
                       allowOnlyDatesList={allowOnlyDatesList}
+                      autoFocus={autoFocusCalendar}
                       calendarBody={body}
                       closeDatepicker={closeDatePicker}
                       futureDatesDisabled={futureDatesDisabled}
@@ -602,6 +622,7 @@ export const DateRangePicker = ({
             {(body: Body) => (
               <Calendar
                 allowOnlyDatesList={allowOnlyDatesList}
+                autoFocus={autoFocusCalendar}
                 calendarBody={body}
                 closeDatepicker={closeDatePicker}
                 futureDatesDisabled={futureDatesDisabled}

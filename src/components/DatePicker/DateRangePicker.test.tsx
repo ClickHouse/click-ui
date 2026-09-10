@@ -19,6 +19,31 @@ describe('DateRangePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('makes day cells keyboard accessible', async () => {
+    const handleSelectDate = vi.fn();
+    const startDate = new Date('07-04-2020');
+    const nextDate = new Date('07-05-2020');
+
+    const { getByTestId, getByRole } = renderCUI(
+      <DateRangePicker
+        startDate={startDate}
+        onSelectDateRange={handleSelectDate}
+      />
+    );
+
+    await userEvent.click(getByTestId('daterangepicker-input'));
+
+    const dayCell = getByRole('gridcell', { name: startDate.toDateString() });
+    expect(dayCell).toHaveAttribute('tabindex', '0');
+
+    dayCell.focus();
+    await userEvent.keyboard('{ArrowRight}');
+
+    expect(document.activeElement).toBe(
+      getByRole('gridcell', { name: nextDate.toDateString() })
+    );
+  });
+
   it('sets the value of the DatePicker input start date to the start date passed in', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');

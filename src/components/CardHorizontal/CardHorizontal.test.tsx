@@ -115,17 +115,7 @@ describe('CardHorizontal Component', () => {
     expect(wrapper).toHaveAttribute('aria-disabled', 'false');
   });
 
-  it('should have tabIndex -1 when disabled', () => {
-    const { container } = renderCard({
-      title: 'Test Card',
-      disabled: true,
-    });
-
-    const wrapper = container.firstChild;
-    expect(wrapper).toHaveAttribute('tabIndex', '-1');
-  });
-
-  it('should have tabIndex 0 when enabled', () => {
+  it('should have tabIndex 0 when enabled and selectable', () => {
     const { container } = renderCard({
       title: 'Test Card',
       disabled: false,
@@ -133,6 +123,17 @@ describe('CardHorizontal Component', () => {
 
     const wrapper = container.firstChild;
     expect(wrapper).toHaveAttribute('tabIndex', '0');
+    expect(wrapper).toHaveAttribute('role', 'button');
+  });
+
+  it('should not put the card in the tab order when disabled', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      disabled: true,
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('tabIndex');
   });
 
   it('should not call onClick when disabled', () => {
@@ -161,6 +162,32 @@ describe('CardHorizontal Component', () => {
     wrapper.click();
 
     expect(onClickMock).toHaveBeenCalled();
+  });
+
+  it('should not make the card wrapper a keyboard control when it has an action button', () => {
+    const { container, getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+    });
+
+    const wrapper = container.firstChild;
+    expect(wrapper).not.toHaveAttribute('role', 'button');
+    expect(wrapper).not.toHaveAttribute('tabIndex');
+    expect(getByRole('button', { name: 'Click me' })).toBeInTheDocument();
+  });
+
+  it('should activate a selectable card with Enter', async () => {
+    const onButtonClick = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      onButtonClick,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    wrapper.focus();
+    await userEvent.keyboard('{Enter}');
+
+    expect(onButtonClick).toHaveBeenCalledTimes(1);
   });
 
   it('should disable nested button when card is disabled', () => {

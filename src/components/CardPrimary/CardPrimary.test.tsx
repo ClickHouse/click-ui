@@ -93,6 +93,18 @@ describe('CardPrimary Component', () => {
       expect(queryAllByTestId('card-top-badge').length).toEqual(0);
     });
 
+    it('should not put the card wrapper in the tab order', () => {
+      const { container } = renderCard({
+        title: 'Test card component',
+        icon: 'warning',
+        description: '',
+        infoUrl: '',
+        infoText: '',
+      });
+
+      expect(container.firstChild).not.toHaveAttribute('tabIndex');
+    });
+
     it('should render an image when iconUrl is provided', () => {
       const iconUrl = 'https://example.com/icon.png';
       renderCard({
