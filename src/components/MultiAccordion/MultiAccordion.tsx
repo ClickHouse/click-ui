@@ -223,9 +223,7 @@ const MultiAccordionItem = ({
       {...props}
       className={cn(itemVariants({ showBorder, fillWidth }), className)}
     >
-      <div
-        className={cn(styles['multi-accordion__item-header'], headerSizeClass)}
-      >
+      <div className={cn(styles['multi-accordion__item-header'], headerSizeClass)}>
         <RadixAccordion.Trigger
           className={triggerVariants({
             size,

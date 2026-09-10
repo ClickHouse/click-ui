@@ -110,6 +110,7 @@ const Card = ({
   return (
     <div
       {...props}
+      aria-disabled={disabled}
       className={cn(
         wrapperVariants({ size, align: alignContent, hasShadow, isSelected }),
         className

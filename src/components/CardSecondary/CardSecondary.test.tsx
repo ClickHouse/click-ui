@@ -56,6 +56,7 @@ describe('CardSecondary Component', () => {
     });
 
     expect(container.firstChild).not.toHaveAttribute('tabIndex');
+    expect(container.firstChild).toHaveAttribute('aria-disabled', 'false');
   });
 
   it('should render an image when iconUrl is provided', () => {

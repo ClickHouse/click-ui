@@ -58,17 +58,16 @@ describe('ConfirmationDialog Visual Regression', () => {
   });
 
   describe('Interactive States', () => {
-    it('confirm button shows focus on open', async ({ page }) => {
+    it('title receives focus on open', async ({ page }) => {
       await page.goto(getStoryUrl('display-confirmationdialog--playground', 'light'), {
         waitUntil: 'networkidle',
       });
       const content = page.locator(contentLocator).first();
       await expect(content).toBeVisible({ timeout: 10000 });
       await page.waitForTimeout(settleMs);
-      const confirm = page.getByTestId('confirm-action-button');
-      await expect(confirm).toBeFocused();
+      await expect(page.getByTestId('click-dialog-title')).toBeFocused();
       await expect(content).toHaveScreenshot(
-        'confirmation-dialog-confirm-focus-light.png',
+        'confirmation-dialog-title-focus-light.png',
         { maxDiffPixels: 100 }
       );
     });

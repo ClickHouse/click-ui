@@ -133,7 +133,8 @@ describe('CardHorizontal Component', () => {
     });
 
     const wrapper = container.firstChild;
-    expect(wrapper).not.toHaveAttribute('tabIndex');
+    expect(wrapper).toHaveAttribute('tabIndex', '-1');
+    expect(wrapper).toHaveAttribute('role', 'button');
   });
 
   it('should not call onClick when disabled', () => {
@@ -188,6 +189,20 @@ describe('CardHorizontal Component', () => {
     await userEvent.keyboard('{Enter}');
 
     expect(onButtonClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call consumer onClick from keyboard activation', async () => {
+    const onClick = vitest.fn();
+    const { container } = renderCard({
+      title: 'Test Card',
+      onClick,
+    });
+
+    const wrapper = container.firstChild as HTMLElement;
+    wrapper.focus();
+    await userEvent.keyboard('{Enter}');
+
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('should disable nested button when card is disabled', () => {

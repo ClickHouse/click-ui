@@ -188,16 +188,13 @@ describe('CardSecondary Visual Regression', () => {
   });
 
   describe('Accessibility', () => {
-    it('enabled card is focusable via Tab', async ({ page }) => {
+    it('card wrapper is not in the tab order', async ({ page }) => {
       await page.goto(getStoryUrl('cards-secondary-card--default', 'light'), {
         waitUntil: 'networkidle',
       });
       const card = page.locator(cardLocator).first();
       await expect(card).toBeVisible({ timeout: 10000 });
-
-      await page.locator('body').click();
-      await page.keyboard.press('Tab');
-      await expect(card).toBeFocused();
+      await expect(card).not.toHaveAttribute('tabIndex');
     });
 
     it('disabled card exposes aria-disabled', async ({ page }) => {

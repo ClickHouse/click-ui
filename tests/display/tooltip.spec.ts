@@ -16,7 +16,7 @@ const goto = async (
 
 // The trigger wraps the content with no own styling.
 const trigger = (page: import('@playwright/test').Page) =>
-  page.getByText('Tooltip Trigger(Hover)');
+  page.getByText('Tooltip trigger');
 
 // The visible content panel is portaled by Radix and carries data-state once
 // shown (instant-open when controlled). Radix also renders a separate

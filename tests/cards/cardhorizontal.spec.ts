@@ -344,7 +344,9 @@ describe('CardHorizontal Visual Regression', () => {
       await expect(card).toBeFocused();
     });
 
-    it('disabled card exposes aria-disabled and tabIndex=-1', async ({ page }) => {
+    it('disabled card exposes aria-disabled and is not in the tab order', async ({
+      page,
+    }) => {
       await page.goto(getStoryUrl('cards-horizontal-card--disabled', 'light'), {
         waitUntil: 'networkidle',
       });

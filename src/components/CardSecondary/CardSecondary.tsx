@@ -43,6 +43,7 @@ export const CardSecondary = ({
   return (
     <div
       {...props}
+      aria-disabled={disabled}
       className={cn(wrapperVariants({ shadow: hasShadow }), className)}
     >
       <div className={styles.header}>

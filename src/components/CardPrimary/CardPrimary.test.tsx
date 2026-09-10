@@ -102,7 +102,9 @@ describe('CardPrimary Component', () => {
         infoText: '',
       });
 
-      expect(container.firstChild).not.toHaveAttribute('tabIndex');
+      const wrapper = container.querySelector('[aria-disabled]');
+      expect(wrapper).not.toHaveAttribute('tabIndex');
+      expect(wrapper).toHaveAttribute('aria-disabled', 'false');
     });
 
     it('should render an image when iconUrl is provided', () => {

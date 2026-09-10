@@ -44,6 +44,17 @@ const viewGridYears = {
 const totalYears = viewGridYears.columns * viewGridYears.rows;
 const yearsOffset = Math.floor(totalYears / 2);
 
+type WeekdayHeader = { key: string; value: Date };
+
+// @h6s/calendar 2.0.x types/runtime use `weekDays`; 2.2.0 types use `weekdays`.
+const getWeekdayHeaders = (headers: object): WeekdayHeader[] => {
+  const { weekdays, weekDays } = headers as {
+    weekdays?: WeekdayHeader[];
+    weekDays?: WeekdayHeader[];
+  };
+  return weekdays ?? weekDays ?? [];
+};
+
 const highlightedInputWrapperVariants = cva(styles['highlighted-input-wrapper'], {
   variants: {
     fillWidth: { true: styles['highlighted-input-wrapper_fill-width'] },
@@ -417,6 +428,8 @@ export const DateTableCell = forwardRef<HTMLTableCellElement, DateTableCellProps
       role={role}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
+      aria-disabled={isDisabled || undefined}
+      aria-selected={isSelected || undefined}
     >
       {children}
     </td>
@@ -470,11 +483,14 @@ export const useCalendarDayKeyboard = (
     (
       event: KeyboardEvent<HTMLTableCellElement>,
       index: number,
-      onActivate: () => void
+      onActivate: () => void,
+      isDisabled = false
     ) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        onActivate();
+        if (!isDisabled) {
+          onActivate();
+        }
         return;
       }
 
@@ -1007,7 +1023,7 @@ export const CalendarRenderer = ({
       <>
         <thead>
           <tr>
-            {headers.weekDays.map(({ key, value: date }) => {
+            {getWeekdayHeaders(headers).map(({ key, value: date }) => {
               return (
                 <th
                   key={key}

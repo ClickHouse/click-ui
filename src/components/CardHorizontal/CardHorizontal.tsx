@@ -80,13 +80,17 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
+  onClick,
   className,
   ...props
 }: CardHorizontalProps) => {
   const hasActionButton = Boolean(infoText);
   const wouldBeControl =
     !hasActionButton &&
-    (isSelectable || typeof onButtonClick === 'function' || Boolean(infoUrl));
+    (isSelectable ||
+      typeof onButtonClick === 'function' ||
+      typeof onClick === 'function' ||
+      Boolean(infoUrl));
   const isCardControl = wouldBeControl && !disabled;
 
   const handleActivate = (e: SyntheticEvent<HTMLElement>) => {
@@ -95,6 +99,9 @@ export const CardHorizontal = ({
       return;
     }
 
+    if (typeof onClick === 'function') {
+      onClick(e as MouseEvent<HTMLDivElement>);
+    }
     if (typeof onButtonClick === 'function') {
       onButtonClick(e as MouseEvent<HTMLElement>);
     }
@@ -117,12 +124,12 @@ export const CardHorizontal = ({
   };
   return (
     <div
-      role={isCardControl ? 'button' : undefined}
-      tabIndex={isCardControl ? 0 : undefined}
-      aria-disabled={wouldBeControl ? disabled : undefined}
+      {...props}
+      role={wouldBeControl ? 'button' : undefined}
+      tabIndex={isCardControl ? 0 : wouldBeControl ? -1 : undefined}
+      aria-disabled={disabled}
       onClick={handleActivate}
       onKeyDown={isCardControl ? handleKeyDown : undefined}
-      {...props}
       className={cn(
         wrapperVariants({
           color,

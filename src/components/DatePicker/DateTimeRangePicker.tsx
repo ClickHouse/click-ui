@@ -413,7 +413,7 @@ const Calendar = ({
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseOut}
-              onKeyDown={e => onDayKeyDown(e, currentIndex, handleClick)}
+              onKeyDown={e => onDayKeyDown(e, currentIndex, handleClick, isDisabled)}
               tabIndex={currentIndex === focusedDayIndex ? 0 : -1}
               role="gridcell"
               aria-label={fullDate.toDateString()}

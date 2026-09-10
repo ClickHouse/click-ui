@@ -44,6 +44,35 @@ describe('DateRangePicker', () => {
     );
   });
 
+  it('marks disabled days and ignores keyboard activation', async () => {
+    const handleSelectDate = vi.fn();
+    const startDate = new Date('07-04-2020');
+    const nextDate = new Date('07-05-2020');
+
+    const { getByTestId, getByRole } = renderCUI(
+      <DateRangePicker
+        startDate={startDate}
+        allowOnlyDatesList={[startDate]}
+        onSelectDateRange={handleSelectDate}
+      />
+    );
+
+    await userEvent.click(getByTestId('daterangepicker-input'));
+
+    const startCell = getByRole('gridcell', { name: startDate.toDateString() });
+    expect(startCell).toHaveAttribute('aria-selected', 'true');
+
+    startCell.focus();
+    await userEvent.keyboard('{ArrowRight}');
+
+    const nextCell = getByRole('gridcell', { name: nextDate.toDateString() });
+    expect(document.activeElement).toBe(nextCell);
+    expect(nextCell).toHaveAttribute('aria-disabled', 'true');
+
+    await userEvent.keyboard('{Enter}');
+    expect(handleSelectDate).not.toHaveBeenCalled();
+  });
+
   it('sets the value of the DatePicker input start date to the start date passed in', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');
