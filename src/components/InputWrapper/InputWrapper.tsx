@@ -43,6 +43,14 @@ type FieldErrorContextValue = {
 
 const FieldErrorContext = createContext<FieldErrorContextValue>({});
 
+const mergeDescribedBy = (
+  describedBy?: string,
+  describedByProp?: string
+): string | undefined => {
+  const merged = [describedBy, describedByProp].filter(Boolean).join(' ');
+  return merged.length > 0 ? merged : undefined;
+};
+
 export interface WrapperProps {
   className?: string;
   id: string;
@@ -151,12 +159,20 @@ const InputElementInner = <T extends ElementType = 'input'>(
 ) => {
   const Component = as ?? 'input';
   const { invalid, describedBy } = useContext(FieldErrorContext);
+  const {
+    'aria-describedby': describedByProp,
+    'aria-invalid': invalidProp,
+    ...rest
+  } = props as InputElementProps<T> & {
+    'aria-describedby'?: string;
+    'aria-invalid'?: boolean | 'true' | 'false';
+  };
   return (
     <Component
       ref={ref}
-      aria-invalid={invalid || undefined}
-      aria-describedby={describedBy}
-      {...props}
+      {...rest}
+      aria-invalid={invalid ? true : invalidProp || undefined}
+      aria-describedby={mergeDescribedBy(describedBy, describedByProp)}
       className={cn(
         inputVariants({
           hasStartContent: !!$hasStartContent,
@@ -180,12 +196,17 @@ export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputEl
 export const NumberInputElement = forwardRef<HTMLInputElement, NumberInputElementProps>(
   ({ $hideControls, $hasStartContent, $hasEndContent, className, ...props }, ref) => {
     const { invalid, describedBy } = useContext(FieldErrorContext);
+    const {
+      'aria-describedby': describedByProp,
+      'aria-invalid': invalidProp,
+      ...rest
+    } = props;
     return (
       <input
         ref={ref}
-        aria-invalid={invalid || undefined}
-        aria-describedby={describedBy}
-        {...props}
+        {...rest}
+        aria-invalid={invalid ? true : invalidProp || undefined}
+        aria-describedby={mergeDescribedBy(describedBy, describedByProp)}
         className={cn(
           inputVariants({
             hasStartContent: !!$hasStartContent,
@@ -204,12 +225,17 @@ export const TextAreaElement = forwardRef<
   TextareaHTMLAttributes<HTMLTextAreaElement>
 >(({ className, ...props }, ref) => {
   const { invalid, describedBy } = useContext(FieldErrorContext);
+  const {
+    'aria-describedby': describedByProp,
+    'aria-invalid': invalidProp,
+    ...rest
+  } = props;
   return (
     <textarea
       ref={ref}
-      aria-invalid={invalid || undefined}
-      aria-describedby={describedBy}
-      {...props}
+      {...rest}
+      aria-invalid={invalid ? true : invalidProp || undefined}
+      aria-describedby={mergeDescribedBy(describedBy, describedByProp)}
       className={cn(styles.textarea, className)}
     />
   );

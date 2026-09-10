@@ -547,7 +547,7 @@ const DateSelectNav = ({
         icon={icon}
         size={size}
         type="ghost"
-        tabIndex={tabIndex}
+        tabIndex={-1}
         onKeyDown={onKeyDown}
         aria-hidden
       />

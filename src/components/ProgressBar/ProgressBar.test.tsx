@@ -113,4 +113,13 @@ describe('Progress bar', () => {
     expect(progressBar[0].textContent).not.toContain('38%');
     expect(progressBar[0].textContent).toContain('Success');
   });
+
+  it('does not render the cancel button unless dismissable', () => {
+    const { queryByTestId, queryByRole } = renderPopover({
+      type: 'default',
+      progress: 38,
+    });
+    expect(queryByTestId('progressbar-close')).not.toBeInTheDocument();
+    expect(queryByRole('button', { name: 'Cancel' })).not.toBeInTheDocument();
+  });
 });

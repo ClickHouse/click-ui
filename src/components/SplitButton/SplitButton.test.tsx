@@ -97,9 +97,11 @@ describe('SplitButton', () => {
   });
 
   it('should open dropdown on pointer on secondary btn', async () => {
-    const { getByTestId, getByText } = renderDropdown({});
+    const { getByTestId, getByText, getByRole } = renderDropdown({});
     const dropdownTrigger = getByTestId('split-button-dropdown');
     expect(dropdownTrigger).not.toBeNull();
+    expect(dropdownTrigger.tagName).toBe('BUTTON');
+    expect(getByRole('button', { name: 'More actions' })).toBe(dropdownTrigger);
     await userEvent.click(dropdownTrigger);
     expect(getByText('Content0')).not.toBeNull();
   });

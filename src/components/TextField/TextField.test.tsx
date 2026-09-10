@@ -64,4 +64,22 @@ describe('TextField', () => {
       expect(labelElement).toHaveStyle('color: #FF0000');
     });
   });
+
+  describe('error association', () => {
+    it('marks the input invalid and concatenates error and consumer describedby ids', () => {
+      const { getByRole } = renderCUI(
+        <TextField
+          id="name"
+          label="Name"
+          error="Required"
+          aria-describedby="name-hint"
+          onChange={() => undefined}
+          value=""
+        />
+      );
+      const input = getByRole('textbox');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(input).toHaveAttribute('aria-describedby', 'name-error name-hint');
+    });
+  });
 });

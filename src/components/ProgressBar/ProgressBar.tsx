@@ -89,17 +89,17 @@ export const ProgressBar = ({
           >
             {successMessage && completed ? successMessage : `${progress}%`}
           </span>
-          <IconButton
-            size="sm"
-            type="ghost"
-            icon="cross"
-            onClick={onCancel}
-            data-testid="progressbar-close"
-            aria-label="Cancel"
-            aria-hidden={!dismissable || undefined}
-            tabIndex={dismissable ? undefined : -1}
-            className={closeButtonVariants({ dismissable })}
-          />
+          {dismissable && (
+            <IconButton
+              size="sm"
+              type="ghost"
+              icon="cross"
+              onClick={onCancel}
+              data-testid="progressbar-close"
+              aria-label="Cancel"
+              className={closeButtonVariants({ dismissable: true })}
+            />
+          )}
         </>
       )}
     </div>

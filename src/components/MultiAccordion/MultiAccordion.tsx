@@ -2,7 +2,6 @@ import * as RadixAccordion from '@radix-ui/react-accordion';
 import type { AssetSize } from '@/types';
 import { Icon, type IconName } from '@/components/Icon';
 
-import { Container } from '@/components/Container';
 import { Spacer } from '@/components/Spacer';
 import { Text } from '@/components/Text';
 import {
@@ -12,7 +11,7 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { GapOptions } from '@/components/Container';
+import type { GapOptions } from '@/components/Container';
 import { SizeType as SpacerSizeType } from '@/components/Spacer';
 import { cn, cva } from '@/lib/cva';
 import styles from './MultiAccordion.module.css';
@@ -202,14 +201,21 @@ const MultiAccordionItem = ({
   const { fillWidth, size, showBorder, showCheck, markAsCompleted } =
     useContext(MultiAccordionContext);
 
-  const onClickStatus: MouseEventHandler<HTMLOrSVGElement> = e => {
+  const onClickStatus: MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
+    e.stopPropagation();
     if (typeof markAsCompleted === 'function') {
       markAsCompleted(value);
     }
   };
 
   const customSize = size === 'none' ? 'sm' : size;
+  const headerSizeClass = {
+    none: styles['multi-accordion__trigger_size_none'],
+    sm: styles['multi-accordion__trigger_size_sm'],
+    md: styles['multi-accordion__trigger_size_md'],
+    lg: styles['multi-accordion__trigger_size_lg'],
+  }[size];
 
   return (
     <RadixAccordion.Item
@@ -217,38 +223,32 @@ const MultiAccordionItem = ({
       {...props}
       className={cn(itemVariants({ showBorder, fillWidth }), className)}
     >
-      <RadixAccordion.Trigger
-        className={triggerVariants({
-          size,
-          font: customSize,
-          color: color ?? 'default',
-        })}
+      <div
+        className={cn(styles['multi-accordion__item-header'], headerSizeClass)}
       >
-        <div className={styles['multi-accordion__icons-wrapper']}>
-          <div className={styles['multi-accordion__icon-wrapper']}>
-            <Icon
-              name="chevron-right"
-              size={iconSize ?? customSize}
-              aria-hidden
-            />
-          </div>
-          {icon ? (
-            <Icon
-              name={icon}
-              size={iconSize ?? customSize}
-              aria-hidden
-            />
-          ) : null}
-        </div>
-        <Container
-          isResponsive={false}
-          gap="sm"
-          alignItems="center"
-          fillWidth
-          justifyContent="space-between"
-          component="span"
-          overflow="hidden"
+        <RadixAccordion.Trigger
+          className={triggerVariants({
+            size,
+            font: customSize,
+            color: color ?? 'default',
+          })}
         >
+          <div className={styles['multi-accordion__icons-wrapper']}>
+            <div className={styles['multi-accordion__icon-wrapper']}>
+              <Icon
+                name="chevron-right"
+                size={iconSize ?? customSize}
+                aria-hidden
+              />
+            </div>
+            {icon ? (
+              <Icon
+                name={icon}
+                size={iconSize ?? customSize}
+                aria-hidden
+              />
+            ) : null}
+          </div>
           <Text
             className={styles['multi-accordion__title']}
             component="span"
@@ -257,22 +257,28 @@ const MultiAccordionItem = ({
           >
             {title}
           </Text>
-          {showCheck && (
+        </RadixAccordion.Trigger>
+        {showCheck && (
+          <button
+            type="button"
+            className={cn(
+              styles['multi-accordion__status-button'],
+              isCompleted && styles['multi-accordion__status-icon_completed']
+            )}
+            onClick={onClickStatus}
+            aria-label={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
+            data-icon="accordion-status"
+            data-testid="accordion-status-icon"
+          >
             <Icon
-              className={cn(
-                styles['multi-accordion__status-icon'],
-                isCompleted && styles['multi-accordion__status-icon_completed']
-              )}
+              className={styles['multi-accordion__status-icon']}
               name={isCompleted ? 'check-in-circle' : 'circle'}
               size={iconSize ?? customSize}
               aria-hidden
-              onClick={onClickStatus}
-              data-icon="accordion-status"
-              data-testid="accordion-status-icon"
             />
-          )}
-        </Container>
-      </RadixAccordion.Trigger>
+          </button>
+        )}
+      </div>
       <RadixAccordion.Content className={contentVariants({ size })}>
         <Spacer size={gap} />
         {children}
