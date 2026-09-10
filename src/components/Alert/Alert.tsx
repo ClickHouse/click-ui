@@ -135,7 +135,9 @@ export const Alert = ({
       className={cn(wrapperVariants({ state, type }), className)}
     >
       {dismissible && type === 'banner' && (
-        <span
+        <button
+          type="button"
+          tabIndex={-1}
           aria-hidden
           className={styles.alert__dismiss}
         />

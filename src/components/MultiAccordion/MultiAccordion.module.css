@@ -58,10 +58,10 @@
 
 .multi-accordion__trigger {
   display: flex;
-  flex: 1;
-  min-width: 0;
   width: 100%;
+  min-width: 0;
   padding: var(--multi-accordion-trigger-padding);
+  flex: 1;
   align-items: center;
   gap: var(--multi-accordion-trigger-gap);
   border: none;
@@ -71,6 +71,18 @@
   font: var(--multi-accordion-font-default);
 }
 
+.multi-accordion__trigger:hover {
+  background: var(--click-global-color-stroke-default);
+  color: var(--multi-accordion-label-hover);
+  font: var(--multi-accordion-font-hover);
+  cursor: pointer;
+}
+
+.multi-accordion__trigger:active {
+  color: var(--multi-accordion-label-active);
+  font: var(--multi-accordion-font-active);
+}
+
 .multi-accordion__item-header {
   display: flex;
   width: 100%;
@@ -78,13 +90,8 @@
   border-radius: inherit;
 }
 
-.multi-accordion__item-header:has(.multi-accordion__status-button) .multi-accordion__trigger {
+.multi-accordion__item-header_has-status .multi-accordion__trigger {
   padding-right: 0;
-}
-
-.multi-accordion__trigger:active {
-  color: var(--multi-accordion-label-active);
-  font: var(--multi-accordion-font-active);
 }
 
 .multi-accordion__item-header:hover {
@@ -96,19 +103,12 @@
   font: var(--multi-accordion-font-hover);
 }
 
-.multi-accordion__trigger:hover {
-  background: var(--click-global-color-stroke-default);
-  color: var(--multi-accordion-label-hover);
-  font: var(--multi-accordion-font-hover);
-  cursor: pointer;
-}
-
 .multi-accordion__status-button {
   display: flex;
-  flex-shrink: 0;
-  align-items: center;
   padding: var(--multi-accordion-trigger-padding);
   padding-left: 0;
+  flex-shrink: 0;
+  align-items: center;
   border: none;
   border-radius: inherit;
   background: transparent;
@@ -116,12 +116,12 @@
   cursor: pointer;
 }
 
-.multi-accordion__item-header:has([data-state='open']) {
+.multi-accordion__item[data-state='open'] .multi-accordion__item-header {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.multi-accordion__item-header:has([data-state='open']) .multi-accordion__status-button {
+.multi-accordion__item[data-state='open'] .multi-accordion__status-button {
   color: var(--global-color-accent-default);
 }
 
