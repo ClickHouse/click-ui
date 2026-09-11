@@ -37,7 +37,9 @@ export function wrapInClickuiLayers(): Plugin {
     postcssPlugin: 'postcss-clickui-layers',
     Once(root) {
       const nodes = root.nodes as ChildNode[];
-      if (nodes.length === 0) return;
+      if (nodes.length === 0) {
+        return;
+      }
 
       // Idempotency guard: a top-level `@layer clickui { … }` block means we
       // already wrapped this root (the plugin can see a file more than once —
@@ -51,18 +53,26 @@ export function wrapInClickuiLayers(): Plugin {
           (node as AtRule).params === LAYER &&
           (node as AtRule).nodes !== undefined
       );
-      if (alreadyWrapped) return;
+      if (alreadyWrapped) {
+        return;
+      }
 
       const hoisted = nodes.filter(isHoisted);
       const layered = nodes.filter(node => !isHoisted(node));
-      if (layered.length === 0) return;
+      if (layered.length === 0) {
+        return;
+      }
 
       root.removeAll();
       // Hoisted at-rules stay at the top; everything else moves into the layer
       // in source order (so comments stay next to the rules they annotate).
-      for (const node of hoisted) root.append(node);
+      for (const node of hoisted) {
+        root.append(node);
+      }
       const layer = new AtRule({ name: 'layer', params: LAYER });
-      for (const node of layered) layer.append(node);
+      for (const node of layered) {
+        layer.append(node);
+      }
       root.append(layer);
     },
   };
