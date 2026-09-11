@@ -161,7 +161,12 @@ export const injectModuleCssImports = async (
         continue;
       }
 
-      const importPath = calculateImportPath(jsOutputFile, cssRulesSourcePath, srcDir, distDir);
+      const importPath = calculateImportPath(
+        jsOutputFile,
+        cssRulesSourcePath,
+        srcDir,
+        distDir
+      );
       if (!importPath) {
         continue;
       }
