@@ -149,7 +149,6 @@ import Server from '../Server';
 import Services from '../Services';
 import Settings from '../Settings';
 import Share from '../Share';
-import Share_Arrow from '../Share-Arrow';
 import Share_Network from '../Share-Network';
 import Sleep from '../Sleep';
 import Slide_In from '../Slide-In';
@@ -328,7 +327,6 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   services: Services,
   settings: Settings,
   share: Share,
-  'share-arrow': Share_Arrow,
   'share-network': Share_Network,
   sleep: Sleep,
   'slide-in': Slide_In,
