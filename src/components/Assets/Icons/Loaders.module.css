@@ -36,7 +36,7 @@
 }
 
 @keyframes loaders-horizontal-circle-1 {
-  0 {
+  0% {
     r: 0;
   }
 
@@ -54,7 +54,7 @@
 }
 
 @keyframes loaders-horizontal-circle-2 {
-  0 {
+  0% {
     r: 0;
   }
 
@@ -76,7 +76,7 @@
 }
 
 @keyframes loaders-horizontal-circle-3 {
-  0 {
+  0% {
     r: 0;
   }
 
