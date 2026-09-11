@@ -125,15 +125,5 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
-  // Build plugins live outside tsconfig.json's `include`
-  {
-    files: ['plugins/**/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        project: './tsconfig.node.json',
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
   ...storybook.configs['flat/recommended']
 );
