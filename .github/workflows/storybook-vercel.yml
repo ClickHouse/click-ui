@@ -113,9 +113,16 @@ jobs:
         # Pinned: newer versions pull a broken @vercel/hono dep
         run: npm install --global vercel@41.7.3
 
+      - name: Align package version with the tag
+        # The legacy release flow (publish.yml) cuts the tag on main before its
+        # "bump version" commit lands, so package.json on the tag is one version
+        # behind. Same one-liner publish.yml runs before npm publish; build-only.
+        if: github.ref_type == 'tag'
+        run: npm pkg set version="${GITHUB_REF_NAME#v}"
+
       - name: Build Storybook
         # The version badge in the Storybook UI comes from package.json on the
-        # checked-out ref (the release tag on release events).
+        # checked-out ref, corrected to the tag name on tag refs (see above).
         shell: bash
         run: |
           VERSION=$(node -p "require('./package.json').version")
