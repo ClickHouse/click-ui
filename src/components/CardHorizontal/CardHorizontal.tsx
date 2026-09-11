@@ -95,6 +95,10 @@ export const CardHorizontal = ({
       window.open(infoUrl, '_blank');
     }
   };
+  const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    handleClick(e);
+  };
   return (
     <div
       tabIndex={disabled ? -1 : 0}
@@ -174,7 +178,7 @@ export const CardHorizontal = ({
           >
             <Button
               label={infoText}
-              onClick={handleClick}
+              onClick={handleButtonClick}
               disabled={disabled}
               fillWidth
             />

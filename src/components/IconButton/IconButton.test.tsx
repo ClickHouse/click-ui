@@ -39,6 +39,27 @@ describe('Button', () => {
     expect(button).toBeDisabled();
   });
 
+  describe('accessible name', () => {
+    it('should use a consumer-supplied aria-label instead of the icon name', () => {
+      const { getByRole } = renderButton({ icon: 'trash', 'aria-label': 'Delete item' });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'Delete item');
+    });
+
+    it('should fall back to the icon name when aria-label is an empty string', () => {
+      const { getByRole } = renderButton({ icon: 'trash', 'aria-label': '' });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'trash');
+    });
+
+    it('should hide the inner icon so the button exposes a single accessible name', () => {
+      const { getByRole, queryByRole } = renderButton({
+        icon: 'trash',
+        'aria-label': 'Delete item',
+      });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'Delete item');
+      expect(queryByRole('img')).not.toBeInTheDocument();
+    });
+  });
+
   describe('Button HTML types', () => {
     it('should default to type=button, so it does not submit its enclosing form', () => {
       const handleSubmit = vi.fn();
