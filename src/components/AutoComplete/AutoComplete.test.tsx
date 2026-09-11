@@ -121,6 +121,50 @@ describe('AutoComplete', () => {
     expect(item).not.toBeNull();
   });
 
+  it('should skip disabled options when navigating with the keyboard', () => {
+    const onSelect = vi.fn();
+    const { getByPlaceholderText } = renderAutocomplete({
+      options: [
+        {
+          heading: 'Group label',
+          options: [
+            { value: 'group-enabled', label: 'Group enabled' },
+            { value: 'group-disabled', label: 'Group disabled', disabled: true },
+            { value: 'group-after', label: 'Group after' },
+          ],
+        },
+        { value: 'flat-disabled', label: 'Flat disabled', disabled: true },
+        { value: 'flat-enabled', label: 'Flat enabled' },
+      ],
+      onSelect,
+    });
+    const input = getByPlaceholderText('Search');
+
+    fireEvent.click(input);
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    fireEvent.keyDown(input, { key: 'Enter' });
+
+    expect(onSelect).toHaveBeenCalledWith('flat-enabled');
+  });
+
+  it('should highlight the first enabled option when opening', () => {
+    const onSelect = vi.fn();
+    const { getByPlaceholderText } = renderAutocomplete({
+      options: [
+        { value: 'disabled', label: 'Disabled', disabled: true },
+        { value: 'enabled', label: 'Enabled' },
+      ],
+      onSelect,
+    });
+    const input = getByPlaceholderText('Search');
+
+    fireEvent.click(input);
+    fireEvent.keyDown(input, { key: 'Enter' });
+
+    expect(onSelect).toHaveBeenCalledWith('enabled');
+  });
+
   it('should close select on selecting item', () => {
     const { queryByText, getByPlaceholderText } = renderAutocomplete({});
     const trigger = getByPlaceholderText('Search');
