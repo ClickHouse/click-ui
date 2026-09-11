@@ -152,6 +152,8 @@ export const CodeBlock = ({
             className={styles['codeblock__button']}
             icon="document"
             onClick={wrapElement}
+            aria-label="Toggle line wrap"
+            aria-pressed={wrap}
           />
         )}
         <IconButton
@@ -167,6 +169,7 @@ export const CodeBlock = ({
           }
           icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
           onClick={copyCodeToClipboard}
+          aria-label={copied ? 'Copied' : errorCopy ? 'Copy failed' : 'Copy code'}
         />
       </div>
     </div>

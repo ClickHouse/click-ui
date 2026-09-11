@@ -119,12 +119,18 @@ export const Badge = ({
           {text}
         </IconWrapper>
         {dismissible && (
-          <Icon
-            name="cross"
+          <button
+            type="button"
             onClick={onClose}
-            aria-label="close"
-            className={cn(closeIconVariants({ state }))}
-          />
+            aria-label="Remove"
+            className={cn(styles.closebutton)}
+          >
+            <Icon
+              name="cross"
+              aria-hidden
+              className={cn(closeIconVariants({ state }))}
+            />
+          </button>
         )}
       </div>
     </div>

@@ -82,6 +82,7 @@ export const Toast = ({
           <ToastIcon
             name={iconName as IconName}
             $type={type}
+            aria-hidden
           />
         )}
         <div className={styles.toast__title}>{title}</div>
@@ -89,6 +90,7 @@ export const Toast = ({
           <IconButton
             icon="cross"
             type="ghost"
+            aria-label="Dismiss notification"
           />
         </RadixUIToast.Close>
       </RadixUIToast.Title>

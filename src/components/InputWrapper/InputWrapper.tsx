@@ -5,6 +5,7 @@ import {
   ButtonHTMLAttributes,
   ComponentProps,
   ComponentPropsWithRef,
+  createContext,
   ElementType,
   HTMLAttributes,
   InputHTMLAttributes,
@@ -12,6 +13,7 @@ import {
   SVGProps,
   TextareaHTMLAttributes,
   forwardRef,
+  useContext,
 } from 'react';
 import styles from './InputWrapper.module.css';
 
@@ -33,6 +35,21 @@ const wrapperVariants = cva(styles.wrapper, {
     resize: 'none',
   },
 });
+
+type FieldErrorContextValue = {
+  invalid?: boolean;
+  describedBy?: string;
+};
+
+const FieldErrorContext = createContext<FieldErrorContextValue>({});
+
+const mergeDescribedBy = (
+  describedBy?: string,
+  describedByProp?: string
+): string | undefined => {
+  const merged = [describedBy, describedByProp].filter(Boolean).join(' ');
+  return merged.length > 0 ? merged : undefined;
+};
 
 export interface WrapperProps {
   className?: string;
@@ -59,6 +76,7 @@ export const InputWrapper = ({
   dir,
   resize = 'none',
 }: WrapperProps) => {
+  const errorId = !!error && error !== true ? `${id}-error` : undefined;
   return (
     <FormRoot
       $orientation={orientation}
@@ -66,17 +84,26 @@ export const InputWrapper = ({
       $addLabelPadding
     >
       <FormElementContainer>
-        <div
-          data-resize={resize}
-          className={cn(
-            wrapperVariants({ error: !!error, resize }),
-            disabled && styles.disabled,
-            className
-          )}
-        >
-          {children}
-        </div>
-        {!!error && error !== true && <Error>{error}</Error>}
+        <FieldErrorContext.Provider value={{ invalid: !!error, describedBy: errorId }}>
+          <div
+            data-resize={resize}
+            className={cn(
+              wrapperVariants({ error: !!error, resize }),
+              disabled && styles.disabled,
+              className
+            )}
+          >
+            {children}
+          </div>
+        </FieldErrorContext.Provider>
+        {!!error && error !== true && (
+          <Error
+            id={errorId}
+            role="alert"
+          >
+            {error}
+          </Error>
+        )}
       </FormElementContainer>
       {label && (
         <Label
@@ -126,15 +153,26 @@ type InputElementPolymorphicComponent = <T extends ElementType = 'input'>(
   props: InputElementProps<T>
 ) => ReactNode;
 
-const _InputElement = <T extends ElementType = 'input'>(
+const InputElementInner = <T extends ElementType = 'input'>(
   { as, $hasStartContent, $hasEndContent, className, ...props }: InputElementProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
   const Component = as ?? 'input';
+  const { invalid, describedBy } = useContext(FieldErrorContext);
+  const {
+    'aria-describedby': describedByProp,
+    'aria-invalid': invalidProp,
+    ...rest
+  } = props as InputElementProps<T> & {
+    'aria-describedby'?: string;
+    'aria-invalid'?: boolean | 'true' | 'false';
+  };
   return (
     <Component
       ref={ref}
-      {...props}
+      {...rest}
+      aria-invalid={invalid ? true : invalidProp || undefined}
+      aria-describedby={mergeDescribedBy(describedBy, describedByProp)}
       className={cn(
         inputVariants({
           hasStartContent: !!$hasStartContent,
@@ -146,7 +184,8 @@ const _InputElement = <T extends ElementType = 'input'>(
   );
 };
 
-export const InputElement: InputElementPolymorphicComponent = forwardRef(_InputElement);
+export const InputElement: InputElementPolymorphicComponent =
+  forwardRef(InputElementInner);
 
 export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputElement> {
   $hasStartContent?: boolean;
@@ -155,32 +194,52 @@ export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputEl
 }
 
 export const NumberInputElement = forwardRef<HTMLInputElement, NumberInputElementProps>(
-  ({ $hideControls, $hasStartContent, $hasEndContent, className, ...props }, ref) => (
-    <input
-      ref={ref}
-      {...props}
-      className={cn(
-        inputVariants({
-          hasStartContent: !!$hasStartContent,
-          hasEndContent: !!$hasEndContent,
-        }),
-        $hideControls && styles['number-input_hide-controls'],
-        className
-      )}
-    />
-  )
+  ({ $hideControls, $hasStartContent, $hasEndContent, className, ...props }, ref) => {
+    const { invalid, describedBy } = useContext(FieldErrorContext);
+    const {
+      'aria-describedby': describedByProp,
+      'aria-invalid': invalidProp,
+      ...rest
+    } = props;
+    return (
+      <input
+        ref={ref}
+        {...rest}
+        aria-invalid={invalid ? true : invalidProp || undefined}
+        aria-describedby={mergeDescribedBy(describedBy, describedByProp)}
+        className={cn(
+          inputVariants({
+            hasStartContent: !!$hasStartContent,
+            hasEndContent: !!$hasEndContent,
+          }),
+          $hideControls && styles['number-input_hide-controls'],
+          className
+        )}
+      />
+    );
+  }
 );
 
 export const TextAreaElement = forwardRef<
   HTMLTextAreaElement,
   TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ className, ...props }, ref) => (
-  <textarea
-    ref={ref}
-    {...props}
-    className={cn(styles.textarea, className)}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { invalid, describedBy } = useContext(FieldErrorContext);
+  const {
+    'aria-describedby': describedByProp,
+    'aria-invalid': invalidProp,
+    ...rest
+  } = props;
+  return (
+    <textarea
+      ref={ref}
+      {...rest}
+      aria-invalid={invalid ? true : invalidProp || undefined}
+      aria-describedby={mergeDescribedBy(describedBy, describedByProp)}
+      className={cn(styles.textarea, className)}
+    />
+  );
+});
 
 export const IconButton = forwardRef<
   HTMLButtonElement,

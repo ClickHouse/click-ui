@@ -141,6 +141,7 @@ const CollapsipleTrigger = ({
   icon,
   iconDir = 'start',
   className,
+  'aria-label': ariaLabel,
   ...props
 }: CollapsipleTriggerProps) => {
   const { open, onOpenChange } = useContext(NavContext);
@@ -156,8 +157,9 @@ const CollapsipleTrigger = ({
   return (
     <EmptyButton
       onClick={onClick}
-      aria-label="trigger children"
+      aria-expanded={open}
       {...props}
+      aria-label={ariaLabel ?? (children ? undefined : 'Toggle section')}
       className={cn(styles.collapsible__trigger, className)}
     >
       {indicatorDir === 'start' && (
@@ -166,6 +168,7 @@ const CollapsipleTrigger = ({
           name="chevron-right"
           data-open={open.toString()}
           size="sm"
+          aria-hidden
         />
       )}
       {children && (
@@ -182,6 +185,7 @@ const CollapsipleTrigger = ({
           name="chevron-right"
           data-open={open.toString()}
           size="sm"
+          aria-hidden
         />
       )}
     </EmptyButton>

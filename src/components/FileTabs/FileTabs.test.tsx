@@ -68,6 +68,29 @@ describe('FileTabs', () => {
     expect(onSelect).toBeCalledTimes(1);
   });
 
+  it('does not include the close control in the tab accessible name', () => {
+    const { getByRole } = renderTabs({ selectedIndex: 0 });
+    const tab = getByRole('tab', { name: 'Tab 0 value-tab1' });
+
+    expect(tab).toHaveAccessibleName('Tab 0 value-tab1');
+    expect(tab).not.toHaveAccessibleName(/Close/);
+    expect(getByRole('button', { name: 'Close Tab 0 value-tab1' })).toBeInTheDocument();
+  });
+
+  it('does not announce the first tab as selected when selectedIndex is omitted', () => {
+    const { getAllByRole } = renderTabs({});
+    const tabElements = getAllByRole('tab');
+    expect(tabElements[0]).toHaveAttribute('aria-selected', 'false');
+    expect(tabElements[0]).toHaveAttribute('tabIndex', '0');
+    expect(tabElements[1]).toHaveAttribute('tabIndex', '-1');
+  });
+
+  it('moves selection with arrow keys', () => {
+    const { getAllByRole } = renderTabs({ selectedIndex: 0 });
+    fireEvent.keyDown(getAllByRole('tab')[0], { key: 'ArrowRight' });
+    expect(onSelect).toHaveBeenCalledWith(1);
+  });
+
   // The hover-driven show/hide of the close button and status indicator is
   // expressed entirely in CSS (`[data-type='close']` / `[data-indicator]`
   // toggled under `:hover`). JSDOM does not evaluate those stylesheet rules,

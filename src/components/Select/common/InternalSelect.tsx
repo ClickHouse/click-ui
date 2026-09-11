@@ -202,6 +202,7 @@ export const InternalSelect = ({
   itemCharacterLimit = '64ch',
   noAvailableOptions = true,
   triggerProps,
+  'aria-label': ariaLabel,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
@@ -381,6 +382,11 @@ export const InternalSelect = ({
             $error={!!error}
             disabled={disabled}
             data-testid="select-trigger"
+            aria-label={ariaLabel}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={
+              !!error && error !== true ? `${id ?? defaultId}-error` : undefined
+            }
             {...triggerProps}
           >
             <SelectValue>
@@ -409,6 +415,7 @@ export const InternalSelect = ({
             <Icon
               name="sort"
               size="sm"
+              aria-hidden
             />
           </StyledSelectTrigger>
           {form && (
@@ -451,6 +458,7 @@ export const InternalSelect = ({
                     data-testid="select-search-input"
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
+                    aria-label="Search options"
                   />
                   <IconButton
                     className={cn(
@@ -462,6 +470,7 @@ export const InternalSelect = ({
                     onClick={clearSearch}
                     data-testid="select-search-close"
                     size="xs"
+                    aria-label="Clear search"
                   />
                 </SearchBarContainer>
                 <SelectListContent
@@ -532,7 +541,14 @@ export const InternalSelect = ({
             </SelectPopoverContent>
           </Portal>
         </SelectPopoverRoot>
-        {!!error && error !== true && <Error>{error}</Error>}
+        {!!error && error !== true && (
+          <Error
+            id={`${id ?? defaultId}-error`}
+            role="alert"
+          >
+            {error}
+          </Error>
+        )}
       </FormElementContainer>
       {label && (
         <Label

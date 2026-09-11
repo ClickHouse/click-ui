@@ -67,7 +67,8 @@ describe('NumberField', () => {
       />
     );
 
-    expect(getByRole('img', { name: 'loading-animated' })).toBeInTheDocument();
+    expect(getByRole('spinbutton')).toHaveAttribute('aria-busy', 'true');
+    expect(document.querySelector('[class*="loading-animated"]')).toBeInTheDocument();
   });
 
   it('renders endContent and loading spinner together', () => {
@@ -81,6 +82,7 @@ describe('NumberField', () => {
     );
 
     expect(getByText('units')).toBeInTheDocument();
-    expect(getByRole('img', { name: 'loading-animated' })).toBeInTheDocument();
+    expect(getByRole('spinbutton')).toHaveAttribute('aria-busy', 'true');
+    expect(document.querySelector('[class*="loading-animated"]')).toBeInTheDocument();
   });
 });

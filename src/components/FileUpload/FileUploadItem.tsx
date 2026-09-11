@@ -86,11 +86,13 @@ export const FileUploadItem: FC<FileUploadItemProps> = ({
           size={'xs'}
           state={'success'}
           name={'check'}
+          aria-hidden
         />
       ) : (
         <Icon
           name={'document'}
           className={cn(documentIconVariants({ size }))}
+          aria-hidden
         />
       )}
 
@@ -129,6 +131,7 @@ export const FileUploadItem: FC<FileUploadItemProps> = ({
             icon={'refresh'}
             type={'ghost'}
             onClick={onRetry}
+            aria-label="Retry upload"
           />
         )}
         {onRemove && (
@@ -137,6 +140,7 @@ export const FileUploadItem: FC<FileUploadItemProps> = ({
             icon={'cross'}
             type={'ghost'}
             onClick={onRemove}
+            aria-label={`Remove ${fileName}`}
           />
         )}
       </div>

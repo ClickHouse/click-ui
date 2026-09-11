@@ -51,6 +51,10 @@ export const RadioGroup = ({
   className,
   ...props
 }: RadioGroupProps) => {
+  const defaultId = useId();
+  const groupId = id ?? defaultId;
+  const labelId = `${groupId}-label`;
+  const errorId = !!error && error !== true ? `${groupId}-error` : undefined;
   return (
     <FormRoot
       $orientation={orientation}
@@ -61,8 +65,11 @@ export const RadioGroup = ({
         <RadixRadioGroup.Root
           orientation={inline ? 'horizontal' : 'vertical'}
           disabled={disabled}
-          id={id}
+          id={groupId}
           dir={itemDir}
+          aria-labelledby={label ? labelId : undefined}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={errorId}
           {...props}
           className={cn(
             radioGroupVariants({
@@ -74,11 +81,18 @@ export const RadioGroup = ({
         >
           {children}
         </RadixRadioGroup.Root>
-        {!!error && error !== true && <Error>{error}</Error>}
+        {!!error && error !== true && (
+          <Error
+            id={errorId}
+            role="alert"
+          >
+            {error}
+          </Error>
+        )}
       </FormElementContainer>
       {label && (
         <Label
-          htmlFor={id}
+          id={labelId}
           disabled={disabled}
           error={!!error}
         >
@@ -119,7 +133,6 @@ const RadioGroupItem = ({
         id={id ?? defaultId}
         disabled={disabled}
         required={required}
-        aria-label={`${label}`}
         className={styles['radio-input']}
       >
         <RadixRadioGroup.Indicator className={styles['radio-indicator']} />

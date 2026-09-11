@@ -106,12 +106,16 @@
 }
 
 .split-button__secondary {
+  display: flex;
   padding: var(--click-button-split-icon-space-y) var(--click-button-split-icon-space-x);
+  align-items: center;
   align-self: stretch;
   border: none;
   border-radius: 0;
   background: var(--split-bg-action-default);
   color: var(--split-text-default);
+  font: inherit;
+  cursor: pointer;
 }
 
 .split-button__secondary:hover {

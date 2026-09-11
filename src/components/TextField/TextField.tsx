@@ -110,6 +110,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           disabled={disabled}
           value={value}
           onChange={onChange}
+          aria-busy={loading || undefined}
           {...props}
         />
 
@@ -120,12 +121,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               <IconButton
                 disabled={disabled}
                 onClick={clearInput}
-                aria-label="clear input"
+                aria-label="Clear input"
                 data-testid="textfield-clear"
               >
                 <Icon
                   name="cross"
                   size="sm"
+                  aria-hidden
                 />
               </IconButton>
             )}
@@ -133,6 +135,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               <Icon
                 name="loading-animated"
                 size="sm"
+                aria-hidden
               />
             )}
           </InputEndContent>

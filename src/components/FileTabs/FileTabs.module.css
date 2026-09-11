@@ -69,11 +69,13 @@
   display: block;
 }
 
-.tab:hover [data-type='close'] {
+.tab:hover [data-type='close'],
+.tabs-sortable > div:focus-within [data-type='close'] {
   display: block;
 }
 
-.tab:hover [data-indicator] {
+.tab:hover [data-indicator],
+.tabs-sortable > div:focus-within [data-indicator] {
   display: none;
 }
 

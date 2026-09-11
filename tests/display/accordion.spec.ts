@@ -94,12 +94,12 @@ describe('Accordion Visual Regression', () => {
       await expect(trigger).toHaveAttribute('data-state', 'closed');
     });
 
-    it('renders an accessible accordion icon label', async ({ page }) => {
+    it('names the trigger from its title', async ({ page }) => {
       await page.goto(getStoryUrl('accordion-accordion--default', 'light'), {
         waitUntil: 'networkidle',
       });
-      const icon = page.getByLabel('accordion icon');
-      await expect(icon).toBeVisible({ timeout: 10000 });
+      const trigger = page.getByRole('button', { name: 'Accordion title' });
+      await expect(trigger).toBeVisible({ timeout: 10000 });
     });
   });
 });

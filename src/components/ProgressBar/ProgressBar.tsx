@@ -47,6 +47,9 @@ export const ProgressBar = ({
   dir = 'start',
   className,
   style,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
@@ -55,11 +58,24 @@ export const ProgressBar = ({
     ...style,
   } as CSSProperties;
 
+  const progressAria = {
+    role: 'progressbar' as const,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+    'aria-describedby': ariaDescribedBy,
+    'aria-valuemin': 0,
+    'aria-valuemax': 100,
+    'aria-valuenow': progress,
+    'aria-valuetext':
+      completed && typeof successMessage === 'string' ? successMessage : undefined,
+  };
+
   return (
     <div
       // Using a CSS variable avoids generating a new class per progress value.
       style={mergedStyle}
       {...props}
+      {...(type === 'small' ? progressAria : undefined)}
       className={cn(
         progressBarVariants({ type, orientation, dir, completed }),
         className
@@ -67,17 +83,23 @@ export const ProgressBar = ({
     >
       {type === 'default' && (
         <>
-          <span className={styles.progresstext}>
+          <span
+            {...progressAria}
+            className={styles.progresstext}
+          >
             {successMessage && completed ? successMessage : `${progress}%`}
           </span>
-          <IconButton
-            size="sm"
-            type="ghost"
-            icon="cross"
-            onClick={onCancel}
-            data-testid="progressbar-close"
-            className={closeButtonVariants({ dismissable })}
-          />
+          {dismissable && (
+            <IconButton
+              size="sm"
+              type="ghost"
+              icon="cross"
+              onClick={onCancel}
+              data-testid="progressbar-close"
+              aria-label="Cancel"
+              className={closeButtonVariants({ dismissable: true })}
+            />
+          )}
         </>
       )}
     </div>

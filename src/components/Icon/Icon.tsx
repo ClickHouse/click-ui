@@ -74,6 +74,7 @@ const SVGIcon = ({
 };
 
 const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
+  const isAriaHidden = props['aria-hidden'] === true || props['aria-hidden'] === 'true';
   if (Object.keys(FlagsLight).includes(name)) {
     return (
       <Flag
@@ -106,8 +107,8 @@ const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
     <SVGIcon
       name={name as IconName}
       size={size}
-      role="img"
-      aria-label={name}
+      role={isAriaHidden ? undefined : 'img'}
+      aria-label={isAriaHidden ? undefined : name}
       {...props}
     />
   );
