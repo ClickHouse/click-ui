@@ -715,7 +715,7 @@
           "type": "fontFamilies"
         },
         "mono": {
-          "value": "\"Inconsolata\",  Consolas, \"SFMono Regular\", monospace",
+          "value": "\"DejaVu Sans Mono\", \"Liberation Mono\", MonoLisa, Consolas, monospace",
           "type": "fontFamilies"
         },
         "display": {
@@ -972,7 +972,7 @@
               "value": {
                 "fontFamily": "{typography.font.families.mono}",
                 "fontWeight": "{typography.font.weights.2}",
-                "lineHeight": "{typography.font.line-height.2}",
+                "lineHeight": "normal",
                 "fontSize": "{typography.font.sizes.0}"
               },
               "type": "typography"
@@ -981,7 +981,7 @@
               "value": {
                 "fontFamily": "{typography.font.families.mono}",
                 "fontWeight": "{typography.font.weights.2}",
-                "lineHeight": "{typography.font.line-height.2}",
+                "lineHeight": "normal",
                 "fontSize": "{typography.font.sizes.1}"
               },
               "type": "typography"
@@ -990,7 +990,7 @@
               "value": {
                 "fontFamily": "{typography.font.families.mono}",
                 "fontWeight": "{typography.font.weights.2}",
-                "lineHeight": "{typography.font.line-height.3}",
+                "lineHeight": "normal",
                 "fontSize": "{typography.font.sizes.2}"
               },
               "type": "typography"
@@ -999,7 +999,7 @@
               "value": {
                 "fontFamily": "{typography.font.families.mono}",
                 "fontWeight": "{typography.font.weights.2}",
-                "lineHeight": "{typography.font.line-height.2}",
+                "lineHeight": "normal",
                 "fontSize": "{typography.font.sizes.3}"
               },
               "type": "typography"
