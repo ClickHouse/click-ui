@@ -71,7 +71,7 @@ List the variants and states the component should support:
 
 - [ ] Component file created: `src/components/ComponentName/ComponentName.tsx`
 - [ ] Exports added to `src/components/index.ts`
-- [ ] Styled with `styled-components` using theme tokens
+- [ ] Styled with CSS Modules (`ComponentName.module.css`, BEM class names) using theme tokens as CSS variables (`var(--click-*)`)
 - [ ] TypeScript types/interfaces exported
 - [ ] No `any` types used
 

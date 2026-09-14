@@ -128,7 +128,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 ```
 
 > [!NOTE]
-> Currently, styling is done with css-in-js which might cause some flash since it has to compute the theme and apply it. We'll be moving from styled-components and this shall be changed and improved.
+> Themes are plain CSS custom properties switched by the `data-cui-theme` attribute on the root `<html>` element. There is no runtime style computation, so the only possible flash is the wrong theme on first paint, which `InitCUIThemeScript` prevents.
 
 ## Custom Styling with CSS
 
