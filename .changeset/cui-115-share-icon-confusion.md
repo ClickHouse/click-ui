@@ -15,17 +15,12 @@ removed.
 Migration:
 
 - **If you used `share` for a link that opens in a new tab, switch to `popout`.**
-  This is the case that will not fail loudly: `Icon`'s `name` prop resolves
-  through a `Record<string, string>` alias map, so an existing `name="share"`
-  keeps compiling and silently renders the new forward-arrow glyph.
+  This is the case that will not fail loudly: `name="share"` keeps compiling and
+  now renders the forward-arrow glyph instead of the box-with-arrow one.
 - If you used `share` as a genuine "share with someone" affordance, no change
   is needed — you now get the forward arrow.
-- If you used `share-arrow`, rename it to `share`. `share-arrow` is aliased to
-  `share` so it still renders at runtime, but it is no longer a member of the
-  exported `IconName` union, so strictly-typed props (`Button.iconLeft`,
-  `Link.icon`, `Dropdown.Item.icon`, …) will fail typecheck until updated.
-
-Also fixes a latent bug in the asset codegen: `getComponentFiles` matched every
-`.tsx` file in the asset directories, so colocated `*.stories.tsx` files were
-being registered as assets. Regenerating produced a `loaders.stories` icon and
-invalid TypeScript. Storybook and test files are now excluded.
+- If you used `share-arrow`, rename it to `share`. `share-arrow` is registered as
+  a deprecated name, so it still renders and logs a deprecation warning, but it
+  is no longer a member of the exported `IconName` union — strictly-typed props
+  (`Button.iconLeft`, `Link.icon`, `Dropdown.Item.icon`, …) will fail typecheck
+  until updated.
