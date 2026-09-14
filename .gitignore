@@ -1,28 +1,39 @@
-build
-dist
+# Dependencies
 node_modules
-.temp
-.css-modules-temp
-.idea
-storybook-static
-.env
-*.log
-**/.DS_Store
-vite.config.ts.timestamp*
-.storybook/out
-tmp/*
-.scripts/js/.temp/
-
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
+.install
 
+# Build output
+build
+dist
+storybook-static
+.storybook/out
+.vercel/
+
+# Temp files and caches
+.temp
+.css-modules-temp
+tmp/*
+.scripts/js/.temp/
+vite.config.ts.timestamp*
+
+# Test artifacts
 tests/**/*-actual.png
 tests/**/*-diff.png
 tests/**/*-darwin.png
 test-results
 playwright-report
 
-.install
+# Environment
+.env
+
+# Editors
+.idea
 .vscode
+
+# Logs and OS files
+*.log
+**/.DS_Store
 .claude-logs

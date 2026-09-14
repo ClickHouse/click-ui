@@ -23,8 +23,9 @@ permissions:
 
 # One group per PR (stale preview builds cancel). Non-PR runs group by sha:
 # GitHub keeps only one pending run per group, so a shared group would let an
-# ordinary main push evict a queued release deploy. Prod-deploying runs are
-# rare pre-canary; revisit serialization when canary lands.
+# ordinary main push evict a queued release deploy. Parallel main pushes can
+# race; the canary step skips stale commits itself, release accepts the
+# (rare) race.
 concurrency:
   group: storybook-vercel-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.sha }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -76,6 +77,7 @@ jobs:
           DESCRIPTION: ${{ steps.channels.outputs.description }}
           CHANNELS: ${{ steps.channels.outputs.channels }}
           DEPLOY_PREVIEW: ${{ steps.channels.outputs.deploy_preview }}
+          DEPLOY_CANARY: ${{ steps.channels.outputs.deploy_canary }}
           DEPLOY_RELEASE: ${{ steps.channels.outputs.deploy_release }}
         run: |
           icon() { [[ "$1" == "true" ]] && echo "✅ yes" || echo "⏭️ no"; }
@@ -90,6 +92,7 @@ jobs:
             echo "| Channel | Deploying |"
             echo "| --- | --- |"
             echo "| Preview | $(icon "$DEPLOY_PREVIEW") |"
+            echo "| Canary | $(icon "$DEPLOY_CANARY") |"
             echo "| Release | $(icon "$DEPLOY_RELEASE") |"
             echo ""
           } >> "$GITHUB_STEP_SUMMARY"
@@ -126,6 +129,7 @@ jobs:
         # Static Build Output API v3, hand-built: no `vercel pull` / `vercel build`
         # needed. Project targeting comes from VERCEL_ORG_ID + VERCEL_PROJECT_ID.
         run: |
+          rm -rf .vercel # a committed .vercel/ must never leak into the deploy
           mkdir -p .vercel/output/static
           cp -r "$STORYBOOK_BUILD_DIR"/* .vercel/output/static/
           cat > .vercel/output/config.json << EOF
@@ -149,6 +153,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
+          rm -f .vercel/project.json # a stray link file must not override the env vars
           DEPLOYMENT_URL=$(vercel deploy \
             --prebuilt \
             --yes \
@@ -181,6 +186,45 @@ jobs:
           repo-token: ${{ steps.gh-workflow-token.outputs.token }}
           refresh-message-position: true
 
+      - name: Deploy canary channel
+        if: steps.channels.outputs.deploy_canary == 'true'
+        id: canary
+        # A canary failure must not skip the release deploy when both run;
+        # when canary deploys alone, let it fail the run loudly.
+        continue-on-error: ${{ steps.channels.outputs.deploy_release == 'true' }}
+        # Deploys to the "canary" custom environment of the same project,
+        # isolated from production. Step-scoped credentials - see "Deploy preview".
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          # Parallel main pushes race (see concurrency); deploy canary only
+          # from the current tip of main. Canary only - a release deploy must
+          # never be skipped by a merge landing right after it.
+          MAIN_SHA=$(git ls-remote origin refs/heads/main | cut -f1)
+          if [[ "$MAIN_SHA" != "$GITHUB_SHA" ]]; then
+            echo "Skipping canary: main moved on to $MAIN_SHA"
+            echo "⏩ **Canary channel** skipped: stale commit, main is now \`$MAIN_SHA\`" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          rm -f .vercel/project.json # a stray link file must not override the env vars
+          # DEPLOYMENT_URL is per-deploy; canary serves https://click-ui-canary.vercel.app
+          DEPLOYMENT_URL=$(vercel deploy \
+            --prebuilt \
+            --yes \
+            --target=canary \
+            --token="$VERCEL_TOKEN")
+          echo "Canary channel deployed to: $DEPLOYMENT_URL"
+          echo "✅ **Canary channel** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Warn on tolerated canary failure
+        # continue-on-error above leaves the run green; make the failure visible.
+        if: steps.canary.outcome == 'failure'
+        run: |
+          echo "Canary deploy failed (tolerated so the release deploy still runs). Canary is stale until the next push to main."
+          echo "❌ **Canary channel** deploy failed (run kept green for the release deploy)" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Deploy release channel
         if: steps.channels.outputs.deploy_release == 'true'
         # Step-scoped credentials - see "Deploy preview".
@@ -189,6 +233,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
+          rm -f .vercel/project.json # a stray link file must not override the env vars
           DEPLOYMENT_URL=$(vercel deploy \
             --prebuilt \
             --yes \
