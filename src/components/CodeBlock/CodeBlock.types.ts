@@ -6,6 +6,11 @@ export interface CodeBlockProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   'children' | 'onCopy'
 > {
+  /**
+   * Highlight.js language registered by CodeBlock. Supported values:
+   * `sql`, `bash`, `json`, `tsx`, `plaintext`, `diff`. Unknown names
+   * fall back to unhighlighted text.
+   */
   language?: string;
   children: string;
   theme?: CodeThemeType;
