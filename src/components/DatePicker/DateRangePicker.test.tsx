@@ -550,6 +550,69 @@ describe('DateRangePicker', () => {
     });
   });
 
+  describe('year and month selection', () => {
+    beforeAll(() => {
+      vi.setSystemTime(new Date('07-04-2020'));
+    });
+
+    afterAll(() => {
+      vi.useRealTimers();
+    });
+
+    it('shows a clickable calendar title that opens the years grid', async () => {
+      const { getByTestId } = renderCUI(<DateRangePicker onSelectDateRange={vi.fn()} />);
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+    });
+
+    it('selects a range in another year using year and month selection', async () => {
+      const handleSelectDateRange = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker onSelectDateRange={handleSelectDateRange} />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('year-cell-2018'));
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('month-cell-1'));
+
+      await userEvent.click(getByText('12'));
+      await userEvent.click(getByText('18'));
+
+      expect(handleSelectDateRange).toHaveBeenCalledWith(
+        new Date('2018-02-12 00:00.00'),
+        new Date('2018-02-18 00:00.00')
+      );
+    });
+
+    it('allows year and month selection in the custom time period calendar', async () => {
+      const predefinedDatesList = getPredefinedMonthsForDateRangePicker(-6);
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedDatesList={predefinedDatesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByText('Custom time period'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+    });
+  });
+
   describe('when configured for the UTC timezone', () => {
     it('renders both endpoints from their UTC fields', () => {
       const startDate = new Date('2026-04-30T01:00:00Z');
