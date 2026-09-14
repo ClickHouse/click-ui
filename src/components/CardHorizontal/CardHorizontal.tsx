@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
+import { openInNewTab } from '@/utils/url';
 import { CardHorizontalProps } from './CardHorizontal.types';
 import styles from './CardHorizontal.module.css';
 
@@ -91,8 +92,8 @@ export const CardHorizontal = ({
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
+    if (infoUrl) {
+      openInNewTab(infoUrl);
     }
   };
   const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
