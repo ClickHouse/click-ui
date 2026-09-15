@@ -24,3 +24,7 @@ Migration:
   is no longer a member of the exported `IconName` union — strictly-typed props
   (`Button.iconLeft`, `Link.icon`, `Dropdown.Item.icon`, …) will fail typecheck
   until updated.
+
+Deprecated icon and flag names (legacy PascalCase, two-letter flag codes) that
+previously rendered nothing through `Icon` now render and log a deprecation
+warning, matching `Flags` and `Logo`.
