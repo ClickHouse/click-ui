@@ -19,6 +19,8 @@ import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json.js';
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js';
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js';
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import diff from 'react-syntax-highlighter/dist/cjs/languages/hljs/diff.js';
 /* eslint-enable import/extensions */
 
 SyntaxHighlighter.registerLanguage('sql', sql.default || sql);
@@ -26,6 +28,7 @@ SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
 SyntaxHighlighter.registerLanguage('json', json.default || json);
 SyntaxHighlighter.registerLanguage('tsx', tsx.default || tsx);
 SyntaxHighlighter.registerLanguage('plaintext', plaintext.default || plaintext);
+SyntaxHighlighter.registerLanguage('diff', diff.default || diff);
 
 interface RendererNodeType {
   type: 'element' | 'text';

@@ -72,6 +72,24 @@ export const WithoutLineNumbers: Story = {
   decorators: Decorator,
 };
 
+// Native `diff` highlighting — VR coverage for addition/deletion colors.
+export const Diff: Story = {
+  args: {
+    children: `--- a/query.sql
++++ b/query.sql
+@@ -1,5 +1,5 @@
+ SELECT
+     customer_id,
+-    SUM(quantity) AS total
++    SUM(quantity * price) AS total_spent
+ FROM orders
+`,
+    language: 'diff',
+    showLineNumbers: true,
+  },
+  decorators: Decorator,
+};
+
 export const Playground: Story = {
   args: {
     children: `SELECT
