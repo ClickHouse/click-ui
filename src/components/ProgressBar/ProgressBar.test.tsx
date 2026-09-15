@@ -52,6 +52,33 @@ describe('Progress bar', () => {
     expect(getByTestId('progressbar').style.getPropertyValue('--progress')).toBe('25%');
   });
 
+  it('keeps the cancel button outside the progressbar role', () => {
+    const onCancel = vi.fn();
+    const { getByRole } = renderPopover({
+      type: 'default',
+      progress: 38,
+      dismissable: true,
+      onCancel,
+    });
+    const progressbar = getByRole('progressbar');
+    expect(progressbar).toHaveAttribute('aria-valuenow', '38');
+    expect(progressbar.querySelector('[data-testid="progressbar-close"]')).toBeNull();
+    expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+  });
+
+  it('names the default progressbar from a consumer aria-label', () => {
+    const { getByRole, getByTestId } = renderPopover({
+      type: 'default',
+      progress: 38,
+      'aria-label': 'File upload',
+    });
+    expect(getByRole('progressbar', { name: 'File upload' })).toHaveAttribute(
+      'aria-valuenow',
+      '38'
+    );
+    expect(getByTestId('progressbar')).not.toHaveAttribute('aria-label');
+  });
+
   it('should show close Button if dismissable is true', () => {
     const onCancel = vi.fn();
     const { queryAllByTestId } = renderPopover({
@@ -85,5 +112,14 @@ describe('Progress bar', () => {
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).not.toContain('38%');
     expect(progressBar[0].textContent).toContain('Success');
+  });
+
+  it('does not render the cancel button unless dismissable', () => {
+    const { queryByTestId, queryByRole } = renderPopover({
+      type: 'default',
+      progress: 38,
+    });
+    expect(queryByTestId('progressbar-close')).not.toBeInTheDocument();
+    expect(queryByRole('button', { name: 'Cancel' })).not.toBeInTheDocument();
   });
 });

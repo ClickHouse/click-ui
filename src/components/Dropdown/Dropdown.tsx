@@ -91,14 +91,14 @@ const DropdownTrigger = ({
     );
   }
 
-  const { className, ...triggerProps } = props as DropdownTriggerProps;
+  const { className, asChild, ...triggerProps } = props as DropdownTriggerProps;
   return (
     <DropdownMenu.Trigger
       asChild
       {...triggerProps}
       className={cn(styles['dropdown-trigger'], className)}
     >
-      <div>{children}</div>
+      {asChild ? children : <div>{children}</div>}
     </DropdownMenu.Trigger>
   );
 };

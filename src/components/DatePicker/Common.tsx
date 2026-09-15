@@ -453,6 +453,8 @@ const PickerNavControl = forwardRef<
       type,
       tabIndex,
       'data-testid': dataTestId,
+      'aria-label': ariaLabel,
+      'aria-hidden': ariaHidden,
     },
     ref
   ) => (
@@ -465,6 +467,8 @@ const PickerNavControl = forwardRef<
       type={type}
       tabIndex={tabIndex}
       data-testid={dataTestId}
+      aria-label={ariaLabel}
+      aria-hidden={ariaHidden}
       className={cn(styles['picker-nav-control'], className)}
     />
   )
@@ -476,7 +480,17 @@ const EmptyDateSelectNav = forwardRef<
   ComponentProps<typeof IconButton> & { 'data-testid'?: string }
 >(
   (
-    { className, icon, onKeyDown, size, type, tabIndex, 'data-testid': dataTestId },
+    {
+      className,
+      icon,
+      onKeyDown,
+      size,
+      type,
+      tabIndex,
+      'data-testid': dataTestId,
+      'aria-label': ariaLabel,
+      'aria-hidden': ariaHidden,
+    },
     ref
   ) => (
     <PickerNavControl
@@ -487,11 +501,24 @@ const EmptyDateSelectNav = forwardRef<
       type={type}
       tabIndex={tabIndex}
       data-testid={dataTestId}
+      aria-label={ariaLabel}
+      aria-hidden={ariaHidden}
       className={cn(styles['empty-date-select-nav'], className)}
     />
   )
 );
 EmptyDateSelectNav.displayName = 'EmptyDateSelectNav';
+
+const dateSelectNavLabel = (
+  icon: Extract<IconName, 'chevron-left' | 'chevron-right'>,
+  view: DateViewOption
+) => {
+  const isPrevious = icon === 'chevron-left';
+  if (view === YEARS) {
+    return isPrevious ? 'Previous years' : 'Next years';
+  }
+  return isPrevious ? 'Previous month' : 'Next month';
+};
 
 const DateSelectNav = ({
   id,
@@ -520,8 +547,9 @@ const DateSelectNav = ({
         icon={icon}
         size={size}
         type="ghost"
-        tabIndex={tabIndex}
+        tabIndex={-1}
         onKeyDown={onKeyDown}
+        aria-hidden
       />
     );
   }
@@ -535,6 +563,7 @@ const DateSelectNav = ({
       size={size}
       type="ghost"
       tabIndex={tabIndex}
+      aria-label={dateSelectNavLabel(icon, view)}
     />
   );
 };

@@ -50,6 +50,17 @@ describe('Table', () => {
     expect(queryAllByTestId('checkbox')[1]).not.toBeNull();
   });
 
+  it('names select-all and row checkboxes', () => {
+    const { getAllByRole } = renderTable({
+      isSelectable: true,
+      selectedIds: [],
+    });
+    expect(getAllByRole('checkbox', { name: 'Select all rows' }).length).toBeGreaterThan(
+      0
+    );
+    expect(getAllByRole('checkbox', { name: 'Select row' })).toHaveLength(2);
+  });
+
   it('should trigger onSelect on clicking checkbox', () => {
     const onSelect = vi.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({

@@ -129,6 +129,7 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
           <Icon
             name="upload"
             className={styles['upload-icon']}
+            aria-hidden
           />
           <div
             className={cn(

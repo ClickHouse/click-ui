@@ -129,6 +129,7 @@ export const FileUpload = ({
         ref={fileInputRef}
         accept={acceptedFileTypes}
         onChange={handleFileSelect}
+        aria-label="Browse file"
         style={{ display: 'none' }}
       />
     </>

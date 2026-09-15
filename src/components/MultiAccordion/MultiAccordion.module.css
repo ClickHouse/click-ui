@@ -59,7 +59,9 @@
 .multi-accordion__trigger {
   display: flex;
   width: 100%;
+  min-width: 0;
   padding: var(--multi-accordion-trigger-padding);
+  flex: 1;
   align-items: center;
   gap: var(--multi-accordion-trigger-gap);
   border: none;
@@ -69,11 +71,6 @@
   font: var(--multi-accordion-font-default);
 }
 
-.multi-accordion__trigger:active {
-  color: var(--multi-accordion-label-active);
-  font: var(--multi-accordion-font-active);
-}
-
 .multi-accordion__trigger:hover {
   background: var(--click-global-color-stroke-default);
   color: var(--multi-accordion-label-hover);
@@ -81,16 +78,50 @@
   cursor: pointer;
 }
 
-.multi-accordion__trigger [data-icon='accordion-status'] {
-  color: var(--global-color-stroke-intense);
+.multi-accordion__trigger:active {
+  color: var(--multi-accordion-label-active);
+  font: var(--multi-accordion-font-active);
 }
 
-.multi-accordion__trigger[data-state='open'] {
+.multi-accordion__item-header {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  border-radius: inherit;
+}
+
+.multi-accordion__item-header_has-status .multi-accordion__trigger {
+  padding-right: 0;
+}
+
+.multi-accordion__item-header:hover {
+  background: var(--click-global-color-stroke-default);
+}
+
+.multi-accordion__item-header:hover .multi-accordion__trigger {
+  color: var(--multi-accordion-label-hover);
+  font: var(--multi-accordion-font-hover);
+}
+
+.multi-accordion__status-button {
+  display: flex;
+  padding: var(--multi-accordion-trigger-padding);
+  padding-left: 0;
+  flex-shrink: 0;
+  align-items: center;
+  border: none;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--global-color-stroke-intense);
+  cursor: pointer;
+}
+
+.multi-accordion__item[data-state='open'] .multi-accordion__item-header {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.multi-accordion__trigger[data-state='open'] [data-icon='accordion-status'] {
+.multi-accordion__item[data-state='open'] .multi-accordion__status-button {
   color: var(--global-color-accent-default);
 }
 

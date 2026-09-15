@@ -62,7 +62,7 @@ describe('Toast Visual Regression', () => {
       await goto(page, 'display-toast--default', 'light');
       const node = toast(page);
       await expect(node).toBeVisible({ timeout: 10000 });
-      const closeButton = node.getByRole('button', { name: 'cross' });
+      const closeButton = node.getByRole('button', { name: 'Dismiss notification' });
       await closeButton.click();
       await expect(node).toBeHidden({ timeout: 10000 });
     });

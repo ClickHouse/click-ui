@@ -148,6 +148,16 @@ const TableHeader = ({
 
   return (
     <th
+      scope="col"
+      aria-sort={
+        isSortable
+          ? sortDir === 'asc'
+            ? 'ascending'
+            : sortDir === 'desc'
+              ? 'descending'
+              : 'none'
+          : undefined
+      }
       {...props}
       className={cn(headerVariants({ size, resizable }), className)}
     >
@@ -162,6 +172,7 @@ const TableHeader = ({
           <Icon
             name="arrow-down"
             size="sm"
+            aria-hidden
             className={cn(sortIconVariants({ dir: sortDir }))}
           />
         )}
@@ -170,6 +181,7 @@ const TableHeader = ({
           <Icon
             name="arrow-down"
             size="sm"
+            aria-hidden
             className={cn(sortIconVariants({ dir: sortDir }))}
           />
         )}
@@ -257,10 +269,12 @@ const Thead = ({
         <tr>
           {isSelectable && (
             <th
+              scope="col"
               aria-label="Select column"
               className={cn(headerVariants({ size }))}
             >
               <SelectAllCheckbox
+                aria-label="Select all rows"
                 onCheckedChange={onSelectAll}
                 rows={rows}
                 selectedIds={selectedIds}
@@ -281,6 +295,7 @@ const Thead = ({
           ))}
           {actionsList.length > 0 && (
             <th
+              scope="col"
               aria-label="Actions"
               className={cn(headerVariants({ size }))}
             />
@@ -462,6 +477,7 @@ const TableBodyRow = ({
             checked={isIndeterminate ? 'indeterminate' : isSelected}
             onCheckedChange={onSelect}
             disabled={isDisabled || isDeleted}
+            aria-label="Select row"
           />
         </td>
       )}
@@ -495,6 +511,7 @@ const TableBodyRow = ({
                 icon="pencil"
                 onClick={onEdit}
                 data-testid="table-row-edit"
+                aria-label="Edit row"
                 className={cn(styles['table__edit-button'])}
               />
             )}
@@ -506,6 +523,7 @@ const TableBodyRow = ({
                 icon="cross"
                 onClick={onDelete}
                 data-testid="table-row-delete"
+                aria-label="Delete row"
                 className={cn(
                   styles['table__close-button'],
                   isDeleted && styles['table__close-button_deleted']
@@ -525,6 +543,7 @@ const LoadingData = () => {
       <Icon
         name="loading-animated"
         size="sm"
+        aria-hidden
       />
       <Text size="sm">Loading data</Text>
     </>

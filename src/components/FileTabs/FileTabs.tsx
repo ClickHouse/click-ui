@@ -5,6 +5,7 @@ import {
   ReactElement,
   Children,
   useState,
+  KeyboardEvent,
   MouseEvent,
   useEffect,
   ReactNode,
@@ -181,9 +182,39 @@ export const FileTabs = ({
         >
           {Children.map(children, (child, index) => (
             <div
-              tabIndex={index + 1}
+              tabIndex={
+                selectedIndex === index || (selectedIndex == null && index === 0) ? 0 : -1
+              }
               role="tab"
+              // Explicit name so the close button's aria-label is not folded into the tab.
+              aria-label={child.props.text}
+              aria-selected={selectedIndex === index}
               onClick={onSelect(index)}
+              onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+                const tabs =
+                  e.currentTarget.parentElement?.querySelectorAll<HTMLElement>(
+                    '[role="tab"]'
+                  );
+                if (!tabs || tabs.length === 0) {
+                  return;
+                }
+                const last = tabs.length - 1;
+                let nextIndex: number | undefined;
+                if (e.key === 'ArrowRight') {
+                  nextIndex = index >= last ? 0 : index + 1;
+                } else if (e.key === 'ArrowLeft') {
+                  nextIndex = index <= 0 ? last : index - 1;
+                } else if (e.key === 'Home') {
+                  nextIndex = 0;
+                } else if (e.key === 'End') {
+                  nextIndex = last;
+                } else {
+                  return;
+                }
+                e.preventDefault();
+                onSelectProp(nextIndex);
+                tabs[nextIndex]?.focus();
+              }}
               key={`tab-element-${index}`}
             >
               {child}
@@ -265,7 +296,14 @@ const Tab = ({
       )}
     >
       <div className={styles['tab-content']}>
-        {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
+        {typeof icon === 'string' ? (
+          <Icon
+            name={icon as IconName}
+            aria-hidden
+          />
+        ) : (
+          icon
+        )}
         <span className={styles['tab-content-text']}>{text}</span>
       </div>
       <IconButton
@@ -274,6 +312,7 @@ const Tab = ({
         icon="cross"
         onClick={onClose}
         data-type="close"
+        aria-label={`Close ${text}`}
         data-testid={testId ? `${testId}-${index}-close` : undefined}
       />
       <div
@@ -307,7 +346,14 @@ export const FileTabElement = ({
       {...props}
       className={cn(tabVariants({ active, preview, fixed: true }), className)}
     >
-      {typeof icon === 'string' ? <Icon name={icon as IconName} /> : icon}
+      {typeof icon === 'string' ? (
+        <Icon
+          name={icon as IconName}
+          aria-hidden
+        />
+      ) : (
+        icon
+      )}
       {children && <span className={styles['tab-content-text']}>{children}</span>}
     </div>
   );

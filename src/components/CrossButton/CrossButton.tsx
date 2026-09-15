@@ -10,6 +10,7 @@ export const CrossButton = forwardRef<
   <EmptyButton
     ref={ref}
     type={type}
+    aria-label="Close"
     {...props}
     className={cn(styles['cross-button'], className)}
   />

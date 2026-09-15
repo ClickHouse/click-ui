@@ -105,4 +105,17 @@ describe('MultiAccordion', () => {
     fireEvent.click(statusIcons[0]);
     expect(markAsCompleted).toHaveBeenCalledOnce();
   });
+
+  it('exposes the status control as a named button outside the trigger', () => {
+    const { getByRole, getAllByRole } = renderAccordion({
+      type: 'single',
+      showCheck: true,
+      children,
+    } as MultiAccordionProps);
+    const trigger = getByRole('button', { name: 'Option 1' });
+    expect(trigger).toHaveAccessibleName('Option 1');
+    expect(trigger).not.toHaveAccessibleName(/Mark as/);
+    expect(getAllByRole('button', { name: 'Mark as incomplete' })).toHaveLength(1);
+    expect(getAllByRole('button', { name: 'Mark as complete' })).toHaveLength(1);
+  });
 });

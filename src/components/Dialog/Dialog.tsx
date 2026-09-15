@@ -67,6 +67,7 @@ const CloseButton = ({ onClose }: { onClose?: () => void }) => (
       <Icon
         name="cross"
         size="lg"
+        aria-hidden
       />
     </CrossButton>
   </RadixDialog.Close>

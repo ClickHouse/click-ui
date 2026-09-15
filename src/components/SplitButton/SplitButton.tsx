@@ -113,12 +113,16 @@ export const SplitButton = ({
           data-testid="split-button-dropdown"
           className={styles['split-button__secondary']}
         >
-          <span>
+          <button
+            type="button"
+            aria-label="More actions"
+          >
             <Icon
               name="chevron-down"
               size="sm"
+              aria-hidden
             />
-          </span>
+          </button>
         </Dropdown.Trigger>
       </div>
       <Dropdown.Content

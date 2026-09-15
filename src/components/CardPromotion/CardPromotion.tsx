@@ -33,11 +33,12 @@ export const CardPromotion = ({
             type="button"
             data-testid="click-alert-dismiss-button"
             onClick={() => setIsVisible(false)}
+            aria-label="Dismiss"
             className={styles.dismisswrapper}
           >
             <Icon
               name="cross"
-              aria-label="close"
+              aria-hidden
             />
           </button>
         )}

@@ -66,13 +66,14 @@ const Accordion = ({
             <Icon
               name="chevron-right"
               size={iconSize || size}
-              aria-label="accordion icon"
+              aria-hidden
             />
           </div>
           {icon ? (
             <Icon
               name={icon}
               size={iconSize || size}
+              aria-hidden
             />
           ) : null}
         </div>

@@ -256,17 +256,17 @@ describe('Badge Visual Regression', () => {
 
       it('close button exposes aria-label', async ({ page }) => {
         await goto(page, 'display-badge--dismissible', 'light');
-        const closeButton = page.getByLabel('close').first();
+        const closeButton = page.getByLabel('Remove').first();
         await expect(closeButton).toBeVisible({ timeout: 10000 });
       });
 
       it('close button is clickable', async ({ page }) => {
-        // Smoke test: the close icon resolves under getByLabel('close') and
+        // Smoke test: the close button resolves under getByLabel('Remove') and
         // accepts a click without throwing. The story's onClose is a no-op,
         // so this does NOT prove the handler fires — it only guarantees the
         // close target stays clickable through the migration.
         await goto(page, 'display-badge--dismissible', 'light');
-        const closeButton = page.getByLabel('close').first();
+        const closeButton = page.getByLabel('Remove').first();
         await expect(closeButton).toBeVisible({ timeout: 10000 });
         await closeButton.click();
       });

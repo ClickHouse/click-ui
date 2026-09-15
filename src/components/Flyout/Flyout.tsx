@@ -239,6 +239,7 @@ const Header = ({
                 <Icon
                   name="cross"
                   size={type === 'inline' ? 'md' : 'lg'}
+                  aria-hidden
                 />
               </CrossButton>
             </DialogClose>
@@ -283,6 +284,7 @@ const Header = ({
               <Icon
                 name="cross"
                 size={type === 'inline' ? 'md' : 'lg'}
+                aria-hidden
               />
             </CrossButton>
           </DialogClose>

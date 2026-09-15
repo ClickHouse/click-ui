@@ -54,7 +54,7 @@ describe('Alert Visual Regression', () => {
     describe('Dismissible behavior', () => {
       it('dismiss button exposes aria-label', async ({ page }) => {
         await goto(page, 'display-alert--dismissible', 'light');
-        const closeButton = page.getByLabel('close').first();
+        const closeButton = page.getByLabel('Dismiss').first();
         await expect(closeButton).toBeVisible({ timeout: 10000 });
       });
 

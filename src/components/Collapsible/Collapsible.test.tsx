@@ -43,4 +43,21 @@ describe('Collapsible', () => {
     expect(onOpenChange).toBeCalledTimes(0);
     expect(queryByTestId('collapsible-content')).toBeNull();
   });
+
+  it('names an icon-only trigger Toggle section', () => {
+    const { getByTestId } = renderCollapsible();
+    expect(getByTestId('collapsible-trigger')).toHaveAccessibleName('Toggle section');
+  });
+
+  it('uses trigger children as the accessible name when present', () => {
+    const { getByRole } = renderCUI(
+      <Collapsible>
+        <Collapsible.Trigger>Section title</Collapsible.Trigger>
+        <Collapsible.Content>Body</Collapsible.Content>
+      </Collapsible>
+    );
+    const trigger = getByRole('button', { name: 'Section title' });
+    expect(trigger).toBeInTheDocument();
+    expect(trigger).not.toHaveAttribute('aria-label');
+  });
 });

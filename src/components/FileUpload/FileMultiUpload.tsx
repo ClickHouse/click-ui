@@ -123,6 +123,7 @@ export const FileMultiUpload = ({
         accept={acceptedFileTypes}
         onChange={handleFileSelect}
         multiple
+        aria-label="Browse files"
         style={{ display: 'none' }}
       />
     </>
