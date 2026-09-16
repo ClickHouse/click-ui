@@ -8,7 +8,7 @@ export type AssetDeprecatedName = keyof typeof ASSET_NAME_MAPPINGS.deprecated;
 
 export const ASSET_NAME_MAPPINGS = {
   aliases: {
-    'c#': 'c-sharp',
+    'c#': 'csharp',
   } as AssetAliasMap,
 
   deprecated: {
@@ -152,7 +152,10 @@ export const ASSET_NAME_MAPPINGS = {
     Services: 'services',
     Settings: 'settings',
     Share: 'share',
-    ShareArrow: 'share-arrow',
+    ShareArrow: 'share',
+    // CUI-115: the old `share` glyph duplicated `popout` and was removed; the
+    // surviving share glyph moved from `share-arrow` to `share`.
+    'share-arrow': 'share',
     ShareNetwork: 'share-network',
     Sleep: 'sleep',
     SlideIn: 'slide-in',

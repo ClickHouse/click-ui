@@ -1,7 +1,8 @@
 import { CSSProperties, useMemo } from 'react';
 import { cn, cva } from '@/lib/cva';
-import { IconName, IconProps, ImageType } from './Icon.types';
+import { IconName, IconProps, ImageName, ImageType } from './Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
+import { resolveAssetName } from '@/components/Assets/config';
 import { Flag } from '@/components/Assets/Flags/system/Flag';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
 import { FlagName } from '@/components/Assets/Flags/system/types';
@@ -73,7 +74,12 @@ const SVGIcon = ({
   );
 };
 
-const SvgImage = ({ name, size, theme, ...props }: ImageType) => {
+const SvgImage = ({ name: rawName, size, theme, ...props }: ImageType) => {
+  // Resolve aliases and deprecated names once, before dispatching to the
+  // per-asset components - they each resolve too, but only ever see the raw
+  // name via the kebab-case key checks below.
+  const name = resolveAssetName(rawName) as ImageName;
+
   if (Object.keys(FlagsLight).includes(name)) {
     return (
       <Flag
