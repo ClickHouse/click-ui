@@ -389,25 +389,24 @@ const PredefinedDates = ({
 
 export interface DateRangePickerProps {
   allowOnlyDatesList?: Array<Date>;
-  endDate?: Date;
   disabled?: boolean;
+  endDate?: Date;
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
+  maxRangeLength?: number;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
   predefinedDatesList?: DateRange[];
-  maxRangeLength?: number;
-  startDate?: Date;
   responsivePositioning?: boolean;
+  startDate?: Date;
   timezone?: Timezone;
 }
 
 export const DateRangePicker = ({
   allowOnlyDatesList,
-  endDate,
-  startDate,
   disabled = false,
+  endDate,
   futureDatesDisabled = false,
   futureStartDatesDisabled = false,
   maxRangeLength = -1,
@@ -416,6 +415,7 @@ export const DateRangePicker = ({
   placeholder = 'start date – end date',
   predefinedDatesList,
   responsivePositioning = true,
+  startDate,
   timezone = 'system',
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -570,7 +570,7 @@ export const DateRangePicker = ({
               >
                 <StyledCalendarRenderer
                   calendarOptions={calendarOptions}
-                  allowYearMonthSelection={false}
+                  allowYearMonthSelection={true}
                   selectedDate={selectedStartDate}
                   timezone={timezone}
                 >
@@ -595,7 +595,7 @@ export const DateRangePicker = ({
         ) : (
           <CalendarRenderer
             calendarOptions={calendarOptions}
-            allowYearMonthSelection={false}
+            allowYearMonthSelection={true}
             selectedDate={selectedStartDate}
             timezone={timezone}
           >
