@@ -1,35 +1,45 @@
-## Why?
+## Description
 
-Clear and short explanation here.
+<!-- What was changed / added / improved? -->
 
-## How?
+- highlight A
+- highlight B
+- ...
 
-- Done A (replace with a breakdown of the steps)
-- Done B
-- Done C
+### Links and tickets
 
-## Tickets?
+<!-- Ticket number(s), useful non-project links. -->
 
-- [Ticket 1](the-ticket-url-here)
-- [Ticket 2](the-ticket-url-here)
-- [Ticket 3](the-ticket-url-here)
+### Good to know
 
-## Contribution checklist?
+<!-- Important notes for PR participants. -->
 
-- [ ] You've done enough research before writing
-- [ ] You have reviewed the PR
-- [ ] The commit messages are detailed
-- [ ] The `build` command runs locally
-- [ ] Assets or static content are linked and stored in the project
-- [ ] For documentation, guides or references, you've tested the commands
+## Checklist
 
-## Security checklist?
+- [ ] **Breaking changes? (add migration notes in changesets)**
+- [ ] **Visual changes? (specify in changesets)**
+- [ ] Design review needed?
 
-- [ ] All user inputs are validated and sanitized
-- [ ] No usage of `dangerouslySetInnerHTML`
-- [ ] Sensitive data has been identified and is being protected properly
-- [ ] Build output contains no secrets or API keys
+## Contribution
+<!-- 
+  Thank you for contributing to Click UI!  
+  Please follow this checklist so human maintainers could respond to changes faster.
+ -->
+- [ ] Sufficient research before PR
+- [ ] Self-reviewed the PR
+- [ ] Manually tested the changes (when applies - visual confirmation in Storybook)
+- [ ] `build` and `build-storybook` work locally
+- [ ] Tests and Stories are aligned with the changes
 
-## Preview?
+## Accessibility
+<!-- Skip if no component markup, behavior, or styles changed. -->
+- [ ] **Keyboard** - every action works with Tab / Enter / Space / Esc; focus is visible and returns to the trigger on close
+- [ ] **Names** — every control has a name that includes its visible label; icon-only controls take `aria-label`
+- [ ] **Vision** — colors come from tokens, focus ring shows, targets are at least 24×24 px
 
-Optionally, provide a demo or a preview url here
+## Screenshots
+
+<!-- 
+  Visual confirmation of any meaningful changes.
+  For complex cases provide before/after.
+ -->
