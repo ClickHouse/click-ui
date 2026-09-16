@@ -62,8 +62,7 @@ jobs:
             - Hardcoded values that should be theme tokens or CSS variables
             - Checks weakened to get CI green: relaxed assertions, removed tests, visual snapshots regenerated
               without the PR saying the visual change is intended
-            - Internal links (Linear, Notion, internal Slack, Grafana) anywhere — this repository is public.
-              A bare ticket ID such as `CUI-123` without a link is fine.
+            - Internal links (Linear, Notion, internal Slack, Grafana) anywhere — this repository is public
 
             ### Accessibility (a11y) — especially important for a component library!
             - Missing ARIA roles, labels, or descriptions on interactive elements
