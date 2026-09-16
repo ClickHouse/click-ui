@@ -420,8 +420,8 @@ test(Button): cover loading state
 
 ### Pull request
 
-- Fill every section of the PR template: Description, Links and tickets (public links only),
-  Checklist, Contribution and Accessibility (skip Accessibility only when the template says so).
+- Fill every section of the PR template: Why, How, Tickets (public links only), the
+  contribution checklist, the security checklist and the accessibility section.
 - One concern per PR. Split unrelated improvements into follow-ups.
 - Humans answer reviewers. Do not auto-generate replies to review comments.
 
