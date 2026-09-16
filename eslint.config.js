@@ -125,9 +125,9 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
-  // Build plugins live outside tsconfig.json's `include`
+  // Build plugins and repo scripts live outside tsconfig.json's `include`
   {
-    files: ['plugins/**/*.ts'],
+    files: ['plugins/**/*.ts', '.scripts/**/*.ts'],
     languageOptions: {
       parserOptions: {
         project: './tsconfig.node.json',
