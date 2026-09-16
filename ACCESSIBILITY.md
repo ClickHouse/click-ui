@@ -2,9 +2,9 @@
 
 **Target:** WCAG 2.2 Level AA for everything new. Existing components must reach 2.1 AA first and 2.2 AA by the first external audit.
 
-**Severity:** axe impact × reach × WCAG level. Reach = how many consumer apps render the component, estimated from the consumer repos we know; when in doubt, assume high. Critical or Serious in a widely used component blocks a release. Once the Storybook a11y gate runs, a component with a Critical finding cannot stay in `todo`.
+**Severity:** axe impact × reach × WCAG level. Reach = how many consumer apps render the component, estimated from the consumer repos we know; when in doubt, assume high. Critical or Serious in a widely used component blocks a release; a maintainer decides, in review, until the automated gates land. Once the Storybook a11y gate runs, a component with a Critical finding cannot stay in `todo`.
 
-**Definition of Done:** the "Accessibility" section of the PR template, backed by the checks in [AGENTS.md](./AGENTS.md) section 7.
+**Definition of Done:** the Accessibility checkboxes in the PR template, plus the "Before you declare done" list in [AGENTS.md](./AGENTS.md) section 7, written into the PR description: what you tested, what you did not, and which WCAG 2.2 criteria.
 
 **Debt:** every known violation carries a Linear ID — `parameters.a11y.test: 'todo' // CUI-123` on the story, or an inline lint disable with a reason and the ID.
 
