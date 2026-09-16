@@ -688,10 +688,6 @@ refactor: 💡 A code change that neither fixes a bug or adds a feature
 style: 💄 Markup, white-space, formatting, missing semi-colons...
 ```
 
-### Accessibility
-
-Click UI targets WCAG 2.2 AA. The policy, severity rules and definition of done live in [ACCESSIBILITY.md](./ACCESSIBILITY.md).
-
 ### AI Policy
 
 You can use AI for Click UI development — see the [AI Policy](./AI_POLICY.md) for what we encourage and what's expected of contributors.

@@ -81,7 +81,7 @@ plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the
    change is a `minor` with a migration note. A new component starts with a Component RFC:
    `gh pr create --template component_rfc.md`.
 4. **This repo is public.** Never put internal links (Linear, Notion, internal Slack, etc.)
-   in code, comments, commits, changesets, or PR text. A bare ticket ID such as `CUI-123` is fine.
+   in code, comments, commits, changesets, or PR text.
 5. **Keep refactors pure.** A styling or structural refactor must not change behavior, DOM
    attributes, or accessibility. Put those improvements in a separate follow-up PR.
 6. **Security.** No `dangerouslySetInnerHTML` with user content. No `eval()` or
@@ -261,8 +261,7 @@ Never a `<div>` with an `onClick`.
   text, UI parts and focus rings.
 - Announce async results and errors: `aria-describedby` for field errors, a live region for
   toasts and status.
-- Disabled native controls set both `disabled` and `aria-disabled="true"`. Elements that cannot
-  take `disabled` (`<a>`, `role="tab"`) or must stay focusable use `aria-disabled="true"` alone.
+- Disabled elements set both `disabled` and `aria-disabled="true"`.
 - Decorative icons have `aria-hidden="true"`. An icon that is the only content needs a label.
 - Respect `prefers-reduced-motion` (section 6).
 - Spread rest props and forward `ref` onto the focusable element (the `<button>`, `<input>`,
@@ -421,7 +420,7 @@ test(Button): cover loading state
 ### Pull request
 
 - Fill every section of the PR template: Why, How, Tickets (public links only), the
-  contribution checklist, the security checklist and the accessibility section.
+  contribution checklist and the security checklist.
 - One concern per PR. Split unrelated improvements into follow-ups.
 - Humans answer reviewers. Do not auto-generate replies to review comments.
 
@@ -443,7 +442,6 @@ test(Button): cover loading state
 ## 11. Where the details live
 
 - `README.md` — setup, consuming the library, theming, release process.
-- `ACCESSIBILITY.md` — the accessibility policy: target, severity, definition of done, debt tracking.
 - `docs/tests/playwright.md` — visual tests in Docker, single-component runs, reports.
 - `docs/package-release.md`, `docs/publish.md` — releases.
 - `docs/converting-svg-to-react-components.md` — adding icons, logos, flags.
@@ -466,8 +464,6 @@ Whenever you edit this file, sweep the whole file, not just your change:
 3. State each rule once, in the section it belongs to. Replace repeats with "see section N".
    Prefer pointing at a real file over pasting a long example.
 4. Keep section numbers and cross-references in sync. If a rule changes what reviewers check,
-   update `.github/workflows/llm-code-review.yml` too. Section 7 has condensed copies that must
-   follow it: `.github/instructions/a11y.instructions.md`, `ACCESSIBILITY.md`,
-   `.github/pull_request_template.md`.
+   update `.github/workflows/llm-code-review.yml` too.
 5. If the file is over 500 lines after your change, list the cuts you propose in the PR
    description and wait for a maintainer. Never drop a rule silently to make room.
