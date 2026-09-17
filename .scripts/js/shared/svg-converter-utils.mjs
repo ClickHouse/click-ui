@@ -26,7 +26,13 @@ export const filenameToComponentName = filename => {
 export const getComponentFiles = dir => {
   const files = fs.readdirSync(dir);
   return files
-    .filter(file => file.endsWith('.tsx') && file !== 'index.ts')
+    .filter(
+      file =>
+        file.endsWith('.tsx') &&
+        file !== 'index.ts' &&
+        // Skip colocated Storybook/test files - they are not assets
+        !/\.(stories|test|spec)\.tsx$/.test(file)
+    )
     .map(file => path.basename(file, '.tsx'));
 };
 
