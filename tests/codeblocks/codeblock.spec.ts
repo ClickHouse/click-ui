@@ -137,6 +137,17 @@ describe('CodeBlock Visual Regression', () => {
         maxDiffPixels: 100,
       });
     });
+
+    it('diff language matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('codeblocks-codeblock--diff', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+      await expect(root).toHaveScreenshot('codeblock-diff-light.png', {
+        maxDiffPixels: 100,
+      });
+    });
   });
 
   describe('Dark Theme (System prefers-color-scheme)', () => {
@@ -150,6 +161,17 @@ describe('CodeBlock Visual Regression', () => {
       await expect(root).toBeVisible({ timeout: 10000 });
       await expect(page.getByRole('button').first()).toBeVisible();
       await expect(root).toHaveScreenshot('codeblock-with-wrap-button-dark.png', {
+        maxDiffPixels: 100,
+      });
+    });
+
+    it('diff language matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('codeblocks-codeblock--diff'), {
+        waitUntil: 'networkidle',
+      });
+      const root = page.locator(rootLocator);
+      await expect(root).toBeVisible({ timeout: 10000 });
+      await expect(root).toHaveScreenshot('codeblock-diff-dark.png', {
         maxDiffPixels: 100,
       });
     });

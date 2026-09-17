@@ -47,6 +47,26 @@ export const Default: Story = {
   },
 };
 
+export const YearAndMonthSelection: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Text>
+        Click the month/year title in the calendar header to jump to a different year and
+        month.
+      </Text>
+      <DateRangePicker
+        key="year-and-month-selection"
+        endDate={new Date('2020-07-20T12:00:00')}
+        onSelectDateRange={args.onSelectDateRange}
+        startDate={new Date('2020-07-10T12:00:00')}
+      />
+    </div>
+  ),
+};
+
 export const DateRangePickerAllowOnlyNext30Days: Story = {
   args: {
     allowOnlyDatesList: getNextNDatesForDatePickerAllowOnlyList(30),
