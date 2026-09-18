@@ -149,9 +149,12 @@ const vitestConfig = defineVitestConfig({
   server: { fs: { strict: false } },
   test: {
     environment: 'jsdom',
-    // TODO: Note that currently, the pw visual regression tests
-    // are kept separate, see ./tests
-    include: ['src/**/*.{test,spec}.{ts,tsx}', 'plugins/**/*.{test,spec}.{ts,tsx}'],
+    // Playwright visual specs are separate, see ./tests
+    include: [
+      'src/**/*.{test,spec}.{ts,tsx}',
+      'plugins/**/*.{test,spec}.{ts,tsx}',
+      '.scripts/**/*.{test,spec}.{ts,tsx}',
+    ],
     exclude: ['node_modules', 'dist', 'build', 'storybook-static', '.storybook'],
     globals: true,
     watch: false,
