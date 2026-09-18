@@ -152,17 +152,20 @@ If circular dependencies are found it'll exit with a report showing the affected
 
 Tokens are provided by a style dictionary sourced from [tokens-studio](https://tokens.studio/).
 
-It's expected to have theme tokens provided externally, e.g. Figma tokens-studio output is stored in the repository and a PR's opened. The assets are stored in the directory [./tokens/themes].
+Design tokens change through one flow only:
 
-Once [./tokens/themes] files are updated or provided from an external source, e.g. Figma, we must regenerate the tokens for consumption in the project.
+1. Change the tokens in Figma and export them with Tokens Studio. The export lands in [./tokens/themes](./tokens/themes).
+2. Regenerate the files the library consumes, then commit the JSON together with the generated output:
 
-Run the command to generate tokens in the path `./src/theme/tokens/`:
+   ```sh
+   yarn generate:tokens
+   ```
 
-```sh
-yarn generate:tokens
-```
+   This writes `src/theme/tokens/variables.{light,dark}.ts` and `src/theme/styles/tokens-{light,dark}.css`.
 
-Once done, you must commit the changes.
+3. Open a PR and add the `tokens-update` label. GitHub asks the token owners listed in [.github/CODEOWNERS](./.github/CODEOWNERS) to review any PR that touches token files.
+
+Never edit the generated files, and never change a token value by hand to solve a component task. Use the nearest existing token, or ask for a design update.
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
