@@ -74,6 +74,9 @@ jobs:
             - Does the component accept and forward a `className` prop? (composability)
             - Are `data-*` attributes used for styling hooks instead of generated class names?
             - Is the component using design tokens / CSS variables from the theme instead of hardcoded colors or sizes?
+            - If token files changed (`tokens/`, `src/theme/tokens/`, `src/theme/styles/tokens-*.css`), do not review
+              the values: tokens come only from the Figma export (AGENTS.md section 4), and the `tokens-guard` check
+              plus the code owners handle it. Do flag new `--click-*` declarations in component CSS
             - Are variants/sizes defined as props rather than bespoke logic?
             - Does the component forward `ref` correctly with `React.forwardRef`?
             - Are polymorphic components (`as` prop or `asChild`) handled safely?

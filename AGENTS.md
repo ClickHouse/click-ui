@@ -33,6 +33,7 @@ yarn test:visual <Name>         # Playwright visual tests in Docker (Linux); nee
 yarn test:visual:update <Name>  # regenerate snapshots — only when the visual change is intended
 yarn test:visual names          # list names you can pass to the two commands above
 yarn changeset:add              # interactive wizard; see section 9 for writing the file by hand
+yarn generate:tokens            # rebuild src/theme tokens from tokens/themes; token owners only, see section 4
 ```
 
 CI runs these as separate checks: `typecheck`, `lint`, `format`, `circular-dependency:check`,
@@ -63,7 +64,7 @@ src/
   hooks/ providers/ types/ assets/
 tests/<family>/<name>.spec.ts   # Playwright visual specs, grouped by family (buttons, cards, forms, overlays, display, ...)
 tests/utils/                    # shared test helpers only (getStoryUrl). Never put specs here.
-tokens/themes/                  # tokens-studio input; `yarn generate:tokens` regenerates src/theme/tokens
+tokens/themes/                  # Figma export (tokens-studio); source of src/theme/tokens/*.ts and theme/styles/tokens-*.css. Never hand-edit, see section 4
 plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the `clickui` cascade layer
 .changeset/                     # pending changesets
 .claude/skills/                 # step-by-step procedures (see section 11)
@@ -89,6 +90,11 @@ plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the
    or `src`. React escapes JSX text; do not bypass it.
 7. **Do not use `any`.** The codebase has zero `any`. Type every event handler, for example
    `(event: React.MouseEvent<HTMLButtonElement>) => void`.
+8. **Design tokens are generated, never hand-edited.** `tokens/**`, `src/theme/tokens/**` and
+   `src/theme/styles/tokens-*.css` change only through the Figma → Tokens Studio export, done by
+   the owners in `.github/CODEOWNERS` on a PR with the `tokens-update` label. Never edit these
+   files and never add that label yourself. If a component needs a token that does not exist,
+   use the nearest existing one and say so in the PR, or stop and ask for a design update.
 
 ## 5. Building or changing a component
 
@@ -441,7 +447,7 @@ test(Button): cover loading state
 
 ## 11. Where the details live
 
-- `README.md` — setup, consuming the library, theming, release process.
+- `README.md` — setup, consuming the library, theming, design tokens, release process.
 - `docs/tests/playwright.md` — visual tests in Docker, single-component runs, reports.
 - `docs/package-release.md`, `docs/publish.md` — releases.
 - `docs/converting-svg-to-react-components.md` — adding icons, logos, flags.
