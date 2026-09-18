@@ -8,7 +8,7 @@
 > Tick "Set as a pre-release" for rc/alpha versions and leave it unticked for `latest`. The workflow fails when the checkbox and the version disagree.
 
 > [!NOTE]
-> The `beta` dist-tag is retired: it was removed from npm and is never written again. Consumers on `@beta` should switch to `@rc`.
+> The `beta` dist-tag is retired: this workflow never writes it again, and a maintainer removes it from npm (pointing `rc` at the newest release candidate) when this change lands. Consumers on `@beta` should switch to `@rc`.
 > `-canary.*` versions are reserved for the upcoming automated canary releases; do not create canary tags by hand.
 
 1. Navigate to the [Release page](https://github.com/ClickHouse/click-ui/releases) and check the latest release. It might already contain the changes you need, making a new version unnecessary.

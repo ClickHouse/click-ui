@@ -95,7 +95,8 @@ jobs:
           reject() { echo "$1" >&2; printf '## Release rejected\n\n%s\n' "$1" >> "$GITHUB_STEP_SUMMARY"; exit 1; }
 
           # npm moves `latest` backwards without complaint; the script refuses unless newer.
-          CURRENT_LATEST=$(npm view "$(node -p "require('./package.json').name")" dist-tags.latest)
+          CURRENT_LATEST=$(npm view "$(node -p "require('./package.json').name")" dist-tags.latest) \
+            || reject "❌ Error: could not read the current npm 'latest' tag (npm view failed). Re-run once the registry is reachable."
           .scripts/bash/npm-dist-tag-for-version "$GITHUB_TAG" "$CURRENT_LATEST" > /dev/null 2> "$RUNNER_TEMP/reject.txt" \
             || reject "$(cat "$RUNNER_TEMP/reject.txt")"
 
@@ -124,7 +125,8 @@ jobs:
           reject() { echo "$1" >&2; printf '## Release rejected\n\n%s\n' "$1" >> "$GITHUB_STEP_SUMMARY"; exit 1; }
 
           # The first check ran minutes ago. Anonymous read: setup-node's .npmrc is a placeholder.
-          CURRENT_LATEST=$(env -u NPM_CONFIG_USERCONFIG npm view "$(node -p "require('./package.json').name")" dist-tags.latest)
+          CURRENT_LATEST=$(env -u NPM_CONFIG_USERCONFIG npm view "$(node -p "require('./package.json').name")" dist-tags.latest) \
+            || reject "❌ Error: could not read the current npm 'latest' tag (npm view failed). Re-run once the registry is reachable."
           .scripts/bash/npm-dist-tag-for-version "$GITHUB_TAG" "$CURRENT_LATEST" > /dev/null 2> "$RUNNER_TEMP/reject.txt" \
             || reject "$(cat "$RUNNER_TEMP/reject.txt")"
 
