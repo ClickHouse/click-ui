@@ -199,7 +199,6 @@ interface TheadProps {
   rows: TableRowType[];
   selectedIds: (number | string)[];
   resizableColumns?: boolean;
-  columnWidths?: Map<string, number> | null;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
     columnIndex: number
@@ -217,7 +216,6 @@ const Thead = ({
   rows,
   selectedIds,
   resizableColumns,
-  columnWidths,
   onResizeStart,
   theadRef,
   onKeyboardResize,
@@ -228,68 +226,81 @@ const Thead = ({
     }
   };
   return (
-    <>
-      <colgroup className={cn(styles.table__colgroup)}>
-        {isSelectable && <col width={48} />}
-        {headers.map((headerProps, index) => {
-          const headerLabel =
-            typeof headerProps.label === 'string'
-              ? headerProps.label
-              : `__index_${index}`;
-          const widthFromMap = columnWidths?.get(headerLabel);
-          return (
-            <col
-              key={`header-col-${index}`}
-              width={
-                resizableColumns && widthFromMap && index < headers.length - 1
-                  ? `${widthFromMap}px`
-                  : headerProps.width
-              }
+    <thead
+      ref={theadRef}
+      className={cn(styles.table__thead)}
+    >
+      <tr>
+        {isSelectable && (
+          <th
+            aria-label="Select column"
+            className={cn(headerVariants({ size }))}
+          >
+            <SelectAllCheckbox
+              onCheckedChange={onSelectAll}
+              rows={rows}
+              selectedIds={selectedIds}
             />
-          );
-        })}
-        {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
-      </colgroup>
-      <thead
-        ref={theadRef}
-        className={cn(styles.table__thead)}
-      >
-        <tr>
-          {isSelectable && (
-            <th
-              aria-label="Select column"
-              className={cn(headerVariants({ size }))}
-            >
-              <SelectAllCheckbox
-                onCheckedChange={onSelectAll}
-                rows={rows}
-                selectedIds={selectedIds}
-              />
-            </th>
-          )}
-          {headers.map((headerProps, index) => (
-            <TableHeader
-              key={`table-header-${index}`}
-              onSort={onSort(headerProps, index)}
-              size={size}
-              resizable={resizableColumns}
-              showResizer={resizableColumns && index < headers.length - 1}
-              onResizeStart={onResizeStart?.(index)}
-              onKeyboardResize={onKeyboardResize?.(index)}
-              {...headerProps}
-            />
-          ))}
-          {actionsList.length > 0 && (
-            <th
-              aria-label="Actions"
-              className={cn(headerVariants({ size }))}
-            />
-          )}
-        </tr>
-      </thead>
-    </>
+          </th>
+        )}
+        {headers.map((headerProps, index) => (
+          <TableHeader
+            key={`table-header-${index}`}
+            onSort={onSort(headerProps, index)}
+            size={size}
+            resizable={resizableColumns}
+            showResizer={resizableColumns && index < headers.length - 1}
+            onResizeStart={onResizeStart?.(index)}
+            onKeyboardResize={onKeyboardResize?.(index)}
+            {...headerProps}
+          />
+        ))}
+        {actionsList.length > 0 && (
+          <th
+            aria-label="Actions"
+            className={cn(headerVariants({ size }))}
+          />
+        )}
+      </tr>
+    </thead>
   );
 };
+
+interface ColgroupProps {
+  headers: TableColumnConfigProps[];
+  isSelectable?: boolean;
+  actionsList: string[];
+  resizableColumns?: boolean;
+  columnWidths?: Map<string, number> | null;
+}
+
+const Colgroup = ({
+  headers,
+  isSelectable,
+  actionsList,
+  resizableColumns,
+  columnWidths,
+}: ColgroupProps) => (
+  <colgroup className={cn(styles.table__colgroup)}>
+    {isSelectable && <col width={48} />}
+    {headers.map((headerProps, index) => {
+      const headerLabel =
+        typeof headerProps.label === 'string' ? headerProps.label : `__index_${index}`;
+      const widthFromMap = columnWidths?.get(headerLabel);
+      return (
+        <col
+          key={`header-col-${index}`}
+          width={
+            resizableColumns && widthFromMap && index < headers.length - 1
+              ? `${widthFromMap}px`
+              : headerProps.width
+          }
+        />
+      );
+    })}
+    {actionsList.length > 0 && <col width={(actionsList.length + 1) * 32 + 10} />}
+  </colgroup>
+);
 
 const rowVariants = cva(styles.table__row, {
   variants: {
@@ -850,6 +861,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
             {...props}
             className={cn(styles['table__table'], className)}
           >
+            <Colgroup
+              headers={headers}
+              isSelectable={isSelectable}
+              actionsList={actionsList}
+              resizableColumns={resizableColumns}
+              columnWidths={resizableColumns ? columnWidths : undefined}
+            />
             {showHeader && (
               <Thead
                 headers={headers}
@@ -861,7 +879,6 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 rows={rows}
                 selectedIds={selectedIds}
                 resizableColumns={resizableColumns}
-                columnWidths={resizableColumns ? columnWidths : undefined}
                 onResizeStart={resizableColumns ? handleResizeStart : undefined}
                 theadRef={theadRef}
                 onKeyboardResize={resizableColumns ? onKeyboardResize : undefined}
