@@ -612,6 +612,10 @@ For example, edit your consumer app `stylesheet` and introduce custom styles as 
 }
 ```
 
+## Accessibility
+
+Click UI targets WCAG 2.2 AA. The policy, severity rules and definition of done live in [ACCESSIBILITY.md](./ACCESSIBILITY.md).
+
 ## Assets management
 
 The Click UI has image asset files, such as Flags, Icons, Logos and Payments.
