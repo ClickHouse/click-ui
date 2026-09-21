@@ -466,22 +466,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bundled-es-modules/glob@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "@bundled-es-modules/glob@npm:11.1.0"
+"@bundled-es-modules/deepmerge@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "@bundled-es-modules/deepmerge@npm:4.3.2"
+  dependencies:
+    deepmerge: "npm:^4.3.1"
+  checksum: 10c0/e868004dc4474b68efdd83306a13402aeb5ff748542397549ff2d8f922ce51f657792e115b28bfe31245a6fe591cb7a76f944e55ef51baf621366cca6af6f5dc
+  languageName: node
+  linkType: hard
+
+"@bundled-es-modules/glob@npm:^13.0.6-hotfix.0":
+  version: 13.0.6
+  resolution: "@bundled-es-modules/glob@npm:13.0.6"
   dependencies:
     buffer: "npm:^6.0.3"
     events: "npm:^3.3.0"
-    glob: "npm:^11.1.0"
+    glob: "npm:^13.0.6"
     path: "npm:^0.12.7"
     stream: "npm:^0.0.3"
     string_decoder: "npm:^1.3.0"
     url: "npm:^0.11.4"
-  checksum: 10c0/a3a40f63a7686872fc8c83d4e05d4e167320cc662fbaedf4cbab7a9ad9961f2a859305c6c22b44a177f1abfa33fccaaff06f6ffa70775192b6d8bc4fa9198b4f
+  checksum: 10c0/efe6879e8b33425d50a2cf01ff1a2ccc42b76e2a1fec26ac7293fdd229931554f053edcda6eabc2ee97ad7209b885c74278427357e8e7f41c15cc56438eb7b58
   languageName: node
   linkType: hard
 
-"@bundled-es-modules/memfs@npm:^4.9.4":
+"@bundled-es-modules/memfs@npm:^4.17.0":
   version: 4.17.0
   resolution: "@bundled-es-modules/memfs@npm:4.17.0"
   dependencies:
@@ -11380,15 +11389,16 @@ __metadata:
   linkType: hard
 
 "style-dictionary@npm:^5.0.0":
-  version: 5.1.3
-  resolution: "style-dictionary@npm:5.1.3"
+  version: 5.5.5
+  resolution: "style-dictionary@npm:5.5.5"
   dependencies:
-    "@bundled-es-modules/deepmerge": "npm:^4.3.1"
-    "@bundled-es-modules/glob": "npm:^11.1.0"
-    "@bundled-es-modules/memfs": "npm:^4.9.4"
+    "@bundled-es-modules/deepmerge": "npm:^4.3.2"
+    "@bundled-es-modules/glob": "npm:^13.0.6-hotfix.0"
+    "@bundled-es-modules/memfs": "npm:^4.17.0"
     "@zip.js/zip.js": "npm:^2.7.44"
     chalk: "npm:^5.3.0"
     change-case: "npm:^5.3.0"
+    colorjs.io: "npm:^0.5.2"
     commander: "npm:^12.1.0"
     is-plain-obj: "npm:^4.1.0"
     json5: "npm:^2.2.2"
@@ -11397,7 +11407,7 @@ __metadata:
     tinycolor2: "npm:^1.6.0"
   bin:
     style-dictionary: bin/style-dictionary.js
-  checksum: 10c0/603115f18be7e10d365f0640cc048702c5d0add8ed2f81b5a01788c68ad7d1acf4b8a4eb2c8c1a6af079320ab791731be3961d6fbd476e5b9ba3e912733b2e3e
+  checksum: 10c0/f4b58c3523f63cfb0b9f13e16469994b1a2baf842579ecf161494da52325b4792bdab994bf382d6180bba71b89180ce5887d532a14dba3a37ac0c0aae4900ffc
   languageName: node
   linkType: hard
 
