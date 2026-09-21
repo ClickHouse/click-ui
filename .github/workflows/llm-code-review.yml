@@ -70,6 +70,12 @@ jobs:
             - Keyboard navigation gaps (focus management, tab order, Escape key handling)
             - Color contrast or visual-only state indicators (missing `aria-disabled`, etc.)
             - Reduced-motion support missing for animated components
+            - `eslint-suppressions.json` grows, `--suppress-all` is used, `--pass-on-unpruned-suppressions` is
+              added, or a `jsx-a11y` rule is turned off. `--suppress-rule` re-freezes that rule in every file, so
+              its diff should touch only the intended path. Flag it; a maintainer decides.
+            - The PR touches a file listed in `eslint-suppressions.json`: suppressions are counted per file per
+              rule, so a new violation of a frozen rule can pass lint. Read that JSX by hand.
+            - An inline `eslint-disable jsx-a11y/*` without a reason
 
             ### Component library conventions
             - Does the component accept and forward a `className` prop? (composability)
