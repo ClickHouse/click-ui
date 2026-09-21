@@ -47,6 +47,7 @@ export const ProgressBar = ({
   dir = 'start',
   className,
   style,
+  label,
   ...props
 }: ProgressBarProps) => {
   const completed = progress === 100;
@@ -68,7 +69,7 @@ export const ProgressBar = ({
       {type === 'default' && (
         <>
           <span className={styles.progresstext}>
-            {successMessage && completed ? successMessage : `${progress}%`}
+            {successMessage && completed ? successMessage : (label ?? `${progress}%`)}
           </span>
           <IconButton
             size="sm"

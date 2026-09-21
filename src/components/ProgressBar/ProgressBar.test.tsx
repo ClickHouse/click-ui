@@ -86,4 +86,18 @@ describe('Progress bar', () => {
     expect(progressBar[0].textContent).not.toContain('38%');
     expect(progressBar[0].textContent).toContain('Success');
   });
+
+  it('should render label if present', () => {
+    const { queryAllByTestId } = renderPopover({ type: 'default', progress: 50, label: 'Half' });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('Half');
+  });
+
+  it('should render success message in preference to label', () => {
+    const { queryAllByTestId } = renderPopover({ type: 'default', progress: 100, label: '100', successMessage: 'Finished' });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('Finished');
+  })
 });
