@@ -7,6 +7,10 @@ describe('CardHorizontal Component', () => {
   const renderCard = (props: CardHorizontalProps) =>
     renderCUI(<CardHorizontal {...props} />);
 
+  afterEach(() => {
+    vitest.restoreAllMocks();
+  });
+
   it('should render the title', () => {
     const title = 'Test card component';
     renderCard({
@@ -233,5 +237,57 @@ describe('CardHorizontal Component', () => {
 
     expect(windowOpenSpy).toHaveBeenCalledTimes(1);
     windowOpenSpy.mockRestore();
+  });
+
+  it('should open infoUrl in a new tab without exposing window.opener', async () => {
+    const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+    const { getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      infoUrl: 'https://example.com',
+    });
+
+    await userEvent.click(getByRole('button'));
+
+    expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+    expect(windowOpenSpy).toHaveBeenCalledWith(
+      'https://example.com',
+      '_blank',
+      'noopener'
+    );
+  });
+
+  it('should open a relative infoUrl', async () => {
+    const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+    const { getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      infoUrl: '/docs/getting-started',
+    });
+
+    await userEvent.click(getByRole('button'));
+
+    expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+    expect(windowOpenSpy).toHaveBeenCalledWith(
+      '/docs/getting-started',
+      '_blank',
+      'noopener'
+    );
+  });
+
+  it('should not open a non-http(s) infoUrl', async () => {
+    const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+    const { getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Click me',
+      infoUrl: 'javascript:alert(1)',
+    });
+    const warnSpy = vitest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    await userEvent.click(getByRole('button'));
+
+    expect(windowOpenSpy).not.toHaveBeenCalled();
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy.mock.calls[0][0]).toContain('javascript:alert(1)');
   });
 });
