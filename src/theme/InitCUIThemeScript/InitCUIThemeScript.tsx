@@ -10,6 +10,9 @@ export interface InitCUIThemeScriptProps {
   nonce?: string;
 }
 
+/** JS string literal safe to embed in an inline `<script>`: `<` is escaped so `</script>` cannot close the element. */
+const toScriptLiteral = (value: string) => JSON.stringify(value).replace(/</g, '\\u003c');
+
 // TODO: Provide support for system prefers-color-scheme
 
 export const InitCUIThemeScript = ({
@@ -25,19 +28,19 @@ export const InitCUIThemeScript = ({
       dangerouslySetInnerHTML={{
         __html: `(function() {
 try {
-  const theme = localStorage.getItem('${storageKey}') || '${defaultTheme}';
-  const dark = '${THEMES.Dark}';
-  const light = '${THEMES.Light}';
+  const theme = localStorage.getItem(${toScriptLiteral(storageKey)}) || ${toScriptLiteral(defaultTheme)};
+  const dark = ${toScriptLiteral(THEMES.Dark)};
+  const light = ${toScriptLiteral(THEMES.Light)};
   let colorScheme = '';
 
-  if (theme === '${THEMES.Light}') {
+  if (theme === light) {
     colorScheme = light;
   }
-  if (theme === '${THEMES.Dark}') {
+  if (theme === dark) {
     colorScheme = dark;
   }
   if (colorScheme) {
-    document.documentElement.setAttribute('${attribute}', colorScheme);
+    document.documentElement.setAttribute(${toScriptLiteral(attribute)}, colorScheme);
   }
 } catch(e){}})();`,
       }}
