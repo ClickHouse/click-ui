@@ -5,6 +5,7 @@ import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
 import { cn, cva } from '@/lib/cva';
+import { openInNewTab } from '@/utils/url';
 import { CardPrimaryProps } from './CardPrimary.types';
 import styles from './CardPrimary.module.css';
 
@@ -101,8 +102,8 @@ const Card = ({
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
-    if (infoUrl && infoUrl.length > 0) {
-      window.open(infoUrl, '_blank');
+    if (infoUrl) {
+      openInNewTab(infoUrl);
     }
   };
 
@@ -151,7 +152,7 @@ const Card = ({
         </div>
       )}
 
-      {size == 'sm' && <Spacer size="sm" />}
+      {size === 'sm' && <Spacer size="sm" />}
 
       {infoText && (
         <Component
