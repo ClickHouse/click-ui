@@ -37,8 +37,15 @@ env:
 jobs:
   deploy:
     # Fork PRs have no repo secrets: skip the preview deploy - forks get a
-    # hosted Storybook via Chromatic instead.
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # hosted Storybook via Chromatic instead. Dependabot runs get no repo
+    # secrets either (GitHub withholds them from the dependabot actor), so the
+    # deploy could only fail: skip it. Chromatic still builds their Storybook.
+    # github.actor, not the PR author: a human pushing to a Dependabot branch
+    # triggers a run that does have secrets, and then the preview should run.
+    if: >-
+      github.event_name != 'pull_request' ||
+      (github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     steps:
       # ======================================================================
