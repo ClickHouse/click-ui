@@ -96,6 +96,30 @@ describe('Progress bar', () => {
     const progressBar = queryAllByTestId('progressbar');
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).toContain('Half');
+    expect(progressBar[0].textContent).not.toContain('50%');
+    expect(progressBar[0]).not.toHaveAttribute('label');
+  });
+
+  it('should render percentage if label is an empty string', () => {
+    const { queryAllByTestId } = renderPopover({
+      type: 'default',
+      progress: 50,
+      label: '',
+    });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('50%');
+  });
+
+  it('should render percentage if a conditional label is false', () => {
+    const { queryAllByTestId } = renderPopover({
+      type: 'default',
+      progress: 50,
+      label: false,
+    });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('50%');
   });
 
   it('should render success message in preference to label', () => {

@@ -69,7 +69,7 @@ export const ProgressBar = ({
       {type === 'default' && (
         <>
           <span className={styles.progresstext}>
-            {successMessage && completed ? successMessage : (label ?? `${progress}%`)}
+            {successMessage && completed ? successMessage : label || `${progress}%`}
           </span>
           <IconButton
             size="sm"
