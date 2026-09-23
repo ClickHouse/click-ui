@@ -6,12 +6,12 @@
 
 **Definition of Done:** the Accessibility section of the PR template (Keyboard, Names, Vision), ticked after the "Before you declare done" checks in [AGENTS.md](./AGENTS.md) section 7: Storybook a11y panel clean, manual keyboard pass. Say in the PR description what you did not test.
 
-**Debt:** every known violation has a Linear ticket (`CUI-123`). The gates being built will reference it in code: `parameters.a11y.test: 'todo' // CUI-123` on the story once Storybook a11y runs at `error`, an inline lint disable with a reason and the ID once the lint gate runs. Neither is in effect yet.
+**Debt:** lint violations that existed when `eslint-plugin-jsx-a11y` was switched on are frozen in `eslint-suppressions.json`, per file and rule. That file is the counter: it should only shrink, and the lint part of the work is done when it is empty. Everything else has a Linear ticket (`CUI-123`), marked on the story as `parameters.a11y.test: 'todo' // CUI-123` once Storybook a11y runs at `error` (not in effect yet).
 
-**Status (W38 2026):** program started. Automated gates (`eslint-plugin-jsx-a11y`, Storybook a11y at `error`, stylelint focus-outline rule) are being built — see the Linear project *Click UI Accessibility*. The testing guide, component contracts and page patterns land together with the code they describe; until then this file is the whole policy.
+**Status (W39 2026):** program started. `eslint-plugin-jsx-a11y` (recommended plus two rules, see `eslint.config.js`) runs in `yarn lint` at `error`: frozen violations do not block; a new one fails CI, except in a file already frozen for the same rule, where only a rising count trips it.
 
 **Report a problem:** GitHub issue with the `a11y` label · internal: Linear team CUI, label `a11y`. Include: what you tried, the browser and assistive technology, the story or URL.
 
 ---
 
-Last reviewed: W38 2026 | Next review: W40 2026
+Last reviewed: W39 2026 | Next review: W41 2026

@@ -26,6 +26,7 @@ yarn test                       # vitest; filter by name: yarn test Button
 yarn typecheck                  # tsc --noEmit
 yarn lint                       # eslint (src, plugins) + stylelint (src/**/*.css); yarn lint:fix
 yarn format                     # prettier check; yarn format:fix writes
+yarn lint:code --prune-suppressions  # after fixing a frozen jsx-a11y violation (see section 7)
 yarn circular-dependency:check
 yarn build                      # .scripts/bash/build_pkg_dist -> dist/
 yarn storybook:build            # static Storybook -> .storybook/out (what CI deploys)
@@ -72,8 +73,9 @@ plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the
 ## 4. Rules that must not be broken
 
 1. **Never weaken a check to make CI green.** Do not relax assertions, delete or skip tests,
-   or regenerate visual snapshots unless the visual change is confirmed intended. A lint or
-   type disable always carries a reason: `// eslint-disable-next-line <rule> -- <reason>`.
+   grow `eslint-suppressions.json`, or regenerate visual snapshots unless the visual change is
+   confirmed intended. A lint or type disable always carries a reason:
+   `// eslint-disable-next-line <rule> -- <reason>`.
 2. **No new runtime dependency** without a written reason in the PR. Look in `src/utils` and
    `src/lib` first.
 3. **Public API changes need a changeset** (new component, prop, variant, changed default,
@@ -290,6 +292,15 @@ Never a `<div>` with an `onClick`.
 
 - Open the story in Storybook (`yarn dev`); the Accessibility panel (axe, from
   `@storybook/addon-a11y`) must report zero violations. There is no automated axe run in CI yet.
+- `yarn lint` runs `eslint-plugin-jsx-a11y` (recommended plus two rules, see `eslint.config.js`)
+  at `error`. Violations that existed when it was switched on are frozen in
+  `eslint-suppressions.json`, counted per file per rule. A new one fails CI unless that file is
+  already frozen for the same rule and the count does not rise, so read the JSX of frozen files
+  by hand. Fixed a frozen one? Run `yarn lint:code --prune-suppressions` in the same PR. The
+  file is the counter; the lint work is done when it is empty. Never run `--suppress-all` again.
+  `--suppress-rule` re-freezes a rule in every file: use it only with a maintainer sign-off and
+  check the diff. Never add `--pass-on-unpruned-suppressions`; never turn a rule off. An inline
+  `eslint-disable jsx-a11y/*` carries a reason (section 4, rule 1).
 - Do a manual keyboard pass: Tab, Shift+Tab, Enter, Space, Escape, and arrow keys where they apply.
 - In the PR, state what you tested and what you did not. Never claim "fully accessible"; list
   the WCAG 2.2 criteria you checked, for example 1.4.3 Contrast, 2.1.1 Keyboard,
@@ -437,6 +448,7 @@ test(Button): cover loading state
       focus-visible, disabled and error stories and a keyboard `play`.
 - [ ] Unit tests cover the new behavior and its ARIA attributes.
 - [ ] Accessibility checks from section 7 done; the PR says what was not tested.
+- [ ] `eslint-suppressions.json` did not grow.
 - [ ] No new dependency, or the PR explains why. No internal links anywhere.
 - [ ] PR title follows Conventional Commits; template filled in.
 
