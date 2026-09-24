@@ -154,7 +154,7 @@ Tokens are provided by a style dictionary sourced from [tokens-studio](https://t
 
 Design tokens change through one flow only:
 
-1. Change the tokens in Figma and export them with Tokens Studio. The export lands in [./tokens/themes](./tokens/themes).
+1. Change the tokens in Figma. In the Tokens Studio plugin, click **Push to GitHub**, then **Push Changes** in the modal that opens. The JSON lands in [./tokens/themes](./tokens/themes) on a new branch.
 2. Regenerate the files the library consumes, then commit the JSON together with the generated output:
 
    ```sh
