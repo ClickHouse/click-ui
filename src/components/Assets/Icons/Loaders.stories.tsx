@@ -1,39 +1,40 @@
 import { Decorator, Meta, StoryObj } from '@storybook/react-vite';
-import Loading from './Loading';
-import LoadingAnimated from './Loading-Animated';
-import HorizontalLoading from './Horizontal-Loading';
+import { Icon } from '@/components/Icon';
 
-const meta: Meta = {
+const meta: Meta<typeof Icon> = {
   title: 'Assets/Loaders',
+  component: Icon,
   tags: ['autodocs'],
+  args: { size: 'lg', color: 'var(--global-color-text-default)' },
 };
 
 export default meta;
 
-type Story = StoryObj;
+type Story = StoryObj<typeof meta>;
 
-// Visible SVG loaders, so no backdrop — a plain inline-flex harness carries the
-// test-id that the Playwright spec screenshots.
 const loadersHarness: Decorator = Story => (
   <div
     data-testid="loaders-harness"
-    style={{ display: 'inline-flex' }}
+    style={{
+      display: 'inline-flex',
+      background: 'var(--click-storybook-global-background)',
+    }}
   >
     <Story />
   </div>
 );
 
 export const LoadingIcon: Story = {
-  render: () => <Loading />,
+  args: { name: 'loading' },
   decorators: [loadersHarness],
 };
 
 export const LoadingAnimatedIcon: Story = {
-  render: () => <LoadingAnimated />,
+  args: { name: 'loading-animated' },
   decorators: [loadersHarness],
 };
 
 export const HorizontalLoadingIcon: Story = {
-  render: () => <HorizontalLoading />,
+  args: { name: 'horizontal-loading' },
   decorators: [loadersHarness],
 };
