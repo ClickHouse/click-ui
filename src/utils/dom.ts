@@ -4,6 +4,10 @@ import { CUI_THEME_STORAGE_KEY } from './localStorage';
 export const THEME_ATTRIBUTE = `data-${CUI_THEME_STORAGE_KEY}`;
 
 const getDOMElement = (selector: string) => {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
   const el = document.querySelector(selector) as HTMLElement | null;
 
   if (!el) {
@@ -14,15 +18,7 @@ const getDOMElement = (selector: string) => {
   return el;
 };
 
-export const getRootElement = () => {
-  const el = getDOMElement('html');
-
-  if (!el) {
-    return;
-  }
-
-  return el;
-};
+export const getRootElement = () => getDOMElement('html');
 
 export const setRootThemeAttribute = (theme: ThemeName) => {
   const el = getRootElement();
