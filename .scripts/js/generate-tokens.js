@@ -31,6 +31,37 @@ StyleDictionary.registerTransform({
   },
 });
 
+// Tokens Studio exports a few source values (font stacks, gradients) with a stray trailing `;`.
+// A preprocessor runs once on the raw token tree before any platform, so every output (CSS, TS,
+// and any platform added later) gets the same clean value; typography shorthands composed from a
+// cleaned font stack come out clean too. The paths are reported after the build so the source
+// problem stays visible and can be fixed in Tokens Studio.
+const TRAILING_SEMICOLON = /;+\s*$/;
+const strippedTokenPaths = new Set();
+
+StyleDictionary.registerPreprocessor({
+  name: 'clickui/strip-trailing-semicolon',
+  preprocessor: dictionary => {
+    const visit = (node, path) => {
+      for (const [key, child] of Object.entries(node)) {
+        if (!child || typeof child !== 'object') {
+          continue;
+        }
+        if (typeof child.value === 'string') {
+          if (TRAILING_SEMICOLON.test(child.value)) {
+            child.value = child.value.replace(TRAILING_SEMICOLON, '');
+            strippedTokenPaths.add([...path, key].join('.'));
+          }
+        } else if (!('value' in child)) {
+          visit(child, [...path, key]);
+        }
+      }
+    };
+    visit(dictionary, []);
+    return dictionary;
+  },
+});
+
 StyleDictionary.registerFormat({
   name: 'css/themed-variables',
   format: function ({ dictionary, file }) {
@@ -38,8 +69,7 @@ StyleDictionary.registerFormat({
     const tokens = dictionary.allTokens
       .map(token => {
         const varName = token.path.join('-');
-        const cleanValue = String(token.value).replace(/;+$/, '');
-        return `  --${varName}: ${cleanValue};`;
+        return `  --${varName}: ${token.value};`;
       })
       .join('\n');
 
@@ -81,7 +111,7 @@ StyleDictionary.registerFormat({
 for (const theme of themes) {
   const sd = new StyleDictionary({
     source: [`./tokens/**/!(${themes.join('|')}).json`, `./tokens/**/${theme}.json`],
-    preprocessors: ['tokens-studio'],
+    preprocessors: ['clickui/strip-trailing-semicolon', 'tokens-studio'],
     platforms: {
       ts: {
         transformGroup: 'tokens-studio',
@@ -110,4 +140,11 @@ for (const theme of themes) {
 
   await sd.cleanAllPlatforms();
   await sd.buildAllPlatforms();
+}
+
+if (strippedTokenPaths.size > 0) {
+  console.warn(
+    `generate-tokens: stripped a trailing ";" from ${strippedTokenPaths.size} source token value(s): ` +
+      `${[...strippedTokenPaths].join(', ')}. Fix these values in Tokens Studio.`
+  );
 }
