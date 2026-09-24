@@ -2,13 +2,21 @@ name: Visual regression tests
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    # labeled/unlabeled: for `skip:visual-regression`.
+    types: [opened, synchronize, labeled, unlabeled]
 
 env:
   HUSKY: 0
 
+# A new push or label change cancels the stale run.
+concurrency:
+  group: visual-regression-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   visual-regression:
+    # Keep this check advisory: a skipped job counts as passing for required checks.
+    if: ${{ github.event.pull_request.state == 'open' && !contains(github.event.pull_request.labels.*.name, 'skip:visual-regression') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

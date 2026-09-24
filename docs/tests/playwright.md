@@ -182,6 +182,23 @@ import { test, expect } from "@playwright/test";
 import { test, expect } from "@chromatic-com/playwright"; 
 ```
 
+## Skipping the CI run for a pull request
+
+Maintainers can skip two advisory checks with a label when a diff cannot affect them, for
+example a CI-only or config-only change:
+
+| Label | Skips |
+| --- | --- |
+| `skip:visual-regression` | the `visual-regression` job (`visual-regression-tests.yml`) |
+| `skip:storybook-preview` | the per-PR Vercel Storybook preview (`storybook-vercel.yml`) |
+
+The check then reports **skipped**; removing the label runs it again. Good to know:
+
+- The label applies to every later push. Remove it if the PR grows.
+- Any label change, even an unrelated one, re-runs both workflows.
+- "Re-run" in the Actions tab keeps the old labels. Toggle the label instead.
+- Required checks cannot be skipped this way.
+
 ## Learn more
 
 - [Test snapshots](https://playwright.dev/docs/test-snapshots)
