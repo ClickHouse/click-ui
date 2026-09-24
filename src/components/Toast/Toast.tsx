@@ -5,7 +5,13 @@ import { toastsEventEmitter } from './toastEmitter';
 import { Icon, type IconName, type IconProps } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import { Button } from '@/components/Button';
-import { ToastContextProps, ToastProps, ToastAlignment, ToastType } from './Toast.types';
+import {
+  ToastContextProps,
+  ToastProps,
+  ToastProviderProps,
+  ToastAlignment,
+  ToastType,
+} from './Toast.types';
 import styles from './Toast.module.css';
 
 export const ToastContext = createContext<ToastContextProps>({
@@ -117,10 +123,6 @@ export const Toast = ({
     </RadixUIToast.Root>
   );
 };
-
-export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
-  align?: ToastAlignment;
-}
 
 export const ToastProvider = ({
   children,

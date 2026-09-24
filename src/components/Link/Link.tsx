@@ -2,32 +2,15 @@ import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
-  ReactEventHandler,
   ReactNode,
   forwardRef,
 } from 'react';
 import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
 
-import type { IconName } from '@/components/Icon/Icon.types';
-import type { TextSize, TextWeight } from '@/components/Text';
+import type { LinkProps } from './Link.types';
 
 import styles from './Link.module.css';
-
-export interface LinkProps<T extends ElementType = 'a'> {
-  /** The font size of the link text */
-  size?: TextSize;
-  /** The font weight of the link text */
-  weight?: TextWeight;
-  /** Click event handler */
-  onClick?: ReactEventHandler;
-  /** The content to display inside the link */
-  children?: React.ReactNode;
-  /** Optional icon to display after the link text */
-  icon?: IconName;
-  /** Custom component to render as the link element */
-  component?: T;
-}
 
 const linkVariants = cva(styles.link, {
   variants: {
@@ -69,7 +52,6 @@ type LinkPolymorphicComponent = <T extends ElementType = 'a'>(
   props: Omit<ComponentProps<T>, keyof LinkProps<T>> & LinkProps<T>
 ) => ReactNode;
 
-/** Component for linking to other pages or sections from with body text */
 const _Link = <T extends ElementType = 'a'>(
   {
     size = 'md',

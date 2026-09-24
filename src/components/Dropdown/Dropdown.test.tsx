@@ -154,4 +154,54 @@ describe('Dropdown', () => {
     expect(defaultItem).not.toBeNull();
     expect(dangerItem).not.toBeNull();
   });
+
+  it('should keep a submenu open when Dropdown.Sub is controlled with open', async () => {
+    const { getByText, queryByText } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Sub
+            open
+            onOpenChange={vi.fn()}
+          >
+            <Dropdown.Trigger sub>More</Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>Nested item</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    // Nothing hovers "More": the submenu is open only because `open` reached Radix.
+    await waitFor(() => {
+      expect(queryByText('Nested item')).not.toBeNull();
+    });
+  });
+
+  it('should call onOpenChange when a Dropdown.Sub opens', async () => {
+    const onOpenChange = vi.fn();
+    const { getByText } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Sub onOpenChange={onOpenChange}>
+            <Dropdown.Trigger sub>More</Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>Nested item</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+    await userEvent.hover(getByText('More'));
+
+    await waitFor(() => {
+      expect(onOpenChange).toHaveBeenCalledWith(true);
+    });
+  });
 });

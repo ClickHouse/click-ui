@@ -4,7 +4,8 @@ import {
   Provider as TooltipProvider,
   TooltipProviderProps,
 } from '@radix-ui/react-tooltip';
-import { ToastProvider, ToastProviderProps } from '@/components/Toast/Toast';
+import { ToastProvider } from '@/components/Toast/Toast';
+import type { ToastProviderProps } from '@/components/Toast/Toast.types';
 import { THEMES, themes } from '@/theme/theme.core';
 import type { ThemeName } from '@/theme/theme.types';
 import { ThemeContext } from '@/theme/ThemeContext';

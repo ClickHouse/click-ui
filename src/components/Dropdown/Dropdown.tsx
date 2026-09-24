@@ -197,10 +197,8 @@ const DropdownGroup = ({ className, ...props }: DropdownMenu.DropdownMenuGroupPr
 DropdownGroup.displayName = 'DropdownGroup';
 Dropdown.Group = DropdownGroup;
 
-// DropdownMenu.Sub is a context-only Radix primitive that renders no DOM node, so
-// the original styled(DropdownMenu.Sub) border-bottom never applied (the className
-// was dropped). The migration preserves that behavior: no class is forwarded.
-const DropdownSub = (props: DropdownMenu.DropdownMenuGroupProps) => {
+// DropdownMenu.Sub renders no DOM node, so it takes only Radix's sub-menu props.
+const DropdownSub = (props: DropdownMenu.DropdownMenuSubProps) => {
   return <DropdownMenu.Sub {...props} />;
 };
 

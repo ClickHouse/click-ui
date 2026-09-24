@@ -12,38 +12,15 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { GapOptions } from '@/components/Container';
 import { SizeType as SpacerSizeType } from '@/components/Spacer';
 import { cn, cva } from '@/lib/cva';
+import type {
+  Color,
+  MarkAsCompletedFunctionType,
+  MultiAccordionProps,
+  Size,
+} from './MultiAccordion.types';
 import styles from './MultiAccordion.module.css';
-
-type Size = 'none' | 'sm' | 'md' | 'lg';
-type Color = 'default' | 'link';
-
-type MarkAsCompletedFunctionType = (value: string) => void | Promise<void>;
-
-interface MultiAccordionCommonProps {
-  /** The accordion items to render */
-  children: React.ReactNode;
-  /** The size variant of the accordion */
-  size?: Size;
-  /** Whether the accordion should fill the full width of its container */
-  fillWidth?: boolean;
-  /** The gap between accordion items */
-  gap?: GapOptions;
-  /** Whether to show a border around each accordion item */
-  showBorder?: boolean;
-  /** Whether to show a check/completion indicator on items */
-  showCheck?: boolean;
-  /** Callback function to mark an item as completed */
-  markAsCompleted?: MarkAsCompletedFunctionType;
-}
-
-export type MultiAccordionProps = MultiAccordionCommonProps &
-  (
-    | Omit<RadixAccordion.AccordionMultipleProps, 'children'>
-    | Omit<RadixAccordion.AccordionSingleProps, 'children'>
-  );
 
 interface MultiAccordionContextProps {
   size: Size;
@@ -117,17 +94,14 @@ interface MultiAccordionItemProps extends Omit<
   RadixAccordion.AccordionItemProps,
   'title'
 > {
-  /** The title text or element displayed in the accordion item header */
+  /** Header content. */
   title: ReactNode;
-  /** The color variant of the item */
   color?: Color;
-  /** Optional icon to display next to the title */
+  /** Icon shown next to the title. */
   icon?: IconName;
-  /** Size of the optional icon */
   iconSize?: AssetSize;
-  /** Gap size between the header and content */
+  /** Space between the header and the content. */
   gap?: SpacerSizeType;
-  /** Whether this item is marked as completed */
   isCompleted?: boolean;
 }
 
