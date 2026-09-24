@@ -1,0 +1,75 @@
+# Dependabot: weekly version updates for npm and GitHub Actions, plus the shape
+# of security-update PRs (one grouped PR instead of one PR per advisory).
+# Options reference:
+# https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 4
+    # devDependencies use `^` ranges, so their PRs are lockfile-only. The
+    # exact pins in `dependencies` always change package.json (see the
+    # runtime-dependencies group).
+    versioning-strategy: increase-if-necessary
+    # Matches the PR-title check (Conventional Commits).
+    commit-message:
+      prefix: 'chore(deps)'
+      prefix-development: 'chore(deps-dev)'
+    # Version updates wait a week after a release before a PR opens (7 to 13
+    # days with the Monday schedule); a compromised release is usually pulled
+    # within days. Security updates are not delayed by this.
+    cooldown:
+      default-days: 7
+    groups:
+      # All open security fixes in one PR. Major upgrades are ignored (see
+      # `ignore` below), so a hard major upgrade can never block this PR.
+      security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+      # Weekly: dev tooling, patch and minor, in one PR.
+      dev-dependencies:
+        applies-to: version-updates
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      # Weekly: production dependencies, patch and minor, in one PR. These are
+      # exact pins, so every upgrade changes package.json, which requires a
+      # changeset to be created before merging is allowed.
+      runtime-dependencies:
+        applies-to: version-updates
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+    # Ignore rules apply to version updates AND security updates.
+    ignore:
+      # Types are pinned to the React version we test against ("resolutions" in
+      # package.json); a bump of the types alone would violate that pin. Types
+      # carry no runtime code, so skipping their security PRs is fine.
+      - dependency-name: '@types/react'
+      - dependency-name: '@types/react-dom'
+      # No automatic major bumps: a major upgrade is a migration, done by hand.
+      # A security fix that needs a major upgrade shows up as a Dependabot
+      # alert in the Security tab, not as a PR.
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    # Same cooldown as npm.
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: 'ci(deps)'
+    groups:
+      github-actions:
+        patterns:
+          - '*'

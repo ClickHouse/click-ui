@@ -26,6 +26,7 @@ yarn test                       # vitest; filter by name: yarn test Button
 yarn typecheck                  # tsc --noEmit
 yarn lint                       # eslint (src, plugins) + stylelint (src/**/*.css); yarn lint:fix
 yarn format                     # prettier check; yarn format:fix writes
+yarn lint:code --prune-suppressions  # after fixing a frozen jsx-a11y violation (see section 7)
 yarn circular-dependency:check
 yarn build                      # .scripts/bash/build_pkg_dist -> dist/
 yarn storybook:build            # static Storybook -> .storybook/out (what CI deploys)
@@ -72,8 +73,9 @@ plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the
 ## 4. Rules that must not be broken
 
 1. **Never weaken a check to make CI green.** Do not relax assertions, delete or skip tests,
-   or regenerate visual snapshots unless the visual change is confirmed intended. A lint or
-   type disable always carries a reason: `// eslint-disable-next-line <rule> -- <reason>`.
+   grow `eslint-suppressions.json`, or regenerate visual snapshots unless the visual change is
+   confirmed intended. A lint or type disable always carries a reason:
+   `// eslint-disable-next-line <rule> -- <reason>`.
 2. **No new runtime dependency** without a written reason in the PR. Look in `src/utils` and
    `src/lib` first.
 3. **Public API changes need a changeset** (new component, prop, variant, changed default,
@@ -81,7 +83,7 @@ plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the
    change is a `minor` with a migration note. A new component starts with a Component RFC:
    `gh pr create --template component_rfc.md`.
 4. **This repo is public.** Never put internal links (Linear, Notion, internal Slack, etc.)
-   in code, comments, commits, changesets, or PR text.
+   in code, comments, commits, changesets, or PR text. A bare ticket ID such as `CUI-123` is fine.
 5. **Keep refactors pure.** A styling or structural refactor must not change behavior, DOM
    attributes, or accessibility. Put those improvements in a separate follow-up PR.
 6. **Security.** No `dangerouslySetInnerHTML` with user content. No `eval()` or
@@ -261,7 +263,8 @@ Never a `<div>` with an `onClick`.
   text, UI parts and focus rings.
 - Announce async results and errors: `aria-describedby` for field errors, a live region for
   toasts and status.
-- Disabled elements set both `disabled` and `aria-disabled="true"`.
+- Disabled native controls set both `disabled` and `aria-disabled="true"`. Elements that cannot
+  take `disabled` (`<a>`, `role="tab"`) or must stay focusable use `aria-disabled="true"` alone.
 - Decorative icons have `aria-hidden="true"`. An icon that is the only content needs a label.
 - Respect `prefers-reduced-motion` (section 6).
 - Spread rest props and forward `ref` onto the focusable element (the `<button>`, `<input>`,
@@ -289,6 +292,15 @@ Never a `<div>` with an `onClick`.
 
 - Open the story in Storybook (`yarn dev`); the Accessibility panel (axe, from
   `@storybook/addon-a11y`) must report zero violations. There is no automated axe run in CI yet.
+- `yarn lint` runs `eslint-plugin-jsx-a11y` (recommended plus two rules, see `eslint.config.js`)
+  at `error`. Violations that existed when it was switched on are frozen in
+  `eslint-suppressions.json`, counted per file per rule. A new one fails CI unless that file is
+  already frozen for the same rule and the count does not rise, so read the JSX of frozen files
+  by hand. Fixed a frozen one? Run `yarn lint:code --prune-suppressions` in the same PR. The
+  file is the counter; the lint work is done when it is empty. Never run `--suppress-all` again.
+  `--suppress-rule` re-freezes a rule in every file: use it only with a maintainer sign-off and
+  check the diff. Never add `--pass-on-unpruned-suppressions`; never turn a rule off. An inline
+  `eslint-disable jsx-a11y/*` carries a reason (section 4, rule 1).
 - Do a manual keyboard pass: Tab, Shift+Tab, Enter, Space, Escape, and arrow keys where they apply.
 - In the PR, state what you tested and what you did not. Never claim "fully accessible"; list
   the WCAG 2.2 criteria you checked, for example 1.4.3 Contrast, 2.1.1 Keyboard,
@@ -419,8 +431,8 @@ test(Button): cover loading state
 
 ### Pull request
 
-- Fill every section of the PR template: Why, How, Tickets (public links only), the
-  contribution checklist and the security checklist.
+- Fill every section of the PR template: Description, Links and tickets (public links only),
+  Checklist, Contribution and Accessibility (skip Accessibility only when the template says so).
 - One concern per PR. Split unrelated improvements into follow-ups.
 - Humans answer reviewers. Do not auto-generate replies to review comments.
 
@@ -436,12 +448,14 @@ test(Button): cover loading state
       focus-visible, disabled and error stories and a keyboard `play`.
 - [ ] Unit tests cover the new behavior and its ARIA attributes.
 - [ ] Accessibility checks from section 7 done; the PR says what was not tested.
+- [ ] `eslint-suppressions.json` did not grow.
 - [ ] No new dependency, or the PR explains why. No internal links anywhere.
 - [ ] PR title follows Conventional Commits; template filled in.
 
 ## 11. Where the details live
 
 - `README.md` — setup, consuming the library, theming, release process.
+- `ACCESSIBILITY.md` — the accessibility policy: target, severity, definition of done, debt tracking.
 - `docs/tests/playwright.md` — visual tests in Docker, single-component runs, reports.
 - `docs/package-release.md`, `docs/publish.md` — releases.
 - `docs/converting-svg-to-react-components.md` — adding icons, logos, flags.
@@ -464,6 +478,8 @@ Whenever you edit this file, sweep the whole file, not just your change:
 3. State each rule once, in the section it belongs to. Replace repeats with "see section N".
    Prefer pointing at a real file over pasting a long example.
 4. Keep section numbers and cross-references in sync. If a rule changes what reviewers check,
-   update `.github/workflows/llm-code-review.yml` too.
+   update `.github/workflows/llm-code-review.yml` too. Section 7 has condensed copies that must
+   follow it: `.github/instructions/a11y.instructions.md`, `ACCESSIBILITY.md`,
+   `.github/pull_request_template.md`.
 5. If the file is over 500 lines after your change, list the cuts you propose in the PR
    description and wait for a maintainer. Never drop a rule silently to make room.

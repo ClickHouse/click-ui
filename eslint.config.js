@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
 import storybook from 'eslint-plugin-storybook';
 import importPlugin from 'eslint-plugin-import';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import globals from 'globals';
 
 export default tseslint.config(
@@ -116,6 +117,57 @@ export default tseslint.config(
       ],
       'import/no-self-import': 'error',
       '@typescript-eslint/no-deprecated': 'warn',
+    },
+  },
+  // Accessibility. `recommended` at `error`; violations that existed when it was switched on are
+  // frozen in `eslint-suppressions.json` (see ACCESSIBILITY.md). New violations fail lint.
+  jsxA11y.flatConfigs.recommended,
+  {
+    files: ['src/**/*.tsx'],
+    settings: {
+      'jsx-a11y': {
+        // Both render a native <label>, so label rules see their call sites.
+        components: { Label: 'label', GenericLabel: 'label' },
+      },
+    },
+    rules: {
+      // Outside `recommended`; both back MUSTs in AGENTS.md section 7 (no aria-hidden on a focusable
+      // element; a control has an accessible name). Options are the plugin's own recommended ones;
+      // the composite roles in `ignoreRoles` are left to axe.
+      'jsx-a11y/no-aria-hidden-on-focusable': 'error',
+      'jsx-a11y/control-has-associated-label': [
+        'error',
+        {
+          ignoreElements: [
+            'audio',
+            'canvas',
+            'embed',
+            'input',
+            'textarea',
+            'tr',
+            'video',
+          ],
+          ignoreRoles: [
+            'grid',
+            'listbox',
+            'menu',
+            'menubar',
+            'radiogroup',
+            'row',
+            'tablist',
+            'toolbar',
+            'tree',
+            'treegrid',
+          ],
+        },
+      ],
+    },
+  },
+  {
+    // Stories may use placeholder `href="#"`. A missing href or a link acting as a button still fails.
+    files: ['src/**/*.stories.tsx'],
+    rules: {
+      'jsx-a11y/anchor-is-valid': ['error', { aspects: ['noHref', 'preferButton'] }],
     },
   },
   // Special config for test files

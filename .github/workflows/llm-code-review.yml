@@ -17,11 +17,11 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '24.x'
 
@@ -62,13 +62,20 @@ jobs:
             - Hardcoded values that should be theme tokens or CSS variables
             - Checks weakened to get CI green: relaxed assertions, removed tests, visual snapshots regenerated
               without the PR saying the visual change is intended
-            - Internal links (Linear, Notion, internal Slack, Grafana) anywhere — this repository is public
+            - Internal links (Linear, Notion, internal Slack, Grafana) anywhere — this repository is public.
+              A bare ticket ID such as `CUI-123` without a link is fine.
 
             ### Accessibility (a11y) — especially important for a component library!
             - Missing ARIA roles, labels, or descriptions on interactive elements
             - Keyboard navigation gaps (focus management, tab order, Escape key handling)
             - Color contrast or visual-only state indicators (missing `aria-disabled`, etc.)
             - Reduced-motion support missing for animated components
+            - `eslint-suppressions.json` grows, `--suppress-all` is used, `--pass-on-unpruned-suppressions` is
+              added, or a `jsx-a11y` rule is turned off. `--suppress-rule` re-freezes that rule in every file, so
+              its diff should touch only the intended path. Flag it; a maintainer decides.
+            - The PR touches a file listed in `eslint-suppressions.json`: suppressions are counted per file per
+              rule, so a new violation of a frozen rule can pass lint. Read that JSX by hand.
+            - An inline `eslint-disable jsx-a11y/*` without a reason
 
             ### Component library conventions
             - Does the component accept and forward a `className` prop? (composability)

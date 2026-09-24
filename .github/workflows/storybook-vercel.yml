@@ -37,8 +37,15 @@ env:
 jobs:
   deploy:
     # Fork PRs have no repo secrets: skip the preview deploy - forks get a
-    # hosted Storybook via Chromatic instead.
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # hosted Storybook via Chromatic instead. Dependabot runs get no repo
+    # secrets either (GitHub withholds them from the dependabot actor), so the
+    # deploy could only fail: skip it. Chromatic still builds their Storybook.
+    # github.actor, not the PR author: a human pushing to a Dependabot branch
+    # triggers a run that does have secrets, and then the preview should run.
+    if: >-
+      github.event_name != 'pull_request' ||
+      (github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     steps:
       # ======================================================================
@@ -47,7 +54,7 @@ jobs:
 
       - name: Checkout
         # On release events this lands on the release tag.
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Decide deploy channels
         id: channels
@@ -102,7 +109,7 @@ jobs:
       # ======================================================================
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '24.x'
 
@@ -174,14 +181,14 @@ jobs:
         if: steps.channels.outputs.deploy_preview == 'true'
         id: gh-workflow-token
         # TODO: bump to v3 once it leaves beta (gh node20 deprecation)
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
           private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
 
       - name: Comment PR with preview URL
         if: steps.channels.outputs.deploy_preview == 'true'
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v3
         with:
           message: |
             ## Storybook Preview Deployed
