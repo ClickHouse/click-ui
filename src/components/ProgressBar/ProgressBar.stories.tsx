@@ -15,6 +15,10 @@ const meta: Meta<typeof ProgressBar> = {
     successMessage: {
       if: { arg: 'type', eq: 'default' },
     },
+    label: {
+      control: { type: 'text' },
+      if: { arg: 'type', eq: 'default' },
+    },
   },
 };
 
@@ -108,6 +112,16 @@ export const DefaultCompletedWithSuccessMessage: Story = {
     orientation: 'horizontal',
     dir: 'start',
     successMessage: 'Progress completed',
+  },
+};
+
+export const WithLabel: Story = {
+  args: {
+    progress: 60,
+    type: 'default',
+    orientation: 'horizontal',
+    dir: 'start',
+    label: 'Uploading…',
   },
 };
 
