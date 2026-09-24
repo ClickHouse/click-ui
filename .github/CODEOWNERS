@@ -1,9 +1,9 @@
 # Design tokens change only through the Figma -> json export
-/tokens/                              @DreaminDani @gjones @XOP
-/src/theme/tokens/                    @DreaminDani @gjones @XOP
-/src/theme/styles/tokens-light.css    @DreaminDani @gjones @XOP
-/src/theme/styles/tokens-dark.css     @DreaminDani @gjones @XOP
-/src/theme/theme.config.json          @DreaminDani @gjones @XOP
+/tokens/                              @DreaminDani @gjones @elizabetdev @lifesized @XOP
+/src/theme/tokens/                    @DreaminDani @gjones @elizabetdev @lifesized @XOP
+/src/theme/styles/tokens-light.css    @DreaminDani @gjones @elizabetdev @lifesized @XOP
+/src/theme/styles/tokens-dark.css     @DreaminDani @gjones @elizabetdev @lifesized @XOP
+/src/theme/theme.config.json          @DreaminDani @gjones @elizabetdev @lifesized @XOP
 # The generator and the tokens guard
 /.scripts/js/generate-tokens.js       @XOP
 /.github/workflows/tokens-guard.yml   @XOP
