@@ -39,7 +39,7 @@ jobs:
           exit 1
 
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -88,7 +88,7 @@ jobs:
           echo "Release confirmation passed! Proceeding with $RELEASE_TYPE release on $CURRENT_BRANCH"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '24.x'
 
@@ -100,7 +100,7 @@ jobs:
         # NOTE: Upgrade v3 due to gh node20 deprecation
         # at time of writing there's only "v3.0.0-beta.2"
         # see https://github.com/actions/create-github-app-token/releases
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.WORKFLOW_AUTH_PUBLIC_APP_ID }}
           private-key: ${{ secrets.WORKFLOW_AUTH_PUBLIC_PRIVATE_KEY }}
@@ -288,7 +288,7 @@ jobs:
 
       - name: Notify Slack about release PR
         if: ${{ steps.create-pr.outputs.pull-request-url }}
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v4.0.0
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}

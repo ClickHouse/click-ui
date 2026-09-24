@@ -36,14 +36,14 @@ jobs:
     steps:
       - name: Checkout repository (manual trigger)
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.inputs.branch }}
           token: ${{secrets.PAT_TOKEN}}
           fetch-depth: 0
       - name: Checkout repository (automatic release)
         if: github.event_name == 'release'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.release.target_commitish }}
           token: ${{secrets.PAT_TOKEN}}
@@ -106,7 +106,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
       - name: Bump package version
         run: npm pkg set version="${GITHUB_TAG#v}"
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           # npm >= 11.5.1 (Node 24.x) supports OIDC; registry-url is required for it.
           node-version: '24.x'

@@ -18,7 +18,7 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -100,7 +100,7 @@ jobs:
 
       - name: Setup Node.js
         if: steps.verify-merge.outputs.is_release == 'true'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           # Node 24.x bundles npm >= 11.5.1, which supports OIDC trusted publishing.
           # registry-url is required for OIDC.
@@ -173,7 +173,7 @@ jobs:
 
       - name: Create GitHub Release
         if: steps.verify-merge.outputs.is_release == 'true'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ steps.verify-merge.outputs.version }}
           name: v${{ steps.verify-merge.outputs.version }}
@@ -245,7 +245,7 @@ jobs:
 
       - name: Notify Slack about new release
         if: steps.verify-merge.outputs.is_release == 'true'
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v4.0.0
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
