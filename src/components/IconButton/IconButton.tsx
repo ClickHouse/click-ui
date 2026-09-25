@@ -49,7 +49,6 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         className={cn(iconButtonVariants({ type, size }), className)}
         disabled={disabled}
         ref={ref}
-        role="button"
       >
         <Icon
           name={icon}
