@@ -10,7 +10,7 @@ import {
 
 export interface UseDragAndDropOptions {
   onFilesProcessed: (files: File[]) => void;
-  supportedFileTypes: string[];
+  supportedFileTypes: readonly string[];
   onFileFailure?: () => void;
   multiple?: boolean;
 }
@@ -27,7 +27,10 @@ export interface UseDragAndDropReturn {
   handleBrowseClick: () => void;
 }
 
-const isFiletypeSupported = (filename: string, supportedTypes: string[]): boolean => {
+const isFiletypeSupported = (
+  filename: string,
+  supportedTypes: readonly string[]
+): boolean => {
   if (!supportedTypes.length) {
     return true;
   }

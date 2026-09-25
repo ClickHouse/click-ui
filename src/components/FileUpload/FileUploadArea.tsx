@@ -69,7 +69,7 @@ const uploadTextVariants = cva(styles['upload-text'], {
 
 export interface FileUploadAreaProps {
   title: string;
-  supportedFileTypes: string[];
+  supportedFileTypes: readonly string[];
   size?: 'sm' | 'md';
   isDragging: boolean;
   isNotSupported: boolean;

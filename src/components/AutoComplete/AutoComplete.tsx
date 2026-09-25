@@ -68,7 +68,7 @@ export interface SelectOptionItem extends Omit<SelectItemProps, 'children' | 'la
 }
 
 interface SelectGroupOptionItem extends Omit<SelectGroupProps, 'children' | 'label'> {
-  options: SelectOptionItem[];
+  options: readonly SelectOptionItem[];
   label?: never;
   [key: `data-${string}`]: string;
 }
@@ -78,7 +78,7 @@ export type AutoCompleteOptionListItem = SelectGroupOptionItem | SelectOptionIte
 export type SelectItemProps = SelectItemComponentProps &
   (SelectItemChildren | SelectItemLabel);
 type SelectOptionType = {
-  options: AutoCompleteOptionListItem[];
+  options: readonly AutoCompleteOptionListItem[];
   children?: never;
 };
 
@@ -252,7 +252,7 @@ export const AutoComplete = ({
   );
 
   const updateList = useCallback(
-    (children?: ReactNode, options?: AutoCompleteOptionListItem[]) => {
+    (children?: ReactNode, options?: readonly AutoCompleteOptionListItem[]) => {
       const lowerCasedSearch = search.toLowerCase();
       if (options) {
         setList(

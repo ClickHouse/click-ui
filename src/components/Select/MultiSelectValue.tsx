@@ -13,7 +13,7 @@ import { SelectItemProps } from './common/types';
 import styles from './MultiSelectValue.module.css';
 
 interface MultiSelectValueProps {
-  selectedValues: string[];
+  selectedValues: readonly string[];
   valueNode: Map<string, SelectItemProps>;
   onChange: (selectedValues: string[]) => void;
   onSelect: (selectedValue: string) => void;
@@ -61,10 +61,10 @@ export const MultiSelectValue = ({
           typeof oldDraggableIndex === 'number' &&
           oldDraggableIndex !== newDraggableIndex
         ) {
-          const temp = selectedValues[oldDraggableIndex];
-          selectedValues[oldDraggableIndex] = selectedValues[newDraggableIndex];
-          selectedValues[newDraggableIndex] = temp;
-          onChange(selectedValues);
+          const nextValues = [...selectedValues];
+          nextValues[oldDraggableIndex] = selectedValues[newDraggableIndex];
+          nextValues[newDraggableIndex] = selectedValues[oldDraggableIndex];
+          onChange(nextValues);
         }
       }}
       revertOnSpill

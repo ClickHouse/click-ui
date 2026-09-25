@@ -16,7 +16,7 @@ export interface ToastProps extends Omit<RadixUIToast.ToastProps, 'type'> {
   title: string;
   description?: ReactNode;
   duration?: number;
-  actions?: Array<ButtonProps & { altText: string }>;
+  actions?: readonly (ButtonProps & { altText: string })[];
   align?: ToastAlignment;
 }
 

@@ -14,7 +14,7 @@ import styles from './DatePicker.module.css';
 const DAYS_IN_WEEK = 7;
 
 interface CalendarProps {
-  allowOnlyDatesList?: Array<Date>;
+  allowOnlyDatesList?: readonly Date[];
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
@@ -167,7 +167,7 @@ const Calendar = ({
 };
 
 export interface DatePickerProps {
-  allowOnlyDatesList?: Array<Date>;
+  allowOnlyDatesList?: readonly Date[];
   container?: HTMLElement | null;
   date?: Date;
   disabled?: boolean;
