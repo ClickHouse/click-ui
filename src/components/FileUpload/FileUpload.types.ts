@@ -1,4 +1,5 @@
 export interface FileUploadProps {
+  /** Text shown in the upload area. */
   title: string;
   supportedFileTypes?: Array<string>;
   size?: 'sm' | 'md';

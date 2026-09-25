@@ -1,17 +1,10 @@
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
-import { ReactNode } from 'react';
 import { Arrow, GenericPopoverMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import type { HoverCardContentProps } from './HoverCard.types';
 import styles from './HoverCard.module.css';
-
-export interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
-  showArrow?: boolean;
-  forceMount?: true;
-  container?: HTMLElement | null;
-  children: ReactNode;
-}
 
 export const HoverCard = ({ children, ...props }: RadixHoverCard.HoverCardProps) => {
   return <RadixHoverCard.Root {...props}>{children}</RadixHoverCard.Root>;

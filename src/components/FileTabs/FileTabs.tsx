@@ -2,7 +2,6 @@ import {
   HTMLAttributes,
   createContext,
   useContext,
-  ReactElement,
   Children,
   useState,
   MouseEvent,
@@ -16,25 +15,13 @@ import { cn, cva } from '@/lib/cva';
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import type { IconName } from '@/components/Icon/Icon.types';
+import type { FileTabProps, FileTabsProps } from './FileTabs.types';
 import styles from './FileTabs.module.css';
 
 // TODO: Check if react-sortablejs has ESM version
 import ReactSortableModule from 'react-sortablejs/dist/index.js';
-import type {
-  ItemInterface,
-  Sortable,
-  Store,
-  ReactSortableProps,
-} from 'react-sortablejs';
+import type { ItemInterface } from 'react-sortablejs';
 const { ReactSortable } = ReactSortableModule;
-
-export type FileTabStatusType =
-  | 'default'
-  | 'success'
-  | 'neutral'
-  | 'danger'
-  | 'warning'
-  | 'info';
 
 interface ContextProps {
   selectedIndex?: number;
@@ -45,42 +32,6 @@ export const TabContext = createContext<ContextProps>({
   selectedIndex: undefined,
   onClose: () => null,
 });
-
-export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  /** Callback when the tab is closed */
-  onClose?: () => void;
-  /** Index of the tab in the list */
-  index: number;
-  /** Status indicator for the tab */
-  status?: FileTabStatusType;
-  /** Icon to display in the tab */
-  icon?: IconName | ReactNode;
-  /** Text to display in the tab */
-  text: string;
-  /** Test ID for testing */
-  testId?: string;
-  /** Whether the tab is in preview mode (italic text) */
-  preview?: boolean;
-}
-export interface FileTabsProps extends Omit<
-  ReactSortableProps<ItemInterface>,
-  'onSelect' | 'list' | 'setList'
-> {
-  /** Index of the currently selected tab */
-  selectedIndex?: number;
-  /** The tab elements to render */
-  children: ReactElement<FileTabProps> | ReactElement<FileTabProps>[];
-  /** Callback when a tab is reordered via drag and drop */
-  onReorderTab: (sourcePosition: number, destinationPosition: number) => void;
-  /** Callback when a tab is closed */
-  onClose: (index: number) => void;
-  /** Callback when a tab is selected */
-  onSelect: (index: number) => void;
-  /** List of items for sortable functionality */
-  list?: ItemInterface[];
-  /** Setter for the sortable list */
-  setList?: (newState: ItemInterface[], sortable: Sortable | null, store: Store) => void;
-}
 
 const useSelect = () => {
   const result = useContext(TabContext);

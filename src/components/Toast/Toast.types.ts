@@ -20,6 +20,6 @@ export interface ToastProps extends Omit<RadixUIToast.ToastProps, 'type'> {
   align?: ToastAlignment;
 }
 
-export interface ToastProviderProps {
-  children: ReactNode;
+export interface ToastProviderProps extends RadixUIToast.ToastProviderProps {
+  align?: ToastAlignment;
 }

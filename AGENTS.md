@@ -57,8 +57,8 @@ src/
     <Name>.test.tsx       # vitest + Testing Library
     <Name>.stories.tsx    # Storybook — the usage documentation
     index.ts              # public exports of this component
-  components/index.ts     # public barrel — never import from it inside the library
-  theme/                  # ThemeProvider; tokens in theme/tokens/*.ts and theme/styles/tokens-*.css
+  index.ts                # public barrel — never import from it inside the library
+  theme/                  # tokens in theme/tokens/*.ts and theme/styles/tokens-*.css
   lib/cva.ts              # exports `cva` (class-variance-authority) and `cn` (clsx)
   utils/test-utils.tsx    # exports `renderCUI()` — use it in every unit test
   hooks/ providers/ types/ assets/
@@ -145,26 +145,27 @@ Badge.displayName = 'Badge';
 export type BadgeVariant = 'default' | 'danger';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  /** Visual variant. */
   variant?: BadgeVariant;
-  /** Size. Defaults to `md`. */
+  /** Defaults to `md`. */
   size?: 'sm' | 'md';
 }
 ```
 
 - Extend the native attributes of the root element (`HTMLAttributes<HTMLSpanElement>`,
-  `ButtonHTMLAttributes<HTMLButtonElement>`, ...). JSDoc every prop. Export variant unions
-  as named types.
+  `ButtonHTMLAttributes<HTMLButtonElement>`, ...). Export variant unions as named types.
+- JSDoc a prop only when its name and type leave something out: placement, format, units,
+  behavior or a default. One line, ending with a period.
 - Do not name a prop like a native attribute it would hide (`type`, `size` on inputs,
   `title`). `Button`'s `type` prop is a known mistake kept for compatibility. Do not copy it.
 - Do not declare `children` when the interface extends `HTMLAttributes` (it is already
-  there). Otherwise type it as `React.ReactNode`.
+  there). Otherwise type it as `React.ReactNode` and give it a JSDoc: Storybook drops an
+  undocumented `children` from its prop table.
 
 ### Imports and code style
 
 - Import sibling components from their leaf path: `import { Icon } from '@/components/Icon';`
-  Never from the barrel `@/components` or `@/index` inside the library (ESLint error, and it
-  creates circular imports).
+  Never from `@/components` or `@/index` inside the library (ESLint error, and it creates
+  circular imports).
 - Prettier and ESLint own code style: single quotes, arrow functions, braces always.
   Run `yarn lint:fix && yarn format:fix` instead of fixing by hand.
 

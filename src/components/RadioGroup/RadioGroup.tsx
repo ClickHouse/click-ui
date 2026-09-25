@@ -1,25 +1,11 @@
 import * as RadixRadioGroup from '@radix-ui/react-radio-group';
-import { HTMLAttributes, ReactNode, useId } from 'react';
+import { useId } from 'react';
 import { GenericLabel } from '@/components/GenericLabel';
 import { Label } from '@/components/Label';
 import { Error, FormElementContainer, FormRoot } from '@/components/FormContainer';
 import { cn, cva } from '@/lib/cva';
+import type { RadioGroupItemProps, RadioGroupProps } from './RadioGroup.types';
 import styles from './RadioGroup.module.css';
-
-export interface RadioGroupProps extends Omit<RadixRadioGroup.RadioGroupProps, 'dir'> {
-  /** Whether to display radio items inline (horizontally) */
-  inline?: boolean;
-  /** The orientation of the label relative to the radio group */
-  orientation?: 'vertical' | 'horizontal';
-  /** The direction/position of the label - start places label before, end places label after */
-  dir?: 'start' | 'end';
-  /** Text direction for radio items - ltr or rtl */
-  itemDir?: 'rtl' | 'ltr';
-  /** The label text displayed next to the radio group */
-  label?: ReactNode;
-  /** Error message to display below the radio group */
-  error?: ReactNode;
-}
 
 const radioGroupVariants = cva(styles['radio-group'], {
   variants: {
@@ -88,13 +74,6 @@ export const RadioGroup = ({
     </FormRoot>
   );
 };
-
-interface RadioGroupInputProps extends RadixRadioGroup.RadioGroupItemProps {
-  /** The label text displayed next to the radio item */
-  label?: ReactNode;
-}
-
-export type RadioGroupItemProps = RadioGroupInputProps & HTMLAttributes<HTMLDivElement>;
 
 const RadioGroupItem = ({
   id,
