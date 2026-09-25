@@ -363,6 +363,28 @@ describe('DateRangePicker', () => {
       expect(queryByTestId('predefined-dates-list')).not.toBeInTheDocument();
     });
 
+    it('accepts readonly predefinedDatesList and allowOnlyDatesList', async () => {
+      const predefinedDatesList = [
+        { startDate: new Date('06-01-2020'), endDate: new Date('06-30-2020') },
+      ] as const;
+      const allowOnlyDatesList = [
+        new Date('06-01-2020'),
+        new Date('06-30-2020'),
+      ] as const;
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          onSelectDateRange={vi.fn()}
+          predefinedDatesList={predefinedDatesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+
+      expect(getByText('Jun 2020')).toBeInTheDocument();
+    });
+
     it("shows dates in the past if getPredefinedMonthsForDateRangePicker's value is negative", async () => {
       const handleSelectDate = vi.fn();
 

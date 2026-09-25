@@ -1,7 +1,7 @@
 export interface FileUploadProps {
   /** Text shown in the upload area. */
   title: string;
-  supportedFileTypes?: Array<string>;
+  supportedFileTypes?: readonly string[];
   size?: 'sm' | 'md';
   progress?: number;
   showSuccess?: boolean;

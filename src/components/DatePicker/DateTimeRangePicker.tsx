@@ -420,7 +420,7 @@ interface PredefinedTimesProps {
     endDate: Date,
     predefinedDateLabel?: string
   ) => void;
-  predefinedTimesList: DateRangeListItem[];
+  predefinedTimesList: readonly DateRangeListItem[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -914,7 +914,7 @@ export interface DateTimeRangePickerProps {
   ) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedTimesList?: DateRangeListItem[];
+  predefinedTimesList?: readonly DateRangeListItem[];
   maxRangeLength?: number;
   responsivePositioning?: boolean;
   shouldFireIfInvalid?: boolean;
