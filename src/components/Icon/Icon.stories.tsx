@@ -217,7 +217,6 @@ export const Icons: Story = {
             value={query}
             placeholder="Search icons..."
             onChange={setQuery}
-            tabIndex={1}
           />
           <ResponsiveGridContainer>
             {Object.keys(ICONS_MAP)

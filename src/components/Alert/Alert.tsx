@@ -134,10 +134,10 @@ export const Alert = ({
       className={cn(wrapperVariants({ state, type }), className)}
     >
       {dismissible && type === 'banner' && (
-        <button
-          type="button"
-          className={styles.alert__dismiss}
-        ></button>
+        <span
+          aria-hidden="true"
+          className={styles.alert__icon__spacer}
+        />
       )}
       {showIcon && (
         <div className={cn(iconWrapperVariants({ state, size, type }))}>

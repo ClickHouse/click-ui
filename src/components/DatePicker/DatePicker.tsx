@@ -20,7 +20,7 @@ interface CalendarProps {
   futureDatesDisabled: boolean;
   selectedDate?: Date;
   setSelectedDate: (selectedDate: Date) => void;
-  autoFocus?: boolean;
+  focusOnOpen?: boolean;
   timezone: Timezone;
 }
 
@@ -31,7 +31,7 @@ const Calendar = ({
   futureDatesDisabled,
   selectedDate,
   setSelectedDate,
-  autoFocus = false,
+  focusOnOpen = false,
   timezone,
 }: CalendarProps) => {
   const allDays = calendarBody.value.flatMap(week => week.value);
@@ -65,13 +65,13 @@ const Calendar = ({
   }, [focusedDayIndex]);
 
   useEffect(() => {
-    if (autoFocus && initialFocusIndex >= 0) {
+    if (focusOnOpen && initialFocusIndex >= 0) {
       const timeoutId = setTimeout(() => {
         dayRefs.current[initialFocusIndex]?.focus();
       }, 0);
       return () => clearTimeout(timeoutId);
     }
-  }, [autoFocus, initialFocusIndex]);
+  }, [focusOnOpen, initialFocusIndex]);
 
   const onDayKeyDown = useCallback(
     (
@@ -294,9 +294,9 @@ export const DatePicker = ({
             {body => (
               <Calendar
                 allowOnlyDatesList={allowOnlyDatesList}
-                autoFocus={autoFocusCalendar}
                 calendarBody={body}
                 closeDatepicker={onCloseDatePicker}
+                focusOnOpen={autoFocusCalendar}
                 futureDatesDisabled={futureDatesDisabled}
                 selectedDate={selectedDate}
                 setSelectedDate={onDateSelect}

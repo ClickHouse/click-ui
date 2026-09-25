@@ -132,7 +132,6 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
             className={cn(buttonVariants({ type, iconOnly, fillWidth }), optionClassName)}
             aria-pressed={isActive}
             onClick={() => onButtonGroupClickCommonHandler(value)}
-            role="button"
             {...buttonProps}
             aria-label={ariaLabel ?? (iconOnly && icon ? icon.toString() : undefined)}
           >
