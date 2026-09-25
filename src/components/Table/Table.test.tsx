@@ -397,7 +397,7 @@ describe('Table', () => {
     });
 
     it('draws placeholder rows when loadingVariant is skeleton', () => {
-      const { container, getByText } = renderCUI(
+      const { container, queryByText } = renderCUI(
         <Table
           headers={headers}
           rows={[]}
@@ -406,9 +406,13 @@ describe('Table', () => {
         />
       );
 
-      expect(container.querySelectorAll('[data-skeleton-row]')).toHaveLength(3);
-      // The spinner's announcement is kept, so the state is still read out.
-      expect(getByText('Loading data')).toBeInTheDocument();
+      expect(queryByText('Loading data')).not.toBeInTheDocument();
+
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(3);
+      // Real cells, one per column, so the placeholders line up with the data that replaces them.
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row] td')).toHaveLength(
+        3 * headers.length
+      );
     });
 
     it('draws the requested number of placeholder rows', () => {
@@ -422,7 +426,7 @@ describe('Table', () => {
         />
       );
 
-      expect(container.querySelectorAll('[data-skeleton-row]')).toHaveLength(5);
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(5);
     });
 
     it('draws no placeholders in the default spinner variant', () => {
@@ -434,7 +438,7 @@ describe('Table', () => {
         />
       );
 
-      expect(container.querySelectorAll('[data-skeleton-row]')).toHaveLength(0);
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(0);
     });
 
     it('keeps the rows it already has while loading', () => {
