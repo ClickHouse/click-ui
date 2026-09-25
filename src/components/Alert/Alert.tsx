@@ -136,7 +136,7 @@ export const Alert = ({
       {dismissible && type === 'banner' && (
         <span
           aria-hidden="true"
-          className={styles.alert__icon__spacer}
+          className={styles.alert__spacer}
         />
       )}
       {showIcon && (
