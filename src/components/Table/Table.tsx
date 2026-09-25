@@ -820,6 +820,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
       };
     const hasRows = rows.length > 0;
+    const columnCount =
+      headers.length + (isEditable || isDeletable ? 1 : 0) + (isSelectable ? 1 : 0);
     const actionsList: string[] = [];
     if (isDeletable) {
       actionsList.push('deleteAction');
@@ -935,21 +937,13 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               {loading && loadingVariant === 'skeleton' && (
                 <SkeletonRows
                   rowCount={skeletonRowCount}
-                  columnCount={
-                    headers.length +
-                    (isEditable || isDeletable ? 1 : 0) +
-                    (isSelectable ? 1 : 0)
-                  }
+                  columnCount={columnCount}
                   size={size}
                 />
               )}
               {(loading ? loadingVariant === 'spinner' : !hasRows) && (
                 <CustomTableRow
-                  colSpan={
-                    headers.length +
-                    (isEditable || isDeletable ? 1 : 0) +
-                    (isSelectable ? 1 : 0)
-                  }
+                  colSpan={columnCount}
                   loading={loading}
                   noDataMessage={noDataMessage}
                   size={size}
