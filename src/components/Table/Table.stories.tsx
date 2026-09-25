@@ -970,6 +970,28 @@ export const Loading: StoryObj<typeof Table> = {
   ),
 };
 
+export const LoadingSkeleton: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: [],
+    loading: true,
+    loadingVariant: 'skeleton',
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+      />
+    </div>
+  ),
+};
+
 export const NoData: StoryObj<typeof Table> = {
   args: {
     headers: [
