@@ -375,6 +375,8 @@ export interface TableRowType extends Omit<
 
 export type MobileLayoutProp = 'list' | 'scroll';
 
+export type TableLoadingVariant = 'spinner' | 'skeleton';
+
 interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
@@ -385,6 +387,10 @@ interface CommonTableProps extends Omit<
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
   loading?: boolean;
+  /** How `loading` is shown: a centered spinner, or placeholder rows. Defaults to `spinner`. */
+  loadingVariant?: TableLoadingVariant;
+  /** Number of placeholder rows drawn when `loadingVariant` is `skeleton`. Defaults to 3. */
+  skeletonRowCount?: number;
   noDataMessage?: ReactNode;
   size?: TableSize;
   showHeader?: boolean;
@@ -566,6 +572,44 @@ const CustomTableRow = ({
     </tr>
   );
 };
+interface SkeletonRowsProps {
+  rowCount: number;
+  columnCount: number;
+  colSpan: number;
+  size: TableSize;
+}
+
+/**
+ * Placeholder rows for `loadingVariant='skeleton'`. The bars are decorative, so the cell keeps the
+ * same "Loading data" text the spinner variant announces, visually hidden behind them.
+ */
+const SkeletonRows = ({ rowCount, columnCount, colSpan, size }: SkeletonRowsProps) => {
+  return (
+    <tr className={cn(rowVariants({}))}>
+      <td
+        colSpan={colSpan}
+        className={cn(cellVariants({ size }), styles['table__spanned-data'])}
+      >
+        <span className={cn(styles['table__skeleton-label'])}>Loading data</span>
+        {Array.from({ length: rowCount }, (_, rowIndex) => (
+          <div
+            key={`table-skeleton-row-${rowIndex}`}
+            data-skeleton-row=""
+            className={cn(styles['table__skeleton-row'])}
+          >
+            {Array.from({ length: columnCount }, (_, columnIndex) => (
+              <div
+                key={`table-skeleton-bar-${columnIndex}`}
+                className={cn(styles['table__skeleton-bar'])}
+              />
+            ))}
+          </div>
+        ))}
+      </td>
+    </tr>
+  );
+};
+
 interface ResizeState {
   isResizing: boolean;
   columnLabel: string | null;
@@ -590,6 +634,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onEdit,
       onSort,
       loading,
+      loadingVariant = 'spinner',
+      skeletonRowCount = 3,
       noDataMessage,
       size = 'sm',
       showHeader = true,
@@ -858,6 +904,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         <div className={cn(styles.table__wrapper)}>
           <table
             ref={ref}
+            aria-busy={loading || undefined}
             {...props}
             className={cn(styles['table__table'], className)}
           >
@@ -885,7 +932,19 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               />
             )}
             <tbody className={cn(styles.table__tbody)}>
-              {(loading || !hasRows) && (
+              {loading && loadingVariant === 'skeleton' && (
+                <SkeletonRows
+                  rowCount={skeletonRowCount}
+                  columnCount={headers.length}
+                  colSpan={
+                    headers.length +
+                    (isEditable || isDeletable ? 1 : 0) +
+                    (isSelectable ? 1 : 0)
+                  }
+                  size={size}
+                />
+              )}
+              {(loading ? loadingVariant === 'spinner' : !hasRows) && (
                 <CustomTableRow
                   colSpan={
                     headers.length +

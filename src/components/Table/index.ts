@@ -1,5 +1,6 @@
 export type {
   MobileLayoutProp,
+  TableLoadingVariant,
   TableHeaderType,
   TableRowType,
   TableProps,

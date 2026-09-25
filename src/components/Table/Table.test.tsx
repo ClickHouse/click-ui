@@ -245,4 +245,83 @@ describe('Table', () => {
     expect(resizers[0]).toHaveAttribute('tabIndex', '0');
     expect(resizers[1]).toHaveAttribute('tabIndex', '0');
   });
+  describe('loading', () => {
+    it('shows the spinner message by default', () => {
+      const { getByText, getByRole } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+        />
+      );
+
+      expect(getByText('Loading data')).toBeInTheDocument();
+      expect(getByRole('table')).toHaveAttribute('aria-busy', 'true');
+    });
+
+    it('draws placeholder rows when loadingVariant is skeleton', () => {
+      const { container, getByText } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+          loadingVariant="skeleton"
+        />
+      );
+
+      expect(container.querySelectorAll('[data-skeleton-row]')).toHaveLength(3);
+      // The spinner's announcement is kept, so the state is still read out.
+      expect(getByText('Loading data')).toBeInTheDocument();
+    });
+
+    it('draws the requested number of placeholder rows', () => {
+      const { container } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+          loadingVariant="skeleton"
+          skeletonRowCount={5}
+        />
+      );
+
+      expect(container.querySelectorAll('[data-skeleton-row]')).toHaveLength(5);
+    });
+
+    it('draws no placeholders in the default spinner variant', () => {
+      const { container } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+        />
+      );
+
+      expect(container.querySelectorAll('[data-skeleton-row]')).toHaveLength(0);
+    });
+
+    it('keeps the rows it already has while loading', () => {
+      const { getByText } = renderCUI(
+        <Table
+          headers={headers}
+          rows={rows}
+          loading
+          loadingVariant="skeleton"
+        />
+      );
+
+      expect(getByText('Alfreds Futterkiste')).toBeInTheDocument();
+    });
+
+    it('is not busy once loading finishes', () => {
+      const { getByRole } = renderCUI(
+        <Table
+          headers={headers}
+          rows={rows}
+        />
+      );
+
+      expect(getByRole('table')).not.toHaveAttribute('aria-busy');
+    });
+  });
 });
