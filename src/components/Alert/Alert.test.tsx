@@ -24,6 +24,18 @@ describe('Alert', () => {
     expect(handleSubmit).not.toHaveBeenCalled();
   });
 
+  it('renders a dismissible banner with a single, named dismiss button', () => {
+    const { getAllByRole } = renderAlert({
+      text: 'Banner alert',
+      type: 'banner',
+      dismissible: true,
+    });
+
+    const buttons = getAllByRole('button');
+    expect(buttons).toHaveLength(1);
+    expect(buttons[0]).toHaveAccessibleName('close');
+  });
+
   it('forwards a consumer className onto the root element (does not overwrite it)', () => {
     const { getByTestId } = renderAlert({
       text: 'With custom class',

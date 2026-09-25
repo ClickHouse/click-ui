@@ -98,6 +98,10 @@
 .alert__icon {
 }
 
+.alert__icon__spacer {
+  margin-left: auto;
+}
+
 .alert__icon_size_small {
   width: var(--click-alert-small-icon-width);
   height: var(--click-alert-small-icon-height);

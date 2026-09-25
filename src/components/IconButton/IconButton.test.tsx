@@ -10,6 +10,11 @@ describe('Button', () => {
     expect(getAllByRole('button').length).toEqual(1);
   });
 
+  it('should apply a consumer-supplied role', () => {
+    const { getByRole } = renderButton({ icon: 'user', role: 'menuitem' });
+    expect(getByRole('menuitem')).toBeInTheDocument();
+  });
+
   it('should execute action on click', () => {
     let counter = 0;
     const handleClick = () => (counter = 1);

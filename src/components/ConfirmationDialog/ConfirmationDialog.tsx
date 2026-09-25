@@ -60,6 +60,7 @@ export const ConfirmationDialog = ({
             disabled={!!disabled || !!loading}
             type={primaryActionType}
             label={primaryActionLabel}
+            // eslint-disable-next-line jsx-a11y/no-autofocus -- a dialog must move focus inside on open (APG dialog pattern); this picks the primary action
             autoFocus={open}
             onClick={() => {
               if (onConfirm) {
