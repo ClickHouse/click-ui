@@ -575,38 +575,38 @@ const CustomTableRow = ({
 interface SkeletonRowsProps {
   rowCount: number;
   columnCount: number;
-  colSpan: number;
   size: TableSize;
 }
 
 /**
- * Placeholder rows for `loadingVariant='skeleton'`. The bars are decorative, so the cell keeps the
- * same "Loading data" text the spinner variant announces, visually hidden behind them.
+ * Placeholder rows for `loadingVariant='skeleton'`. Real cells, so the columns line up with the
+ * data that replaces them. The rows are decorative: `aria-busy` on the table is what tells
+ * assistive technology the content is still coming.
  */
-const SkeletonRows = ({ rowCount, columnCount, colSpan, size }: SkeletonRowsProps) => {
+const SkeletonRows = ({ rowCount, columnCount, size }: SkeletonRowsProps) => {
   return (
-    <tr className={cn(rowVariants({}))}>
-      <td
-        colSpan={colSpan}
-        className={cn(cellVariants({ size }), styles['table__spanned-data'])}
-      >
-        <span className={cn(styles['table__skeleton-label'])}>Loading data</span>
-        {Array.from({ length: rowCount }, (_, rowIndex) => (
-          <div
-            key={`table-skeleton-row-${rowIndex}`}
-            data-skeleton-row=""
-            className={cn(styles['table__skeleton-row'])}
-          >
-            {Array.from({ length: columnCount }, (_, columnIndex) => (
-              <div
-                key={`table-skeleton-bar-${columnIndex}`}
-                className={cn(styles['table__skeleton-bar'])}
-              />
-            ))}
-          </div>
-        ))}
-      </td>
-    </tr>
+    <>
+      {Array.from({ length: rowCount }, (_, rowIndex) => (
+        // eslint-disable-next-line jsx-a11y/no-aria-hidden-on-focusable -- a <tr> is not focusable; jsx-a11y counts table elements as interactive
+        <tr
+          key={`table-skeleton-row-${rowIndex}`}
+          aria-hidden="true"
+          data-skeleton-row=""
+          className={cn(rowVariants({}))}
+        >
+          {Array.from({ length: columnCount }, (_, columnIndex) => (
+            // eslint-disable-next-line jsx-a11y/no-aria-hidden-on-focusable -- a <td> is not focusable; jsx-a11y counts table elements as interactive
+            <td
+              key={`table-skeleton-cell-${columnIndex}`}
+              aria-hidden="true"
+              className={cn(cellVariants({ size }))}
+            >
+              <div className={cn(styles['table__skeleton-bar'])} />
+            </td>
+          ))}
+        </tr>
+      ))}
+    </>
   );
 };
 
@@ -935,8 +935,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               {loading && loadingVariant === 'skeleton' && (
                 <SkeletonRows
                   rowCount={skeletonRowCount}
-                  columnCount={headers.length}
-                  colSpan={
+                  columnCount={
                     headers.length +
                     (isEditable || isDeletable ? 1 : 0) +
                     (isSelectable ? 1 : 0)

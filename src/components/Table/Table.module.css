@@ -374,25 +374,6 @@
   overflow-wrap: break-word;
 }
 
-.table__skeleton-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.table__skeleton-row {
-  display: flex;
-  width: 100%;
-  gap: var(--click-table-body-cell-space-sm-x);
-}
-
-.table__skeleton-row + .table__skeleton-row {
-  margin-top: var(--click-table-body-cell-space-sm-y);
-}
-
 .table__skeleton-bar {
   height: 0.75rem;
   flex: 1;
