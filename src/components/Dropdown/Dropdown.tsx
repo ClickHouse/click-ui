@@ -218,7 +218,6 @@ const DropdownItem = ({
       icon={icon}
       iconDir={iconDir}
       tooltipProps={{ side: 'right', ...tooltipProps }}
-      isResponsive={false}
     >
       {label}
     </IconWrapper>
