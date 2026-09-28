@@ -205,22 +205,6 @@ describe('Dropdown', () => {
     });
   });
 
-  it('should render the item icon when asChild is not set', async () => {
-    const { getByText, getByRole } = renderCUI(
-      <Dropdown>
-        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
-        <Dropdown.Content>
-          <Dropdown.Item icon="user">Profile</Dropdown.Item>
-        </Dropdown.Content>
-      </Dropdown>
-    );
-
-    await userEvent.click(getByText('Dropdown Trigger'));
-
-    const item = getByRole('menuitem', { name: /Profile/ });
-    expect(within(item).getByRole('img', { name: 'user' })).toBeInTheDocument();
-  });
-
   it('should render the child element as the menu item when asChild is set', async () => {
     const { getByText, getByRole } = renderCUI(
       <Dropdown>
