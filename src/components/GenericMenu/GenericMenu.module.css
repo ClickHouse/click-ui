@@ -154,18 +154,18 @@
   font: var(--click-genericMenu-item-typography-label-active);
 }
 
-.generic-menu-item[data-disabled] {
-  color: var(--gmi-text-disabled);
-  font: var(--click-genericMenu-item-typography-label-disabled);
-  pointer-events: none;
-}
-
 .generic-menu-item:visited {
   color: var(--gmi-text-default);
 }
 
 .generic-menu-item:visited a {
   color: var(--gmi-text-default);
+}
+
+.generic-menu-item[data-disabled] {
+  color: var(--gmi-text-disabled);
+  font: var(--click-genericMenu-item-typography-label-disabled);
+  pointer-events: none;
 }
 
 .generic-menu-item:hover .dropdown-arrow,
