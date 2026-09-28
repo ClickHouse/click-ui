@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Slottable } from '@radix-ui/react-slot';
 import {
   ComponentProps,
   ComponentPropsWithRef,
@@ -210,22 +211,26 @@ const DropdownItem = ({
   iconDir,
   type = 'default',
   tooltipProps,
-  children,
   ...props
 }: DropdownItemProps) => {
+  const renderLabel = (label: ReactNode) => (
+    <IconWrapper
+      icon={icon}
+      iconDir={iconDir}
+      tooltipProps={{ side: 'right', ...tooltipProps }}
+    >
+      {label}
+    </IconWrapper>
+  );
+
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
       type={type}
       {...props}
     >
-      <IconWrapper
-        icon={icon}
-        iconDir={iconDir}
-        tooltipProps={{ side: 'right', ...tooltipProps }}
-      >
-        {children}
-      </IconWrapper>
+      {/* With asChild, Slottable puts the label inside the child element; otherwise it just calls renderLabel. */}
+      <Slottable child={props.children}>{renderLabel}</Slottable>
     </DropdownMenuItem>
   );
 };
