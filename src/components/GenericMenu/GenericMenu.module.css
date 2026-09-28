@@ -99,6 +99,7 @@
   background: var(--gmi-background-default);
   color: var(--gmi-text-default);
   font: var(--click-genericMenu-item-typography-label-default);
+  text-decoration: none;
   white-space: nowrap;
   cursor: default;
   text-overflow: ellipsis;
