@@ -13,7 +13,7 @@ export const IconWrapper = ({
   ellipsisContent = true,
   tooltipProps,
   gap = 'sm',
-  isResponsive = true,
+  isResponsive = false,
   ...props
 }: IconWrapperProps) => {
   return (
