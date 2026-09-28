@@ -7,6 +7,8 @@ on:
     branches:
       - main
   pull_request:
+    # labeled/unlabeled: for `skip:storybook-preview`.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   release:
     types: [published]
   workflow_dispatch:
@@ -42,10 +44,15 @@ jobs:
     # deploy could only fail: skip it. Chromatic still builds their Storybook.
     # github.actor, not the PR author: a human pushing to a Dependabot branch
     # triggers a run that does have secrets, and then the preview should run.
+    # Label changes on Dependabot PRs have a human actor: exclude them by author.
     if: >-
       github.event_name != 'pull_request' ||
-      (github.event.pull_request.head.repo.full_name == github.repository &&
-      github.actor != 'dependabot[bot]')
+      (github.event.pull_request.state == 'open' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]' &&
+      !(github.event.pull_request.user.login == 'dependabot[bot]' &&
+      (github.event.action == 'labeled' || github.event.action == 'unlabeled')) &&
+      !contains(github.event.pull_request.labels.*.name, 'skip:storybook-preview'))
     runs-on: ubuntu-latest
     steps:
       # ======================================================================
