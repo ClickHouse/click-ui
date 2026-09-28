@@ -1,0 +1,81 @@
+#!/bin/bash
+#
+# Render the Chromatic PR comment from a commit's combined status. Stdout = markdown.
+# Usage: chromatic-pr-comment-body <sha> <run_url> < status.json
+#   <sha>        40-char commit sha the statuses belong to.
+#   <run_url>    The Chromatic workflow run, https://github.com/...
+#   status.json  Output of `gh api repos/<owner>/<repo>/commits/<sha>/status`. The
+#                Chromatic GitHub app sets the `Storybook Publish` and `UI Tests` contexts.
+#
+# Only Chromatic URLs are linked; any other target_url renders as "no link".
+# Used by .github/workflows/chromatic-pr-comment.yml. Runs on macOS bash 3.2 and Linux bash 5.
+
+set -euo pipefail
+export LC_ALL=C # the bracket ranges below mean the same thing on BSD and glibc
+
+# Any chromatic.com subdomain, so a new id format still links; today <appId>-<hash>.
+STORYBOOK_URL_PATTERN='^https://[0-9a-z-]+\.chromatic\.com/$'
+BUILD_URL_PATTERN='^https://www\.chromatic\.com/build\?[0-9A-Za-z=&_.-]+$'
+
+fail() {
+  echo "❌ $1" >&2
+  exit 1
+}
+
+command -v jq >/dev/null || fail "jq is required"
+[[ $# -eq 2 ]] || fail "usage: chromatic-pr-comment-body <sha> <run_url> < status.json"
+SHA="$1"
+RUN_URL="$2"
+[[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || fail "not a commit sha: '$SHA'"
+[[ "$RUN_URL" =~ ^https://github\.com/[0-9A-Za-z/._-]+$ ]] || fail "not a GitHub run URL: '$RUN_URL'"
+
+STATUS_JSON=$(cat)
+jq -e '.statuses | type == "array"' <<<"$STATUS_JSON" >/dev/null 2>&1 ||
+  fail "stdin is not a combined-status JSON object"
+
+# field <context> <key>: the value, empty when the context is absent.
+field() {
+  jq -r --arg ctx "$1" --arg key "$2" \
+    '[.statuses[] | select(.context == $ctx)][0][$key] // empty' <<<"$STATUS_JSON"
+}
+
+icon() {
+  case "$1" in
+    success) echo "✅" ;;
+    pending) echo "⏳" ;;
+    failure | error) echo "❌" ;;
+    *) echo "❔" ;;
+  esac
+}
+
+# row <label> <context> <url_pattern> <link_text>
+row() {
+  local state url description link
+  state=$(field "$2" state)
+  if [[ -z "$state" ]]; then
+    echo "| $1 | ⏭️ not reported | no link |"
+    return
+  fi
+  url=$(field "$2" target_url)
+  # Plain text only: the description lands in a markdown table cell. No '.', ':'
+  # or '/' either, so GitHub cannot autolink a URL or a www. host in it.
+  description=$(field "$2" description | tr -cd 'A-Za-z0-9 ,()-' | cut -c 1-100)
+  link="no link"
+  if [[ "$url" =~ $3 ]]; then
+    link="[$4]($url)"
+  fi
+  echo "| $1 | $(icon "$state") ${description:-$state} | $link |"
+}
+
+cat <<EOF
+## Chromatic Storybook
+
+| Check | Status | Link |
+| --- | --- | --- |
+$(row "Storybook" "Storybook Publish" "$STORYBOOK_URL_PATTERN" "Open Storybook")
+$(row "UI Tests" "UI Tests" "$BUILD_URL_PATTERN" "Open build")
+
+Built from commit: \`$SHA\` · [Chromatic run]($RUN_URL)
+
+<sub>Statuses as of the end of the run. The build link shows the live review state.</sub>
+EOF
