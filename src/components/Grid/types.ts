@@ -53,10 +53,7 @@ export interface RowSelectionAction {
 }
 
 export type SelectionAction =
-  | AllSelection
-  | CellSelectionAction
-  | ColumnSelectionAction
-  | RowSelectionAction;
+  AllSelection | CellSelectionAction | ColumnSelectionAction | RowSelectionAction;
 
 export type SelectionType = 'default' | 'selectIndirect' | 'selectDirect';
 
@@ -95,10 +92,7 @@ export interface RectangleSelection {
 }
 
 export type SelectedRegion =
-  | EmptySelection
-  | RowsSelection
-  | ColumnsSelection
-  | RectangleSelection;
+  EmptySelection | RowsSelection | ColumnsSelection | RectangleSelection;
 
 export type RoundedType = 'none' | 'lg' | 'md' | 'sm';
 
@@ -130,10 +124,7 @@ type IsCellSelectedType = {
 };
 
 export type IsSelectedType =
-  | IsAllSelectedType
-  | IsRowSelectedType
-  | IsColumnSelectedType
-  | IsCellSelectedType;
+  IsAllSelectedType | IsRowSelectedType | IsColumnSelectedType | IsCellSelectedType;
 
 export type SelectionTypeFn = (props: IsSelectedType) => SelectionType;
 

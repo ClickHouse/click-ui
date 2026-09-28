@@ -3,13 +3,7 @@ import type { AssetSize } from '@/types';
 import type { IconName, ImageName } from '@/components/Icon/Icon.types';
 
 export type BadgeState =
-  | 'default'
-  | 'success'
-  | 'neutral'
-  | 'danger'
-  | 'disabled'
-  | 'warning'
-  | 'info';
+  'default' | 'success' | 'neutral' | 'danger' | 'disabled' | 'warning' | 'info';
 
 export interface CardSecondaryProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
