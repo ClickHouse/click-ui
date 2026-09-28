@@ -229,7 +229,6 @@ const DropdownItem = ({
       type={type}
       {...props}
     >
-      {/* With asChild, Slottable puts the label inside the child element; otherwise it just calls renderLabel. */}
       <Slottable child={props.children}>{renderLabel}</Slottable>
     </DropdownMenuItem>
   );
