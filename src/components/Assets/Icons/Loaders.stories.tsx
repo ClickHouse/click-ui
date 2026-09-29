@@ -5,7 +5,7 @@ const meta: Meta<typeof Icon> = {
   title: 'Assets/Loaders',
   component: Icon,
   tags: ['autodocs'],
-  args: { size: 'lg', color: 'var(--global-color-text-default)' },
+  args: { size: 'lg' },
 };
 
 export default meta;
@@ -15,10 +15,7 @@ type Story = StoryObj<typeof meta>;
 const loadersHarness: Decorator = Story => (
   <div
     data-testid="loaders-harness"
-    style={{
-      display: 'inline-flex',
-      background: 'var(--click-storybook-global-background)',
-    }}
+    style={{ display: 'inline-flex' }}
   >
     <Story />
   </div>
