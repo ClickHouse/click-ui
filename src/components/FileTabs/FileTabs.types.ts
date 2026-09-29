@@ -8,12 +8,7 @@ import type {
 import type { IconName } from '@/components/Icon/Icon.types';
 
 export type FileTabStatusType =
-  | 'default'
-  | 'success'
-  | 'neutral'
-  | 'danger'
-  | 'warning'
-  | 'info';
+  'default' | 'success' | 'neutral' | 'danger' | 'warning' | 'info';
 
 export interface FileTabProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   onClose?: () => void;

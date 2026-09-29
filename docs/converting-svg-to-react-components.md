@@ -120,8 +120,6 @@ Here's an example for a logo but the process is similar for Flags and Icons.
 Let's call it `XYZ.tsx`:
 
 ```tsx
-/* eslint-disable react-refresh/only-export-components */
-
 import type { SVGAssetProps } from '@/types';
 import { SVGAttributes } from 'react';
 
