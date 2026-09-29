@@ -90,6 +90,7 @@ export type IconName =
   | 'gift'
   | 'git-merge'
   | 'globe'
+  | 'grid-dots'
   | 'hexagon'
   | 'history'
   | 'home'

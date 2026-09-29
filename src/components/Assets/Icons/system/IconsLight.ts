@@ -92,6 +92,7 @@ import Gear from '../Gear';
 import Gift from '../Gift';
 import Git_Merge from '../Git-Merge';
 import Globe from '../Globe';
+import Grid_Dots from '../Grid-Dots';
 import Hexagon from '../Hexagon';
 import History from '../History';
 import Home from '../Home';
@@ -270,6 +271,7 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   gift: Gift,
   'git-merge': Git_Merge,
   globe: Globe,
+  'grid-dots': Grid_Dots,
   hexagon: Hexagon,
   history: History,
   home: Home,

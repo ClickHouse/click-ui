@@ -21,7 +21,6 @@ const SingleSelectValue = ({
         icon={icon}
         iconDir={iconDir}
         gap="xxs"
-        isResponsive={false}
       >
         {label ?? children ?? value}
       </IconWrapper>
