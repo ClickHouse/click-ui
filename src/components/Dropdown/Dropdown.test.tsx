@@ -122,15 +122,10 @@ describe('Dropdown', () => {
 
   it('should not close dropdown on selecting disabled item', async () => {
     const { getByText, queryByText } = renderDropdown({});
-    const dropdownTrigger = getByText('Dropdown Trigger');
-    expect(dropdownTrigger).not.toBeNull();
-    await userEvent.click(dropdownTrigger);
+    await userEvent.click(getByText('Dropdown Trigger'));
 
-    expect(queryByText('Content3')).not.toBeNull();
-    const item = queryByText('Content3');
-    expect(item).not.toBeNull();
-    item && fireEvent.pointerDown(item);
-    expect(item).not.toBeNull();
+    await userEvent.click(getByText('Content3'));
+
     expect(queryByText('Content2')).not.toBeNull();
   });
 
