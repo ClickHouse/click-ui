@@ -177,6 +177,43 @@ export const OpenContent: Story = {
   ),
 };
 
+// Visual-regression story: menu items rendered as links through asChild, including a disabled one.
+export const LinkItems: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+        >
+          <Dropdown.Item asChild>
+            <a href="https://clickhouse.com/docs">Link item</a>
+          </Dropdown.Item>
+          <Dropdown.Item
+            asChild
+            icon="activity"
+          >
+            <a href="https://clickhouse.com/docs">Link item with icon</a>
+          </Dropdown.Item>
+          <Dropdown.Item
+            asChild
+            disabled
+          >
+            <a href="https://clickhouse.com/docs">Disabled link item</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
 export const OpenContentWithArrow: Story = {
   render: () => (
     <div
