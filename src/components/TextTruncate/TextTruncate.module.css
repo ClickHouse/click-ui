@@ -1,8 +1,28 @@
 .text-truncate {
-  display: block;
+  --text-truncate-max-width: initial;
+
   min-width: 0;
-  max-width: 100%;
+  max-width: var(--text-truncate-max-width, 100%);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* Doubled so `display` beats the base class of a `component` such as Link, whatever the bundle order. */
+.text-truncate.text-truncate {
+  display: block;
+}
+
+.text-truncate_ellipsis-position_middle.text-truncate_ellipsis-position_middle {
+  display: flex;
+}
+
+.text-truncate__start {
+  overflow: hidden;
+  flex-shrink: 1;
+  text-overflow: ellipsis;
+}
+
+.text-truncate__end {
+  flex-shrink: 0;
 }

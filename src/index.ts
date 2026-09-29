@@ -279,7 +279,10 @@ export type { TextProps } from './components/Text';
 
 // Text Truncate
 export { TextTruncate } from './components/TextTruncate';
-export type { TextTruncateProps } from './components/TextTruncate';
+export type {
+  TextTruncateEllipsisPosition,
+  TextTruncateProps,
+} from './components/TextTruncate';
 
 // Title
 export { Title } from './components/Title';

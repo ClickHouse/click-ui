@@ -1,2 +1,5 @@
 export { TextTruncate } from './TextTruncate';
-export type { TextTruncateProps } from './TextTruncate.types';
+export type {
+  TextTruncateEllipsisPosition,
+  TextTruncateProps,
+} from './TextTruncate.types';
