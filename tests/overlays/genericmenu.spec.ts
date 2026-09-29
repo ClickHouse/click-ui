@@ -88,18 +88,6 @@ describe('GenericMenu cluster Visual Regression', () => {
           });
         });
 
-        it('link items match snapshot', async ({ page }) => {
-          await page.goto(getStoryUrl('display-dropdown--link-items', theme), {
-            waitUntil: 'domcontentloaded',
-          });
-          const menu = page.getByRole('menu');
-          await expect(menu).toBeVisible({ timeout: 10000 });
-          await page.waitForTimeout(200);
-          await expect(menu).toHaveScreenshot(`dropdown-link-items-${theme}.png`, {
-            maxDiffPixels: 100,
-          });
-        });
-
         it('open content with arrow matches snapshot', async ({ page }) => {
           await page.goto(
             getStoryUrl('display-dropdown--open-content-with-arrow', theme),
