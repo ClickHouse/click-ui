@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-
 import type { SVGAssetProps } from '@/types';
 
 // TODO: Can this logo have a base and extend it?
