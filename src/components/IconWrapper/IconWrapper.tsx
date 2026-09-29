@@ -13,7 +13,6 @@ export const IconWrapper = ({
   ellipsisContent = true,
   tooltipProps,
   gap = 'sm',
-  isResponsive = true,
   ...props
 }: IconWrapperProps) => {
   return (
@@ -21,7 +20,7 @@ export const IconWrapper = ({
       orientation="horizontal"
       gap={gap}
       overflow="hidden"
-      isResponsive={isResponsive}
+      isResponsive={false}
       {...props}
     >
       {icon && iconDir === 'start' && (

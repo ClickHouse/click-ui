@@ -15,5 +15,4 @@ export interface IconWrapperProps extends HTMLAttributes<HTMLDivElement> {
   /** Positions the truncation tooltip. Ignored when `ellipsisContent` is `false`. */
   tooltipProps?: EllipsisContentProps['tooltipProps'];
   gap?: GapOptions;
-  isResponsive?: boolean;
 }
