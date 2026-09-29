@@ -280,4 +280,64 @@ describe('Dropdown', () => {
 
     expect(onLinkClick).toHaveBeenCalledTimes(1);
   });
+
+  it('should mark a disabled asChild link as disabled', async () => {
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item
+            asChild
+            disabled
+          >
+            <a href="https://docs.example/">Docs</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    const item = getByRole('menuitem', { name: 'Docs' });
+    expect(item.tagName).toBe('A');
+    expect(item).toHaveAttribute('aria-disabled', 'true');
+    expect(item).toHaveAttribute('data-disabled');
+  });
+
+  it('should skip a disabled asChild link from the keyboard', async () => {
+    const onDisabledClick = vi.fn((event: React.MouseEvent) => event.preventDefault());
+    const onEnabledClick = vi.fn((event: React.MouseEvent) => event.preventDefault());
+    const { getByText } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item
+            asChild
+            disabled
+          >
+            <a
+              href="https://disabled.example/"
+              onClick={onDisabledClick}
+            >
+              Disabled
+            </a>
+          </Dropdown.Item>
+          <Dropdown.Item asChild>
+            <a
+              href="https://enabled.example/"
+              onClick={onEnabledClick}
+            >
+              Enabled
+            </a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+
+    expect(onEnabledClick).toHaveBeenCalledTimes(1);
+    expect(onDisabledClick).not.toHaveBeenCalled();
+  });
 });
