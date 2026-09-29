@@ -95,6 +95,7 @@ const OuterElementType = forwardRef<HTMLDivElement>((props, ref) => (
   <div
     ref={ref}
     data-testid="grid-outer-element"
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- react-window scroll region; focusable for axe scrollable-region-focusable, keys are handled by the grid container
     tabIndex={0}
     {...props}
   />
