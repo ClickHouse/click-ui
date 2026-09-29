@@ -277,6 +277,10 @@ export type { TooltipContentProps, TooltipProps } from './components/Tooltip';
 export { Text } from './components/Text';
 export type { TextProps } from './components/Text';
 
+// Text Truncate
+export { TextTruncate } from './components/TextTruncate';
+export type { TextTruncateProps } from './components/TextTruncate';
+
 // Title
 export { Title } from './components/Title';
 export type { TitleProps } from './components/Title';
