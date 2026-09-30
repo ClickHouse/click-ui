@@ -22,6 +22,7 @@ _Why is this component needed, or why does the existing one need to change?_
 ## Design reference
 
 - [ ] Figma link provided: [Figma frame](paste-figma-url-here)
+- [ ] Figma page has a passing A11y block in Light and Dark (see [docs/figma.md](../../docs/figma.md))
 - [ ] Design reviewed and approved by the design team
 - [ ] All component states are covered in the design (default, hover, active, focus, disabled, error, loading)
 

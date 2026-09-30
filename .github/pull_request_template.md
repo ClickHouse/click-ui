@@ -22,6 +22,7 @@ Clear and short explanation here.
 - [ ] The `build` command runs locally
 - [ ] Assets or static content are linked and stored in the project
 - [ ] For documentation, guides or references, you've tested the commands
+- [ ] For component design changes, the Figma page has a passing A11y block in Light and Dark (see [docs/figma.md](../docs/figma.md))
 
 ## Security checklist?
 

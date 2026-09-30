@@ -158,7 +158,7 @@ yarn dev
 We do NOT maintain a separate development environment; our Storybook stories serve as the source of truth for component implementation.
 
 > [!IMPORTANT]
-> We operate collaboratively with the Product Design team. While stories reflect the current implementation (live), Figma files remain the source of truth for design research and decision-making. Changes are typically finalized in Figma before being implemented in code to ensure design-sync.
+> We operate collaboratively with the Product Design team. While stories reflect the current implementation (live), Figma files remain the source of truth for design research and decision-making. Changes are typically finalized in Figma before being implemented in code to ensure design-sync. See [Working on Click UI in Figma](./docs/figma.md) for the agent setup and the accessibility checks every Figma component page follows.
 
 By avoiding local preview files, we ensure that component experimentation happens in isolation; free from application side effects and providing a live look at component interfaces and usage examples at time of writing.
 
