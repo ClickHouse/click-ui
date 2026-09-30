@@ -1,4 +1,4 @@
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor, within } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
 import { Dropdown } from '@/components/Dropdown';
@@ -198,5 +198,104 @@ describe('Dropdown', () => {
     await waitFor(() => {
       expect(onOpenChange).toHaveBeenCalledWith(true);
     });
+  });
+
+  it('should render the child element as the menu item when asChild is set', async () => {
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item asChild>
+            <a href="https://docs.example/">Docs</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    const item = getByRole('menuitem', { name: 'Docs' });
+    expect(item.tagName).toBe('A');
+    expect(item).toHaveAttribute('href', 'https://docs.example/');
+  });
+
+  it('should render the item icon inside the asChild element', async () => {
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item
+            asChild
+            icon="user"
+          >
+            <a href="https://docs.example/">Docs</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    const item = getByRole('menuitem', { name: /Docs/ });
+    expect(item.tagName).toBe('A');
+    expect(within(item).getByRole('img', { name: 'user' })).toBeInTheDocument();
+  });
+
+  it('should reject more than one child when asChild is set', () => {
+    const twoChildren = (
+      // @ts-expect-error asChild takes exactly one element child
+      <Dropdown.Item asChild>
+        <a href="https://a.example/">A</a>
+        <a href="https://b.example/">B</a>
+      </Dropdown.Item>
+    );
+    expect(twoChildren).toBeDefined();
+  });
+
+  it('should activate an asChild link from the keyboard', async () => {
+    const onLinkClick = vi.fn((event: React.MouseEvent) => event.preventDefault());
+    const { getByText } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item asChild>
+            <a
+              href="https://docs.example/"
+              onClick={onLinkClick}
+            >
+              Docs
+            </a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+
+    expect(onLinkClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should mark a disabled asChild link as disabled', async () => {
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item
+            asChild
+            disabled
+          >
+            <a href="https://docs.example/">Docs</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    const item = getByRole('menuitem', { name: 'Docs' });
+    expect(item.tagName).toBe('A');
+    expect(item).toHaveAttribute('aria-disabled', 'true');
+    expect(item).toHaveAttribute('data-disabled');
   });
 });
