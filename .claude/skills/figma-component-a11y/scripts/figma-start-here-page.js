@@ -1,12 +1,18 @@
 // Paste into figma_execute (figma-console MCP) with the Click UI v2 file active.
 // Draws the "Start here" page: what the file is, the token rules, light and dark mode, how to read an
 // Accessibility block, what to ask the agent, and how changes reach the repo. The page is placed
-// after the cover and its frame is replaced on every run. Keep the text in step with docs/figma.md.
+// first (after the cover when the cover is first) and its frame is replaced on every run. Keep the text in step with docs/figma.md.
+// The hero is a scaled copy of the cover thumbnail, so rerun this after changing the thumbnail.
 
 // ---- CONFIG ----
 const PAGE = 'Start here';
 const OLD_NAMES = ['v2 migration'];
 const REPO_DOC = 'https://github.com/ClickHouse/click-ui/blob/main/docs/figma.md';
+const HERO = { page: 'Cover', frame: 'Thumbnail · Isometric layers (wireframe)' };
+const WIDTH = 1440;
+const PAD = 80;
+const COLUMNS = 3;
+const GAP = 24;
 const SECTIONS = [
   [
     'What this file is',
@@ -63,21 +69,20 @@ const SECTIONS = [
     ],
   ],
 ];
-const HEADER_COMPONENT = '_Design System / Doc Header';
 // ---- END CONFIG ----
 
 await figma.loadAllPagesAsync();
 let page = figma.root.children.find(p => p.name === PAGE || OLD_NAMES.includes(p.name));
 if (!page) page = figma.createPage();
 page.name = PAGE;
-figma.root.insertChild(1, page);
+figma.root.insertChild(figma.root.children[0].name === HERO.page ? 1 : 0, page);
 for (const n of [...page.children]) n.remove();
 
 const sem = (await figma.variables.getLocalVariableCollectionsAsync()).find(
   c => c.name === 'Semantic'
 );
 const byName = new Map(
-  (await figma.variables.getLocalVariablesAsync('COLOR')).map(v => [v.name, v])
+  (await figma.variables.getLocalVariablesAsync()).map(v => [v.name, v])
 );
 const family = 'Basier Square';
 for (const style of ['Regular', 'SemiBold']) await figma.loadFontAsync({ family, style });
@@ -93,6 +98,7 @@ function text(chars, size, style, color, width) {
   t.fontName = { family, style };
   t.characters = chars;
   t.fontSize = size;
+  t.lineHeight = { unit: 'PERCENT', value: 150 };
   t.fills = paint(color);
   if (width) {
     t.textAutoResize = 'HEIGHT';
@@ -114,52 +120,117 @@ function box(name, dir, gap, pad = 0) {
 
 const root = box(PAGE, 'VERTICAL', 0);
 root.setSharedPluginData('clickui', 'generated', 'start-here');
-root.resize(1440, root.height);
+root.resize(WIDTH, root.height);
 root.counterAxisSizingMode = 'FIXED';
 root.fills = paint('color/background/base');
 root.setExplicitVariableModeForCollection(
   sem,
-  sem.modes.find(m => m.name === 'Light').modeId
+  sem.modes.find(m => m.name === 'Dark').modeId
 );
 page.appendChild(root);
 
-const main = figma.root
-  .findAllWithCriteria({ types: ['COMPONENT'] })
-  .find(n => n.name === HEADER_COMPONENT);
-const header = main.createInstance();
-root.appendChild(header);
-header.layoutSizingHorizontal = 'FILL';
-header.name = 'Header';
-for (const t of header.findAll(n => n.type === 'TEXT')) {
-  await Promise.all(
-    t.getRangeAllFontNames(0, t.characters.length).map(f => figma.loadFontAsync(f))
-  );
-  if (t.name.includes('->')) t.characters = 'Click UI v2 -> Start here';
-  else if (t.name === 'Brand Colours') t.characters = 'Start here';
-  else
-    t.characters =
-      'How to design Click UI components in this file, with accessibility checked on every page.';
+const thumb = figma.root.children
+  .find(p => p.name === HERO.page)
+  .findOne(n => n.type === 'FRAME' && n.name === HERO.frame);
+if (thumb) {
+  const hero = thumb.clone();
+  hero.rescale(WIDTH / hero.width);
+  hero.name = 'Hero';
+  root.appendChild(hero);
 }
 
-const content = box('Content', 'VERTICAL', 56, 64);
+const content = box('Content', 'VERTICAL', 64, PAD);
 content.paddingBottom = 120;
 root.appendChild(content);
 content.layoutSizingHorizontal = 'FILL';
-for (const [title, lines] of SECTIONS) {
-  const s = box(title, 'VERTICAL', 12);
-  s.appendChild(text(title, 28, 'SemiBold', 'color/foreground/strong'));
+
+const inner = WIDTH - 2 * PAD;
+const intro = box('Intro', 'VERTICAL', 16);
+const eyebrow = text(
+  'START HERE',
+  14,
+  'SemiBold',
+  'color/foreground/interactive/accent/default'
+);
+eyebrow.letterSpacing = { unit: 'PERCENT', value: 12 };
+const headline = text(
+  'Design Click UI components with accessibility built in',
+  48,
+  'SemiBold',
+  'color/foreground/strong',
+  inner * 0.7
+);
+headline.lineHeight = { unit: 'PERCENT', value: 115 };
+intro.appendChild(eyebrow);
+intro.appendChild(headline);
+intro.appendChild(
+  text(
+    'Every component page has a light frame, a dark preview and an Accessibility block. Here is how to work in this file, and how the agent helps.',
+    20,
+    'Regular',
+    'color/foreground/default',
+    inner * 0.6
+  )
+);
+content.appendChild(intro);
+
+const grid = box('Sections', 'HORIZONTAL', GAP);
+grid.layoutWrap = 'WRAP';
+grid.counterAxisSpacing = GAP;
+content.appendChild(grid);
+grid.layoutSizingHorizontal = 'FILL';
+const cardWidth = Math.floor((inner - GAP * (COLUMNS - 1)) / COLUMNS);
+const radius = byName.get('radius/lg') || byName.get('radius/md');
+const cards = SECTIONS.map(([title, lines], i) => {
+  const card = box(title, 'VERTICAL', 12, 32);
+  card.fills = paint('color/background/raised');
+  card.strokes = paint('color/border/default');
+  card.strokeWeight = 1;
+  if (radius)
+    for (const k of [
+      'topLeftRadius',
+      'topRightRadius',
+      'bottomLeftRadius',
+      'bottomRightRadius',
+    ])
+      card.setBoundVariable(k, radius);
+  const body = cardWidth - 64;
+  card.appendChild(
+    text(
+      String(i + 1).padStart(2, '0'),
+      16,
+      'SemiBold',
+      'color/foreground/interactive/accent/default'
+    )
+  );
+  card.appendChild(text(title, 24, 'SemiBold', 'color/foreground/strong', body));
   for (const line of lines)
-    s.appendChild(text(line, 18, 'Regular', 'color/foreground/default', 960));
-  content.appendChild(s);
+    card.appendChild(text(line, 15, 'Regular', 'color/foreground/default', body));
+  grid.appendChild(card);
+  card.resize(cardWidth, card.height);
+  card.counterAxisSizingMode = 'FIXED';
+  return card;
+});
+for (let r = 0; r < cards.length; r += COLUMNS) {
+  const row = cards.slice(r, r + COLUMNS);
+  const h = Math.max(...row.map(c => c.height));
+  for (const c of row) {
+    c.primaryAxisSizingMode = 'FIXED';
+    c.resize(c.width, h);
+  }
 }
+
 const link = text(
-  `Full setup and details: ${REPO_DOC}`,
+  'Full setup and details in docs/figma.md  →',
   18,
-  'Regular',
-  'color/foreground/interactive/accent/default',
-  960
+  'SemiBold',
+  'color/foreground/interactive/accent/default'
 );
 link.hyperlink = { type: 'URL', value: REPO_DOC };
-link.textDecoration = 'UNDERLINE';
 content.appendChild(link);
-return { page: page.id, frame: root.id, index: figma.root.children.indexOf(page) };
+return {
+  page: page.id,
+  frame: root.id,
+  index: figma.root.children.indexOf(page),
+  hero: !!thumb,
+};

@@ -51,7 +51,7 @@ Setup for people is in [docs/figma.md](../../../docs/figma.md).
 
 1. `scripts/figma-inspect-page.js` with `FRAME_ID` set to the light frame. It lists every binding (flagging `[remote]` and `RAW` colors) and the component sets with their variant properties. Screenshot the frame.
 2. Rebind with `scripts/figma-remap-variables.js`: fill `MAP` (old variable name to new), `DRY = true`, check `changed` and `notSemantic`, then `DRY = false`. Use `byVariant` when one variable must map to different tokens per state.
-3. When no token fits: add a **generic interactive group** (like `color/background/interactive/neutral/{default,hover,active}` with `color/foreground/interactive/on-neutral`), not a component-named token. New values alias Primitive palette steps: pick the step closest to the repo value; if it fails contrast, move one step darker (Light) or lighter (Dark). Composite translucent repo colors over the page background (`#ffffff` Light, `#1f1f1c` Dark) before matching. Ask first.
+3. When no token fits: add a **generic interactive group** (like `color/background/interactive/neutral/{default,hover,active}` with `color/foreground/interactive/on-neutral`), not a component-named token. New values alias Primitive palette steps: pick the step closest to the repo value; if it fails contrast, move one step darker (Light) or lighter (Dark). Composite translucent repo colors over the page background (`#ffffff` Light, `#1f1f1c` Dark) before matching. A new Primitive gets `scopes = []` so it stays out of the pickers (Figma defaults to All scopes). Ask first.
 
 ## Dark preview
 
