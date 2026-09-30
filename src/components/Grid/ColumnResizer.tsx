@@ -129,6 +129,7 @@ const ColumnResizer = ({
   );
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- onClick only stops the click reaching the grid
     <div
       ref={resizeRef}
       className={resizerVariants({ pressed: isPressed })}

@@ -103,6 +103,7 @@ export const FileUploadArea: FC<FileUploadAreaProps> = ({
   const isCompact = hasFile || size === 'sm';
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events -- area click widens the pointer target; the Browse button inside is the keyboard path
     <div
       className={cn(
         uploadAreaVariants({

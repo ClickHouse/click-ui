@@ -41,24 +41,6 @@
       "count": 1
     }
   },
-  "src/components/FileUpload/FileUploadArea.tsx": {
-    "jsx-a11y/click-events-have-key-events": {
-      "count": 1
-    }
-  },
-  "src/components/Grid/ColumnResizer.tsx": {
-    "jsx-a11y/click-events-have-key-events": {
-      "count": 1
-    },
-    "jsx-a11y/no-static-element-interactions": {
-      "count": 1
-    }
-  },
-  "src/components/Grid/Grid.tsx": {
-    "jsx-a11y/no-noninteractive-tabindex": {
-      "count": 1
-    }
-  },
   "src/components/Table/Table.tsx": {
     "jsx-a11y/click-events-have-key-events": {
       "count": 1
