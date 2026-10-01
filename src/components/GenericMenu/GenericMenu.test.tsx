@@ -1,15 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from 'styled-components';
+import { ClickUIProvider } from '@/providers';
 import {
   GenericMenuPanel,
   GenericPopoverMenuPanel,
   GenericMenuItem,
 } from './GenericMenu';
-import { themes } from '@/theme/theme.core';
 
 const renderWithTheme = (component: React.ReactNode) => {
-  return render(<ThemeProvider theme={themes.dark}>{component}</ThemeProvider>);
+  return render(<ClickUIProvider theme="dark">{component}</ClickUIProvider>);
 };
 
 describe('GenericMenu', () => {
@@ -17,7 +16,7 @@ describe('GenericMenu', () => {
     it('renders with dropdown-menu type', () => {
       renderWithTheme(
         <GenericMenuPanel
-          $type="dropdown-menu"
+          type="dropdown-menu"
           data-testid="menu-panel"
         >
           Content
@@ -29,7 +28,7 @@ describe('GenericMenu', () => {
     it('renders with popover type', () => {
       renderWithTheme(
         <GenericMenuPanel
-          $type="popover"
+          type="popover"
           data-testid="menu-panel"
         >
           Content
@@ -41,7 +40,7 @@ describe('GenericMenu', () => {
     it('renders with context-menu type', () => {
       renderWithTheme(
         <GenericMenuPanel
-          $type="context-menu"
+          type="context-menu"
           data-testid="menu-panel"
         >
           Content
@@ -55,7 +54,7 @@ describe('GenericMenu', () => {
     it('renders correctly', () => {
       renderWithTheme(
         <GenericPopoverMenuPanel
-          $type="popover"
+          type="popover"
           data-testid="popover-panel"
         >
           Popover Content
@@ -67,7 +66,7 @@ describe('GenericMenu', () => {
     it('renders with hover-card type', () => {
       renderWithTheme(
         <GenericPopoverMenuPanel
-          $type="hover-card"
+          type="hover-card"
           data-testid="hover-panel"
         >
           Hover Content
@@ -89,7 +88,7 @@ describe('GenericMenu', () => {
     it('renders with danger type', () => {
       renderWithTheme(
         <GenericMenuItem
-          $type="danger"
+          type="danger"
           data-testid="danger-item"
         >
           Danger Item

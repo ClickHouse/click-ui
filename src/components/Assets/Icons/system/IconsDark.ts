@@ -66,6 +66,7 @@ import Database from '../Database';
 import Disk from '../Disk';
 import Display from '../Display';
 import Document from '../Document';
+import Dollar from '../Dollar';
 import Dot from '../Dot';
 import Dots_Horizontal from '../Dots-Horizontal';
 import Dots_Triangle from '../Dots-Triangle';
@@ -91,6 +92,7 @@ import Gear from '../Gear';
 import Gift from '../Gift';
 import Git_Merge from '../Git-Merge';
 import Globe from '../Globe';
+import Grid_Dots from '../Grid-Dots';
 import Hexagon from '../Hexagon';
 import History from '../History';
 import Home from '../Home';
@@ -125,11 +127,13 @@ import Pause from '../Pause';
 import Payment from '../Payment';
 import Pencil from '../Pencil';
 import Pie_Chart from '../Pie-Chart';
+import Pin from '../Pin';
 import Pipe from '../Pipe';
 import Play from '../Play';
 import Play_In_Circle from '../Play-In-Circle';
 import Plug from '../Plug';
 import Plus from '../Plus';
+import Popin from '../Popin';
 import Popout from '../Popout';
 import Popover_Arrow from '../Popover-Arrow';
 import Puzzle_Piece from '../Puzzle-Piece';
@@ -146,7 +150,6 @@ import Server from '../Server';
 import Services from '../Services';
 import Settings from '../Settings';
 import Share from '../Share';
-import Share_Arrow from '../Share-Arrow';
 import Share_Network from '../Share-Network';
 import Sleep from '../Sleep';
 import Slide_In from '../Slide-In';
@@ -168,6 +171,7 @@ import Thumbs_Up from '../Thumbs-Up';
 import Trash from '../Trash';
 import Tree_Structure from '../Tree-Structure';
 import Underline from '../Underline';
+import Unpin from '../Unpin';
 import Upgrade from '../Upgrade';
 import Upload from '../Upload';
 import Url from '../Url';
@@ -241,6 +245,7 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   disk: Disk,
   display: Display,
   document: Document,
+  dollar: Dollar,
   dot: Dot,
   'dots-horizontal': Dots_Horizontal,
   'dots-triangle': Dots_Triangle,
@@ -266,6 +271,7 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   gift: Gift,
   'git-merge': Git_Merge,
   globe: Globe,
+  'grid-dots': Grid_Dots,
   hexagon: Hexagon,
   history: History,
   home: Home,
@@ -300,11 +306,13 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   payment: Payment,
   pencil: Pencil,
   'pie-chart': Pie_Chart,
+  pin: Pin,
   pipe: Pipe,
   play: Play,
   'play-in-circle': Play_In_Circle,
   plug: Plug,
   plus: Plus,
+  popin: Popin,
   popout: Popout,
   'popover-arrow': Popover_Arrow,
   'puzzle-piece': Puzzle_Piece,
@@ -321,7 +329,6 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   services: Services,
   settings: Settings,
   share: Share,
-  'share-arrow': Share_Arrow,
   'share-network': Share_Network,
   sleep: Sleep,
   'slide-in': Slide_In,
@@ -343,6 +350,7 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   trash: Trash,
   'tree-structure': Tree_Structure,
   underline: Underline,
+  unpin: Unpin,
   upgrade: Upgrade,
   upload: Upload,
   url: Url,

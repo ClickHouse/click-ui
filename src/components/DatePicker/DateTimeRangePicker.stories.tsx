@@ -4,6 +4,8 @@ import { DateRangeListItem, getPredefinedTimePeriodsForDateTimePicker } from './
 import dayjs from 'dayjs';
 import { Text } from '../Text';
 
+const oneHourInMilliseconds = 3600 * 1000;
+
 const meta: Meta<typeof DateTimeRangePicker> = {
   component: DateTimeRangePicker,
   args: {
@@ -278,6 +280,38 @@ export const SetStartAndEndDate: Story = {
   },
 };
 
+export const PredefinedTimesWithSetStartAndEndDate: Story = {
+  args: {
+    maxRangeLength: 15,
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate
+      ? new Date(args.endDate)
+      : new Date('July 4, 2026 11:25 AM');
+    const startDate = new Date(endDate.getTime() - oneHourInMilliseconds);
+
+    const futureDatesDisabled = args.futureDatesDisabled ?? true;
+    const predefinedTimesList = getPredefinedTimePeriodsForDateTimePicker();
+
+    return (
+      <DateTimeRangePicker
+        key="default"
+        defaultActiveTab="endDate"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        predefinedTimesList={predefinedTimesList}
+        startDate={startDate}
+        shouldShowSeconds={args.shouldShowSeconds}
+      />
+    );
+  },
+};
+
 export const DateTimeFutureStartDatesDisabled: Story = {
   args: {
     futureStartDatesDisabled: true,
@@ -325,6 +359,20 @@ export const TimezoneLocalVsUTC: Story = {
       </div>
     );
   },
+};
+
+export const InvalidDates: Story = {
+  args: {
+    predefinedTimesList: [],
+  },
+  render: (args: Args) => (
+    <DateTimeRangePicker
+      key="invalid-dates"
+      startDate={new Date('2026-07-20T14:00:00')}
+      endDate={new Date('2026-07-20T10:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+    />
+  ),
 };
 
 export const DontFireIfInvalid: Story = {

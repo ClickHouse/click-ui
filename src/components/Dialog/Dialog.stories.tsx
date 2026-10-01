@@ -6,7 +6,6 @@ import { Dialog } from '@/components/Dialog';
 import { Separator } from '@/components/Separator';
 import { Spacer } from '@/components/Spacer';
 import { Button } from '@/components/Button';
-import { styled } from 'styled-components';
 import { Link } from '@/components/Link';
 import { Container } from '@/components/Container';
 import { TextField } from '@/components/TextField';
@@ -58,11 +57,17 @@ const DialogExample = ({
   </GridCenter>
 );
 
-const ActionArea = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${({ theme }) => theme.click.dialog.space.gap};
-`;
+const ActionArea = ({ children }: { children: React.ReactNode }) => (
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'flex-end',
+      gap: 'var(--click-dialog-space-gap)',
+    }}
+  >
+    {children}
+  </div>
+);
 
 const meta: Meta<typeof DialogExample> = {
   component: DialogExample,
@@ -131,17 +136,106 @@ export const WithDescription: Story = {
   },
 };
 
-const TopNav = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-bottom: 1px solid ${({ theme }) => theme.click.separator.color.stroke.default};
-`;
+export const TitleOnly: Story = {
+  render: () => (
+    <GridCenter>
+      <Dialog open>
+        <Dialog.Content title="Example dialog title">
+          <Text color="muted">
+            A dialog whose title bar shows the title and no close button.
+          </Text>
+        </Dialog.Content>
+      </Dialog>
+    </GridCenter>
+  ),
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 500,
+      },
+    },
+  },
+};
+
+export const OnlyClose: Story = {
+  render: () => (
+    <GridCenter>
+      <Dialog open>
+        <Dialog.Content showClose>
+          <Text color="muted">
+            A dialog whose title bar shows only the close button, right-aligned.
+          </Text>
+        </Dialog.Content>
+      </Dialog>
+    </GridCenter>
+  ),
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 500,
+      },
+    },
+  },
+};
+
+export const NoHeader: Story = {
+  render: () => (
+    <GridCenter>
+      <Dialog open>
+        <Dialog.Content>
+          <Text color="muted">
+            A dialog with neither a title nor a close button, so the title bar is omitted.
+          </Text>
+        </Dialog.Content>
+      </Dialog>
+    </GridCenter>
+  ),
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 500,
+      },
+    },
+  },
+};
+
+export const ReducePadding: Story = {
+  args: {
+    title: 'Reduced padding dialog',
+    showClose: true,
+    open: true,
+    reducePadding: true,
+  },
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 500,
+      },
+    },
+  },
+};
+
+const TopNav = ({ children }: { children: React.ReactNode }) => (
+  <div
+    style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      paddingBottom: '12px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      borderBottom: '1px solid var(--click-separator-color-stroke-default)',
+    }}
+  >
+    {children}
+  </div>
+);
 
 export const ChatDialog: Story = {
   args: {

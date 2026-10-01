@@ -8,6 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { cssColocatePlugin } from './plugins/css-colocate';
 import { generateScopedName } from './plugins/css-colocate/utils';
+import { wrapInClickuiLayers } from './plugins/css-colocate/postcss-clickui-layers';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
 
@@ -82,21 +83,22 @@ const viteConfig = defineConfig({
       // Generate predictable class names for debugging in dev
       generateScopedName,
     },
+    // Wrap component CSS in the `clickui` cascade layer. Runs in Vite's native
+    // CSS pipeline (before its modules transform, so it sees the original BEM
+    // names) — this covers dev, Storybook, the visual-regression suite, and the
+    // combined dist `click-ui.css`, keeping their cascade identical to what the
+    // per-component dist files get from css-preprocess.ts.
+    postcss: {
+      // Vite bundles its own `postcss` install — structurally identical to the
+      // repo's top-level `postcss` but a distinct nominal type, so the plugin's
+      // `Plugin` type is not assignable to Vite's. It is runtime-compatible with
+      // both; `any` is the escape hatch for the duplicate-package type clash.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      plugins: [wrapInClickuiLayers() as any],
+    },
   },
   plugins: [
-    react({
-      // TODO: On styled-components migration completion
-      // remove styled-components babel plugins
-      babel: {
-        plugins: [['babel-plugin-styled-components', { displayName: false }]],
-
-        env: {
-          development: {
-            plugins: [['babel-plugin-styled-components', { displayName: true }]],
-          },
-        },
-      },
-    }),
+    react(),
     dts({
       outDir: 'dist/types',
       include: ['src/**/*'],
@@ -142,11 +144,17 @@ const viteConfig = defineConfig({
 });
 
 const vitestConfig = defineVitestConfig({
+  // Let Vitest read setup files from a parent checkout's node_modules when run
+  // from a git worktree. See https://github.com/ClickHouse/click-ui/pull/1071
+  server: { fs: { strict: false } },
   test: {
     environment: 'jsdom',
-    // TODO: Note that currently, the pw visual regression tests
-    // are kept separate, see ./tests
-    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    // Playwright visual specs are separate, see ./tests
+    include: [
+      'src/**/*.{test,spec}.{ts,tsx}',
+      'plugins/**/*.{test,spec}.{ts,tsx}',
+      '.scripts/**/*.{test,spec}.{ts,tsx}',
+    ],
     exclude: ['node_modules', 'dist', 'build', 'storybook-static', '.storybook'],
     globals: true,
     watch: false,

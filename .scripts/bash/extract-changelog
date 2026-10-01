@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -lt 1 ]]; then
-  echo "👹 Oops! Usage is extract-changelog <version> [changelog_file]" >&2
+  echo "❌ Error: Usage is extract-changelog <version> [changelog_file]" >&2
   exit 1
 fi
 
@@ -9,12 +9,12 @@ VERSION="$1"
 CHANGELOG_FILE="${2:-CHANGELOG.md}"
 
 if [[ -z "$VERSION" ]]; then
-  echo "👹 Oops! Version is empty" >&2
+  echo "❌ Error: Version is empty" >&2
   exit 1
 fi
 
 if [[ ! -f "$CHANGELOG_FILE" ]]; then
-  echo "👹 Oops! Changelog file not found: $CHANGELOG_FILE" >&2
+  echo "❌ Error: Changelog file not found: $CHANGELOG_FILE" >&2
   exit 1
 fi
 

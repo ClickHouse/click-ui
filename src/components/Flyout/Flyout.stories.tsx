@@ -13,6 +13,7 @@ interface FlyoutExampleProps extends FlyoutProps {
   type: 'default' | 'inline';
   size: 'default' | 'narrow' | 'wide' | 'widest';
   width?: string;
+  hasShadow?: boolean;
 }
 
 const FlyoutExample = ({
@@ -23,6 +24,7 @@ const FlyoutExample = ({
   size,
   width,
   align,
+  hasShadow,
   ...props
 }: FlyoutExampleProps) => {
   return (
@@ -35,6 +37,7 @@ const FlyoutExample = ({
         align={align}
         size={size}
         width={width}
+        hasShadow={hasShadow}
       >
         <Flyout.Header
           type={type}
@@ -84,6 +87,7 @@ const meta: Meta<typeof FlyoutExample> = {
     size: { control: 'select', options: ['default', 'narrow', 'wide', 'widest'] },
     type: { control: 'select', options: ['default', 'inline'] },
     width: { control: 'text' },
+    hasShadow: { control: 'boolean' },
   },
 };
 
@@ -98,6 +102,7 @@ export const Playground: Story = {
     align: 'end',
     size: 'default',
     type: 'default',
+    hasShadow: true,
   },
   parameters: {
     docs: {
@@ -140,5 +145,115 @@ export const Playground: Story = {
         },
       },
     },
+  },
+};
+
+// --- Visual regression baseline stories ---
+// Each opens the flyout (`open`) so the portalled content renders for
+// screenshotting. They cover every visual axis the current rendering
+// varies on: type, size, alignment, shadow, and body alignment.
+
+export const OpenDefault: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const InlineType: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'inline',
+    hasShadow: true,
+  },
+};
+
+export const AlignStart: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'start',
+    size: 'default',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const NoShadow: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'default',
+    hasShadow: false,
+  },
+};
+
+export const SizeNarrow: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'narrow',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const SizeWide: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'wide',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const SizeWidest: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'widest',
+    type: 'default',
+    hasShadow: true,
+  },
+};
+
+export const BodyAlignTop: Story = {
+  tags: ['!autodocs'],
+  args: {
+    open: true,
+    title: 'Title',
+    description: 'Description',
+    align: 'end',
+    size: 'default',
+    type: 'default',
+    alignBody: 'top',
+    hasShadow: true,
   },
 };

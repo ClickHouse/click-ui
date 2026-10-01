@@ -1,3 +1,7 @@
+// Affected-spec coverage for scoped visual-regression runs in CI.
+// See .scripts/js/affected-visual-specs
+// @covers src/components/Button
+// @covers src/components/ButtonGroup
 import { test as it, expect } from '@playwright/test';
 
 const { describe, beforeEach, afterEach } = it;
@@ -56,7 +60,7 @@ describe('Buttons', () => {
     });
 
     it(`should render ${id}, on first element click`, async ({ page }) => {
-      const button = page.locator('[role="button"]:nth-child(1)');
+      const button = page.getByRole('group').getByRole('button').nth(0);
 
       await expect(button).toBeVisible({ timeout: 10_000 });
 
@@ -69,7 +73,7 @@ describe('Buttons', () => {
     });
 
     it(`should ${id}, on second element click have aria-pressed`, async ({ page }) => {
-      const button = page.locator('[role="button"]:nth-child(2)');
+      const button = page.getByRole('group').getByRole('button').nth(1);
 
       await expect(button).toBeVisible({ timeout: 10_000 });
 

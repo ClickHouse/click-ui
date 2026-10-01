@@ -6,7 +6,7 @@ import { GridCenter } from '@/components/GridCenter';
 import { Button } from '@/components/Button';
 import { Key } from 'react';
 
-import type { DropdownItemProps } from '@/components/Dropdown/Dropdown';
+import type { DropdownItemProps } from '@/components/Dropdown';
 
 interface DropdownExampleProps extends DropdownMenuProps {
   disabled?: boolean;
@@ -138,4 +138,161 @@ export const Playground: Story = {
     side: 'bottom',
     itemCount: 0,
   },
+};
+
+// Visual-regression story: renders the dropdown content open and inline (no
+// collision repositioning) so the menu panel + item extension styles can be
+// screenshotted deterministically.
+export const OpenContent: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 480 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+        >
+          <Dropdown.Group>
+            <Dropdown.Item data-state="checked">Checked item</Dropdown.Item>
+          </Dropdown.Group>
+          <Dropdown.Item>Default item</Dropdown.Item>
+          <Dropdown.Item icon="activity">Item with icon</Dropdown.Item>
+          <Dropdown.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Icon end
+          </Dropdown.Item>
+          <Dropdown.Item disabled>Disabled item</Dropdown.Item>
+          <Dropdown.Item type="danger">Delete</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
+// Visual-regression story: menu items rendered as links through asChild, including a disabled one.
+export const LinkItems: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+        >
+          <Dropdown.Item asChild>
+            <a href="https://clickhouse.com/docs">Link item</a>
+          </Dropdown.Item>
+          <Dropdown.Item
+            asChild
+            icon="activity"
+          >
+            <a href="https://clickhouse.com/docs">Link item with icon</a>
+          </Dropdown.Item>
+          <Dropdown.Item
+            asChild
+            disabled
+          >
+            <a href="https://clickhouse.com/docs">Disabled link item</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
+export const OpenContentWithArrow: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          showArrow
+          avoidCollisions={false}
+        >
+          <Dropdown.Item>Default item</Dropdown.Item>
+          <Dropdown.Item>Second item</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
+// Visual-regression story: isolates the Dropdown.Trigger so its width
+// (fit-content) and :focus-visible outline can be screenshotted deterministically.
+export const TriggerStandalone: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-trigger-harness"
+      style={{ padding: '2rem', minHeight: 120 }}
+    >
+      <Dropdown>
+        <Dropdown.Trigger>Trigger text</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item>Item</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
+};
+
+// A menu whose item labels are too long for the panel. The first two items take the
+// default truncation tooltip, which opens to the right so it does not cover the items
+// above the hovered one; the third overrides it. The sub-trigger takes the same
+// default through its own branch of Dropdown.Trigger.
+export const TruncatedItems: Story = {
+  render: () => (
+    <div
+      data-testid="dropdown-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Dropdown
+        open
+        modal={false}
+      >
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content
+          side="bottom"
+          avoidCollisions={false}
+          style={{ width: 180 }}
+        >
+          <Dropdown.Item>A menu item label far too long for this panel</Dropdown.Item>
+          <Dropdown.Item>
+            Another menu item label far too long for this panel
+          </Dropdown.Item>
+          <Dropdown.Item tooltipProps={{ side: 'bottom' }}>
+            A third label, too long again, opting out of the default
+          </Dropdown.Item>
+          <Dropdown.Sub>
+            <Dropdown.Trigger sub>
+              A sub menu trigger label far too long for this panel
+            </Dropdown.Trigger>
+            <Dropdown.Content sub>
+              <Dropdown.Item>SubContent0</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown.Sub>
+        </Dropdown.Content>
+      </Dropdown>
+    </div>
+  ),
 };

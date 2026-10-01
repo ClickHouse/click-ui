@@ -6,7 +6,7 @@
 # Output: chore: 🤖 release v1.2.3 (latest)
 
 if [[ $# -lt 2 ]]; then
-  echo "👹 Oops! Missing arguments" >&2
+  echo "❌ Error: Missing arguments" >&2
   echo "💡 Use generate-release-commit-message <version> <release_type>, e.g. generate-release-commit-message 1.2.3 latest"
 
   exit 1
@@ -16,13 +16,13 @@ VERSION="$1"
 RELEASE_TYPE="$2"
 
 if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
-  echo "👹 Oops! Invalid version format: '$VERSION'"
+  echo "❌ Error: Invalid version format: '$VERSION'"
   echo "💡 Expected format X.Y.Z or X.Y.Z-suffix, e.g., 1.2.3 or 1.2.3-rc.1"
   exit 1
 fi
 
 if [[ ! "$RELEASE_TYPE" =~ ^(latest|rc|test|stable)$ ]]; then
-  echo "👹 Oops! Invalid release type '$RELEASE_TYPE'"
+  echo "❌ Error: Invalid release type '$RELEASE_TYPE'"
   echo "💡 Expected one of latest, rc or test"
 
   exit 1

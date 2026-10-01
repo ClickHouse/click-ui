@@ -13,6 +13,8 @@ export default {
           },
         },
       },
+      // Assets render inline, so ids need a per-component prefix to avoid colliding.
+      'prefixIds',
     ],
   },
   template: (variables, { tpl }) => {

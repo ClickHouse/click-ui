@@ -21,6 +21,61 @@ export default meta;
 
 type Story = StoryObj<typeof Popover>;
 
+// Visual-regression story: renders the popover content open and inline so the
+// panel extension styles (padding, showClose padding-top, border, shadow) can
+// be screenshotted deterministically.
+export const OpenContent: Story = {
+  render: () => (
+    <div
+      data-testid="popover-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 360 }}
+    >
+      <Popover
+        open
+        modal={false}
+      >
+        <Popover.Trigger>Click Here</Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          showArrow
+          showClose
+          avoidCollisions={false}
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>Click on the input element below.</Text>
+          <br />
+          <Checkbox label="This is a sample data to experiment the popover" />
+        </Popover.Content>
+      </Popover>
+    </div>
+  ),
+};
+
+export const OpenContentNoClose: Story = {
+  render: () => (
+    <div
+      data-testid="popover-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 240 }}
+    >
+      <Popover
+        open
+        modal={false}
+      >
+        <Popover.Trigger>Click Here</Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          avoidCollisions={false}
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>No close button variant.</Text>
+        </Popover.Content>
+      </Popover>
+    </div>
+  ),
+};
+
 export const Playground: Story = {
   args: {
     modal: false,
@@ -58,5 +113,46 @@ export const Playground: Story = {
         </Popover.Content>
       </Popover>
     </GridCenter>
+  ),
+};
+
+// Open-by-default so visual regression can screenshot the panel and close button
+// without an interaction step.
+export const OpenWithClose: Story = {
+  args: {
+    modal: false,
+    open: true,
+  },
+  render: args => (
+    <GridCenter>
+      <Popover {...args}>
+        <Popover.Trigger>Click Here</Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          showClose
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>Popover with a close button.</Text>
+        </Popover.Content>
+      </Popover>
+    </GridCenter>
+  ),
+};
+
+// Renders only the trigger (popover closed) so the trigger's own reset styles —
+// `width: fit-content`, `cursor: pointer`, and the `inherit`/`none` resets applied
+// via `<Popover.Trigger asChild>` onto its wrapping `<div>` — can be screenshotted
+// in isolation. Guards the styled(RadixPopover.Trigger) → CSS Modules migration.
+export const TriggerOnly: Story = {
+  render: () => (
+    <div
+      data-testid="popover-trigger-harness"
+      style={{ padding: '2rem' }}
+    >
+      <Popover modal={false}>
+        <Popover.Trigger>Click Here</Popover.Trigger>
+      </Popover>
+    </div>
   ),
 };

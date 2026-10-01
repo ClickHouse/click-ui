@@ -1,6 +1,7 @@
 import { ProgressBar } from '@/components/ProgressBar';
 import type { ProgressBarProps } from '@/components/ProgressBar';
 import { fireEvent } from '@testing-library/react';
+import type { CSSProperties } from 'react';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Progress bar', () => {
@@ -27,6 +28,28 @@ describe('Progress bar', () => {
     const progressBar = queryAllByTestId('progressbar');
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).not.toContain('38%');
+  });
+
+  it('should preserve progress if a custom style is provided', () => {
+    const { getByTestId } = renderPopover({
+      type: 'default',
+      progress: 42,
+      style: { height: '20px' },
+    });
+    const progressBar = getByTestId('progressbar');
+
+    expect(progressBar).toHaveStyle({ height: '20px' });
+    expect(progressBar.style.getPropertyValue('--progress')).toBe('42%');
+  });
+
+  it('should allow overriding progress if a custom CSS variable is provided', () => {
+    const { getByTestId } = renderPopover({
+      type: 'default',
+      progress: 42,
+      style: { '--progress': '25%' } as CSSProperties,
+    });
+
+    expect(getByTestId('progressbar').style.getPropertyValue('--progress')).toBe('25%');
   });
 
   it('should show close Button if dismissable is true', () => {
@@ -62,5 +85,52 @@ describe('Progress bar', () => {
     expect(progressBar).toHaveLength(1);
     expect(progressBar[0].textContent).not.toContain('38%');
     expect(progressBar[0].textContent).toContain('Success');
+  });
+
+  it('should render label if present', () => {
+    const { queryAllByTestId } = renderPopover({
+      type: 'default',
+      progress: 50,
+      label: 'Half',
+    });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('Half');
+    expect(progressBar[0].textContent).not.toContain('50%');
+    expect(progressBar[0]).not.toHaveAttribute('label');
+  });
+
+  it('should render percentage if label is an empty string', () => {
+    const { queryAllByTestId } = renderPopover({
+      type: 'default',
+      progress: 50,
+      label: '',
+    });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('50%');
+  });
+
+  it('should render percentage if a conditional label is false', () => {
+    const { queryAllByTestId } = renderPopover({
+      type: 'default',
+      progress: 50,
+      label: false,
+    });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('50%');
+  });
+
+  it('should render success message in preference to label', () => {
+    const { queryAllByTestId } = renderPopover({
+      type: 'default',
+      progress: 100,
+      label: '100',
+      successMessage: 'Finished',
+    });
+    const progressBar = queryAllByTestId('progressbar');
+    expect(progressBar).toHaveLength(1);
+    expect(progressBar[0].textContent).toContain('Finished');
   });
 });

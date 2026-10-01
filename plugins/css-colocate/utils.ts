@@ -1,6 +1,8 @@
 import fs from 'fs-extra';
 import { glob } from 'glob';
 import path from 'path';
+import postcss from 'postcss';
+import { wrapInClickuiLayers } from './postcss-clickui-layers';
 
 /**
  * Shared CSS modules scoped name pattern.
@@ -56,7 +58,9 @@ export const copyCssFiles = async (rootDir: string, distDir: string): Promise<vo
   const srcFiles = await findFiles(srcDir, '**/*.css');
   await Promise.all(
     srcFiles.map(async file => {
-      if (file.endsWith('.module.css')) return;
+      if (file.endsWith('.module.css')) {
+        return;
+      }
       const dest = path.join(distDir, path.relative(srcDir, file));
 
       // Check for naming collision with processed CSS
@@ -64,12 +68,21 @@ export const copyCssFiles = async (rootDir: string, distDir: string): Promise<vo
         const relativePath = path.relative(distDir, dest);
         throw new Error(
           `CSS naming collision detected: "${relativePath}" exists as both a processed .module.css file and a regular .css file. ` +
-            `Please rename one of them to avoid ambiguity.`
+            'Please rename one of them to avoid ambiguity.'
         );
       }
 
       await fs.ensureDir(path.dirname(dest));
-      await fs.copy(file, dest, { overwrite: true });
+      // Wrap non-module globals (e.g. the theme token files) in the `clickui`
+      // layer too — fs.copy would bypass PostCSS and ship them unlayered, which
+      // would beat a consumer's `@layer app` overrides and break the contract.
+      // This mirrors the Vite css.postcss pass so the standalone dist
+      // stylesheets and the bundled CSS layer identically.
+      const css = await fs.readFile(file, 'utf-8');
+      const { css: wrapped } = await postcss([wrapInClickuiLayers()]).process(css, {
+        from: file,
+      });
+      await fs.writeFile(dest, wrapped);
     })
   );
 };

@@ -126,9 +126,11 @@ export type {
 
 // Dropdown
 export { Dropdown } from './components/Dropdown';
+export type { DropdownItemProps } from './components/Dropdown';
 
 // Ellipsis Content
 export { EllipsisContent } from './components/EllipsisContent';
+export type { EllipsisContentProps } from './components/EllipsisContent';
 
 // File Upload & Tabs
 export { FileMultiUpload, FileUpload } from './components/FileUpload';
@@ -269,7 +271,7 @@ export type { CUIThemeType, UseThemeParams } from './hooks';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';
-export type { TooltipProps } from './components/Tooltip';
+export type { TooltipContentProps, TooltipProps } from './components/Tooltip';
 
 // Text
 export { Text } from './components/Text';
@@ -290,9 +292,13 @@ export type {
 // Providers
 // ================================================
 
-// TODO: Having both ClickUIProvider and ThemeProvider exported is confusing.
-// Consider consolidating to a single public provider API. For example, have ThemeProvider only!
-export { ClickUIProvider, ThemeProvider } from './providers';
+export {
+  ClickUIProvider,
+  PortalProvider,
+  usePortalContainer,
+  useResolvedPortalContainer,
+} from './providers';
+export type { PortalContainer, PortalProviderProps } from './providers';
 
 // ================================================
 // Theme
@@ -349,22 +355,3 @@ export type { HoverCardProps } from '@radix-ui/react-hover-card';
  * Consider using click-ui's Popover component API instead.
  */
 export type { PopoverProps } from '@radix-ui/react-popover';
-
-// ================================================
-// Deprecated Exports
-// These exports are deprecated and will be removed in a future version.
-// They are kept here temporarily for backward compatibility.
-// ================================================
-
-/**
- * @deprecated Use the `Link` component with the `component` prop instead.
- * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
- */
-export { linkStyles } from './components/Link/common';
-
-/**
- * @deprecated Use the `Link` component with the `component` prop instead.
- * This type exposes internal styled-components implementation details.
- * Example: `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`
- */
-export type { StyledLinkProps } from './components/Link/common';

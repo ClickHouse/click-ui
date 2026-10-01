@@ -1,0 +1,221 @@
+/* Design tokens use camelCase segments (e.g. fieldText). */
+/* stylelint-disable custom-property-pattern */
+/* The original styled-components used vendor-prefixed autofill/appearance
+   overrides and native resize; `:autofill` overrides require `-webkit-box-shadow`
+   specifically, so these are preserved verbatim for byte-for-byte parity. */
+/* stylelint-disable property-no-vendor-prefix */
+/* stylelint-disable plugin/no-unsupported-browser-features */
+/* The disabled-state rules intentionally come last to win the cascade, matching
+   the styled-components source order; this trips no-descending-specificity. */
+/* stylelint-disable no-descending-specificity */
+.wrapper {
+  display: flex;
+  width: inherit;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--click-field-space-gap);
+  border: 1px solid var(--click-field-color-stroke-default);
+  border-radius: var(--click-field-radii-all);
+  background: var(--click-field-color-background-default);
+  color: var(--click-field-color-text-default);
+  font: var(--click-field-typography-fieldText-default);
+}
+
+.wrapper span:first-of-type {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.wrapper *:autofill,
+.wrapper *:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-default) inset;
+  caret-color: var(--click-field-color-text-default);
+  -webkit-text-fill-color: var(--click-field-color-text-default);
+}
+
+.wrapper:hover {
+  border: 1px solid var(--click-field-color-stroke-hover);
+  background: var(--click-field-color-background-hover);
+  color: var(--click-field-color-text-hover);
+}
+
+.wrapper:hover *:autofill,
+.wrapper:hover *:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-hover) inset;
+  caret-color: var(--click-field-color-text-hover);
+  -webkit-text-fill-color: var(--click-field-color-text-hover);
+}
+
+.wrapper_resize_vertical,
+.wrapper_resize_horizontal,
+.wrapper_resize_both {
+  overflow: auto;
+}
+
+.wrapper_resize_vertical {
+  resize: vertical;
+}
+
+.wrapper_resize_horizontal {
+  resize: horizontal;
+}
+
+.wrapper_resize_both {
+  resize: both;
+}
+
+.wrapper:not(.wrapper_error):focus-within,
+.wrapper:not(.wrapper_error)[data-state='open'] {
+  border: 1px solid var(--click-field-color-stroke-active);
+  background: var(--click-field-color-background-active);
+  color: var(--click-field-color-text-active);
+  font: var(--click-field-typography-fieldText-active);
+}
+
+.wrapper:not(.wrapper_error):focus-within *:autofill,
+.wrapper:not(.wrapper_error):focus-within *:-webkit-autofill,
+.wrapper:not(.wrapper_error)[data-state='open'] *:autofill,
+.wrapper:not(.wrapper_error)[data-state='open'] *:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-active) inset;
+  caret-color: var(--click-field-color-text-active);
+  -webkit-text-fill-color: var(--click-field-color-text-active);
+}
+
+.wrapper_error {
+  border: 1px solid var(--click-field-color-stroke-error);
+  background: var(--click-field-color-background-active);
+  color: var(--click-field-color-text-error);
+  font: var(--click-field-typography-fieldText-error);
+}
+
+.wrapper_error *:autofill,
+.wrapper_error *:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-error) inset;
+  caret-color: var(--click-field-color-text-error);
+  -webkit-text-fill-color: var(--click-field-color-text-error);
+}
+
+.wrapper_error:hover {
+  border: 1px solid var(--click-field-color-stroke-error);
+  color: var(--click-field-color-text-error);
+}
+
+.wrapper_error:hover *:autofill,
+.wrapper_error:hover *:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-error) inset;
+  caret-color: var(--click-field-color-text-error);
+  -webkit-text-fill-color: var(--click-field-color-text-error);
+}
+
+.wrapper:disabled,
+.wrapper.disabled {
+  border: 1px solid var(--click-field-color-stroke-disabled);
+  background: var(--click-field-color-background-disabled);
+  color: var(--click-field-color-text-disabled);
+  font: var(--click-field-typography-fieldText-disabled);
+}
+
+.wrapper:disabled *:autofill,
+.wrapper:disabled *:-webkit-autofill,
+.wrapper.disabled *:autofill,
+.wrapper.disabled *:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-disabled) inset;
+  caret-color: var(--click-field-color-text-disabled);
+  -webkit-text-fill-color: var(--click-field-color-text-disabled);
+}
+
+.input {
+  width: 100%;
+  padding: var(--click-field-space-y) 0;
+  padding-right: var(--click-field-space-x);
+  padding-left: var(--click-field-space-x);
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+
+.input_has-start-content {
+  padding-left: 0;
+}
+
+.input_has-end-content {
+  padding-right: 0;
+}
+
+.input::placeholder {
+  color: var(--click-field-color-placeholder-default);
+}
+
+.input:disabled::placeholder,
+.input.disabled::placeholder {
+  color: var(--click-field-color-placeholder-disabled);
+}
+
+.number-input_hide-controls::-webkit-outer-spin-button,
+.number-input_hide-controls::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.number-input_hide-controls {
+  -moz-appearance: textfield;
+}
+
+.textarea {
+  width: 100%;
+  padding: var(--click-field-space-y) var(--click-field-space-x);
+  align-self: stretch;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  resize: none;
+}
+
+.textarea::placeholder {
+  color: var(--click-field-color-placeholder-default);
+}
+
+.icon-button {
+  padding: var(--click-field-space-y) 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+
+.icon-button:not(:disabled) {
+  cursor: pointer;
+}
+
+.icon-wrapper:first-of-type {
+  padding-left: var(--click-field-space-gap);
+}
+
+.icon-wrapper:last-of-type {
+  padding-right: var(--click-field-space-x);
+}
+
+.start-content {
+  display: flex;
+  padding-left: var(--click-field-space-x);
+  align-items: center;
+  align-self: stretch;
+  gap: var(--click-field-space-gap);
+  cursor: text;
+}
+
+.end-content {
+  display: flex;
+  padding-right: var(--click-field-space-x);
+  flex-shrink: 0;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--click-field-space-gap);
+  white-space: nowrap;
+}

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import LogosLight from '@/components/Assets/Logos/system/LogosLight';
 import FlagsLight from '@/components/Assets/Flags/system/FlagsLight';
 import PaymentsLight from '@/components/Assets/Payments/system/PaymentsLight';
@@ -6,14 +6,15 @@ import { Icon } from '@/components/Icon';
 import { IconName, IconProps } from '@/components/Icon/Icon.types';
 import { ICONS_MAP } from '@/components/Icon/IconCommon';
 import { Container } from '@/components/Container';
-import { styled } from 'styled-components';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
+import { cn } from '@/lib/cva';
 import { SearchField } from '@/components/SearchField';
 import { Title } from '@/components/Title';
 import { Panel } from '@/components/Panel';
 import { Text } from '@/components/Text';
 import { GridContainer } from '@/components/GridContainer';
 import { Spacer } from '@/components/Spacer';
+import storyStyles from './Icon.stories.module.css';
 
 const IconNames = Object.keys(ICONS_MAP);
 const FlagNames = Object.keys(FlagsLight);
@@ -55,6 +56,108 @@ export const Playground: Story = {
   render: args => <IconWrapper {...(args as IconProps)} />,
 };
 
+// Most Icon stories don't need the gallery/Container layout that Playground and
+// the Icons gallery use, so the harness backdrop is applied per-story (not on
+// meta) to keep those bespoke stories unwrapped.
+const iconHarness: Decorator = Story => (
+  <div
+    data-testid="icon-harness"
+    style={{ display: 'inline-flex' }}
+  >
+    <Story />
+  </div>
+);
+
+export const DefaultMd: Story = {
+  args: { name: 'users' },
+  decorators: [iconHarness],
+};
+
+export const SizeXs: Story = {
+  args: { name: 'users', size: 'xs' },
+  decorators: [iconHarness],
+};
+
+export const SizeSm: Story = {
+  args: { name: 'users', size: 'sm' },
+  decorators: [iconHarness],
+};
+
+export const SizeMd: Story = {
+  args: { name: 'users', size: 'md' },
+  decorators: [iconHarness],
+};
+
+export const SizeLg: Story = {
+  args: { name: 'users', size: 'lg' },
+  decorators: [iconHarness],
+};
+
+export const SizeXl: Story = {
+  args: { name: 'users', size: 'xl' },
+  decorators: [iconHarness],
+};
+
+export const SizeXxl: Story = {
+  args: { name: 'users', size: 'xxl' },
+  decorators: [iconHarness],
+};
+
+export const StateSuccess: Story = {
+  args: { name: 'users', state: 'success' },
+  decorators: [iconHarness],
+};
+
+export const StateWarning: Story = {
+  args: { name: 'users', state: 'warning' },
+  decorators: [iconHarness],
+};
+
+export const StateDanger: Story = {
+  args: { name: 'users', state: 'danger' },
+  decorators: [iconHarness],
+};
+
+export const StateInfo: Story = {
+  args: { name: 'users', state: 'info' },
+  decorators: [iconHarness],
+};
+
+export const StateSuccessSm: Story = {
+  args: { name: 'users', state: 'success', size: 'sm' },
+  decorators: [iconHarness],
+};
+
+export const StateSuccessXl: Story = {
+  args: { name: 'users', state: 'success', size: 'xl' },
+  decorators: [iconHarness],
+};
+
+export const CustomColor: Story = {
+  args: { name: 'users', color: '#c10000' },
+  decorators: [iconHarness],
+};
+
+export const CustomWidthHeight: Story = {
+  args: { name: 'users', width: 40, height: 40 },
+  decorators: [iconHarness],
+};
+
+export const FlagAsset: Story = {
+  args: { name: 'australia', size: 'md' },
+  decorators: [iconHarness],
+};
+
+export const LogoAsset: Story = {
+  args: { name: 'clickhouse', size: 'md' },
+  decorators: [iconHarness],
+};
+
+export const PaymentAsset: Story = {
+  args: { name: 'visa', size: 'md' },
+  decorators: [iconHarness],
+};
+
 type IconGalleryProps = {
   name: IconName;
 };
@@ -79,23 +182,15 @@ const IconGallery = ({ name }: IconGalleryProps) => (
   </Container>
 );
 
-const ResponsiveGridContainer = styled(GridContainer)`
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1em;
-
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-`;
+const ResponsiveGridContainer = ({
+  className,
+  ...props
+}: ComponentProps<typeof GridContainer>) => (
+  <GridContainer
+    className={cn(storyStyles['responsive-grid'], className)}
+    {...props}
+  />
+);
 
 export const Icons: Story = {
   render: () => {
@@ -122,7 +217,6 @@ export const Icons: Story = {
             value={query}
             placeholder="Search icons..."
             onChange={setQuery}
-            tabIndex={1}
           />
           <ResponsiveGridContainer>
             {Object.keys(ICONS_MAP)

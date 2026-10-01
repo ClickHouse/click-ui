@@ -1,7 +1,10 @@
 import { Args, Meta, StoryObj } from '@storybook/react-vite';
 import dayjs from 'dayjs';
 import { DateRangePicker } from './DateRangePicker';
-import { getPredefinedMonthsForDateRangePicker } from './utils';
+import {
+  getNextNDatesForDatePickerAllowOnlyList,
+  getPredefinedMonthsForDateRangePicker,
+} from './utils';
 import { Text } from '../Text';
 
 const meta: Meta<typeof DateRangePicker> = {
@@ -31,6 +34,52 @@ export const Default: Story = {
     return (
       <DateRangePicker
         key="default"
+        endDate={endDate}
+        disabled={args.disabled}
+        futureDatesDisabled={args.futureDatesDisabled}
+        futureStartDatesDisabled={args.futureStartDatesDisabled}
+        maxRangeLength={args.maxRangeLength}
+        onSelectDateRange={args.onSelectDateRange}
+        placeholder={args.placeholder}
+        startDate={startDate}
+      />
+    );
+  },
+};
+
+export const YearAndMonthSelection: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Text>
+        Click the month/year title in the calendar header to jump to a different year and
+        month.
+      </Text>
+      <DateRangePicker
+        key="year-and-month-selection"
+        endDate={new Date('2020-07-20T12:00:00')}
+        onSelectDateRange={args.onSelectDateRange}
+        startDate={new Date('2020-07-10T12:00:00')}
+      />
+    </div>
+  ),
+};
+
+export const DateRangePickerAllowOnlyNext30Days: Story = {
+  args: {
+    allowOnlyDatesList: getNextNDatesForDatePickerAllowOnlyList(30),
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => {
+    const endDate = args.endDate ? new Date(args.endDate) : undefined;
+    const startDate = args.startDate ? new Date(args.startDate) : undefined;
+
+    return (
+      <DateRangePicker
+        key="default"
+        allowOnlyDatesList={args.allowOnlyDatesList}
         endDate={endDate}
         disabled={args.disabled}
         futureDatesDisabled={args.futureDatesDisabled}
@@ -201,6 +250,45 @@ export const ResponsivePositioningDisabled: Story = {
       </div>
     );
   },
+};
+
+export const SelectedDate: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => (
+    <DateRangePicker
+      key="selected-date"
+      startDate={new Date('2026-07-10T12:00:00')}
+      endDate={new Date('2026-07-20T12:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+    />
+  ),
+};
+
+export const PredefinedDatesWithSelectedDate: Story = {
+  render: (args: Args) => (
+    <DateRangePicker
+      key="predefined-dates-with-selected-date"
+      startDate={new Date('2026-07-10T12:00:00')}
+      endDate={new Date('2026-07-20T12:00:00')}
+      onSelectDateRange={args.onSelectDateRange}
+      predefinedDatesList={[
+        {
+          startDate: new Date('2026-07-01T12:00:00'),
+          endDate: new Date('2026-07-31T12:00:00'),
+        },
+        {
+          startDate: new Date('2026-06-01T12:00:00'),
+          endDate: new Date('2026-06-30T12:00:00'),
+        },
+        {
+          startDate: new Date('2026-05-01T12:00:00'),
+          endDate: new Date('2026-05-31T12:00:00'),
+        },
+      ]}
+    />
+  ),
 };
 
 export const TimezoneLocalVsUTC: Story = {

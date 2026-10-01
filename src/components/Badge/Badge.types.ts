@@ -3,13 +3,7 @@ import { HTMLAttributes, MouseEvent, ReactNode } from 'react';
 import type { IconName } from '@/components/Icon';
 
 export type BadgeState =
-  | 'default'
-  | 'success'
-  | 'neutral'
-  | 'danger'
-  | 'disabled'
-  | 'warning'
-  | 'info';
+  'default' | 'success' | 'neutral' | 'danger' | 'disabled' | 'warning' | 'info';
 
 export type BadgeSize = 'sm' | 'md';
 export type BadgeType = 'opaque' | 'solid';

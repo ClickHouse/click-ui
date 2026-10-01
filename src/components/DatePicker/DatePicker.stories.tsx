@@ -74,6 +74,17 @@ export const ResponsivePositioningDisabled = {
   },
 };
 
+export const SelectedDate = {
+  ...defaultStory,
+  render: () => (
+    <DatePicker
+      date={new Date('2026-07-20T12:00:00')}
+      onSelectDate={() => {}}
+      placeholder="Pick a date"
+    />
+  ),
+};
+
 export const TimezoneLocalVsUTC = {
   ...defaultStory,
   render: (args: Args) => {

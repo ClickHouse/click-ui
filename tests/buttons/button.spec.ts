@@ -1,3 +1,6 @@
+// Affected-spec coverage for scoped visual-regression runs in CI.
+// See .scripts/js/affected-visual-specs
+// @covers src/components/Button
 import { test as it, expect } from '@playwright/test';
 import { getStoryUrl } from '../utils';
 
@@ -95,6 +98,18 @@ describe('Button Visual Regression', () => {
         const button = page.getByRole('button');
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-danger-loading-light.png', {
+          maxDiffPixels: 100,
+          animations: 'disabled',
+        });
+      });
+
+      it('fill width loading matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-button--fill-width-loading', 'light'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button');
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await expect(button).toHaveScreenshot('button-fill-width-loading-light.png', {
           maxDiffPixels: 100,
           animations: 'disabled',
         });
@@ -351,6 +366,18 @@ describe('Button Visual Regression', () => {
         const button = page.getByRole('button');
         await expect(button).toBeVisible({ timeout: 10000 });
         await expect(button).toHaveScreenshot('button-danger-loading-dark.png', {
+          maxDiffPixels: 100,
+          animations: 'disabled',
+        });
+      });
+
+      it('fill width loading matches snapshot', async ({ page }) => {
+        await page.goto(getStoryUrl('buttons-button--fill-width-loading'), {
+          waitUntil: 'networkidle',
+        });
+        const button = page.getByRole('button');
+        await expect(button).toBeVisible({ timeout: 10000 });
+        await expect(button).toHaveScreenshot('button-fill-width-loading-dark.png', {
           maxDiffPixels: 100,
           animations: 'disabled',
         });

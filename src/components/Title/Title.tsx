@@ -1,5 +1,6 @@
 import { HTMLAttributes, forwardRef } from 'react';
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
+import styles from './Title.module.css';
 
 export type TitleAlignment = 'left' | 'center' | 'right';
 export type TitleColor = 'default' | 'muted';
@@ -20,44 +21,61 @@ export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
   type: TitleType;
 }
 
+const titleVariants = cva(styles.title, {
+  variants: {
+    color: {
+      default: styles['title_color_default'],
+      muted: styles['title_color_muted'],
+    },
+    align: {
+      left: styles['title_align_left'],
+      center: styles['title_align_center'],
+      right: styles['title_align_right'],
+    },
+    family: {
+      product: '',
+      brand: '',
+    },
+    size: {
+      xs: '',
+      sm: '',
+      md: '',
+      lg: '',
+      xl: '',
+    },
+  },
+  compoundVariants: [
+    { family: 'product', size: 'xs', class: styles['title_font_product-xs'] },
+    { family: 'product', size: 'sm', class: styles['title_font_product-sm'] },
+    { family: 'product', size: 'md', class: styles['title_font_product-md'] },
+    { family: 'product', size: 'lg', class: styles['title_font_product-lg'] },
+    { family: 'product', size: 'xl', class: styles['title_font_product-xl'] },
+    { family: 'brand', size: 'xs', class: styles['title_font_brand-xs'] },
+    { family: 'brand', size: 'sm', class: styles['title_font_brand-sm'] },
+    { family: 'brand', size: 'md', class: styles['title_font_brand-md'] },
+    { family: 'brand', size: 'lg', class: styles['title_font_brand-lg'] },
+    { family: 'brand', size: 'xl', class: styles['title_font_brand-xl'] },
+  ],
+  defaultVariants: {
+    color: 'default',
+    align: 'left',
+    family: 'product',
+    size: 'md',
+  },
+});
+
 /** The `title` component allows you to easily add headings to your pages. They do not include built in margins. */
 export const Title = forwardRef<HTMLHeadingElement, TitleProps>(
-  ({ align, size, family, type, color, children, ...props }, ref) => (
-    <CuiTitle
-      ref={ref}
-      $align={align}
-      $color={color}
-      $size={size}
-      $family={family}
-      as={type}
-      {...props}
-    >
-      {children}
-    </CuiTitle>
-  )
+  ({ align, size, family, type, color, children, className, ...props }, ref) => {
+    const Component = type;
+    return (
+      <Component
+        ref={ref}
+        {...props}
+        className={cn(titleVariants({ color, align, family, size }), className)}
+      >
+        {children}
+      </Component>
+    );
+  }
 );
-
-const CuiTitle = styled.div<{
-  $align?: TitleAlignment;
-  $color?: TitleColor;
-  $size?: TitleSize;
-  $family?: TitleFamily;
-}>`
-  font: ${({ $size = 'md', $family = 'product', theme }) =>
-    theme.typography.styles[$family].titles[$size]};
-  color: ${({ $color = 'default', theme }) => theme.click.global.color.title[$color]};
-  margin: 0;
-  padding: 0;
-  font-style: inherit;
-  text-align: ${({ $align = 'left' }) => $align};
-
-  a,
-  a:visited {
-    color: ${({ $color = 'default', theme }) => theme.click.global.color.title[$color]};
-    cursor: pointer;
-  }
-
-  a:hover {
-    color: ${({ theme }) => theme.click.global.color.title.muted};
-  }
-`;

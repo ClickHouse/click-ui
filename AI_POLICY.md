@@ -1,0 +1,13 @@
+# Click UI AI Policy
+
+You can use AI for Click UI development. We welcome and embrace AI usage in building, testing, and maintaining the design system.
+
+You don't have to disclose your usage of AI. You can tell about it, share your experience, and show the methods, but it is not required. AI is a normal developer's tool, similar to an IDE, an OS, or a keyboard. We don't judge your work on the basis of the usage of AI, but we recommend taking efforts to filter out slop before sending a pull request; otherwise, it may negatively affect your reputation as an engineer.
+
+When sending generated code, you take the responsibility in the same way as for the code you have manually typed. Take efforts to read and review the code before sending - otherwise it is disrespectful to maintainers. Take efforts to understand the code base, with or without the help of AI. Low-effort pull requests that require high effort from maintainers will be closed. Do not use AI to automate your responses to maintainers.
+
+Prefer using AI for improving the code base, such as removing and simplifying code, improving accessibility (ARIA, keyboard navigation, focus management, color contrast), expanding test coverage (functional and visual regression), tightening TypeScript types and component prop APIs, migrating styles to CSS Modules, improving build and Storybook tooling, reverting bad modifications, and bug fixing. Keep in mind that introducing a new component, prop, or breaking change to a public API requires as much design consideration as without AI — these decisions ship to every consumer of the library, so review the API surface, theming behavior, and accessibility implications yourself before sending.
+
+Do not use AI to make failing checks pass by weakening them. Regenerating visual-regression baselines, relaxing assertions, or removing tests to get a green CI defeats the safety net that protects the applications consuming this library. Update a baseline only when you have confirmed the visual change is intended. Adding a runtime dependency affects everyone who installs Click UI — prefer existing utilities, and justify any new dependency as you would in a hand-written pull request.
+
+When using AI, the same rules around intellectual property apply as with manually written code. Do not copy, reproduce, or include code belonging to others unless its license explicitly permits this use and all license requirements are met. This applies equally to UI patterns and styles copied from other design systems or component libraries. You are responsible for ensuring that you have all required permissions for any submitted code, whether AI-generated or not.

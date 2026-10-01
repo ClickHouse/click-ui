@@ -1,0 +1,12 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconButton) */
+
+.cross-button {
+  padding: var(--click-button-iconButton-sm-space-y)
+    var(--click-button-iconButton-sm-space-x);
+  border-radius: var(--click-button-iconButton-radii-all);
+  background: var(--click-button-iconButton-color-primary-background-default);
+}
+
+.cross-button:hover {
+  background: var(--click-button-iconButton-color-primary-background-hover);
+}

@@ -21,7 +21,9 @@ const meta: Meta<typeof Alert> = {
 
 export default meta;
 
-export const Playground: StoryObj<typeof Alert> = {
+type Story = StoryObj<typeof Alert>;
+
+export const Playground: Story = {
   args: {
     title: '',
     text: 'An alert example',
@@ -33,7 +35,7 @@ export const Playground: StoryObj<typeof Alert> = {
   },
 };
 
-export const TitleWithLink: StoryObj<typeof Alert> = {
+export const TitleWithLink: Story = {
   args: {
     title: (
       <>
@@ -59,5 +61,115 @@ export const TitleWithLink: StoryObj<typeof Alert> = {
     type: 'default',
     showIcon: true,
     dismissible: false,
+  },
+};
+
+// State variants — default type, small size
+
+export const StateNeutral: Story = {
+  args: { text: 'A neutral alert', state: 'neutral', size: 'small', type: 'default' },
+};
+
+export const StateSuccess: Story = {
+  args: { text: 'A success alert', state: 'success', size: 'small', type: 'default' },
+};
+
+export const StateWarning: Story = {
+  args: { text: 'A warning alert', state: 'warning', size: 'small', type: 'default' },
+};
+
+export const StateDanger: Story = {
+  args: { text: 'A danger alert', state: 'danger', size: 'small', type: 'default' },
+};
+
+export const StateInfo: Story = {
+  args: { text: 'An info alert', state: 'info', size: 'small', type: 'default' },
+};
+
+// Size variants
+
+export const SizeSmall: Story = {
+  args: {
+    title: 'Alert title',
+    text: 'A small alert',
+    state: 'info',
+    size: 'small',
+    type: 'default',
+  },
+};
+
+export const SizeMedium: Story = {
+  args: {
+    title: 'Alert title',
+    text: 'A medium alert',
+    state: 'info',
+    size: 'medium',
+    type: 'default',
+  },
+};
+
+// Banner type
+
+export const BannerSmall: Story = {
+  args: {
+    text: 'A small banner alert',
+    state: 'warning',
+    size: 'small',
+    type: 'banner',
+  },
+};
+
+export const BannerMedium: Story = {
+  args: {
+    text: 'A medium banner alert',
+    state: 'warning',
+    size: 'medium',
+    type: 'banner',
+  },
+};
+
+// Icon variants
+
+export const NoIcon: Story = {
+  args: {
+    text: 'An alert without an icon',
+    state: 'success',
+    size: 'small',
+    type: 'default',
+    showIcon: false,
+  },
+};
+
+export const CustomIcon: Story = {
+  args: {
+    text: 'An alert with a custom icon',
+    state: 'info',
+    size: 'small',
+    type: 'default',
+    showIcon: true,
+    customIcon: 'gift',
+  },
+};
+
+// Dismissible
+
+export const Dismissible: Story = {
+  args: {
+    title: 'Dismissible alert',
+    text: 'An alert that can be dismissed',
+    state: 'danger',
+    size: 'medium',
+    type: 'default',
+    dismissible: true,
+  },
+};
+
+export const DismissibleBanner: Story = {
+  args: {
+    text: 'A dismissible banner alert',
+    state: 'danger',
+    size: 'medium',
+    type: 'banner',
+    dismissible: true,
   },
 };

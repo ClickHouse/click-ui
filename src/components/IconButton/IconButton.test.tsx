@@ -10,6 +10,11 @@ describe('Button', () => {
     expect(getAllByRole('button').length).toEqual(1);
   });
 
+  it('should apply a consumer-supplied role', () => {
+    const { getByRole } = renderButton({ icon: 'user', role: 'menuitem' });
+    expect(getByRole('menuitem')).toBeInTheDocument();
+  });
+
   it('should execute action on click', () => {
     let counter = 0;
     const handleClick = () => (counter = 1);
@@ -37,5 +42,53 @@ describe('Button', () => {
 
     expect(counter).toEqual(0);
     expect(button).toBeDisabled();
+  });
+
+  describe('accessible name', () => {
+    it('should use a consumer-supplied aria-label instead of the icon name', () => {
+      const { getByRole } = renderButton({ icon: 'trash', 'aria-label': 'Delete item' });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'Delete item');
+    });
+
+    it('should fall back to the icon name when aria-label is an empty string', () => {
+      const { getByRole } = renderButton({ icon: 'trash', 'aria-label': '' });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'trash');
+    });
+
+    it('should hide the inner icon so the button exposes a single accessible name', () => {
+      const { getByRole, queryByRole } = renderButton({
+        icon: 'trash',
+        'aria-label': 'Delete item',
+      });
+      expect(getByRole('button')).toHaveAttribute('aria-label', 'Delete item');
+      expect(queryByRole('img')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Button HTML types', () => {
+    it('should default to type=button, so it does not submit its enclosing form', () => {
+      const handleSubmit = vi.fn();
+
+      const { getByRole } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <IconButton icon="user" />
+        </form>
+      );
+
+      const button = getByRole('button');
+
+      expect(button).toHaveAttribute('type', 'button');
+      fireEvent.click(button);
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
+    it.each(['submit', 'button', 'reset'] as const)(
+      'should use htmlType to set type=%s',
+      type => {
+        const { getByRole } = renderButton({ icon: 'user', htmlType: type });
+        const button = getByRole('button');
+        expect(button).toHaveAttribute('type', type);
+      }
+    );
   });
 });

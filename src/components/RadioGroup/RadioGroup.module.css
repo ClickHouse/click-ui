@@ -1,0 +1,99 @@
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--click-checkbox-space-gap);
+}
+
+.radio-group_inline {
+  flex-direction: row;
+}
+
+.radio-group_inline_false {
+  flex-direction: column;
+}
+
+.radio-group_error label {
+  color: var(--click-field-color-label-error);
+}
+
+/* The item class is applied alongside FormRoot's styled-components class.
+   The .item.item double-class boost matches the specificity behavior of the
+   original `styled(FormRoot)` chain so these overrides reliably beat FormRoot's
+   own declarations regardless of stylesheet insertion order between CSS Modules
+   and the runtime-injected styled-components. */
+.item.item {
+  display: flex;
+  width: auto;
+  padding: var(--click-checkbox-space-all);
+  align-items: center;
+  gap: var(--click-checkbox-space-gap);
+}
+
+.radio-input {
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--click-radio-color-stroke-default);
+  border-radius: var(--click-radio-radii-all);
+  background: var(--click-radio-color-background-default);
+  outline: none;
+  cursor: pointer;
+}
+
+.radio-input:hover {
+  background: var(--click-radio-color-background-hover);
+}
+
+.radio-input[data-state='checked'] {
+  border-color: var(--click-radio-color-stroke-active);
+  background: var(--click-radio-color-background-active);
+}
+
+/* stylelint-disable no-descending-specificity -- disabled state intentionally
+   defined after the checked state to mirror the source cascade order; matches
+   the styled-components rule which used a nested `&[data-disabled]` block placed
+   after `&[data-state="checked"]`. */
+.radio-input[data-disabled] {
+  border-color: var(--click-radio-color-stroke-disabled);
+  background: var(--click-radio-color-background-disabled);
+}
+
+.radio-indicator {
+  background: var(--click-radio-color-background-default);
+}
+
+.radio-indicator::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--click-radio-color-indicator-default);
+}
+
+.radio-indicator::after:hover {
+  background: var(--click-radio-color-indicator-hover);
+}
+
+.radio-indicator[data-state='checked'] {
+  background: var(--click-radio-color-background-active);
+}
+
+.radio-indicator[data-state='checked']::after {
+  background: var(--click-radio-color-indicator-active);
+}
+
+.radio-indicator:hover {
+  background: var(--click-radio-color-background-hover);
+}
+
+.radio-indicator[data-disabled] {
+  background: var(--click-radio-color-background-disabled);
+}
+
+.radio-indicator[data-disabled]::after {
+  background: var(--click-radio-color-indicator-disabled);
+}
+/* stylelint-enable no-descending-specificity */

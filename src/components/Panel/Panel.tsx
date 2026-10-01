@@ -1,43 +1,63 @@
-import type { Orientation } from '@/types';
-import type { CursorOptions } from './Panel.types';
-import { HTMLAttributes } from 'react';
-import { styled } from 'styled-components';
+import type { CSSProperties } from 'react';
+import { useMemo } from 'react';
+import { cn, cva } from '@/lib/cva';
+import type { PanelProps } from './Panel.types';
+import styles from './Panel.module.css';
 
-export type PanelPadding = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-export type PanelColor = 'default' | 'muted' | 'transparent';
-export type PanelRadii = 'none' | 'sm' | 'md' | 'lg';
-type AlignItemsOption = 'start' | 'center' | 'end';
-
-export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
-  /** Alignment of items along the cross axis */
-  alignItems?: AlignItemsOption;
-  /** The content to display inside the panel */
-  children?: React.ReactNode;
-  /** The background color variant of the panel */
-  color?: PanelColor;
-  /** The cursor style when hovering over the panel */
-  cursor?: CursorOptions;
-  /** Whether the panel should fill the full height of its container */
-  fillHeight?: boolean;
-  /** Whether the panel should fill the full width of its container */
-  fillWidth?: boolean;
-  /** The gap between child elements */
-  gap?: PanelPadding;
-  /** Whether to show a border around the panel */
-  hasBorder?: boolean;
-  /** Whether to show a shadow on the panel */
-  hasShadow?: boolean;
-  /** Fixed height of the panel */
-  height?: string;
-  /** The orientation of content flow - horizontal or vertical */
-  orientation?: Orientation;
-  /** The padding inside the panel */
-  padding?: PanelPadding;
-  /** The border radius of the panel corners */
-  radii?: PanelRadii;
-  /** Fixed width of the panel */
-  width?: string;
-}
+const panelVariants = cva(styles.panel, {
+  variants: {
+    orientation: {
+      horizontal: styles.panel_orientation_horizontal,
+      vertical: styles.panel_orientation_vertical,
+    },
+    alignItems: {
+      start: styles['panel_align-items_start'],
+      center: styles['panel_align-items_center'],
+      end: styles['panel_align-items_end'],
+    },
+    color: {
+      default: styles.panel_color_default,
+      muted: styles.panel_color_muted,
+      transparent: styles.panel_color_transparent,
+    },
+    radii: {
+      none: styles.panel_radii_none,
+      sm: styles.panel_radii_sm,
+      md: styles.panel_radii_md,
+      lg: styles.panel_radii_lg,
+    },
+    padding: {
+      none: styles.panel_padding_none,
+      xs: styles.panel_padding_xs,
+      sm: styles.panel_padding_sm,
+      md: styles.panel_padding_md,
+      lg: styles.panel_padding_lg,
+      xl: styles.panel_padding_xl,
+    },
+    gap: {
+      none: styles.panel_gap_none,
+      xs: styles.panel_gap_xs,
+      sm: styles.panel_gap_sm,
+      md: styles.panel_gap_md,
+      lg: styles.panel_gap_lg,
+      xl: styles.panel_gap_xl,
+    },
+    hasBorder: {
+      true: styles.panel_border,
+    },
+    hasShadow: {
+      true: styles.panel_shadow,
+    },
+  },
+  defaultVariants: {
+    orientation: 'horizontal',
+    alignItems: 'center',
+    color: 'default',
+    radii: 'sm',
+    padding: 'md',
+    gap: 'sm',
+  },
+});
 
 export const Panel = ({
   alignItems = 'center',
@@ -54,57 +74,43 @@ export const Panel = ({
   padding,
   radii = 'sm',
   width,
+  className,
+  style,
   ...props
-}: PanelProps) => (
-  <Wrapper
-    $alignItems={alignItems}
-    $color={color}
-    $cursor={cursor}
-    $fillHeight={fillHeight}
-    $fillWidth={fillWidth}
-    $gap={gap}
-    $hasBorder={hasBorder}
-    $hasShadow={hasShadow}
-    $height={height}
-    $orientation={orientation}
-    $padding={padding}
-    $radii={radii}
-    $width={width}
-    {...props}
-  >
-    {children}
-  </Wrapper>
-);
+}: PanelProps) => {
+  const mergedStyle = useMemo(
+    () =>
+      ({
+        ...(cursor && { '--panel-cursor': cursor }),
+        ...((fillWidth || width) && { '--panel-width': fillWidth ? '100%' : width }),
+        ...((fillHeight || height) && {
+          '--panel-height': fillHeight ? '100%' : height,
+        }),
+        ...style,
+      }) as CSSProperties,
+    [cursor, fillWidth, width, fillHeight, height, style]
+  );
 
-const Wrapper = styled.div<{
-  $alignItems?: AlignItemsOption;
-  $color?: PanelColor;
-  $cursor?: CursorOptions;
-  $fillHeight?: boolean;
-  $fillWidth?: boolean;
-  $gap?: PanelPadding;
-  $hasBorder?: boolean;
-  $hasShadow?: boolean;
-  $height?: string;
-  $orientation?: Orientation;
-  $padding?: PanelPadding;
-  $radii?: PanelRadii;
-  $width?: string;
-}>`
-  display: flex;
-  flex-flow: ${({ $orientation = 'horizontal' }) =>
-    $orientation === 'horizontal' ? 'row wrap' : 'column'};
-  align-items: ${({ $alignItems = 'center' }) =>
-    $alignItems === 'center' ? 'center' : `flex-${$alignItems}`};
-  width: ${({ $width, $fillWidth }) => ($fillWidth ? '100%' : $width)};
-  height: ${({ $height, $fillHeight }) => ($fillHeight ? '100%' : $height)};
-  background-color: ${({ $color = 'default', theme }) =>
-    theme.click.panel.color.background[$color]};
-  border-radius: ${({ $radii = 'sm', theme }) => theme.click.panel.radii[$radii]};
-  padding: ${({ $padding = 'md', theme }) => theme.click.panel.space.y[$padding]};
-  border: ${({ $hasBorder, theme }) =>
-    $hasBorder ? `1px solid ${theme.click.global.color.stroke.default}` : 'none'};
-  box-shadow: ${({ $hasShadow, theme }) => ($hasShadow ? theme.shadow[1] : 'none')};
-  gap: ${({ $gap = 'sm', theme }) => theme.click.panel.space.gap[$gap]};
-  ${({ $cursor }) => $cursor && `cursor: ${$cursor}`};
-`;
+  return (
+    <div
+      {...props}
+      style={mergedStyle}
+      className={cn(
+        panelVariants({
+          orientation,
+          alignItems,
+          color,
+          radii,
+          padding,
+          gap,
+          hasBorder,
+          hasShadow,
+        }),
+        cursor && styles.panel_cursor,
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};

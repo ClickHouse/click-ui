@@ -2,23 +2,23 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { ContextMenuProps } from '@radix-ui/react-context-menu';
 import { ContextMenu, ContextMenuItemProps } from '@/components/ContextMenu';
-import { styled } from 'styled-components';
 
 interface ContextMenuExampleProps extends ContextMenuProps {
   disabled?: boolean;
   showArrow?: boolean;
 }
 
-const GridCenter = styled.div`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-`;
+const gridCenterStyle: React.CSSProperties = {
+  display: 'grid',
+  placeItems: 'center',
+  width: '100%',
+  height: '100%',
+};
 
-const Trigger = styled(GridCenter)`
-  border: 2px currentColor dashed;
-`;
+const triggerStyle: React.CSSProperties = {
+  ...gridCenterStyle,
+  border: '2px currentColor dashed',
+};
 
 const ContextMenuExample = ({
   showArrow,
@@ -26,10 +26,10 @@ const ContextMenuExample = ({
   ...props
 }: ContextMenuExampleProps) => {
   return (
-    <GridCenter>
+    <div style={gridCenterStyle}>
       <ContextMenu {...props}>
         <ContextMenu.Trigger disabled={disabled}>
-          <Trigger>ContextMenu Trigger</Trigger>
+          <div style={triggerStyle}>ContextMenu Trigger</div>
         </ContextMenu.Trigger>
         <ContextMenu.Content showArrow={showArrow}>
           <ContextMenu.Group>
@@ -61,7 +61,7 @@ const ContextMenuExample = ({
           <ContextMenu.Item type="danger">Delete content</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu>
-    </GridCenter>
+    </div>
   );
 };
 
@@ -91,4 +91,46 @@ export const Playground: Story = {
   args: {
     showArrow: true,
   },
+};
+
+// Visual-regression story: a plain trigger the spec right-clicks to open the
+// context menu, so the menu panel + item extension styles can be screenshotted.
+const vrTriggerStyle: React.CSSProperties = {
+  display: 'grid',
+  placeItems: 'center',
+  width: '240px',
+  height: '120px',
+  border: '2px currentColor dashed',
+};
+
+export const OpenContent: Story = {
+  render: () => (
+    <div
+      data-testid="context-menu-harness"
+      style={{ padding: '2rem', paddingBottom: '6rem', minHeight: 420 }}
+    >
+      <ContextMenu>
+        <ContextMenu.Trigger>
+          <div style={vrTriggerStyle}>Right-click here</div>
+        </ContextMenu.Trigger>
+        <ContextMenu.Content
+          showArrow
+          avoidCollisions={false}
+        >
+          <ContextMenu.Group>
+            <ContextMenu.Item>Content0</ContextMenu.Item>
+          </ContextMenu.Group>
+          <ContextMenu.Item icon="activity">Item with icon</ContextMenu.Item>
+          <ContextMenu.Item
+            icon="activity"
+            iconDir="end"
+          >
+            Icon end
+          </ContextMenu.Item>
+          <ContextMenu.Item disabled>Disabled item</ContextMenu.Item>
+          <ContextMenu.Item type="danger">Delete</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>
+    </div>
+  ),
 };

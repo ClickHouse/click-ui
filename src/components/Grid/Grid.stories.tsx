@@ -33,6 +33,10 @@ interface Props {
     column: number;
   };
   rowAutoHeight?: boolean;
+  showHeader?: boolean;
+  showRowNumber?: boolean;
+  showBorder?: boolean;
+  rounded?: 'none' | 'lg' | 'md' | 'sm';
 }
 const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   const [focus, setFocus] = useState(focusProp);
@@ -66,7 +70,10 @@ const Grid = ({ columnCount, rowCount, focus: focusProp, ...props }: Props) => {
   };
 
   return (
-    <div style={{ height: 500, width: '100%' }}>
+    <div
+      style={{ height: 500, width: '100%', padding: 8, boxSizing: 'border-box' }}
+      data-testid="grid-harness"
+    >
       <CUIGrid
         columnCount={columnCount}
         rowCount={rowCount}
@@ -133,5 +140,63 @@ export const Playground = {
         },
       },
     },
+  },
+};
+
+const visualArgs = {
+  rowCount: 20,
+  columnCount: 20,
+  focus: { row: 0, column: 0 },
+};
+
+export const Default = {
+  args: {
+    ...visualArgs,
+  },
+};
+
+export const WithBorder = {
+  args: {
+    ...visualArgs,
+    showBorder: true,
+  },
+};
+
+export const NoHeader = {
+  args: {
+    ...visualArgs,
+    showHeader: false,
+  },
+};
+
+export const NoRowNumber = {
+  args: {
+    ...visualArgs,
+    showRowNumber: false,
+  },
+};
+
+export const RoundedLg = {
+  args: {
+    ...visualArgs,
+    rounded: 'lg',
+    showBorder: true,
+  },
+};
+
+export const FocusedCell = {
+  args: {
+    ...visualArgs,
+    focus: { row: 2, column: 2 },
+  },
+};
+
+// Focus on the bottom-right cell: it is the last row AND last column while
+// resolving to an indirect selection. This exercises the focus-vs-indirect
+// precedence for the last-edge stroke (focus must win the bottom/right border).
+export const FocusedLastCell = {
+  args: {
+    ...visualArgs,
+    focus: { row: 19, column: 19 },
   },
 };

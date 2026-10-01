@@ -1,28 +1,61 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { ReactNode } from 'react';
-import { styled } from 'styled-components';
+import { Slottable } from '@radix-ui/react-slot';
+import {
+  ComponentProps,
+  ComponentPropsWithRef,
+  ElementType,
+  ReactNode,
+  forwardRef,
+} from 'react';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
+import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
+import type { IconWrapperProps } from '@/components/IconWrapper';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
+import styles from './Dropdown.module.css';
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
 
-const DropdownMenuItem = styled(GenericMenuItem)<{ $type?: 'default' | 'danger' }>`
-  position: relative;
-  display: flex;
-  min-height: 32px;
-`;
+type DropdownMenuItemComponent = <T extends ElementType = 'div'>(
+  props: ComponentProps<typeof GenericMenuItem<T>>
+) => ReactNode;
 
-interface SubDropdownProps {
+const _DropdownMenuItem = <T extends ElementType = 'div'>(
+  { className, ...props }: ComponentProps<typeof GenericMenuItem<T>>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => (
+  <GenericMenuItem
+    ref={ref}
+    {...(props as ComponentProps<typeof GenericMenuItem>)}
+    className={cn(styles['dropdown-menu-item'], className)}
+  />
+);
+
+const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(_DropdownMenuItem);
+
+// `sub` alone discriminates the two shapes of Trigger and Content. The label
+// fields live separately so only the sub-trigger accepts them — Content spreads
+// what it does not read straight onto the Radix element, i.e. into the DOM.
+interface SubDiscriminant {
   sub?: true;
+}
+
+interface SubTriggerFields {
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  /**
+   * Positions the tooltip shown when the label is truncated. Defaults to
+   * `side: 'right'` so the tooltip does not cover the items above it.
+   */
+  tooltipProps?: IconWrapperProps['tooltipProps'];
 }
 
 interface MainDropdownProps {
@@ -30,20 +63,9 @@ interface MainDropdownProps {
 }
 
 type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
-  SubDropdownProps;
+  SubDiscriminant &
+  SubTriggerFields;
 type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
-
-const Trigger = styled(DropdownMenu.Trigger)`
-  cursor: pointer;
-  width: fit-content;
-  &[disabled] {
-    cursor: not-allowed;
-  }
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.click.global.color.outline.default};
-    outline-offset: 2px;
-  }
-`;
 
 const DropdownTrigger = ({
   sub,
@@ -51,7 +73,8 @@ const DropdownTrigger = ({
   ...props
 }: DropdownSubTriggerProps | DropdownTriggerProps) => {
   if (sub) {
-    const { icon, iconDir, ...menuProps } = props as DropdownSubTriggerProps;
+    const { icon, iconDir, tooltipProps, ...menuProps } =
+      props as DropdownSubTriggerProps;
     return (
       <DropdownMenuItem
         as={DropdownMenu.SubTrigger}
@@ -60,6 +83,7 @@ const DropdownTrigger = ({
         <IconWrapper
           icon={icon}
           iconDir={iconDir}
+          tooltipProps={{ side: 'right', ...tooltipProps }}
         >
           {children}
         </IconWrapper>
@@ -68,60 +92,74 @@ const DropdownTrigger = ({
     );
   }
 
+  const { className, ...triggerProps } = props as DropdownTriggerProps;
   return (
-    <Trigger
+    <DropdownMenu.Trigger
       asChild
-      {...(props as DropdownTriggerProps)}
+      {...triggerProps}
+      className={cn(styles['dropdown-trigger'], className)}
     >
       <div>{children}</div>
-    </Trigger>
+    </DropdownMenu.Trigger>
   );
 };
 
 DropdownTrigger.displayName = 'DropdownTrigger';
 Dropdown.Trigger = DropdownTrigger;
 
-export type ArrowProps = {
-  showArrow?: boolean;
-};
-
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
+  container?: HTMLElement | null;
   responsivePositioning?: boolean;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
   children?: ReactNode;
+  container?: HTMLElement | null;
   responsivePositioning?: boolean;
 }
 
-type DropdownContentProps = StyledDropdownContentProps & SubDropdownProps & ArrowProps;
+type DropdownContentProps = StyledDropdownContentProps & SubDiscriminant & ArrowProps;
 type DropdownSubContentProps = StyledDropdownSubContentProps &
   MainDropdownProps &
   ArrowProps;
 
-const DropdownMenuContent = styled(GenericMenuPanel)`
-  min-width: ${({ theme }) => theme.click.genericMenu.item.size.minWidth};
-  flex-direction: column;
-  z-index: 1;
-  overflow-y: auto;
-`;
+type DropdownMenuContentComponent = <T extends ElementType = 'div'>(
+  props: ComponentProps<typeof GenericMenuPanel<T>>
+) => ReactNode;
+
+const _DropdownMenuContent = <T extends ElementType = 'div'>(
+  { className, ...props }: ComponentProps<typeof GenericMenuPanel<T>>,
+  ref: ComponentPropsWithRef<T>['ref']
+) => (
+  <GenericMenuPanel
+    ref={ref}
+    {...(props as ComponentProps<typeof GenericMenuPanel>)}
+    className={cn(styles['dropdown-menu-content'], className)}
+  />
+);
+
+const DropdownMenuContent: DropdownMenuContentComponent =
+  forwardRef(_DropdownMenuContent);
 
 const DropdownContent = ({
   sub,
   children,
+  container,
   showArrow,
   responsivePositioning = true,
   ...props
 }: DropdownContentProps | DropdownSubContentProps) => {
   const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
   const inputModalityProps = useInputModality();
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
-    <DropdownMenu.Portal>
+    <DropdownMenu.Portal container={portalContainer}>
       <DropdownMenuContent
         {...props}
-        $type="dropdown-menu"
-        $showArrow={showArrow}
+        type="dropdown-menu"
+        showArrow={showArrow}
         as={ContentElement}
         sideOffset={4}
         loop
@@ -148,61 +186,50 @@ const DropdownContent = ({
 DropdownContent.displayName = 'DropdownContent';
 Dropdown.Content = DropdownContent;
 
-const DropdownMenuGroup = styled(DropdownMenu.Group)`
-  width: 100%;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-const DropdownGroup = (props: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuGroup {...props} />;
+const DropdownGroup = ({ className, ...props }: DropdownMenu.DropdownMenuGroupProps) => {
+  return (
+    <DropdownMenu.Group
+      {...props}
+      className={cn(styles['dropdown-group'], className)}
+    />
+  );
 };
 
 DropdownGroup.displayName = 'DropdownGroup';
 Dropdown.Group = DropdownGroup;
 
-const DropdownMenuSub = styled(DropdownMenu.Sub)`
-  border-bottom: 1px solid
-    ${({ theme }) => theme.click.genericMenu.item.color.default.stroke.default};
-`;
-
-const DropdownSub = ({ ...props }: DropdownMenu.DropdownMenuGroupProps) => {
-  return <DropdownMenuSub {...props} />;
+// DropdownMenu.Sub renders no DOM node, so it takes only Radix's sub-menu props.
+const DropdownSub = (props: DropdownMenu.DropdownMenuSubProps) => {
+  return <DropdownMenu.Sub {...props} />;
 };
 
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-interface DropdownItemProps extends DropdownMenu.DropdownMenuItemProps {
-  /** Icon to display in the menu item */
-  icon?: IconName;
-  /** The direction of the icon relative to the label */
-  iconDir?: HorizontalDirection;
-  /** The type of the menu item */
-  type?: 'default' | 'danger';
-}
-
-export type { DropdownItemProps };
-
 const DropdownItem = ({
   icon,
   iconDir,
   type = 'default',
-  children,
+  tooltipProps,
   ...props
 }: DropdownItemProps) => {
+  const renderLabel = (label: ReactNode) => (
+    <IconWrapper
+      icon={icon}
+      iconDir={iconDir}
+      tooltipProps={{ side: 'right', ...tooltipProps }}
+    >
+      {label}
+    </IconWrapper>
+  );
+
   return (
     <DropdownMenuItem
       as={DropdownMenu.Item}
-      $type={type}
+      type={type}
       {...props}
     >
-      <IconWrapper
-        icon={icon}
-        iconDir={iconDir}
-      >
-        {children}
-      </IconWrapper>
+      <Slottable child={props.children}>{renderLabel}</Slottable>
     </DropdownMenuItem>
   );
 };

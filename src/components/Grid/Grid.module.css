@@ -1,0 +1,34 @@
+/*
+ * `.grid` is the Grid's outer container. It is rendered as the ContextMenu.Trigger
+ * (the root element the whole grid mounts into), which is why the trigger carries
+ * the grid's own box styling rather than a context-menu-specific class.
+ */
+.grid {
+  width: 100%;
+  height: var(--grid-height, 100%);
+  overflow: hidden;
+  border-radius: var(--grid-radius);
+  background: var(--click-grid-body-cell-color-background-default);
+  outline: none;
+}
+
+.grid_bordered {
+  border: 1px solid var(--click-grid-header-cell-color-stroke-default);
+}
+
+/* react-window's inner element that lays out the scrolling cell grid */
+.grid__inner {
+  display: flex;
+  flex-direction: column-reverse;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- the original styled rule used overflow-anchor */
+  overflow-anchor: none;
+  user-select: none;
+}
+
+.grid__data {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: var(--grid-data-top, 0);
+  margin-left: var(--grid-data-left, 0);
+}

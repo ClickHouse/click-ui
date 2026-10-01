@@ -1,0 +1,302 @@
+.stepper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  counter-reset: vertical-stepper;
+}
+
+.step {
+  --step-padding-bottom: var(--step-padding-bottom-default);
+  --step-connector-stroke: var(--step-connector-stroke-incomplete);
+
+  display: flex;
+  position: relative;
+  box-sizing: content-box;
+  width: 100%;
+  padding: 0;
+  padding-bottom: var(--step-padding-bottom);
+  flex-direction: column;
+  gap: var(--step-gap-y) var(--step-gap-x);
+}
+
+.step_type_numbered {
+  --step-gap-y: var(--click-stepper-vertical-numbered-content-space-gap-y);
+  --step-gap-x: var(--click-stepper-vertical-numbered-content-space-gap-x);
+  --step-padding-bottom-default: var(
+    --click-stepper-vertical-numbered-content-space-bottom-default
+  );
+  --step-padding-bottom-active: var(
+    --click-stepper-vertical-numbered-content-space-bottom-active
+  );
+  --step-connector-top: var(--click-stepper-vertical-numbered-step-size-height);
+  --step-connector-left: calc(
+    var(--click-stepper-vertical-numbered-step-size-width) / 2
+  );
+  --step-connector-width: var(
+    --click-stepper-vertical-numbered-connector-size-width
+  );
+  --step-connector-stroke-incomplete: var(
+    --click-stepper-vertical-numbered-connector-color-stroke-incomplete
+  );
+  --step-connector-stroke-complete: var(
+    --click-stepper-vertical-numbered-connector-color-stroke-complete
+  );
+  --step-connector-stroke-active: var(
+    --click-stepper-vertical-numbered-connector-color-stroke-active
+  );
+}
+
+.step_type_bulleted {
+  --step-gap-y: var(--click-stepper-vertical-bulleted-content-space-gap-y);
+  --step-gap-x: var(--click-stepper-vertical-bulleted-content-space-gap-x);
+  --step-padding-bottom-default: var(
+    --click-stepper-vertical-bulleted-content-space-bottom-default
+  );
+  --step-padding-bottom-active: var(
+    --click-stepper-vertical-bulleted-content-space-bottom-active
+  );
+  --step-connector-top: var(--click-stepper-vertical-bulleted-step-size-height);
+  --step-connector-left: calc(
+    var(--click-stepper-vertical-bulleted-step-size-width) / 2
+  );
+  --step-connector-width: var(
+    --click-stepper-vertical-bulleted-connector-size-width
+  );
+  --step-connector-stroke-incomplete: var(
+    --click-stepper-vertical-bulleted-connector-color-stroke-incomplete
+  );
+  --step-connector-stroke-complete: var(
+    --click-stepper-vertical-bulleted-connector-color-stroke-complete
+  );
+  --step-connector-stroke-active: var(
+    --click-stepper-vertical-bulleted-connector-color-stroke-active
+  );
+}
+
+.step_open {
+  --step-padding-bottom: var(--step-padding-bottom-active);
+}
+
+.step_status_complete {
+  --step-connector-stroke: var(--step-connector-stroke-complete);
+}
+
+.step_status_active {
+  --step-connector-stroke: var(--step-connector-stroke-active);
+}
+
+.step:not(:last-of-type)::before {
+  content: "";
+  position: absolute;
+  top: var(--step-connector-top);
+  left: var(--step-connector-left);
+  box-sizing: content-box;
+  width: var(--step-connector-width);
+  height: 100%;
+  background: var(--step-connector-stroke);
+}
+
+.step__trigger {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: inherit;
+  border: none;
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.step__trigger_status_active {
+  cursor: default;
+}
+
+.step__trigger_status_complete {
+  cursor: pointer;
+}
+
+.step__bubble {
+  --bubble-background: var(--bubble-background-incomplete);
+  --bubble-stroke: var(--bubble-stroke-incomplete);
+  --bubble-icon: var(--bubble-icon-incomplete);
+
+  display: grid;
+  position: relative;
+  box-sizing: content-box;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  border: 2px solid var(--bubble-stroke);
+  border-radius: var(--bubble-radii);
+  background: var(--bubble-background);
+  color: var(--bubble-icon);
+  font: var(--click-stepper-vertical-numbered-step-typography-number-default);
+  counter-increment: vertical-stepper;
+  place-items: center;
+}
+
+.step__bubble_type_numbered {
+  --bubble-size: var(--click-stepper-vertical-numbered-step-size-width);
+  --bubble-radii: var(--click-stepper-vertical-numbered-step-radii-default);
+  --bubble-background-incomplete: var(
+    --click-stepper-vertical-numbered-step-color-background-incomplete
+  );
+  --bubble-background-complete: var(
+    --click-stepper-vertical-numbered-step-color-background-complete
+  );
+  --bubble-background-active: var(
+    --click-stepper-vertical-numbered-step-color-background-active
+  );
+  --bubble-stroke-incomplete: var(
+    --click-stepper-vertical-numbered-step-color-stroke-incomplete
+  );
+  --bubble-stroke-complete: var(
+    --click-stepper-vertical-numbered-step-color-stroke-complete
+  );
+  --bubble-stroke-active: var(
+    --click-stepper-vertical-numbered-step-color-stroke-active
+  );
+  --bubble-icon-incomplete: var(
+    --click-stepper-vertical-numbered-step-color-icon-incomplete
+  );
+  --bubble-icon-complete: var(
+    --click-stepper-vertical-numbered-step-color-icon-complete
+  );
+  --bubble-icon-active: var(
+    --click-stepper-vertical-numbered-step-color-icon-active
+  );
+}
+
+.step__bubble_type_bulleted {
+  --bubble-size: var(--click-stepper-vertical-bulleted-step-size-width);
+  --bubble-radii: var(--click-stepper-vertical-bulleted-step-radii-default);
+  --bubble-background-incomplete: var(
+    --click-stepper-vertical-bulleted-step-color-background-incomplete
+  );
+  --bubble-background-complete: var(
+    --click-stepper-vertical-bulleted-step-color-background-complete
+  );
+  --bubble-background-active: var(
+    --click-stepper-vertical-bulleted-step-color-background-active
+  );
+  --bubble-stroke-incomplete: var(
+    --click-stepper-vertical-bulleted-step-color-stroke-incomplete
+  );
+  --bubble-stroke-complete: var(
+    --click-stepper-vertical-bulleted-step-color-stroke-complete
+  );
+  --bubble-stroke-active: var(
+    --click-stepper-vertical-bulleted-step-color-stroke-active
+  );
+  --bubble-icon-incomplete: var(
+    --click-stepper-vertical-bulleted-step-color-icon-incomplete
+  );
+  --bubble-icon-complete: var(
+    --click-stepper-vertical-bulleted-step-color-icon-complete
+  );
+  --bubble-icon-active: var(
+    --click-stepper-vertical-bulleted-step-color-icon-active
+  );
+}
+
+.step__bubble_status_complete {
+  --bubble-background: var(--bubble-background-complete);
+  --bubble-stroke: var(--bubble-stroke-complete);
+  --bubble-icon: var(--bubble-icon-complete);
+}
+
+.step__bubble_status_active {
+  --bubble-background: var(--bubble-background-active);
+  --bubble-stroke: var(--bubble-stroke-active);
+  --bubble-icon: var(--bubble-icon-active);
+}
+
+.step__bubble_type_numbered.step__bubble_status_incomplete::before,
+.step__bubble_type_numbered.step__bubble_status_active::before {
+  content: counter(vertical-stepper);
+  box-sizing: content-box;
+  color: inherit;
+  font: inherit;
+}
+
+.step__bubble_type_bulleted.step__bubble_status_complete::after {
+  content: "";
+  position: absolute;
+  box-sizing: content-box;
+  width: 50%;
+  height: 50%;
+  border-radius: inherit;
+  background: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
+}
+
+.step__check {
+  color: inherit;
+}
+
+.step__check path {
+  stroke-width: 3;
+}
+
+.step__label {
+  --label-color: var(--label-color-incomplete);
+
+  display: flex;
+  flex-direction: column;
+  gap: inherit;
+  color: var(--label-color);
+  font: var(--label-font);
+}
+
+.step__label_type_numbered {
+  --label-font: var(--click-stepper-vertical-numbered-typography-title-default);
+  --label-color-incomplete: var(
+    --click-stepper-vertical-numbered-color-title-incomplete
+  );
+  --label-color-complete: var(
+    --click-stepper-vertical-numbered-color-title-complete
+  );
+  --label-color-active: var(
+    --click-stepper-vertical-numbered-color-title-active
+  );
+}
+
+.step__label_type_bulleted {
+  --label-font: var(--click-stepper-vertical-bulleted-typography-title-default);
+  --label-color-incomplete: var(
+    --click-stepper-vertical-bulleted-color-title-incomplete
+  );
+  --label-color-complete: var(
+    --click-stepper-vertical-bulleted-color-title-complete
+  );
+  --label-color-active: var(
+    --click-stepper-vertical-bulleted-color-title-active
+  );
+}
+
+.step__label_status_complete {
+  --label-color: var(--label-color-complete);
+}
+
+.step__label_status_active {
+  --label-color: var(--label-color-active);
+}
+
+.step__content {
+  display: flex;
+  width: 100%;
+  padding-left: var(--content-padding-left);
+  flex-direction: column;
+}
+
+.step__content_type_numbered {
+  --content-padding-left: var(
+    --click-stepper-vertical-numbered-content-space-left
+  );
+}
+
+.step__content_type_bulleted {
+  --content-padding-left: var(
+    --click-stepper-vertical-bulleted-content-space-left
+  );
+}

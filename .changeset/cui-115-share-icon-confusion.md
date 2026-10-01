@@ -1,0 +1,30 @@
+---
+"@clickhouse/click-ui": minor
+---
+
+**Breaking:** collapse the duplicate share icons down to one (CUI-115).
+
+The old `share` glyph was visually indistinguishable from `popout` — both a
+rounded square with an arrow leaving the top-right corner — so it read as
+"opens in a new tab" wherever it was used as a share affordance. It has been
+removed.
+
+`share` now refers to the forward-arrow glyph that was previously registered as
+`share-arrow`. `share-network` is unchanged.
+
+Migration:
+
+- **If you used `share` for a link that opens in a new tab, switch to `popout`.**
+  This is the case that will not fail loudly: `name="share"` keeps compiling and
+  now renders the forward-arrow glyph instead of the box-with-arrow one.
+- If you used `share` as a genuine "share with someone" affordance, no change
+  is needed — you now get the forward arrow.
+- If you used `share-arrow`, rename it to `share`. `share-arrow` is registered as
+  a deprecated name, so it still renders and logs a deprecation warning, but it
+  is no longer a member of the exported `IconName` union — strictly-typed props
+  (`Button.iconLeft`, `Link.icon`, `Dropdown.Item.icon`, …) will fail typecheck
+  until updated.
+
+Deprecated icon and flag names (legacy PascalCase, two-letter flag codes) that
+previously rendered nothing through `Icon` now render and log a deprecation
+warning, matching `Flags` and `Logo`.

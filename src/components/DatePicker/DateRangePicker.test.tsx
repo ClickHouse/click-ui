@@ -190,6 +190,90 @@ describe('DateRangePicker', () => {
       fireEvent.click(await findByText('15'));
       expect(handleSelectDate).toHaveBeenCalled();
     });
+
+    it('disables selecting dates not in allowOnlyDatesList', async () => {
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      // Jul 5 is not in the allow list
+      user.click(await findByText('5'));
+
+      // A disabled date must not be selectable as the start date
+      expect(getByText('start date – end date')).toBeInTheDocument();
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+
+    it('allows selecting an end date that is in allowOnlyDatesList', async () => {
+      const startDate = new Date('07-04-2020');
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          startDate={startDate}
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      // Jul 6 is in the allow list
+      fireEvent.click(await findByText('6'));
+
+      const [selectedStart, selectedEnd] = handleSelectDate.mock.lastCall ?? [];
+      expect(selectedStart).toEqual(new Date('2020-07-04 00:00.00'));
+      expect(selectedEnd).toEqual(new Date('2020-07-06 00:00.00'));
+    });
+
+    it('treats an empty allowOnlyDatesList as no restriction', async () => {
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={[]}
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      fireEvent.click(await findByText('10'));
+
+      // With no restriction, Jul 10 is selectable as the start date
+      expect(getByText('Jul 10, 2020')).toBeInTheDocument();
+    });
+
+    it('disables future dates in allowOnlyDatesList when futureDatesDisabled', async () => {
+      // System time is July 4, 2020
+      const allowOnlyDatesList = [new Date('07-04-2020'), new Date('07-06-2020')];
+      const handleSelectDate = vi.fn();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+
+      const { getByTestId, findByText, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          futureDatesDisabled
+          onSelectDateRange={handleSelectDate}
+        />
+      );
+
+      user.click(getByTestId('daterangepicker-input'));
+      // Jul 6 is in the allow list but is a future date
+      user.click(await findByText('6'));
+
+      expect(getByText('start date – end date')).toBeInTheDocument();
+      expect(handleSelectDate).not.toHaveBeenCalled();
+    });
   });
 
   describe('when a range is already selected and maxRangeLength is set', () => {
@@ -234,6 +318,27 @@ describe('DateRangePicker', () => {
       await userEvent.click(await findByText('25'));
 
       expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+
+    it('counts the start date towards the max range length', async () => {
+      const startDate = new Date('07-04-2020');
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, findByText } = renderCUI(
+        <DateRangePicker
+          startDate={startDate}
+          onSelectDateRange={handleSelectDate}
+          maxRangeLength={5}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      // Jul 9 would make Jul 4 – Jul 9 a 6 day range.
+      await userEvent.click(await findByText('9'));
+      expect(handleSelectDate).not.toHaveBeenCalled();
+
+      await userEvent.click(await findByText('8'));
+      expect(handleSelectDate).toHaveBeenCalledWith(startDate, new Date('07-08-2020'));
     });
   });
 
@@ -442,6 +547,69 @@ describe('DateRangePicker', () => {
       expect(getByText('Dec 2019')).toBeInTheDocument();
       expect(getByText('Nov 2019')).toBeInTheDocument();
       expect(getByText('Oct 2019')).toBeInTheDocument();
+    });
+  });
+
+  describe('year and month selection', () => {
+    beforeAll(() => {
+      vi.setSystemTime(new Date('07-04-2020'));
+    });
+
+    afterAll(() => {
+      vi.useRealTimers();
+    });
+
+    it('shows a clickable calendar title that opens the years grid', async () => {
+      const { getByTestId } = renderCUI(<DateRangePicker onSelectDateRange={vi.fn()} />);
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+    });
+
+    it('selects a range in another year using year and month selection', async () => {
+      const handleSelectDateRange = vi.fn();
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker onSelectDateRange={handleSelectDateRange} />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('year-cell-2018'));
+
+      expect(getByTestId('months-grid')).toBeInTheDocument();
+
+      await userEvent.click(getByTestId('month-cell-1'));
+
+      await userEvent.click(getByText('12'));
+      await userEvent.click(getByText('18'));
+
+      expect(handleSelectDateRange).toHaveBeenCalledWith(
+        new Date('2018-02-12 00:00.00'),
+        new Date('2018-02-18 00:00.00')
+      );
+    });
+
+    it('allows year and month selection in the custom time period calendar', async () => {
+      const predefinedDatesList = getPredefinedMonthsForDateRangePicker(-6);
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedDatesList={predefinedDatesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+      await userEvent.click(getByText('Custom time period'));
+      await userEvent.click(getByTestId('calendar-title'));
+
+      expect(getByTestId('years-grid')).toBeInTheDocument();
     });
   });
 

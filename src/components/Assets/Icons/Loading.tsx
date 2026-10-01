@@ -1,7 +1,16 @@
 import type { SVGAssetProps } from '@/types';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
+import styles from './Loaders.module.css';
 
-const Loading = (props: SVGAssetProps) => (
+const Loading = ({
+  className,
+  // `theme` is destructured out so it is not forwarded onto the DOM <svg>: the
+  // original wrapped this icon in `styled(Loading)`, which consumed the `theme`
+  // prop and never rendered it as an attribute.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  theme,
+  ...props
+}: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -9,6 +18,7 @@ const Loading = (props: SVGAssetProps) => (
     viewBox="0 0 24 24"
     fill="none"
     {...props}
+    className={cn(styles.loading, className)}
   >
     <path
       stroke="#161517"
@@ -41,7 +51,4 @@ const Loading = (props: SVGAssetProps) => (
   </svg>
 );
 
-const LoadingFlipped = styled(Loading)`
-  transform: scaleX(-1);
-`;
-export default LoadingFlipped;
+export default Loading;

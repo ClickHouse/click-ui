@@ -1,0 +1,97 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. opaqueBackground) */
+.trigger {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+     keyword on `width` is widely supported on evergreen browsers; the original
+     rule used the same value. */
+  width: fit-content;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+@keyframes overlay-show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes content-show {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--click-dialog-color-opaqueBackground-default);
+  animation: overlay-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 75%;
+  max-width: 670px;
+  max-height: 75%;
+  overflow: auto;
+  border: 1px solid var(--click-global-color-stroke-default);
+  border-radius: var(--click-dialog-radii-all);
+  background: var(--click-dialog-color-background-default);
+  outline: none;
+  box-shadow: var(--click-dialog-shadow-default);
+  transform: translate(-50%, -50%);
+  animation: content-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  padding-block: var(--click-dialog-space-y);
+  padding-inline: var(--click-dialog-space-x);
+}
+
+.content_reduce-padding {
+  padding-block: var(--sizes-4);
+  padding-inline: var(--sizes-4);
+}
+
+/* stylelint-disable-next-line media-feature-range-notation -- prefix notation
+   required for browser compatibility per .browserslistrc */
+@media (max-width: 640px) {
+  .content {
+    width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+.title-area {
+  display: flex;
+  min-height: var(--sizes-9); /* 32px */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-area_only-close {
+  justify-content: flex-end;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  font: var(--click-dialog-typography-title-default);
+}
+
+.description {
+  margin: 0;
+  padding: 0;
+  color: var(--click-dialog-color-description-default);
+  font: var(--click-dialog-typography-description-default);
+}

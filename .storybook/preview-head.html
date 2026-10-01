@@ -1,6 +1,13 @@
 <link rel="preconnect" href="https://rsms.me/">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
+<!-- Mono font used by the `mono` typography token ("Inconsolata"). Loaded here so
+     story canvases (and visual-regression screenshots) render the real font instead
+     of a host-dependent monospace fallback. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap">
+
 <style>
 	.sbdocs-preview, .docs-story, .docs-story > div:first-child {
 		min-height: 180px;

@@ -1,29 +1,28 @@
 import * as RadixHoverCard from '@radix-ui/react-hover-card';
-import { ReactNode } from 'react';
 import { Arrow, GenericPopoverMenuPanel } from '@/components/GenericMenu';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
-
-export interface HoverCardContentProps extends RadixHoverCard.HoverCardContentProps {
-  showArrow?: boolean;
-  forceMount?: true;
-  container?: HTMLElement | null;
-  children: ReactNode;
-}
+import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import type { HoverCardContentProps } from './HoverCard.types';
+import styles from './HoverCard.module.css';
 
 export const HoverCard = ({ children, ...props }: RadixHoverCard.HoverCardProps) => {
   return <RadixHoverCard.Root {...props}>{children}</RadixHoverCard.Root>;
 };
 
-const Trigger = styled(RadixHoverCard.Trigger)`
-  width: fit-content;
-`;
-
 const HoverCardTrigger = ({
   children,
+  className,
   ...props
 }: RadixHoverCard.HoverCardTriggerProps) => {
-  return <Trigger {...props}>{children}</Trigger>;
+  return (
+    <RadixHoverCard.Trigger
+      {...props}
+      className={cn(styles['hover-card__trigger'], className)}
+    >
+      {children}
+    </RadixHoverCard.Trigger>
+  );
 };
 HoverCardTrigger.displayName = 'HoverCardTrigger';
 HoverCard.Trigger = HoverCardTrigger;
@@ -35,15 +34,17 @@ const HoverCardContent = ({
   container,
   ...props
 }: HoverCardContentProps) => {
+  const portalContainer = useResolvedPortalContainer(container);
+
   return (
     <RadixHoverCard.Portal
       forceMount={forceMount}
-      container={container}
+      container={portalContainer}
     >
       <GenericPopoverMenuPanel
         as={RadixHoverCard.Content}
-        $type="hover-card"
-        $showArrow={showArrow}
+        type="hover-card"
+        showArrow={showArrow}
         {...props}
       >
         {showArrow && (

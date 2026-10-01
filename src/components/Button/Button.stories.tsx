@@ -147,6 +147,15 @@ export const FillWidth: Story = {
   },
 };
 
+export const FillWidthLoading: Story = {
+  args: {
+    type: 'primary',
+    label: 'Loading...',
+    fillWidth: true,
+    loading: true,
+  },
+};
+
 export const AlignLeft: Story = {
   args: {
     type: 'primary',

@@ -1,0 +1,167 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. fileTabs) */
+.tabs {
+  display: flex;
+  position: relative;
+  max-width: var(--file-tabs-count-width);
+  overflow: auto;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- preserves the styled-components original verbatim; the invalid scrollbar-width value is ignored by browsers and the scrollbar is hidden via the ::-webkit-scrollbar rule below */
+  overscroll-behavior: none;
+  scrollbar-width: 0;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+}
+
+.tabs::-webkit-scrollbar {
+  height: 0;
+}
+
+.tabs-sortable {
+  display: flex;
+}
+
+.tabs-sortable > div {
+  width: clamp(100px, 100%, 200px);
+  min-width: 100px;
+  height: 100%;
+  outline: none;
+}
+
+.tabs-sortable > div.sortable-ghost {
+  opacity: 0;
+}
+
+.tab {
+  display: grid;
+  box-sizing: border-box;
+  max-width: 100%;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same width fallback chain (100% → -webkit-fill-available → fill-available → stretch) so the tab fills the available inline space */
+  max-width: -webkit-fill-available;
+  max-width: fill-available;
+  max-width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  height: 100%;
+  max-height: 100%;
+  padding: var(--click-tabs-fileTabs-space-y) var(--click-tabs-fileTabs-space-x);
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--click-tabs-fileTabs-space-gap);
+  grid-template-columns: 1fr;
+  border: none;
+  border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-default);
+  border-radius: var(--click-tabs-fileTabs-radii-all);
+  background: var(--click-tabs-fileTabs-color-background-default);
+  color: var(--click-tabs-fileTabs-color-text-default);
+  font: var(--click-tabs-fileTabs-typography-label-default);
+  outline: none;
+  cursor: pointer;
+}
+
+.tab svg,
+.tab [data-indicator] {
+  width: var(--click-tabs-fileTabs-icon-size-width);
+  height: var(--click-tabs-fileTabs-icon-size-height);
+}
+
+.tab [data-type='close'] {
+  display: none;
+}
+
+.tab [data-indicator] {
+  display: block;
+}
+
+.tab:hover [data-type='close'] {
+  display: block;
+}
+
+.tab:hover [data-indicator] {
+  display: none;
+}
+
+.tab_active {
+  border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-active);
+  background: var(--click-tabs-fileTabs-color-background-active);
+  color: var(--click-tabs-fileTabs-color-text-active);
+  font: var(--click-tabs-fileTabs-typography-label-active);
+}
+
+.tab_inactive:hover {
+  border-right: 1px solid var(--click-tabs-fileTabs-color-stroke-hover);
+  background: var(--click-tabs-fileTabs-color-background-hover);
+  color: var(--click-tabs-fileTabs-color-text-hover);
+  font: var(--click-tabs-fileTabs-typography-label-hover);
+}
+
+.tab_full-width {
+  width: 100%;
+}
+
+.tab_fixed {
+  width: auto;
+}
+
+.tab_preview {
+  font-style: italic;
+}
+
+.tab_dismissable {
+  grid-template-columns: 1fr var(--click-tabs-fileTabs-icon-size-width);
+}
+
+.indicator {
+  position: relative;
+}
+
+.indicator::after {
+  content: '';
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.indicator[data-indicator='success']::after {
+  background: var(--click-alert-color-text-success);
+}
+
+.indicator[data-indicator='neutral']::after {
+  background: var(--click-alert-color-text-neutral);
+}
+
+.indicator[data-indicator='danger']::after {
+  background: var(--click-alert-color-text-danger);
+}
+
+.indicator[data-indicator='warning']::after {
+  background: var(--click-alert-color-text-warning);
+}
+
+.indicator[data-indicator='info']::after {
+  background: var(--click-alert-color-text-info);
+}
+
+.tab-content {
+  display: flex;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--click-tabs-fileTabs-space-gap);
+}
+
+.tab-content-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.empty-button {
+  padding: 0;
+}
+
+.empty-button:hover {
+  background: var(--click-tabs-fileTabs-color-closeButton-background-hover);
+}

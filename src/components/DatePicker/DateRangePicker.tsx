@@ -1,16 +1,19 @@
 import {
+  ComponentProps,
   Dispatch,
+  forwardRef,
   KeyboardEvent,
   MouseEvent,
+  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 import { isSameDate, UseCalendarOptions } from '@h6s/calendar';
-import { styled } from 'styled-components';
 import { Dropdown } from '@/components/Dropdown';
 import {
   Body,
@@ -22,68 +25,150 @@ import {
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';
 import { Icon } from '@/components/Icon';
+import { cn, cva } from '@/lib/cva';
+import styles from './DateRangePicker.module.css';
 import {
   DateRange,
-  datesAreWithinMaxRange,
+  Timezone,
+  areDatesWithinMaxRange,
   formatDateHeader,
   formatSelectedDate,
-  shiftFromTimezone,
+  isDateNotInAllowList,
   isDateRangeTheWholeMonth,
-  Timezone,
+  shiftFromTimezone,
   shiftToTimezone,
 } from './utils';
 
 type OpenDirection = 'left' | 'right';
 
-const calendarWidth = 275;
+const PredefinedCalendarContainer = ({
+  className,
+  children,
+  gap,
+  orientation,
+  padding,
+}: ComponentProps<typeof Panel>) => (
+  <Panel
+    gap={gap}
+    orientation={orientation}
+    padding={padding}
+    className={cn(styles['predefined-calendar-container'], className)}
+  >
+    {children}
+  </Panel>
+);
 
-const PredefinedCalendarContainer = styled(Panel)`
-  align-items: start;
-  background: ${({ theme }) => theme.click.panel.color.background.muted};
-`;
+const PredefinedDatesContainer = ({
+  className,
+  children,
+  isResponsive,
+  orientation,
+  'data-testid': dataTestId,
+}: ComponentProps<typeof Container> & { 'data-testid'?: string }) => (
+  <Container
+    isResponsive={isResponsive}
+    orientation={orientation}
+    data-testid={dataTestId}
+    className={cn(styles['predefined-dates-container'], className)}
+  >
+    {children}
+  </Container>
+);
 
-const PredefinedDatesContainer = styled(Container)`
-  width: ${calendarWidth}px;
-`;
+const calendarRendererContainerVariants = cva(styles['calendar-renderer-container'], {
+  variants: {
+    openDirection: {
+      left: styles['calendar-renderer-container_left'],
+      right: styles['calendar-renderer-container_right'],
+    },
+  },
+  defaultVariants: { openDirection: 'right' },
+});
 
-// left value of 276px is the width of the PredefinedDatesContainer + 1 pixel for border
-const CalendarRendererContainer = styled.div<{ $openDirection?: OpenDirection }>`
-  border: ${({ theme }) =>
-    `${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range}`};
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  box-shadow:
-    lch(6.77 0 0 / 0.15) 4px 4px 6px -1px,
-    lch(6.77 0 0 / 0.15) 2px 2px 4px -1px;
-  ${({ $openDirection }) => ($openDirection === 'left' ? 'right: 100%;' : 'left: 276px;')}
-  position: absolute;
-  top: 0;
-`;
+const CalendarRendererContainer = forwardRef<
+  HTMLDivElement,
+  { openDirection?: OpenDirection; children: ReactNode }
+>(({ openDirection, children }, ref) => (
+  <div
+    ref={ref}
+    className={calendarRendererContainerVariants({ openDirection })}
+  >
+    {children}
+  </div>
+));
+CalendarRendererContainer.displayName = 'CalendarRendererContainer';
 
-// Height of 221px is height the height the calendar needs to match the PredefinedDatesContainer
-const StyledCalendarRenderer = styled(CalendarRenderer)`
-  border-radius: ${({ theme }) => theme.click.datePicker.dateOption.radii.default};
-  min-height: 221px;
-`;
+const StyledCalendarRenderer = ({
+  className,
+  children,
+  calendarOptions,
+  allowYearMonthSelection,
+  selectedDate,
+  timezone,
+}: ComponentProps<typeof CalendarRenderer>) => (
+  <CalendarRenderer
+    calendarOptions={calendarOptions}
+    allowYearMonthSelection={allowYearMonthSelection}
+    selectedDate={selectedDate}
+    timezone={timezone}
+    className={cn(styles['styled-calendar-renderer'], className)}
+  >
+    {children}
+  </CalendarRenderer>
+);
 
-// max-height of 210px allows the scrollable container to be a reasonble height that matches the calendar
-const ScrollableContainer = styled(Container)`
-  max-height: 210px;
-  overflow-y: auto;
-`;
+const ScrollableContainer = ({
+  className,
+  children,
+  orientation,
+}: ComponentProps<typeof Container>) => (
+  <Container
+    orientation={orientation}
+    className={cn(styles['scrollable-container'], className)}
+  >
+    {children}
+  </Container>
+);
 
-const DateRangeTableCell = styled(DateTableCell)<{
-  $shouldShowRangeIndicator?: boolean;
-}>`
-  ${({ $shouldShowRangeIndicator, theme }) =>
-    $shouldShowRangeIndicator &&
-    `
-    background: ${theme.click.datePicker.dateOption.color.background.range};
-    border: ${theme.click.datePicker.dateOption.stroke} solid ${theme.click.datePicker.dateOption.color.background.range};
-    border-radius: 0;
-    `}
-`;
+const dateRangeTableCellVariants = cva(undefined, {
+  variants: {
+    showRangeIndicator: { true: styles['date-range-table-cell_indicator'] },
+  },
+});
+
+const DateRangeTableCell = ({
+  shouldShowRangeIndicator,
+  className,
+  children,
+  isCurrentMonth,
+  isDisabled,
+  isSelected,
+  isPresent,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: ComponentProps<typeof DateTableCell> & {
+  shouldShowRangeIndicator?: boolean;
+}) => (
+  <DateTableCell
+    isCurrentMonth={isCurrentMonth}
+    isDisabled={isDisabled}
+    isSelected={isSelected}
+    isPresent={isPresent}
+    onClick={onClick}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
+    className={cn(
+      dateRangeTableCellVariants({ showRangeIndicator: shouldShowRangeIndicator }),
+      className
+    )}
+  >
+    {children}
+  </DateTableCell>
+);
 
 interface CalendarProps {
+  allowOnlyDatesList?: Array<Date>;
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
@@ -96,6 +181,7 @@ interface CalendarProps {
 }
 
 const Calendar = ({
+  allowOnlyDatesList,
   calendarBody,
   closeDatepicker,
   futureDatesDisabled,
@@ -111,6 +197,12 @@ const Calendar = ({
   const today = shiftToTimezone(new Date(), timezone);
   const shiftedStart = startDate ? shiftToTimezone(startDate, timezone) : undefined;
   const shiftedEnd = endDate ? shiftToTimezone(endDate, timezone) : undefined;
+
+  const shiftedAllowList = useMemo(() => {
+    return allowOnlyDatesList?.map(date => {
+      return shiftToTimezone(date, timezone);
+    });
+  }, [allowOnlyDatesList, timezone]);
 
   const handleMouseOut = (): void => {
     setHoveredDate(undefined);
@@ -141,9 +233,13 @@ const Calendar = ({
           if (
             maxRangeLength > 1 &&
             shiftedStart &&
-            !datesAreWithinMaxRange(shiftedStart, fullDate, maxRangeLength) &&
+            !areDatesWithinMaxRange(shiftedStart, fullDate, maxRangeLength) &&
             fullDate > shiftedStart
           ) {
+            isDisabled = true;
+          }
+
+          if (isDateNotInAllowList(shiftedAllowList, fullDate)) {
             isDisabled = true;
           }
 
@@ -185,13 +281,13 @@ const Calendar = ({
           };
           return (
             <DateRangeTableCell
-              $shouldShowRangeIndicator={
+              shouldShowRangeIndicator={
                 !isSelected && (shouldShowRangeIndicator || isBetweenStartAndEndDates)
               }
-              $isCurrentMonth={isCurrentMonth}
-              $isDisabled={isDisabled}
-              $isSelected={isSelected}
-              $isPresent={isPresent}
+              isCurrentMonth={isCurrentMonth}
+              isDisabled={isDisabled}
+              isSelected={Boolean(isSelected)}
+              isPresent={isPresent}
               key={dayKey}
               onClick={handleClick}
               onMouseEnter={handleMouseEnter}
@@ -292,24 +388,25 @@ const PredefinedDates = ({
 };
 
 export interface DateRangePickerProps {
-  endDate?: Date;
+  allowOnlyDatesList?: Array<Date>;
   disabled?: boolean;
+  endDate?: Date;
   futureDatesDisabled?: boolean;
   futureStartDatesDisabled?: boolean;
+  maxRangeLength?: number;
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
   predefinedDatesList?: DateRange[];
-  maxRangeLength?: number;
-  startDate?: Date;
   responsivePositioning?: boolean;
+  startDate?: Date;
   timezone?: Timezone;
 }
 
 export const DateRangePicker = ({
-  endDate,
-  startDate,
+  allowOnlyDatesList,
   disabled = false,
+  endDate,
   futureDatesDisabled = false,
   futureStartDatesDisabled = false,
   maxRangeLength = -1,
@@ -318,6 +415,7 @@ export const DateRangePicker = ({
   placeholder = 'start date – end date',
   predefinedDatesList,
   responsivePositioning = true,
+  startDate,
   timezone = 'system',
 }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -467,17 +565,18 @@ export const DateRangePicker = ({
 
             {shouldShowCustomRange && (
               <CalendarRendererContainer
-                $openDirection={calendarOpenDirection}
+                openDirection={calendarOpenDirection}
                 ref={calendarContainerRef}
               >
                 <StyledCalendarRenderer
                   calendarOptions={calendarOptions}
-                  allowYearMonthSelection={false}
+                  allowYearMonthSelection={true}
                   selectedDate={selectedStartDate}
                   timezone={timezone}
                 >
                   {(body: Body) => (
                     <Calendar
+                      allowOnlyDatesList={allowOnlyDatesList}
                       calendarBody={body}
                       closeDatepicker={closeDatePicker}
                       futureDatesDisabled={futureDatesDisabled}
@@ -496,12 +595,13 @@ export const DateRangePicker = ({
         ) : (
           <CalendarRenderer
             calendarOptions={calendarOptions}
-            allowYearMonthSelection={false}
+            allowYearMonthSelection={true}
             selectedDate={selectedStartDate}
             timezone={timezone}
           >
             {(body: Body) => (
               <Calendar
+                allowOnlyDatesList={allowOnlyDatesList}
                 calendarBody={body}
                 closeDatepicker={closeDatePicker}
                 futureDatesDisabled={futureDatesDisabled}

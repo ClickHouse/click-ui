@@ -1,139 +1,167 @@
-import { styled } from 'styled-components';
+import { ComponentPropsWithRef, ElementType, ReactNode, forwardRef } from 'react';
+import { cn, cva } from '@/lib/cva';
+import styles from './GenericMenu.module.css';
 
-export const GenericMenuPanel = styled.div<{
-  $type: 'popover' | 'dropdown-menu' | 'context-menu';
-  $showArrow?: boolean;
-}>`
-  outline: none;
-  max-width: var(--radix-${({ $type }) => $type}-content-available-width);
-  max-height: var(--radix-${({ $type }) => $type}-content-available-height);
-  overflow: hidden;
-  display: flex;
-  align-items: flex-start;
-  pointer-events: auto;
+const panelVariants = cva(styles['generic-menu-panel'], {
+  variants: {
+    type: {
+      popover: styles['generic-menu-panel_type_popover'],
+      'dropdown-menu': styles['generic-menu-panel_type_dropdown-menu'],
+      'context-menu': styles['generic-menu-panel_type_context-menu'],
+    },
+    showArrow: {
+      true: styles['generic-menu-panel_show-arrow'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    showArrow: false,
+  },
+});
 
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.genericMenu.panel.color.stroke.default};
-    background: ${theme.click.genericMenu.panel.color.background.default};
-    box-shadow: ${theme.click.genericMenu.panel.shadow.default};
-    border-radius: ${theme.click.genericMenu.panel.radii.all};
-  `};
-  ${({ $showArrow }) =>
-    $showArrow
-      ? `
-      &[data-side="bottom"] {
-        margin-top: -1px;
-      }
-      &[data-side="top"] {
-        margin-bottom: 1px;
-      }
-      &[data-side="left"] {
-        margin-right: -1px;
-      }
-      }
-      &[data-side="right"] {
-        margin-left: -1px;
-      }
-  `
-      : ''};
-`;
+type GenericMenuPanelOwnProps = {
+  type: 'popover' | 'dropdown-menu' | 'context-menu';
+  showArrow?: boolean;
+};
 
-export const GenericPopoverMenuPanel = styled.div<{
-  $type: 'popover' | 'hover-card';
-  $showArrow?: boolean;
-}>`
-  outline: none;
-  max-width: var(--radix-${({ $type }) => $type}-content-available-width);
-  max-height: var(--radix-${({ $type }) => $type}-content-available-height);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  z-index: 1;
+type GenericMenuPanelComponent = <T extends ElementType = 'div'>(
+  props: Omit<ComponentPropsWithRef<T>, keyof GenericMenuPanelOwnProps | 'as'> &
+    GenericMenuPanelOwnProps & { as?: T }
+) => ReactNode;
 
-  ${({ theme }) => `
-    border: 1px solid ${theme.click.popover.color.panel.stroke.default};
-    background: ${theme.click.popover.color.panel.background.default};
-    padding: ${theme.click.popover.space.y} ${theme.click.popover.space.x};
-    border-radius: ${theme.click.popover.radii.all};
-    box-shadow: ${theme.click.popover.shadow.default};
-  `}
-  ${({ $showArrow }) => ($showArrow ? 'margin: -1px 0;' : '')};
-`;
+const _GenericMenuPanel = <T extends ElementType = 'div'>(
+  {
+    as,
+    type,
+    showArrow,
+    className,
+    ...props
+  }: Omit<ComponentPropsWithRef<T>, keyof GenericMenuPanelOwnProps | 'as'> &
+    GenericMenuPanelOwnProps & { as?: T },
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'div';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(panelVariants({ type, showArrow }), className)}
+    />
+  );
+};
 
-export const Arrow = styled.svg`
-  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 4px 6px);
-  ${({ theme }) => `
-    fill: ${theme.click.genericMenu.panel.color.background.default};
-    stroke: ${theme.click.genericMenu.panel.color.stroke.default};
-  `};
-`;
+export const GenericMenuPanel: GenericMenuPanelComponent = forwardRef(_GenericMenuPanel);
 
-export const GenericMenuItem = styled.div<{ $type?: 'default' | 'danger' }>`
-  display: flex;
-  width: 100%;
-  width: -moz-available;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: default;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  &:focus {
-    outline: none;
-  }
+const popoverPanelVariants = cva(styles['generic-popover-menu-panel'], {
+  variants: {
+    type: {
+      popover: styles['generic-popover-menu-panel_type_popover'],
+      'hover-card': styles['generic-popover-menu-panel_type_hover-card'],
+    },
+    showArrow: {
+      true: styles['generic-popover-menu-panel_show-arrow'],
+      false: '',
+    },
+  },
+  defaultVariants: {
+    showArrow: false,
+  },
+});
 
-  ${({ theme, $type = 'default' }) => {
-    const colorKey = $type === 'danger' ? 'danger' : 'default';
-    return `
-    padding: ${theme.click.genericMenu.item.space.y} ${theme.click.genericMenu.item.space.x};
-    gap: ${theme.click.genericMenu.item.space.gap};
-    font: ${theme.click.genericMenu.item.typography.label.default};
-    background: ${theme.click.genericMenu.item.color[colorKey].background.default};
-    color: ${theme.click.genericMenu.item.color[colorKey].text.default};
-    &[data-highlighted] {
-      font: ${theme.click.genericMenu.item.typography.label.hover};
-      background: ${theme.click.genericMenu.item.color[colorKey].background.hover};
-      color:${theme.click.genericMenu.item.color[colorKey].text.hover};
-      cursor: pointer;
-    }
-    [data-input-modality="keyboard"] &[data-highlighted] {
-      outline: 2px solid ${theme.click.global.color.accent.default};
-      outline-offset: -2px;
-    }
-    &[data-state="open"] {
-      background:${theme.click.genericMenu.item.color[colorKey].background.hover};
-      color:${theme.click.genericMenu.item.color[colorKey].text.hover};
-      font: ${theme.click.genericMenu.item.typography.label.hover};
-      cursor: pointer;
-    }
-    &[data-state="checked"], &[data-selected="true"]  {
-      background:${theme.click.genericMenu.item.color[colorKey].background.active};
-      color:${theme.click.genericMenu.item.color[colorKey].text.active};
-      font: ${theme.click.genericMenu.item.typography.label.active};
-    }
-    &[data-disabled] {
-      color:${theme.click.genericMenu.item.color[colorKey].text.disabled};
-      font: ${theme.click.genericMenu.item.typography.label.disabled};
-      pointer-events: none;
-    }
-    &:visited {
-      color: ${theme.click.genericMenu.item.color[colorKey].text.default};
-      a {
-        color: ${theme.click.genericMenu.item.color[colorKey].text.default};
-      }
-    }
-  `;
-  }};
-  position: relative;
-  &:hover .dropdown-arrow,
-  &[data-state='open'] .dropdown-arrow {
-    left: 0.5rem;
-  }
-  &[hidden] {
-    display: none;
-  }
-`;
+type GenericPopoverMenuPanelOwnProps = {
+  type: 'popover' | 'hover-card';
+  showArrow?: boolean;
+};
+
+type GenericPopoverMenuPanelComponent = <T extends ElementType = 'div'>(
+  props: Omit<ComponentPropsWithRef<T>, keyof GenericPopoverMenuPanelOwnProps | 'as'> &
+    GenericPopoverMenuPanelOwnProps & { as?: T }
+) => ReactNode;
+
+const _GenericPopoverMenuPanel = <T extends ElementType = 'div'>(
+  {
+    as,
+    type,
+    showArrow,
+    className,
+    ...props
+  }: Omit<ComponentPropsWithRef<T>, keyof GenericPopoverMenuPanelOwnProps | 'as'> &
+    GenericPopoverMenuPanelOwnProps & { as?: T },
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'div';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(popoverPanelVariants({ type, showArrow }), className)}
+    />
+  );
+};
+
+export const GenericPopoverMenuPanel: GenericPopoverMenuPanelComponent = forwardRef(
+  _GenericPopoverMenuPanel
+);
+
+type ArrowComponent = <T extends ElementType = 'svg'>(
+  props: Omit<ComponentPropsWithRef<T>, 'as'> & { as?: T }
+) => ReactNode;
+
+const _Arrow = <T extends ElementType = 'svg'>(
+  { as, className, ...props }: Omit<ComponentPropsWithRef<T>, 'as'> & { as?: T },
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'svg';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(styles.arrow, className)}
+    />
+  );
+};
+
+export const Arrow: ArrowComponent = forwardRef(_Arrow);
+
+const itemVariants = cva(styles['generic-menu-item'], {
+  variants: {
+    type: {
+      default: styles['generic-menu-item_type_default'],
+      danger: styles['generic-menu-item_type_danger'],
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+  },
+});
+
+type GenericMenuItemOwnProps = {
+  type?: 'default' | 'danger';
+};
+
+type GenericMenuItemComponent = <T extends ElementType = 'div'>(
+  props: Omit<ComponentPropsWithRef<T>, keyof GenericMenuItemOwnProps | 'as'> &
+    GenericMenuItemOwnProps & { as?: T }
+) => ReactNode;
+
+const _GenericMenuItem = <T extends ElementType = 'div'>(
+  {
+    as,
+    type = 'default',
+    className,
+    ...props
+  }: Omit<ComponentPropsWithRef<T>, keyof GenericMenuItemOwnProps | 'as'> &
+    GenericMenuItemOwnProps & { as?: T },
+  ref: ComponentPropsWithRef<T>['ref']
+) => {
+  const Component = as ?? 'div';
+  return (
+    <Component
+      ref={ref}
+      {...props}
+      className={cn(itemVariants({ type }), className)}
+    />
+  );
+};
+
+export const GenericMenuItem: GenericMenuItemComponent = forwardRef(_GenericMenuItem);

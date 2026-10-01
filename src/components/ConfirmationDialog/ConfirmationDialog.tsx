@@ -3,26 +3,13 @@ import { Dialog } from '@/components/Dialog';
 import { Separator } from '@/components/Separator';
 import { Text } from '@/components/Text';
 import { ReactElement } from 'react';
-import { styled } from 'styled-components';
+import { cn } from '@/lib/cva';
+import styles from './ConfirmationDialog.module.css';
 import { ConfirmationDialogProps } from './ConfirmationDialog.types';
-
-const ActionsWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: ${props => props.theme.click.dialog.space.gap};
-  @media (max-width: ${({ theme }) => theme.breakpoint.sizes.sm}) {
-    flex-direction: column;
-  }
-`;
-
-const DialogContent = styled.div`
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-`;
 
 export const ConfirmationDialog = ({
   children,
+  className,
   disabled,
   loading,
   message,
@@ -49,11 +36,11 @@ export const ConfirmationDialog = ({
         }
       }}
     >
-      <DialogContent
-        as={Dialog.Content}
+      <Dialog.Content
         title={title}
         showClose={showClose}
         {...props}
+        className={cn(styles.content, className)}
       >
         <Container
           overflow="auto"
@@ -63,7 +50,7 @@ export const ConfirmationDialog = ({
           {children ? children : <Text>{message}</Text>}
         </Container>
         <Separator size="xl" />
-        <ActionsWrapper>
+        <div className={styles.actions}>
           <Dialog.Close
             label={secondaryActionLabel}
             data-testid="cancel-action-button"
@@ -73,6 +60,7 @@ export const ConfirmationDialog = ({
             disabled={!!disabled || !!loading}
             type={primaryActionType}
             label={primaryActionLabel}
+            // eslint-disable-next-line jsx-a11y/no-autofocus -- a dialog must move focus inside on open (APG dialog pattern); this picks the primary action
             autoFocus={open}
             onClick={() => {
               if (onConfirm) {
@@ -81,8 +69,8 @@ export const ConfirmationDialog = ({
             }}
             data-testid="confirm-action-button"
           />
-        </ActionsWrapper>
-      </DialogContent>
+        </div>
+      </Dialog.Content>
     </Dialog>
   );
 };

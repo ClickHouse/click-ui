@@ -2,25 +2,11 @@ import { useState, useCallback } from 'react';
 import { FileUploadArea } from './FileUploadArea';
 import { FileUploadItem } from './FileUploadItem';
 import { useDragAndDrop } from './useDragAndDrop';
+import type { FileUploadProps } from './FileUpload.types';
 
 interface FileInfo {
   name: string;
   size: number;
-}
-
-export interface FileUploadProps {
-  /** The title text displayed in the upload area */
-  title: string;
-  supportedFileTypes?: string[];
-  size?: 'sm' | 'md';
-  progress?: number;
-  showSuccess?: boolean;
-  showProgress?: boolean;
-  failureMessage?: string;
-  onRetry?: () => void;
-  onFileSelect?: (file: File) => void;
-  onFileFailure?: () => void;
-  onFileClose?: () => void;
 }
 
 export const FileUpload = ({

@@ -37,3 +37,26 @@ export const Playground: StoryObj<typeof SearchField> = {
     placeholder: 'Placeholder',
   },
 };
+
+export const WithValue: StoryObj<typeof SearchField> = {
+  args: {
+    label: 'Label',
+    value: 'search term',
+  },
+};
+
+export const Filter: StoryObj<typeof SearchField> = {
+  args: {
+    label: 'Label',
+    placeholder: 'Filter',
+    isFilter: true,
+  },
+};
+
+export const Disabled: StoryObj<typeof SearchField> = {
+  args: {
+    label: 'Label',
+    placeholder: 'Placeholder',
+    disabled: true,
+  },
+};

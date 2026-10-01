@@ -1,12 +1,12 @@
 import React, { HTMLAttributes, useState } from 'react';
 import { Light as SyntaxHighlighter, createElement } from 'react-syntax-highlighter';
 
-import { EmptyButton } from '@/components/EmptyButton';
 import { IconButton } from '@/components/IconButton';
 
-import { styled } from 'styled-components';
-import useColorStyle from './useColorStyle';
-import { CodeBlockProps, CodeThemeType } from './CodeBlock.types';
+import { cn } from '@/lib/cva';
+import useColorStyle, { useButtonStateColors, useNumbersColor } from './useColorStyle';
+import { CodeBlockProps } from './CodeBlock.types';
+import styles from './CodeBlock.module.css';
 
 /* eslint-disable import/extensions */
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
@@ -19,6 +19,8 @@ import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json.js';
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js';
 // @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
 import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js';
+// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
+import diff from 'react-syntax-highlighter/dist/cjs/languages/hljs/diff.js';
 /* eslint-enable import/extensions */
 
 SyntaxHighlighter.registerLanguage('sql', sql.default || sql);
@@ -26,6 +28,7 @@ SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
 SyntaxHighlighter.registerLanguage('json', json.default || json);
 SyntaxHighlighter.registerLanguage('tsx', tsx.default || tsx);
 SyntaxHighlighter.registerLanguage('plaintext', plaintext.default || plaintext);
+SyntaxHighlighter.registerLanguage('diff', diff.default || diff);
 
 interface RendererNodeType {
   type: 'element' | 'text';
@@ -40,60 +43,6 @@ interface CustomRendererProps {
   useInlineStyles: boolean;
 }
 
-const CodeBlockContainer = styled.div<{ $theme?: CodeThemeType }>`
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  position: relative;
-  ${({ theme, $theme }) => {
-    const themeName = theme.name as CodeThemeType;
-
-    const codeTheme = theme.click.codeblock[`${!$theme ? themeName : $theme}Mode`].color;
-    return `
-    color: ${codeTheme.numbers.default};
-    .linenumber {
-      color: ${codeTheme.numbers.default}
-    }
-  `;
-  }}
-`;
-
-const CodeButton = styled(EmptyButton)<{ $copied: boolean; $error: boolean }>`
-  ${({ $copied, $error, theme }) => `
-    color: ${
-      $copied
-        ? theme.click.alert.color.text.success
-        : $error
-          ? theme.click.alert.color.text.danger
-          : 'inherit'
-    };
-    padding: 0;
-    border: 0;
-  `}
-`;
-
-const Highlighter = styled(SyntaxHighlighter)`
-  background: transparent;
-  padding: 0;
-  margin: 0;
-`;
-
-const CodeContent = styled.code`
-  font-family: inherit;
-  color: inherit;
-`;
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  display: flex;
-  ${({ theme }) => `
-    gap:  0.625rem;
-    top: ${theme.click.codeblock.space.y};
-    right: ${theme.click.codeblock.space.x};
-  `}
-`;
-
 export const CodeBlock = ({
   children,
   language,
@@ -101,14 +50,19 @@ export const CodeBlock = ({
   showLineNumbers,
   showWrapButton = false,
   wrapLines = false,
+  ariaLabel,
   onCopy,
   onCopyError,
+  className,
+  style,
   ...props
 }: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
   const [errorCopy, setErrorCopy] = useState(false);
   const [wrap, setWrap] = useState(wrapLines);
   const customStyle = useColorStyle(theme);
+  const numbersColor = useNumbersColor(theme);
+  const buttonStateColors = useButtonStateColors();
 
   const copyCodeToClipboard = async () => {
     try {
@@ -130,38 +84,34 @@ export const CodeBlock = ({
       setTimeout(() => setErrorCopy(false), 2000);
     }
   };
+
+  const codeRegionLabel =
+    ariaLabel ?? (language ? `${language} code block` : 'Code block');
+
   const wrapElement = () => {
     setWrap(wrap => !wrap);
   };
 
-  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => <CodeContent {...props} />;
-  return (
-    <CodeBlockContainer
-      $theme={theme}
+  const CodeWithRef = (props: HTMLAttributes<HTMLElement>) => (
+    <code
       {...props}
+      className={cn(styles['codeblock__content'], props.className)}
+    />
+  );
+  return (
+    <div
+      {...props}
+      style={{ '--codeblock-numbers': numbersColor, ...style } as React.CSSProperties}
+      className={cn(styles.codeblock, className)}
     >
-      <ButtonContainer>
-        {showWrapButton && (
-          <CodeButton
-            as={IconButton}
-            $copied={false}
-            $error={false}
-            icon="document"
-            onClick={wrapElement}
-          />
-        )}
-        <CodeButton
-          as={IconButton}
-          $copied={copied}
-          $error={errorCopy}
-          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
-          onClick={copyCodeToClipboard}
-        />
-      </ButtonContainer>
-      <Highlighter
+      <SyntaxHighlighter
+        tabIndex={0}
+        role="group"
+        aria-label={codeRegionLabel}
         language={language}
         style={customStyle}
         CodeTag={CodeWithRef}
+        className={styles['codeblock__highlighter']}
         renderer={({ rows, stylesheet, useInlineStyles }: CustomRendererProps) => {
           return rows.map((row, index) => {
             const children = row.children;
@@ -198,7 +148,30 @@ export const CodeBlock = ({
         wrapLongLines={wrap || wrapLines}
       >
         {children}
-      </Highlighter>
-    </CodeBlockContainer>
+      </SyntaxHighlighter>
+      <div className={styles['codeblock__button-container']}>
+        {showWrapButton && (
+          <IconButton
+            className={styles['codeblock__button']}
+            icon="document"
+            onClick={wrapElement}
+          />
+        )}
+        <IconButton
+          className={styles['codeblock__button']}
+          style={
+            {
+              '--codeblock-button': copied
+                ? buttonStateColors.success
+                : errorCopy
+                  ? buttonStateColors.danger
+                  : undefined,
+            } as React.CSSProperties
+          }
+          icon={copied ? 'check' : errorCopy ? 'warning' : 'copy'}
+          onClick={copyCodeToClipboard}
+        />
+      </div>
+    </div>
   );
 };

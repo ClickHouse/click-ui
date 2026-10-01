@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps, CSSProperties } from 'react';
 import {
   GenericMenuPanel,
   GenericPopoverMenuPanel,
   Arrow,
   GenericMenuItem,
 } from './GenericMenu';
-import { styled } from 'styled-components';
 
 const meta: Meta = {
   title: 'Components/GenericMenu',
@@ -17,28 +17,42 @@ const meta: Meta = {
 
 export default meta;
 
-const DemoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-`;
+const demoContainerStyle: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
+  padding: '2rem',
+};
 
-const DemoPanel = styled(GenericMenuPanel)`
-  padding: 1rem;
-  min-width: 200px;
-`;
+const DemoContainer = ({ style, ...props }: ComponentProps<'div'>) => (
+  <div
+    {...props}
+    style={{ ...demoContainerStyle, ...style }}
+  />
+);
 
-const DemoPopoverPanel = styled(GenericPopoverMenuPanel)`
-  min-width: 200px;
-`;
+const DemoPanel = (props: ComponentProps<typeof GenericMenuPanel<'div'>>) => (
+  <GenericMenuPanel
+    {...props}
+    style={{ padding: '1rem', minWidth: '200px', ...props.style }}
+  />
+);
+
+const DemoPopoverPanel = (
+  props: ComponentProps<typeof GenericPopoverMenuPanel<'div'>>
+) => (
+  <GenericPopoverMenuPanel
+    {...props}
+    style={{ minWidth: '200px', ...props.style }}
+  />
+);
 
 export const MenuPanel: StoryObj = {
   render: () => (
-    <DemoContainer>
-      <DemoPanel $type="dropdown-menu">
+    <DemoContainer data-testid="generic-menu-harness">
+      <DemoPanel type="dropdown-menu">
         <GenericMenuItem>Default Item</GenericMenuItem>
-        <GenericMenuItem $type="danger">Danger Item</GenericMenuItem>
+        <GenericMenuItem type="danger">Danger Item</GenericMenuItem>
         <GenericMenuItem data-disabled>Disabled Item</GenericMenuItem>
       </DemoPanel>
     </DemoContainer>
@@ -47,8 +61,8 @@ export const MenuPanel: StoryObj = {
 
 export const PopoverPanel: StoryObj = {
   render: () => (
-    <DemoContainer>
-      <DemoPopoverPanel $type="popover">
+    <DemoContainer data-testid="generic-menu-harness">
+      <DemoPopoverPanel type="popover">
         <div style={{ padding: '1rem' }}>
           <h4>Popover Content</h4>
           <p>This is a generic popover panel</p>
@@ -60,10 +74,10 @@ export const PopoverPanel: StoryObj = {
 
 export const WithArrow: StoryObj = {
   render: () => (
-    <DemoContainer>
+    <DemoContainer data-testid="generic-menu-harness">
       <DemoPanel
-        $type="popover"
-        $showArrow
+        type="popover"
+        showArrow
       >
         <div style={{ padding: '1rem' }}>
           <p>Panel with arrow indicator</p>
@@ -82,12 +96,39 @@ export const WithArrow: StoryObj = {
 
 export const MenuItems: StoryObj = {
   render: () => (
-    <DemoContainer>
-      <DemoPanel $type="context-menu">
+    <DemoContainer data-testid="generic-menu-harness">
+      <DemoPanel type="context-menu">
         <GenericMenuItem>Cut</GenericMenuItem>
         <GenericMenuItem>Copy</GenericMenuItem>
         <GenericMenuItem>Paste</GenericMenuItem>
-        <GenericMenuItem $type="danger">Delete</GenericMenuItem>
+        <GenericMenuItem type="danger">Delete</GenericMenuItem>
+      </DemoPanel>
+    </DemoContainer>
+  ),
+};
+
+export const ItemStates: StoryObj = {
+  render: () => (
+    <DemoContainer data-testid="generic-menu-harness">
+      <DemoPanel type="dropdown-menu">
+        <GenericMenuItem>Default</GenericMenuItem>
+        <GenericMenuItem data-highlighted>Highlighted</GenericMenuItem>
+        <GenericMenuItem data-state="checked">Checked</GenericMenuItem>
+        <GenericMenuItem data-selected="true">Selected</GenericMenuItem>
+        <GenericMenuItem data-disabled>Disabled</GenericMenuItem>
+        <GenericMenuItem type="danger">Danger default</GenericMenuItem>
+        <GenericMenuItem
+          type="danger"
+          data-highlighted
+        >
+          Danger highlighted
+        </GenericMenuItem>
+        <GenericMenuItem
+          type="danger"
+          data-disabled
+        >
+          Danger disabled
+        </GenericMenuItem>
       </DemoPanel>
     </DemoContainer>
   ),

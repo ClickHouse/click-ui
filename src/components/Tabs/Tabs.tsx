@@ -1,47 +1,56 @@
+import { ComponentPropsWithoutRef, CSSProperties, ElementRef, forwardRef } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
-import { styled } from 'styled-components';
+import { cn, cva } from '@/lib/cva';
 import { TabsProps } from './Tabs.types';
+import styles from './Tabs.module.css';
 
-const Trigger = styled(RadixTabs.Trigger)`
-  padding: ${props =>
-    `${props.theme.click.tabs.space.y} ${props.theme.click.tabs.space.x}`};
-
-  border-top-left-radius: ${props => props.theme.click.tabs.radii.all};
-  border-top-right-radius: ${props => props.theme.click.tabs.radii.all};
-  border: none;
-  border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.default};
-  background-color: ${props => props.theme.click.tabs.basic.color.background.default};
-  color: ${props => props.theme.click.tabs.basic.color.text.default};
-  font: ${props => props.theme.click.tabs.typography.label.default};
-  cursor: pointer;
-
-  &[data-state='active'] {
-    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};
-    color: ${props => props.theme.click.tabs.basic.color.text.active};
-    font: ${props => props.theme.click.tabs.typography.label.active};
-    &:hover {
-      font: ${props => props.theme.click.tabs.typography.label.active};
-    }
+const fullWidthTriggerVariants = cva(
+  cn(styles.tabs__trigger, styles['full-width-tabs__trigger']),
+  {
+    variants: {
+      width: {
+        fixed: styles['full-width-tabs__trigger_width_fixed'],
+        stretched: styles['full-width-tabs__trigger_width_stretched'],
+      },
+    },
+    defaultVariants: {
+      width: 'stretched',
+    },
   }
+);
 
-  &:hover {
-    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.hover};
-    background-color: ${props => props.theme.click.tabs.basic.color.background.hover};
-    color: ${props => props.theme.click.tabs.basic.color.text.hover};
-    font: ${props => props.theme.click.tabs.typography.label.hover};
-  }
+const Trigger = forwardRef<
+  ElementRef<typeof RadixTabs.Trigger>,
+  ComponentPropsWithoutRef<typeof RadixTabs.Trigger>
+>(({ className, ...props }, ref) => (
+  <RadixTabs.Trigger
+    ref={ref}
+    {...props}
+    className={cn(styles.tabs__trigger, className)}
+  />
+));
 
-  &:hover[data-state='active'] {
-    border-bottom: 2px solid ${props => props.theme.click.tabs.basic.color.stroke.active};
-  }
-`;
+const Content = forwardRef<
+  ElementRef<typeof RadixTabs.Content>,
+  ComponentPropsWithoutRef<typeof RadixTabs.Content>
+>(({ className, ...props }, ref) => (
+  <RadixTabs.Content
+    ref={ref}
+    {...props}
+    className={cn(styles.tabs__content, className)}
+  />
+));
 
-const Content = styled(RadixTabs.Content)``;
-
-const TriggersList = styled(RadixTabs.List)`
-  border-bottom: 1px solid ${props => props.theme.click.global.color.stroke.default};
-  display: flex;
-`;
+const TriggersList = forwardRef<
+  ElementRef<typeof RadixTabs.List>,
+  ComponentPropsWithoutRef<typeof RadixTabs.List>
+>(({ className, ...props }, ref) => (
+  <RadixTabs.List
+    ref={ref}
+    {...props}
+    className={cn(styles['tabs__triggers-list'], className)}
+  />
+));
 
 const Tabs = ({
   defaultValue,
@@ -66,21 +75,34 @@ Tabs.TriggersList = TriggersList;
 Tabs.Trigger = Trigger;
 Tabs.Content = Content;
 
-const FullWidthTabs = styled(Tabs)`
-  width: 100%;
-`;
+const FullWidthTabs = ({ className, ...props }: TabsProps) => (
+  <Tabs
+    {...props}
+    className={cn(styles['full-width-tabs'], className)}
+  />
+);
 
-FullWidthTabs.Trigger = styled(Trigger)<{ width?: string }>`
-  ${props =>
-    props.width
-      ? `width: ${props.width};`
-      : `
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-  `};
-`;
+const FullWidthTabsTrigger = forwardRef<
+  ElementRef<typeof RadixTabs.Trigger>,
+  ComponentPropsWithoutRef<typeof RadixTabs.Trigger> & { width?: string }
+>(({ className, width, style, ...props }, ref) => (
+  <RadixTabs.Trigger
+    ref={ref}
+    {...props}
+    style={
+      width
+        ? ({ ...style, '--full-width-tabs-trigger-width': width } as CSSProperties)
+        : style
+    }
+    className={cn(
+      fullWidthTriggerVariants({ width: width ? 'fixed' : 'stretched' }),
+      className
+    )}
+  />
+));
 
+FullWidthTabs.Trigger = FullWidthTabsTrigger;
 FullWidthTabs.TriggersList = TriggersList;
+FullWidthTabs.Content = Content;
 
 export { Tabs, FullWidthTabs };

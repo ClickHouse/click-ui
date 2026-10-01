@@ -1,0 +1,7 @@
+/* Doubled class raises specificity to (0,2,0) so this width wins over the
+   Select root's own `width: 100%` rule, which styled() injects into <head>
+   at runtime (after the bundled CSS). The previous styled() wrapper relied
+   on runtime injection order for the same effect. */
+.custom-select.custom-select {
+  width: 150px;
+}

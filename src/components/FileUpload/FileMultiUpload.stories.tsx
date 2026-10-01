@@ -9,9 +9,14 @@ const meta: Meta<typeof FileMultiUpload> = {
   tags: ['file-upload', 'multi-upload', 'autodocs'],
   decorators: [
     Story => (
-      <Wrapper>
-        <Story />
-      </Wrapper>
+      <div
+        data-testid="file-multi-upload-harness"
+        style={{ padding: '16px' }}
+      >
+        <Wrapper>
+          <Story />
+        </Wrapper>
+      </div>
     ),
   ],
 };

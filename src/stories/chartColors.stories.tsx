@@ -1,14 +1,7 @@
 import { Container } from '@/components/Container';
 import { Text } from '@/components/Text';
 
-import { styled, useTheme } from 'styled-components';
-
-const ColorBox = styled(Container)<{ $color: string }>`
-  ${({ $color }) => `
-    background-color: ${$color};
-  `}
-  border-radius: 4px;
-`;
+import { useTheme } from '@/theme/ThemeContext';
 
 const ChartColorsDemo = () => {
   const theme = useTheme();
@@ -27,10 +20,13 @@ const ChartColorsDemo = () => {
           key={name}
         >
           <Text>{name}</Text>
-          <ColorBox
-            $color={hex}
+          <Container
             maxWidth="40px"
             padding="md"
+            style={{
+              backgroundColor: hex,
+              borderRadius: 'var(--click-grid-radii-sm)',
+            }}
           />
           <Text>{hex}</Text>
         </Container>

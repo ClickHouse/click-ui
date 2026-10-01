@@ -10,7 +10,9 @@ export async function resolveCssModule(
   importer: string | undefined,
   rootDir: string
 ): Promise<string | null> {
-  if (!id.endsWith('.module.css') || !importer) return null;
+  if (!id.endsWith('.module.css') || !importer) {
+    return null;
+  }
 
   const resolved = path.resolve(path.dirname(importer), id);
   const relative = path.relative(path.join(rootDir, 'src'), resolved);
@@ -19,7 +21,9 @@ export async function resolveCssModule(
     relative.replace('.module.css', '.module.json')
   );
 
-  if (!(await fs.pathExists(jsonPath))) return null;
+  if (!(await fs.pathExists(jsonPath))) {
+    return null;
+  }
 
   return VIRTUAL_PREFIX + relative;
 }
@@ -29,7 +33,9 @@ export async function loadCssModule(
   ctx: PluginContext,
   rootDir: string
 ): Promise<string | null> {
-  if (!id.startsWith(VIRTUAL_PREFIX)) return null;
+  if (!id.startsWith(VIRTUAL_PREFIX)) {
+    return null;
+  }
 
   const relative = id.slice(VIRTUAL_PREFIX.length);
   const jsonPath = path.join(
@@ -48,7 +54,8 @@ export async function loadCssModule(
       })
       .join(',\n  ');
     return `export default {\n  ${exports}\n};`;
-  } catch (e: any) {
-    ctx.error(`Failed to load CSS module from ${jsonPath}: ${e.message}`);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    ctx.error(`Failed to load CSS module from ${jsonPath}: ${message}`);
   }
 }

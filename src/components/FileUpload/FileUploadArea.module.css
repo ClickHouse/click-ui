@@ -1,0 +1,130 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. fileUpload) */
+.upload-area {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  align-items: center;
+  border: 1px solid var(--click-fileUpload-color-stroke-default);
+  background-color: var(--click-fileUpload-color-background-default);
+  transition: var(--click-fileUpload-transitions-all);
+  /* stylelint-disable-next-line container-name-pattern, value-keyword-case -- preserve original container-name from styled-components */
+  container-name: uploadArea;
+  container-type: inline-size;
+}
+
+/* border-radius: hasFile ? sm : md */
+.upload-area_radius_sm {
+  border-radius: var(--click-fileUpload-sm-radii-all);
+}
+
+.upload-area_radius_md {
+  border-radius: var(--click-fileUpload-md-radii-all);
+}
+
+/* padding: hasFile || size === 'sm' ? sm : md */
+.upload-area_padding_sm {
+  padding: var(--click-fileUpload-sm-space-y) var(--click-fileUpload-sm-space-x);
+}
+
+.upload-area_padding_md {
+  padding: var(--click-fileUpload-md-space-y) var(--click-fileUpload-md-space-x);
+}
+
+/* min-height: size === 'sm' ? calc : auto */
+.upload-area_min-height_sm {
+  min-height: calc(var(--click-fileUpload-sm-space-y) * 2 + var(--sizes-8));
+}
+
+.upload-area_min-height_md {
+  min-height: auto;
+}
+
+/* flex-direction: hasFile ? row : size === 'sm' ? row : column */
+.upload-area_direction_row {
+  flex-direction: row;
+}
+
+.upload-area_direction_column {
+  flex-direction: column;
+}
+
+/* justify-content: hasFile ? space-between : size === 'sm' ? space-between : center */
+.upload-area_justify_space-between {
+  justify-content: space-between;
+}
+
+.upload-area_justify_center {
+  justify-content: center;
+}
+
+/* gap: size === 'sm' ? sm : md */
+.upload-area_gap_sm {
+  gap: var(--click-fileUpload-sm-space-gap);
+}
+
+.upload-area_gap_md {
+  gap: var(--click-fileUpload-md-space-gap);
+}
+
+/* cursor: hasFile ? default : pointer */
+.upload-area_cursor_default {
+  cursor: default;
+}
+
+.upload-area_cursor_pointer {
+  cursor: pointer;
+}
+
+/* !hasFile: dashed border */
+.upload-area_dashed_true {
+  border-style: dashed;
+  border-color: var(--click-fileUpload-color-stroke-default);
+}
+
+/* !hasFile && isDragging */
+.upload-area_dragging_true {
+  border-color: var(--click-fileUpload-color-stroke-active);
+  background-color: var(--click-fileUpload-color-background-active);
+}
+
+/* isError */
+.upload-area_error_true {
+  border-color: transparent;
+  background-color: var(--click-fileUpload-color-background-error);
+}
+
+.title {
+  color: var(--click-fileUpload-color-title-default);
+  font: var(--click-fileUpload-typography-title-default);
+}
+
+.title_not-supported_true {
+  color: var(--click-fileUpload-color-title-error);
+}
+
+.description {
+  color: var(--click-fileUpload-color-description-default);
+  font: var(--click-fileUpload-typography-description-default);
+}
+
+.upload-icon svg {
+  width: var(--click-fileUpload-md-icon-size-width);
+  height: var(--click-fileUpload-md-icon-size-height);
+  color: var(--click-fileUpload-md-color-icon-default);
+}
+
+.upload-text {
+  text-align: left;
+}
+
+.upload-text_centered_true {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.upload-text_grow_true {
+  flex: 1;
+}

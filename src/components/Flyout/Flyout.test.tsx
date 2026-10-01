@@ -3,20 +3,25 @@ import { Flyout } from '@/components/Flyout';
 import { renderCUI } from '@/utils/test-utils';
 import { Button } from '@/components/Button';
 import { DialogProps } from '@radix-ui/react-dialog';
+import styles from './Flyout.module.css';
 
 interface Props extends DialogProps {
   showClose?: boolean;
   showSeparator?: boolean;
+  hasShadow?: boolean;
 }
 
 describe('Flyout', () => {
-  const renderFlyout = ({ showClose, showSeparator, ...props }: Props) => {
+  const renderFlyout = ({ showClose, showSeparator, hasShadow, ...props }: Props) => {
     return renderCUI(
       <Flyout {...props}>
         <Flyout.Trigger>
           <Button iconLeft="user">Flyout Fixed</Button>
         </Flyout.Trigger>
-        <Flyout.Content strategy="fixed">
+        <Flyout.Content
+          strategy="fixed"
+          hasShadow={hasShadow}
+        >
           <Flyout.Header
             title="test1"
             description="test2"
@@ -105,5 +110,43 @@ describe('Flyout', () => {
     expect(queryByText('Flyout Text')).not.toBeNull();
     fireEvent.click(getByText('Cancel'));
     expect(queryByText('Flyout Text')).toBeNull();
+  });
+
+  it('should merge a caller-provided className on subcomponents', () => {
+    const { getByText } = renderCUI(
+      <Flyout open>
+        <Flyout.Content strategy="fixed">
+          <Flyout.Header
+            title="title"
+            className="custom-header"
+          />
+          <Flyout.Body className="custom-body">Flyout Text</Flyout.Body>
+          <Flyout.Footer className="custom-footer">
+            <Flyout.Close label="Cancel" />
+          </Flyout.Footer>
+        </Flyout.Content>
+      </Flyout>
+    );
+
+    // Caller classes are merged alongside the flyout variant classes rather
+    // than overwriting them.
+    expect(getByText('title').closest('.custom-header')).not.toBeNull();
+    expect(getByText('Flyout Text').closest('.custom-body')).not.toBeNull();
+    expect(getByText('Cancel').closest('.custom-footer')).not.toBeNull();
+  });
+
+  it('should remove shadow when hasShadow is false', () => {
+    const { queryByText, getByRole } = renderFlyout({
+      open: true,
+      hasShadow: false,
+    });
+
+    expect(queryByText('Flyout Text')).not.toBeNull();
+    // The shadow is removed via the `content_no-shadow` CSS Modules class.
+    // jsdom does not load the `.module.css` stylesheet, so the computed
+    // `box-shadow` is not resolvable in the unit test environment; assert the
+    // modifier class is applied instead. The actual rendered no-shadow output
+    // is covered byte-for-byte by the visual-regression snapshot.
+    expect(getByRole('dialog')).toHaveClass(styles['content_no-shadow']);
   });
 });

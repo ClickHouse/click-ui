@@ -1,0 +1,52 @@
+.background {
+  display: flex;
+  padding: 1px;
+  border-radius: var(--click-card-promotion-radii-all);
+  background-image: var(--click-card-promotion-color-stroke-default);
+  box-shadow: var(--click-card-shadow);
+}
+
+.background:focus {
+  background: var(--click-card-promotion-color-stroke-focus);
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  padding: var(--click-card-promotion-space-y) var(--click-card-promotion-space-x);
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--click-card-promotion-space-gap);
+  border-radius: var(--click-card-promotion-radii-all);
+  background: var(--click-card-promotion-color-background-default);
+  color: var(--click-card-promotion-color-text-default);
+  cursor: pointer;
+  transition: 0.2s ease-in-out all;
+}
+
+.wrapper:hover {
+  background: var(--click-card-promotion-color-background-hover);
+  color: var(--click-card-promotion-color-text-hover);
+}
+
+.wrapper:active,
+.wrapper:focus {
+  background: var(--click-card-promotion-color-background-active);
+  color: var(--click-card-promotion-color-text-active);
+}
+
+.cardicon {
+  width: var(--click-card-promotion-icon-size-all);
+  height: var(--click-card-promotion-icon-size-all);
+  color: var(--click-card-promotion-color-icon-default);
+}
+
+.dismisswrapper {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}

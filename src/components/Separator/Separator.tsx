@@ -1,27 +1,36 @@
-import { styled } from 'styled-components';
 import * as RadixSeparator from '@radix-ui/react-separator';
+import { cn, cva } from '@/lib/cva';
 import { SeparatorProps } from './Separator.types';
-const CUISeparator = styled(RadixSeparator.Root)<SeparatorProps>`
-  ${({ theme, size, orientation }) => `
-    &[data-orientation="horizontal"] {
-      width: 100%;
-      border-top: 0.0625rem solid ${theme.click.separator.color.stroke.default};
-    }
-    &[data-orientation="vertical"] {
-      height: 100%;
-      border-right: 0.0625rem solid ${theme.click.separator.color.stroke.default};
-    }
-    margin: ${
-      orientation === 'horizontal'
-        ? `${theme.click.separator.horizontal.space.y[size]} ${theme.click.separator.horizontal.space.x.all}`
-        : `${theme.click.separator.vertical.space.y.all} ${theme.click.separator.vertical.space.x[size]}`
-    }
-  `}
-`;
+import styles from './Separator.module.css';
 
-export const Separator = ({ orientation = 'horizontal', ...props }: SeparatorProps) => (
-  <CUISeparator
+const separatorVariants = cva(styles.separator, {
+  variants: {
+    variant: {
+      'horizontal-xs': styles['separator_variant_horizontal-xs'],
+      'horizontal-sm': styles['separator_variant_horizontal-sm'],
+      'horizontal-md': styles['separator_variant_horizontal-md'],
+      'horizontal-lg': styles['separator_variant_horizontal-lg'],
+      'horizontal-xl': styles['separator_variant_horizontal-xl'],
+      'horizontal-xxl': styles['separator_variant_horizontal-xxl'],
+      'vertical-xs': styles['separator_variant_vertical-xs'],
+      'vertical-sm': styles['separator_variant_vertical-sm'],
+      'vertical-md': styles['separator_variant_vertical-md'],
+      'vertical-lg': styles['separator_variant_vertical-lg'],
+      'vertical-xl': styles['separator_variant_vertical-xl'],
+      'vertical-xxl': styles['separator_variant_vertical-xxl'],
+    },
+  },
+});
+
+export const Separator = ({
+  orientation = 'horizontal',
+  size,
+  className,
+  ...props
+}: SeparatorProps) => (
+  <RadixSeparator.Root
     orientation={orientation}
     {...props}
+    className={cn(separatorVariants({ variant: `${orientation}-${size}` }), className)}
   />
 );

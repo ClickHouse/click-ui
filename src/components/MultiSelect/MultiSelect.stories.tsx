@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { MultiSelect } from './MultiSelect';
 import { selectOptions } from '@/components/Select/Select.fixtures';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { Container } from '@/components/Container';
 import { Panel } from '@/components/Panel';
 
@@ -103,4 +103,63 @@ export const MaxHeight = {
     );
   },
   tags: ['form-field', 'select', 'autodocs'],
+};
+
+/**
+ * Dedicated visual-regression fixtures for the CSS Modules migration. The
+ * harness decorator carries the `data-testid="multi-select-harness"` region the
+ * closed-state snapshots capture (value badges); open-state snapshots click the
+ * trigger and screenshot the portalled popover dialog.
+ */
+const HarnessDecorator = (Story: () => ReactElement): ReactElement => (
+  <div
+    data-testid="multi-select-harness"
+    style={{ width: '320px', padding: '1rem' }}
+  >
+    <Story />
+  </div>
+);
+
+export const VRMultiValue: StoryObj<typeof MultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', value: ['content1', 'content4'] },
+  render: props => (
+    <MultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VRDisabled: StoryObj<typeof MultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', disabled: true, value: ['content1', 'content4'] },
+  render: props => (
+    <MultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VRError: StoryObj<typeof MultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', error: 'This field is required', value: ['content1'] },
+  render: props => (
+    <MultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
+};
+
+export const VROpen: StoryObj<typeof MultiSelect> = {
+  decorators: [HarnessDecorator],
+  args: { label: 'Label', value: ['content1'], showSearch: true },
+  render: props => (
+    <MultiSelect
+      {...props}
+      options={selectOptions}
+    />
+  ),
 };

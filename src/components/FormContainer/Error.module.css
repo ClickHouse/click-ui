@@ -1,0 +1,4 @@
+.error {
+  color: var(--click-field-color-label-error);
+  font: var(--click-field-typography-label-error);
+}

@@ -7,6 +7,7 @@ import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
+  htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
 const menuItems: Menu[] = [
@@ -188,5 +189,34 @@ describe('SplitButton', () => {
     item && fireEvent.pointerDown(item);
     expect(item).not.toBeNull();
     expect(queryByText('Content2')).not.toBeNull();
+  });
+
+  describe('native button type', () => {
+    it.each(['submit', 'button', 'reset'] as const)(
+      'uses htmlType to set type=%s on the primary button',
+      htmlType => {
+        const { getByText } = renderDropdown({ htmlType });
+        const button = getByText('SplitButton Main Trigger').closest('button');
+        expect(button).toHaveAttribute('type', htmlType);
+      }
+    );
+
+    it('does not submit an enclosing form when htmlType="button"', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+      const { getByText } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <SplitButton
+            menu={menuItems}
+            htmlType="button"
+          >
+            <div>SplitButton Main Trigger</div>
+          </SplitButton>
+        </form>
+      );
+
+      fireEvent.click(getByText('SplitButton Main Trigger'));
+
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
   });
 });

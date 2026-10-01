@@ -1,16 +1,10 @@
-import { styled } from 'styled-components';
-
 import { Popover } from '@/components/Popover';
 import { Text } from '@/components/Text';
-import { linkStyles, StyledLinkProps } from '@/components/Link/common';
+import { Link } from '@/components/Link';
 import { GridContainer } from '@/components/GridContainer';
 import { Container } from '@/components/Container';
 
 import { dayjs, Dayjs, formatTimezone } from '@/utils/date';
-
-const UnderlinedTrigger = styled(Popover.Trigger)<StyledLinkProps>`
-  ${linkStyles}
-`;
 
 const formatDateDetails = (date: Dayjs, timezone?: string): string => {
   const isCurrentYear = dayjs().year() === date.year();
@@ -41,6 +35,8 @@ const formatDateDetails = (date: Dayjs, timezone?: string): string => {
 
 import { DateDetailsProps } from './DateDetails.types';
 
+const fallbackSystemTimeZone = 'America/New_York';
+
 export const DateDetails = ({
   date,
   side = 'top',
@@ -51,27 +47,33 @@ export const DateDetails = ({
   const dayjsDate = dayjs(date);
 
   let systemTime;
-  if (systemTimeZone) {
+  let resolvedSystemTimeZone = systemTimeZone;
+  if (resolvedSystemTimeZone) {
     try {
-      systemTime = dayjsDate.tz(systemTimeZone);
+      systemTime = dayjsDate.tz(resolvedSystemTimeZone);
     } catch {
-      systemTime = dayjsDate.tz('America/New_York');
+      resolvedSystemTimeZone = fallbackSystemTimeZone;
+      systemTime = dayjsDate.tz(resolvedSystemTimeZone);
     }
   }
 
   return (
     <Popover>
-      <UnderlinedTrigger
-        $size="sm"
-        $weight="medium"
-      >
-        <Text
-          size={size}
-          weight={weight}
+      <Popover.Trigger>
+        <Link
+          component="span"
+          size="sm"
+          weight="medium"
         >
-          {dayjs.utc(date).fromNow()}
-        </Text>
-      </UnderlinedTrigger>
+          <Text
+            component="span"
+            size={size}
+            weight={weight}
+          >
+            {dayjs.utc(date).fromNow()}
+          </Text>
+        </Link>
+      </Popover.Trigger>
       <Popover.Content
         side={side}
         showArrow
@@ -109,10 +111,10 @@ export const DateDetails = ({
 
               <Container justifyContent="end">
                 <Text size="sm">
-                  {formatDateDetails(systemTime, systemTimeZone)} (
+                  {formatDateDetails(systemTime, resolvedSystemTimeZone)} (
                   {formatTimezone({
                     date: systemTime,
-                    timezone: systemTimeZone,
+                    timezone: resolvedSystemTimeZone,
                   })}
                   )
                 </Text>

@@ -1,6 +1,6 @@
 import { DateDetails } from '@/components/DateDetails';
 import { renderCUI } from '@/utils/test-utils';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, within } from '@testing-library/react';
 
 describe('DateDetails', () => {
   const actualTZ = process.env.TZ;
@@ -59,6 +59,27 @@ describe('DateDetails', () => {
     expect(getByText('Dec 24, 4:40 p.m.')).toBeInTheDocument();
     expect(queryByText('System')).not.toBeInTheDocument();
     expect(getByText(String(fiveMinutesAgo.getTime() / 1000))).toBeInTheDocument();
+  });
+
+  it('falls back to America/New_York if the system timezone is invalid', () => {
+    const baseDate = new Date('2024-12-24T11:45:00');
+    vi.setSystemTime(baseDate);
+
+    const fiveMinutesAgo = new Date('2024-12-24T11:40:00');
+
+    const { getByText } = renderCUI(
+      <DateDetails
+        date={fiveMinutesAgo}
+        systemTimeZone="Invalid/Timezone"
+      />
+    );
+
+    fireEvent.click(getByText('5 minutes ago'));
+
+    const systemTime = getByText('System').nextElementSibling as HTMLElement;
+    expect(
+      within(systemTime).getByText(/Dec 24, 11:40 a\.m\..*(EST|GMT-5)/)
+    ).toBeInTheDocument();
   });
 
   it("only shows the date if the previous date isn't in this year", () => {

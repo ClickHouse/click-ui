@@ -60,6 +60,7 @@ export type LogoName =
   | 'onelake'
   | 'ovh'
   | 'planetscale'
+  | 'polaris'
   | 'postgres'
   | 'prequel'
   | 'python'

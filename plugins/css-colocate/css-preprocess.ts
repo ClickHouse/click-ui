@@ -3,6 +3,7 @@ import path from 'path';
 import postcss from 'postcss';
 import postcssModules from 'postcss-modules';
 import { getTempDir, findFiles, generateScopedName } from './utils';
+import { wrapInClickuiLayers } from './postcss-clickui-layers';
 
 export async function preprocessCssModules(rootDir: string): Promise<void> {
   const srcDir = path.join(rootDir, 'src');
@@ -29,6 +30,10 @@ export async function preprocessCssModules(rootDir: string): Promise<void> {
     let classMapping: Record<string, string> = {};
 
     const result = await postcss([
+      // Wrap in the `clickui` cascade layer first (sees the original BEM names),
+      // then scope the class names — matches the vite.config.ts css.postcss
+      // pipeline so per-component dist CSS layers identically to click-ui.css.
+      wrapInClickuiLayers(),
       postcssModules({
         generateScopedName,
         getJSON: (_, json) => {

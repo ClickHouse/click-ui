@@ -43,3 +43,39 @@ export const LabelColor: StoryObj<typeof TextField> = {
     placeholder: 'Placeholder',
   },
 };
+
+export const Disabled: StoryObj<typeof TextField> = {
+  args: {
+    label: 'Label',
+    type: 'text',
+    placeholder: 'Placeholder',
+    disabled: true,
+  },
+};
+
+export const Error: StoryObj<typeof TextField> = {
+  args: {
+    label: 'Label',
+    type: 'text',
+    value: 'Invalid value',
+    error: 'Something went wrong',
+  },
+};
+
+export const WithStartContent: StoryObj<typeof TextField> = {
+  args: {
+    label: 'Label',
+    type: 'text',
+    placeholder: 'Placeholder',
+    startContent: '@',
+  },
+};
+
+export const WithClear: StoryObj<typeof TextField> = {
+  args: {
+    label: 'Label',
+    type: 'text',
+    value: 'Some text',
+    clear: true,
+  },
+};

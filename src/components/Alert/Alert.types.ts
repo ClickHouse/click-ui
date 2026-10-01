@@ -15,4 +15,5 @@ export interface AlertProps {
   customIcon?: IconName;
   dismissible?: boolean;
   onDismiss?: () => void;
+  className?: string;
 }

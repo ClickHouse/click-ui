@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react';
-import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
+import { cn, cva } from '@/lib/cva';
+import styles from './VerticalStepper.module.css';
 import {
   VerticalStepperProps,
   VerticalStepProps,
   StepperType,
-  StepStatus,
 } from './VerticalStepper.types';
 
 type ContextProps = {
@@ -16,154 +16,89 @@ const StepperContext = createContext<ContextProps>({
   type: 'numbered',
 });
 
-const StepRoot = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  counter-reset: vertical-stepper;
-  width: 100%;
-`;
-
 export const VerticalStepper = ({
   children,
   type = 'numbered',
+  className,
   ...props
 }: VerticalStepperProps) => {
   const value = {
     type,
   };
   return (
-    <StepRoot {...props}>
+    <div
+      {...props}
+      className={cn(styles.stepper, className)}
+    >
       <StepperContext.Provider value={value}>{children}</StepperContext.Provider>
-    </StepRoot>
+    </div>
   );
 };
-const StepItem = styled.div<{
-  $type: StepperType;
-  $status: StepStatus;
-  $isOpen: boolean;
-}>`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-  padding: 0;
-  ${({ theme, $type, $status, $isOpen }) => `
-    row-gap: ${theme.click.stepper.vertical[$type].content.space.gap.y};
-    column-gap: ${theme.click.stepper.vertical[$type].content.space.gap.x};
-    padding-bottom: ${
-      theme.click.stepper.vertical[$type].content.space.bottom[
-        $isOpen ? 'active' : 'default'
-      ]
-    };
-    box-sizing: content-box;
-    &:not(:last-of-type) {
-      &::before{
-        content: "";
-        position: absolute;
-        top: ${theme.click.stepper.vertical[$type].step.size.height};
-        height: 100%;
-        left: calc(${theme.click.stepper.vertical[$type].step.size.width}  / 2 );
-        width: ${theme.click.stepper.vertical[$type].connector.size.width};
-        background: ${
-          theme.click.stepper.vertical[$type].connector.color.stroke[$status]
-        };
-        box-sizing: content-box;
-      }
-    }
-  `}
-`;
 
-const StepTrigger = styled.button<{
-  $status: StepStatus;
-}>`
-  ${({ $status }) => `
-    display: flex;
-    align-items: center;
-    padding: 0;
-    width: 100%;
-    background: transparent;
-    border: none;
-    gap: inherit;
-    cursor: ${
-      $status === 'active'
-        ? 'default'
-        : $status === 'complete'
-          ? 'pointer'
-          : 'not-allowed'
-    };
-    flex-direction: row;
-  `}
-`;
+const stepVariants = cva(styles.step, {
+  variants: {
+    type: {
+      numbered: styles.step_type_numbered,
+      bulleted: styles.step_type_bulleted,
+    },
+    status: {
+      active: styles.step_status_active,
+      complete: styles.step_status_complete,
+      incomplete: '',
+    },
+    isOpen: {
+      true: styles.step_open,
+      false: '',
+    },
+  },
+});
 
-const StepBubble = styled.div<{ $type: StepperType; $status: StepStatus }>`
-  ${({ theme, $type, $status }) => `
-    display: grid;
-    place-items: center;
-    position: relative;
-    width: ${theme.click.stepper.vertical[$type].step.size.width};
-    height: ${theme.click.stepper.vertical[$type].step.size.width};
-    border-radius: ${theme.click.stepper.vertical[$type].step.radii.default};
-    background: ${theme.click.stepper.vertical[$type].step.color.background[$status]};
-    border: 2px solid ${theme.click.stepper.vertical[$type].step.color.stroke[$status]};
-    font: ${theme.click.stepper.vertical.numbered.step.typography.number.default};
-    color: ${theme.click.stepper.vertical[$type].step.color.icon[$status]};
-    counter-increment: vertical-stepper;
-    box-sizing: content-box;
-    ${
-      $type === 'numbered' && $status !== 'complete'
-        ? `
-        &::before {
-          box-sizing: content-box;
-          font: inherit;
-          color: inherit;
-          content: counter(vertical-stepper);
-        }
-    `
-        : ''
-    }
-      ${
-        $status == 'complete' && $type === 'bulleted'
-          ? `
-      &::after {
-        box-sizing: content-box;
-        content: "";
-        position: absolute;
-        width: 50%;
-        height: 50%;
-        border-radius: inherit;
-        background: ${theme.click.stepper.vertical.bulleted.step.color.icon.complete}
-      }
-      `
-          : ''
-      };
-  `}
-`;
+const triggerVariants = cva(styles.step__trigger, {
+  variants: {
+    status: {
+      active: styles.step__trigger_status_active,
+      complete: styles.step__trigger_status_complete,
+      incomplete: '',
+    },
+  },
+});
 
-const CheckIcon = styled(Icon)`
-  color: inherit;
-  path {
-    stroke-width: 3;
-  }
-`;
-const StepLabel = styled.div<{ $type: StepperType; $status: StepStatus }>`
-  display: flex;
-  flex-direction: column;
-  ${({ theme, $type, $status }) => `
-    font: ${theme.click.stepper.vertical[$type].typography.title.default};
-    color: ${theme.click.stepper.vertical[$type].color.title[$status]};
-    gap: inherit;
-  `})
-`;
+const bubbleVariants = cva(styles.step__bubble, {
+  variants: {
+    type: {
+      numbered: styles.step__bubble_type_numbered,
+      bulleted: styles.step__bubble_type_bulleted,
+    },
+    status: {
+      active: styles.step__bubble_status_active,
+      complete: styles.step__bubble_status_complete,
+      incomplete: styles.step__bubble_status_incomplete,
+    },
+  },
+});
 
-const StepContent = styled.div<{ $type: StepperType }>`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  ${({ theme, $type }) => `
-    padding-left: ${theme.click.stepper.vertical[$type].content.space.left};
-  `}
-`;
+const labelVariants = cva(styles.step__label, {
+  variants: {
+    type: {
+      numbered: styles.step__label_type_numbered,
+      bulleted: styles.step__label_type_bulleted,
+    },
+    status: {
+      active: styles.step__label_status_active,
+      complete: styles.step__label_status_complete,
+      incomplete: '',
+    },
+  },
+});
+
+const contentVariants = cva(styles.step__content, {
+  variants: {
+    type: {
+      numbered: styles.step__content_type_numbered,
+      bulleted: styles.step__content_type_bulleted,
+    },
+  },
+});
 
 const VerticalStep = ({
   status = 'incomplete',
@@ -171,43 +106,32 @@ const VerticalStep = ({
   label,
   collapsed = true,
   disabled,
+  className,
   ...props
 }: VerticalStepProps) => {
   const { type } = useContext(StepperContext);
   const isOpen = !collapsed || status === 'active';
   return (
-    <StepItem
-      $type={type}
-      $status={status}
-      $isOpen={isOpen}
-    >
-      <StepTrigger
-        $status={status}
+    <div className={cn(stepVariants({ type, status, isOpen }))}>
+      <button
+        type="button"
         disabled={status === 'incomplete' || disabled}
         {...props}
+        className={cn(triggerVariants({ status }), className)}
       >
-        <StepBubble
-          $type={type}
-          $status={status}
-        >
+        <div className={cn(bubbleVariants({ type, status }))}>
           {type === 'numbered' && status === 'complete' ? (
-            <CheckIcon
+            <Icon
               name="check"
               size="xs"
+              className={styles.step__check}
             />
           ) : null}
-        </StepBubble>
-        {label && (
-          <StepLabel
-            $type={type}
-            $status={status}
-          >
-            {label}
-          </StepLabel>
-        )}
-      </StepTrigger>
-      {isOpen && <StepContent $type={type}>{children}</StepContent>}
-    </StepItem>
+        </div>
+        {label && <div className={cn(labelVariants({ type, status }))}>{label}</div>}
+      </button>
+      {isOpen && <div className={cn(contentVariants({ type }))}>{children}</div>}
+    </div>
   );
 };
 VerticalStep.displayName = 'VerticalStepper.Step';

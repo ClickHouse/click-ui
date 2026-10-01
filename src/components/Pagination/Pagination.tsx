@@ -1,51 +1,11 @@
-import {
-  FocusEventHandler,
-  MouseEventHandler,
-  ReactElement,
-  useCallback,
-  useRef,
-} from 'react';
-import { Container, type ContainerProps } from '@/components/Container';
+import { MouseEventHandler, ReactElement, useCallback, useRef } from 'react';
+import { Container } from '@/components/Container';
 import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
 import { Select } from '@/components/Select';
 import { Text } from '@/components/Text';
-import { styled } from 'styled-components';
-
-export interface PaginationProps extends Omit<
-  ContainerProps<'div'>,
-  'children' | 'onChange'
-> {
-  /** Total number of pages available */
-  totalPages?: number;
-  /** The currently selected page number */
-  currentPage: number;
-  /** List of options for rows per page dropdown */
-  maxRowsPerPageList?: number[];
-  /** Total row count to display */
-  rowCount?: number | string;
-  /** Callback when page number changes */
-  onChange: (pageNumber: number) => void;
-  /** Callback when page size changes */
-  onPageSizeChange?: (pageNumber: number) => void;
-  /** Current page size/rows per page */
-  pageSize?: number;
-  /** Callback when next page button is clicked */
-  onNextPageClick?: MouseEventHandler<HTMLButtonElement>;
-  /** Callback when previous page button is clicked */
-  onPrevPageClick?: MouseEventHandler<HTMLButtonElement>;
-  /** Callback when page number input receives focus */
-  onPageNumberFocus?: FocusEventHandler<HTMLInputElement>;
-  /** Callback when page number input loses focus */
-  onPageNumberBlur?: FocusEventHandler<HTMLInputElement>;
-  /** Whether to disable the next page button */
-  disableNextButton?: boolean;
-  /** Whether to show "All rows" option in the dropdown */
-  allowAllRows?: boolean;
-}
-const CustomSelect = styled.div`
-  width: 150px;
-`;
+import type { PaginationProps } from './Pagination.types';
+import styles from './Pagination.module.css';
 
 export const Pagination = ({
   totalPages,
@@ -76,16 +36,17 @@ export const Pagination = ({
     (!!totalPages && currentPage === totalPages) || disableNextButton;
 
   const onChange = (value: string) => {
-    const sanitizedValue = parseInt(value, 10);
+    const pageNumber = parseInt(value, 10);
     if (
-      sanitizedValue < 1 ||
+      Number.isNaN(pageNumber) ||
+      pageNumber < 1 ||
       inputRef.current?.disabled ||
-      (typeof totalPages !== 'undefined' ? sanitizedValue > totalPages : false)
+      (typeof totalPages !== 'undefined' ? pageNumber > totalPages : false)
     ) {
       return;
     }
 
-    onChangeProp(sanitizedValue);
+    onChangeProp(pageNumber);
   };
 
   const onPageSizeChange = (value: string) => {
@@ -193,8 +154,8 @@ export const Pagination = ({
         />
       </Container>
       {maxRowsPerPageList.length > 0 && (
-        <CustomSelect
-          as={Select}
+        <Select
+          className={styles['custom-select']}
           onSelect={onPageSizeChange}
           value={pageSize.toString()}
         >
@@ -207,7 +168,7 @@ export const Pagination = ({
               {option} rows
             </Select.Item>
           ))}
-        </CustomSelect>
+        </Select>
       )}
     </Container>
   );

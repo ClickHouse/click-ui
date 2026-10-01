@@ -94,7 +94,7 @@ try {
 
   process.exit(0);
 } catch (err) {
-  console.error('\n👹 Oops! Failed to generate exports:\n');
+  console.error('\n❌ Error: Failed to generate exports:\n');
 
   console.error(err.message);
   process.exit(1);

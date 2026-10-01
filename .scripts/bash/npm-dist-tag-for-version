@@ -1,0 +1,112 @@
+#!/bin/bash
+#
+# Resolve the npm dist-tag for a package version. Stdout = tag, stderr = error.
+# Usage: npm-dist-tag-for-version <version> [current_latest]
+#   <version>        X.Y.Z or vX.Y.Z, e.g. 0.12.0, v0.12.0-rc1, 0.12.0-canary.g1979c25d.0
+#   [current_latest] What npm serves as `latest`. Passing it enables the forward-only
+#                    check, so an empty value (a failed `npm view`) fails closed.
+#
+#   no suffix -> latest | -rc/-beta<N> -> rc | -alpha<N> -> alpha | -canary.* -> canary
+#   anything else -> exit 1. Nothing ever falls back to `latest`.
+#
+# Used by publish.yml. Runs on macOS bash 3.2 and Linux bash 5.
+
+set -euo pipefail
+export LC_ALL=C # the bracket ranges below mean the same thing on BSD and glibc
+
+# Channels a prerelease may publish under, post-normalization. Extend deliberately.
+ALLOWED_CHANNELS="rc alpha canary"
+
+# Strict https://semver.org grammar, so whatever passes here also passes `npm publish`.
+# Groups: 1 major, 2 minor, 3 patch, 5 prerelease, 9 build metadata (with its "+").
+NUMERIC='0|[1-9][0-9]*'
+IDENT="${NUMERIC}|[0-9]*[A-Za-z-][0-9A-Za-z-]*"
+SEMVER_PATTERN="^(${NUMERIC})\.(${NUMERIC})\.(${NUMERIC})(-((${IDENT})(\.(${IDENT}))*))?(\+([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?$"
+
+# parse_semver <input> <label>: sets MAJOR MINOR PATCH PRERELEASE, or exits 1.
+parse_semver() {
+  local input="$1"
+  local label="$2"
+  local version="${input#v}"
+  local build
+
+  if [[ -z "$version" ]]; then
+    echo "❌ Error: $label is empty" >&2
+    exit 1
+  fi
+
+  if [[ ! "$version" =~ $SEMVER_PATTERN ]]; then
+    echo "❌ Error: $label '$input' is not a semver version (expected X.Y.Z or X.Y.Z-<channel><N>, e.g. 0.12.0 or 0.12.0-rc1)" >&2
+    exit 1
+  fi
+
+  # Read every capture right away: any later =~ rebinds BASH_REMATCH.
+  MAJOR="${BASH_REMATCH[1]}"
+  MINOR="${BASH_REMATCH[2]}"
+  PATCH="${BASH_REMATCH[3]}"
+  PRERELEASE="${BASH_REMATCH[5]:-}"
+  build="${BASH_REMATCH[9]:-}"
+
+  if [[ -n "$build" ]]; then
+    echo "❌ Error: $label '$input' carries build metadata ($build); npm drops it, so the published version would differ from the git tag" >&2
+    exit 1
+  fi
+}
+
+if [[ $# -lt 1 || $# -gt 2 ]]; then
+  echo "❌ Error: Usage: npm-dist-tag-for-version <version> [current_latest]" >&2
+  exit 1
+fi
+
+VERSION_INPUT="$1"
+
+parse_semver "$VERSION_INPUT" "Version"
+NEW_MAJOR="$MAJOR"
+NEW_MINOR="$MINOR"
+NEW_PATCH="$PATCH"
+NEW_PRERELEASE="$PRERELEASE"
+
+if [[ -z "$NEW_PRERELEASE" ]]; then
+  TAG="latest"
+else
+  # Channel = first dot-separated identifier, trailing digits stripped: rc1/rc.1 -> rc.
+  FIRST_ID="${NEW_PRERELEASE%%.*}"
+  CHANNEL=""
+  if [[ "$FIRST_ID" =~ ^(.*[^0-9])[0-9]*$ ]]; then
+    CHANNEL="${BASH_REMATCH[1]}"
+  fi
+
+  # One release-candidate channel on npm.
+  if [[ "$CHANNEL" == "beta" ]]; then
+    CHANNEL="rc"
+  fi
+
+  if [[ -z "$CHANNEL" || " $ALLOWED_CHANNELS " != *" $CHANNEL "* ]]; then
+    echo "❌ Error: prerelease channel '${CHANNEL:-$FIRST_ID}' in '$VERSION_INPUT' is not one of: $ALLOWED_CHANNELS (beta is accepted and published as rc). Channels are lowercase, e.g. ${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}-rc1" >&2
+    exit 1
+  fi
+
+  TAG="$CHANNEL"
+fi
+
+# Guard: `latest` must only move forward.
+if [[ "$TAG" == "latest" && $# -ge 2 ]]; then
+  parse_semver "$2" "Current latest"
+  NEWER=false
+  if (( NEW_MAJOR > MAJOR )); then
+    NEWER=true
+  elif (( NEW_MAJOR == MAJOR && NEW_MINOR > MINOR )); then
+    NEWER=true
+  elif (( NEW_MAJOR == MAJOR && NEW_MINOR == MINOR && NEW_PATCH > PATCH )); then
+    NEWER=true
+  elif (( NEW_MAJOR == MAJOR && NEW_MINOR == MINOR && NEW_PATCH == PATCH )) && [[ -n "$PRERELEASE" ]]; then
+    NEWER=true # the current latest is a prerelease of the same version; the final is newer
+  fi
+
+  if [[ "$NEWER" != "true" ]]; then
+    echo "❌ Error: '$VERSION_INPUT' would become npm 'latest' but is not newer than the current latest '$2'. This workflow only moves 'latest' forward; a patch for an older release line needs a dist-tag override that does not exist yet (see docs/publish.md)." >&2
+    exit 1
+  fi
+fi
+
+echo "$TAG"

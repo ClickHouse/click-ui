@@ -7,9 +7,12 @@ export interface PaginationProps extends Omit<
 > {
   totalPages?: number;
   currentPage: number;
+  /** Options for the rows-per-page select. */
   maxRowsPerPageList?: Array<number>;
+  /** Total row count, shown as "N rows". */
   rowCount?: number | string;
   onChange: (pageNumber: number) => void;
+  /** Called with the new page size. */
   onPageSizeChange?: (pageNumber: number) => void;
   pageSize?: number;
   onNextPageClick?: MouseEventHandler<HTMLButtonElement>;
@@ -17,5 +20,6 @@ export interface PaginationProps extends Omit<
   onPageNumberFocus?: FocusEventHandler<HTMLInputElement>;
   onPageNumberBlur?: FocusEventHandler<HTMLInputElement>;
   disableNextButton?: boolean;
+  /** Adds an "All rows" option to the rows-per-page select. */
   allowAllRows?: boolean;
 }

@@ -1,0 +1,82 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. fileUpload) */
+.file-item-container {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--click-fileUpload-sm-space-gap);
+}
+
+.file-item-container_inline_false {
+  padding: var(--click-fileUpload-sm-space-y) var(--click-fileUpload-sm-space-x);
+  border: 1px solid var(--click-fileUpload-color-stroke-default);
+  border-radius: var(--click-fileUpload-sm-radii-all);
+  background-color: var(--click-fileUpload-color-background-default);
+}
+
+.file-item-container_inline_false.file-item-container_error_true {
+  border-color: transparent;
+  background-color: var(--click-fileUpload-color-background-error);
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.document-icon {
+}
+
+.document-icon_size_sm svg {
+  width: var(--click-fileUpload-sm-icon-size-width);
+  height: var(--click-fileUpload-sm-icon-size-height);
+  color: var(--click-fileUpload-sm-color-icon-default);
+}
+
+.document-icon_size_md svg {
+  width: var(--click-fileUpload-md-icon-size-width);
+  height: var(--click-fileUpload-md-icon-size-height);
+  color: var(--click-fileUpload-md-color-icon-default);
+}
+
+.description {
+  color: var(--click-fileUpload-color-description-default);
+  font: var(--click-fileUpload-typography-description-default);
+}
+
+.description_error_true {
+  color: var(--click-fileUpload-color-title-error);
+}
+
+.file-details {
+  display: flex;
+  min-width: 0;
+  gap: var(--click-fileUpload-md-space-gap);
+  border: none;
+}
+
+.file-actions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  gap: 0;
+}
+
+.file-content-container {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.file-content-container_size_sm {
+  min-height: 24px;
+}
+
+.file-content-container_size_md {
+  min-height: auto;
+}
+
+.progress-bar-wrapper {
+  margin-top: var(--click-fileUpload-md-space-gap);
+  margin-bottom: 9px;
+}

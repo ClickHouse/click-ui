@@ -1,0 +1,22 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. fileUpload) */
+.truncator {
+  display: flex;
+  width: auto;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--click-fileUpload-color-title-default);
+  font: var(--click-fileUpload-typography-description-default);
+  white-space: nowrap;
+}
+
+.truncator__start {
+  overflow: hidden;
+  flex-shrink: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.truncator__end {
+  flex-shrink: 0;
+  white-space: nowrap;
+}

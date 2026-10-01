@@ -1,0 +1,33 @@
+.form-root {
+  display: flex;
+  width: 100%;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: var(--click-field-space-gap);
+}
+
+.form-root * {
+  outline: none;
+  box-shadow: none;
+}
+
+.form-root_direction_column-reverse {
+  flex-direction: column-reverse;
+}
+
+.form-root_direction_column {
+  flex-direction: column;
+}
+
+.form-root_direction_row-reverse {
+  flex-direction: row-reverse;
+}
+
+.form-root_direction_row {
+  flex-direction: row;
+}
+
+.form-root_add-label-padding label {
+  padding-top: calc(var(--click-field-space-y) + 1px);
+  line-height: 1lh;
+}

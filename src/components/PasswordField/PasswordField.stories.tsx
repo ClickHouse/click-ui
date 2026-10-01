@@ -34,3 +34,26 @@ export const Playground: StoryObj<typeof PasswordField> = {
     placeholder: 'Placeholder',
   },
 };
+
+export const WithValue: StoryObj<typeof PasswordField> = {
+  args: {
+    label: 'Label',
+    value: 'secret123',
+  },
+};
+
+export const Disabled: StoryObj<typeof PasswordField> = {
+  args: {
+    label: 'Label',
+    placeholder: 'Placeholder',
+    disabled: true,
+  },
+};
+
+export const Error: StoryObj<typeof PasswordField> = {
+  args: {
+    label: 'Label',
+    value: 'secret123',
+    error: 'Password is too weak',
+  },
+};

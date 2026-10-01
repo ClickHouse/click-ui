@@ -1,0 +1,40 @@
+/* Kept at zero specificity via :where() so that downstream styled-components
+   overrides on a styled(BaseButton) (SplitButton's PrimaryButton/SecondaryButton
+   override padding, border-radius, font, background, color, border, and width)
+   win without needing a specificity hack — BaseButton is a CSS Module, whose rules
+   otherwise beat equal-specificity styled-components by source order. SplitButton
+   cannot be fully migrated to fix the collision in the consumer because it renders
+   as={Dropdown.Trigger}/as={Dropdown.Content} and Dropdown is still on
+   styled-components, so :where() is the correct call for this coupled base. */
+:where(.base-button) {
+  display: flex;
+  padding: var(--click-button-basic-space-y) var(--click-button-basic-space-x);
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--click-button-basic-space-gap);
+  border-radius: var(--click-button-radii-all);
+  font: var(--click-button-basic-typography-label-default);
+  cursor: pointer;
+}
+
+:where(.base-button):hover {
+  font: var(--click-button-basic-typography-label-hover);
+}
+
+:where(.base-button):active,
+:where(.base-button):focus {
+  font: var(--click-button-basic-typography-label-active);
+}
+
+:where(.base-button):focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
+:where(.base-button):disabled,
+:where(.base-button):disabled:hover,
+:where(.base-button):disabled:active {
+  font: var(--click-button-basic-typography-label-disabled);
+  cursor: not-allowed;
+}

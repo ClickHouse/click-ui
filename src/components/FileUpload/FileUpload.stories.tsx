@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { FileUpload, type FileUploadProps } from '@/components/FileUpload/FileUpload';
+import { FileUpload } from '@/components/FileUpload/FileUpload';
+import type { FileUploadProps } from '@/components/FileUpload/FileUpload.types';
 import { Flyout } from '@/components/Flyout';
 import { Button } from '@/components/Button';
 import { useState } from 'react';
@@ -11,9 +12,14 @@ const meta: Meta<typeof FileUpload> = {
   tags: ['file-upload', 'autodocs'],
   decorators: [
     Story => (
-      <Wrapper>
-        <Story />
-      </Wrapper>
+      <div
+        data-testid="file-upload-harness"
+        style={{ padding: '16px' }}
+      >
+        <Wrapper>
+          <Story />
+        </Wrapper>
+      </div>
     ),
   ],
 };

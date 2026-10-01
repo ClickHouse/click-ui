@@ -258,11 +258,11 @@ describe('CheckboxCheckboxMultiSelect', () => {
       const selectTrigger = getByTestId('select-trigger');
       selectTrigger && fireEvent.click(selectTrigger);
 
-      expect(queryByText('Content0')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).toBeInTheDocument();
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content3')).toBeInTheDocument();
-      expect(queryByText('Content4')).toBeInTheDocument();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
     });
 
     it('filters items by search text', () => {
@@ -275,16 +275,16 @@ describe('CheckboxCheckboxMultiSelect', () => {
       selectTrigger && fireEvent.click(selectTrigger);
 
       expect(queryByText('Group label')).toBeVisible();
-      expect(queryByText('Content0')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).toBeInTheDocument();
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content3')).toBeInTheDocument();
-      expect(queryByText('Content4')).toBeInTheDocument();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'content2' },
       });
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).not.toBeInTheDocument();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
     });
 
@@ -299,16 +299,16 @@ describe('CheckboxCheckboxMultiSelect', () => {
       selectTrigger && fireEvent.click(selectTrigger);
 
       expect(queryByText('Group label')).toBeVisible();
-      expect(queryByText('Content0')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).toBeInTheDocument();
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content3')).toBeInTheDocument();
-      expect(queryByText('Content4')).toBeInTheDocument();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'content2' },
       });
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).not.toBeInTheDocument();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
     });
 
@@ -325,16 +325,16 @@ describe('CheckboxCheckboxMultiSelect', () => {
       fireEvent.change(selectInput, {
         target: { value: 'content2' },
       });
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).not.toBeInTheDocument();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
       fireEvent.click(getByTestId('select-search-close'));
       expect(queryByText('Group label')).toBeVisible();
-      expect(queryByText('Content0')).toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).toBeInTheDocument();
-      expect(queryByText('Content2')).toBeInTheDocument();
-      expect(queryByText('Content3')).toBeInTheDocument();
-      expect(queryByText('Content4')).toBeInTheDocument();
+      expect(queryByText('Content0')).toBeVisible();
+      expect(queryByText('Content1 long text content')).toBeVisible();
+      expect(queryByText('Content2')).toBeVisible();
+      expect(queryByText('Content3')).toBeVisible();
+      expect(queryByText('Content4')).toBeVisible();
       expect(document.activeElement).toBe(selectInput);
     });
 
@@ -350,8 +350,8 @@ describe('CheckboxCheckboxMultiSelect', () => {
       fireEvent.change(getByTestId('select-search-input'), {
         target: { value: 'nodata' },
       });
-      expect(queryByText('Content2')).not.toBeInTheDocument();
-      expect(queryByText('Content1 long text content')).not.toBeInTheDocument();
+      expect(queryByText('Content2')).not.toBeVisible();
+      expect(queryByText('Content1 long text content')).not.toBeVisible();
       expect(queryByText('Group label')).not.toBeVisible();
       const btn = queryByText(/No Options found/i);
       expect(btn).toBeInTheDocument();

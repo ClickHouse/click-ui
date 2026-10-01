@@ -141,10 +141,3 @@ export interface BaseMultiSelectProps extends Omit<
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
-
-export type SelectItemObject = {
-  disabled?: boolean;
-  value: string;
-  title: string;
-  heading?: string;
-};

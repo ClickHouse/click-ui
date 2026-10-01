@@ -1,0 +1,14 @@
+.form-element-container {
+  display: flex;
+  /* stylelint-disable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown -- the original rule used this same
+   width fallback chain (100% → -webkit-fill-available → fill-available →
+   stretch) so the container fills the available inline space. */
+  width: 100%;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  /* stylelint-enable plugin/no-unsupported-browser-features, declaration-property-value-no-unknown */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--click-field-space-gap);
+}

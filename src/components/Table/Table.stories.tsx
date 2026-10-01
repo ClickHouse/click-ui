@@ -794,6 +794,240 @@ export const ResizableColumnsWithColumnSelection: StoryObj<ResizableColumnsWithC
     },
   };
 
+export const MediumSize: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '200px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+        ],
+      },
+    ],
+    size: 'md',
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+      />
+    </div>
+  ),
+};
+
+const rowsWithStates: TableRowType[] = [
+  {
+    id: 'row-1',
+    items: [
+      { label: 'archive-2024-01-15.csv' },
+      { label: 'system.query_log' },
+      { label: '2024-01-15 14:32:01' },
+    ],
+    isActive: true,
+  },
+  {
+    id: 'row-2',
+    items: [
+      { label: 'export-analytics.parquet' },
+      { label: 'default.events' },
+      { label: '2024-01-15 14:28:45' },
+    ],
+    isDisabled: true,
+  },
+  {
+    id: 'row-3',
+    items: [
+      { label: 'backup-old.csv.gz' },
+      { label: 'analytics.page_views' },
+      { label: '2024-01-15 14:25:12' },
+    ],
+    isDeleted: true,
+  },
+  {
+    id: 'row-4',
+    items: [{ label: 'data.csv' }, { label: 'users' }, { label: '2024-01-15 14:20:00' }],
+  },
+];
+
+export const RowStates: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: rowsWithStates,
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+      />
+    </div>
+  ),
+};
+
+export const WithActions: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: rowsWithStates,
+    isSelectable: true,
+    selectedIds: ['row-1'],
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+        onSelect={() => {}}
+        onEdit={() => {}}
+        onDelete={() => {}}
+      />
+    </div>
+  ),
+};
+
+export const SortedDescending: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px', isSortable: true, sortDir: 'desc' },
+      { label: 'Table', width: '200px', isSortable: true },
+      { label: 'Timestamp', width: '180px', isSortable: true, sortDir: 'asc' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+        ],
+      },
+    ],
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+        onSort={() => {}}
+      />
+    </div>
+  ),
+};
+
+export const Loading: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: [],
+    loading: true,
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+      />
+    </div>
+  ),
+};
+
+export const NoData: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: [],
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+      />
+    </div>
+  ),
+};
+
+export const NoHeader: StoryObj<typeof Table> = {
+  args: {
+    headers: [
+      { label: 'File', width: '220px' },
+      { label: 'Table', width: '200px' },
+      { label: 'Timestamp', width: '180px' },
+    ],
+    rows: [
+      {
+        id: 'row-1',
+        items: [
+          { label: 'archive-2024-01-15.csv' },
+          { label: 'system.query_log' },
+          { label: '2024-01-15 14:32:01' },
+        ],
+      },
+      {
+        id: 'row-2',
+        items: [
+          { label: 'export-analytics.parquet' },
+          { label: 'default.events' },
+          { label: '2024-01-15 14:28:45' },
+        ],
+      },
+    ],
+    showHeader: false,
+    mobileLayout: 'scroll',
+  },
+  render: ({ mobileLayout, ...props }) => (
+    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
+      <Table
+        {...props}
+        mobileLayout={mobileLayout}
+      />
+    </div>
+  ),
+};
+
 export const MobileLayout: StoryObj<typeof Table> = {
   args: {
     headers: [

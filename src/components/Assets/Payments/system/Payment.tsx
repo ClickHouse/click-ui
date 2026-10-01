@@ -1,5 +1,5 @@
 import { SVGAttributes } from 'react';
-import { useTheme } from 'styled-components';
+import { useTheme } from '@/theme/ThemeContext';
 import { getFallbackThemeName } from '@/theme/theme.utils';
 import { SvgImageElement } from '@/components/Icon/SvgImageElement';
 import { PaymentName, PaymentProps } from './types';
@@ -40,7 +40,7 @@ const Payment = ({ name, theme, size, ...props }: PaymentPropsWithAliases) => {
   return (
     <SvgImageElement
       as={ThemedPayment}
-      $size={size}
+      size={size}
       role="img"
       aria-label={resolvedName}
       {...props}

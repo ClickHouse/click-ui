@@ -21,6 +21,32 @@ describe('ButtonGroup', () => {
     });
   });
 
+  it('renders icon-only buttons when iconOnly is true', () => {
+    const iconOptions = [
+      { icon: 'table' as const, value: 'table', 'aria-label': 'Table view' },
+      { icon: 'pin' as const, value: 'pin', 'aria-label': 'Pin view' },
+    ];
+
+    const { getByRole } = renderButtonGroup({
+      options: iconOptions,
+      iconOnly: true,
+      'aria-label': 'View options',
+    });
+
+    expect(getByRole('button', { name: 'Table view' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Pin view' })).toBeInTheDocument();
+  });
+
+  it('falls back to the icon name when iconOnly option has no aria-label', () => {
+    const { getByRole } = renderButtonGroup({
+      options: [{ icon: 'table', value: 'table' }],
+      iconOnly: true,
+      'aria-label': 'View options',
+    });
+
+    expect(getByRole('button', { name: 'table' })).toBeInTheDocument();
+  });
+
   it('forwards ref to the wrapper div', () => {
     const ref = createRef<HTMLDivElement>();
     renderCUI(
@@ -237,6 +263,29 @@ describe('ButtonGroup', () => {
 
       expect(getByText('Option 1')).toHaveAttribute('aria-pressed', 'true');
       expect(getByText('Option 2')).toHaveAttribute('aria-pressed', 'false');
+    });
+  });
+
+  describe('native button type', () => {
+    it('renders options with type="button" so they do not submit a form', () => {
+      const { getByText } = renderButtonGroup({ options });
+
+      options.forEach(option => {
+        expect(getByText(option.label)).toHaveAttribute('type', 'button');
+      });
+    });
+
+    it('does not submit an enclosing form when an option is clicked', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+      const { getByText } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <ButtonGroup options={options} />
+        </form>
+      );
+
+      fireEvent.click(getByText('Option 1'));
+
+      expect(handleSubmit).not.toHaveBeenCalled();
     });
   });
 });

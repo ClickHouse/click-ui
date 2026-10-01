@@ -4,52 +4,60 @@ import {
   ElementType,
   ReactNode,
   forwardRef,
+  useState,
 } from 'react';
 import { mergeRefs } from '@/utils/mergeRefs';
-import { styled } from 'styled-components';
-
-const EllipsisContainer = styled.div`
-  display: inline-block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  vertical-align: text-bottom;
-  overflow: hidden;
-  justify-content: flex-start;
-  width: 100%;
-  width: -webkit-fill-available;
-  width: fill-available;
-  width: stretch;
-  & > *:not(button) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-export interface EllipsisContentProps<T extends ElementType = 'div'> {
-  component?: T;
-}
+import { cn } from '@/lib/cva';
+import { Tooltip } from '@/components/Tooltip';
+import { EllipsisContentProps } from './EllipsisContent.types';
+import styles from './EllipsisContent.module.css';
 
 type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
-  props: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>
+  props: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>
 ) => ReactNode;
 
-const _EllipsisContent = <T extends ElementType = 'div'>(
-  { component, ...props }: Omit<ComponentProps<T>, keyof T> & EllipsisContentProps<T>,
+const EllipsisContentComponent = <T extends ElementType = 'div'>(
+  {
+    component,
+    className,
+    tooltipProps,
+    ...props
+  }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> &
+    EllipsisContentProps<T> & { className?: string },
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
-  return (
-    <EllipsisContainer
-      as={component ?? 'div'}
+  const Component = component ?? 'div';
+  const [tooltipContent, setTooltipContent] = useState<string | null>(null);
+
+  const content = (
+    <Component
       ref={mergeRefs([
         ref,
         node => {
-          if (node && node.scrollWidth > node.clientWidth) {
-            node.title = node.innerText;
+          if (node) {
+            setTooltipContent(
+              node.scrollWidth > node.clientWidth ? node.innerText : null
+            );
           }
         },
       ])}
       {...props}
+      className={cn(styles['ellipsis-content'], className)}
     />
+  );
+
+  if (!tooltipContent) {
+    return content;
+  }
+
+  return (
+    <Tooltip disableHoverableContent>
+      <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
+      <Tooltip.Content {...tooltipProps}>{tooltipContent}</Tooltip.Content>
+    </Tooltip>
   );
 };
 
-export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(_EllipsisContent);
+export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(
+  EllipsisContentComponent
+);

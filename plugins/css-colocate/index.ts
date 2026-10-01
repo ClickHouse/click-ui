@@ -1,7 +1,7 @@
 import type { Plugin, ResolvedConfig } from 'vite';
 import { preprocessCssModules } from './css-preprocess';
 import { resolveCssModule, loadCssModule } from './virtual-modules';
-import { injectComponentCss, injectRegularCssImports } from './import-inject';
+import { injectModuleCssImports, injectRegularCssImports } from './import-inject';
 import { copyCssFiles } from './utils';
 import path from 'path';
 
@@ -11,6 +11,10 @@ interface TrackedCssImport {
 }
 
 const REGULAR_CSS_IMPORT_REGEX = /import\s+['"]([^'"]+\.css)['"];?/g;
+// Matches `import styles from './x.module.css'`, `import * as s from …`,
+// `import { a } from …`, and bare `import './x.module.css'`.
+const MODULE_CSS_IMPORT_REGEX =
+  /import\s+(?:(?:[\w$]+|\*\s+as\s+[\w$]+|\{[^}]*\})\s+from\s+)?['"]([^'"]+\.module\.css)['"]/g;
 
 /**
  * Vite plugin that:
@@ -22,6 +26,7 @@ const REGULAR_CSS_IMPORT_REGEX = /import\s+['"]([^'"]+\.css)['"];?/g;
 export const cssColocatePlugin = (): Plugin => {
   let config: ResolvedConfig;
   const trackedImports: TrackedCssImport[] = [];
+  const trackedModuleImports: TrackedCssImport[] = [];
 
   return {
     name: 'vite-plugin-css-colocate',
@@ -33,6 +38,7 @@ export const cssColocatePlugin = (): Plugin => {
       // appending, causing duplicate CSS imports
       // on each rebuild
       trackedImports.length = 0;
+      trackedModuleImports.length = 0;
       await preprocessCssModules(config.root);
     },
 
@@ -49,7 +55,9 @@ export const cssColocatePlugin = (): Plugin => {
     },
 
     transform(code, id) {
-      if (id.includes('node_modules') || !/\.[jt]sx?$/.test(id)) return null;
+      if (id.includes('node_modules') || !/\.[jt]sx?$/.test(id)) {
+        return null;
+      }
 
       // Track regular CSS imports (not .module.css)
       const cssImports: string[] = [];
@@ -66,23 +74,32 @@ export const cssColocatePlugin = (): Plugin => {
         trackedImports.push({ sourceFile: id, cssPaths: cssImports });
       }
 
+      // Track .module.css imports so the colocated rules file is injected into
+      // every importer, not just the directory's index file.
+      const moduleCssImports: string[] = [];
+      MODULE_CSS_IMPORT_REGEX.lastIndex = 0;
+      while ((match = MODULE_CSS_IMPORT_REGEX.exec(code)) !== null) {
+        moduleCssImports.push(match[1]);
+      }
+
+      if (moduleCssImports.length) {
+        trackedModuleImports.push({ sourceFile: id, cssPaths: moduleCssImports });
+      }
+
       return null;
     },
 
     async closeBundle() {
-      const formats = [
-        { format: 'esm' as const, ext: 'js' as const },
-        { format: 'cjs' as const, ext: 'cjs' as const },
-      ];
+      const formats = ['esm', 'cjs'] as const;
 
-      for (const { format, ext } of formats) {
+      for (const format of formats) {
         const distDir = path.join(config.root, 'dist', format);
 
         // Copy all CSS files (from temp and src)
         await copyCssFiles(config.root, distDir);
 
-        // Inject CSS imports into component files
-        await injectComponentCss(distDir, format, ext);
+        // Inject colocated .module.css rules into every importer
+        await injectModuleCssImports(trackedModuleImports, config.root, distDir, format);
 
         // Inject CSS imports into files with tracked imports
         await injectRegularCssImports(trackedImports, config.root, distDir, format);

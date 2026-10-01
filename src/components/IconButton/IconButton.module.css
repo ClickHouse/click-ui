@@ -8,6 +8,11 @@
   cursor: pointer;
 }
 
+.iconbutton:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
 .iconbutton_size_sm {
   padding: var(--click-button-iconButton-sm-space-y)
     var(--click-button-iconButton-sm-space-x);

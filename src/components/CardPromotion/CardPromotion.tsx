@@ -1,101 +1,47 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
 import { Icon } from '@/components/Icon';
 import { Text } from '@/components/Text';
+import { cn } from '@/lib/cva';
 import { CardPromotionProps } from './CardPromotion.types';
-const Background = styled.div`
-  ${({ theme }) => `
-    background-image: ${theme.click.card.promotion.color.stroke.default};
-    padding: 1px;
-    border-radius: ${theme.click.card.promotion.radii.all};
-    box-shadow: ${theme.click.card.shadow};
-    display: flex;
-
-    &:focus {
-      background: ${theme.click.card.promotion.color.stroke.focus};
-    }
-  `}
-`;
-const Wrapper = styled.div<{
-  $dismissible?: boolean;
-}>`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-start;
-  cursor: pointer;
-
-  ${({ theme }) => `
-    background: ${theme.click.card.promotion.color.background.default};
-    color: ${theme.click.card.promotion.color.text.default};
-    border-radius: ${theme.click.card.promotion.radii.all};
-    padding: ${theme.click.card.promotion.space.y} ${theme.click.card.promotion.space.x};
-    gap: ${theme.click.card.promotion.space.gap};
-    transition: .2s ease-in-out all;
-
-    &:hover {
-      background: ${theme.click.card.promotion.color.background.hover};
-      color: ${theme.click.card.promotion.color.text.hover};
-    }
-
-    &:active, &:focus {
-      background: ${theme.click.card.promotion.color.background.active};
-      color: ${theme.click.card.promotion.color.text.active};
-    }
-  `}
-`;
-
-const CardIcon = styled(Icon)`
-  ${({ theme }) => `
-      height: ${theme.click.card.promotion.icon.size.all};
-      width: ${theme.click.card.promotion.icon.size.all};
-      color: ${theme.click.card.promotion.color.icon.default};
-  `}
-`;
-
-const DismissWrapper = styled.button`
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  border: none;
-  background-color: transparent;
-  color: inherit;
-  cursor: pointer;
-`;
+import styles from './CardPromotion.module.css';
 
 export const CardPromotion = ({
   label,
   icon,
   dismissible = false,
+  className,
   ...props
 }: CardPromotionProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
   return isVisible ? (
-    <Background>
-      <Wrapper
-        $dismissible={dismissible}
+    <div className={styles.background}>
+      <div
         {...props}
+        className={cn(styles.wrapper, className)}
       >
-        <CardIcon
+        <Icon
           name={icon}
           aria-hidden
+          className={styles.cardicon}
         />
 
         <Text>{label}</Text>
 
         {dismissible && (
-          <DismissWrapper
+          <button
+            type="button"
             data-testid="click-alert-dismiss-button"
             onClick={() => setIsVisible(false)}
+            className={styles.dismisswrapper}
           >
             <Icon
               name="cross"
               aria-label="close"
             />
-          </DismissWrapper>
+          </button>
         )}
-      </Wrapper>
-    </Background>
+      </div>
+    </div>
   ) : null;
 };

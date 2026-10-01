@@ -1,0 +1,35 @@
+/* Design tokens use camelCase segments (e.g. genericMenu). */
+/* stylelint-disable custom-property-pattern */
+
+/* PopoverTrigger / PopoverContent = styled(RadixPopover.Trigger/Content). These
+   wrap the raw Radix primitives (no CSS Module base), so the classes apply
+   directly with no cascade competition. */
+.popover-trigger {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- the original styled-components used this width; preserved for byte-for-byte parity. */
+  width: fit-content;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.popover-trigger:disabled {
+  cursor: not-allowed;
+}
+
+.popover-trigger:focus-visible {
+  outline: none;
+}
+
+.popover-content {
+  z-index: 1;
+  border: 1px solid var(--click-genericMenu-panel-color-stroke-default);
+  border-radius: var(--click-genericMenu-panel-radii-all);
+  background: var(--click-genericMenu-panel-color-background-default);
+  outline: none;
+  box-shadow: var(--click-genericMenu-panel-shadow-default);
+}
+
+.popover-content:focus {
+  outline: none;
+}

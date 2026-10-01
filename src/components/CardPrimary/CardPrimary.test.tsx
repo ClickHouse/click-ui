@@ -1,10 +1,15 @@
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';
 import { CardPrimary, CardPrimaryProps } from '@/components/CardPrimary';
 
 describe('CardPrimary Component', () => {
   describe('Primary card', () => {
     const renderCard = (props: CardPrimaryProps) => renderCUI(<CardPrimary {...props} />);
+
+    afterEach(() => {
+      vitest.restoreAllMocks();
+    });
 
     it('should render the title', () => {
       const title = 'Test card component';
@@ -105,6 +110,64 @@ describe('CardPrimary Component', () => {
 
       const imgElement = screen.getByAltText('card icon');
       expect(imgElement).toHaveAttribute('src', iconUrl);
+    });
+
+    it('should open infoUrl in a new tab without exposing window.opener', async () => {
+      const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+      const { getByRole } = renderCard({
+        icon: 'warning',
+        title: 'Test Card',
+        description: '',
+        infoUrl: 'https://example.com',
+        infoText: 'Learn more',
+      });
+
+      await userEvent.click(getByRole('button'));
+
+      expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        'https://example.com',
+        '_blank',
+        'noopener'
+      );
+    });
+
+    it('should open a relative infoUrl', async () => {
+      const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+      const { getByRole } = renderCard({
+        icon: 'warning',
+        title: 'Test Card',
+        description: '',
+        infoUrl: '/docs/getting-started',
+        infoText: 'Learn more',
+      });
+
+      await userEvent.click(getByRole('button'));
+
+      expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        '/docs/getting-started',
+        '_blank',
+        'noopener'
+      );
+    });
+
+    it('should not open a non-http(s) infoUrl', async () => {
+      const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+      const { getByRole } = renderCard({
+        icon: 'warning',
+        title: 'Test Card',
+        description: '',
+        infoUrl: 'javascript:alert(1)',
+        infoText: 'Learn more',
+      });
+      const warnSpy = vitest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+      await userEvent.click(getByRole('button'));
+
+      expect(windowOpenSpy).not.toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalledTimes(1);
+      expect(warnSpy.mock.calls[0][0]).toContain('javascript:alert(1)');
     });
   });
 });

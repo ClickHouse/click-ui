@@ -47,3 +47,21 @@ export const Playground: Story = {
     placeholder: 'Placeholder',
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    label: 'Label',
+    rows: 5,
+    placeholder: 'Placeholder',
+    disabled: true,
+  },
+};
+
+export const Error: Story = {
+  args: {
+    label: 'Label',
+    rows: 5,
+    value: 'Some invalid content',
+    error: 'This field has an error',
+  },
+};

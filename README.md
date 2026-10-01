@@ -9,7 +9,7 @@
 
 # Click UI
 
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://conventionalcommits.org)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://conventionalcommits.org) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 
 Click UI is the ClickHouse design system and component library. Our aim with Click UI is to provide an accessible, theme-able, modern, and attractive interface with which to experience the speed and power of ClickHouse.
 
@@ -51,6 +51,8 @@ You can find the official docs for the Click UI design system and component libr
 * [Contributing](#contributing)
   - [Component RFC](#component-rfc)
   - [Conventional commits](#conventional-commits)
+  - [AI Policy](#ai-policy)
+* [License](#license)
 
 ## Requirements
 
@@ -80,11 +82,31 @@ The following browsers are explicitly **not supported** due to limited CSS featu
 
 ## Quick Start
 
-Install the package via npm or your favourite package manager:
+Install the package via npm or your favorite package manager:
 
 ```sh
 npm i @clickhouse/click-ui@latest
 ```
+
+Click UI has three peer dependencies. Your app must provide them:
+
+| Package     | Version                |
+| ----------- | ---------------------- |
+| `react`     | `^18.3.1` or `^19.0.0` |
+| `react-dom` | `^18.3.1` or `^19.0.0` |
+| `dayjs`     | `^1.11.19`             |
+
+Some package managers do not install peer dependencies automatically. If you see an error about a missing `dayjs`, add it to your app.
+
+> [!IMPORTANT]
+> **Next.js apps** must add `@clickhouse/click-ui` to `transpilePackages` configuration (available in Next.js 13+):
+> ```js
+> // next.config.ts
+> module.exports = {
+>   transpilePackages: ['@clickhouse/click-ui'],
+> };
+> ```
+> This is required because Next.js restricts global CSS imports from `node_modules` by default. Transpiling the package allows Next.js to process the CSS through its build pipeline. See the [Next.js example](docs/examples/nextjs-app-router-with-ssr.md) for full setup instructions.
 
 To use Click UI, you must wrap your application in the provider. This ensures styles and themes are applied correctly across all components.
 
@@ -124,23 +146,26 @@ yarn circular-dependency:check
 > [!TIP]
 > Set RUN_DEPS_CHECK=1 to run circular dependency checks automatically on commit.
 
-If circular dependencies are found it'll exit with a report showing the affeced files which require your attention.
+If circular dependencies are found it'll exit with a report showing the affected files which require your attention.
 
 ### Generating design tokens
 
-Tokens are provided by a style directionary sourced from [tokens-studio](https://tokens.studio/).
+Tokens are provided by a style dictionary sourced from [tokens-studio](https://tokens.studio/).
 
-It's expected to have theme tokens provided externally, e.g. Figma tokens-studio output is stored in the repository and a PR's opened. The assets are stored in the directory [./tokens/themes].
+Design tokens change through one flow only:
 
-Once [./tokens/themes] files are updated or provided from exernal source, e.g. Figma, we must regenerate the tokens for consumption in the project.
+1. Change the tokens in Figma. In the Tokens Studio plugin, click **Push to GitHub**, then **Push Changes** in the modal that opens. The JSON lands in [./tokens/themes](./tokens/themes) on a new branch.
+2. Regenerate the files the library consumes, then commit the JSON together with the generated output:
 
-Run the command to generate tokens in the path `./src/theme/tokens/`:
+   ```sh
+   yarn generate:tokens
+   ```
 
-```sh
-yarn generate:tokens
-```
+   This writes `src/theme/tokens/variables.{light,dark}.ts` and `src/theme/styles/tokens-{light,dark}.css`.
 
-Once done, you must commit the changes.
+3. Open a PR and add the `tokens-update` label. GitHub asks the token owners listed in [.github/CODEOWNERS](./.github/CODEOWNERS) to review any PR that touches token files.
+
+Never edit the generated files, and never change a token value by hand to solve a component task. Use the nearest existing token, or ask for a design update.
 
 Learn more about tokens-studio [here](https://documentation.tokens.studio/).
 
@@ -171,24 +196,40 @@ To get started with the development playground, refer to the Storybook section [
 
 This library uses [CSS Modules](https://github.com/css-modules/css-modules) for styling and is distributed unbundled, giving your application full control over bundling and optimizations. This means you only include what you actually use, resulting in smaller bundle sizes and better performance!
 
-Most modern React frameworks support CSS Modules out of the box, including Next.js, Vite, Create React App, and TanStack Start, with no configuration required.
-
-> [!IMPORTANT]
-> **Next.js apps** must add `@clickhouse/click-ui` to `transpilePackages` configuration (available in Next.js 13+):
-> ```js
-> // next.config.ts
-> module.exports = {
->   transpilePackages: ['@clickhouse/click-ui'],
-> };
-> ```
-> This is required because Next.js restricts global CSS imports from `node_modules` by default. Transpiling the package allows Next.js to process the CSS through its build pipeline. See the [Next.js example](docs/examples/nextjs-app-router-with-ssr.md) for full setup instructions.
+Most modern React frameworks support CSS Modules out of the box, including Next.js, Vite, Create React App, and TanStack Start. Next.js needs one extra setting, see [Quick Start](#quick-start).
 
 > [!NOTE]
-> We're currently migrating from Styled-Components to CSS Modules. Some components may still use Styled-Components during this transition period.
+> Click UI no longer uses `styled-components`. It was removed as a peer dependency in v0.10.0. If it is in your project only because of Click UI, you can drop it.
 
 #### Benefits
 
 CSS Modules align naturally with component-level imports. When you import a component like `Button`, its `Button.module.css` is automatically included. If you don't use the component, neither the JavaScript, or CSS will be bundled in your application's output. Only the necessary stylesheets will be included in the output bundle.
+
+#### Overriding styles
+
+All click-ui styles — component rules **and** the theme design tokens — live in a single CSS [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) named `clickui`. Cascade layers make overrides predictable: any style you write **outside** a layer — a plain rule, a CSS Module class, or a `styled(...)` override — always beats click-ui's styles, regardless of stylesheet import order or selector specificity. No `!important` or specificity hacks required. The same rule applies to theming variables: an unlayered `--click-*` custom-property override wins over click-ui's token defaults.
+
+```css
+/* Your app — unlayered, so it always wins over click-ui */
+.my-button {
+  background: hotpink;
+}
+```
+
+If your app organizes its own styles into cascade layers, declare your layer **after** `clickui` so it still takes precedence:
+
+```css
+@layer clickui, app;
+
+@layer app {
+  .my-button {
+    background: hotpink;
+  }
+}
+```
+
+> [!NOTE]
+> This requires a browser with `@layer` support: Chrome/Edge 99+, Firefox 97+, Safari 15.4+. This is within click-ui's [supported browser range](#browser-support).
 
 #### Custom Build Configurations
 
@@ -335,7 +376,7 @@ yarn changeset:version
 
 ## Distribution
 
-The package is distributed as ESM.
+The package is distributed as ESM and CJS with TypeScript declarations. `import` resolves to `dist/esm`, `require` to `dist/cjs`, and types come from `dist/types`.
 
 ### Build
 
@@ -346,7 +387,7 @@ yarn build
 ```
 
 > [!NOTE]
-> Optimizations are responsability of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyse and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
+> Optimizations are the responsibility of consumer or host apps, e.g. they can't remove unused code if already minified it! We ship unminified code so their build tools can: analyze and remove what they don't need or dead code, debug more easily, compress everything together in one go instead of handling conflicting compression algorithms, etc.
 
 ### Use Click UI
 
@@ -484,10 +525,10 @@ export default App
 
 ## Themes
 
-Theming allows the end-user to select its preferred colour theme. You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
+Theming allows the end-user to select its preferred color theme. You are responsible for managing your own theme state. Use your preferred state management solution (React state, Zustand, Redux, Context, etc.) and pass the current theme to the provider.
 
 > [!NOTE]
-> Currently, styling is done with css-in-js which might cause some flash since it has to compute the theme and apply it. We'll be moving from styled-components and this shall be changed and improved.
+> Themes are plain CSS custom properties switched by the `data-cui-theme` attribute on the root `<html>` element. There is no runtime style computation, so the only possible flash is the wrong theme on first paint. See [Prevent theme flash](#prevent-theme-flash).
 
 ### Prevent theme flash
 
@@ -574,6 +615,10 @@ For example, edit your consumer app `stylesheet` and introduce custom styles as 
 }
 ```
 
+## Accessibility
+
+Click UI targets WCAG 2.2 AA. The policy, severity rules and definition of done live in [ACCESSIBILITY.md](./ACCESSIBILITY.md).
+
 ## Assets management
 
 The Click UI has image asset files, such as Flags, Icons, Logos and Payments.
@@ -631,7 +676,7 @@ gh pr create --template component_rfc.md
 
 ### Conventional commits
 
-We prefer to commit our work following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) conventions. Conventional Commits are a simple way to write commit messages that both people and computers can understand. It help us keep track fo changes in a consistent manner, making it easier to see what was added, changed, or fixed in each commit or update.
+We prefer to commit our work following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) conventions. Conventional Commits are a simple way to write commit messages that both people and computers can understand. It helps us keep track of changes in a consistent manner, making it easier to see what was added, changed, or fixed in each commit or update.
 
 The commit messages are formatted as **[type]/[scope]**
 The **type** is a short descriptor indicating the nature of the work (e.g., feat, fix, docs, style, refactor, test, chore). This follows the conventional commit types.
@@ -649,3 +694,11 @@ docs: 📝 Documentation only changes
 refactor: 💡 A code change that neither fixes a bug or adds a feature
 style: 💄 Markup, white-space, formatting, missing semi-colons...
 ```
+
+### AI Policy
+
+You can use AI for Click UI development — see the [AI Policy](./AI_POLICY.md) for what we encourage and what's expected of contributors.
+
+## License
+
+Click UI is licensed under the [Apache License 2.0](./LICENSE).

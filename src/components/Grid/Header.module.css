@@ -1,0 +1,44 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. selectDirect) */
+
+.header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: var(--header-height);
+  flex-direction: row;
+}
+
+.header_scrolled-vertical {
+  box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
+}
+
+.header__scroll-area {
+  position: relative;
+  left: var(--header-scroll-area-left);
+}
+
+.header__cell {
+  display: flex;
+  position: absolute;
+  left: var(--header-cell-left);
+  width: var(--header-cell-width);
+  height: var(--header-cell-height);
+}
+
+.header__cell:hover [data-resize] {
+  background: var(--click-grid-header-cell-color-stroke-selectDirect);
+}
+
+/* the sticky "select all" corner extends a header cell (styled(HeaderCellContainer)) */
+.header__row-column {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: var(--header-cell-width);
+  text-align: right;
+}
+
+.header__row-column_scrolled-horizontal {
+  box-shadow: 0 0 0 1px var(--click-grid-header-cell-color-stroke-default);
+}

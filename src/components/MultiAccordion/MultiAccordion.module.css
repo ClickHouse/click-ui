@@ -1,0 +1,200 @@
+.multi-accordion {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: var(--multi-accordion-gap);
+}
+
+.multi-accordion_fill-width {
+  width: 100%;
+}
+
+.multi-accordion_gap_none {
+  --multi-accordion-gap: var(--click-container-gap-none);
+}
+
+.multi-accordion_gap_xxs {
+  --multi-accordion-gap: var(--click-container-gap-xxs);
+}
+
+.multi-accordion_gap_xs {
+  --multi-accordion-gap: var(--click-container-gap-xs);
+}
+
+.multi-accordion_gap_sm {
+  --multi-accordion-gap: var(--click-container-gap-sm);
+}
+
+.multi-accordion_gap_md {
+  --multi-accordion-gap: var(--click-container-gap-md);
+}
+
+.multi-accordion_gap_lg {
+  --multi-accordion-gap: var(--click-container-gap-lg);
+}
+
+.multi-accordion_gap_xl {
+  --multi-accordion-gap: var(--click-container-gap-xl);
+}
+
+.multi-accordion_gap_xxl {
+  --multi-accordion-gap: var(--click-container-gap-xxl);
+}
+
+.multi-accordion__item {
+  border: 1px solid var(--click-global-color-stroke-default);
+  border-radius: var(--border-radii-1);
+  background-color: var(--click-global-color-background-default);
+}
+
+.multi-accordion__item_no-border {
+  border: none;
+}
+
+.multi-accordion__item_fill-width {
+  width: 100%;
+}
+
+.multi-accordion__trigger {
+  display: flex;
+  width: 100%;
+  padding: var(--multi-accordion-trigger-padding);
+  align-items: center;
+  gap: var(--multi-accordion-trigger-gap);
+  border: none;
+  border-radius: inherit;
+  background-color: transparent;
+  color: var(--multi-accordion-label-default);
+  font: var(--multi-accordion-font-default);
+}
+
+.multi-accordion__trigger:active {
+  color: var(--multi-accordion-label-active);
+  font: var(--multi-accordion-font-active);
+}
+
+.multi-accordion__trigger:hover {
+  background: var(--click-global-color-stroke-default);
+  color: var(--multi-accordion-label-hover);
+  font: var(--multi-accordion-font-hover);
+  cursor: pointer;
+}
+
+.multi-accordion__trigger [data-icon='accordion-status'] {
+  color: var(--global-color-stroke-intense);
+}
+
+.multi-accordion__trigger[data-state='open'] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.multi-accordion__trigger[data-state='open'] [data-icon='accordion-status'] {
+  color: var(--global-color-accent-default);
+}
+
+.multi-accordion__trigger_size_none {
+  --multi-accordion-trigger-padding: var(--click-container-space-none);
+  --multi-accordion-trigger-gap: var(--click-accordion-sm-space-gap);
+}
+
+.multi-accordion__trigger_size_sm {
+  --multi-accordion-trigger-padding: var(--click-container-space-sm);
+  --multi-accordion-trigger-gap: var(--click-accordion-sm-space-gap);
+}
+
+.multi-accordion__trigger_size_md {
+  --multi-accordion-trigger-padding: var(--click-container-space-md);
+  --multi-accordion-trigger-gap: var(--click-accordion-md-space-gap);
+}
+
+.multi-accordion__trigger_size_lg {
+  --multi-accordion-trigger-padding: var(--click-container-space-lg);
+  --multi-accordion-trigger-gap: var(--click-accordion-lg-space-gap);
+}
+
+.multi-accordion__trigger_font_sm {
+  --multi-accordion-font-default: var(--click-accordion-sm-typography-label-default);
+  --multi-accordion-font-hover: var(--click-accordion-sm-typography-label-hover);
+  --multi-accordion-font-active: var(--click-accordion-sm-typography-label-active);
+}
+
+.multi-accordion__trigger_font_md {
+  --multi-accordion-font-default: var(--click-accordion-md-typography-label-default);
+  --multi-accordion-font-hover: var(--click-accordion-md-typography-label-hover);
+  --multi-accordion-font-active: var(--click-accordion-md-typography-label-active);
+}
+
+.multi-accordion__trigger_font_lg {
+  --multi-accordion-font-default: var(--click-accordion-lg-typography-label-default);
+  --multi-accordion-font-hover: var(--click-accordion-lg-typography-label-hover);
+  --multi-accordion-font-active: var(--click-accordion-lg-typography-label-active);
+}
+
+.multi-accordion__trigger_color_default {
+  --multi-accordion-label-default: var(--click-accordion-color-default-label-default);
+  --multi-accordion-label-hover: var(--click-accordion-color-default-label-hover);
+  --multi-accordion-label-active: var(--click-accordion-color-default-label-active);
+}
+
+.multi-accordion__trigger_color_link {
+  --multi-accordion-label-default: var(--click-accordion-color-link-label-default);
+  --multi-accordion-label-hover: var(--click-accordion-color-link-label-hover);
+  --multi-accordion-label-active: var(--click-accordion-color-link-label-active);
+}
+
+.multi-accordion__icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.multi-accordion__trigger[data-state='open'] .multi-accordion__icon-wrapper {
+  transform: rotate(90deg);
+}
+
+.multi-accordion__icons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.multi-accordion__content {
+  padding: var(--multi-accordion-content-padding);
+  padding-top: 0;
+}
+
+.multi-accordion__content_padding_none {
+  --multi-accordion-content-padding: var(--click-container-space-none);
+}
+
+.multi-accordion__content_padding_sm {
+  --multi-accordion-content-padding: var(--click-container-space-sm);
+}
+
+.multi-accordion__content_padding_md {
+  --multi-accordion-content-padding: var(--click-container-space-md);
+}
+
+.multi-accordion__content_padding_lg {
+  --multi-accordion-content-padding: var(--click-container-space-lg);
+}
+
+.multi-accordion__title {
+  overflow: hidden;
+}
+
+/* stylelint-disable-next-line block-no-empty -- base element required by BEM */
+.multi-accordion__status-icon {
+}
+
+.multi-accordion__status-icon_completed svg path {
+  fill: var(--global-color-accent-default) !important;
+  stroke: var(--global-color-background-default) !important;
+}
+
+.multi-accordion__status-icon_completed svg path:first-of-type {
+  stroke: var(--global-color-accent-default) !important;
+}

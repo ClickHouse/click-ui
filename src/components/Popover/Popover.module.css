@@ -1,0 +1,33 @@
+/* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconButton) */
+
+.menu-panel {
+  display: block;
+  padding: var(--click-popover-space-y) var(--click-popover-space-x);
+  border: 1px solid var(--click-popover-color-panel-stroke-default);
+  border-radius: var(--click-popover-radii-all);
+  background-color: var(--click-popover-color-panel-background-default);
+  box-shadow: var(--click-popover-shadow-default);
+}
+
+.menu-panel_show-close {
+  padding-top: 1rem;
+}
+
+.trigger {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
+     keyword on `width` is widely supported on evergreen browsers; the original
+     rule used the same value. */
+  width: fit-content;
+  border: none;
+  background: inherit;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.menu-panel .close-button {
+  /* Offset by the button's own padding so the cross sits at the panel inset */
+  position: absolute;
+  top: calc(var(--click-popover-space-y) - var(--click-button-iconButton-sm-space-y));
+  right: calc(var(--click-popover-space-x) - var(--click-button-iconButton-sm-space-x));
+}

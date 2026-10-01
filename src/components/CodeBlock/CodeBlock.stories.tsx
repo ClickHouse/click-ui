@@ -11,6 +11,85 @@ export default meta;
 
 type Story = StoryObj<typeof CodeBlock>;
 
+const Decorator: NonNullable<Story['decorators']> = [
+  Story => (
+    <div
+      data-testid="codeblock-harness"
+      style={{ display: 'inline-block', padding: '24px' }}
+    >
+      <Story />
+    </div>
+  ),
+];
+
+// Shows both the copy button and the wrap button, each rendered via IconButton.
+// Keeps both buttons in the visual-regression suite.
+export const WithWrapButton: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    showLineNumbers: true,
+    showWrapButton: true,
+    wrapLines: false,
+  },
+  decorators: Decorator,
+};
+
+// Forces the light code theme via the `theme` prop regardless of the ambient
+// Storybook theme, verifying the `theme` prop overrides the ambient code theme.
+export const LightCodeTheme: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    theme: 'light',
+    showLineNumbers: true,
+    showWrapButton: true,
+  },
+  decorators: Decorator,
+};
+
+// Forces the dark code theme via the `theme` prop regardless of the ambient
+// Storybook theme, verifying the `theme` prop overrides the ambient code theme.
+export const DarkCodeTheme: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    theme: 'dark',
+    showLineNumbers: true,
+    showWrapButton: true,
+  },
+  decorators: Decorator,
+};
+
+// No line numbers — VR coverage for the line-numbers-hidden layout.
+export const WithoutLineNumbers: Story = {
+  args: {
+    children: 'SELECT customer_id, total_spent FROM orders LIMIT 10;',
+    language: 'sql',
+    showLineNumbers: false,
+    showWrapButton: true,
+  },
+  decorators: Decorator,
+};
+
+// Native `diff` highlighting — VR coverage for addition/deletion colors.
+export const Diff: Story = {
+  args: {
+    children: `--- a/query.sql
++++ b/query.sql
+@@ -1,5 +1,5 @@
+ SELECT
+     customer_id,
+-    SUM(quantity) AS total
++    SUM(quantity * price) AS total_spent
+ FROM orders
+`,
+    language: 'diff',
+    showLineNumbers: true,
+  },
+  decorators: Decorator,
+};
+
 export const Playground: Story = {
   args: {
     children: `SELECT

@@ -119,4 +119,31 @@ describe('Button', () => {
       expect(button).toBeDisabled();
     });
   });
+
+  describe('Button HTML types', () => {
+    it('should not default to any type when consumer does not specify it, thus behaving as type=submit', () => {
+      const handleSubmit = vi.fn();
+
+      const { getByRole } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <Button />
+        </form>
+      );
+
+      const button = getByRole('button');
+
+      expect(handleSubmit).not.toHaveBeenCalled();
+      fireEvent.click(button);
+      expect(handleSubmit).toHaveBeenCalled();
+    });
+
+    it.each(['submit', 'button', 'reset'] as const)(
+      'should use htmlType to set type=%s',
+      type => {
+        const { getByRole } = renderButton({ htmlType: type });
+        const button = getByRole('button');
+        expect(button).toHaveAttribute('type', type);
+      }
+    );
+  });
 });

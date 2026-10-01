@@ -9,6 +9,14 @@ const meta: Meta<typeof Accordion> = {
   component: Accordion,
   title: 'Accordion/Accordion',
   tags: ['accordion', 'autodocs'],
+  decorators: Story => (
+    <div
+      data-testid="accordion-harness"
+      style={{ width: 480, padding: 16 }}
+    >
+      <Story />
+    </div>
+  ),
 };
 
 export default meta;
@@ -29,13 +37,61 @@ const children = (
   </Panel>
 );
 
+const baseArgs = {
+  title: 'Accordion title',
+  size: 'md' as const,
+  gap: 'md' as const,
+  color: 'default' as const,
+  fillWidth: false,
+  children,
+};
+
 export const Playground: Story = {
+  args: baseArgs,
+};
+
+export const Default: Story = {
+  args: baseArgs,
+};
+
+export const Small: Story = {
   args: {
-    title: 'Accordion title',
-    size: 'md',
-    gap: 'md',
-    color: 'default',
-    fillWidth: false,
-    children,
+    ...baseArgs,
+    size: 'sm',
+  },
+};
+
+export const Large: Story = {
+  args: {
+    ...baseArgs,
+    size: 'lg',
+  },
+};
+
+export const Link: Story = {
+  args: {
+    ...baseArgs,
+    color: 'link',
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    ...baseArgs,
+    icon: 'bar-chart',
+  },
+};
+
+export const FillWidth: Story = {
+  args: {
+    ...baseArgs,
+    fillWidth: true,
+  },
+};
+
+export const Open: Story = {
+  args: {
+    ...baseArgs,
+    defaultValue: 'item',
   },
 };

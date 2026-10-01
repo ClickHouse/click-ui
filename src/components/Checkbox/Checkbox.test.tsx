@@ -30,8 +30,12 @@ describe('Checkbox', () => {
 
     const checkbox = getByTestId('checkbox');
 
-    const computedStyle = window.getComputedStyle(checkbox);
-    expect(computedStyle.cursor).toBe('not-allowed');
+    // The disabled cursor is asserted via the visual-regression spec in
+    // tests/forms/checkbox.spec.ts. jsdom does not compute styles from
+    // imported CSS Modules, so we check the semantic disabled state here
+    // and rely on Playwright snapshots for the rendered `cursor: not-allowed`.
+    expect(checkbox).toBeDisabled();
+    expect(checkbox).toHaveAttribute('data-disabled');
 
     fireEvent.click(checkbox);
 
