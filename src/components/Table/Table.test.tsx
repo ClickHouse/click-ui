@@ -56,6 +56,28 @@ describe('Table', () => {
     expect(queryAllByTestId('checkbox')[1]).not.toBeNull();
   });
 
+  it('accepts readonly headers, rows and selectedIds', () => {
+    const readonlyHeaders = [{ label: 'Company' }] as const;
+    // Only the outer array is readonly: `TableRowType.items` stays mutable on purpose.
+    const readonlyRows = Object.freeze([
+      { id: 'row-1', items: [{ label: 'Alfreds Futterkiste' }] },
+      { id: 'row-2', items: [{ label: 'Centro comercial Moctezuma' }] },
+    ]);
+    const selectedIds = ['row-1'] as const;
+    const { getByRole, getByText, getAllByRole } = renderCUI(
+      <Table
+        headers={readonlyHeaders}
+        rows={readonlyRows}
+        isSelectable
+        selectedIds={selectedIds}
+      />
+    );
+
+    expect(getByRole('columnheader', { name: 'Company' })).toBeInTheDocument();
+    expect(getByText('Alfreds Futterkiste')).toBeInTheDocument();
+    expect(getAllByRole('checkbox', { checked: true })).toHaveLength(1);
+  });
+
   it('should trigger onSelect on clicking checkbox', () => {
     const onSelect = vi.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({

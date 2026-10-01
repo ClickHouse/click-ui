@@ -15,8 +15,8 @@ export interface FileUploadItem {
 
 export interface FileMultiUploadProps {
   title: string;
-  supportedFileTypes?: string[];
-  files: FileUploadItem[];
+  supportedFileTypes?: readonly string[];
+  files: readonly FileUploadItem[];
   onFileSelect?: (file: File) => void;
   onFileRetry?: (fileId: string) => void;
   onFileRemove?: (fileId: string) => void;

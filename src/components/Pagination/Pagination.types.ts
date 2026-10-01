@@ -8,7 +8,7 @@ export interface PaginationProps extends Omit<
   totalPages?: number;
   currentPage: number;
   /** Options for the rows-per-page select. */
-  maxRowsPerPageList?: Array<number>;
+  maxRowsPerPageList?: readonly number[];
   /** Total row count, shown as "N rows". */
   rowCount?: number | string;
   onChange: (pageNumber: number) => void;

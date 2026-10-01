@@ -1119,6 +1119,29 @@ describe('DateTimeRangePicker', () => {
       expect(queryByTestId('predefined-times-list')).not.toBeInTheDocument();
     });
 
+    it('accepts a readonly predefinedTimesList', async () => {
+      const predefinedTimesList = [
+        {
+          dateRange: {
+            startDate: new Date('06-27-2020 11:30 AM'),
+            endDate: new Date('07-04-2020 11:30 AM'),
+          },
+          label: 'Past week',
+        },
+      ] as const;
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={predefinedTimesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(getByText('Past week')).toBeInTheDocument();
+    });
+
     it('allows showing the full calendar', async () => {
       const handleSelectDate = vi.fn();
 
