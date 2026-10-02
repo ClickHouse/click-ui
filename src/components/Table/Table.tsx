@@ -356,6 +356,15 @@ const actionsCellVariants = cva(styles['table__actions-cell'], {
   },
 });
 
+const skeletonBarVariants = cva(styles['table__skeleton-bar'], {
+  variants: {
+    size: {
+      sm: styles['table__skeleton-bar_size_sm'],
+      md: styles['table__skeleton-bar_size_md'],
+    },
+  },
+});
+
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   overflowMode?: OverflowMode;
@@ -591,17 +600,17 @@ const SkeletonRows = ({ rowCount, columnCount, size }: SkeletonRowsProps) => {
         <tr
           key={`table-skeleton-row-${rowIndex}`}
           aria-hidden="true"
-          data-skeleton-row=""
-          className={cn(rowVariants({}))}
+          data-skeleton-row
+          className={rowVariants({})}
         >
           {Array.from({ length: columnCount }, (_, columnIndex) => (
             // eslint-disable-next-line jsx-a11y/no-aria-hidden-on-focusable -- a <td> is not focusable; jsx-a11y counts table elements as interactive
             <td
               key={`table-skeleton-cell-${columnIndex}`}
               aria-hidden="true"
-              className={cn(cellVariants({ size }))}
+              className={cellVariants({ size })}
             >
-              <div className={cn(styles['table__skeleton-bar'])} />
+              <div className={skeletonBarVariants({ size })} />
             </td>
           ))}
         </tr>

@@ -236,6 +236,7 @@ export type {
   MobileLayoutProp,
   TableColumnConfigProps,
   TableHeaderType,
+  TableLoadingVariant,
   TableProps,
   TableRowType,
 } from './components/Table';

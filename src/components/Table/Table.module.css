@@ -375,7 +375,6 @@
 }
 
 .table__skeleton-bar {
-  height: 0.75rem;
   flex: 1;
   border-radius: var(--click-table-radii-all);
   background-color: var(--click-table-row-color-stroke-default);
@@ -387,6 +386,14 @@
   );
   background-size: 200% 100%;
   animation: table-skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.table__skeleton-bar_size_sm {
+  height: var(--sizes-4);
+}
+
+.table__skeleton-bar_size_md {
+  height: var(--sizes-5);
 }
 
 @keyframes table-skeleton-shimmer {
