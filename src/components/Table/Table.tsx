@@ -18,6 +18,7 @@ import { CheckedState } from '@radix-ui/react-checkbox';
 
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
+import { Skeleton } from '@/components/Skeleton';
 import { Text } from '@/components/Text';
 import { HorizontalDirection } from '@/types';
 import { EllipsisContent } from '@/components/EllipsisContent';
@@ -356,15 +357,6 @@ const actionsCellVariants = cva(styles['table__actions-cell'], {
   },
 });
 
-const skeletonBarVariants = cva(styles['table__skeleton-bar'], {
-  variants: {
-    size: {
-      sm: styles['table__skeleton-bar_size_sm'],
-      md: styles['table__skeleton-bar_size_md'],
-    },
-  },
-});
-
 interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   overflowMode?: OverflowMode;
@@ -610,7 +602,7 @@ const SkeletonRows = ({ rowCount, columnCount, size }: SkeletonRowsProps) => {
               aria-hidden="true"
               className={cellVariants({ size })}
             >
-              <div className={skeletonBarVariants({ size })} />
+              <Skeleton size={size} />
             </td>
           ))}
         </tr>
