@@ -245,6 +245,22 @@ describe('Table', () => {
     expect(resizers[0]).toHaveAttribute('tabIndex', '0');
     expect(resizers[1]).toHaveAttribute('tabIndex', '0');
   });
+  it('labels a spanned cell with the header of its first column', () => {
+    const { getByText } = renderCUI(
+      <Table
+        headers={headers}
+        rows={[
+          {
+            id: 1,
+            items: [{ label: 'Spans two', colSpan: 2 }, { label: 'Last' }],
+          },
+        ]}
+      />
+    );
+
+    expect(getByText('Spans two').closest('td')).toHaveAttribute('colspan', '2');
+    expect(getByText('Last').closest('td')).toHaveTextContent('Country');
+  });
   describe('loading', () => {
     it('shows the spinner message by default', () => {
       const { getByText, getByRole } = renderCUI(

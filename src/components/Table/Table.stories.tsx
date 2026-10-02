@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Skeleton } from '@/components/Skeleton';
 import { Table, TableRowType, TableColumnConfigProps } from '@/components/Table';
 
 const rowsLongText: TableRowType[] = [
@@ -970,26 +971,57 @@ export const Loading: StoryObj<typeof Table> = {
   ),
 };
 
+// Storybook adds action handlers for `on*` props; without `onEdit` and `onDelete` the
+// table has no actions column, so it shows exactly the 6 columns below.
+const withoutActions = { onEdit: undefined, onDelete: undefined };
+
+const skeletonHeaders: TableColumnConfigProps[] = [
+  { label: 'Name', width: '24%' },
+  { label: 'Type', width: '10%' },
+  { label: 'Owner', width: '16%' },
+  { label: 'Created', width: '18%' },
+  { label: 'Size', width: '12%' },
+  { label: 'Status', width: '20%' },
+];
+
 export const LoadingSkeleton: StoryObj<typeof Table> = {
   args: {
-    headers: [
-      { label: 'File', width: '220px' },
-      { label: 'Table', width: '200px' },
-      { label: 'Timestamp', width: '180px' },
-    ],
+    headers: skeletonHeaders,
     rows: [],
     loading: true,
     loadingVariant: 'skeleton',
-    mobileLayout: 'scroll',
+    skeletonRowCount: 10,
+    ...withoutActions,
   },
-  render: ({ mobileLayout, ...props }) => (
-    <div style={{ maxWidth: mobileLayout === 'scroll' ? '400px' : 'none' }}>
-      <Table
-        {...props}
-        mobileLayout={mobileLayout}
-      />
-    </div>
-  ),
+};
+
+// Column spans per row; every row adds up to the 6 columns above.
+const skeletonCellSpans = [
+  [1, 1, 1, 1, 1, 1],
+  [2, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 3, 1, 1],
+  [1, 1, 1, 1, 2],
+  [6],
+  [1, 1, 1, 1, 1, 1],
+  [2, 2, 2],
+  [1, 1, 1, 1, 1, 1],
+  [3, 1, 1, 1],
+];
+
+export const SkeletonMergedCells: StoryObj<typeof Table> = {
+  args: {
+    headers: skeletonHeaders,
+    rows: skeletonCellSpans.map((spans, rowIndex) => ({
+      id: `skeleton-row-${rowIndex}`,
+      items: spans.map(colSpan => ({
+        label: <Skeleton size="sm" />,
+        colSpan,
+      })),
+    })),
+    'aria-busy': true,
+    ...withoutActions,
+  },
 };
 
 export const NoData: StoryObj<typeof Table> = {

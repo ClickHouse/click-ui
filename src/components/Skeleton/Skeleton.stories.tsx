@@ -7,7 +7,10 @@ const meta: Meta<typeof Skeleton> = {
   tags: ['autodocs'],
   decorators: [
     Story => (
-      <div style={{ width: '320px', padding: '1rem' }}>
+      <div
+        data-testid="skeleton-harness"
+        style={{ width: '320px', padding: '1rem' }}
+      >
         <Story />
       </div>
     ),
