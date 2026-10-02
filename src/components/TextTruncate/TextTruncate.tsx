@@ -3,9 +3,11 @@ import {
   ComponentPropsWithRef,
   CSSProperties,
   ElementType,
+  HTMLAttributes,
   ReactNode,
   forwardRef,
   useEffect,
+  useId,
   useMemo,
   useState,
 } from 'react';
@@ -17,6 +19,23 @@ import { TextTruncateProps } from './TextTruncate.types';
 import styles from './TextTruncate.module.css';
 
 const NO_BREAK_SPACE = '\u00a0';
+
+const INTERACTIVE_ANCESTOR = [
+  'a[href]',
+  'button',
+  'summary',
+  '[role="button"]',
+  '[role="link"]',
+  '[role="tab"]',
+  '[role="option"]',
+  '[role="menuitem"]',
+  '[role="menuitemcheckbox"]',
+  '[role="menuitemradio"]',
+  '[role="checkbox"]',
+  '[role="radio"]',
+  '[role="switch"]',
+  '[role="treeitem"]',
+].join(', ');
 
 const textTruncateVariants = cva(styles['text-truncate'], {
   variants: {
@@ -62,6 +81,13 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
 
   const { ref: measureRef, isTruncated } = useIsTruncated({ enabled: showTooltip });
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
+  const generatedId = useId();
+  const {
+    id,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
+  } = props as Pick<HTMLAttributes<HTMLElement>, 'id' | 'aria-label' | 'aria-labelledby'>;
 
   useEffect(() => {
     if (!isTruncated) {
@@ -70,8 +96,16 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
   }, [isTruncated]);
 
   const rootRef = useMemo(
-    () => (isMiddle ? ref : mergeRefs([ref, measureRef])),
+    () =>
+      isMiddle
+        ? mergeRefs([ref, setRootElement])
+        : mergeRefs([ref, setRootElement, measureRef]),
     [isMiddle, ref, measureRef]
+  );
+
+  const isInsideControl = useMemo(
+    () => rootElement?.parentElement?.closest(INTERACTIVE_ANCESTOR) != null,
+    [rootElement]
   );
 
   const mergedStyle = useMemo(
@@ -83,14 +117,20 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
   );
 
   const [head, tail] = isMiddle ? splitMiddle(middleText, trailingChars) : ['', ''];
-  const hasTabStop = showTooltip && isTruncated;
+  const hasTabStop = showTooltip && isTruncated && !isInsideControl;
   const hasGroupRole = hasTabStop && (Component === 'span' || Component === 'div');
+  const isSelfLabelled =
+    hasGroupRole && ariaLabel === undefined && ariaLabelledBy === undefined;
+  const rootId = id ?? generatedId;
 
   const root = (
     <Component
       ref={rootRef}
       {...(hasTabStop && { tabIndex: 0 })}
       {...(hasGroupRole && { role: 'group' })}
+      {...(isSelfLabelled && { id: rootId, 'aria-labelledby': rootId })}
+      {...(isSelfLabelled &&
+        tooltipContent === undefined && { 'aria-describedby': undefined })}
       {...props}
       style={mergedStyle}
       className={cn(textTruncateVariants({ middle: isMiddle }), className)}
@@ -100,10 +140,23 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
           <span
             ref={measureRef}
             className={styles['text-truncate__start']}
+            aria-hidden={tail ? true : undefined}
           >
             {head}
           </span>
-          {tail && <span className={styles['text-truncate__end']}>{tail}</span>}
+          {tail && (
+            <>
+              <span
+                className={styles['text-truncate__end']}
+                aria-hidden
+              >
+                {tail}
+              </span>
+              <span className={cn('sr-only', styles['text-truncate__label'])}>
+                {middleText}
+              </span>
+            </>
+          )}
         </>
       ) : (
         children
@@ -119,7 +172,6 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
     <Tooltip
       open={isTruncated && isTooltipOpen}
       onOpenChange={open => setIsTooltipOpen(open && isTruncated)}
-      disableHoverableContent
     >
       <Tooltip.Trigger asChild>{root}</Tooltip.Trigger>
       <Tooltip.Content {...tooltipProps}>{tooltipContent ?? children}</Tooltip.Content>

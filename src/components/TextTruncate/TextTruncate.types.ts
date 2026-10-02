@@ -8,7 +8,7 @@ interface TextTruncateBaseProps<T extends ElementType> {
   component?: T;
   /** Caps the width with any CSS length, e.g. `'160px'` or `'20ch'`. */
   maxWidth?: string;
-  /** Shows the full text in a tooltip while truncated; `false` skips measuring, e.g. in large lists. Defaults to `true`. */
+  /** Shows the full text in a tooltip and adds a tab stop while truncated; `false` skips both, e.g. in large lists or grid cells. Defaults to `true`. */
   showTooltip?: boolean;
   /** Tooltip content. Defaults to `children`; pass plain text when `children` holds links or buttons. */
   tooltipContent?: ReactNode;
