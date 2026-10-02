@@ -21,6 +21,8 @@ const variants = [
   { story: 'row-states', name: 'row-states' },
   { story: 'with-actions', name: 'with-actions' },
   { story: 'loading', name: 'loading' },
+  { story: 'loading-skeleton', name: 'loading-skeleton' },
+  { story: 'skeleton-merged-cells', name: 'skeleton-merged-cells' },
   { story: 'no-data', name: 'no-data' },
   { story: 'no-header', name: 'no-header' },
   { story: 'mobile-layout', name: 'mobile-layout' },
