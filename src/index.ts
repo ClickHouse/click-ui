@@ -223,6 +223,10 @@ export type { CheckboxMultiSelectProps } from './components/CheckboxMultiSelect'
 // Separator
 export { Separator } from './components/Separator';
 
+// Skeleton
+export { Skeleton } from './components/Skeleton';
+export type { SkeletonProps, SkeletonSize } from './components/Skeleton';
+
 // Spacer
 export { Spacer } from './components/Spacer';
 export type { SpacerProps } from './components/Spacer';
