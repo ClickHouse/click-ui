@@ -3,7 +3,7 @@
   --skeleton-height: initial;
 
   width: var(--skeleton-width, 100%);
-  border-radius: var(--border-radii-1);
+  border-radius: calc(var(--border-radii-1) / 2);
   background-color: var(--click-global-color-stroke-default);
 
   /* The gradient is fixed to the viewport, so every skeleton on the page shows a slice of one
