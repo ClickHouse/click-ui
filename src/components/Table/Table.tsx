@@ -4,6 +4,7 @@ import {
   HTMLAttributes,
   MouseEvent,
   ReactNode,
+  TdHTMLAttributes,
   forwardRef,
   useCallback,
   useEffect,
@@ -18,6 +19,7 @@ import { CheckedState } from '@radix-ui/react-checkbox';
 
 import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
+import { Skeleton } from '@/components/Skeleton';
 import { Text } from '@/components/Text';
 import { HorizontalDirection } from '@/types';
 import { EllipsisContent } from '@/components/EllipsisContent';
@@ -356,7 +358,7 @@ const actionsCellVariants = cva(styles['table__actions-cell'], {
   },
 });
 
-interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
+interface TableCellType extends TdHTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   overflowMode?: OverflowMode;
 }
@@ -375,6 +377,8 @@ export interface TableRowType extends Omit<
 
 export type MobileLayoutProp = 'list' | 'scroll';
 
+export type TableLoadingVariant = 'spinner' | 'skeleton';
+
 interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
@@ -385,6 +389,10 @@ interface CommonTableProps extends Omit<
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
   loading?: boolean;
+  /** How `loading` is shown: a centered spinner, or placeholder rows. Defaults to `spinner`. */
+  loadingVariant?: TableLoadingVariant;
+  /** Number of placeholder rows drawn when `loadingVariant` is `skeleton`. Defaults to 3. */
+  skeletonRowCount?: number;
   noDataMessage?: ReactNode;
   size?: TableSize;
   showHeader?: boolean;
@@ -453,6 +461,14 @@ const TableBodyRow = ({
       }) as CSSProperties,
     [rowHeight, style]
   );
+  const columnStarts = useMemo(() => {
+    let column = 0;
+    return items.map(({ colSpan = 1 }) => {
+      const start = column;
+      column += colSpan;
+      return start;
+    });
+  }, [items]);
   return (
     <tr
       style={rowStyle}
@@ -477,23 +493,25 @@ const TableBodyRow = ({
         </td>
       )}
       {items.map(
-        ({ label, overflowMode, className: cellClassName, ...cellProps }, cellIndex) => (
-          <td
-            key={`table-cell-${cellIndex}`}
-            {...cellProps}
-            className={cn(cellVariants({ size }), cellClassName)}
-          >
-            {headers[cellIndex] && (
-              <div className={cn(styles['table__mobile-header'])}>
-                {headers[cellIndex].label}
-              </div>
-            )}
-            <Cell
-              label={label}
-              overflowMode={overflowMode ?? headers[cellIndex]?.overflowMode}
-            />
-          </td>
-        )
+        ({ label, overflowMode, className: cellClassName, ...cellProps }, cellIndex) => {
+          // A cell with `colSpan` covers several headers; the first one describes it.
+          const header = headers[columnStarts[cellIndex]];
+          return (
+            <td
+              key={`table-cell-${cellIndex}`}
+              {...cellProps}
+              className={cn(cellVariants({ size }), cellClassName)}
+            >
+              {header && (
+                <div className={cn(styles['table__mobile-header'])}>{header.label}</div>
+              )}
+              <Cell
+                label={label}
+                overflowMode={overflowMode ?? header?.overflowMode}
+              />
+            </td>
+          );
+        }
       )}
       {actionsList.length > 0 && (
         <td className={cn(actionsCellVariants({ size }))}>
@@ -566,6 +584,44 @@ const CustomTableRow = ({
     </tr>
   );
 };
+interface SkeletonRowsProps {
+  rowCount: number;
+  columnCount: number;
+  size: TableSize;
+}
+
+/**
+ * Placeholder rows for `loadingVariant='skeleton'`. Real cells, so the columns line up with the
+ * data that replaces them. The rows are decorative: `aria-busy` on the table is what tells
+ * assistive technology the content is still coming.
+ */
+const SkeletonRows = ({ rowCount, columnCount, size }: SkeletonRowsProps) => {
+  return (
+    <>
+      {Array.from({ length: rowCount }, (_, rowIndex) => (
+        // eslint-disable-next-line jsx-a11y/no-aria-hidden-on-focusable -- a <tr> is not focusable; jsx-a11y counts table elements as interactive
+        <tr
+          key={`table-skeleton-row-${rowIndex}`}
+          aria-hidden="true"
+          data-skeleton-row
+          className={rowVariants({})}
+        >
+          {Array.from({ length: columnCount }, (_, columnIndex) => (
+            // eslint-disable-next-line jsx-a11y/no-aria-hidden-on-focusable -- a <td> is not focusable; jsx-a11y counts table elements as interactive
+            <td
+              key={`table-skeleton-cell-${columnIndex}`}
+              aria-hidden="true"
+              className={cellVariants({ size })}
+            >
+              <Skeleton size={size} />
+            </td>
+          ))}
+        </tr>
+      ))}
+    </>
+  );
+};
+
 interface ResizeState {
   isResizing: boolean;
   columnLabel: string | null;
@@ -590,6 +646,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
       onEdit,
       onSort,
       loading,
+      loadingVariant = 'spinner',
+      skeletonRowCount = 3,
       noDataMessage,
       size = 'sm',
       showHeader = true,
@@ -774,6 +832,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         }
       };
     const hasRows = rows.length > 0;
+    const columnCount =
+      headers.length + (isEditable || isDeletable ? 1 : 0) + (isSelectable ? 1 : 0);
     const actionsList: string[] = [];
     if (isDeletable) {
       actionsList.push('deleteAction');
@@ -858,6 +918,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
         <div className={cn(styles.table__wrapper)}>
           <table
             ref={ref}
+            aria-busy={loading || undefined}
             {...props}
             className={cn(styles['table__table'], className)}
           >
@@ -885,13 +946,16 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
               />
             )}
             <tbody className={cn(styles.table__tbody)}>
-              {(loading || !hasRows) && (
+              {loading && loadingVariant === 'skeleton' && (
+                <SkeletonRows
+                  rowCount={skeletonRowCount}
+                  columnCount={columnCount}
+                  size={size}
+                />
+              )}
+              {(loading ? loadingVariant === 'spinner' : !hasRows) && (
                 <CustomTableRow
-                  colSpan={
-                    headers.length +
-                    (isEditable || isDeletable ? 1 : 0) +
-                    (isSelectable ? 1 : 0)
-                  }
+                  colSpan={columnCount}
                   loading={loading}
                   noDataMessage={noDataMessage}
                   size={size}
