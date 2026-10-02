@@ -36,6 +36,7 @@
 - [ ] **Keyboard** - every action works with Tab / Enter / Space / Esc; focus is visible and returns to the trigger on close
 - [ ] **Names** — every control has a name that includes its visible label; icon-only controls take `aria-label`
 - [ ] **Vision** — colors come from tokens, focus ring shows, targets are at least 24×24 px
+- [ ] For component design changes, the Figma page has a passing A11y block in Light and Dark (see [docs/figma.md](../docs/figma.md))
 
 ## Screenshots
 
