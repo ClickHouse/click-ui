@@ -667,28 +667,10 @@ const TimeInput = ({ date, setDate, shouldShowSeconds, timezone }: TimeInputProp
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
-        const { isValid, parsedDate } = parseTimeString(timeString);
-
-        if (!isValid) {
-          return;
-        }
-
-        if (!parsedDate) {
-          return;
-        }
-
-        const newDate = shouldShowSeconds
-          ? dayjsDate
-              .hour(parsedDate.hour())
-              .minute(parsedDate.minute())
-              .second(parsedDate.second())
-              .toDate()
-          : dayjsDate.hour(parsedDate.hour()).minute(parsedDate.minute()).toDate();
-
-        setDate(newDate);
+        handleTimeChange(timeString);
       }
     },
-    [dayjsDate, setDate, shouldShowSeconds, timeString]
+    [handleTimeChange, timeString]
   );
 
   return (
