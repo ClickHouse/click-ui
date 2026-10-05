@@ -92,13 +92,15 @@ const copyGridElements = async ({
       );
       break;
     case 'rows':
-      [...selection.rows].sort((a, b) => a - b).forEach(rowIndex => {
-        const columnList = Array.from(
-          { length: columnCount },
-          (_, index) => pageStart + index
-        );
-        columnListLoop(tbody, columnList, cell, rowIndex);
-      });
+      [...selection.rows]
+        .sort((a, b) => a - b)
+        .forEach(rowIndex => {
+          const columnList = Array.from(
+            { length: columnCount },
+            (_, index) => pageStart + index
+          );
+          columnListLoop(tbody, columnList, cell, rowIndex);
+        });
       break;
     case 'empty':
       columnListLoop(tbody, [focus.column], cell, focus.row);
