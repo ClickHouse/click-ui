@@ -1,0 +1,48 @@
+.skeleton {
+  --skeleton-width: initial;
+  --skeleton-height: initial;
+
+  width: var(--skeleton-width, 100%);
+  border-radius: calc(var(--border-radii-1) / 2);
+  background-color: var(--click-global-color-stroke-default);
+
+  /* The gradient is fixed to the viewport, so every skeleton on the page shows a slice of one
+     shared wave that moves at the same speed whatever the skeleton's size. The image is two
+     viewports wide and repeats, so the wave leaves on the right as the next one waits off-screen. */
+  background-image: linear-gradient(
+    90deg,
+    var(--click-global-color-stroke-default) 40%,
+    var(--click-global-color-background-default) 50%,
+    var(--click-global-color-stroke-default) 60%
+  );
+  background-size: 200vw 100%;
+  animation: skeleton-shimmer 2s linear infinite;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- where `fixed` is
+     ignored (iOS Safari) each skeleton still shimmers on its own, just not in sync */
+  background-attachment: fixed;
+}
+
+.skeleton_size_sm {
+  height: var(--skeleton-height, var(--sizes-4));
+}
+
+.skeleton_size_md {
+  height: var(--skeleton-height, var(--sizes-5));
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -100vw 0;
+  }
+
+  100% {
+    background-position: 100vw 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    background-image: none;
+    animation: none;
+  }
+}

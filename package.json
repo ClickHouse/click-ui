@@ -279,6 +279,11 @@
       "import": "./dist/esm/components/SidebarNavigationTitle/index.js",
       "require": "./dist/cjs/components/SidebarNavigationTitle/index.cjs"
     },
+    "./Skeleton": {
+      "types": "./dist/types/components/Skeleton/index.d.ts",
+      "import": "./dist/esm/components/Skeleton/index.js",
+      "require": "./dist/cjs/components/Skeleton/index.cjs"
+    },
     "./Spacer": {
       "types": "./dist/types/components/Spacer/index.d.ts",
       "import": "./dist/esm/components/Spacer/index.js",
