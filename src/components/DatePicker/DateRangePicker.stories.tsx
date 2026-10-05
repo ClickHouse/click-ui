@@ -266,6 +266,22 @@ export const SelectedDate: Story = {
   ),
 };
 
+export const ImJustTestingThatVercelStillWorks: Story = {
+  args: {
+    predefinedDatesList: [],
+  },
+  render: (args: Args) => {
+    console.log('HEY HO, DILLY DILLY YO')
+    return (
+      <DateRangePicker
+        key="selected-date"
+        startDate={new Date('2026-07-10T12:00:00')}
+        endDate={new Date('2026-07-20T12:00:00')}
+        onSelectDateRange={args.onSelectDateRange}
+      />
+    )},
+}
+
 export const PredefinedDatesWithSelectedDate: Story = {
   render: (args: Args) => (
     <DateRangePicker
