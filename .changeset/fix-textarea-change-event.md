@@ -2,4 +2,4 @@
 '@clickhouse/click-ui': patch
 ---
 
-Fix TextAreaField value updates so native onInput handlers do not replace the component onChange callback.
+Fix TextAreaField not calling onChange when an onInput prop is passed, including onInput={undefined}.
