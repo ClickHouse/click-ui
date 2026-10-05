@@ -1,4 +1,4 @@
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 import { useIsTruncated } from './useIsTruncated';
 
@@ -102,45 +102,34 @@ describe('useIsTruncated', () => {
   });
 
   it('does not observe or measure when disabled', () => {
-    let mutationObservers = 0;
-    class CountingMutationObserver extends MutationObserver {
-      constructor(callback: MutationCallback) {
-        super(callback);
-        mutationObservers += 1;
-      }
-    }
-    vi.stubGlobal('MutationObserver', CountingMutationObserver);
-
+    const observe = vi.spyOn(MutationObserver.prototype, 'observe');
     const { getByTestId } = renderCUI(
       <Probe
         text="a text longer than ten chars"
         enabled={false}
       />
     );
-
     expect(getByTestId('probe')).toHaveAttribute('data-truncated', 'false');
     expect(FakeResizeObserver.instances).toHaveLength(0);
-    expect(mutationObservers).toBe(0);
+    expect(observe).not.toHaveBeenCalled();
+    observe.mockRestore();
   });
 
-  it('disconnects its observer on unmount', () => {
+  it('disconnects its observers on unmount', () => {
+    const disconnect = vi.spyOn(MutationObserver.prototype, 'disconnect');
     const { unmount } = renderCUI(<Probe text="short" />);
     const [observer] = FakeResizeObserver.instances;
     expect(observer.observe).toHaveBeenCalledTimes(1);
 
     unmount();
     expect(observer.disconnect).toHaveBeenCalled();
+    expect(disconnect).toHaveBeenCalled();
+    disconnect.mockRestore();
   });
 
-  it('falls back to window resize without ResizeObserver', () => {
+  it('still measures when ResizeObserver is missing (jsdom)', () => {
     vi.stubGlobal('ResizeObserver', undefined);
     const { getByTestId } = renderCUI(<Probe text="fifteen chars.." />);
     expect(getByTestId('probe')).toHaveAttribute('data-truncated', 'true');
-
-    containerWidth = 1000;
-    act(() => {
-      fireEvent(window, new Event('resize'));
-    });
-    expect(getByTestId('probe')).toHaveAttribute('data-truncated', 'false');
   });
 });

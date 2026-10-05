@@ -43,15 +43,12 @@ export const useIsTruncated = <E extends HTMLElement = HTMLElement>({
     });
 
     if (typeof ResizeObserver === 'undefined') {
-      window.addEventListener('resize', measure);
-      return () => {
-        mutationObserver.disconnect();
-        window.removeEventListener('resize', measure);
-      };
+      return () => mutationObserver.disconnect();
     }
 
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(element);
+
     return () => {
       mutationObserver.disconnect();
       resizeObserver.disconnect();

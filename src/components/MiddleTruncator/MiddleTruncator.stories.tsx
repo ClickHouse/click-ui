@@ -18,6 +18,14 @@ const meta: Meta<StoryArgs> = {
   component: MiddleTruncator,
   title: 'Display/MiddleTruncator',
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '**Deprecated:** superseded by `TextTruncate` with `ellipsisPosition="middle"`. Internal component, still used by `Table` (`overflowMode="truncate-middle"`) and `FileUpload`; it will be removed in a future version.',
+      },
+    },
+  },
   argTypes: {
     text: {
       control: { type: 'text' },

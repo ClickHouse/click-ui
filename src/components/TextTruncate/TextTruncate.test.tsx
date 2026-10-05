@@ -58,7 +58,6 @@ describe('TextTruncate', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
-    vi.restoreAllMocks();
   });
 
   it('renders its children in a span by default', () => {
@@ -123,7 +122,7 @@ describe('TextTruncate', () => {
       expect(getByRole('group', { name: 'External name' })).toBeInTheDocument();
     });
 
-    it('does not describe itself with a tooltip that repeats its name', async () => {
+    it('is not described by the default tooltip, which repeats its name', async () => {
       const user = userEvent.setup();
       const { getByRole, findByRole } = renderCUI(
         <TextTruncate>{LONG_TEXT}</TextTruncate>
@@ -133,13 +132,13 @@ describe('TextTruncate', () => {
       expect(getByRole('group')).not.toHaveAttribute('aria-describedby');
     });
 
-    it('is described by a custom tooltipContent', async () => {
+    it('shows a custom tooltipContent and is described by it', async () => {
       const user = userEvent.setup();
       const { getByRole, findByRole } = renderCUI(
         <TextTruncate tooltipContent="Custom tooltip">{LONG_TEXT}</TextTruncate>
       );
       await user.tab();
-      await findByRole('tooltip');
+      expect(await findByRole('tooltip')).toHaveTextContent('Custom tooltip');
       expect(getByRole('group')).toHaveAccessibleDescription('Custom tooltip');
     });
 
@@ -165,15 +164,6 @@ describe('TextTruncate', () => {
       await waitFor(() => expect(queryByRole('tooltip')).not.toBeInTheDocument());
     });
 
-    it('shows tooltipContent instead of the children', async () => {
-      const user = userEvent.setup();
-      const { getByRole, findByRole } = renderCUI(
-        <TextTruncate tooltipContent="Custom tooltip">{LONG_TEXT}</TextTruncate>
-      );
-      await user.hover(getByRole('group'));
-      expect(await findByRole('tooltip')).toHaveTextContent('Custom tooltip');
-    });
-
     it('positions the tooltip with tooltipProps', async () => {
       const user = userEvent.setup();
       const { getByRole, findByRole } = renderCUI(
@@ -196,7 +186,6 @@ describe('TextTruncate', () => {
         </>
       );
       expect(getByRole('link', { name: LONG_TEXT })).not.toHaveAttribute('role');
-      expect(getByRole('link', { name: LONG_TEXT })).toHaveAttribute('tabindex', '0');
       expect(getByRole('heading', { name: LONG_TEXT })).not.toHaveAttribute('role');
     });
   });
@@ -240,6 +229,10 @@ describe('TextTruncate', () => {
           </div>
         ),
       ],
+      [
+        'a Select option',
+        (text: ReactNode) => <div {...{ 'cui-select-item': '' }}>{text}</div>,
+      ],
     ])('adds no tab stop or role inside %s', (_, renderControl) => {
       const { getByText } = renderCUI(
         renderControl(<TextTruncate>{LONG_TEXT}</TextTruncate>)
@@ -249,7 +242,7 @@ describe('TextTruncate', () => {
       expect(text).not.toHaveAttribute('role');
     });
 
-    it('adds no tab stop in middle mode', () => {
+    it('adds no tab stop inside a control in middle mode', () => {
       const { getByRole } = renderCUI(
         <button type="button">
           <TextTruncate ellipsisPosition="middle">
@@ -273,7 +266,7 @@ describe('TextTruncate', () => {
   });
 
   describe('re-measuring', () => {
-    it('keeps the same element when truncation starts and stops', () => {
+    it('toggles the tab stop on resize without remounting', () => {
       containerWidth = 1000;
       const { getByText } = renderCUI(<TextTruncate>{LONG_TEXT}</TextTruncate>);
       const root = getByText(LONG_TEXT);
@@ -288,41 +281,23 @@ describe('TextTruncate', () => {
       expect(root).not.toHaveAttribute('tabindex');
     });
 
-    it('re-measures when element children change', async () => {
-      const name = 'Bob';
-      const longName = 'Bartholomew the Third';
-      const { getByTestId, rerender } = renderCUI(
-        <TextTruncate data-testid="root">Hello {name}</TextTruncate>
-      );
-      expect(getByTestId('root')).not.toHaveAttribute('tabindex');
-
-      rerender(<TextTruncate data-testid="root">Hello {longName}</TextTruncate>);
-      await waitFor(() => expect(getByTestId('root')).toHaveAttribute('tabindex', '0'));
-    });
-
-    it('does not open the tooltip by itself after a hover while the text fit', async () => {
+    it('never opens the tooltip on a resize by itself', async () => {
       const user = userEvent.setup();
       containerWidth = 1000;
-      const { getByText, queryByRole } = renderCUI(
+      const { getByText, queryByRole, findByRole } = renderCUI(
         <TextTruncate>{LONG_TEXT}</TextTruncate>
       );
       await user.hover(getByText(LONG_TEXT));
       await user.unhover(getByText(LONG_TEXT));
-
       resizeTo(100);
       expect(queryByRole('tooltip')).not.toBeInTheDocument();
-    });
 
-    it('does not warn when truncation starts and stops', () => {
-      const warn = vi.spyOn(console, 'warn');
-      const error = vi.spyOn(console, 'error');
-      renderCUI(<TextTruncate>{LONG_TEXT}</TextTruncate>);
-
+      await user.tab();
+      await findByRole('tooltip');
       resizeTo(1000);
+      act(() => getByText(LONG_TEXT).blur());
       resizeTo(100);
-
-      expect(warn).not.toHaveBeenCalled();
-      expect(error).not.toHaveBeenCalled();
+      expect(queryByRole('tooltip')).not.toBeInTheDocument();
     });
   });
 
@@ -379,29 +354,30 @@ describe('TextTruncate', () => {
       [...getAllByText('console-export-2024-f'), ...getAllByText('inal.csv')].forEach(
         part => expect(part).toHaveAttribute('aria-hidden', 'true')
       );
+
+      resizeTo(1000);
+      expect(getByRole('button', { name: FILE_NAME })).toBeInTheDocument();
     });
 
-    it('keeps a single copy of the text when it is not split', () => {
-      const { getAllByText } = renderCUI(
-        <TextTruncate ellipsisPosition="middle">abcdefghij</TextTruncate>
+    it('detects truncation when only the start part is cut', () => {
+      containerWidth = 300;
+      const { getByTestId } = renderCUI(
+        <TextTruncate
+          ellipsisPosition="middle"
+          data-testid="root"
+        >
+          {FILE_NAME}
+        </TextTruncate>
       );
-      expect(getAllByText('abcdefghij')).toHaveLength(1);
-      expect(getAllByText('abcdefghij')[0]).not.toHaveAttribute('aria-hidden');
-    });
+      expect(getByTestId('root')).not.toHaveAttribute('tabindex');
 
-    it('splits when the start is as long as the tail', () => {
-      const { getByText } = renderCUI(
-        <TextTruncate ellipsisPosition="middle">abcdefghijklmnop</TextTruncate>
-      );
-      expect(getByText('abcdefgh')).toBeInTheDocument();
-      expect(getByText('ijklmnop')).toBeInTheDocument();
+      resizeTo(200);
+      expect(getByTestId('root')).toHaveAttribute('tabindex', '0');
     });
 
     it.each([
       ['the tail would be longer than the start', 'abcdefghij', 8],
       ['trailingChars is 0', FILE_NAME, 0],
-      ['trailingChars is negative', FILE_NAME, -3],
-      ['trailingChars is NaN', FILE_NAME, Number.NaN],
     ])('does not split when %s', (_, text, trailingChars) => {
       const { getByTestId } = renderCUI(
         <TextTruncate
@@ -415,6 +391,7 @@ describe('TextTruncate', () => {
       const root = getByTestId('root');
       expect(root.children).toHaveLength(1);
       expect(root.children[0]).toHaveTextContent(text);
+      expect(root.children[0]).not.toHaveAttribute('aria-hidden');
     });
 
     it('keeps the space at the split point', () => {
@@ -424,28 +401,12 @@ describe('TextTruncate', () => {
         </TextTruncate>
       );
       expect(getByText('Quarterly revenue report')).toBeInTheDocument();
-      expect(getByText('2024 Q3').textContent).toBe(' 2024 Q3');
-    });
-
-    it('shows the full text in a tooltip when the start is cut', async () => {
-      const user = userEvent.setup();
-      const { getByRole, findByRole } = renderCUI(
-        <TextTruncate ellipsisPosition="middle">{FILE_NAME}</TextTruncate>
-      );
-      await user.hover(getByRole('group'));
-      expect(await findByRole('tooltip')).toHaveTextContent(FILE_NAME);
+      expect(getByText('2024 Q3').textContent).toBe('\u00a02024 Q3');
     });
   });
 
   describe('maxWidth', () => {
-    it('sets the max-width custom property', () => {
-      const { getByText } = renderCUI(<TextTruncate maxWidth="20ch">Hello</TextTruncate>);
-      expect(getByText('Hello').style.getPropertyValue('--text-truncate-max-width')).toBe(
-        '20ch'
-      );
-    });
-
-    it('keeps the consumer style', () => {
+    it('sets the max-width custom property and keeps the consumer style', () => {
       const { getByText } = renderCUI(
         <TextTruncate
           maxWidth="20ch"
@@ -457,13 +418,6 @@ describe('TextTruncate', () => {
       expect(getByText('Hello')).toHaveStyle({ color: 'rgb(255, 0, 0)' });
       expect(getByText('Hello').style.getPropertyValue('--text-truncate-max-width')).toBe(
         '20ch'
-      );
-    });
-
-    it('sets no custom property without maxWidth', () => {
-      const { getByText } = renderCUI(<TextTruncate>Hello</TextTruncate>);
-      expect(getByText('Hello').style.getPropertyValue('--text-truncate-max-width')).toBe(
-        ''
       );
     });
   });

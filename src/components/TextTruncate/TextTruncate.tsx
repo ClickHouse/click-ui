@@ -16,6 +16,7 @@ import { mergeRefs } from '@/utils/mergeRefs';
 import { useIsTruncated } from '@/hooks/internal';
 import { Tooltip } from '@/components/Tooltip';
 import { TextTruncateProps } from './TextTruncate.types';
+import visuallyHiddenStyles from '../../styles/visually-hidden.module.css';
 import styles from './TextTruncate.module.css';
 
 const NO_BREAK_SPACE = '\u00a0';
@@ -35,11 +36,12 @@ const INTERACTIVE_ANCESTOR = [
   '[role="radio"]',
   '[role="switch"]',
   '[role="treeitem"]',
+  '[cui-select-item]',
 ].join(', ');
 
 const textTruncateVariants = cva(styles['text-truncate'], {
   variants: {
-    middle: { true: styles['text-truncate_ellipsis-position_middle'] },
+    middle: { true: styles['text-truncate_pos-middle'] },
   },
 });
 
@@ -97,10 +99,12 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
 
   const rootRef = useMemo(
     () =>
-      isMiddle
-        ? mergeRefs([ref, setRootElement])
-        : mergeRefs([ref, setRootElement, measureRef]),
-    [isMiddle, ref, measureRef]
+      !showTooltip
+        ? ref
+        : isMiddle
+          ? mergeRefs([ref, setRootElement])
+          : mergeRefs([ref, setRootElement, measureRef]),
+    [showTooltip, isMiddle, ref, measureRef]
   );
 
   const isInsideControl = useMemo(
@@ -152,7 +156,12 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
               >
                 {tail}
               </span>
-              <span className={cn('sr-only', styles['text-truncate__label'])}>
+              <span
+                className={cn(
+                  visuallyHiddenStyles['sr-only'],
+                  styles['text-truncate__label']
+                )}
+              >
                 {middleText}
               </span>
             </>

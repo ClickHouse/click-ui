@@ -13,7 +13,7 @@
   display: block;
 }
 
-.text-truncate_ellipsis-position_middle.text-truncate_ellipsis-position_middle {
+.text-truncate_pos-middle.text-truncate_pos-middle {
   display: flex;
 }
 
@@ -35,5 +35,7 @@
 
 /* copy for AT */
 .text-truncate__label {
+  /* stylelint-disable-next-line property-no-vendor-prefix -- Safari still needs the prefix and the build has no autoprefixer */
+  -webkit-user-select: none;
   user-select: none;
 }
