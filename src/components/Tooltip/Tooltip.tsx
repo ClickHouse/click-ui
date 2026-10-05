@@ -1,5 +1,6 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
-import { CSSProperties } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { CSSProperties, forwardRef } from 'react';
 import { cn } from '@/lib/cva';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import { TooltipContentProps, TooltipProps, TooltipTriggerProps } from './Tooltip.types';
@@ -16,13 +17,20 @@ export const Tooltip = ({ children, open, disabled, ...props }: TooltipProps) =>
   );
 };
 
-const TooltipTrigger = ({ asChild, children, ...props }: TooltipTriggerProps) => {
-  return (
-    <RadixTooltip.Trigger asChild>
-      {asChild ? children : <div {...props}>{children}</div>}
-    </RadixTooltip.Trigger>
-  );
-};
+const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(
+  ({ asChild, children, ...props }, ref) => {
+    return (
+      <RadixTooltip.Trigger asChild>
+        <Slot
+          ref={ref}
+          {...props}
+        >
+          {asChild ? children : <div>{children}</div>}
+        </Slot>
+      </RadixTooltip.Trigger>
+    );
+  }
+);
 TooltipTrigger.displayName = 'TooltipTrigger';
 Tooltip.Trigger = TooltipTrigger;
 
