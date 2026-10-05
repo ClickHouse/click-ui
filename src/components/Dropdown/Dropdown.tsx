@@ -4,6 +4,7 @@ import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
+  ForwardedRef,
   ReactNode,
   forwardRef,
 } from 'react';
@@ -206,33 +207,30 @@ const DropdownSub = (props: DropdownMenu.DropdownMenuSubProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-const DropdownItem = ({
-  icon,
-  iconDir,
-  type = 'default',
-  tooltipProps,
-  ...props
-}: DropdownItemProps) => {
-  const renderLabel = (label: ReactNode) => (
-    <IconWrapper
-      icon={icon}
-      iconDir={iconDir}
-      tooltipProps={{ side: 'right', ...tooltipProps }}
-    >
-      {label}
-    </IconWrapper>
-  );
+const DropdownItem = forwardRef<HTMLElement, DropdownItemProps>(
+  ({ icon, iconDir, type = 'default', tooltipProps, ...props }, ref) => {
+    const renderLabel = (label: ReactNode) => (
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+        tooltipProps={{ side: 'right', ...tooltipProps }}
+      >
+        {label}
+      </IconWrapper>
+    );
 
-  return (
-    <DropdownMenuItem
-      as={DropdownMenu.Item}
-      type={type}
-      {...props}
-    >
-      <Slottable child={props.children}>{renderLabel}</Slottable>
-    </DropdownMenuItem>
-  );
-};
+    return (
+      <DropdownMenuItem
+        ref={ref as ForwardedRef<HTMLDivElement>}
+        as={DropdownMenu.Item}
+        type={type}
+        {...props}
+      >
+        <Slottable child={props.children}>{renderLabel}</Slottable>
+      </DropdownMenuItem>
+    );
+  }
+);
 
 DropdownItem.displayName = 'DropdownItem';
 Dropdown.Item = DropdownItem;
