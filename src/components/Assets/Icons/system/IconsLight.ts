@@ -122,6 +122,10 @@ import Metrics from '../Metrics';
 import Metrics_Alt from '../Metrics-Alt';
 import Minus from '../Minus';
 import Moon from '../Moon';
+import Nav_Toggle_Left_Collapsible from '../Nav-Toggle-Left-Collapsible';
+import Nav_Toggle_Left_Expandable from '../Nav-Toggle-Left-Expandable';
+import Nav_Toggle_Right_Collapsible from '../Nav-Toggle-Right-Collapsible';
+import Nav_Toggle_Right_Expandable from '../Nav-Toggle-Right-Expandable';
 import No_Cloud from '../No-Cloud';
 import Pause from '../Pause';
 import Payment from '../Payment';
@@ -301,6 +305,10 @@ const IconsLight: Record<IconName, ComponentType<SVGAssetProps>> = {
   'metrics-alt': Metrics_Alt,
   minus: Minus,
   moon: Moon,
+  'nav-toggle-left-collapsible': Nav_Toggle_Left_Collapsible,
+  'nav-toggle-left-expandable': Nav_Toggle_Left_Expandable,
+  'nav-toggle-right-collapsible': Nav_Toggle_Right_Collapsible,
+  'nav-toggle-right-expandable': Nav_Toggle_Right_Expandable,
   'no-cloud': No_Cloud,
   pause: Pause,
   payment: Payment,
