@@ -1,5 +1,260 @@
 # @clickhouse/click-ui
 
+## 1.0.0-test.0
+
+### Major Changes
+
+- 0a02c6b: Remove styled-components as a dependency. click-ui no longer uses styled-components internally — every component renders from CSS Modules, and the runtime theme is now delivered through click-ui's own React context (via `ClickUIProvider`).
+
+  Breaking changes:
+
+  - `styled-components` is no longer a peer dependency. If your app doesn't use styled-components for its own code, you can remove it.
+  - The deprecated `linkStyles` and `StyledLinkProps` exports have been removed. Use the `Link` component with the `component` prop instead — e.g. `<Link component={RouterLink} size="md" weight="normal" to="/path">text</Link>`.
+  - The lower-level `ThemeProvider` export has been removed; `ClickUIProvider` is now the single provider. It already set the theme (and wraps toast/tooltip), so replace any bare `<ThemeProvider theme={…}>` with `<ClickUIProvider theme={…}>`.
+
+### Minor Changes
+
+- 0a7025a: Add 16 flags so the set covers every country with a cloud provider region: Austria, Bahrain, Belgium, Chile, China, Denmark, Finland, Greece, Italy, New Zealand, Norway, Poland, Qatar, Saudi Arabia, Spain, and Thailand. All are exported from the Figma library with the standardized rounded corners.
+
+  Also corrects nine existing flags that had drifted from the official artwork. Color drift: Canada, Switzerland, Indonesia, Singapore, Ireland, Sweden, France, Taiwan. Shape drift: Canada's maple leaf proportions, and the width of the red band on the United Arab Emirates flag.
+
+- a8b5c19: Adds AI agent logos: `github-copilot`, `cursor`, `opencode`, `pi-agent`, `openai` and `claude-code`. The single-color ones follow the text color, so they adapt to the theme and accept a `color` override.
+- 3df3e7e: Add the `grid-dots` icon to the icon asset set.
+- 88e2651: Add `pin` and `unpin` icons to the icon asset set.
+- 61f6a5a: Adds a Polaris brand logo to the click-ui logo set.
+
+  Consumers can reference it via `<Icon name="polaris" />` (resolves through `LogoName`), consistent with other brand logos like `snowflake` and `databricks`.
+
+- 2c9afcd: Add the `popin` icon to the icon library.
+- e2b3d21: **Breaking:** collapse the duplicate share icons down to one (CUI-115).
+
+  The old `share` glyph was visually indistinguishable from `popout` — both a
+  rounded square with an arrow leaving the top-right corner — so it read as
+  "opens in a new tab" wherever it was used as a share affordance. It has been
+  removed.
+
+  `share` now refers to the forward-arrow glyph that was previously registered as
+  `share-arrow`. `share-network` is unchanged.
+
+  Migration:
+
+  - **If you used `share` for a link that opens in a new tab, switch to `popout`.**
+    This is the case that will not fail loudly: `name="share"` keeps compiling and
+    now renders the forward-arrow glyph instead of the box-with-arrow one.
+  - If you used `share` as a genuine "share with someone" affordance, no change
+    is needed — you now get the forward arrow.
+  - If you used `share-arrow`, rename it to `share`. `share-arrow` is registered as
+    a deprecated name, so it still renders and logs a deprecation warning, but it
+    is no longer a member of the exported `IconName` union — strictly-typed props
+    (`Button.iconLeft`, `Link.icon`, `Dropdown.Item.icon`, …) will fail typecheck
+    until updated.
+
+  Deprecated icon and flag names (legacy PascalCase, two-letter flag codes) that
+  previously rendered nothing through `Icon` now render and log a deprecation
+  warning, matching `Flags` and `Logo`.
+
+- 925fccf: Add Malaysia and Taiwan flags, and standardize rounded corners across all flag SVGs for a consistent look.
+- 13925e3: `EllipsisContent` now accepts `tooltipProps`, forwarded to the `Tooltip.Content` it renders when its text is truncated. The tooltip previously always used the default `side="top"`, which inside a menu covers the items above the hovered one. `IconWrapper`, `Dropdown.Item` and `Dropdown.Trigger sub` forward the same prop, so menu labels can move their truncation tooltip out of the way.
+
+  **How to use?**
+
+  ```tsx
+  <EllipsisContent tooltipProps={{ side: 'right' }}>{organization.name}</EllipsisContent>
+  ```
+
+  `tooltipProps` is positioning only — `side`, `align` and `sideOffset`. `TooltipContentProps` and `EllipsisContentProps` are now exported for typing wrappers around it. On `EllipsisContent` and `IconWrapper`, omitting it keeps today's behavior.
+
+  `Dropdown.Item` and `Dropdown.Trigger sub` are the exception: they now default their truncation tooltip to `side: 'right'` rather than inheriting `side="top"`. A tooltip covering the item above the hovered one is wrong in any menu, so the good default belongs here instead of in every caller. Pass `tooltipProps` to override it. When the menu sits at the edge of the viewport, Radix's collision handling flips the tooltip to `left`, never back to `top`.
+
+- 3ebf2e2: `EllipsisContent` now shows the Click UI `Tooltip` with the full text when its content is truncated, instead of setting the native `title` attribute. Also adds an `asChild` prop to `Tooltip.Trigger` so a caller's own element can be used as the trigger without the default wrapping `div`.
+- add8968: Add `var7` (red) color variant to `Checkbox` and `CheckboxMultiSelect`
+- 8be07c6: Wrap all component styles in a single `clickui` CSS [cascade layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) for predictable overrides. Any unlayered app style — a plain rule, a CSS Module class, or a `styled(...)` override — now beats click-ui's styles regardless of stylesheet order or selector specificity, so consumer overrides no longer depend on bundle order or `!important`. If your app uses its own layers, declare them after `clickui` (`@layer clickui, app;`). Rendering is otherwise unchanged (verified byte-for-byte against the full visual-regression suite). Requires a browser with `@layer` support (Chrome/Edge 99+, Firefox 97+, Safari 15.4+).
+- 1979c25: Add native `diff` highlighting to CodeBlock via `language="diff"`.
+- e74b3a1: Add `allowOnlyDatesList` prop to `DateRangePicker` to restrict selectable dates to an allow-list. Dates not in the list are greyed out and disabled, mirroring the existing `DatePicker` behavior. When omitted or empty, selection is unrestricted, and the prop composes with `futureDatesDisabled` and `maxRangeLength`.
+- 7cb92c7: Enable year and month selection in `DateRangePicker` by clicking on the date in the calendar header. This matches the existing `DatePicker` behavior and applies to both the standalone calendar and the "Custom time period" calendar shown alongside `predefinedDatesList`.
+- 129bcfe: Codeblock controls are not visible by default; some a11y improvements
+- 1cd3d89: Link fix - removed redundant margin (small visual changes)
+- ecc3e0f: `Dropdown.Item` with `asChild` now renders its child element (for example an `<a>`) as the menu item, with the icon and truncated label inside it, so a link item is focusable and activates from the keyboard. With `asChild`, `children` must be a single element.
+
+  **Breaking (types only):** `DropdownItemProps` is now a union type, so an `interface` can no longer extend it. Migrate with a type intersection:
+
+  ```ts
+  // before
+  interface MyItemProps extends DropdownItemProps {
+    extra: string;
+  }
+
+  // after
+  type MyItemProps = DropdownItemProps & {
+    extra: string;
+  };
+  ```
+
+- 8881e5b: Add a portal provider API so overlay components can render into an explicit container.
+- 129bcfe: IconButton now has htmlType button by default
+
+### Patch Changes
+
+- 9cc98cd: Add Dollar icon
+- d732157: Add the missing BEM base class to Accordion, Alert, Collapsible, and Link so every block and element has a base for its modifiers to modify. No change in behavior.
+- 80b346e: Bump all `@radix-ui/react-*` dependencies to the versions shipped in Radix `1.6.7`, and de-duplicate the resulting transitive tree.
+
+  Toasts no longer carry `role="status"`. Select them with `li[data-state="open"]`.
+
+- 178c6aa: `CardHorizontal` and `CardPrimary` now open `infoUrl` in a new tab with `noopener`, so the opened page can no longer reach back into the app through `window.opener`. Non-http(s) values such as `javascript:` or `data:` URLs are ignored with a console warning. Absolute and relative http(s) URLs keep working as before.
+- 537131f: Exported prop types now match what the components accept; removed stale copies from `GridContainerProps`, `RadioGroupItemProps`, `FileTabsProps`, `FileTabProps`, and `ToastProviderProps`. `Dropdown.Sub` now type-checks `open`, `defaultOpen` and `onOpenChange`, which it always passed to Radix.
+  Code written against the old copies can fail to type-check: `Dropdown.Sub` no longer accepts DOM props such as `className`, which it never rendered, and `FileTabProps` and `FileTabsProps` now require the props the components always required.
+- a2d437a: Fixed `InitCUIThemeScript` breaking when `storageKey`, `defaultTheme` or `attribute` contain a quote or `<`. Values are now encoded into the inline script and cannot break out of it.
+- b860389: Add forwardRef support to ButtonGroup component
+
+  Exposes the wrapper div ref via React.forwardRef, following component library conventions.
+
+- 9dc0c62: Add hasShadow prop to Flyout.Content to toggle box shadow
+- e5b8262: Add `wrap` prop to Text to control text wrapping: `wrap`, `nowrap`, `break-word` or `break-all`. When unset the text inherits the wrapping behaviour of its parent.
+- 97859e9: Fix Alert dropping a consumer-provided `className`. The root element applied its own class after spreading the rest props, overwriting any incoming `className` (including the class generated by `styled(Alert)`). The consumer `className` is now merged onto the root, and `className` is a supported prop.
+- 415496c: Prevent disabled AutoComplete options from being selected through keyboard navigation.
+- 91ef765: `Button` now accepts `htmlType` prop to support native HTML `type` attribute.
+- 55c69af: Fix Button loading state regression introduced by the CSS Modules migration. Restore the dual shimmer animation (fixed-width vs fill-width) and stop the disabled styles from overriding the per-type background while loading, so a loading danger button is light red again instead of gray.
+- 94e8889: Prevent CardHorizontal button clicks from triggering the card handler twice.
+- f6d6658: Fix nested Container inheriting layout props after the CSS Modules migration. Container forwards `fillHeight`, `grow`, `shrink`, `minHeight`, `maxHeight` and `overflow` as CSS custom properties, which inherit by default, so a child Container would pick up an ancestor's values (e.g. a parent with `fillHeight` stretched every descendant to full height). The base `.container` rule now resets these custom properties so each Container keeps its own defaults.
+- 5c383de: Fix Container base styles overriding equal-specificity styled-components. Since Container migrated to CSS Modules, its base rule beat any `styled(Container)` override of layout properties like `padding` and `gap` (e.g. a downstream `styled(Flyout.Header)` padding override was silently dropped). The base rule is now scoped with `:where()` so modifier classes and consumer overrides win without a specificity hack, and the temporary `&&` workaround in Flyout has been removed.
+- e2b3d21: `<Icon name="c#" />` now renders the C# logo. It failed twice over before: `Icon`
+  did not resolve asset aliases at all, and the alias itself pointed at `c-sharp`
+  while the asset registers as `csharp`. Both are fixed.
+- 342357f: Dismissible banner `Alert`s no longer render an empty, unnamed button before their content; `IconButton` and `ButtonGroup` drop a redundant `role="button"` attribute (select them with `getByRole('button')` instead of `[role="button"]`), and `IconButton` now honors a consumer-supplied `role`.
+- 218aef5: Prevent DateDetails from crashing when formatting an invalid system timezone.
+- ca8d9e3: `DateTimeRangePicker`'s check on whether a user selected range matches a predefined range has been made a little looser so that the selected checkmark on a predefined date should be active more often
+- c68c733: `DropdownItemProps` exported from `@clickhouse/click-ui` and `@clickhouse/click-ui/Dropdown` now matches what `Dropdown.Item` actually accepts. The barrel was re-exporting a copy in `Dropdown.types.ts` that the component never imported, so it was missing both `type` and `tooltipProps` and typing a wrapper around `Dropdown.Item` failed to compile. `Dropdown.types.ts` is now the single declaration, as in `ContextMenu`, and `DropdownItemProps` is exported from the package root for the first time.
+- 6cbee11: Fix doubled spacing around Flyout section separators. The `FlyoutContent` container gap stacked on top of the separators' own margins, adding extra padding between the header, body, and footer. Section spacing now matches the design.
+- c0ee833: Fix GenericMenu dropdown-menu panels (e.g. long organization/list menus) not scrolling when their content exceeds the available height. The base panel's `overflow: hidden` (needed for border-radius clipping) was winning the cascade over the dropdown-menu-content override that restores `overflow-y: auto`, because the two rules live in separately-injected stylesheets whose relative order isn't guaranteed. The scroll override now lives on `.generic-menu-panel_type_dropdown-menu` itself, in the same stylesheet as the property it overrides, so menus with more items than fit scroll again.
+- bb744e8: Fix the `horizontal-loading` icon animation in Firefox, where the dots never appeared.
+- d99d0e2: IconButton no longer leaves the button nameless when a consumer passes an empty aria-label, and hides the inner icon from assistive tech so the control exposes a single accessible name.
+- 096dfb6: Fix buttons unintentionally submitting their enclosing `<form>`. A native `<button>` without an explicit `type` defaults to `type="submit"`, so several components triggered form submission when used inside a form.
+
+  New `htmlType` escape hatch (for general-purpose action buttons whose visual `type` prop shadows the native attribute):
+
+  - `IconButton` now accepts an `htmlType` prop to set the native button `type` (mirrors `Button`).
+  - `SplitButton` now accepts an `htmlType` prop to set the native `type` on its primary action button.
+
+  Internal buttons that are never meant to submit now default to `type="button"` (non-breaking; consumers can still override):
+
+  - `ButtonGroup` options
+  - `Alert` dismiss buttons
+  - `InputWrapper` icon button
+  - `Select` search clear button
+  - `DatePicker` calendar title button
+  - `FileTabs` close button
+  - `CardPromotion` dismiss button
+  - `Table` row edit/delete buttons
+  - `VerticalStepper` step trigger
+  - `CrossButton`
+
+- fd35ea8: Fixed the horizontal-circle loader animations, which used the invalid keyframe selector `0` instead of `0%`, causing the initial keyframe to be dropped by browsers that don't tolerate the unitless selector.
+- bd30b2c: Fix `maxRangeLength` off-by-one error in `DateRangePicker` and `DateTimeRangePicker`. `maxRangeLength={31}` now only allows a 31 day range instead of 32. `DateTimeRangePicker` now measures the range in calendar days, so a start date's time of day prevents an off-by-two error.
+- d16594b: fix: properly define types of polymorphic components
+- 7476634: Change default ProgressBar text color in light mode
+- 2313513: Fix `ProgressBar` dropping its progress value when a consumer passes a custom `style` prop.
+- 232d788: Fix `Publish to npm with OIDC` failing because the `prepare` lifecycle script ran `yarn changeset:verify`. Removed `yarn changeset:verify` from the `prepare` script so `npm publish` no longer aborts with "Couldn't locate any changeset."
+- 337145a: Fix Select no-data/no-results dropdown row losing its font and padding. The row now renders with the generic-menu button label typography (14px/21px/500) and its intended 8px 16px padding, restoring the correct row height.
+- 36b39af: Fix a few bugs by changing the way Select works with its options: instead of imperative rebuilding of several service entities,
+  derive them in-flow, “you might not need an effect”.
+
+  Bugs fixed:
+  - search now always works in Selects and matches any text that is rendered in items, including options that arrive while the menu is open
+  - disabled items can no longer be selected via keyboard navigation
+
+  Note: filtered-out items now stay mounted (hidden) instead of unmounting, so their rendered text stays available to search.
+
+- 25535b3: `Table` column resize handles no longer render on top of portaled overlays (dropdowns, flyouts). The handle's positive `z-index` was lifting the delimiter above the page overlay layer; it's redundant for stacking above the header content, so it has been removed.
+- 038ce9d: Preserve configured Table column widths when the header is hidden.
+- bf7dca8: Fix TextAreaField not calling onChange when an onInput prop is passed, including onInput={undefined}.
+- be65be7: Remove a stray trailing `;` from 226 string values in the exported `themes` object (typography shorthands and two gradients). The generated CSS variables were already clean and are unchanged.
+- d062817: Fix a `DateTimeRangePicker` bug that caused preselected dates not to be marked as selected under certain situations
+- 15f0280: Hides Tooltip when cursor leaves the trigger in ElipsisContent.
+
+  Default Tooltip behavior can obscure interaction with neighbouring elements by remaining on screen when you move your cursor from the trigger to the tooltip.
+  For EllipsisContent, it should always hide in these situations. Its purpose is to reveal the full content, never to be interacted with.
+  If you need to interact with tooltip content, you need another component.
+
+- d590c5d: Icons and labels stay on one row at viewport widths of 768px and below, instead of the icon stacking above the label.
+
+  Affected components:
+
+  - `Dropdown`: items and sub-menu triggers
+  - `ContextMenu`: items and sub-menu triggers
+  - `AutoComplete`: options
+  - `SplitButton`
+  - `Badge`
+
+- e5132b5: fix(Select): don't wrap options content
+- ecc3e0f: A disabled menu item rendered as a link now uses the disabled text color instead of the link or visited color.
+- ecc3e0f: Menu items rendered as links are no longer underlined.
+- 5d4625d: Migrate Accordion from styled-components to css modules with no change in behavior
+- 079e8ed: Migrate Alert from styled-components to css modules with no change in behavior
+- 65e8912: migration of Assets loaders from styled-components to css modules. no behavior change.
+- d695088: Migrate AutoComplete from styled-components to css modules with no change in behavior
+- 713fac7: Migrate Avatar from styled-components to css modules with no change in behavior
+- b23196a: Migrate Badge from styled-components to css modules with no change in behavior
+- 45e3010: Migrate BaseButton from styled-components to css modules with no change in behavior
+- 74c360e: Migrate BigStat from styled-components to css modules with no change in behavior
+- 61a2856: migration of ButtonGroup from styled-components to css modules. no behavior change.
+- 1f770a5: Migrate CardPromotion from styled-components to css modules with no change in behavior
+- 716dca0: Migrate CardSecondary from styled-components to css modules with no change in behavior
+- 24c8be3: Migrate CardHorizontal from styled-components to css modules with no change in behavior
+- 841e093: Migrate CardPrimary from styled-components to css modules with no change in behavior
+- c7b4cca: Migrate Checkbox from styled-components to css modules with no change in behavior
+- 4c12bb6: Migrate CodeBlock from styled-components to css modules with no change in behavior
+- 6d1e029: Migrate Collapsible, SidebarNavigationItem, SidebarNavigationTitle, SidebarCollapsibleItem, and SidebarCollapsibleTitle from styled-components to css modules with no change in behavior
+- 2bd4199: Migrate ConfirmationDialog from styled-components to css modules with no change in behavior
+- fb8aed3: Migrate Container from styled-components to css modules with no change in behavior
+- 4549db6: Migrate ContextMenu from styled-components to css modules with no change in behavior
+- fae805d: Migrate CrossButton from styled-components to css modules with no change in behavior
+- 5e02ef0: Migrate DateDetails off styled-components by reusing the Link component for the trigger styling. No visual change.
+- f743adb: Migrate DatePicker, DateRangePicker, and DateTimeRangePicker from styled-components to css modules with no change in behavior
+- 3cccc05: Migrate Dialog from styled-components to css modules with no change in behavior
+- 62543cf: Migrate Dropdown from styled-components to css modules with no change in behavior
+- 321cea6: Migrate EllipsisContent from styled-components to css modules with no change in behavior
+- 0cc2551: Migrate EmptyButton from styled-components to css modules with no change in behavior
+- 12212d1: Migrate FileTabs from styled-components to css modules with no change in behavior
+- d81117f: Migrate FileUpload from styled-components to css modules with no change in behavior
+- 79e58be: Migrate Flyout from styled-components to css modules with no change in behavior
+- 99f4687: Migrate FormContainer from styled-components to css modules with no change in behavior
+- da45796: Migrate GenericLabel from styled-components to css modules with no change in behavior
+- 059c7d7: Migrate GenericMenu, Dropdown, ContextMenu, and Popover from styled-components to css modules with no change in behavior
+- 82d7dc5: Migrate GridCenter from styled-components to css modules with no change in behavior
+- 479bde7: Migrate GridContainer from styled-components to css modules with no change in behavior
+- c7b92c9: Migrate Grid from styled-components to css modules with no change in behavior
+- dc6897a: Migrate HoverCard from styled-components to css modules with no change in behavior
+- 969de1a: Migrate Icon from styled-components to css modules with no change in behavior
+- 030c314: Migrate IconButton from styled-components to css modules with no change in behavior
+- 681a3aa: Migrate InputWrapper from styled-components to css modules with no change in behavior
+- fa348c9: Migrate Label from styled-components to css modules with no change in behavior
+- 7f8a488: Migrate Link from styled-components to css modules with no change in behavior
+- 08851a0: Migrate MiddleTruncator from styled-components to css modules with no change in behavior
+- 9fd217c: Migrate MultiAccordion from styled-components to css modules with no change in behavior
+- ce0ffbc: Migrate Pagination from styled-components to css modules with no change in behavior
+- a225678: Migrate Panel from styled-components to css modules with no change in behavior
+- 82dd99a: Migrate Popover from styled-components to css modules with no change in behavior
+- d290414: Migrate ProgressBar from styled-components to css modules with no change in behavior
+- 5b39120: Migrate RadioGroup from styled-components to css modules with no change in behavior
+- 5d36c5b: Migrate Select from styled-components to css modules with no change in behavior
+- 2f77bc9: Migrate Separator from styled-components to css modules with no change in behavior
+- 208f864: Migrate Spacer from styled-components to css modules with no change in behavior
+- f581bcc: Migrate SplitButton from styled-components to css modules with no change in behavior
+- 46a8f7b: Migrate Switch from styled-components to css modules with no change in behavior
+- 0f9be98: Migrate Table from styled-components to css modules with no change in behavior
+- fa8062b: Migrate Tabs from styled-components to css modules with no change in behavior
+- 0d166d7: Migrate Text from styled-components to css modules with no change in behavior
+- 0d166d7: Migrate Title from styled-components to css modules with no change in behavior
+- 0709172: Migrate Toast from styled-components to css modules with no change in behavior
+- d05fe5f: Migrate Tooltip from styled-components to css modules with no change in behavior
+- 1857133: Migrate VerticalStepper from styled-components to css modules with no change in behavior
+- dfb2cdf: Render the `label` prop on the default `ProgressBar`. The prop was already part of the public API but was ignored, so the bar always showed the percentage. It now shows the label when one is passed, and still prefers `successMessage` once progress reaches 100%. An empty or otherwise falsy label still shows the percentage.
+- c77884c: Memoize the Icon wrapper's inline style object so its reference stays stable when the underlying values haven't changed.
+- 4c11535: Prevent Pagination from calling `onChange` with `NaN` when its page input is cleared.
+- cc02842: Select/MultiSelect/CheckboxMultiSelect now snapshot each item's searchable text from the DOM when a search begins, instead of capturing it up front. Search therefore matches text an item changed after the menu opened (e.g. a row that renders from its own state), and the internal capture no longer needs to re-key on the option set.
+- 129bcfe: IconButton now has focus ring same as regular button
+
 ## 0.6.0
 
 ### Minor Changes
