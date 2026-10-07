@@ -1,13 +1,19 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import { Slottable } from '@radix-ui/react-slot';
 import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
   Fragment,
+  MouseEvent,
+  PointerEvent,
   ReactNode,
+  createContext,
   forwardRef,
   isValidElement,
+  useContext,
+  useRef,
 } from 'react';
 import { Button } from '@/components/Button';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
@@ -23,9 +29,32 @@ import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
-export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
-  <DropdownMenu.Root {...props} />
-);
+// Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a bare click.
+const DropdownOpenContext = createContext<((open: boolean) => void) | null>(null);
+
+export const Dropdown = ({
+  open: openProp,
+  defaultOpen,
+  onOpenChange,
+  ...props
+}: DropdownMenu.DropdownMenuProps) => {
+  const [open, setOpen] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen ?? false,
+    onChange: onOpenChange,
+    caller: 'Dropdown',
+  });
+
+  return (
+    <DropdownOpenContext.Provider value={setOpen}>
+      <DropdownMenu.Root
+        {...props}
+        open={open}
+        onOpenChange={setOpen}
+      />
+    </DropdownOpenContext.Provider>
+  );
+};
 
 type DropdownMenuItemComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuItem<T>>
@@ -111,12 +140,41 @@ const DropdownMainTrigger = ({
   children,
   className,
   disabled,
+  onClick,
+  onPointerDown,
   type,
   ...triggerProps
 }: DropdownTriggerProps) => {
+  const setOpen = useContext(DropdownOpenContext);
+  const pointerDownRef = useRef(false);
+
+  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    if (onPointerDown) {
+      onPointerDown(event);
+    }
+    pointerDownRef.current = true;
+  };
+
+  // Radix opens only on pointerdown and Enter/Space; assistive tech such as VoiceOver
+  // sends a bare click (radix-ui/primitives#1963).
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    if (onClick) {
+      onClick(event);
+    }
+    // A click after a pointerdown is Radix's to handle, whether it toggled the menu or not.
+    const afterPointerDown = pointerDownRef.current;
+    pointerDownRef.current = false;
+    if (afterPointerDown || disabled || event.defaultPrevented || !setOpen) {
+      return;
+    }
+    setOpen(true);
+  };
+
   const sharedProps = {
     disabled,
     'aria-disabled': disabled || undefined,
+    onClick: handleClick,
+    onPointerDown: handlePointerDown,
     ...triggerProps,
   };
 
