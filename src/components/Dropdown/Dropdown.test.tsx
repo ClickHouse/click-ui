@@ -375,6 +375,59 @@ describe('Dropdown', () => {
       expect(trigger).toHaveAttribute('aria-disabled', 'true');
     });
 
+    it('keeps a Button child from submitting its form', async () => {
+      const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault());
+      const { getByRole, findByRole } = renderCUI(
+        <form onSubmit={onSubmit}>
+          <Dropdown>
+            <Dropdown.Trigger>
+              <Button>Actions</Button>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              <Dropdown.Item>Rename</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </form>
+      );
+
+      await userEvent.click(getByRole('button', { name: 'Actions' }));
+
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+      expect(onSubmit).not.toHaveBeenCalled();
+    });
+
+    it("keeps a Button child's own htmlType", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger>
+            <Button htmlType="submit">Save</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it('does not pass htmlType to a native button child', () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger>
+            <button>Actions</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      const trigger = getByRole('button', { name: 'Actions' });
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).not.toHaveAttribute('htmltype');
+    });
+
     it('keeps a native button child from submitting its form', async () => {
       const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault());
       const { getByRole, findByRole } = renderCUI(

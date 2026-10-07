@@ -9,6 +9,7 @@ import {
   forwardRef,
   isValidElement,
 } from 'react';
+import { Button } from '@/components/Button';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
@@ -125,6 +126,8 @@ const DropdownMainTrigger = ({
         asChild
         // Radix sets type="button" on its trigger, which a click-ui Button reads as its variant.
         type={type ?? (children.type === 'button' ? 'button' : undefined)}
+        // A click-ui Button takes its native type from htmlType and submits forms without it.
+        {...(children.type === Button ? { htmlType: 'button' } : {})}
         {...sharedProps}
         className={className}
       >
