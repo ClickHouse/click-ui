@@ -15,6 +15,7 @@ export type LogoName =
   | 'aws-rds'
   | 'aws-redshift'
   | 'aws-s3'
+  | 'aws-s3-tables-iceberg'
   | 'azure'
   | 'azure-blob-storage'
   | 'azure-event-hub'
