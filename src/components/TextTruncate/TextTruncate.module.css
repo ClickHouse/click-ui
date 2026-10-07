@@ -30,7 +30,10 @@
 }
 
 .text-truncate__end {
+  max-width: 100%;
+  overflow: hidden;
   flex-shrink: 0;
+  text-overflow: ellipsis;
 }
 
 /* copy for AT */

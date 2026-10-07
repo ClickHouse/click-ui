@@ -47,13 +47,13 @@ const textTruncateVariants = cva(styles['text-truncate'], {
 
 const splitMiddle = (text: string, trailingChars: number): [string, string] => {
   const chars = Array.from(text);
-  const tailLength = Number.isFinite(trailingChars) ? Math.floor(trailingChars) : 0;
-  if (tailLength <= 0 || tailLength > chars.length - tailLength) {
+  const endLength = Number.isFinite(trailingChars) ? Math.floor(trailingChars) : 0;
+  if (endLength <= 0 || endLength > chars.length - endLength) {
     return [text, ''];
   }
-  const head = chars.slice(0, -tailLength).join('');
-  const tail = chars.slice(-tailLength).join('');
-  return [head.replace(/\s+$/, NO_BREAK_SPACE), tail.replace(/^\s+/, NO_BREAK_SPACE)];
+  const start = chars.slice(0, -endLength).join('');
+  const end = chars.slice(-endLength).join('');
+  return [start.replace(/\s+$/, NO_BREAK_SPACE), end.replace(/^\s+/, NO_BREAK_SPACE)];
 };
 
 type TextTruncatePolymorphicComponent = <T extends ElementType = 'span'>(
@@ -120,7 +120,7 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
     [maxWidth, style]
   );
 
-  const [head, tail] = isMiddle ? splitMiddle(middleText, trailingChars) : ['', ''];
+  const [start, end] = isMiddle ? splitMiddle(middleText, trailingChars) : ['', ''];
   const hasTabStop = showTooltip && isTruncated && !isInsideControl;
   const hasGroupRole = hasTabStop && (Component === 'span' || Component === 'div');
   const isSelfLabelled =
@@ -130,9 +130,11 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
   const root = (
     <Component
       ref={rootRef}
-      {...(hasTabStop && { tabIndex: 0 })}
-      {...(hasGroupRole && { role: 'group' })}
-      {...(isSelfLabelled && { id: rootId, 'aria-labelledby': rootId })}
+      tabIndex={hasTabStop ? 0 : undefined}
+      role={hasGroupRole ? 'group' : undefined}
+      id={isSelfLabelled ? rootId : undefined}
+      aria-labelledby={isSelfLabelled ? rootId : undefined}
+      // Radix Slot lets a present `undefined` key win, so this key must stay absent unless the description is dropped.
       {...(isSelfLabelled &&
         tooltipContent === undefined && { 'aria-describedby': undefined })}
       {...props}
@@ -144,17 +146,17 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
           <span
             ref={measureRef}
             className={styles['text-truncate__start']}
-            aria-hidden={tail ? true : undefined}
+            aria-hidden={end ? true : undefined}
           >
-            {head}
+            {start}
           </span>
-          {tail && (
+          {end && (
             <>
               <span
                 className={styles['text-truncate__end']}
                 aria-hidden
               >
-                {tail}
+                {end}
               </span>
               <span
                 className={cn(

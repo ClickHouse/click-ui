@@ -79,7 +79,7 @@ export const Middle: Story = {
     docs: {
       description: {
         story:
-          'Keeps the end of the text visible: file names, IDs, host names, paths. Text is not split when the kept tail would be longer than the rest.',
+          'Keeps the end of the text visible: file names, IDs, host names, paths. Text is not split when the kept end would be longer than the rest. In a box narrower than the kept end, the end gets its own ellipsis; use `ellipsisPosition="end"` or fewer `trailingChars` there.',
       },
     },
   },

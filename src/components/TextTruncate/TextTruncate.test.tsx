@@ -376,7 +376,7 @@ describe('TextTruncate', () => {
     });
 
     it.each([
-      ['the tail would be longer than the start', 'abcdefghij', 8],
+      ['the end would be longer than the start', 'abcdefghij', 8],
       ['trailingChars is 0', FILE_NAME, 0],
     ])('does not split when %s', (_, text, trailingChars) => {
       const { getByTestId } = renderCUI(
