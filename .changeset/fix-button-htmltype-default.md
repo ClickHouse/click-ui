@@ -1,5 +1,5 @@
 ---
-'@clickhouse/click-ui': major
+'@clickhouse/click-ui': minor
 ---
 
 Default `htmlType` to `"button"` on `Button`, `IconButton`, and `SplitButton`. All three already accepted an `htmlType` prop, but left it undefined by default, so the native `<button>` fell back to the browser's own default of `type="submit"`. Any of these rendered inside a `<form>` without an explicit `htmlType` would submit that form on click.
