@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const Nav_Toggle_Left_Expandable = (props: SVGAssetProps) => (
+const Sidebar_Left = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -15,8 +15,8 @@ const Nav_Toggle_Left_Expandable = (props: SVGAssetProps) => (
     />
     <path
       fill="#161517"
-      d="M9.25195 3.75V20.25H10.752V3.75H9.25195ZM13.5215 8.41306C13.7502 8.18435 14.121 8.18435 14.3497 8.41306L17.4731 11.5365C17.7018 11.7652 17.7018 12.1359 17.4731 12.3646L14.3497 15.4881C14.121 15.7168 13.7502 15.7168 13.5215 15.4881 13.2928 15.2593 13.2928 14.8886 13.5215 14.6599L16.2309 11.9506 13.5215 9.2412C13.2928 9.01249 13.2928 8.64177 13.5215 8.41306Z"
+      d="M9.25195 3.75V20.25H10.752V3.75H9.25195Z"
     />
   </svg>
 );
-export default Nav_Toggle_Left_Expandable;
+export default Sidebar_Left;

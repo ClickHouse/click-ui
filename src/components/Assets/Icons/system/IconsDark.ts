@@ -122,10 +122,6 @@ import Metrics from '../Metrics';
 import Metrics_Alt from '../Metrics-Alt';
 import Minus from '../Minus';
 import Moon from '../Moon';
-import Nav_Toggle_Left_Collapsible from '../Nav-Toggle-Left-Collapsible';
-import Nav_Toggle_Left_Expandable from '../Nav-Toggle-Left-Expandable';
-import Nav_Toggle_Right_Collapsible from '../Nav-Toggle-Right-Collapsible';
-import Nav_Toggle_Right_Expandable from '../Nav-Toggle-Right-Expandable';
 import No_Cloud from '../No-Cloud';
 import Pause from '../Pause';
 import Payment from '../Payment';
@@ -155,6 +151,8 @@ import Services from '../Services';
 import Settings from '../Settings';
 import Share from '../Share';
 import Share_Network from '../Share-Network';
+import Sidebar_Left from '../Sidebar-Left';
+import Sidebar_Right from '../Sidebar-Right';
 import Sleep from '../Sleep';
 import Slide_In from '../Slide-In';
 import Slide_Out from '../Slide-Out';
@@ -305,10 +303,6 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   'metrics-alt': Metrics_Alt,
   minus: Minus,
   moon: Moon,
-  'nav-toggle-left-collapsible': Nav_Toggle_Left_Collapsible,
-  'nav-toggle-left-expandable': Nav_Toggle_Left_Expandable,
-  'nav-toggle-right-collapsible': Nav_Toggle_Right_Collapsible,
-  'nav-toggle-right-expandable': Nav_Toggle_Right_Expandable,
   'no-cloud': No_Cloud,
   pause: Pause,
   payment: Payment,
@@ -338,6 +332,8 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   settings: Settings,
   share: Share,
   'share-network': Share_Network,
+  'sidebar-left': Sidebar_Left,
+  'sidebar-right': Sidebar_Right,
   sleep: Sleep,
   'slide-in': Slide_In,
   'slide-out': Slide_Out,

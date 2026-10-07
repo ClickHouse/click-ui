@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const Nav_Toggle_Right_Collapsible = (props: SVGAssetProps) => (
+const Sidebar_Right = (props: SVGAssetProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -15,8 +15,8 @@ const Nav_Toggle_Right_Collapsible = (props: SVGAssetProps) => (
     />
     <path
       fill="#161517"
-      d="M14.748 20.25 14.748 3.75 13.248 3.75 13.248 20.25H14.748ZM6.53145 8.40653C6.76016 8.17782 7.13088 8.17782 7.35958 8.40653L10.483 11.53C10.7117 11.7587 10.7117 12.1294 10.483 12.3581L7.35958 15.4815C7.13088 15.7102 6.76016 15.7102 6.53145 15.4815 6.30274 15.2528 6.30274 14.8821 6.53145 14.6534L9.24081 11.944 6.53145 9.23466C6.30274 9.00595 6.30274 8.63523 6.53145 8.40653Z"
+      d="M14.748 20.25L14.748 3.75L13.248 3.75L13.248 20.25H14.748Z"
     />
   </svg>
 );
-export default Nav_Toggle_Right_Collapsible;
+export default Sidebar_Right;
