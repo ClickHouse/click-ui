@@ -13,11 +13,22 @@
 }
 
 .dropdown-trigger {
+  display: block;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `fit-content`
      keyword on `width` is widely supported on evergreen browsers; the original
      rule used the same value. */
   width: fit-content;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  text-transform: inherit;
   cursor: pointer;
+  word-spacing: inherit;
 }
 
 .dropdown-trigger[disabled] {

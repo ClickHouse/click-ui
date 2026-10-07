@@ -4,8 +4,10 @@ import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
+  Fragment,
   ReactNode,
   forwardRef,
+  isValidElement,
 } from 'react';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
@@ -65,7 +67,11 @@ interface MainDropdownProps {
 type DropdownSubTriggerProps = DropdownMenu.DropdownMenuSubTriggerProps &
   SubDiscriminant &
   SubTriggerFields;
-type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps & MainDropdownProps;
+type DropdownTriggerProps = DropdownMenu.DropdownMenuTriggerProps &
+  MainDropdownProps & {
+    /** Defaults to `true` for a single element child, which then becomes the menu button and must forward its ref and props to a focusable element; `false` wraps `children` in a button. */
+    asChild?: DropdownMenu.DropdownMenuTriggerProps['asChild'];
+  };
 
 const DropdownTrigger = ({
   sub,
@@ -92,14 +98,48 @@ const DropdownTrigger = ({
     );
   }
 
-  const { className, ...triggerProps } = props as DropdownTriggerProps;
+  return (
+    <DropdownMainTrigger {...(props as DropdownTriggerProps)}>
+      {children}
+    </DropdownMainTrigger>
+  );
+};
+
+const DropdownMainTrigger = ({
+  asChild,
+  children,
+  className,
+  disabled,
+  type,
+  ...triggerProps
+}: DropdownTriggerProps) => {
+  const sharedProps = {
+    disabled,
+    'aria-disabled': disabled || undefined,
+    ...triggerProps,
+  };
+
+  if (asChild !== false && isValidElement(children) && children.type !== Fragment) {
+    return (
+      <DropdownMenu.Trigger
+        asChild
+        // Radix sets type="button" on its trigger, which a click-ui Button reads as its variant.
+        type={type ?? (children.type === 'button' ? 'button' : undefined)}
+        {...sharedProps}
+        className={className}
+      >
+        {children}
+      </DropdownMenu.Trigger>
+    );
+  }
+
   return (
     <DropdownMenu.Trigger
-      asChild
-      {...triggerProps}
+      type={type ?? 'button'}
+      {...sharedProps}
       className={cn(styles['dropdown-trigger'], className)}
     >
-      <div>{children}</div>
+      {children}
     </DropdownMenu.Trigger>
   );
 };
