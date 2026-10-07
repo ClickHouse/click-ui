@@ -266,8 +266,13 @@ export type { ToastProps } from './components/Toast';
 // Hooks
 // ================================================
 
-export { useInitialTheme, useToast, useCUITheme } from './hooks';
-export type { CUIThemeType, UseThemeParams } from './hooks';
+export { useInitialTheme, useIsTruncated, useToast, useCUITheme } from './hooks';
+export type {
+  CUIThemeType,
+  UseIsTruncatedOptions,
+  UseIsTruncatedResult,
+  UseThemeParams,
+} from './hooks';
 
 // Tooltip
 export { Tooltip } from './components/Tooltip/Tooltip';

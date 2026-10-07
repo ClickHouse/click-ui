@@ -9,11 +9,12 @@ import {
   useEffect,
   useId,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { mergeRefs } from '@/utils/mergeRefs';
-import { useIsTruncated } from '@/hooks/internal';
+import { useIsTruncated } from '@/hooks/useIsTruncated';
 import { Tooltip } from '@/components/Tooltip';
 import { TextTruncateProps } from './TextTruncate.types';
 import visuallyHiddenStyles from '../../styles/visually-hidden.module.css';
@@ -21,7 +22,7 @@ import styles from './TextTruncate.module.css';
 
 const NO_BREAK_SPACE = '\u00a0';
 
-const INTERACTIVE_ANCESTOR = [
+const INTERACTIVE_ELEMENT = [
   'a[href]',
   'button',
   'summary',
@@ -84,6 +85,7 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
   const { ref: measureRef, isTruncated } = useIsTruncated({ enabled: showTooltip });
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
+  const hasWarnedRef = useRef(false);
   const generatedId = useId();
   const {
     id,
@@ -108,9 +110,23 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
   );
 
   const isInsideControl = useMemo(
-    () => rootElement?.parentElement?.closest(INTERACTIVE_ANCESTOR) != null,
+    () => rootElement?.parentElement?.closest(INTERACTIVE_ELEMENT) != null,
     [rootElement]
   );
+
+  useEffect(() => {
+    if (
+      hasWarnedRef.current ||
+      tooltipContent !== undefined ||
+      !rootElement?.querySelector(INTERACTIVE_ELEMENT)
+    ) {
+      return;
+    }
+    hasWarnedRef.current = true;
+    console.warn(
+      '[Click UI] TextTruncate: `children` holds an interactive element such as a link or button, which the tooltip would copy. Pass plain text as `tooltipContent`, or, when the whole text is the link or button, render `TextTruncate` inside it.'
+    );
+  }, [rootElement, tooltipContent, children]);
 
   const mergedStyle = useMemo(
     () =>

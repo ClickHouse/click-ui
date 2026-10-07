@@ -317,6 +317,52 @@ describe('TextTruncate', () => {
     });
   });
 
+  describe('when children hold a link', () => {
+    it('warns once to pass a tooltipContent', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const { rerender } = renderCUI(
+        <TextTruncate>
+          Owned by <a href="#team">the team</a>
+        </TextTruncate>
+      );
+      rerender(
+        <TextTruncate>
+          Owned by <a href="#team">the platform team</a>
+        </TextTruncate>
+      );
+      expect(warn).toHaveBeenCalledTimes(1);
+      expect(warn.mock.calls[0][0]).toContain('tooltipContent');
+      warn.mockRestore();
+    });
+
+    it.each([
+      [
+        'a tooltipContent',
+        <TextTruncate tooltipContent="Owned by the team">
+          Owned by <a href="#team">the team</a>
+        </TextTruncate>,
+      ],
+      [
+        'showTooltip={false}',
+        <TextTruncate showTooltip={false}>
+          Owned by <a href="#team">the team</a>
+        </TextTruncate>,
+      ],
+    ])('does not warn with %s', (_, element) => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      renderCUI(element);
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
+
+    it('does not warn for plain text', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      renderCUI(<TextTruncate>{LONG_TEXT}</TextTruncate>);
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
+  });
+
   describe('with ellipsisPosition="middle"', () => {
     const FILE_NAME = 'console-export-2024-final.csv';
 
