@@ -17,6 +17,7 @@ import AWS_MSK from '../AWS_MSK';
 import AWS_RDS from '../AWS_RDS';
 import AWS_REDSHIFT from '../AWS_REDSHIFT';
 import AWS_S3 from '../AWS_S3';
+import AWS_S3_TABLES_ICEBERG from '../AWS_S3_TABLES_ICEBERG';
 import Azure from '../Azure';
 import Azure_Blob_Storage from '../Azure_Blob_Storage';
 import Azure_Event_Hub from '../Azure_Event_Hub';
@@ -74,7 +75,6 @@ import Prequel from '../Prequel';
 import Python from '../Python';
 import Redpanda from '../Redpanda';
 import Rust from '../Rust';
-import S3_TABLES_ICEBERG from '../S3_TABLES_ICEBERG';
 import Snowflake from '../Snowflake';
 import Supabase from '../Supabase';
 import Superset from '../Superset';
@@ -100,6 +100,7 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   'aws-rds': AWS_RDS,
   'aws-redshift': AWS_REDSHIFT,
   'aws-s3': AWS_S3,
+  'aws-s3-tables-iceberg': AWS_S3_TABLES_ICEBERG,
   azure: Azure,
   'azure-blob-storage': Azure_Blob_Storage,
   'azure-event-hub': Azure_Event_Hub,
@@ -157,7 +158,6 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   python: Python,
   redpanda: Redpanda,
   rust: Rust,
-  s3_tables_iceberg: S3_TABLES_ICEBERG,
   snowflake: Snowflake,
   supabase: Supabase,
   superset: Superset,

@@ -1,6 +1,6 @@
 import type { SVGAssetProps } from '@/types';
 
-const S3_TABLES_ICEBERG = (props: SVGAssetProps) => (
+const AWS_S3_TABLES_ICEBERG = (props: SVGAssetProps) => (
   <svg
     width={64}
     height={64}
@@ -16,4 +16,4 @@ const S3_TABLES_ICEBERG = (props: SVGAssetProps) => (
   </svg>
 );
 
-export default S3_TABLES_ICEBERG;
+export default AWS_S3_TABLES_ICEBERG;
