@@ -1,10 +1,14 @@
 import { type MouseEvent, type PointerEvent } from 'react';
 
-let currentPress: object | null = null;
+let currentPress: { pointerId: number } | null = null;
 const listeningDocuments = new WeakSet<Document>();
 
-const endPress = () => {
+const endPress = (event: globalThis.PointerEvent) => {
   const press = currentPress;
+  // Another pointer ending, such as a second finger, does not end this press.
+  if (!press || press.pointerId !== event.pointerId) {
+    return;
+  }
   // The click of a press comes in the same task as its pointerup, so the press ends only after it.
   setTimeout(() => {
     if (currentPress === press) {
@@ -47,7 +51,7 @@ export const useNonPointerClick = <E extends HTMLElement>({
       onPointerDown(event);
     }
     listenForPressEnd(event.currentTarget.ownerDocument);
-    currentPress = {};
+    currentPress = { pointerId: event.pointerId };
   };
 
   const handleClick = (event: MouseEvent<E>) => {

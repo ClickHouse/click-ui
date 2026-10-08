@@ -100,6 +100,39 @@ describe('useNonPointerClick', () => {
     expect(onNonPointerClick).toHaveBeenCalledTimes(1);
   });
 
+  it('does not report the click of a press that another pointer released during', async () => {
+    const user = userEvent.setup();
+    const onNonPointerClick = vi.fn();
+    const onClick = vi.fn();
+    const button = renderButton({ onNonPointerClick, onClick });
+
+    await user.pointer([
+      { keys: '[MouseLeft>]', target: button },
+      { keys: '[TouchA>]', target: document.body },
+      { keys: '[/TouchA]' },
+      { keys: '[/MouseLeft]', target: button },
+    ]);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onNonPointerClick).not.toHaveBeenCalled();
+  });
+
+  it('does not fail when a pointer is released after the press is over', async () => {
+    const errors: unknown[] = [];
+    const onError = (event: ErrorEvent) => errors.push(event.error);
+    window.addEventListener('error', onError);
+    try {
+      const button = renderButton({ onNonPointerClick: vi.fn() });
+      await userEvent.click(button);
+
+      await userEvent.click(document.body);
+
+      expect(errors).toEqual([]);
+    } finally {
+      window.removeEventListener('error', onError);
+    }
+  });
+
   it('does not report a click that onClick prevents', async () => {
     const onNonPointerClick = vi.fn();
     const onClick = vi.fn((event: MouseEvent) => event.preventDefault());
