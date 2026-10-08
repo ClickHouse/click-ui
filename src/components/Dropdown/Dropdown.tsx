@@ -10,6 +10,7 @@ import {
   isValidElement,
 } from 'react';
 import { Button } from '@/components/Button';
+import { IconButton } from '@/components/IconButton';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
 import { useInputModality } from '@/hooks/internal';
@@ -121,13 +122,17 @@ const DropdownMainTrigger = ({
   };
 
   if (asChild !== false && isValidElement(children) && children.type !== Fragment) {
+    // A click-ui Button or IconButton reads `type` as its variant and takes its native type from `htmlType`.
+    const takesHtmlType = children.type === Button || children.type === IconButton;
     return (
       <DropdownMenu.Trigger
         asChild
-        // Radix sets type="button" on its trigger, which a click-ui Button reads as its variant.
-        type={type ?? (children.type === 'button' ? 'button' : undefined)}
-        // A click-ui Button takes its native type from htmlType and submits forms without it.
-        {...(children.type === Button ? { htmlType: 'button' } : {})}
+        type={
+          takesHtmlType
+            ? undefined
+            : (type ?? (children.type === 'button' ? 'button' : undefined))
+        }
+        {...(takesHtmlType ? { htmlType: type ?? 'button' } : {})}
         {...sharedProps}
         className={className}
       >

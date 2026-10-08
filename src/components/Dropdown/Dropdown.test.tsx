@@ -3,6 +3,7 @@ import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
+import { IconButton } from '@/components/IconButton';
 import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
@@ -396,21 +397,6 @@ describe('Dropdown', () => {
       expect(onSubmit).not.toHaveBeenCalled();
     });
 
-    it("keeps a Button child's own htmlType", () => {
-      const { getByRole } = renderCUI(
-        <Dropdown>
-          <Dropdown.Trigger>
-            <Button htmlType="submit">Save</Button>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            <Dropdown.Item>Rename</Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
-      );
-
-      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
-    });
-
     it('does not pass htmlType to a native button child', () => {
       const { getByRole } = renderCUI(
         <Dropdown>
@@ -426,6 +412,54 @@ describe('Dropdown', () => {
       const trigger = getByRole('button', { name: 'Actions' });
       expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
       expect(trigger).not.toHaveAttribute('htmltype');
+    });
+
+    it("passes the trigger's type to a native button child", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <button>Save</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it("passes the trigger's type to a Button child as its native type", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <Button>Save</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it("passes the trigger's type to an IconButton child as its native type", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <IconButton
+              icon="dots-vertical"
+              aria-label="More"
+            />
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'More' })).toHaveAttribute('type', 'submit');
     });
 
     it('keeps a native button child from submitting its form', async () => {
