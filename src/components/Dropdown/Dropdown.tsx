@@ -21,6 +21,9 @@ import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
+// Radix takes the padding as a number of pixels, so it cannot come from a CSS token.
+const COLLISION_PADDING = 8;
+
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
 );
@@ -165,7 +168,7 @@ const DropdownContent = ({
         sideOffset={4}
         loop
         avoidCollisions={responsivePositioning}
-        collisionPadding={responsivePositioning ? 100 : undefined}
+        collisionPadding={responsivePositioning ? COLLISION_PADDING : undefined}
         {...inputModalityProps}
       >
         {showArrow && (
