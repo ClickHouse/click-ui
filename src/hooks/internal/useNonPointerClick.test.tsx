@@ -1,16 +1,16 @@
 import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type MouseEvent, type PointerEvent } from 'react';
-import { useBareClick } from './useBareClick';
+import { useNonPointerClick } from './useNonPointerClick';
 
 interface TestButtonProps {
-  onBareClick: () => void;
+  onNonPointerClick: () => void;
   onPointerDown?: (event: PointerEvent<HTMLButtonElement>) => void;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TestButton = (props: TestButtonProps) => {
-  const handlers = useBareClick<HTMLButtonElement>(props);
+  const handlers = useNonPointerClick<HTMLButtonElement>(props);
   return <button {...handlers}>Press</button>;
 };
 
@@ -29,40 +29,40 @@ const activateWithVoiceOver = async (element: HTMLElement) => {
   await user.keyboard('{/Alt}{/Control}');
 };
 
-describe('useBareClick', () => {
-  it('reports a VoiceOver activation', async () => {
-    const onBareClick = vi.fn();
-    const button = renderButton({ onBareClick });
+describe('useNonPointerClick', () => {
+  it('reports a click without a pointer press', async () => {
+    const onNonPointerClick = vi.fn();
+    const button = renderButton({ onNonPointerClick });
 
     await activateWithVoiceOver(button);
 
-    expect(onBareClick).toHaveBeenCalledTimes(1);
+    expect(onNonPointerClick).toHaveBeenCalledTimes(1);
   });
 
   it('does not report the click of a pointer press on the element', async () => {
-    const onBareClick = vi.fn();
+    const onNonPointerClick = vi.fn();
     const onClick = vi.fn();
-    const button = renderButton({ onBareClick, onClick });
+    const button = renderButton({ onNonPointerClick, onClick });
 
     await userEvent.click(button);
 
     expect(onClick).toHaveBeenCalledTimes(1);
-    expect(onBareClick).not.toHaveBeenCalled();
+    expect(onNonPointerClick).not.toHaveBeenCalled();
   });
 
-  it('reports a VoiceOver activation after a pointer click', async () => {
-    const onBareClick = vi.fn();
-    const button = renderButton({ onBareClick });
+  it('reports a click without a pointer press after a pointer click', async () => {
+    const onNonPointerClick = vi.fn();
+    const button = renderButton({ onNonPointerClick });
     await userEvent.click(button);
 
     await activateWithVoiceOver(button);
 
-    expect(onBareClick).toHaveBeenCalledTimes(1);
+    expect(onNonPointerClick).toHaveBeenCalledTimes(1);
   });
 
-  it('reports a VoiceOver activation after a press that ended off the element', async () => {
-    const onBareClick = vi.fn();
-    const button = renderButton({ onBareClick });
+  it('reports a click without a pointer press after a press that ended off the element', async () => {
+    const onNonPointerClick = vi.fn();
+    const button = renderButton({ onNonPointerClick });
     await userEvent.pointer([
       { keys: '[MouseLeft>]', target: button },
       { target: document.documentElement },
@@ -71,25 +71,25 @@ describe('useBareClick', () => {
 
     await activateWithVoiceOver(button);
 
-    expect(onBareClick).toHaveBeenCalledTimes(1);
+    expect(onNonPointerClick).toHaveBeenCalledTimes(1);
   });
 
-  it('reports a VoiceOver activation after a cancelled press', async () => {
-    const onBareClick = vi.fn();
-    const button = renderButton({ onBareClick });
+  it('reports a click without a pointer press after a cancelled press', async () => {
+    const onNonPointerClick = vi.fn();
+    const button = renderButton({ onNonPointerClick });
     fireEvent.pointerDown(button);
     fireEvent.pointerCancel(button);
 
     await activateWithVoiceOver(button);
 
-    expect(onBareClick).toHaveBeenCalledTimes(1);
+    expect(onNonPointerClick).toHaveBeenCalledTimes(1);
   });
 
-  it('reports a VoiceOver activation after a press whose pointerup a parent stopped', async () => {
-    const onBareClick = vi.fn();
+  it('reports a click without a pointer press after a press whose pointerup a parent stopped', async () => {
+    const onNonPointerClick = vi.fn();
     const { getByRole } = render(
       <div onPointerUp={event => event.stopPropagation()}>
-        <TestButton onBareClick={onBareClick} />
+        <TestButton onNonPointerClick={onNonPointerClick} />
       </div>
     );
     const button = getByRole('button', { name: 'Press' });
@@ -97,24 +97,24 @@ describe('useBareClick', () => {
 
     await activateWithVoiceOver(button);
 
-    expect(onBareClick).toHaveBeenCalledTimes(1);
+    expect(onNonPointerClick).toHaveBeenCalledTimes(1);
   });
 
   it('does not report a click that onClick prevents', async () => {
-    const onBareClick = vi.fn();
+    const onNonPointerClick = vi.fn();
     const onClick = vi.fn((event: MouseEvent) => event.preventDefault());
-    const button = renderButton({ onBareClick, onClick });
+    const button = renderButton({ onNonPointerClick, onClick });
 
     await activateWithVoiceOver(button);
 
     expect(onClick).toHaveBeenCalledTimes(1);
-    expect(onBareClick).not.toHaveBeenCalled();
+    expect(onNonPointerClick).not.toHaveBeenCalled();
   });
 
   it('calls the given onPointerDown and onClick', async () => {
     const onPointerDown = vi.fn();
     const onClick = vi.fn();
-    const button = renderButton({ onBareClick: vi.fn(), onPointerDown, onClick });
+    const button = renderButton({ onNonPointerClick: vi.fn(), onPointerDown, onClick });
 
     await userEvent.click(button);
 

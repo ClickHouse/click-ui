@@ -23,25 +23,25 @@ const listenForPressEnd = (document: Document) => {
   document.addEventListener('pointercancel', endPress, true);
 };
 
-interface UseBareClickOptions<E extends HTMLElement> {
+interface UseNonPointerClickOptions<E extends HTMLElement> {
   /** Called for a click that is not part of a pointer press. */
-  onBareClick: () => void;
+  onNonPointerClick: () => void;
   onPointerDown?: (event: PointerEvent<E>) => void;
   onClick?: (event: MouseEvent<E>) => void;
 }
 
 /**
  * Workaround for radix-ui/primitives#1963: Radix triggers that act on pointerdown ignore
- * the bare click that assistive tech such as VoiceOver sends.
+ * the click without a pointer press that assistive tech such as VoiceOver sends.
  *
  * Returns `onPointerDown` and `onClick` for the element. They call the given handlers first,
- * then `onBareClick` for a click that is not prevented and not part of a pointer press.
+ * then `onNonPointerClick` for a click that is not prevented and not part of a pointer press.
  */
-export const useBareClick = <E extends HTMLElement>({
-  onBareClick,
+export const useNonPointerClick = <E extends HTMLElement>({
+  onNonPointerClick,
   onPointerDown,
   onClick,
-}: UseBareClickOptions<E>) => {
+}: UseNonPointerClickOptions<E>) => {
   const handlePointerDown = (event: PointerEvent<E>) => {
     if (onPointerDown) {
       onPointerDown(event);
@@ -58,7 +58,7 @@ export const useBareClick = <E extends HTMLElement>({
     if (currentPress || event.defaultPrevented) {
       return;
     }
-    onBareClick();
+    onNonPointerClick();
   };
 
   return { onPointerDown: handlePointerDown, onClick: handleClick };

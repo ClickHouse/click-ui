@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/Button';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
-import { useBareClick, useInputModality } from '@/hooks/internal';
+import { useNonPointerClick, useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
 import type { IconWrapperProps } from '@/components/IconWrapper';
@@ -26,7 +26,7 @@ import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
-// Workaround for radix-ui/primitives#1963: Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a bare click.
+// Workaround for radix-ui/primitives#1963: Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a click without a pointer press.
 const DropdownOpenContext = createContext<((open: boolean) => void) | null>(null);
 
 export const Dropdown = ({
@@ -143,8 +143,8 @@ const DropdownMainTrigger = ({
   ...triggerProps
 }: DropdownTriggerProps) => {
   const setOpen = useContext(DropdownOpenContext);
-  const bareClickHandlers = useBareClick<HTMLButtonElement>({
-    onBareClick: () => {
+  const nonPointerClickHandlers = useNonPointerClick<HTMLButtonElement>({
+    onNonPointerClick: () => {
       if (!disabled && setOpen) {
         setOpen(true);
       }
@@ -156,7 +156,7 @@ const DropdownMainTrigger = ({
   const sharedProps = {
     disabled,
     'aria-disabled': disabled || undefined,
-    ...bareClickHandlers,
+    ...nonPointerClickHandlers,
     ...triggerProps,
   };
 

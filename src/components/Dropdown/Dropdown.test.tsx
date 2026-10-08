@@ -450,7 +450,7 @@ describe('Dropdown', () => {
     });
   });
 
-  describe('bare click workaround (radix-ui/primitives#1963)', () => {
+  describe('non-pointer click workaround (radix-ui/primitives#1963)', () => {
     // VoiceOver in Safari and Firefox: the VO keys, then mousedown, mouseup and click, with no pointer events.
     const activateWithVoiceOver = async (element: HTMLElement) => {
       const user = userEvent.setup();
