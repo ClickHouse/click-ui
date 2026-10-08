@@ -5,6 +5,7 @@ import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
+  ForwardedRef,
   Fragment,
   ReactNode,
   createContext,
@@ -12,7 +13,6 @@ import {
   isValidElement,
   useContext,
 } from 'react';
-import { Button } from '@/components/Button';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
 import { useNonPointerClick, useInputModality } from '@/hooks/internal';
@@ -23,8 +23,12 @@ import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/Icon';
 import type { HorizontalDirection } from '@/types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
+import { nativeButtonTypeProps } from '@/utils/buttonType';
 import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
+
+// Radix takes the padding as a number of pixels, so it cannot come from a CSS token.
+const COLLISION_PADDING = 8;
 
 // Workaround for radix-ui/primitives#1963: Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a click without a pointer press.
 const DropdownOpenContext = createContext<((open: boolean) => void) | null>(null);
@@ -164,10 +168,7 @@ const DropdownMainTrigger = ({
     return (
       <DropdownMenu.Trigger
         asChild
-        // Radix sets type="button" on its trigger, which a click-ui Button reads as its variant.
-        type={type ?? (children.type === 'button' ? 'button' : undefined)}
-        // A click-ui Button takes its native type from htmlType and submits forms without it.
-        {...(children.type === Button ? { htmlType: 'button' } : {})}
+        {...nativeButtonTypeProps(children.type, type)}
         {...sharedProps}
         className={className}
       >
@@ -247,7 +248,7 @@ const DropdownContent = ({
         sideOffset={4}
         loop
         avoidCollisions={responsivePositioning}
-        collisionPadding={responsivePositioning ? 100 : undefined}
+        collisionPadding={responsivePositioning ? COLLISION_PADDING : undefined}
         {...inputModalityProps}
       >
         {showArrow && (
@@ -289,33 +290,30 @@ const DropdownSub = (props: DropdownMenu.DropdownMenuSubProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-const DropdownItem = ({
-  icon,
-  iconDir,
-  type = 'default',
-  tooltipProps,
-  ...props
-}: DropdownItemProps) => {
-  const renderLabel = (label: ReactNode) => (
-    <IconWrapper
-      icon={icon}
-      iconDir={iconDir}
-      tooltipProps={{ side: 'right', ...tooltipProps }}
-    >
-      {label}
-    </IconWrapper>
-  );
+const DropdownItem = forwardRef<HTMLElement, DropdownItemProps>(
+  ({ icon, iconDir, type = 'default', tooltipProps, ...props }, ref) => {
+    const renderLabel = (label: ReactNode) => (
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+        tooltipProps={{ side: 'right', ...tooltipProps }}
+      >
+        {label}
+      </IconWrapper>
+    );
 
-  return (
-    <DropdownMenuItem
-      as={DropdownMenu.Item}
-      type={type}
-      {...props}
-    >
-      <Slottable child={props.children}>{renderLabel}</Slottable>
-    </DropdownMenuItem>
-  );
-};
+    return (
+      <DropdownMenuItem
+        ref={ref as ForwardedRef<HTMLDivElement>}
+        as={DropdownMenu.Item}
+        type={type}
+        {...props}
+      >
+        <Slottable child={props.children}>{renderLabel}</Slottable>
+      </DropdownMenuItem>
+    );
+  }
+);
 
 DropdownItem.displayName = 'DropdownItem';
 Dropdown.Item = DropdownItem;

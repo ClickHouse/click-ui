@@ -1,6 +1,8 @@
 export { useToast } from './useToast';
 export { useInitialTheme } from './useInitialTheme';
 export type { UseThemeParams } from './useInitialTheme';
+export { useIsTruncated } from './useIsTruncated';
+export type { UseIsTruncatedOptions, UseIsTruncatedResult } from './useIsTruncated';
 
 /**
  * @deprecated This hook is deprecated and will be removed in a future version.

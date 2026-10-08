@@ -1,8 +1,10 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
+import { IconButton } from '@/components/IconButton';
 import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
@@ -396,21 +398,6 @@ describe('Dropdown', () => {
       expect(onSubmit).not.toHaveBeenCalled();
     });
 
-    it("keeps a Button child's own htmlType", () => {
-      const { getByRole } = renderCUI(
-        <Dropdown>
-          <Dropdown.Trigger>
-            <Button htmlType="submit">Save</Button>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            <Dropdown.Item>Rename</Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
-      );
-
-      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
-    });
-
     it('does not pass htmlType to a native button child', () => {
       const { getByRole } = renderCUI(
         <Dropdown>
@@ -426,6 +413,54 @@ describe('Dropdown', () => {
       const trigger = getByRole('button', { name: 'Actions' });
       expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
       expect(trigger).not.toHaveAttribute('htmltype');
+    });
+
+    it("passes the trigger's type to a native button child", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <button>Save</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it("passes the trigger's type to a Button child as its native type", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <Button>Save</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it("passes the trigger's type to an IconButton child as its native type", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <IconButton
+              icon="dots-vertical"
+              aria-label="More"
+            />
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'More' })).toHaveAttribute('type', 'submit');
     });
 
     it('keeps a native button child from submitting its form', async () => {
@@ -448,6 +483,45 @@ describe('Dropdown', () => {
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
       expect(onSubmit).not.toHaveBeenCalled();
     });
+  });
+
+  it('should point a ref passed to Dropdown.Item at the menu item', async () => {
+    const ref = createRef<HTMLElement>();
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item ref={ref}>Settings</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    expect(ref.current).toBe(getByRole('menuitem', { name: 'Settings' }));
+  });
+
+  it('should point a ref passed to an asChild Dropdown.Item at the child element', async () => {
+    const ref = createRef<HTMLAnchorElement>();
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item
+            asChild
+            ref={ref}
+          >
+            <a href="https://docs.example/">Docs</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    const item = getByRole('menuitem', { name: 'Docs' });
+    expect(item.tagName).toBe('A');
+    expect(ref.current).toBe(item);
   });
 
   describe('non-pointer click workaround (radix-ui/primitives#1963)', () => {

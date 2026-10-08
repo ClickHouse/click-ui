@@ -58,6 +58,9 @@ const EllipsisContentComponent = <T extends ElementType = 'div'>(
   );
 };
 
+/**
+ * @deprecated Use `TextTruncate` instead. This component will be removed in a future version.
+ */
 export const EllipsisContent: EllipsisPolymorphicComponent = forwardRef(
   EllipsisContentComponent
 );
