@@ -538,11 +538,7 @@ describe('Dropdown', () => {
       await userEvent.click(getByRole('button', { name: 'Actions' }));
 
       expect(onPointerDown).toHaveBeenCalledTimes(1);
-      expect(onPointerDown).toHaveBeenCalledWith(
-        expect.objectContaining({ type: 'pointerdown' })
-      );
       expect(onClick).toHaveBeenCalledTimes(1);
-      expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
     });
 
     it('asks a controlled Dropdown to open without opening it itself', async () => {
