@@ -5,6 +5,14 @@ const meta: Meta<typeof EllipsisContent> = {
   component: EllipsisContent,
   title: 'Display/EllipsisContent',
   tags: ['ellipsis-content', 'autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '**Deprecated:** superseded by `TextTruncate`, which adds keyboard access, a hoverable tooltip, live re-measuring and middle truncation. `EllipsisContent` keeps working unchanged and will be removed in a future version.',
+      },
+    },
+  },
   // EllipsisContent fills its parent's width and truncates overflowing text with
   // an ellipsis. The decorator constrains the available width so the truncation
   // (or lack of it) is measurable in the snapshot.

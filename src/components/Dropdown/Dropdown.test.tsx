@@ -1,6 +1,7 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
+import { createRef } from 'react';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
 import { IconButton } from '@/components/IconButton';
@@ -482,5 +483,44 @@ describe('Dropdown', () => {
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
       expect(onSubmit).not.toHaveBeenCalled();
     });
+  });
+
+  it('should point a ref passed to Dropdown.Item at the menu item', async () => {
+    const ref = createRef<HTMLElement>();
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item ref={ref}>Settings</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    expect(ref.current).toBe(getByRole('menuitem', { name: 'Settings' }));
+  });
+
+  it('should point a ref passed to an asChild Dropdown.Item at the child element', async () => {
+    const ref = createRef<HTMLAnchorElement>();
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content>
+          <Dropdown.Item
+            asChild
+            ref={ref}
+          >
+            <a href="https://docs.example/">Docs</a>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    const item = getByRole('menuitem', { name: 'Docs' });
+    expect(item.tagName).toBe('A');
+    expect(ref.current).toBe(item);
   });
 });

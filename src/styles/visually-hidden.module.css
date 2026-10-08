@@ -1,0 +1,13 @@
+/* Visually hidden, still read by assistive technology. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  white-space: nowrap;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- `clip-path: inset()` works in every .browserslistrc target; the warning is about other clip-path values */
+  clip-path: inset(50%);
+}
