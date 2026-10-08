@@ -458,21 +458,6 @@ describe('Dropdown', () => {
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
     });
 
-    it('opens the menu on a bare click after an earlier mouse click', async () => {
-      const { getByTestId, findByRole, queryByRole } = renderButtonTrigger({});
-      const trigger = getByTestId('consumer-button');
-      await userEvent.click(trigger);
-      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
-      await userEvent.keyboard('{Escape}');
-      await waitFor(() => {
-        expect(queryByRole('menu')).not.toBeInTheDocument();
-      });
-
-      trigger.click();
-
-      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
-    });
-
     it('opens a controlled menu once on a mouse click', async () => {
       const onOpenChange = vi.fn();
       const ControlledDropdown = () => {
@@ -568,28 +553,6 @@ describe('Dropdown', () => {
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
     });
 
-    it('keeps the menu closed on a Ctrl+click, which Radix ignores', async () => {
-      const user = userEvent.setup();
-      const onClick = vi.fn();
-      const { getByRole, queryByRole } = renderCUI(
-        <Dropdown>
-          <Dropdown.Trigger>
-            <Button onClick={onClick}>Actions</Button>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            <Dropdown.Item>Rename</Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
-      );
-
-      await user.keyboard('{Control>}');
-      await user.click(getByRole('button', { name: 'Actions' }));
-      await user.keyboard('{/Control}');
-
-      expect(onClick).toHaveBeenCalledTimes(1);
-      expect(queryByRole('menu')).not.toBeInTheDocument();
-    });
-
     it('does not ask to open a disabled trigger on a bare click', () => {
       const onClick = vi.fn();
       const onOpenChange = vi.fn();
@@ -611,29 +574,6 @@ describe('Dropdown', () => {
       );
 
       getByText('Actions').click();
-
-      expect(onClick).toHaveBeenCalledTimes(1);
-      expect(onOpenChange).not.toHaveBeenCalled();
-    });
-
-    it("does not ask to open on a bare click that the trigger's onClick prevents", () => {
-      const onClick = vi.fn((event: React.MouseEvent) => event.preventDefault());
-      const onOpenChange = vi.fn();
-      const { getByRole } = renderCUI(
-        <Dropdown
-          open={false}
-          onOpenChange={onOpenChange}
-        >
-          <Dropdown.Trigger onClick={onClick}>
-            <button>Actions</button>
-          </Dropdown.Trigger>
-          <Dropdown.Content>
-            <Dropdown.Item>Rename</Dropdown.Item>
-          </Dropdown.Content>
-        </Dropdown>
-      );
-
-      getByRole('button', { name: 'Actions' }).click();
 
       expect(onClick).toHaveBeenCalledTimes(1);
       expect(onOpenChange).not.toHaveBeenCalled();

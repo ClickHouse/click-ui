@@ -6,19 +6,16 @@ import {
   ComponentPropsWithRef,
   ElementType,
   Fragment,
-  MouseEvent,
-  PointerEvent,
   ReactNode,
   createContext,
   forwardRef,
   isValidElement,
   useContext,
-  useRef,
 } from 'react';
 import { Button } from '@/components/Button';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
-import { useInputModality } from '@/hooks/internal';
+import { useBareClick, useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
 import type { IconWrapperProps } from '@/components/IconWrapper';
@@ -29,7 +26,7 @@ import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
 
-// Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a bare click.
+// Workaround for radix-ui/primitives#1963: Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a bare click.
 const DropdownOpenContext = createContext<((open: boolean) => void) | null>(null);
 
 export const Dropdown = ({
@@ -146,35 +143,17 @@ const DropdownMainTrigger = ({
   ...triggerProps
 }: DropdownTriggerProps) => {
   const setOpen = useContext(DropdownOpenContext);
-  const pointerDownRef = useRef(false);
-
-  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
-    if (onPointerDown) {
-      onPointerDown(event);
-    }
-    pointerDownRef.current = true;
-  };
-
-  // Radix opens only on pointerdown and Enter/Space; assistive tech such as VoiceOver
-  // sends a bare click (radix-ui/primitives#1963).
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    if (onClick) {
-      onClick(event);
-    }
-    // A click after a pointerdown is Radix's to handle, whether it toggled the menu or not.
-    const afterPointerDown = pointerDownRef.current;
-    pointerDownRef.current = false;
-    if (afterPointerDown || disabled || event.defaultPrevented || !setOpen) {
-      return;
-    }
-    setOpen(true);
-  };
+  const bareClickHandlers = useBareClick<HTMLButtonElement>({
+    onBareClick: () => setOpen?.(true),
+    disabled,
+    onPointerDown,
+    onClick,
+  });
 
   const sharedProps = {
     disabled,
     'aria-disabled': disabled || undefined,
-    onClick: handleClick,
-    onPointerDown: handlePointerDown,
+    ...bareClickHandlers,
     ...triggerProps,
   };
 
