@@ -1,4 +1,4 @@
-import { type MouseEvent, type PointerEvent, useRef } from 'react';
+import { type MouseEvent, type PointerEvent, useEffect, useRef } from 'react';
 
 interface UseBareClickOptions<E extends HTMLElement> {
   /** Called for a click that no pointerdown on the element came before. */
@@ -23,12 +23,42 @@ export const useBareClick = <E extends HTMLElement>({
   onClick,
 }: UseBareClickOptions<E>) => {
   const pointerDownRef = useRef(false);
+  const releasePressRef = useRef<(() => void) | null>(null);
+
+  useEffect(
+    () => () => {
+      releasePressRef.current?.();
+    },
+    []
+  );
 
   const handlePointerDown = (event: PointerEvent<E>) => {
     if (onPointerDown) {
       onPointerDown(event);
     }
+    releasePressRef.current?.();
     pointerDownRef.current = true;
+
+    // Captured on the root, because a press can end off the element or under a modal menu that turns off pointer events.
+    const root = event.currentTarget.ownerDocument.documentElement;
+    let clearTimer: ReturnType<typeof setTimeout> | undefined;
+    const removeListeners = () => {
+      root.removeEventListener('pointerup', handlePressEnd, true);
+      root.removeEventListener('pointercancel', handlePressEnd, true);
+    };
+    const handlePressEnd = () => {
+      removeListeners();
+      // A click from the same press arrives before the next task, so the flag lasts for that click and no longer.
+      clearTimer = setTimeout(() => {
+        pointerDownRef.current = false;
+      }, 0);
+    };
+    root.addEventListener('pointerup', handlePressEnd, true);
+    root.addEventListener('pointercancel', handlePressEnd, true);
+    releasePressRef.current = () => {
+      removeListeners();
+      clearTimeout(clearTimer);
+    };
   };
 
   const handleClick = (event: MouseEvent<E>) => {
@@ -36,9 +66,7 @@ export const useBareClick = <E extends HTMLElement>({
       onClick(event);
     }
     // A click after a pointerdown is Radix's to handle, whether it acted on the press or not.
-    const afterPointerDown = pointerDownRef.current;
-    pointerDownRef.current = false;
-    if (afterPointerDown || disabled || event.defaultPrevented) {
+    if (pointerDownRef.current || disabled || event.defaultPrevented) {
       return;
     }
     onBareClick();
