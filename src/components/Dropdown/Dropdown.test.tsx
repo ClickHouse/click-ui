@@ -451,6 +451,16 @@ describe('Dropdown', () => {
   });
 
   describe('bare click workaround (radix-ui/primitives#1963)', () => {
+    // VoiceOver in Safari and Firefox: the VO keys, then mousedown, mouseup and click, with no pointer events.
+    const activateWithVoiceOver = async (element: HTMLElement) => {
+      const user = userEvent.setup();
+      await user.keyboard('{Control>}{Alt>}');
+      fireEvent.mouseDown(element);
+      fireEvent.mouseUp(element);
+      fireEvent.click(element);
+      await user.keyboard('{/Alt}{/Control}');
+    };
+
     const renderButtonTrigger = (props: DropdownMenuProps) =>
       renderCUI(
         <Dropdown {...props}>
@@ -463,10 +473,10 @@ describe('Dropdown', () => {
         </Dropdown>
       );
 
-    it('opens the menu on a click without a pointer press', async () => {
+    it('opens the menu on a VoiceOver activation', async () => {
       const { getByRole, findByRole } = renderButtonTrigger({});
 
-      fireEvent.click(getByRole('button', { name: 'Actions' }));
+      await activateWithVoiceOver(getByRole('button', { name: 'Actions' }));
 
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
     });
@@ -482,7 +492,7 @@ describe('Dropdown', () => {
       expect(trigger).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('does not ask a disabled trigger to open on a click without a pointer press', () => {
+    it('does not ask a disabled trigger to open on a VoiceOver activation', async () => {
       const onClick = vi.fn();
       const onOpenChange = vi.fn();
       const { getByRole } = renderCUI(
@@ -502,7 +512,7 @@ describe('Dropdown', () => {
         </Dropdown>
       );
 
-      fireEvent.click(getByRole('link', { name: 'Actions' }));
+      await activateWithVoiceOver(getByRole('link', { name: 'Actions' }));
 
       expect(onClick).toHaveBeenCalledTimes(1);
       expect(onOpenChange).not.toHaveBeenCalled();
@@ -542,7 +552,7 @@ describe('Dropdown', () => {
         onOpenChange,
       });
 
-      fireEvent.click(getByRole('button', { name: 'Actions' }));
+      await activateWithVoiceOver(getByRole('button', { name: 'Actions' }));
 
       expect(onOpenChange).toHaveBeenCalledWith(true);
       expect(queryByRole('menu')).not.toBeInTheDocument();
