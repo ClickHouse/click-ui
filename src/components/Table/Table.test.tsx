@@ -1,4 +1,5 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Table, TableProps } from '@/components/Table';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -244,5 +245,141 @@ describe('Table', () => {
 
     expect(resizers[0]).toHaveAttribute('tabIndex', '0');
     expect(resizers[1]).toHaveAttribute('tabIndex', '0');
+  });
+
+  describe('sortable headers', () => {
+    const sortableHeaders = [
+      { label: 'Company', isSortable: true, sortDir: 'asc' as const },
+      { label: 'Contact', isSortable: true },
+      { label: 'Country' },
+    ];
+
+    it('renders sortable headers as buttons named after the label', () => {
+      const { getByRole } = renderCUI(
+        <Table
+          headers={sortableHeaders}
+          rows={rows}
+          onSort={vi.fn()}
+        />
+      );
+
+      expect(getByRole('button', { name: 'Company' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Contact' })).toBeInTheDocument();
+      const country = getByRole('columnheader', { name: 'Country' });
+      expect(within(country).queryByRole('button')).toBeNull();
+    });
+
+    it('renders no header button when onSort is missing', () => {
+      const { getAllByRole } = renderCUI(
+        <Table
+          headers={sortableHeaders}
+          rows={rows}
+        />
+      );
+
+      getAllByRole('columnheader').forEach(header => {
+        expect(within(header).queryByRole('button')).toBeNull();
+      });
+    });
+
+    it('is reachable with Tab and sorts with Enter and Space', async () => {
+      const user = userEvent.setup();
+      const onSort = vi.fn();
+      const { getByRole } = renderCUI(
+        <Table
+          headers={sortableHeaders}
+          rows={rows}
+          onSort={onSort}
+        />
+      );
+
+      await user.tab();
+      expect(getByRole('button', { name: 'Company' })).toHaveFocus();
+
+      await user.keyboard('{Enter}');
+      expect(onSort).toHaveBeenCalledTimes(1);
+      expect(onSort).toHaveBeenLastCalledWith('desc', sortableHeaders[0], 0);
+
+      await user.tab();
+      expect(getByRole('button', { name: 'Contact' })).toHaveFocus();
+
+      await user.keyboard(' ');
+      expect(onSort).toHaveBeenCalledTimes(2);
+      expect(onSort).toHaveBeenLastCalledWith('asc', sortableHeaders[1], 1);
+    });
+
+    it('exposes aria-sort on the sorted column only', () => {
+      const { getByRole } = renderCUI(
+        <Table
+          headers={sortableHeaders}
+          rows={rows}
+          onSort={vi.fn()}
+        />
+      );
+
+      expect(getByRole('columnheader', { name: 'Company' })).toHaveAttribute(
+        'aria-sort',
+        'ascending'
+      );
+      expect(getByRole('columnheader', { name: 'Contact' })).not.toHaveAttribute(
+        'aria-sort'
+      );
+      expect(getByRole('columnheader', { name: 'Country' })).not.toHaveAttribute(
+        'aria-sort'
+      );
+    });
+
+    it('maps a descending sortDir to aria-sort="descending"', () => {
+      const { getByRole } = renderCUI(
+        <Table
+          headers={[{ label: 'Company', isSortable: true, sortDir: 'desc' }]}
+          rows={[]}
+          onSort={vi.fn()}
+        />
+      );
+
+      expect(getByRole('columnheader', { name: 'Company' })).toHaveAttribute(
+        'aria-sort',
+        'descending'
+      );
+    });
+  });
+
+  it('names the header button with a consumer aria-label', () => {
+    const { getByRole } = renderCUI(
+      <Table
+        headers={[{ label: 'Company', isSortable: true, 'aria-label': 'Company name' }]}
+        rows={[]}
+        onSort={vi.fn()}
+      />
+    );
+
+    expect(getByRole('button', { name: 'Company name' })).toBeInTheDocument();
+    expect(getByRole('columnheader', { name: 'Company name' })).toBeInTheDocument();
+  });
+
+  it('reports the column width and range on the resizer and updates it on ArrowRight', () => {
+    const rect = vi
+      .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+      .mockReturnValue({ width: 200 } as DOMRect);
+
+    try {
+      const { getAllByRole } = renderTable({ resizableColumns: true });
+      const resizer = getAllByRole('separator')[0];
+
+      expect(resizer).toHaveAttribute('tabIndex', '0');
+      expect(resizer).toHaveAttribute('aria-valuenow', '200');
+      expect(resizer).toHaveAttribute('aria-valuemin', '120');
+      expect(resizer).toHaveAttribute('aria-valuemax', '280');
+      expect(resizer).toHaveAttribute('aria-valuetext', '200 pixels');
+
+      fireEvent.keyDown(resizer, { key: 'ArrowRight' });
+
+      expect(resizer).toHaveAttribute('aria-valuenow', '202');
+      expect(resizer).toHaveAttribute('aria-valuetext', '202 pixels');
+      expect(resizer).toHaveAttribute('aria-valuemax', '280');
+    } finally {
+      rect.mockRestore();
+    }
   });
 });
