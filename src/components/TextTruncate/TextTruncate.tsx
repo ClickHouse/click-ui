@@ -17,7 +17,6 @@ import { mergeRefs } from '@/utils/mergeRefs';
 import { useIsTruncated } from '@/hooks/useIsTruncated';
 import { Tooltip } from '@/components/Tooltip';
 import { TextTruncateProps } from './TextTruncate.types';
-import visuallyHiddenStyles from '../../styles/visually-hidden.module.css';
 import styles from './TextTruncate.module.css';
 
 const NO_BREAK_SPACE = '\u00a0';
@@ -43,6 +42,7 @@ const INTERACTIVE_ELEMENT = [
 const textTruncateVariants = cva(styles['text-truncate'], {
   variants: {
     middle: { true: styles['text-truncate_pos-middle'] },
+    split: { true: styles['text-truncate_split'] },
   },
 });
 
@@ -155,7 +155,10 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
         tooltipContent === undefined && { 'aria-describedby': undefined })}
       {...props}
       style={mergedStyle}
-      className={cn(textTruncateVariants({ middle: isMiddle }), className)}
+      className={cn(
+        textTruncateVariants({ middle: isMiddle, split: end !== '' }),
+        className
+      )}
     >
       {isMiddle ? (
         <>
@@ -174,14 +177,7 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
               >
                 {end}
               </span>
-              <span
-                className={cn(
-                  visuallyHiddenStyles['sr-only'],
-                  styles['text-truncate__label']
-                )}
-              >
-                {middleText}
-              </span>
+              <span className={styles['text-truncate__label']}>{middleText}</span>
             </>
           )}
         </>

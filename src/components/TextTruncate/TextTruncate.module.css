@@ -17,6 +17,12 @@
   display: flex;
 }
 
+/* Isolated so the full-text copy at z-index -1 stays above the backgrounds of ancestors. */
+.text-truncate_split {
+  position: relative;
+  isolation: isolate;
+}
+
 /* Inset so ancestors with `overflow: hidden` cannot clip the ring. */
 .text-truncate:focus-visible {
   outline: 2px solid var(--click-global-color-outline-default);
@@ -36,9 +42,25 @@
   text-overflow: ellipsis;
 }
 
-/* copy for AT */
-.text-truncate__label {
+.text-truncate_split .text-truncate__start,
+.text-truncate_split .text-truncate__end {
+  pointer-events: none;
   /* stylelint-disable-next-line property-no-vendor-prefix -- Safari still needs the prefix and the build has no autoprefixer */
   -webkit-user-select: none;
   user-select: none;
+}
+
+/* Full text behind the halves: what screen readers read and what a click, triple-click or copy selects. */
+.text-truncate__label {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  color: transparent;
+  forced-color-adjust: none;
+}
+
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features -- iOS Safari ignores `::selection` and draws its own selection UI */
+.text-truncate__label::selection {
+  background-color: highlight;
 }
