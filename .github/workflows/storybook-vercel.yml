@@ -137,9 +137,17 @@ jobs:
         if: github.ref_type == 'tag'
         run: npm pkg set version="${GITHUB_REF_NAME#v}"
 
+      - name: Set the canary version
+        # A canary-only build shows the version publish.yml gives this commit on npm.
+        if: steps.channels.outputs.deploy_canary == 'true' && steps.channels.outputs.deploy_release != 'true'
+        run: |
+          VERSION=$(.scripts/bash/canary-version "$GITHUB_SHA")
+          npm pkg set version="$VERSION"
+
       - name: Build Storybook
         # The version badge in the Storybook UI comes from package.json on the
-        # checked-out ref, corrected to the tag name on tag refs (see above).
+        # checked-out ref, corrected to the tag name on tag refs and to the npm
+        # canary version on canary-only builds (see above).
         shell: bash
         run: |
           VERSION=$(node -p "require('./package.json').version")

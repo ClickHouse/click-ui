@@ -149,6 +149,8 @@ export type IconName =
   | 'settings'
   | 'share'
   | 'share-network'
+  | 'sidebar-left'
+  | 'sidebar-right'
   | 'sleep'
   | 'slide-in'
   | 'slide-out'
