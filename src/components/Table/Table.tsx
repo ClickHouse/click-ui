@@ -35,7 +35,10 @@ type TableSize = 'sm' | 'md';
 // truncate-middle: text cuts in middle, shows start and end
 type OverflowMode = 'truncated' | 'truncate-middle' | 'wrap';
 
+const MIN_COLUMN_WIDTH = 120;
+
 export interface TableColumnConfigProps extends HTMLAttributes<HTMLTableCellElement> {
+  /** Rendered inside a `<button>` when the column is sortable or has `onClick`, so it must not contain interactive content. */
   label: ReactNode;
   isSortable?: boolean;
   sortDir?: SortDir;
@@ -85,6 +88,8 @@ interface TableHeaderProps extends Omit<TableColumnConfigProps, 'width'> {
     e: React.KeyboardEvent,
     direction: OnKeyboardResizerDirection
   ) => void;
+  columnWidth?: number;
+  nextColumnWidth?: number;
 }
 
 const TableHeader = ({
@@ -99,8 +104,12 @@ const TableHeader = ({
   showResizer,
   onResizeStart,
   onKeyboardResize,
+  columnWidth,
+  nextColumnWidth,
   overflowMode,
   className,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...props
 }: TableHeaderProps) => {
   if (overflowMode === 'wrap' && resizable) {
@@ -115,7 +124,9 @@ const TableHeader = ({
   );
   const resizerRef = useRef<HTMLDivElement>(null);
 
-  const onHeaderClick = (e: MouseEvent<HTMLTableCellElement>): void => {
+  const onHeaderClick = (
+    e: MouseEvent<HTMLButtonElement & HTMLTableCellElement>
+  ): void => {
     if (typeof onClick === 'function') {
       onClick(e);
     }
@@ -146,42 +157,74 @@ const TableHeader = ({
     }
   };
 
+  const ariaSort =
+    isSorted && isSortable ? (sortDir === 'asc' ? 'ascending' : 'descending') : undefined;
+  const isMeasured = columnWidth !== undefined;
+  const maxColumnWidth =
+    isMeasured && nextColumnWidth !== undefined
+      ? Math.round(columnWidth + nextColumnWidth - MIN_COLUMN_WIDTH)
+      : undefined;
+  const headerContentClassName = cn(
+    styles['table__header-content'],
+    isInteractive && styles['table__header-content_interactive']
+  );
+  const headerContent = (
+    <>
+      {isSorted && isSortable && sortPosition == 'start' && (
+        <Icon
+          name="arrow-down"
+          size="sm"
+          aria-hidden="true"
+          className={cn(sortIconVariants({ dir: sortDir }))}
+        />
+      )}
+      {label}
+      {isSorted && isSortable && sortPosition == 'end' && (
+        <Icon
+          name="arrow-down"
+          size="sm"
+          aria-hidden="true"
+          className={cn(sortIconVariants({ dir: sortDir }))}
+        />
+      )}
+    </>
+  );
+
   return (
     <th
+      aria-sort={ariaSort}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
       {...props}
       className={cn(headerVariants({ size, resizable }), className)}
     >
-      <div
-        onClick={onHeaderClick}
-        className={cn(
-          styles['table__header-content'],
-          isInteractive && styles['table__header-content_interactive']
-        )}
-      >
-        {isSorted && isSortable && sortPosition == 'start' && (
-          <Icon
-            name="arrow-down"
-            size="sm"
-            className={cn(sortIconVariants({ dir: sortDir }))}
-          />
-        )}
-        {label}
-        {isSorted && isSortable && sortPosition == 'end' && (
-          <Icon
-            name="arrow-down"
-            size="sm"
-            className={cn(sortIconVariants({ dir: sortDir }))}
-          />
-        )}
-      </div>
+      {isInteractive ? (
+        <button
+          type="button"
+          onClick={onHeaderClick}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          className={headerContentClassName}
+        >
+          {headerContent}
+        </button>
+      ) : (
+        <div className={headerContentClassName}>{headerContent}</div>
+      )}
       {showResizer && (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- a focusable separator is a widget (WAI-ARIA 1.2 window splitter); jsx-a11y models it as static
         <div
           ref={resizerRef}
           onMouseDown={onResizeStart}
           role="separator"
           aria-orientation="vertical"
           aria-label={`Resize ${typeof label === 'string' ? label : 'column'}`}
-          tabIndex={0}
+          aria-valuenow={isMeasured ? Math.round(columnWidth) : undefined}
+          aria-valuemin={MIN_COLUMN_WIDTH}
+          aria-valuemax={maxColumnWidth}
+          aria-valuetext={isMeasured ? `${Math.round(columnWidth)} pixels` : undefined}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- focusable separator, see above
+          tabIndex={isMeasured ? 0 : undefined}
           onKeyDown={onResizerKeyDown}
           className={cn(styles.table__resizer)}
         />
@@ -204,6 +247,7 @@ interface TheadProps {
     columnIndex: number
   ) => (e: React.KeyboardEvent, direction: OnKeyboardResizerDirection) => void;
   theadRef?: RefObject<HTMLTableSectionElement>;
+  columnWidths?: Map<string, number> | null;
 }
 
 const Thead = ({
@@ -219,12 +263,16 @@ const Thead = ({
   onResizeStart,
   theadRef,
   onKeyboardResize,
+  columnWidths,
 }: TheadProps) => {
-  const onSort = (header: TableColumnConfigProps, headerIndex: number) => () => {
-    if (typeof onSortProp === 'function' && header.isSortable) {
-      onSortProp(header.sortDir === 'asc' ? 'desc' : 'asc', header, headerIndex);
-    }
-  };
+  const onSort =
+    typeof onSortProp === 'function'
+      ? (header: TableColumnConfigProps, headerIndex: number) => () => {
+          if (header.isSortable) {
+            onSortProp(header.sortDir === 'asc' ? 'desc' : 'asc', header, headerIndex);
+          }
+        }
+      : undefined;
   return (
     <thead
       ref={theadRef}
@@ -243,18 +291,33 @@ const Thead = ({
             />
           </th>
         )}
-        {headers.map((headerProps, index) => (
-          <TableHeader
-            key={`table-header-${index}`}
-            onSort={onSort(headerProps, index)}
-            size={size}
-            resizable={resizableColumns}
-            showResizer={resizableColumns && index < headers.length - 1}
-            onResizeStart={onResizeStart?.(index)}
-            onKeyboardResize={onKeyboardResize?.(index)}
-            {...headerProps}
-          />
-        ))}
+        {headers.map((headerProps, index) => {
+          const headerLabel =
+            typeof headerProps.label === 'string'
+              ? headerProps.label
+              : `__index_${index}`;
+          const nextHeader = headers[index + 1];
+          const nextHeaderLabel =
+            typeof nextHeader?.label === 'string'
+              ? nextHeader.label
+              : `__index_${index + 1}`;
+          return (
+            <TableHeader
+              key={`table-header-${index}`}
+              onSort={onSort?.(headerProps, index)}
+              size={size}
+              resizable={resizableColumns}
+              showResizer={resizableColumns && index < headers.length - 1}
+              onResizeStart={onResizeStart?.(index)}
+              onKeyboardResize={onKeyboardResize?.(index)}
+              columnWidth={columnWidths?.get(headerLabel)}
+              nextColumnWidth={
+                nextHeader ? columnWidths?.get(nextHeaderLabel) : undefined
+              }
+              {...headerProps}
+            />
+          );
+        })}
         {actionsList.length > 0 && (
           <th
             aria-label="Actions"
@@ -575,9 +638,6 @@ interface ResizeState {
   nextStartWidth: number;
 }
 
-// TODO: What is an acceptable minimum column width?
-const MIN_COLUMN_WIDTH = 120;
-
 const Table = forwardRef<HTMLTableElement, TableProps>(
   (
     {
@@ -882,6 +942,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                 onResizeStart={resizableColumns ? handleResizeStart : undefined}
                 theadRef={theadRef}
                 onKeyboardResize={resizableColumns ? onKeyboardResize : undefined}
+                columnWidths={resizableColumns ? columnWidths : undefined}
               />
             )}
             <tbody className={cn(styles.table__tbody)}>
