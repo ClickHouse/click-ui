@@ -1,7 +1,5 @@
 import type { ButtonHTMLAttributes, ReactElement } from 'react';
 
-type NativeButtonType = ButtonHTMLAttributes<HTMLButtonElement>['type'];
-
 const takesHtmlType = new WeakSet<object>();
 
 /** Marks a component that reads `type` as its variant and takes its native button type from `htmlType`. */
@@ -15,7 +13,7 @@ export const markTakesHtmlType = (component: object) => {
  */
 export const nativeButtonTypeProps = (
   elementType: ReactElement['type'],
-  type?: NativeButtonType
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
 ) =>
   typeof elementType !== 'string' && takesHtmlType.has(elementType)
     ? { type: undefined, htmlType: type ?? 'button' }
