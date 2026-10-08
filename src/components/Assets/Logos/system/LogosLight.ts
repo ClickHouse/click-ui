@@ -17,16 +17,19 @@ import AWS_MSK from '../AWS_MSK';
 import AWS_RDS from '../AWS_RDS';
 import AWS_REDSHIFT from '../AWS_REDSHIFT';
 import AWS_S3 from '../AWS_S3';
+import AWS_S3_TABLES_ICEBERG from '../AWS_S3_TABLES_ICEBERG';
 import Azure from '../Azure';
 import Azure_Blob_Storage from '../Azure_Blob_Storage';
 import Azure_Event_Hub from '../Azure_Event_Hub';
 import Biglake_Metastore from '../Biglake-Metastore';
 import Bigquery from '../Bigquery';
+import ClaudeCode from '../ClaudeCode';
 import Clickhouse from '../Clickhouse';
 import Cloudflare from '../Cloudflare';
 import Confluent from '../Confluent';
 import Crunchy_Bridge from '../Crunchy_Bridge';
 import Csharp from '../Csharp';
+import Cursor from '../Cursor';
 import Databricks from '../Databricks';
 import Datagrip from '../Datagrip';
 import Dbeaver from '../Dbeaver';
@@ -41,6 +44,7 @@ import Fivetran from '../Fivetran';
 import Gcp from '../Gcp';
 import GCS from '../GCS';
 import Github from '../Github';
+import GithubCopilot from '../GithubCopilot';
 import Golang from '../Golang';
 import Google from '../Google';
 import Grafana from '../Grafana';
@@ -60,7 +64,10 @@ import Neondb from '../Neondb';
 import Nessie from '../Nessie';
 import Nodejs from '../Nodejs';
 import Onelake from '../Onelake';
+import Openai from '../Openai';
+import Opencode from '../Opencode';
 import OVH from '../OVH';
+import PiAgent from '../PiAgent';
 import Planetscale from '../Planetscale';
 import Polaris from '../Polaris';
 import Postgres from '../Postgres';
@@ -93,16 +100,19 @@ const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
   'aws-rds': AWS_RDS,
   'aws-redshift': AWS_REDSHIFT,
   'aws-s3': AWS_S3,
+  'aws-s3-tables-iceberg': AWS_S3_TABLES_ICEBERG,
   azure: Azure,
   'azure-blob-storage': Azure_Blob_Storage,
   'azure-event-hub': Azure_Event_Hub,
   'biglake-metastore': Biglake_Metastore,
   bigquery: Bigquery,
+  'claude-code': ClaudeCode,
   clickhouse: Clickhouse,
   cloudflare: Cloudflare,
   confluent: Confluent,
   'crunchy-bridge': Crunchy_Bridge,
   csharp: Csharp,
+  cursor: Cursor,
   databricks: Databricks,
   datagrip: Datagrip,
   dbeaver: Dbeaver,
@@ -117,6 +127,7 @@ const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
   gcp: Gcp,
   gcs: GCS,
   github: Github,
+  'github-copilot': GithubCopilot,
   golang: Golang,
   google: Google,
   grafana: Grafana,
@@ -136,7 +147,10 @@ const LogosLight: Record<LogoName, ComponentType<SVGAssetProps>> = {
   nessie: Nessie,
   nodejs: Nodejs,
   onelake: Onelake,
+  openai: Openai,
+  opencode: Opencode,
   ovh: OVH,
+  'pi-agent': PiAgent,
   planetscale: Planetscale,
   polaris: Polaris,
   postgres: Postgres,
