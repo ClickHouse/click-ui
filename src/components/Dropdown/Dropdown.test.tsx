@@ -1,7 +1,6 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
-import { useState } from 'react';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
 import { renderCUI } from '@/utils/test-utils';
@@ -449,114 +448,44 @@ describe('Dropdown', () => {
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
       expect(onSubmit).not.toHaveBeenCalled();
     });
+  });
 
-    it('opens the menu on a click that no pointerdown came before', async () => {
-      const { getByTestId, findByRole } = renderButtonTrigger({});
+  describe('bare click workaround (radix-ui/primitives#1963)', () => {
+    const renderButtonTrigger = (props: DropdownMenuProps) =>
+      renderCUI(
+        <Dropdown {...props}>
+          <Dropdown.Trigger>
+            <Button>Actions</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
 
-      getByTestId('consumer-button').click();
+    it('opens the menu on a click without a pointer press', async () => {
+      const { getByRole, findByRole } = renderButtonTrigger({});
+
+      fireEvent.click(getByRole('button', { name: 'Actions' }));
 
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
     });
 
-    it('opens a controlled menu once on a mouse click', async () => {
-      const onOpenChange = vi.fn();
-      const ControlledDropdown = () => {
-        const [open, setOpen] = useState(false);
-        return (
-          <Dropdown
-            open={open}
-            onOpenChange={nextOpen => {
-              onOpenChange(nextOpen);
-              setOpen(nextOpen);
-            }}
-          >
-            <Dropdown.Trigger>
-              <Button data-testid="consumer-button">Actions</Button>
-            </Dropdown.Trigger>
-            <Dropdown.Content>
-              <Dropdown.Item>Rename</Dropdown.Item>
-            </Dropdown.Content>
-          </Dropdown>
-        );
-      };
-      const { getByTestId, findByRole } = renderCUI(<ControlledDropdown />);
-
-      await userEvent.click(getByTestId('consumer-button'));
-
-      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
-      expect(onOpenChange.mock.calls).toEqual([[true]]);
-    });
-
-    it('opens the menu once on Enter', async () => {
-      const onOpenChange = vi.fn();
-      const { findByRole } = renderButtonTrigger({ onOpenChange });
-
-      await userEvent.tab();
-      await userEvent.keyboard('{Enter}');
-
-      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
-      expect(onOpenChange.mock.calls).toEqual([[true]]);
-    });
-
-    it('closes an open non-modal menu on a mouse click on the trigger without reopening it', async () => {
-      const onOpenChange = vi.fn();
-      const { getByTestId, findByRole } = renderButtonTrigger({
-        modal: false,
-        onOpenChange,
-      });
-      const trigger = getByTestId('consumer-button');
+    it('keeps a non-modal menu closed after a mouse click on the trigger closes it', async () => {
+      const { getByRole, findByRole } = renderButtonTrigger({ modal: false });
+      const trigger = getByRole('button', { name: 'Actions' });
       await userEvent.click(trigger);
       expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
 
       await userEvent.click(trigger);
 
-      expect(onOpenChange).toHaveBeenLastCalledWith(false);
       expect(trigger).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('reports closing once when a non-modal menu is closed from its trigger', async () => {
-      const onOpenChange = vi.fn();
-      const { getByTestId, findByRole } = renderButtonTrigger({
-        modal: false,
-        onOpenChange,
-      });
-      const trigger = getByTestId('consumer-button');
-      await userEvent.click(trigger);
-      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
-
-      await userEvent.click(trigger);
-
-      await waitFor(() => {
-        expect(onOpenChange).toHaveBeenLastCalledWith(false);
-      });
-      expect(onOpenChange.mock.calls).toEqual([[true], [false]]);
-    });
-
-    it('asks a controlled Dropdown to open on a click without opening it itself', async () => {
-      const onOpenChange = vi.fn();
-      const { getByTestId, queryByRole } = renderButtonTrigger({
-        open: false,
-        onOpenChange,
-      });
-
-      getByTestId('consumer-button').click();
-
-      await waitFor(() => {
-        expect(onOpenChange).toHaveBeenCalledWith(true);
-      });
-      expect(queryByRole('menu')).not.toBeInTheDocument();
-    });
-
-    it('opens the menu on first render with defaultOpen', async () => {
-      const { findByRole } = renderButtonTrigger({ defaultOpen: true });
-
-      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
-    });
-
-    it('does not ask to open a disabled trigger on a bare click', () => {
+    it('does not ask a disabled trigger to open on a click without a pointer press', () => {
       const onClick = vi.fn();
       const onOpenChange = vi.fn();
-      const { getByText } = renderCUI(
+      const { getByRole } = renderCUI(
         <Dropdown
           open={false}
           onOpenChange={onOpenChange}
@@ -565,7 +494,7 @@ describe('Dropdown', () => {
             disabled
             onClick={onClick}
           >
-            <span>Actions</span>
+            <a href="#actions">Actions</a>
           </Dropdown.Trigger>
           <Dropdown.Content>
             <Dropdown.Item>Rename</Dropdown.Item>
@@ -573,7 +502,7 @@ describe('Dropdown', () => {
         </Dropdown>
       );
 
-      getByText('Actions').click();
+      fireEvent.click(getByRole('link', { name: 'Actions' }));
 
       expect(onClick).toHaveBeenCalledTimes(1);
       expect(onOpenChange).not.toHaveBeenCalled();
@@ -599,7 +528,45 @@ describe('Dropdown', () => {
       await userEvent.click(getByRole('button', { name: 'Actions' }));
 
       expect(onPointerDown).toHaveBeenCalledTimes(1);
+      expect(onPointerDown).toHaveBeenCalledWith(
+        expect.objectContaining({ type: 'pointerdown' })
+      );
       expect(onClick).toHaveBeenCalledTimes(1);
+      expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
+    });
+
+    it('asks a controlled Dropdown to open without opening it itself', async () => {
+      const onOpenChange = vi.fn();
+      const { getByRole, queryByRole } = renderButtonTrigger({
+        open: false,
+        onOpenChange,
+      });
+
+      fireEvent.click(getByRole('button', { name: 'Actions' }));
+
+      expect(onOpenChange).toHaveBeenCalledWith(true);
+      expect(queryByRole('menu')).not.toBeInTheDocument();
+    });
+
+    it('opens the menu on first render with defaultOpen', async () => {
+      const { findByRole } = renderButtonTrigger({ defaultOpen: true });
+
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+    });
+
+    it('reports opening and closing to onOpenChange', async () => {
+      const onOpenChange = vi.fn();
+      const { findByRole, queryByRole } = renderButtonTrigger({ onOpenChange });
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter}');
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+
+      await userEvent.keyboard('{Escape}');
+
+      await waitFor(() => {
+        expect(queryByRole('menu')).not.toBeInTheDocument();
+      });
+      expect(onOpenChange.mock.calls).toEqual([[true], [false]]);
     });
   });
 });

@@ -144,8 +144,11 @@ const DropdownMainTrigger = ({
 }: DropdownTriggerProps) => {
   const setOpen = useContext(DropdownOpenContext);
   const bareClickHandlers = useBareClick<HTMLButtonElement>({
-    onBareClick: () => setOpen?.(true),
-    disabled,
+    onBareClick: () => {
+      if (!disabled && setOpen) {
+        setOpen(true);
+      }
+    },
     onPointerDown,
     onClick,
   });
