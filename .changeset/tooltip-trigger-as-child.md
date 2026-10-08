@@ -8,7 +8,7 @@
 
 Visual: unchanged, except for that tooltip.
 
-Migration: put the trigger outside the truncated text, and turn off the truncation tooltip.
+Migration: put `Tooltip.Trigger asChild` around the text, and turn off the truncation tooltip.
 
 ```tsx
 // Before
@@ -19,7 +19,7 @@ Migration: put the trigger outside the truncated text, and turn off the truncati
 
 // After
 <Tooltip>
-  <Tooltip.Trigger>
+  <Tooltip.Trigger asChild>
     <TextTruncate showTooltip={false}>{label}</TextTruncate>
   </Tooltip.Trigger>
   <Tooltip.Content>{details}</Tooltip.Content>
