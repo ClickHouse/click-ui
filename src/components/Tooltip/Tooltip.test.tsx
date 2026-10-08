@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { TooltipProps } from '@/components/Tooltip';
 import { Tooltip } from './Tooltip';
 import { waitFor } from '@testing-library/react';
@@ -43,6 +44,84 @@ describe('Tooltip', () => {
     await userEvent.unhover(TooltipTrigger);
     waitFor(() => {
       expect(getByTestId('tooltip-content')).toBeNull();
+    });
+  });
+
+  describe('Trigger', () => {
+    it('passes its props to the child with asChild', () => {
+      const { getByRole } = renderCUI(
+        <Tooltip>
+          <Tooltip.Trigger
+            asChild
+            aria-label="Copy query"
+          >
+            <button type="button">Copy</button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
+      );
+      expect(getByRole('button', { name: 'Copy query' })).toBeInTheDocument();
+    });
+
+    it("calls its onClick together with the child's onClick with asChild", async () => {
+      const onTriggerClick = vi.fn();
+      const onChildClick = vi.fn();
+      const { getByRole } = renderCUI(
+        <Tooltip>
+          <Tooltip.Trigger
+            asChild
+            onClick={onTriggerClick}
+          >
+            <button
+              type="button"
+              onClick={onChildClick}
+            >
+              Copy
+            </button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
+      );
+      await userEvent.click(getByRole('button', { name: 'Copy' }));
+      expect(onChildClick).toHaveBeenCalledTimes(1);
+      expect(onTriggerClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('points its ref at the child with asChild', () => {
+      const ref = createRef<HTMLButtonElement>();
+      const { getByRole } = renderCUI(
+        <Tooltip>
+          <Tooltip.Trigger
+            asChild
+            ref={ref}
+          >
+            <button type="button">Copy</button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
+      );
+      expect(ref.current).toBe(getByRole('button', { name: 'Copy' }));
+    });
+
+    it('passes its props to the wrapper element without asChild', () => {
+      const { getByText } = renderCUI(
+        <Tooltip>
+          <Tooltip.Trigger id="trigger-id">Hover Here</Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
+      );
+      expect(getByText('Hover Here')).toHaveAttribute('id', 'trigger-id');
+    });
+
+    it('points its ref at the wrapper element without asChild', () => {
+      const ref = createRef<HTMLDivElement>();
+      const { getByText } = renderCUI(
+        <Tooltip>
+          <Tooltip.Trigger ref={ref}>Hover Here</Tooltip.Trigger>
+          <Tooltip.Content>Tooltip content</Tooltip.Content>
+        </Tooltip>
+      );
+      expect(ref.current).toBe(getByText('Hover Here'));
     });
   });
 });
