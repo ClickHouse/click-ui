@@ -1,0 +1,81 @@
+#!/bin/bash
+#
+# Resolve the npm canary version for a commit. Stdout = version, stderr = error.
+# Usage: canary-version <sha>
+#   <sha>  Lowercase hex commit sha, 8 to 40 characters.
+#
+#   Prints <next>-canary.g<sha8>.0, e.g. 0.14.0-canary.g1979c25d.0. <next> is package.json's
+#   version bumped by the pending changesets (`changeset status`): major counts as minor below
+#   1.0.0, no changesets means patch. The g prefix keeps an all-digit sha valid semver.
+#
+# Used by publish.yml (npm canary) and storybook-vercel.yml (Storybook badge), so both show the
+# same version. Needs installed dependencies and a local `main` ref. Runs on macOS bash 3.2 and
+# Linux bash 5.
+
+set -euo pipefail
+export LC_ALL=C
+
+if [[ $# -ne 1 || ! "$1" =~ ^[0-9a-f]{8,40}$ ]]; then
+  echo "❌ Error: Usage: canary-version <sha>, a lowercase hex commit sha of 8 to 40 characters" >&2
+  exit 1
+fi
+SHA="$1"
+
+STATUS_FILE=$(mktemp)
+trap 'rm -f "$STATUS_FILE"' EXIT
+
+if ! yarn changeset status --output "$STATUS_FILE" >&2; then
+  echo "❌ Error: yarn changeset status failed" >&2
+  exit 1
+fi
+
+PLAN=$(node -e '
+  const { readFileSync } = require("node:fs");
+  const { name, version } = require("./package.json");
+  const { releases } = JSON.parse(readFileSync(process.argv[1], "utf8"));
+  const release = releases.find((candidate) => candidate.name === name);
+  console.log(version, release ? release.type : "none");
+' "$STATUS_FILE")
+read -r VERSION BUMP <<< "$PLAN"
+
+if [[ ! "$VERSION" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)(-[0-9A-Za-z.-]+)?$ ]]; then
+  echo "❌ Error: package.json version '$VERSION' is not X.Y.Z or X.Y.Z-<prerelease>" >&2
+  exit 1
+fi
+MAJOR="${BASH_REMATCH[1]}"
+MINOR="${BASH_REMATCH[2]}"
+PATCH="${BASH_REMATCH[3]}"
+PRERELEASE="${BASH_REMATCH[4]:-}"
+
+if [[ "$BUMP" == "major" && "$MAJOR" == "0" ]]; then
+  BUMP="minor"
+fi
+
+# As semver.inc (and so changesets) does: a prerelease bumps to the release it precedes,
+# so after an rc release 0.13.0-rc1 + minor is 0.13.0, not 0.14.0.
+case "$BUMP" in
+  major)
+    if [[ -z "$PRERELEASE" || "$MINOR" != "0" || "$PATCH" != "0" ]]; then
+      MAJOR=$((MAJOR + 1))
+    fi
+    MINOR=0
+    PATCH=0
+    ;;
+  minor)
+    if [[ -z "$PRERELEASE" || "$PATCH" != "0" ]]; then
+      MINOR=$((MINOR + 1))
+    fi
+    PATCH=0
+    ;;
+  patch | none)
+    if [[ -z "$PRERELEASE" ]]; then
+      PATCH=$((PATCH + 1))
+    fi
+    ;;
+  *)
+    echo "❌ Error: changeset bump type '$BUMP' is not major, minor, patch or none" >&2
+    exit 1
+    ;;
+esac
+
+echo "${MAJOR}.${MINOR}.${PATCH}-canary.g${SHA:0:8}.0"

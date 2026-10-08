@@ -10,6 +10,7 @@
   display: flex;
   position: relative;
   min-height: 32px;
+  flex-shrink: 0;
 }
 
 .dropdown-trigger {
