@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { EllipsisContent } from '@/components/EllipsisContent';
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- stories of the deprecated component; remove with it
 const meta: Meta<typeof EllipsisContent> = {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- stories of the deprecated component; remove with it
   component: EllipsisContent,
   title: 'Display/EllipsisContent',
   tags: ['ellipsis-content', 'autodocs'],
@@ -35,6 +37,7 @@ const meta: Meta<typeof EllipsisContent> = {
 
 export default meta;
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- stories of the deprecated component; remove with it
 type Story = StoryObj<typeof EllipsisContent>;
 
 export const Playground: Story = {

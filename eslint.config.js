@@ -8,6 +8,13 @@ import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import globals from 'globals';
 
+const preferArrowFunctionsOptions = {
+  classPropertiesAllowed: false,
+  disallowPrototype: false,
+  returnStyle: 'unchanged',
+  singleReturnOnly: false,
+};
+
 export default tseslint.config(
   {
     ignores: ['dist/**', 'node_modules/**', 'build/**', 'coverage/**', '**/*.d.ts'],
@@ -48,18 +55,13 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       curly: ['error', 'all'],
-      'react-refresh/only-export-components': 'warn',
+      'react-refresh/only-export-components': ['warn', { extraHOCs: ['withTopBadge'] }],
       'no-multiple-empty-lines': 'error',
       quotes: ['error', 'single', { avoidEscape: true }],
       'arrow-parens': ['error', 'as-needed'],
       'prefer-arrow-functions/prefer-arrow-functions': [
         'warn',
-        {
-          classPropertiesAllowed: false,
-          disallowPrototype: false,
-          returnStyle: 'unchanged',
-          singleReturnOnly: false,
-        },
+        preferArrowFunctionsOptions,
       ],
       'react-hooks/exhaustive-deps': [
         'warn',
@@ -185,6 +187,12 @@ export default tseslint.config(
         project: './tsconfig.node.json',
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+    rules: {
+      'prefer-arrow-functions/prefer-arrow-functions': [
+        'warn',
+        { ...preferArrowFunctionsOptions, allowObjectProperties: true },
+      ],
     },
   },
   ...storybook.configs['flat/recommended']

@@ -23,7 +23,7 @@ type GridCenterPolymorphicComponent = <T extends ElementType = 'div'>(
   props: GridCenterProps<T>
 ) => ReactNode;
 
-const _GridCenter = <T extends ElementType = 'div'>(
+const GridCenterRender = <T extends ElementType = 'div'>(
   { as, className, ...props }: GridCenterProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
@@ -37,6 +37,6 @@ const _GridCenter = <T extends ElementType = 'div'>(
   );
 };
 
-export const GridCenter: GridCenterPolymorphicComponent = forwardRef(_GridCenter);
+export const GridCenter: GridCenterPolymorphicComponent = forwardRef(GridCenterRender);
 
 (GridCenter as { displayName?: string }).displayName = 'GridCenter';

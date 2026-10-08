@@ -32,7 +32,7 @@ type DropdownMenuItemComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuItem<T>>
 ) => ReactNode;
 
-const _DropdownMenuItem = <T extends ElementType = 'div'>(
+const DropdownMenuItemRender = <T extends ElementType = 'div'>(
   { className, ...props }: ComponentProps<typeof GenericMenuItem<T>>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => (
@@ -43,7 +43,7 @@ const _DropdownMenuItem = <T extends ElementType = 'div'>(
   />
 );
 
-const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(_DropdownMenuItem);
+const DropdownMenuItem: DropdownMenuItemComponent = forwardRef(DropdownMenuItemRender);
 
 // `sub` alone discriminates the two shapes of Trigger and Content. The label
 // fields live separately so only the sub-trigger accepts them — Content spreads
@@ -132,7 +132,7 @@ type DropdownMenuContentComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuPanel<T>>
 ) => ReactNode;
 
-const _DropdownMenuContent = <T extends ElementType = 'div'>(
+const DropdownMenuContentRender = <T extends ElementType = 'div'>(
   { className, ...props }: ComponentProps<typeof GenericMenuPanel<T>>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => (
@@ -143,8 +143,9 @@ const _DropdownMenuContent = <T extends ElementType = 'div'>(
   />
 );
 
-const DropdownMenuContent: DropdownMenuContentComponent =
-  forwardRef(_DropdownMenuContent);
+const DropdownMenuContent: DropdownMenuContentComponent = forwardRef(
+  DropdownMenuContentRender
+);
 
 const DropdownContent = ({
   sub,

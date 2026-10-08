@@ -13,9 +13,8 @@ import LogosLight from './LogosLight';
 
 const resolveLogoName = createAssetResolver<LogoName>();
 
-export { resolveLogoName };
-
 export interface LogoPropsWithAliases extends Omit<LogoProps, 'name'> {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- old PascalCase names stay accepted until they are removed
   name: LogoName | AssetAlias | AssetDeprecatedName;
 }
 

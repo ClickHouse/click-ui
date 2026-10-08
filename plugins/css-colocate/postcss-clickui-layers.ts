@@ -32,51 +32,49 @@ const LAYER = 'clickui';
 const isHoisted = (node: ChildNode): boolean =>
   node.type === 'atrule' && (node as AtRule).nodes === undefined;
 
-export function wrapInClickuiLayers(): Plugin {
-  return {
-    postcssPlugin: 'postcss-clickui-layers',
-    Once(root) {
-      const nodes = root.nodes as ChildNode[];
-      if (nodes.length === 0) {
-        return;
-      }
+export const wrapInClickuiLayers = (): Plugin => ({
+  postcssPlugin: 'postcss-clickui-layers',
+  Once(root) {
+    const nodes = root.nodes as ChildNode[];
+    if (nodes.length === 0) {
+      return;
+    }
 
-      // Idempotency guard: a top-level `@layer clickui { … }` block means we
-      // already wrapped this root (the plugin can see a file more than once —
-      // e.g. HMR). Require the block form: a bare `@layer clickui;` order
-      // statement (postcss `nodes === undefined`) declares the layer but wraps
-      // nothing, so it is not proof of wrapping and must not short-circuit.
-      const alreadyWrapped = nodes.some(
-        node =>
-          node.type === 'atrule' &&
-          (node as AtRule).name === 'layer' &&
-          (node as AtRule).params === LAYER &&
-          (node as AtRule).nodes !== undefined
-      );
-      if (alreadyWrapped) {
-        return;
-      }
+    // Idempotency guard: a top-level `@layer clickui { … }` block means we
+    // already wrapped this root (the plugin can see a file more than once —
+    // e.g. HMR). Require the block form: a bare `@layer clickui;` order
+    // statement (postcss `nodes === undefined`) declares the layer but wraps
+    // nothing, so it is not proof of wrapping and must not short-circuit.
+    const alreadyWrapped = nodes.some(
+      node =>
+        node.type === 'atrule' &&
+        (node as AtRule).name === 'layer' &&
+        (node as AtRule).params === LAYER &&
+        (node as AtRule).nodes !== undefined
+    );
+    if (alreadyWrapped) {
+      return;
+    }
 
-      const hoisted = nodes.filter(isHoisted);
-      const layered = nodes.filter(node => !isHoisted(node));
-      if (layered.length === 0) {
-        return;
-      }
+    const hoisted = nodes.filter(isHoisted);
+    const layered = nodes.filter(node => !isHoisted(node));
+    if (layered.length === 0) {
+      return;
+    }
 
-      root.removeAll();
-      // Hoisted at-rules stay at the top; everything else moves into the layer
-      // in source order (so comments stay next to the rules they annotate).
-      for (const node of hoisted) {
-        root.append(node);
-      }
-      const layer = new AtRule({ name: 'layer', params: LAYER });
-      for (const node of layered) {
-        layer.append(node);
-      }
-      root.append(layer);
-    },
-  };
-}
+    root.removeAll();
+    // Hoisted at-rules stay at the top; everything else moves into the layer
+    // in source order (so comments stay next to the rules they annotate).
+    for (const node of hoisted) {
+      root.append(node);
+    }
+    const layer = new AtRule({ name: 'layer', params: LAYER });
+    for (const node of layered) {
+      layer.append(node);
+    }
+    root.append(layer);
+  },
+});
 
 wrapInClickuiLayers.postcss = true;
 

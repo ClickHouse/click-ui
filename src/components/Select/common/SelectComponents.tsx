@@ -217,8 +217,3 @@ export const SelectItemDescriptionText = forwardRef<
   />
 ));
 SelectItemDescriptionText.displayName = 'SelectItemDescriptionText';
-
-// Exposed for InternalSelect's `as`-rendered elements (the search close button
-// rendered as IconButton, and the check icon rendered as Icon) which apply
-// these scoped classes directly rather than through a wrapper component.
-export const selectStyles = styles;

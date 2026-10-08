@@ -34,7 +34,7 @@ type SidebarTitleWrapperComponent = <T extends ElementType = 'button'>(
     SidebarTitleWrapperProps<T>
 ) => ReactNode;
 
-const _SidebarTitleWrapper = <T extends ElementType = 'button'>(
+const SidebarTitleWrapperRender = <T extends ElementType = 'button'>(
   {
     as,
     $collapsible = false,
@@ -58,8 +58,9 @@ const _SidebarTitleWrapper = <T extends ElementType = 'button'>(
   );
 };
 
-export const SidebarTitleWrapper: SidebarTitleWrapperComponent =
-  forwardRef(_SidebarTitleWrapper);
+export const SidebarTitleWrapper: SidebarTitleWrapperComponent = forwardRef(
+  SidebarTitleWrapperRender
+);
 
 export const SidebarNavigationTitle = ({
   label,

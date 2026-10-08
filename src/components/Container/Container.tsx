@@ -65,7 +65,7 @@ type ContainerPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof ContainerProps<T>> & ContainerProps<T>
 ) => ReactNode;
 
-const _Container = <T extends ElementType = 'div'>(
+const ContainerRender = <T extends ElementType = 'div'>(
   {
     component,
     alignItems,
@@ -96,10 +96,6 @@ const _Container = <T extends ElementType = 'div'>(
   const resolvedAlignItems =
     alignItems ?? (orientation === 'vertical' ? 'start' : 'center');
 
-  // `_Container` is a real component (wrapped by `forwardRef` below); the
-  // rules-of-hooks PascalCase-name heuristic false-positives on our
-  // `_`-prefixed polymorphic-component naming convention.
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const mergedStyle = useMemo(
     () =>
       ({
@@ -158,4 +154,4 @@ const _Container = <T extends ElementType = 'div'>(
   );
 };
 
-export const Container: ContainerPolymorphicComponent = forwardRef(_Container);
+export const Container: ContainerPolymorphicComponent = forwardRef(ContainerRender);
