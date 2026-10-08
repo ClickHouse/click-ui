@@ -88,6 +88,8 @@ Install the package via npm or your favorite package manager:
 npm i @clickhouse/click-ui@latest
 ```
 
+Every merge to `main` is also published as a prerelease, for trying changes before a release: `npm i @clickhouse/click-ui@canary`.
+
 Click UI has three peer dependencies. Your app must provide them:
 
 | Package     | Version                |

@@ -151,6 +151,8 @@ import Services from '../Services';
 import Settings from '../Settings';
 import Share from '../Share';
 import Share_Network from '../Share-Network';
+import Sidebar_Left from '../Sidebar-Left';
+import Sidebar_Right from '../Sidebar-Right';
 import Sleep from '../Sleep';
 import Slide_In from '../Slide-In';
 import Slide_Out from '../Slide-Out';
@@ -330,6 +332,8 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   settings: Settings,
   share: Share,
   'share-network': Share_Network,
+  'sidebar-left': Sidebar_Left,
+  'sidebar-right': Sidebar_Right,
   sleep: Sleep,
   'slide-in': Slide_In,
   'slide-out': Slide_Out,
