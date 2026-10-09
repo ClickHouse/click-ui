@@ -52,7 +52,7 @@ type LinkPolymorphicComponent = <T extends ElementType = 'a'>(
   props: Omit<ComponentProps<T>, keyof LinkProps<T>> & LinkProps<T>
 ) => ReactNode;
 
-const _Link = <T extends ElementType = 'a'>(
+const LinkRender = <T extends ElementType = 'a'>(
   {
     size = 'md',
     weight = 'normal',
@@ -86,4 +86,4 @@ const _Link = <T extends ElementType = 'a'>(
     </Component>
   );
 };
-export const Link: LinkPolymorphicComponent = forwardRef(_Link);
+export const Link: LinkPolymorphicComponent = forwardRef(LinkRender);

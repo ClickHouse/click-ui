@@ -46,8 +46,8 @@ import {
   SelectGroupContent,
   SelectNoDataContainer,
   SelectItemDescriptionText,
-  selectStyles,
 } from './SelectComponents';
+import selectStyles from './SelectComponents.module.css';
 import { OptionContext } from './OptionContext';
 import { MultiSelectValue } from '../MultiSelectValue';
 import SingleSelectValue from '../SingleSelectValue';

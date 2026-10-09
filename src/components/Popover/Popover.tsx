@@ -64,7 +64,7 @@ type MenuPanelComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuPanel<T>> & { showClose?: boolean }
 ) => ReactNode;
 
-const _MenuPanel = <T extends ElementType = 'div'>(
+const MenuPanelRender = <T extends ElementType = 'div'>(
   {
     showClose,
     className,
@@ -79,7 +79,7 @@ const _MenuPanel = <T extends ElementType = 'div'>(
   />
 );
 
-const MenuPanel: MenuPanelComponent = forwardRef(_MenuPanel);
+const MenuPanel: MenuPanelComponent = forwardRef(MenuPanelRender);
 
 const PopoverContent = ({
   children,
