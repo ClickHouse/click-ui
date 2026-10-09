@@ -25,10 +25,14 @@
 }
 
 .checkinput_variant_default {
-  --checkbox-bg-default: var(--click-checkbox-color-variations-default-background-default);
+  --checkbox-bg-default: var(
+    --click-checkbox-color-variations-default-background-default
+  );
   --checkbox-bg-hover: var(--click-checkbox-color-variations-default-background-hover);
   --checkbox-bg-active: var(--click-checkbox-color-variations-default-background-active);
-  --checkbox-stroke-default: var(--click-checkbox-color-variations-default-stroke-default);
+  --checkbox-stroke-default: var(
+    --click-checkbox-color-variations-default-stroke-default
+  );
   --checkbox-stroke-active: var(--click-checkbox-color-variations-default-stroke-active);
 }
 
