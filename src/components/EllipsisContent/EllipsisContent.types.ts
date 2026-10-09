@@ -1,6 +1,9 @@
 import { ElementType } from 'react';
 import type { TooltipContentProps } from '@/components/Tooltip/Tooltip.types';
 
+/**
+ * @deprecated Use `TextTruncateProps` instead. This type will be removed in a future version.
+ */
 export interface EllipsisContentProps<T extends ElementType = 'div'> {
   component?: T;
   /**

@@ -4,6 +4,7 @@ import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
+  ForwardedRef,
   ReactNode,
   forwardRef,
 } from 'react';
@@ -19,6 +20,9 @@ import type { HorizontalDirection } from '@/types';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 import type { ArrowProps, DropdownItemProps } from './Dropdown.types';
 import styles from './Dropdown.module.css';
+
+// Radix takes the padding as a number of pixels, so it cannot come from a CSS token.
+const COLLISION_PADDING = 8;
 
 export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
   <DropdownMenu.Root {...props} />
@@ -164,7 +168,7 @@ const DropdownContent = ({
         sideOffset={4}
         loop
         avoidCollisions={responsivePositioning}
-        collisionPadding={responsivePositioning ? 100 : undefined}
+        collisionPadding={responsivePositioning ? COLLISION_PADDING : undefined}
         {...inputModalityProps}
       >
         {showArrow && (
@@ -206,33 +210,30 @@ const DropdownSub = (props: DropdownMenu.DropdownMenuSubProps) => {
 DropdownSub.displayName = 'DropdownSub';
 Dropdown.Sub = DropdownSub;
 
-const DropdownItem = ({
-  icon,
-  iconDir,
-  type = 'default',
-  tooltipProps,
-  ...props
-}: DropdownItemProps) => {
-  const renderLabel = (label: ReactNode) => (
-    <IconWrapper
-      icon={icon}
-      iconDir={iconDir}
-      tooltipProps={{ side: 'right', ...tooltipProps }}
-    >
-      {label}
-    </IconWrapper>
-  );
+const DropdownItem = forwardRef<HTMLElement, DropdownItemProps>(
+  ({ icon, iconDir, type = 'default', tooltipProps, ...props }, ref) => {
+    const renderLabel = (label: ReactNode) => (
+      <IconWrapper
+        icon={icon}
+        iconDir={iconDir}
+        tooltipProps={{ side: 'right', ...tooltipProps }}
+      >
+        {label}
+      </IconWrapper>
+    );
 
-  return (
-    <DropdownMenuItem
-      as={DropdownMenu.Item}
-      type={type}
-      {...props}
-    >
-      <Slottable child={props.children}>{renderLabel}</Slottable>
-    </DropdownMenuItem>
-  );
-};
+    return (
+      <DropdownMenuItem
+        ref={ref as ForwardedRef<HTMLDivElement>}
+        as={DropdownMenu.Item}
+        type={type}
+        {...props}
+      >
+        <Slottable child={props.children}>{renderLabel}</Slottable>
+      </DropdownMenuItem>
+    );
+  }
+);
 
 DropdownItem.displayName = 'DropdownItem';
 Dropdown.Item = DropdownItem;
