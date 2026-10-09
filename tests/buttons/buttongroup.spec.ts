@@ -43,14 +43,20 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('iconOnly borderless matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--icon-only-borderless', 'light'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--icon-only-borderless', 'light'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
-        await expect(group).toHaveScreenshot('buttongroup-icon-only-borderless-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(group).toHaveScreenshot(
+          'buttongroup-icon-only-borderless-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
 
@@ -261,14 +267,20 @@ describe('ButtonGroup Visual Regression', () => {
       });
 
       it('iconOnly borderless matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('buttons-buttongroup--icon-only-borderless', 'dark'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('buttons-buttongroup--icon-only-borderless', 'dark'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const group = page.getByRole('group');
         await expect(group).toBeVisible({ timeout: 10000 });
-        await expect(group).toHaveScreenshot('buttongroup-icon-only-borderless-dark.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(group).toHaveScreenshot(
+          'buttongroup-icon-only-borderless-dark.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
 

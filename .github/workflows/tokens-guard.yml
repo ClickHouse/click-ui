@@ -46,7 +46,7 @@ jobs:
           all="$(git diff --name-only "$base...HEAD" -- \
             tokens src/theme/tokens 'src/theme/styles/tokens-*.css' \
             src/theme/theme.config.json .scripts/js/generate-tokens.js \
-            .prettierrc .scripts/bash/format package.json yarn.lock)"
+            .prettierrc .prettierignore package.json yarn.lock)"
           tokens="$(printf '%s\n' "$all" | grep -E '^(tokens/|\.scripts/js/generate-tokens\.js$)' || true)"
           printf 'Relevant files:\n%s\n' "${all:-<none>}"
           echo "any=$([ -n "$all" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"

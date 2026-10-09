@@ -1,1 +1,17 @@
-src/styles/types.ts
+# yarn format checks every file Prettier supports, except .gitignore entries and this list.
+
+# Generated from the Figma export. Never hand-edited (AGENTS.md section 4, rule 8).
+/tokens/
+src/theme/styles/tokens-*.css
+
+# Written by tools that do not run Prettier: changesets (pre-release state) and
+# ESLint (yarn lint:code --prune-suppressions, without a final newline).
+.changeset/pre.json
+eslint-suppressions.json
+
+# Prose (docs, changesets, CHANGELOG.md). Prettier would also reformat the aligned
+# comments inside the code blocks of AGENTS.md.
+*.md
+
+# Prettier's MDX parser only understands MDX v1; Storybook uses MDX v3.
+*.mdx
