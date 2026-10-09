@@ -736,6 +736,7 @@ __metadata:
     "@radix-ui/react-tabs": "npm:1.1.21"
     "@radix-ui/react-toast": "npm:1.2.23"
     "@radix-ui/react-tooltip": "npm:1.2.16"
+    "@radix-ui/react-use-controllable-state": "npm:1.2.6"
     "@storybook/addon-a11y": "npm:^10.1.10"
     "@storybook/addon-docs": "npm:^10.1.10"
     "@storybook/addon-links": "npm:^10.1.10"

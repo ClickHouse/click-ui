@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import { Slottable } from '@radix-ui/react-slot';
 import {
   ComponentProps,
@@ -7,12 +8,14 @@ import {
   ForwardedRef,
   Fragment,
   ReactNode,
+  createContext,
   forwardRef,
   isValidElement,
+  useContext,
 } from 'react';
 import { Arrow, GenericMenuItem, GenericMenuPanel } from '@/components/GenericMenu';
 import { cn } from '@/lib/cva';
-import { useInputModality } from '@/hooks/internal';
+import { useNonPointerClick, useInputModality } from '@/hooks/internal';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { IconWrapper } from '@/components/IconWrapper';
 import type { IconWrapperProps } from '@/components/IconWrapper';
@@ -27,9 +30,32 @@ import styles from './Dropdown.module.css';
 // Radix takes the padding as a number of pixels, so it cannot come from a CSS token.
 const COLLISION_PADDING = 8;
 
-export const Dropdown = (props: DropdownMenu.DropdownMenuProps) => (
-  <DropdownMenu.Root {...props} />
-);
+// Workaround for radix-ui/primitives#1963: Radix keeps its open state to itself, so Dropdown owns it to let the trigger open the menu on a click without a pointer press.
+const DropdownOpenContext = createContext<((open: boolean) => void) | null>(null);
+
+export const Dropdown = ({
+  open: openProp,
+  defaultOpen,
+  onOpenChange,
+  ...props
+}: DropdownMenu.DropdownMenuProps) => {
+  const [open, setOpen] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen ?? false,
+    onChange: onOpenChange,
+    caller: 'Dropdown',
+  });
+
+  return (
+    <DropdownOpenContext.Provider value={setOpen}>
+      <DropdownMenu.Root
+        {...props}
+        open={open}
+        onOpenChange={setOpen}
+      />
+    </DropdownOpenContext.Provider>
+  );
+};
 
 type DropdownMenuItemComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuItem<T>>
@@ -115,12 +141,26 @@ const DropdownMainTrigger = ({
   children,
   className,
   disabled,
+  onClick,
+  onPointerDown,
   type,
   ...triggerProps
 }: DropdownTriggerProps) => {
+  const setOpen = useContext(DropdownOpenContext);
+  const nonPointerClickHandlers = useNonPointerClick<HTMLButtonElement>({
+    onNonPointerClick: () => {
+      if (!disabled && setOpen) {
+        setOpen(true);
+      }
+    },
+    onPointerDown,
+    onClick,
+  });
+
   const sharedProps = {
     disabled,
     'aria-disabled': disabled || undefined,
+    ...nonPointerClickHandlers,
     ...triggerProps,
   };
 

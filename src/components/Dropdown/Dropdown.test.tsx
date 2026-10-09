@@ -523,4 +523,130 @@ describe('Dropdown', () => {
     expect(item.tagName).toBe('A');
     expect(ref.current).toBe(item);
   });
+
+  describe('non-pointer click workaround (radix-ui/primitives#1963)', () => {
+    // VoiceOver in Safari and Firefox: the VO keys, then mousedown, mouseup and click, with no pointer events.
+    const activateWithVoiceOver = async (element: HTMLElement) => {
+      const user = userEvent.setup();
+      await user.keyboard('{Control>}{Alt>}');
+      fireEvent.mouseDown(element);
+      fireEvent.mouseUp(element);
+      fireEvent.click(element);
+      await user.keyboard('{/Alt}{/Control}');
+    };
+
+    const renderButtonTrigger = (props: DropdownMenuProps) =>
+      renderCUI(
+        <Dropdown {...props}>
+          <Dropdown.Trigger>
+            <Button>Actions</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+    it('opens the menu on a VoiceOver activation', async () => {
+      const { getByRole, findByRole } = renderButtonTrigger({});
+
+      await activateWithVoiceOver(getByRole('button', { name: 'Actions' }));
+
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+    });
+
+    it('keeps a non-modal menu closed after a mouse click on the trigger closes it', async () => {
+      const { getByRole, findByRole } = renderButtonTrigger({ modal: false });
+      const trigger = getByRole('button', { name: 'Actions' });
+      await userEvent.click(trigger);
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+
+      await userEvent.click(trigger);
+
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('does not ask a disabled trigger to open on a VoiceOver activation', async () => {
+      const onClick = vi.fn();
+      const onOpenChange = vi.fn();
+      const { getByRole } = renderCUI(
+        <Dropdown
+          open={false}
+          onOpenChange={onOpenChange}
+        >
+          <Dropdown.Trigger
+            disabled
+            onClick={onClick}
+          >
+            <a href="#actions">Actions</a>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      await activateWithVoiceOver(getByRole('link', { name: 'Actions' }));
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+      expect(onOpenChange).not.toHaveBeenCalled();
+    });
+
+    it('calls the onClick and onPointerDown given to the trigger', async () => {
+      const onClick = vi.fn();
+      const onPointerDown = vi.fn();
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger
+            onClick={onClick}
+            onPointerDown={onPointerDown}
+          >
+            <button>Actions</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      await userEvent.click(getByRole('button', { name: 'Actions' }));
+
+      expect(onPointerDown).toHaveBeenCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('asks a controlled Dropdown to open without opening it itself', async () => {
+      const onOpenChange = vi.fn();
+      const { getByRole, queryByRole } = renderButtonTrigger({
+        open: false,
+        onOpenChange,
+      });
+
+      await activateWithVoiceOver(getByRole('button', { name: 'Actions' }));
+
+      expect(onOpenChange).toHaveBeenCalledWith(true);
+      expect(queryByRole('menu')).not.toBeInTheDocument();
+    });
+
+    it('opens the menu on first render with defaultOpen', async () => {
+      const { findByRole } = renderButtonTrigger({ defaultOpen: true });
+
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+    });
+
+    it('reports opening and closing to onOpenChange', async () => {
+      const onOpenChange = vi.fn();
+      const { findByRole, queryByRole } = renderButtonTrigger({ onOpenChange });
+      await userEvent.tab();
+      await userEvent.keyboard('{Enter}');
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+
+      await userEvent.keyboard('{Escape}');
+
+      await waitFor(() => {
+        expect(queryByRole('menu')).not.toBeInTheDocument();
+      });
+      expect(onOpenChange.mock.calls).toEqual([[true], [false]]);
+    });
+  });
 });
