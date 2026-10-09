@@ -104,6 +104,22 @@ describe('SplitButton', () => {
     expect(getByText('Content0')).not.toBeNull();
   });
 
+  it('accepts a readonly menu', async () => {
+    const menu = [
+      { type: 'group', items: [{ label: 'Grouped' }] },
+      { type: 'sub-menu', label: 'Nested', items: [{ label: 'SubItem' }] },
+      { label: 'Plain' },
+    ] as const;
+    const { getByTestId, getByText } = renderCUI(
+      <SplitButton menu={menu}>Main</SplitButton>
+    );
+    await userEvent.click(getByTestId('split-button-dropdown'));
+
+    expect(getByText('Grouped')).toBeInTheDocument();
+    expect(getByText('Nested')).toBeInTheDocument();
+    expect(getByText('Plain')).toBeInTheDocument();
+  });
+
   it('should not open disabled dropdown on pointer', async () => {
     const { getByTestId, queryByText } = renderDropdown({
       disabled: true,

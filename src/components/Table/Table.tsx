@@ -233,14 +233,14 @@ const TableHeader = ({
   );
 };
 interface TheadProps {
-  headers: TableColumnConfigProps[];
+  headers: readonly TableColumnConfigProps[];
   isSelectable?: boolean;
   onSelectAll?: (selectedValues: SelectReturnValue[]) => void;
   actionsList: string[];
   onSort?: SortFn;
   size: TableSize;
-  rows: TableRowType[];
-  selectedIds: (number | string)[];
+  rows: readonly TableRowType[];
+  selectedIds: readonly (number | string)[];
   resizableColumns?: boolean;
   onResizeStart?: (columnIndex: number) => (e: MouseEvent) => void;
   onKeyboardResize?: (
@@ -330,7 +330,7 @@ const Thead = ({
 };
 
 interface ColgroupProps {
-  headers: TableColumnConfigProps[];
+  headers: readonly TableColumnConfigProps[];
   isSelectable?: boolean;
   actionsList: string[];
   resizableColumns?: boolean;
@@ -442,8 +442,8 @@ interface CommonTableProps extends Omit<
   HTMLAttributes<HTMLTableElement>,
   'children' | 'onSelect'
 > {
-  headers: TableColumnConfigProps[];
-  rows: TableRowType[];
+  headers: readonly TableColumnConfigProps[];
+  rows: readonly TableRowType[];
   onDelete?: (item: TableRowType, index: number) => void;
   onEdit?: (item: TableRowType, index: number) => void;
   onSort?: SortFn;
@@ -463,7 +463,7 @@ type SelectReturnValue = {
 
 interface SelectionType {
   isSelectable?: boolean;
-  selectedIds?: (number | string)[];
+  selectedIds?: readonly (number | string)[];
   onSelect?: (selectedValues: SelectReturnValue[]) => void;
 }
 
@@ -476,7 +476,7 @@ interface NoSelectionType {
 export type TableProps = CommonTableProps & (SelectionType | NoSelectionType);
 
 interface TableBodyRowProps extends Omit<TableRowType, 'id'> {
-  headers: TableColumnConfigProps[];
+  headers: readonly TableColumnConfigProps[];
   onSelect: (checked: boolean) => void;
   isSelectable?: boolean;
   isSelected: boolean;
@@ -993,8 +993,8 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
 
 interface SelectAllCheckboxProps extends Omit<CheckboxProps, 'onCheckedChange'> {
   onCheckedChange?: (selectedValues: SelectReturnValue[]) => void;
-  selectedIds: (number | string)[];
-  rows: TableRowType[];
+  selectedIds: readonly (number | string)[];
+  rows: readonly TableRowType[];
 }
 
 const SelectAllCheckbox: FC<SelectAllCheckboxProps> = ({

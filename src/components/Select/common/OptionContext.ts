@@ -6,7 +6,7 @@ type OptionContextProps = {
   highlighted?: string;
   updateHighlighted: (value: string) => void;
   isHidden: (value?: string) => boolean;
-  selectedValues: string[];
+  selectedValues: readonly string[];
   onSelect: (
     value: string,
     type?: SelectionType,
