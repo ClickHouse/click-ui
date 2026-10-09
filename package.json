@@ -319,6 +319,11 @@
       "import": "./dist/esm/components/TextField/index.js",
       "require": "./dist/cjs/components/TextField/index.cjs"
     },
+    "./TextTruncate": {
+      "types": "./dist/types/components/TextTruncate/index.d.ts",
+      "import": "./dist/esm/components/TextTruncate/index.js",
+      "require": "./dist/cjs/components/TextTruncate/index.cjs"
+    },
     "./Title": {
       "types": "./dist/types/components/Title/index.d.ts",
       "import": "./dist/esm/components/Title/index.js",

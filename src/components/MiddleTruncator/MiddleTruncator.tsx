@@ -1,5 +1,8 @@
 import styles from './MiddleTruncator.module.css';
 
+/**
+ * @deprecated Use `<TextTruncate ellipsisPosition="middle">` instead. This component will be removed in a future version.
+ */
 export const MiddleTruncator = ({
   text,
   trailingChars = 10,
