@@ -2,7 +2,9 @@ import { fireEvent, waitFor, within } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
+import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
+import { IconButton } from '@/components/IconButton';
 import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
@@ -298,6 +300,189 @@ describe('Dropdown', () => {
     expect(item.tagName).toBe('A');
     expect(item).toHaveAttribute('aria-disabled', 'true');
     expect(item).toHaveAttribute('data-disabled');
+  });
+
+  describe('trigger', () => {
+    const renderButtonTrigger = (props: DropdownMenuProps) =>
+      renderCUI(
+        <Dropdown {...props}>
+          <Dropdown.Trigger>
+            <Button data-testid="consumer-button">Actions</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+    it('puts the menu-button attributes on the consumer button that takes focus', async () => {
+      const { getByTestId } = renderButtonTrigger({});
+      const trigger = getByTestId('consumer-button');
+
+      await userEvent.tab();
+
+      expect(trigger).toHaveFocus();
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      await userEvent.keyboard('{Enter}');
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('renders text children as a focusable menu button', async () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      await userEvent.tab();
+
+      const trigger = getByRole('button', { name: 'Dropdown Trigger' });
+      expect(trigger).toHaveFocus();
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+    });
+
+    it('marks a disabled text trigger with aria-disabled', () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger disabled>Dropdown Trigger</Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      const trigger = getByRole('button', { name: 'Dropdown Trigger' });
+      expect(trigger).toBeDisabled();
+      expect(trigger).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('marks a disabled native button child with aria-disabled', () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger disabled>
+            <button>Actions</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      const trigger = getByRole('button', { name: 'Actions' });
+      expect(trigger).toBeDisabled();
+      expect(trigger).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('keeps a Button child from submitting its form', async () => {
+      const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault());
+      const { getByRole, findByRole } = renderCUI(
+        <form onSubmit={onSubmit}>
+          <Dropdown>
+            <Dropdown.Trigger>
+              <Button>Actions</Button>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              <Dropdown.Item>Rename</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </form>
+      );
+
+      await userEvent.click(getByRole('button', { name: 'Actions' }));
+
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+      expect(onSubmit).not.toHaveBeenCalled();
+    });
+
+    it('does not pass htmlType to a native button child', () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger>
+            <button>Actions</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Rename</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      const trigger = getByRole('button', { name: 'Actions' });
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).not.toHaveAttribute('htmltype');
+    });
+
+    it("passes the trigger's type to a native button child", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <button>Save</button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it("passes the trigger's type to a Button child as its native type", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <Button>Save</Button>
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
+    });
+
+    it("passes the trigger's type to an IconButton child as its native type", () => {
+      const { getByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger type="submit">
+            <IconButton
+              icon="dots-vertical"
+              aria-label="More"
+            />
+          </Dropdown.Trigger>
+          <Dropdown.Content>
+            <Dropdown.Item>Save as</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+
+      expect(getByRole('button', { name: 'More' })).toHaveAttribute('type', 'submit');
+    });
+
+    it('keeps a native button child from submitting its form', async () => {
+      const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault());
+      const { getByRole, findByRole } = renderCUI(
+        <form onSubmit={onSubmit}>
+          <Dropdown>
+            <Dropdown.Trigger>
+              <button>Actions</button>
+            </Dropdown.Trigger>
+            <Dropdown.Content>
+              <Dropdown.Item>Rename</Dropdown.Item>
+            </Dropdown.Content>
+          </Dropdown>
+        </form>
+      );
+
+      await userEvent.click(getByRole('button', { name: 'Actions' }));
+
+      expect(await findByRole('menuitem', { name: 'Rename' })).toBeInTheDocument();
+      expect(onSubmit).not.toHaveBeenCalled();
+    });
   });
 
   it('should point a ref passed to Dropdown.Item at the menu item', async () => {
