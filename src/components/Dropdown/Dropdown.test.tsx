@@ -389,7 +389,12 @@ describe('Dropdown', () => {
           .mockReturnValue(new DOMRect(100, triggerTop, 100, 20))
       );
       await userEvent.click(trigger);
-      return findByRole('menu');
+      const menu = await findByRole('menu');
+      // Until its async positioning pass runs, Radix parks the wrapper off-screen and reports the requested side.
+      await waitFor(() =>
+        expect(menu.parentElement).not.toHaveStyle({ transform: 'translate(0, -200%)' })
+      );
+      return menu;
     };
 
     it('should flip the menu above the trigger by default when it comes within 8px of the viewport edge', async () => {
