@@ -114,14 +114,14 @@ Dropdown.Trigger = DropdownTrigger;
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
   container?: HTMLElement | null;
-  /** Defaults to `true` (collision avoidance with a viewport padding); explicit `avoidCollisions` and `collisionPadding` take precedence. */
+  /** Defaults to `true` (collision avoidance with a viewport padding); explicit `avoidCollisions` and `collisionPadding` take precedence, and the padding applies only while collision avoidance is on. */
   responsivePositioning?: boolean;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
   children?: ReactNode;
   container?: HTMLElement | null;
-  /** Defaults to `true` (collision avoidance with a viewport padding); explicit `avoidCollisions` and `collisionPadding` take precedence. */
+  /** Defaults to `true` (collision avoidance with a viewport padding); explicit `avoidCollisions` and `collisionPadding` take precedence, and the padding applies only while collision avoidance is on. */
   responsivePositioning?: boolean;
 }
 
