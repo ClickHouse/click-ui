@@ -1,7 +1,7 @@
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import userEvent from '@testing-library/user-event';
-import { createRef } from 'react';
+import { ComponentProps, createRef } from 'react';
 import { Dropdown } from '@/components/Dropdown';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -353,5 +353,73 @@ describe('Dropdown', () => {
     const item = getByRole('menuitem', { name: 'Docs' });
     expect(item.tagName).toBe('A');
     expect(ref.current).toBe(item);
+  });
+
+  describe('menu positioning', () => {
+    const layoutSpies: Array<{ mockRestore: () => void }> = [];
+
+    beforeEach(() => {
+      // jsdom has no layout, so the viewport is stubbed to a real size.
+      layoutSpies.push(
+        vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValue(1024),
+        vi.spyOn(document.documentElement, 'clientHeight', 'get').mockReturnValue(768)
+      );
+    });
+
+    afterEach(() => {
+      layoutSpies.splice(0).forEach(spy => spy.mockRestore());
+    });
+
+    const openMenuWithTriggerAt = async (
+      triggerTop: number,
+      contentProps: ComponentProps<typeof Dropdown.Content>
+    ) => {
+      const { getByText, findByRole } = renderCUI(
+        <Dropdown>
+          <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+          <Dropdown.Content {...contentProps}>
+            <Dropdown.Item>Settings</Dropdown.Item>
+          </Dropdown.Content>
+        </Dropdown>
+      );
+      const trigger = getByText('Dropdown Trigger');
+      layoutSpies.push(
+        vi
+          .spyOn(trigger, 'getBoundingClientRect')
+          .mockReturnValue(new DOMRect(100, triggerTop, 100, 20))
+      );
+      await userEvent.click(trigger);
+      return findByRole('menu');
+    };
+
+    it('should flip the menu above the trigger by default when it comes within 8px of the viewport edge', async () => {
+      const menu = await openMenuWithTriggerAt(740, {});
+
+      expect(menu).toHaveAttribute('data-side', 'top');
+    });
+
+    it('should keep the menu below the trigger when responsivePositioning is false', async () => {
+      const menu = await openMenuWithTriggerAt(750, { responsivePositioning: false });
+
+      expect(menu).toHaveAttribute('data-side', 'bottom');
+    });
+
+    it('should keep the menu below the trigger when avoidCollisions is false', async () => {
+      const menu = await openMenuWithTriggerAt(750, { avoidCollisions: false });
+
+      expect(menu).toHaveAttribute('data-side', 'bottom');
+    });
+
+    it('should flip the menu above the trigger when it comes within collisionPadding of the viewport edge', async () => {
+      const menu = await openMenuWithTriggerAt(700, { collisionPadding: 100 });
+
+      expect(menu).toHaveAttribute('data-side', 'top');
+    });
+
+    it('should flip the menu above the trigger when sideOffset pushes it past the viewport edge', async () => {
+      const menu = await openMenuWithTriggerAt(700, { sideOffset: 50 });
+
+      expect(menu).toHaveAttribute('data-side', 'top');
+    });
   });
 });
