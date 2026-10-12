@@ -316,6 +316,22 @@ describe('Dropdown', () => {
     expect(ref.current).toBe(getByRole('menuitem', { name: 'Settings' }));
   });
 
+  it('should point a ref passed to Dropdown.Content at the menu', async () => {
+    const ref = createRef<HTMLDivElement>();
+    const { getByText, getByRole } = renderCUI(
+      <Dropdown>
+        <Dropdown.Trigger>Dropdown Trigger</Dropdown.Trigger>
+        <Dropdown.Content ref={ref}>
+          <Dropdown.Item>Settings</Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown>
+    );
+
+    await userEvent.click(getByText('Dropdown Trigger'));
+
+    expect(ref.current).toBe(getByRole('menu'));
+  });
+
   it('should point a ref passed to an asChild Dropdown.Item at the child element', async () => {
     const ref = createRef<HTMLAnchorElement>();
     const { getByText, getByRole } = renderCUI(

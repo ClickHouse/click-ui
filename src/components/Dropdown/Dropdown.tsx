@@ -146,46 +146,48 @@ const _DropdownMenuContent = <T extends ElementType = 'div'>(
 const DropdownMenuContent: DropdownMenuContentComponent =
   forwardRef(_DropdownMenuContent);
 
-const DropdownContent = ({
-  sub,
-  children,
-  container,
-  showArrow,
-  responsivePositioning = true,
-  ...props
-}: DropdownContentProps | DropdownSubContentProps) => {
-  const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
-  const inputModalityProps = useInputModality();
-  const portalContainer = useResolvedPortalContainer(container);
+const DropdownContent = forwardRef<
+  HTMLDivElement,
+  DropdownContentProps | DropdownSubContentProps
+>(
+  (
+    { sub, children, container, showArrow, responsivePositioning = true, ...props },
+    ref
+  ) => {
+    const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
+    const inputModalityProps = useInputModality();
+    const portalContainer = useResolvedPortalContainer(container);
 
-  return (
-    <DropdownMenu.Portal container={portalContainer}>
-      <DropdownMenuContent
-        {...props}
-        type="dropdown-menu"
-        showArrow={showArrow}
-        as={ContentElement}
-        sideOffset={4}
-        loop
-        avoidCollisions={responsivePositioning}
-        collisionPadding={responsivePositioning ? COLLISION_PADDING : undefined}
-        {...inputModalityProps}
-      >
-        {showArrow && (
-          <Arrow
-            asChild
-            as={DropdownMenu.Arrow}
-            width={20}
-            height={10}
-          >
-            <Popover_Arrow />
-          </Arrow>
-        )}
-        {children}
-      </DropdownMenuContent>
-    </DropdownMenu.Portal>
-  );
-};
+    return (
+      <DropdownMenu.Portal container={portalContainer}>
+        <DropdownMenuContent
+          ref={ref}
+          {...props}
+          type="dropdown-menu"
+          showArrow={showArrow}
+          as={ContentElement}
+          sideOffset={4}
+          loop
+          avoidCollisions={responsivePositioning}
+          collisionPadding={responsivePositioning ? COLLISION_PADDING : undefined}
+          {...inputModalityProps}
+        >
+          {showArrow && (
+            <Arrow
+              asChild
+              as={DropdownMenu.Arrow}
+              width={20}
+              height={10}
+            >
+              <Popover_Arrow />
+            </Arrow>
+          )}
+          {children}
+        </DropdownMenuContent>
+      </DropdownMenu.Portal>
+    );
+  }
+);
 
 DropdownContent.displayName = 'DropdownContent';
 Dropdown.Content = DropdownContent;
