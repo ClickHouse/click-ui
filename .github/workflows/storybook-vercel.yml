@@ -75,11 +75,9 @@ jobs:
           IS_PRERELEASE: ${{ github.event.release.prerelease }}
           DEPLOY_PRODUCTION: ${{ inputs.deploy_production }}
         run: |
-          COMMIT_MSG=$(git log -1 --format=%s)
           .scripts/bash/storybook-deploy-channels \
             "$EVENT_NAME" \
             "$REF" \
-            "$COMMIT_MSG" \
             "$IS_PRERELEASE" \
             "$DEPLOY_PRODUCTION" \
             | tee -a "$GITHUB_OUTPUT"
@@ -131,15 +129,15 @@ jobs:
         run: npm install --global vercel@41.7.3
 
       - name: Align package version with the tag
-        # The legacy release flow (publish.yml) cuts the tag on main before its
-        # "bump version" commit lands, so package.json on the tag is one version
-        # behind. Same one-liner publish.yml runs before npm publish; build-only.
+        # publish.yml cuts the tag on main before its "bump version" commit lands,
+        # so package.json on the tag is one version behind. Same one-liner
+        # publish.yml runs before npm publish; build-only.
         if: github.ref_type == 'tag'
         run: npm pkg set version="${GITHUB_REF_NAME#v}"
 
       - name: Set the canary version
-        # A canary-only build shows the version publish.yml gives this commit on npm.
-        if: steps.channels.outputs.deploy_canary == 'true' && steps.channels.outputs.deploy_release != 'true'
+        # A canary build shows the version publish.yml gives this commit on npm.
+        if: steps.channels.outputs.deploy_canary == 'true'
         run: |
           VERSION=$(.scripts/bash/canary-version "$GITHUB_SHA")
           npm pkg set version="$VERSION"
@@ -217,10 +215,6 @@ jobs:
 
       - name: Deploy canary channel
         if: steps.channels.outputs.deploy_canary == 'true'
-        id: canary
-        # A canary failure must not skip the release deploy when both run;
-        # when canary deploys alone, let it fail the run loudly.
-        continue-on-error: ${{ steps.channels.outputs.deploy_release == 'true' }}
         # Deploys to the "canary" custom environment of the same project,
         # isolated from production. Step-scoped credentials - see "Deploy preview".
         env:
@@ -246,13 +240,6 @@ jobs:
             --token="$VERCEL_TOKEN")
           echo "Canary channel deployed to: $DEPLOYMENT_URL"
           echo "✅ **Canary channel** deployed: $DEPLOYMENT_URL" >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Warn on tolerated canary failure
-        # continue-on-error above leaves the run green; make the failure visible.
-        if: steps.canary.outcome == 'failure'
-        run: |
-          echo "Canary deploy failed (tolerated so the release deploy still runs). Canary is stale until the next push to main."
-          echo "❌ **Canary channel** deploy failed (run kept green for the release deploy)" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Deploy release channel
         if: steps.channels.outputs.deploy_release == 'true'

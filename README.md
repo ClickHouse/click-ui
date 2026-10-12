@@ -46,7 +46,7 @@ You can find the official docs for the Click UI design system and component libr
 * [Changesets](#changesets)
   - [Add a new changeset](#add-a-new-changeset)
   - [Checking the changeset status](#checking-the-changeset-status)
-  - [Create a new version and changelogs](#create-a-new-version-and-changelogs)
+  - [Consuming changesets](#consuming-changesets)
 * [Release](#release)
 * [Contributing](#contributing)
   - [Component RFC](#component-rfc)
@@ -88,7 +88,7 @@ Install the package via npm or your favorite package manager:
 npm i @clickhouse/click-ui@latest
 ```
 
-Every merge to `main` is also published as a prerelease, for trying changes before a release: `npm i @clickhouse/click-ui@canary`.
+Every merge to `main` is also published as a prerelease, for trying changes before a release: `npm i @clickhouse/click-ui@canary`, see [Canary releases](./docs/publish.md#canary-releases).
 
 Click UI has three peer dependencies. Your app must provide them:
 
@@ -125,7 +125,7 @@ function App() {
 }
 ```
 
-For more examples, including theme switching and configuration, see the [How to](#how-to-use) use section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
+For more examples, including theme switching and configuration, see the [Use Click UI](#use-click-ui) section, or explore our design system at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
 ## Development
 
@@ -330,7 +330,7 @@ The latest static version's built and deployed automatically when contributing t
 
 Once deployed it's available publicly at [clickhouse.design/click-ui](https://clickhouse.design/click-ui).
 
-## Changeset
+## Changesets
 
 Learn to manage the versioning of changelog entries.
 
@@ -355,6 +355,8 @@ yarn changeset:add
 
 The changesets tool keeps track of all declared changes in the `.changeset` directory.
 
+Start the text with **Breaking:** when consumers have to change their code. The release notes list those entries under "⚠️ Upgrade notes"; all other entries go under "Good to know".
+
 Once completed, you must commit the changeset!
 
 ### Checking the changeset status
@@ -365,16 +367,9 @@ To check if your branch contains a changeset:
 yarn changeset:status
 ```
 
-### Create a new version and changelogs
+### Consuming changesets
 
-To consume all changesets, and update to the most appropriate semver version and write a friendly changelog based on those changesets, the following command is available:
-
-> [!IMPORTANT]
-> Consuming changesets is done automatically in the CI/CD environment. For this reason, you don't have to execute the command, as a contributor your single concern should be adding changesets to any relevant changes.
-
-```sh
-yarn changeset:version
-```
+Consuming changesets is done automatically when a release is published, see [Changelog and release notes](./docs/publish.md#changelog-and-release-notes). As a contributor, your single concern is adding a changeset to any relevant change. Do not run `changeset version` yourself.
 
 ## Distribution
 
@@ -651,11 +646,9 @@ For more detailed instructions, see [converting SVG to React Components](./docs/
 
 ## Release
 
-Releases are automated via GitHub Actions. A workflow creates a PR with version bumps and changelogs for review. Once merged, the package is published to npm and a GitHub release is created.
+Releases are manual GitHub releases. Publishing the tag to npm, the `CHANGELOG.md` section, the deletion of the consumed changesets and the release notes are automated. See [Publish](./docs/publish.md).
 
-Use the [Create a new release Pull Request](./docs/package-release.md#create-a-new-release-pull-request) for a quick automated process.
-
-See [Package Release](./docs/package-release.md) for detailed instructions, including use-cases.
+## Contributing
 
 ### Component RFC
 

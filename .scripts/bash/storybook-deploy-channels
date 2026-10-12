@@ -3,7 +3,7 @@
 # Decide which Storybook channels a workflow run should deploy to.
 #
 # Usage:
-#   storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>
+#   storybook-deploy-channels <event_name> <ref> <prerelease> <deploy_production>
 #
 # Channels:
 #   preview - throwaway per-PR deployment; only the PR links to it
@@ -21,34 +21,21 @@
 
 set -uo pipefail
 
-if [[ $# -lt 5 ]]; then
-  echo "❌ Error: Usage: storybook-deploy-channels <event_name> <ref> <commit_message> <prerelease> <deploy_production>" >&2
+if [[ $# -lt 4 ]]; then
+  echo "❌ Error: Usage: storybook-deploy-channels <event_name> <ref> <prerelease> <deploy_production>" >&2
   exit 1
 fi
 
 EVENT_NAME="$1"
 REF="$2"
-COMMIT_MSG="$3"
-PRERELEASE="$4"
-DEPLOY_PRODUCTION="$5"
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-VERIFIER="$SCRIPT_DIR/verify-release-commit"
-if [[ ! -x "$VERIFIER" ]]; then
-  echo "❌ Error: $VERIFIER is missing or not executable" >&2
-  exit 1
-fi
+PRERELEASE="$3"
+DEPLOY_PRODUCTION="$4"
 
 # ============================================================================
 # 1. CLASSIFY
 #
-# First match wins: specific before general. The release-commit checks MUST
-# precede merge-to-main, or changesets releases stop deploying.
+# First match wins: specific before general.
 # ============================================================================
-
-RELEASE_VERSION=""
-RELEASE_TYPE=""
 
 if [[ "$EVENT_NAME" == "pull_request" ]]; then
   SITUATION="pull-request"
@@ -58,17 +45,6 @@ elif [[ "$EVENT_NAME" == "release" && "$PRERELEASE" == "true" ]]; then
 
 elif [[ "$EVENT_NAME" == "release" ]]; then
   SITUATION="release-published"
-
-elif [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]] &&
-  VERIFY_OUTPUT=$("$VERIFIER" "$COMMIT_MSG" 2>&1); then
-  RELEASE_VERSION=$(echo "$VERIFY_OUTPUT" | awk '{print $1}')
-  RELEASE_TYPE=$(echo "$VERIFY_OUTPUT" | awk '{print $2}')
-  # Allowlist: only known-stable types reach prod; a new type fails closed.
-  if [[ "$RELEASE_TYPE" == "latest" || "$RELEASE_TYPE" == "stable" ]]; then
-    SITUATION="release-commit-on-main"
-  else
-    SITUATION="prerelease-commit-on-main"
-  fi
 
 elif [[ "$EVENT_NAME" == "push" && "$REF" == "refs/heads/main" ]]; then
   SITUATION="merge-to-main"
@@ -108,16 +84,6 @@ case "$SITUATION" in
   prerelease-published)
     CHANNELS=""
     DESCRIPTION="A GitHub Release was published but is marked as a prerelease (an rc). rc content must not overwrite the stable Storybook, so nothing is deployed. The rc still publishes to npm."
-    ;;
-
-  release-commit-on-main)
-    CHANNELS="canary release"
-    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main. The changesets chain creates its GitHub Release with a bot token, which emits no release: event, so this commit message is the only signal. Canary follows main as always."
-    ;;
-
-  prerelease-commit-on-main)
-    CHANNELS="canary"
-    DESCRIPTION="A release commit for v$RELEASE_VERSION ($RELEASE_TYPE) landed on main, but only latest/stable releases update the stable Storybook. Canary still follows main; the release publishes to npm."
     ;;
 
   merge-to-main)

@@ -464,7 +464,7 @@ test(Button): cover loading state
 - `README.md` — setup, consuming the library, theming, design tokens, release process.
 - `ACCESSIBILITY.md` — the accessibility policy: target, severity, definition of done, debt tracking.
 - `docs/tests/playwright.md` — visual tests in Docker, single-component runs, reports.
-- `docs/package-release.md`, `docs/publish.md` — releases.
+- `docs/publish.md` — releases.
 - `docs/converting-svg-to-react-components.md` — adding icons, logos, flags.
 - `.claude/skills/component-css-modules-migration/SKILL.md` — a worked, two-commit procedure
   for pure styling refactors. Its pitfalls list applies to any component change.

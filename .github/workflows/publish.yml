@@ -3,7 +3,8 @@
 #   canary:  every push to main, as <next>-canary.g<sha>.0 (.scripts/bash/canary-version)
 # Three jobs keep dependency code away from the credentials: resolve decides from the event,
 # build installs and packs without credentials, publish checks that package and publishes it
-# without installing anything. docs/publish.md
+# without installing anything. A release also consumes the changesets: build writes the
+# CHANGELOG.md section, publish checks it, commits it and writes the release notes. docs/publish.md
 
 name: Publish to npm
 
@@ -127,6 +128,9 @@ jobs:
         with:
           # The commit resolve saw. Empty for canaries, which check out the pushed commit.
           ref: ${{ needs.resolve.outputs.sha }}
+          # Releases need the history: changesets records the commit that added each changeset and
+          # deepens a shallow clone in a loop that never ends when a fetch fails.
+          fetch-depth: ${{ env.PUBLISH_MODE == 'release' && '0' || '1' }}
           persist-credentials: false
       - name: Bump package version
         if: env.PUBLISH_MODE == 'release'
@@ -140,6 +144,31 @@ jobs:
         run: corepack enable
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Consume the changesets
+        if: env.PUBLISH_MODE == 'release'
+        shell: bash
+        env:
+          TAG: ${{ needs.resolve.outputs.tag }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/changelog"
+          git show HEAD:CHANGELOG.md > "$RUNNER_TEMP/changelog/CHANGELOG.committed.md"
+          yarn changeset version
+          # changeset version bumped package.json from the tag; the tag stays the version.
+          npm pkg set version="${TAG#v}"
+          # Fail here, before anything is published, unless the result is the committed file plus one
+          # section. publish repeats the check on the file it receives.
+          .scripts/bash/release-changelog "$TAG" CHANGELOG.md "$RUNNER_TEMP/changelog/CHANGELOG.committed.md" > /dev/null && STATUS=0 || STATUS=$?
+          if (( STATUS == 2 )); then
+            # changeset version only warns when it cannot write CHANGELOG.md, but still deletes the changesets.
+            if [[ -n "$(git ls-files --deleted -- '.changeset/*.md')" ]]; then
+              echo "❌ Error: changeset version removed $(git ls-files --deleted -- '.changeset/*.md' | wc -l | tr -d ' ') changeset(s) but wrote no CHANGELOG.md section; see its output above" >&2
+              exit 1
+            fi
+            echo "⚠️ No changesets were pending: CHANGELOG.md gets no section and the release notes no entries" | tee -a "$GITHUB_STEP_SUMMARY"
+          elif (( STATUS != 0 )); then
+            exit "$STATUS"
+          fi
+          cp CHANGELOG.md "$RUNNER_TEMP/changelog/CHANGELOG.md"
       - name: Set the canary version
         if: env.PUBLISH_MODE == 'canary'
         # Same script and commit as the canary Storybook (storybook-vercel.yml).
@@ -161,12 +190,22 @@ jobs:
           if-no-files-found: error
           retention-days: 1
           overwrite: true
+      - name: Upload the changelog
+        if: env.PUBLISH_MODE == 'release'
+        uses: actions/upload-artifact@v7
+        with:
+          name: changelog
+          # Unchanged when no changesets were pending.
+          path: ${{ runner.temp }}/changelog/CHANGELOG.md
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
 
   publish:
     needs: [resolve, build]
     runs-on: ubuntu-latest
     permissions:
-      contents: read       # The bump commit and the tag are pushed with PAT_TOKEN
+      contents: read       # The bump commit, the tag and the release notes use PAT_TOKEN
       id-token: write      # For OIDC trusted publishing to npm
     steps:
       - name: Checkout repository (release)
@@ -191,9 +230,15 @@ jobs:
         with:
           name: package
           path: ${{ runner.temp }}/package
+      - name: Download the changelog
+        if: env.PUBLISH_MODE == 'release'
+        uses: actions/download-artifact@v8
+        with:
+          name: changelog
+          path: ${{ runner.temp }}/changelog
 
-      # build ran dependency code with root on its runner: only the package comes from
-      # there, and it must match what resolve decided and this run's commit.
+      # build ran dependency code with root on its runner: only the package and CHANGELOG.md come
+      # from there, and both must match what resolve decided and this run's commit.
       - name: Guard - publish the package that was built for this run
         shell: bash
         env:
@@ -258,6 +303,23 @@ jobs:
             echo "📦 Publishing $VERSION to npm dist-tag \`canary\`" | tee -a "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Guard - accept one new changelog section from build
+        if: env.PUBLISH_MODE == 'release'
+        shell: bash
+        run: |
+          reject() { echo "$1" >&2; printf '## Release rejected\n\n%s\n' "$1" >> "$GITHUB_STEP_SUMMARY"; exit 1; }
+
+          # The committed CHANGELOG.md plus one `## <tag>` section on top, or unchanged. The release
+          # notes take their entries from this checked file, never from anything else build wrote.
+          mkdir -p "$RUNNER_TEMP/notes"
+          .scripts/bash/release-changelog "$GITHUB_TAG" "$RUNNER_TEMP/changelog/CHANGELOG.md" CHANGELOG.md > "$RUNNER_TEMP/notes/section.md" 2> "$RUNNER_TEMP/reject.txt" && STATUS=0 || STATUS=$?
+          if (( STATUS == 2 )); then
+            echo "⚠️ No changesets were pending: CHANGELOG.md gets no section and the release notes no entries" | tee -a "$GITHUB_STEP_SUMMARY"
+          elif (( STATUS != 0 )); then
+            reject "$(cat "$RUNNER_TEMP/reject.txt")"
+          fi
+          echo "CHANGELOG_CHANGED=$([[ $STATUS == 0 ]] && echo true || echo false)" >> "$GITHUB_ENV"
+
       - name: Guard - re-check latest right before publishing
         if: env.NPM_TAG == 'latest'
         shell: bash
@@ -294,17 +356,38 @@ jobs:
         if: steps.canary.outputs.skip != 'true'
         # A second lock: the guard already refuses a tarball that carries publishConfig.
         run: npm publish "$TARBALL" --access public --tag "$NPM_TAG" --provenance --registry=https://registry.npmjs.org/ --@clickhouse:registry=https://registry.npmjs.org/
+      - name: Write the release notes
+        # Before the commit: the notes do not depend on it, and a rejected push must not lose them.
+        if: github.event_name == 'release'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }} # the job's GITHUB_TOKEN cannot edit releases
+          RELEASE_TAG: ${{ github.event.release.tag_name }} # as created, with or without the v
+        run: |
+          # GitHub's own notes for the tag, as the "Generate release notes" button writes them, rearranged
+          # with the changeset entries. The body is replaced; docs/publish.md says to edit it afterwards.
+          gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$RELEASE_TAG" --jq .body > "$RUNNER_TEMP/notes/generated.md"
+          .scripts/bash/release-body "$RUNNER_TEMP/notes/section.md" "$RUNNER_TEMP/notes/generated.md" > "$RUNNER_TEMP/notes/body.md"
+          { echo "## Release notes"; echo; cat "$RUNNER_TEMP/notes/body.md"; } >> "$GITHUB_STEP_SUMMARY"
+          gh release edit "$RELEASE_TAG" --notes-file "$RUNNER_TEMP/notes/body.md"
       - name: Set up Git
         if: env.PUBLISH_MODE == 'release'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      - name: Commit the version bump
+      - name: Commit the version bump and the changelog
         if: env.PUBLISH_MODE == 'release'
+        shell: bash
         run: |
           npm pkg set version="${GITHUB_TAG#v}"
           git add package.json yarn.lock
-          # [skip ci]: a bump-only commit must not publish a canary or redeploy the canary Storybook.
+          # A final release consumes the changesets; a prerelease leaves them for the final one.
+          if [[ "$NPM_TAG" == "latest" && "$CHANGELOG_CHANGED" == "true" ]]; then
+            cp "$RUNNER_TEMP/changelog/CHANGELOG.md" CHANGELOG.md
+            git add CHANGELOG.md
+            git ls-files -z -- '.changeset/*.md' ':!.changeset/README.md' | xargs -0 -r git rm -q --
+          fi
+          # [skip ci]: this commit must not publish a canary or redeploy the canary Storybook.
           git commit -m "bump version to ${GITHUB_TAG#v} [skip ci]"
           git push
       - name: Create and push git tag (manual trigger only)

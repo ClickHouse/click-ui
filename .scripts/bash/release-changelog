@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+# Give the newest CHANGELOG.md section the release tag's version and print its body.
+# Stdout = section body, stderr = diagnostics.
+# Usage: release-changelog <tag> <changelog> <committed-changelog>
+#   <tag>                  vX.Y.Z or vX.Y.Z-rc1, the v is optional. Becomes the heading `## X.Y.Z`.
+#   <changelog>            CHANGELOG.md after `changeset version`. Its newest heading is rewritten in place.
+#   <committed-changelog>  The same file before `changeset version`, e.g. `git show HEAD:CHANGELOG.md`.
+#
+#   Exit 0  <changelog> is <committed-changelog> plus one section on top: heading rewritten, body printed.
+#   Exit 2  Both files are identical, so no changesets were pending. Nothing is printed or changed.
+#   Exit 1  Anything else, including a <changelog> whose other content differs from the committed
+#           file. `changeset version` computes its own version, so the heading it wrote is not trusted,
+#           and the build job runs dependency code, so nothing but one new section may come from it.
+#
+# Used by publish.yml in build (right after `changeset version`) and again in publish, on the file it
+# receives from build, before that file is committed. Runs on macOS bash 3.2 and Linux bash 5.
+
+set -euo pipefail
+export LC_ALL=C
+
+if [[ $# -ne 3 ]]; then
+  echo "❌ Error: Usage: release-changelog <tag> <changelog> <committed-changelog>" >&2
+  exit 1
+fi
+
+TAG="$1"
+CHANGELOG="$2"
+COMMITTED="$3"
+
+if [[ ! "$TAG" =~ ^v?([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?)$ ]]; then
+  echo "❌ Error: tag '$TAG' is not vX.Y.Z or vX.Y.Z-<prerelease>, e.g. v0.15.0 or v0.15.0-rc1" >&2
+  exit 1
+fi
+VERSION="${BASH_REMATCH[1]}"
+
+for FILE in "$CHANGELOG" "$COMMITTED"; do
+  if [[ ! -f "$FILE" ]]; then
+    echo "❌ Error: changelog file not found: $FILE" >&2
+    exit 1
+  fi
+done
+
+if cmp -s "$CHANGELOG" "$COMMITTED"; then
+  echo "⚠️ No new section in $CHANGELOG: no changesets were pending" >&2
+  exit 2
+fi
+
+# heading_line <file> <n>: line number of the n-th `## ` heading, empty when there is none.
+heading_line() {
+  { grep -n '^## ' "$1" || true; } | sed -n "${2}p" | cut -d: -f1
+}
+# lines_before <file> <line>: lines 1 to line-1; the whole file when <line> is empty.
+lines_before() {
+  if [[ -z "$2" ]]; then cat "$1"; else head -n "$(($2 - 1))" "$1"; fi
+}
+# lines_from <file> <line>: lines <line> to the end; nothing when <line> is empty.
+lines_from() {
+  if [[ -n "$2" ]]; then tail -n "+$2" "$1"; fi
+}
+
+NEW_FIRST=$(heading_line "$CHANGELOG" 1)
+NEW_SECOND=$(heading_line "$CHANGELOG" 2)
+OLD_FIRST=$(heading_line "$COMMITTED" 1)
+
+if [[ -z "$NEW_FIRST" ]]; then
+  echo "❌ Error: $CHANGELOG has no '## <version>' section" >&2
+  exit 1
+fi
+if ! cmp -s <(lines_before "$CHANGELOG" "$NEW_FIRST") <(lines_before "$COMMITTED" "$OLD_FIRST"); then
+  echo "❌ Error: $CHANGELOG differs from $COMMITTED above its first section" >&2
+  exit 1
+fi
+if ! cmp -s <(lines_from "$CHANGELOG" "$NEW_SECOND") <(lines_from "$COMMITTED" "$OLD_FIRST"); then
+  echo "❌ Error: $CHANGELOG differs from $COMMITTED beyond one new section on top" >&2
+  exit 1
+fi
+
+BODY=$(awk -v from="$NEW_FIRST" -v to="${NEW_SECOND:-0}" 'NR > from && (to == 0 || NR < to)' "$CHANGELOG" | sed '/./,$!d')
+if [[ -z "$BODY" ]]; then
+  echo "❌ Error: the new section in $CHANGELOG is empty" >&2
+  exit 1
+fi
+
+awk -v line="$NEW_FIRST" -v heading="## $VERSION" 'NR == line { print heading; next } { print }' "$CHANGELOG" > "$CHANGELOG.tmp"
+mv "$CHANGELOG.tmp" "$CHANGELOG"
+
+printf '%s\n' "$BODY"
