@@ -114,14 +114,12 @@ Dropdown.Trigger = DropdownTrigger;
 interface StyledDropdownContentProps extends DropdownMenu.DropdownMenuContentProps {
   children?: ReactNode;
   container?: HTMLElement | null;
-  /** Defaults to `true`, which sets the defaults of `avoidCollisions` (on) and `collisionPadding` (a viewport padding); a value passed for either prop takes precedence. */
   responsivePositioning?: boolean;
 }
 
 interface StyledDropdownSubContentProps extends DropdownMenu.DropdownMenuSubContentProps {
   children?: ReactNode;
   container?: HTMLElement | null;
-  /** Defaults to `true`, which sets the defaults of `avoidCollisions` (on) and `collisionPadding` (a viewport padding); a value passed for either prop takes precedence. */
   responsivePositioning?: boolean;
 }
 
@@ -153,17 +151,7 @@ const DropdownContent = forwardRef<
   DropdownContentProps | DropdownSubContentProps
 >(
   (
-    {
-      sub,
-      children,
-      container,
-      showArrow,
-      responsivePositioning = true,
-      sideOffset = 4,
-      avoidCollisions = responsivePositioning,
-      collisionPadding = responsivePositioning ? COLLISION_PADDING : undefined,
-      ...props
-    },
+    { sub, children, container, showArrow, responsivePositioning = true, ...props },
     ref
   ) => {
     const ContentElement = sub ? DropdownMenu.SubContent : DropdownMenu.Content;
@@ -178,10 +166,10 @@ const DropdownContent = forwardRef<
           type="dropdown-menu"
           showArrow={showArrow}
           as={ContentElement}
-          sideOffset={sideOffset}
+          sideOffset={4}
           loop
-          avoidCollisions={avoidCollisions}
-          collisionPadding={collisionPadding}
+          avoidCollisions={responsivePositioning}
+          collisionPadding={responsivePositioning ? COLLISION_PADDING : undefined}
           {...inputModalityProps}
         >
           {showArrow && (
