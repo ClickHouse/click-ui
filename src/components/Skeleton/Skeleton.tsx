@@ -33,8 +33,9 @@ const isSpace = (value: string): value is SkeletonSpace =>
 const toCssLength = (value: SkeletonLength) =>
   isSpace(value) ? spaceTokens[value] : value;
 
-// The keyframes in Skeleton.module.css; CSS Modules adds a hash suffix to the name.
-const SHIMMER_ANIMATION = 'skeleton-shimmer';
+// The `skeleton-shimmer` keyframes in Skeleton.module.css, as CSS Modules names them
+// (`[local]__[hash:base64:5]`, see plugins/css-colocate/utils.ts).
+const SHIMMER_ANIMATION = /^skeleton-shimmer__[\w-]{5}$/;
 
 const isShimmer = (animation: Animation, animationName: string): boolean =>
   'animationName' in animation && animation.animationName === animationName;
@@ -64,7 +65,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
     const handleAnimationStart = useCallback(
       (event: AnimationEvent<HTMLDivElement>) => {
         onAnimationStart?.(event);
-        if (!event.animationName.startsWith(SHIMMER_ANIMATION)) {
+        if (!SHIMMER_ANIMATION.test(event.animationName)) {
           return;
         }
         (event.target as Element).getAnimations?.().forEach(animation => {

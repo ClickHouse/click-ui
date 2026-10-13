@@ -124,15 +124,18 @@ describe('Skeleton', () => {
       expect(shimmer.startTime).toBe(0);
     });
 
-    it('leaves other animations alone', () => {
-      const fadeIn = { animationName: 'fade-in', startTime: 1234 };
-      mockAnimations([fadeIn]);
-      const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
+    it.each(['fade-in', 'skeleton-shimmer-custom'])(
+      'leaves other animations alone: %s',
+      animationName => {
+        const other = { animationName, startTime: 1234 };
+        mockAnimations([other]);
+        const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
 
-      startAnimation(getByTestId('skeleton'), fadeIn.animationName);
+        startAnimation(getByTestId('skeleton'), animationName);
 
-      expect(fadeIn.startTime).toBe(1234);
-    });
+        expect(other.startTime).toBe(1234);
+      }
+    );
 
     it('still calls the consumer onAnimationStart', () => {
       const onAnimationStart = vi.fn();
