@@ -640,6 +640,7 @@ interface SkeletonRowsProps {
   rowCount: number;
   columnCount: number;
   size: TableSize;
+  rowHeight?: string;
 }
 
 /**
@@ -647,7 +648,12 @@ interface SkeletonRowsProps {
  * data that replaces them. The rows are decorative: `aria-busy` on the table is what tells
  * assistive technology the content is still coming.
  */
-const SkeletonRows = ({ rowCount, columnCount, size }: SkeletonRowsProps) => {
+const SkeletonRows = ({ rowCount, columnCount, size, rowHeight }: SkeletonRowsProps) => {
+  const rowStyle = useMemo(
+    () =>
+      rowHeight ? ({ '--table-row-height': rowHeight } as CSSProperties) : undefined,
+    [rowHeight]
+  );
   return (
     <>
       {Array.from({ length: rowCount }, (_, rowIndex) => (
@@ -656,6 +662,7 @@ const SkeletonRows = ({ rowCount, columnCount, size }: SkeletonRowsProps) => {
           key={`table-skeleton-row-${rowIndex}`}
           aria-hidden="true"
           data-skeleton-row
+          style={rowStyle}
           className={rowVariants({})}
         >
           {Array.from({ length: columnCount }, (_, columnIndex) => (
@@ -1001,6 +1008,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   rowCount={skeletonRowCount}
                   columnCount={columnCount}
                   size={size}
+                  rowHeight={rowHeight}
                 />
               )}
               {(loading ? loadingVariant === 'spinner' : !hasRows) && (

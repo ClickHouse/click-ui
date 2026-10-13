@@ -429,6 +429,23 @@ describe('Table', () => {
       expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(5);
     });
 
+    it('gives placeholder rows the table row height', () => {
+      const { container } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+          loadingVariant="skeleton"
+          rowHeight="64px"
+        />
+      );
+
+      const skeletonRow = container.querySelector<HTMLElement>(
+        'tbody tr[data-skeleton-row]'
+      );
+      expect(skeletonRow?.style.getPropertyValue('--table-row-height')).toBe('64px');
+    });
+
     it('draws no placeholders in the default spinner variant', () => {
       const { container } = renderCUI(
         <Table
