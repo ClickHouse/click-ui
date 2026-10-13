@@ -9,7 +9,7 @@ const meta: Meta<typeof Skeleton> = {
     Story => (
       <div
         data-testid="skeleton-harness"
-        style={{ width: '320px', padding: '1rem' }}
+        style={{ width: '320px', height: '120px', padding: '1rem' }}
       >
         <Story />
       </div>
@@ -23,8 +23,9 @@ type Story = StoryObj<typeof Skeleton>;
 
 export const Playground: Story = {
   args: {
+    shape: 'text',
     size: 'md',
-    width: '100%',
+    lines: 1,
   },
 };
 
@@ -36,22 +37,18 @@ export const Medium: Story = {
   args: { size: 'md' },
 };
 
-export const CustomSize: Story = {
-  args: { width: '4rem', height: '4rem' },
+export const TextLines: Story = {
+  args: { lines: 3 },
 };
 
-export const TextLines: Story = {
-  render: args => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-      <Skeleton
-        {...args}
-        width="60%"
-      />
-      <Skeleton {...args} />
-      <Skeleton
-        {...args}
-        width="80%"
-      />
-    </div>
-  ),
+export const TextWidth: Story = {
+  args: { width: '60%' },
+};
+
+export const Rectangle: Story = {
+  args: { shape: 'rectangle' },
+};
+
+export const RectangleSize: Story = {
+  args: { shape: 'rectangle', width: 'xxl', height: 'xxl' },
 };

@@ -9,8 +9,10 @@ const { describe } = it;
 const variants = [
   { story: 'small', name: 'small' },
   { story: 'medium', name: 'medium' },
-  { story: 'custom-size', name: 'custom-size' },
   { story: 'text-lines', name: 'text-lines' },
+  { story: 'text-width', name: 'text-width' },
+  { story: 'rectangle', name: 'rectangle' },
+  { story: 'rectangle-size', name: 'rectangle-size' },
 ] as const;
 
 const themes = ['light', 'dark'] as const;
