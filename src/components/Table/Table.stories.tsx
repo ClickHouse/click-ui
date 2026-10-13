@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Skeleton } from '@/components/Skeleton';
 import { Table, TableRowType, TableColumnConfigProps } from '@/components/Table';
 
 const rowsLongText: TableRowType[] = [
@@ -991,35 +990,6 @@ export const LoadingSkeleton: StoryObj<typeof Table> = {
     loading: true,
     loadingVariant: 'skeleton',
     skeletonRowCount: 10,
-    ...withoutActions,
-  },
-};
-
-// Column spans per row; every row adds up to the 6 columns above.
-const skeletonCellSpans = [
-  [1, 1, 1, 1, 1, 1],
-  [2, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-  [1, 3, 1, 1],
-  [1, 1, 1, 1, 2],
-  [6],
-  [1, 1, 1, 1, 1, 1],
-  [2, 2, 2],
-  [1, 1, 1, 1, 1, 1],
-  [3, 1, 1, 1],
-];
-
-export const SkeletonMergedCells: StoryObj<typeof Table> = {
-  args: {
-    headers: skeletonHeaders,
-    rows: skeletonCellSpans.map((spans, rowIndex) => ({
-      id: `skeleton-row-${rowIndex}`,
-      items: spans.map(colSpan => ({
-        label: <Skeleton size="sm" />,
-        colSpan,
-      })),
-    })),
-    'aria-busy': true,
     ...withoutActions,
   },
 };

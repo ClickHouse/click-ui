@@ -4,7 +4,6 @@ import {
   HTMLAttributes,
   MouseEvent,
   ReactNode,
-  TdHTMLAttributes,
   forwardRef,
   useCallback,
   useEffect,
@@ -421,7 +420,7 @@ const actionsCellVariants = cva(styles['table__actions-cell'], {
   },
 });
 
-interface TableCellType extends TdHTMLAttributes<HTMLTableCellElement> {
+interface TableCellType extends HTMLAttributes<HTMLTableCellElement> {
   label: ReactNode;
   overflowMode?: OverflowMode;
 }
@@ -524,14 +523,6 @@ const TableBodyRow = ({
       }) as CSSProperties,
     [rowHeight, style]
   );
-  const columnStarts = useMemo(() => {
-    let column = 0;
-    return items.map(({ colSpan = 1 }) => {
-      const start = column;
-      column += colSpan;
-      return start;
-    });
-  }, [items]);
   return (
     <tr
       style={rowStyle}
@@ -556,25 +547,23 @@ const TableBodyRow = ({
         </td>
       )}
       {items.map(
-        ({ label, overflowMode, className: cellClassName, ...cellProps }, cellIndex) => {
-          // A cell with `colSpan` covers several headers; the first one describes it.
-          const header = headers[columnStarts[cellIndex]];
-          return (
-            <td
-              key={`table-cell-${cellIndex}`}
-              {...cellProps}
-              className={cn(cellVariants({ size }), cellClassName)}
-            >
-              {header && (
-                <div className={cn(styles['table__mobile-header'])}>{header.label}</div>
-              )}
-              <Cell
-                label={label}
-                overflowMode={overflowMode ?? header?.overflowMode}
-              />
-            </td>
-          );
-        }
+        ({ label, overflowMode, className: cellClassName, ...cellProps }, cellIndex) => (
+          <td
+            key={`table-cell-${cellIndex}`}
+            {...cellProps}
+            className={cn(cellVariants({ size }), cellClassName)}
+          >
+            {headers[cellIndex] && (
+              <div className={cn(styles['table__mobile-header'])}>
+                {headers[cellIndex].label}
+              </div>
+            )}
+            <Cell
+              label={label}
+              overflowMode={overflowMode ?? headers[cellIndex]?.overflowMode}
+            />
+          </td>
+        )
       )}
       {actionsList.length > 0 && (
         <td className={cn(actionsCellVariants({ size }))}>
