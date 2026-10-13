@@ -1,6 +1,5 @@
 import { cn, cva } from '@/lib/cva';
-import { CSSProperties, forwardRef, useLayoutEffect, useMemo, useRef } from 'react';
-import { mergeRefs } from '@/utils/mergeRefs';
+import { AnimationEvent, CSSProperties, forwardRef, useCallback, useMemo } from 'react';
 import styles from './Skeleton.module.css';
 import { SkeletonLength, SkeletonProps, SkeletonSpace } from './Skeleton.types';
 
@@ -28,10 +27,17 @@ const spaceTokens: Record<SkeletonSpace, string> = {
   xxl: 'var(--spaces-8)',
 };
 
-const isSpace = (value: string): value is SkeletonSpace => value in spaceTokens;
+const isSpace = (value: string): value is SkeletonSpace =>
+  Object.prototype.hasOwnProperty.call(spaceTokens, value);
 
 const toCssLength = (value: SkeletonLength) =>
   isSpace(value) ? spaceTokens[value] : value;
+
+// The keyframes in Skeleton.module.css; CSS Modules adds a hash suffix to the name.
+const SHIMMER_ANIMATION = 'skeleton-shimmer';
+
+const isShimmer = (animation: Animation, animationName: string): boolean =>
+  'animationName' in animation && animation.animationName === animationName;
 
 /**
  * Decorative placeholder shown while content loads: lines of text, or a rectangle. Always hidden
@@ -39,19 +45,36 @@ const toCssLength = (value: SkeletonLength) =>
  */
 export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
   (
-    { shape = 'text', size, lines = 1, width, height, className, style, ...delegated },
+    {
+      shape = 'text',
+      size,
+      lines = 1,
+      width,
+      height,
+      className,
+      style,
+      onAnimationStart,
+      ...delegated
+    },
     ref
   ) => {
-    const elementRef = useRef<HTMLDivElement>(null);
-    const mergedRef = useMemo(() => mergeRefs([elementRef, ref]), [ref]);
-
-    // CSS animations start when their element mounts. Pin every sweep to the document timeline's
-    // origin, so a skeleton mounted later is in phase with the ones already on the page.
-    useLayoutEffect(() => {
-      elementRef.current?.getAnimations?.({ subtree: true }).forEach(animation => {
-        animation.startTime = 0;
-      });
-    }, [shape, lines]);
+    // A CSS animation starts when it is created: on mount, but also when reduced motion is turned
+    // off or a hidden parent is shown. Pin each shimmer to the document timeline's origin as it
+    // starts, so every skeleton on the page sweeps in phase. Other animations are left alone.
+    const handleAnimationStart = useCallback(
+      (event: AnimationEvent<HTMLDivElement>) => {
+        onAnimationStart?.(event);
+        if (!event.animationName.startsWith(SHIMMER_ANIMATION)) {
+          return;
+        }
+        (event.target as Element).getAnimations?.().forEach(animation => {
+          if (isShimmer(animation, event.animationName)) {
+            animation.startTime = 0;
+          }
+        });
+      },
+      [onAnimationStart]
+    );
 
     const skeletonStyle = useMemo(
       () =>
@@ -65,9 +88,10 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
 
     return (
       <div
-        ref={mergedRef}
+        ref={ref}
         {...delegated}
         aria-hidden="true"
+        onAnimationStart={handleAnimationStart}
         style={skeletonStyle}
         className={cn(
           skeletonVariants({

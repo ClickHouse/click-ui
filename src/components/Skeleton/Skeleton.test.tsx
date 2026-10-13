@@ -1,4 +1,5 @@
 import { Skeleton, SkeletonProps } from '@/components/Skeleton';
+import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Skeleton', () => {
@@ -95,21 +96,70 @@ describe('Skeleton', () => {
     expect(skeleton.style.getPropertyValue('--skeleton-width')).toBe('50%');
   });
 
-  it('pins its sweep to the document timeline origin', () => {
-    const animation = { startTime: 1234 };
-    const getAnimations = vi.fn(() => [animation]);
-    Object.defineProperty(HTMLElement.prototype, 'getAnimations', {
-      configurable: true,
-      value: getAnimations,
+  describe('shimmer phase', () => {
+    const startAnimation = (target: Element, animationName: string) =>
+      fireEvent(
+        target,
+        Object.assign(new Event('animationstart', { bubbles: true }), { animationName })
+      );
+
+    const mockAnimations = (animations: Partial<CSSAnimation>[]) => {
+      Object.defineProperty(HTMLElement.prototype, 'getAnimations', {
+        configurable: true,
+        value: () => animations,
+      });
+    };
+
+    afterEach(() => {
+      delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
     });
 
-    try {
-      renderCUI(<Skeleton />);
-      expect(getAnimations).toHaveBeenCalledWith({ subtree: true });
-      expect(animation.startTime).toBe(0);
-    } finally {
-      delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
-    }
+    it('pins a starting shimmer to the document timeline origin', () => {
+      const shimmer = { animationName: 'skeleton-shimmer__abc12', startTime: 1234 };
+      mockAnimations([shimmer]);
+      const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
+
+      startAnimation(getByTestId('skeleton').firstElementChild!, shimmer.animationName);
+
+      expect(shimmer.startTime).toBe(0);
+    });
+
+    it('leaves other animations alone', () => {
+      const fadeIn = { animationName: 'fade-in', startTime: 1234 };
+      mockAnimations([fadeIn]);
+      const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
+
+      startAnimation(getByTestId('skeleton'), fadeIn.animationName);
+
+      expect(fadeIn.startTime).toBe(1234);
+    });
+
+    it('still calls the consumer onAnimationStart', () => {
+      const onAnimationStart = vi.fn();
+      const { getByTestId } = renderCUI(
+        <Skeleton
+          data-testid="skeleton"
+          onAnimationStart={onAnimationStart}
+        />
+      );
+
+      startAnimation(getByTestId('skeleton'), 'fade-in');
+
+      expect(onAnimationStart).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('passes a non-key width through even when it names an object property', () => {
+    const { getByTestId } = renderCUI(
+      <Skeleton
+        data-testid="skeleton"
+        width="toString"
+      />
+    );
+
+    expect(getByTestId('skeleton').style.getPropertyValue('--skeleton-width')).toBe(
+      'toString'
+    );
   });
 
   it('forwards the ref', () => {
