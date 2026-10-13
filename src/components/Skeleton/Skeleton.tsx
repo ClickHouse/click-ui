@@ -1,5 +1,6 @@
 import { cn, cva } from '@/lib/cva';
-import { CSSProperties, forwardRef, useMemo } from 'react';
+import { CSSProperties, forwardRef, useLayoutEffect, useMemo, useRef } from 'react';
+import { mergeRefs } from '@/utils/mergeRefs';
 import styles from './Skeleton.module.css';
 import { SkeletonLength, SkeletonProps, SkeletonSpace } from './Skeleton.types';
 
@@ -41,6 +42,17 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
     { shape = 'text', size, lines = 1, width, height, className, style, ...delegated },
     ref
   ) => {
+    const elementRef = useRef<HTMLDivElement>(null);
+    const mergedRef = useMemo(() => mergeRefs([elementRef, ref]), [ref]);
+
+    // CSS animations start when their element mounts. Pin every sweep to the document timeline's
+    // origin, so a skeleton mounted later is in phase with the ones already on the page.
+    useLayoutEffect(() => {
+      elementRef.current?.getAnimations?.({ subtree: true }).forEach(animation => {
+        animation.startTime = 0;
+      });
+    }, [shape, lines]);
+
     const skeletonStyle = useMemo(
       () =>
         ({
@@ -53,7 +65,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
 
     return (
       <div
-        ref={ref}
+        ref={mergedRef}
         {...delegated}
         aria-hidden="true"
         style={skeletonStyle}

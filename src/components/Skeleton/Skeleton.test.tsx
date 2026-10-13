@@ -95,6 +95,23 @@ describe('Skeleton', () => {
     expect(skeleton.style.getPropertyValue('--skeleton-width')).toBe('50%');
   });
 
+  it('pins its sweep to the document timeline origin', () => {
+    const animation = { startTime: 1234 };
+    const getAnimations = vi.fn(() => [animation]);
+    Object.defineProperty(HTMLElement.prototype, 'getAnimations', {
+      configurable: true,
+      value: getAnimations,
+    });
+
+    try {
+      renderCUI(<Skeleton />);
+      expect(getAnimations).toHaveBeenCalledWith({ subtree: true });
+      expect(animation.startTime).toBe(0);
+    } finally {
+      delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
+    }
+  });
+
   it('forwards the ref', () => {
     const ref = { current: null as HTMLDivElement | null };
     renderCUI(<Skeleton ref={ref} />);
