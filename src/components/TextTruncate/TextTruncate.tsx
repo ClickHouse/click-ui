@@ -12,6 +12,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { Slot } from '@radix-ui/react-slot';
 import { cn, cva } from '@/lib/cva';
 import { mergeRefs } from '@/utils/mergeRefs';
 import { useIsTruncated } from '@/hooks/useIsTruncated';
@@ -56,6 +57,18 @@ const splitMiddle = (text: string, trailingChars: number): [string, string] => {
   const end = chars.slice(-endLength).join('');
   return [start.replace(/\s+$/, NO_BREAK_SPACE), end.replace(/^\s+/, NO_BREAK_SPACE)];
 };
+
+const TooltipTarget = forwardRef<
+  HTMLElement,
+  HTMLAttributes<HTMLElement> & { omitDescription: boolean }
+>(({ omitDescription, ...props }, ref) => (
+  <Slot
+    ref={ref}
+    {...props}
+    {...(omitDescription && { 'aria-describedby': undefined })}
+  />
+));
+TooltipTarget.displayName = 'TooltipTarget';
 
 type TextTruncatePolymorphicComponent = <T extends ElementType = 'span'>(
   props: Omit<ComponentProps<T>, keyof TextTruncateProps<T>> & TextTruncateProps<T>
@@ -150,9 +163,6 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
       role={hasGroupRole ? 'group' : undefined}
       id={isSelfLabelled ? rootId : undefined}
       aria-labelledby={isSelfLabelled ? rootId : undefined}
-      // Radix Slot lets a present `undefined` key win, so this key must stay absent unless the description is dropped.
-      {...(isSelfLabelled &&
-        tooltipContent === undefined && { 'aria-describedby': undefined })}
       {...props}
       style={mergedStyle}
       className={cn(
@@ -196,7 +206,11 @@ const TextTruncateComponent = <T extends ElementType = 'span'>(
       open={isTruncated && isTooltipOpen}
       onOpenChange={open => setIsTooltipOpen(open && isTruncated)}
     >
-      <Tooltip.Trigger asChild>{root}</Tooltip.Trigger>
+      <Tooltip.Trigger asChild>
+        <TooltipTarget omitDescription={isSelfLabelled && tooltipContent === undefined}>
+          {root}
+        </TooltipTarget>
+      </Tooltip.Trigger>
       <Tooltip.Content {...tooltipProps}>{tooltipContent ?? children}</Tooltip.Content>
     </Tooltip>
   );
