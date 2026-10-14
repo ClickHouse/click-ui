@@ -220,6 +220,35 @@ describe('DateTimeRangePicker', () => {
         );
       });
 
+      it('keeps the selected meridiem when Enter commits the time', async () => {
+        const handleSelectDate = vi.fn();
+
+        const { getByTestId, getByText } = renderCUI(
+          <DateTimeRangePicker onSelectDateRange={handleSelectDate} />
+        );
+
+        await userEvent.click(getByTestId('datetimepicker-input'));
+        await userEvent.click(getByText('4'));
+
+        const timeInput = getByTestId('date-time-picker-time-input');
+        await userEvent.click(timeInput);
+
+        // delete 0-0-:-2-1 (12:00)
+        await userEvent.keyboard(
+          '{backspace}{backspace}{backspace}{backspace}{backspace}2:37'
+        );
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 04, 02:37 pm – end date'
+        );
+
+        await userEvent.keyboard('{Enter}');
+
+        expect(getByTestId('datetimepicker-input').textContent).toBe(
+          'Jul 04, 02:37 pm – end date'
+        );
+      });
+
       it('selects the end date with a time of noon', async () => {
         const handleSelectDate = vi.fn();
 
