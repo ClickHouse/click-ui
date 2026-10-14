@@ -110,7 +110,9 @@
   --gmi-text-hover: var(--click-genericMenu-item-color-default-text-hover);
   --gmi-text-active: var(--click-genericMenu-item-color-default-text-active);
   --gmi-text-disabled: var(--click-genericMenu-item-color-default-text-disabled);
-  --gmi-background-default: var(--click-genericMenu-item-color-default-background-default);
+  --gmi-background-default: var(
+    --click-genericMenu-item-color-default-background-default
+  );
   --gmi-background-hover: var(--click-genericMenu-item-color-default-background-hover);
   --gmi-background-active: var(--click-genericMenu-item-color-default-background-active);
 }

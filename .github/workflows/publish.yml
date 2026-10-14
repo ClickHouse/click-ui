@@ -166,8 +166,8 @@ jobs:
     needs: [resolve, build]
     runs-on: ubuntu-latest
     permissions:
-      contents: read       # The bump commit and the tag are pushed with PAT_TOKEN
-      id-token: write      # For OIDC trusted publishing to npm
+      contents: read # The bump commit and the tag are pushed with PAT_TOKEN
+      id-token: write # For OIDC trusted publishing to npm
     steps:
       - name: Checkout repository (release)
         if: env.PUBLISH_MODE == 'release'

@@ -90,14 +90,20 @@ describe('CardHorizontal Visual Regression', () => {
       });
 
       it('disabled selected matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('cards-horizontal-card--disabled-selected', 'light'), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('cards-horizontal-card--disabled-selected', 'light'),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const card = page.locator(cardLocator).first();
         await expect(card).toBeVisible({ timeout: 10000 });
-        await expect(card).toHaveScreenshot('cardhorizontal-disabled-selected-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(card).toHaveScreenshot(
+          'cardhorizontal-disabled-selected-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('with badge matches snapshot', async ({ page }) => {

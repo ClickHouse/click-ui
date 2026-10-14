@@ -12,7 +12,8 @@
   height: var(--svg-height, var(--click-image-md-size-height));
 }
 
-.svg-wrapper :is(path[stroke], svg[stroke]:not([stroke='none']), rect[stroke], circle[fill]) {
+.svg-wrapper
+  :is(path[stroke], svg[stroke]:not([stroke='none']), rect[stroke], circle[fill]) {
   stroke: var(--svg-icon-color, currentcolor);
 }
 

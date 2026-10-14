@@ -25,7 +25,7 @@ services:
     extends: playwright
     ports:
       # NOTE: Match port number of `playwright-docker` script
-      - "8282:8282"
+      - '8282:8282'
     environment:
       - CI=false
     command: npx playwright test --ui-host=0.0.0.0 --ui-port=8282

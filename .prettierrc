@@ -4,7 +4,6 @@
   "bracketSpacing": true,
   "endOfLine": "lf",
   "jsxSingleQuote": false,
-  "parser": "typescript",
   "printWidth": 90,
   "semi": true,
   "singleAttributePerLine": true,

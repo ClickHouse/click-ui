@@ -7,13 +7,7 @@ indent_style = space
 indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
-ij_typescript_enforce_trailing_comma = remove
 ij_json_keep_trailing_comma = false
-ij_javascript_enforce_trailing_comma = remove
-
-[*.ts]
-quote_type = double
-max_line_length = 120
 
 [*.md]
 max_line_length = off

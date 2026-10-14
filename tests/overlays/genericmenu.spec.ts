@@ -65,9 +65,12 @@ describe('GenericMenu cluster Visual Regression', () => {
           });
           const harness = page.getByTestId('generic-menu-harness');
           await expect(harness).toBeVisible({ timeout: 10000 });
-          await expect(harness).toHaveScreenshot(`generic-menu-item-states-${theme}.png`, {
-            maxDiffPixels: 100,
-          });
+          await expect(harness).toHaveScreenshot(
+            `generic-menu-item-states-${theme}.png`,
+            {
+              maxDiffPixels: 100,
+            }
+          );
         });
       });
     }
@@ -124,10 +127,9 @@ describe('GenericMenu cluster Visual Regression', () => {
           await page.locator('body').click();
           await page.keyboard.press('Tab');
           await page.waitForTimeout(200);
-          await expect(harness).toHaveScreenshot(
-            `dropdown-trigger-focus-${theme}.png`,
-            { maxDiffPixels: 100 }
-          );
+          await expect(harness).toHaveScreenshot(`dropdown-trigger-focus-${theme}.png`, {
+            maxDiffPixels: 100,
+          });
         });
       });
     }

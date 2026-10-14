@@ -140,12 +140,9 @@ describe('EllipsisContent Visual Regression', () => {
     });
 
     it('opens the tooltip on the side given by tooltipProps', async ({ page }) => {
-      await page.goto(
-        getStoryUrl('display-ellipsiscontent--tooltip-on-right', 'light'),
-        {
-          waitUntil: 'networkidle',
-        }
-      );
+      await page.goto(getStoryUrl('display-ellipsiscontent--tooltip-on-right', 'light'), {
+        waitUntil: 'networkidle',
+      });
       const content = page.locator(`${harnessLocator} > *`).first();
       await content.hover();
       const panel = tooltipPanel(page);

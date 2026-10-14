@@ -67,17 +67,23 @@ describe('DateTimeRangePicker Visual Regression', () => {
         await goto(page, TABBED, theme);
         const content = await open(page);
         await expect(page.getByTestId('date-time-picker-time-input')).toBeVisible();
-        await expect(content).toHaveScreenshot(`datetimerangepicker-tabbed-${theme}.png`, {
-          maxDiffPixels: 100,
-        });
+        await expect(content).toHaveScreenshot(
+          `datetimerangepicker-tabbed-${theme}.png`,
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('open error tabbed calendar matches snapshot', async ({ page }) => {
         await goto(page, ERROR, theme);
         const content = await open(page);
-        await expect(content).toHaveScreenshot(`datetimerangepicker-tabbed-error-${theme}.png`, {
-          maxDiffPixels: 100,
-        });
+        await expect(content).toHaveScreenshot(
+          `datetimerangepicker-tabbed-error-${theme}.png`,
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
 
       it('open predefined times panel matches snapshot', async ({ page }) => {
