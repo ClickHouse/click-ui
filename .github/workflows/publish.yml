@@ -364,8 +364,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }} # the job's GITHUB_TOKEN cannot edit releases
           RELEASE_TAG: ${{ github.event.release.tag_name }} # as created, with or without the v
         run: |
-          # GitHub's own notes for the tag, as the "Generate release notes" button writes them, rearranged
-          # with the changeset entries. The body is replaced; docs/publish.md says to edit it afterwards.
+          # Replaces the release body: GitHub's generated notes plus the changeset entries.
           gh api "repos/$GITHUB_REPOSITORY/releases/generate-notes" -f tag_name="$RELEASE_TAG" --jq .body > "$RUNNER_TEMP/notes/generated.md"
           .scripts/bash/release-body "$RUNNER_TEMP/notes/section.md" "$RUNNER_TEMP/notes/generated.md" > "$RUNNER_TEMP/notes/body.md"
           { echo "## Release notes"; echo; cat "$RUNNER_TEMP/notes/body.md"; } >> "$GITHUB_STEP_SUMMARY"

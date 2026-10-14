@@ -9,7 +9,7 @@ import { afterAll, describe, expect, it } from 'vitest';
 // Invoked directly (not via `bash <script>`), the way .github/workflows/publish.yml does.
 const SCRIPT = fileURLToPath(new URL('./release-body', import.meta.url));
 
-// What GitHub generates for a release ("Generate release notes" button or the generate-notes API).
+// GitHub's generated notes, as publish.yml gets them from the generate-notes API.
 const GENERATED = `## What's Changed
 * feat(Logos): add the Amazon S3 Tables for Iceberg logo by @XOP in https://github.com/ClickHouse/click-ui/pull/1251
 * fix(TextAreaField): use change event for value updates by @fallintoplace in https://github.com/ClickHouse/click-ui/pull/1243

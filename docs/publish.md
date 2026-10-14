@@ -32,14 +32,34 @@ The tag decides the npm dist-tag (the label that people install with, for exampl
 2. Draft a [new release](https://github.com/ClickHouse/click-ui/releases/new).
 3. Create the tag. Use the next version after the latest release: `vX.Y.Z` for a release,
    `vX.Y.Z-rc1` for a release candidate. ![Create tag instruction](./images/publish-1.png)
-4. Leave the description empty, or click "Generate release notes". The workflow writes the final
-   notes in both cases. ![Release notes instruction](./images/publish-2.png)
+4. Leave the description empty. The workflow writes the release notes.
+   ![Release notes instruction](./images/publish-2.png)
 5. For an `rc` or `alpha` tag, select **"Pre-release"** label. For regular "production" release leave label at **"Latest"**.  
    Publish the release. ![Release](./images/publish-3.png)
 6. Wait for the [workflow run](https://github.com/ClickHouse/click-ui/actions/workflows/publish.yml)
    to finish. If the workflow rejects the release, the run summary tells you why.
 7. Check the new version on [npm](https://www.npmjs.com/package/@clickhouse/click-ui) and check
    the release notes on GitHub. You can edit the notes now. The workflow does not touch them again.
+
+## Start over
+
+> [!WARNING]
+> For maintainers only.
+
+If the release has a wrong tag or a wrong "Set as a pre-release" checkbox, or when
+it failed and **Re-run all jobs** does not help. Do this only if the version is **not on npm yet**.
+
+1. If the release's [workflow run](https://github.com/ClickHouse/click-ui/actions/workflows/publish.yml)
+   still waits or runs, cancel it.
+2. Delete the release and its tag. The workflow builds the tip of `main`, so an old tag would
+   point at a different commit than the one published.
+   - **With** the GitHub CLI: `gh release delete vX.Y.Z --cleanup-tag --repo ClickHouse/click-ui`.
+   - **Without** the Github CLI: on the [releases page](https://github.com/ClickHouse/click-ui/releases), click the
+     trash icon next to the release, then **Delete this release**. Then delete the tag with git:
+     `git push origin --delete vX.Y.Z`.
+3. Follow the [steps](#steps) again.
+
+If the release is already on npm reach out in `click-ui` Slack channel for alignment.
 
 ## Changelog and release notes
 
@@ -92,5 +112,5 @@ npm i @clickhouse/click-ui@canary
   artifact (kept for a day) holds the `CHANGELOG.md` to commit together with the version bump. For
   a release, also delete the used changesets. The release notes are in the run summary. A manual
   run also needs the git tag.
-- You cannot fix the "Set as a pre-release" checkbox with a re-run. Delete the release and create
-  it again for the same tag.
+- You cannot fix the "Set as a pre-release" checkbox with a re-run. [Start over](#start-over) with
+  the same tag.
