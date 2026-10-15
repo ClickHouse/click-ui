@@ -371,7 +371,6 @@
     "changeset:status": "yarn changeset status",
     "changeset:verify": ".scripts/bash/changeset-verification",
     "circular-dependency:check": ".scripts/bash/circular-dependency-check",
-    "changeset:version": "yarn changeset version",
     "convert:logo": ".scripts/js/convert-svg-to-react-component --type=logos",
     "convert:icon": ".scripts/js/convert-svg-to-react-component --type=icons",
     "convert:flag": ".scripts/js/convert-svg-to-react-component --type=flags",
