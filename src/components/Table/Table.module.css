@@ -389,3 +389,10 @@
   word-break: break-all;
   overflow-wrap: break-word;
 }
+
+/* Lay the skeleton out like the truncated text it stands in for (an inline block aligned to the
+   text bottom, see EllipsisContent), so a placeholder row is as tall as a data row. */
+.table__data .table__skeleton {
+  display: inline-flex;
+  vertical-align: text-bottom;
+}

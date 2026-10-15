@@ -672,7 +672,11 @@ const SkeletonRows = ({ rowCount, columnCount, size, rowHeight }: SkeletonRowsPr
               aria-hidden="true"
               className={cellVariants({ size })}
             >
-              <Skeleton size={size} />
+              {/* Cells use one font for every table size, the same as `Text` md. */}
+              <Skeleton
+                size="md"
+                className={styles.table__skeleton}
+              />
             </td>
           ))}
         </tr>

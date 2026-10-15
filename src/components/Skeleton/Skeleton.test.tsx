@@ -1,5 +1,4 @@
 import { Skeleton, SkeletonProps } from '@/components/Skeleton';
-import { fireEvent } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 
 describe('Skeleton', () => {
@@ -57,21 +56,6 @@ describe('Skeleton', () => {
     expect(skeleton.style.getPropertyValue('--skeleton-height')).toBe('60%');
   });
 
-  it('resolves space keys to space tokens', () => {
-    const { getByTestId } = renderCUI(
-      <Skeleton
-        data-testid="skeleton"
-        shape="rectangle"
-        width="xl"
-        height="md"
-      />
-    );
-
-    const skeleton = getByTestId('skeleton');
-    expect(skeleton.style.getPropertyValue('--skeleton-width')).toBe('var(--spaces-6)');
-    expect(skeleton.style.getPropertyValue('--skeleton-height')).toBe('var(--spaces-4)');
-  });
-
   it('sets no custom properties by default', () => {
     const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
 
@@ -94,75 +78,6 @@ describe('Skeleton', () => {
     expect(skeleton).toHaveClass('custom');
     expect(skeleton.style.marginTop).toBe('4px');
     expect(skeleton.style.getPropertyValue('--skeleton-width')).toBe('50%');
-  });
-
-  describe('shimmer phase', () => {
-    const startAnimation = (target: Element, animationName: string) =>
-      fireEvent(
-        target,
-        Object.assign(new Event('animationstart', { bubbles: true }), { animationName })
-      );
-
-    const mockAnimations = (animations: Partial<CSSAnimation>[]) => {
-      Object.defineProperty(HTMLElement.prototype, 'getAnimations', {
-        configurable: true,
-        value: () => animations,
-      });
-    };
-
-    afterEach(() => {
-      delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
-    });
-
-    it('pins a starting shimmer to the document timeline origin', () => {
-      const shimmer = { animationName: 'skeleton-shimmer__abc12', startTime: 1234 };
-      mockAnimations([shimmer]);
-      const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
-
-      startAnimation(getByTestId('skeleton').firstElementChild!, shimmer.animationName);
-
-      expect(shimmer.startTime).toBe(0);
-    });
-
-    it.each(['fade-in', 'skeleton-shimmer-custom'])(
-      'leaves other animations alone: %s',
-      animationName => {
-        const other = { animationName, startTime: 1234 };
-        mockAnimations([other]);
-        const { getByTestId } = renderCUI(<Skeleton data-testid="skeleton" />);
-
-        startAnimation(getByTestId('skeleton'), animationName);
-
-        expect(other.startTime).toBe(1234);
-      }
-    );
-
-    it('still calls the consumer onAnimationStart', () => {
-      const onAnimationStart = vi.fn();
-      const { getByTestId } = renderCUI(
-        <Skeleton
-          data-testid="skeleton"
-          onAnimationStart={onAnimationStart}
-        />
-      );
-
-      startAnimation(getByTestId('skeleton'), 'fade-in');
-
-      expect(onAnimationStart).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it('passes a non-key width through even when it names an object property', () => {
-    const { getByTestId } = renderCUI(
-      <Skeleton
-        data-testid="skeleton"
-        width="toString"
-      />
-    );
-
-    expect(getByTestId('skeleton').style.getPropertyValue('--skeleton-width')).toBe(
-      'toString'
-    );
   });
 
   it('forwards the ref', () => {

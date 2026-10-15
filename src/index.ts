@@ -226,12 +226,10 @@ export { Separator } from './components/Separator';
 // Skeleton
 export { Skeleton } from './components/Skeleton';
 export type {
-  SkeletonLength,
   SkeletonProps,
   SkeletonRectangleProps,
   SkeletonShape,
   SkeletonSize,
-  SkeletonSpace,
   SkeletonTextProps,
 } from './components/Skeleton';
 

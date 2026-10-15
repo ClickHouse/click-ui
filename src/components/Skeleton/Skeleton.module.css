@@ -5,45 +5,61 @@
   width: var(--skeleton-width, 100%);
 }
 
+/* Each bar is as tall as the font (1em), and the space around it fills the rest of the line
+   (1lh). So `lines` bars take exactly the height of that many lines of text. */
 .skeleton_shape_text {
   display: flex;
   flex-direction: column;
-  gap: var(--spaces-1);
+  gap: calc(1lh - 1em);
+  padding-block: calc((1lh - 1em) / 2);
 }
 
-/* The fill sweeps from opacity 1 to 0.75 and back. The gradient is fixed to the viewport, so every
-   skeleton on the page shows a slice of one shared sweep, at the same speed whatever its size. The
-   image is two viewports wide and repeats; the keyframes start and end with the sweep off-screen. */
+.skeleton_size_sm {
+  font: var(--typography-styles-product-text-normal-sm);
+}
+
+.skeleton_size_md {
+  font: var(--typography-styles-product-text-normal-md);
+}
+
 .skeleton__line,
 .skeleton_shape_rectangle {
   border-radius: calc(var(--border-radii-1) / 2);
-  background-image: linear-gradient(
-    90deg,
-    var(--click-global-color-stroke-default) 40%,
-    color-mix(in srgb, var(--click-global-color-stroke-default) 75%, transparent) 50%,
-    var(--click-global-color-stroke-default) 60%
-  );
-  background-size: 200vw 100%;
-  animation: skeleton-shimmer 1.5s ease-in-out infinite;
-  /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- where `fixed` is
-     ignored (iOS Safari) each skeleton still shimmers on its own, just not in sync */
-  background-attachment: fixed;
+  background-color: var(--click-global-color-stroke-default);
+}
+
+.skeleton__line {
+  height: 1em;
+}
+
+.skeleton__line:last-child:not(:first-child) {
+  width: 75%;
 }
 
 .skeleton_shape_rectangle {
   height: var(--skeleton-height, 100%);
 }
 
-.skeleton_size_sm .skeleton__line {
-  height: var(--sizes-4);
-}
-
-.skeleton_size_md .skeleton__line {
-  height: var(--sizes-5);
-}
-
-.skeleton__line:last-child:not(:first-child) {
-  width: 75%;
+/* The fill sweeps from opacity 1 to 0.75 and back. The gradient is fixed to the viewport, so
+   skeletons on screen together show slices of one sweep, at the same speed whatever their size.
+   The image is two viewports wide and repeats; the keyframes start and end with the sweep
+   off-screen. Without this media query match (reduced motion), the fill stays static. */
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton__line,
+  .skeleton_shape_rectangle {
+    background-color: transparent;
+    background-image: linear-gradient(
+      90deg,
+      var(--click-global-color-stroke-default) 40%,
+      color-mix(in srgb, var(--click-global-color-stroke-default) 75%, transparent) 50%,
+      var(--click-global-color-stroke-default) 60%
+    );
+    background-size: 200vw 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- where `fixed` is
+       ignored (iOS Safari) each skeleton still shimmers on its own, just not in sync */
+    background-attachment: fixed;
+  }
 }
 
 /* 1.25s sweep, then a 0.25s pause before the next one. */
@@ -58,13 +74,5 @@
 
   100% {
     background-position: 20vw 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .skeleton__line,
-  .skeleton_shape_rectangle {
-    background: var(--click-global-color-stroke-default);
-    animation: none;
   }
 }

@@ -50,5 +50,5 @@ export const Rectangle: Story = {
 };
 
 export const RectangleSize: Story = {
-  args: { shape: 'rectangle', width: 'xxl', height: 'xxl' },
+  args: { shape: 'rectangle', width: '4rem', height: '4rem' },
 };

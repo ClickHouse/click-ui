@@ -4,20 +4,15 @@ export type SkeletonShape = 'text' | 'rectangle';
 
 export type SkeletonSize = 'sm' | 'md';
 
-export type SkeletonSpace = 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-
-/** A space key (`md`) or any CSS length (`60%`, `6rem`). */
-export type SkeletonLength = SkeletonSpace | (string & {});
-
 interface SkeletonBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  /** Defaults to filling the parent. */
-  width?: SkeletonLength;
+  /** Any CSS width (`60%`, `6rem`, `var(--…)`). Defaults to filling the parent. */
+  width?: string;
 }
 
 export interface SkeletonTextProps extends SkeletonBaseProps {
   /** Defaults to `text`. */
   shape?: 'text';
-  /** Height of each line, matched to text of the same size. Defaults to `md`. */
+  /** Matches `Text` of the same size: each line is as tall as a line of that text. Defaults to `md`. */
   size?: SkeletonSize;
   /** Number of lines. The last of several lines is 75% wide. Defaults to 1. */
   lines?: number;
@@ -26,8 +21,8 @@ export interface SkeletonTextProps extends SkeletonBaseProps {
 
 export interface SkeletonRectangleProps extends SkeletonBaseProps {
   shape: 'rectangle';
-  /** Defaults to filling the parent. */
-  height?: SkeletonLength;
+  /** Any CSS height (`4rem`, `var(--…)`). Defaults to filling the parent. */
+  height?: string;
   size?: never;
   lines?: never;
 }
