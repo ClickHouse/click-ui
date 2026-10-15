@@ -40,39 +40,51 @@
   height: var(--skeleton-height, 100%);
 }
 
-/* The fill sweeps from opacity 1 to 0.75 and back. The gradient is fixed to the viewport, so
-   skeletons on screen together show slices of one sweep, at the same speed whatever their size.
-   The image is two viewports wide and repeats; the keyframes start and end with the sweep
-   off-screen. Without this media query match (reduced motion), the fill stays static. */
+/* One highlight sweeps across the viewport, and every bar shows the part of it that passes over
+   the bar. Each bar has a viewport-wide fixed layer clipped to the bar, so skeletons on screen
+   together sweep in step whatever their size. The highlight is the page background at 25%, so the
+   fill dips to about 75% opacity as it passes. The layers move with `transform`, which the browser
+   animates without repainting. Without this media query match (reduced motion), the fill stays
+   static. */
 @media (prefers-reduced-motion: no-preference) {
   .skeleton__line,
   .skeleton_shape_rectangle {
-    background-color: transparent;
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- the partial support
+       is for SVG references and some shapes; a basic inset() works in every target browser */
+    clip-path: inset(0 round calc(var(--border-radii-1) / 2));
+  }
+
+  .skeleton__line::after,
+  .skeleton_shape_rectangle::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200vw;
+    height: 100vh;
     background-image: linear-gradient(
       90deg,
-      var(--click-global-color-stroke-default) 40%,
-      color-mix(in srgb, var(--click-global-color-stroke-default) 75%, transparent) 50%,
-      var(--click-global-color-stroke-default) 60%
+      transparent 40%,
+      color-mix(in srgb, var(--click-global-color-background-default) 25%, transparent) 50%,
+      transparent 60%
     );
-    background-size: 200vw 100%;
+    pointer-events: none;
     animation: skeleton-shimmer 1.5s ease-in-out infinite;
-    /* stylelint-disable-next-line plugin/no-unsupported-browser-features -- where `fixed` is
-       ignored (iOS Safari) each skeleton still shimmers on its own, just not in sync */
-    background-attachment: fixed;
   }
 }
 
-/* 1.25s sweep, then a 0.25s pause before the next one. */
+/* The layer is two viewports wide with the highlight in its middle. It starts with the highlight
+   just left of the viewport and ends just right of it: a 1.25s sweep, then a 0.25s pause. */
 @keyframes skeleton-shimmer {
   0% {
-    background-position: -120vw 0;
+    transform: translateX(-120vw);
   }
 
   83.333% {
-    background-position: 20vw 0;
+    transform: translateX(20vw);
   }
 
   100% {
-    background-position: 20vw 0;
+    transform: translateX(20vw);
   }
 }
