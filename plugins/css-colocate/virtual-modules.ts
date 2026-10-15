@@ -5,11 +5,11 @@ import { getTempDir } from './utils';
 
 const VIRTUAL_PREFIX = 'virtual:css-module:';
 
-export async function resolveCssModule(
+export const resolveCssModule = async (
   id: string,
   importer: string | undefined,
   rootDir: string
-): Promise<string | null> {
+): Promise<string | null> => {
   if (!id.endsWith('.module.css') || !importer) {
     return null;
   }
@@ -26,13 +26,13 @@ export async function resolveCssModule(
   }
 
   return VIRTUAL_PREFIX + relative;
-}
+};
 
-export async function loadCssModule(
+export const loadCssModule = async (
   id: string,
   ctx: PluginContext,
   rootDir: string
-): Promise<string | null> {
+): Promise<string | null> => {
   if (!id.startsWith(VIRTUAL_PREFIX)) {
     return null;
   }
@@ -58,4 +58,4 @@ export async function loadCssModule(
     const message = e instanceof Error ? e.message : String(e);
     ctx.error(`Failed to load CSS module from ${jsonPath}: ${message}`);
   }
-}
+};

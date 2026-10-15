@@ -13,9 +13,8 @@ import IconsLight from './IconsLight';
 
 const resolveIconName = createAssetResolver<IconName>();
 
-export { resolveIconName };
-
 export interface IconPropsWithAliases extends Omit<IconProps, 'name'> {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- old PascalCase names stay accepted until they are removed
   name: IconName | AssetAlias | AssetDeprecatedName;
 }
 

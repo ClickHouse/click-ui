@@ -6,9 +6,10 @@ export interface WithTopBadgeProps {
   isSelected?: boolean;
 }
 
-export const withTopBadge =
-  <P extends object>(Component: ComponentType<P>): FC<P & WithTopBadgeProps> =>
-  ({ topBadgeText, ...props }: P & WithTopBadgeProps) => {
+export const withTopBadge = <P extends object>(
+  Component: ComponentType<P>
+): FC<P & WithTopBadgeProps> => {
+  const WithTopBadge = ({ topBadgeText, ...props }: P & WithTopBadgeProps) => {
     return (
       <TopBadgeWrapper
         alignItems="stretch"
@@ -25,3 +26,5 @@ export const withTopBadge =
       </TopBadgeWrapper>
     );
   };
+  return WithTopBadge;
+};

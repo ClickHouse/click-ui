@@ -13,9 +13,8 @@ import FlagsLight from './FlagsLight';
 
 const resolveFlagName = createAssetResolver<FlagName>();
 
-export { resolveFlagName };
-
 export interface FlagPropsWithAliases extends Omit<FlagProps, 'name'> {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- old PascalCase names stay accepted until they are removed
   name: FlagName | AssetAlias | AssetDeprecatedName;
 }
 

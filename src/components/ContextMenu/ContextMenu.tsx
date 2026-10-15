@@ -108,7 +108,7 @@ type RightMenuContentComponent = <T extends ElementType = 'div'>(
   props: ComponentProps<typeof GenericMenuPanel<T>> & { showArrow?: boolean }
 ) => ReactNode;
 
-const _RightMenuContent = <T extends ElementType = 'div'>(
+const RightMenuContentRender = <T extends ElementType = 'div'>(
   {
     showArrow,
     className,
@@ -124,7 +124,7 @@ const _RightMenuContent = <T extends ElementType = 'div'>(
   />
 );
 
-const RightMenuContent: RightMenuContentComponent = forwardRef(_RightMenuContent);
+const RightMenuContent: RightMenuContentComponent = forwardRef(RightMenuContentRender);
 
 const ContextMenuContent = ({
   sub,
@@ -132,9 +132,9 @@ const ContextMenuContent = ({
   container,
   showArrow,
   // TODO: remove deprecated side and align
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-deprecated -- pulled out so the deprecated prop is not forwarded
   side,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-deprecated -- pulled out so the deprecated prop is not forwarded
   align,
   ...props
 }: ContextMenuContentProps | ContextMenuSubContentProps) => {

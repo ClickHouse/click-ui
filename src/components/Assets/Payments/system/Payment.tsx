@@ -13,9 +13,8 @@ import PaymentsLight from './PaymentsLight';
 
 const resolvePaymentName = createAssetResolver<PaymentName>();
 
-export { resolvePaymentName };
-
 export interface PaymentPropsWithAliases extends Omit<PaymentProps, 'name'> {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- old PascalCase names stay accepted until they are removed
   name: PaymentName | AssetAlias | AssetDeprecatedName;
 }
 
