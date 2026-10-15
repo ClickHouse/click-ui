@@ -512,7 +512,7 @@ export const DateRangePicker = ({
     [futureStartDatesDisabled, onSelectDateRange, selectedEndDate, selectedStartDate]
   );
 
-  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+  const onTriggerKeyDown = useCallback((e: KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setIsOpen(true);
@@ -528,6 +528,7 @@ export const DateRangePicker = ({
       open={isOpen}
     >
       <Dropdown.Trigger
+        asChild={false}
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >

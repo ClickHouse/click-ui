@@ -19,6 +19,21 @@ describe('DateRangePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('opens the calendar from the keyboard', async () => {
+    const { getByRole, findByTestId } = renderCUI(
+      <DateRangePicker
+        onSelectDateRange={vi.fn()}
+        placeholder="Pick a range"
+      />
+    );
+
+    await userEvent.tab();
+    expect(getByRole('button', { name: /Pick a range/ })).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+
+    expect(await findByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   it('sets the value of the DatePicker input start date to the start date passed in', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');

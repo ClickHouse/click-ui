@@ -104,6 +104,19 @@ describe('SplitButton', () => {
     expect(getByText('Content0')).not.toBeNull();
   });
 
+  it('focuses the chevron menu button with Tab and opens the menu with Enter', async () => {
+    const { getByTestId, findByText } = renderDropdown({});
+    const chevron = getByTestId('split-button-dropdown');
+
+    await userEvent.tab();
+    await userEvent.tab();
+
+    expect(chevron).toHaveFocus();
+    expect(chevron).toHaveAttribute('aria-haspopup', 'menu');
+    await userEvent.keyboard('{Enter}');
+    expect(await findByText('Content0')).toBeInTheDocument();
+  });
+
   it('should not open disabled dropdown on pointer', async () => {
     const { getByTestId, queryByText } = renderDropdown({
       disabled: true,
@@ -216,6 +229,22 @@ describe('SplitButton', () => {
 
       fireEvent.click(getByText('SplitButton Main Trigger'));
 
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
+    it('does not submit an enclosing form from the chevron', async () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+      const { getByTestId, findByText } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <SplitButton menu={menuItems}>
+            <div>SplitButton Main Trigger</div>
+          </SplitButton>
+        </form>
+      );
+
+      await userEvent.click(getByTestId('split-button-dropdown'));
+
+      expect(await findByText('Content0')).toBeInTheDocument();
       expect(handleSubmit).not.toHaveBeenCalled();
     });
   });
