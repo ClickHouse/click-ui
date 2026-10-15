@@ -33,7 +33,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       type = 'primary',
-      htmlType,
+      htmlType = 'button',
       iconLeft,
       iconRight,
       align = 'center',
