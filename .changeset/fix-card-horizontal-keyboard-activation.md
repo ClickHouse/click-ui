@@ -2,4 +2,4 @@
 '@clickhouse/click-ui': patch
 ---
 
-Activate CardHorizontal with Enter and Space, and expose it as a button when it has no inner action button.
+Activate a clickable CardHorizontal with Enter and Space, and expose it as a button when it has no inner action button. Display-only cards keep the default key behavior.

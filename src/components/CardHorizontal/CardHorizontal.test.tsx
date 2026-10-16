@@ -313,13 +313,33 @@ describe('CardHorizontal Component', () => {
     });
 
     it('should prevent the default Space action so the page does not scroll', () => {
-      const { container } = renderCard({ title: 'Test Card' });
+      const { container } = renderCard({ title: 'Test Card', onClick: vitest.fn() });
 
       const notPrevented = fireEvent.keyDown(container.firstChild as HTMLElement, {
         key: ' ',
       });
 
       expect(notPrevented).toBe(false);
+    });
+
+    it('should keep the default Space action on a display-only card', () => {
+      const { container } = renderCard({ title: 'Summary', isSelectable: false });
+
+      const notPrevented = fireEvent.keyDown(container.firstChild as HTMLElement, {
+        key: ' ',
+      });
+
+      expect(notPrevented).toBe(true);
+    });
+
+    it('should call onButtonClick when Enter is pressed on the focused card', async () => {
+      const onButtonClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onButtonClick });
+
+      (container.firstChild as HTMLElement).focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onButtonClick).toHaveBeenCalledTimes(1);
     });
 
     it('should open infoUrl when Enter is pressed on the focused card', async () => {
@@ -401,22 +421,26 @@ describe('CardHorizontal Component', () => {
   });
 
   describe('role', () => {
-    it('should expose a selectable card as a button', () => {
-      renderCard({ title: 'Test Card' });
+    it('should expose an actionable card as a button', () => {
+      renderCard({ title: 'Test Card', onClick: vitest.fn() });
 
       expect(screen.getByRole('button')).toHaveTextContent('Test Card');
     });
 
     it('should not expose the card as a button when it renders an inner button', () => {
-      renderCard({ title: 'Test Card', infoText: 'Click me' });
+      renderCard({
+        title: 'Test Card',
+        infoText: 'Click me',
+        infoUrl: 'https://example.com',
+      });
 
       const buttons = screen.getAllByRole('button');
       expect(buttons).toHaveLength(1);
       expect(buttons[0]).toHaveTextContent('Click me');
     });
 
-    it('should not expose the card as a button when it is not selectable', () => {
-      renderCard({ title: 'Test Card', isSelectable: false });
+    it('should not expose a display-only card as a button', () => {
+      renderCard({ title: 'Summary' });
 
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
