@@ -80,6 +80,7 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
+  onKeyDown,
   className,
   ...props
 }: CardHorizontalProps) => {
@@ -100,11 +101,27 @@ export const CardHorizontal = ({
     e.stopPropagation();
     handleClick(e);
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (typeof onKeyDown === 'function') {
+      onKeyDown(e);
+    }
+    // Keys from the inner info button bubble up here and must not activate the card twice.
+    if (e.defaultPrevented || disabled || e.target !== e.currentTarget) {
+      return;
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      // Runs whichever onClick is attached, including a consumer's onClick passed through props.
+      e.currentTarget.click();
+    }
+  };
   return (
     <div
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
+      role={isSelectable && !infoText ? 'button' : undefined}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       {...props}
       className={cn(
         wrapperVariants({

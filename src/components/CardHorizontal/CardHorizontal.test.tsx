@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { CardHorizontal, CardHorizontalProps } from '@/components/CardHorizontal';
 import { renderCUI } from '@/utils/test-utils';
@@ -289,5 +289,136 @@ describe('CardHorizontal Component', () => {
     expect(windowOpenSpy).not.toHaveBeenCalled();
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy.mock.calls[0][0]).toContain('javascript:alert(1)');
+  });
+
+  describe('keyboard', () => {
+    it('should call onClick when Enter is pressed on the focused card', async () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onClick });
+
+      (container.firstChild as HTMLElement).focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call onClick when Space is pressed on the focused card', async () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onClick });
+
+      (container.firstChild as HTMLElement).focus();
+      await userEvent.keyboard(' ');
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should prevent the default Space action so the page does not scroll', () => {
+      const { container } = renderCard({ title: 'Test Card' });
+
+      const notPrevented = fireEvent.keyDown(container.firstChild as HTMLElement, {
+        key: ' ',
+      });
+
+      expect(notPrevented).toBe(false);
+    });
+
+    it('should open infoUrl when Enter is pressed on the focused card', async () => {
+      const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+      const { container } = renderCard({
+        title: 'Test Card',
+        infoUrl: 'https://example.com',
+      });
+
+      (container.firstChild as HTMLElement).focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        'https://example.com',
+        '_blank',
+        'noopener'
+      );
+    });
+
+    it('should not activate a disabled card', () => {
+      const onButtonClick = vitest.fn();
+      const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+      const { container } = renderCard({
+        title: 'Test Card',
+        disabled: true,
+        infoUrl: 'https://example.com',
+        onButtonClick,
+      });
+
+      const wrapper = container.firstChild as HTMLElement;
+      fireEvent.keyDown(wrapper, { key: 'Enter' });
+      fireEvent.keyDown(wrapper, { key: ' ' });
+
+      expect(onButtonClick).not.toHaveBeenCalled();
+      expect(windowOpenSpy).not.toHaveBeenCalled();
+    });
+
+    it('should activate only once when Enter is pressed on the inner button', async () => {
+      const onButtonClick = vitest.fn();
+      const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
+      const { getByRole } = renderCard({
+        title: 'Test Card',
+        infoText: 'Click me',
+        infoUrl: 'https://example.com',
+        onButtonClick,
+      });
+
+      getByRole('button').focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onButtonClick).toHaveBeenCalledTimes(1);
+      expect(windowOpenSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should call the consumer's onKeyDown", async () => {
+      const onKeyDown = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onKeyDown });
+
+      (container.firstChild as HTMLElement).focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onKeyDown).toHaveBeenCalledTimes(1);
+    });
+
+    it("should not activate when the consumer's onKeyDown prevents the default", async () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({
+        title: 'Test Card',
+        onClick,
+        onKeyDown: e => e.preventDefault(),
+      });
+
+      (container.firstChild as HTMLElement).focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onClick).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('role', () => {
+    it('should expose a selectable card as a button', () => {
+      renderCard({ title: 'Test Card' });
+
+      expect(screen.getByRole('button')).toHaveTextContent('Test Card');
+    });
+
+    it('should not expose the card as a button when it renders an inner button', () => {
+      renderCard({ title: 'Test Card', infoText: 'Click me' });
+
+      const buttons = screen.getAllByRole('button');
+      expect(buttons).toHaveLength(1);
+      expect(buttons[0]).toHaveTextContent('Click me');
+    });
+
+    it('should not expose the card as a button when it is not selectable', () => {
+      renderCard({ title: 'Test Card', isSelectable: false });
+
+      expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
   });
 });
