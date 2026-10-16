@@ -118,8 +118,11 @@ export const CardHorizontal = ({
     }
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      // Runs whichever onClick is attached, including a consumer's onClick passed through props.
-      e.currentTarget.click();
+      // A held key repeats keydown, so only the first press activates the card.
+      if (!e.repeat) {
+        // Runs whichever onClick is attached.
+        e.currentTarget.click();
+      }
     }
   };
   return (

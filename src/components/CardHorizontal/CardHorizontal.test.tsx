@@ -322,6 +322,32 @@ describe('CardHorizontal Component', () => {
       expect(notPrevented).toBe(false);
     });
 
+    it.each([
+      ['Enter', 'Enter'],
+      ['Space', ' '],
+    ])('should activate only once while %s is held down', (_name, key) => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onClick });
+
+      const wrapper = container.firstChild as HTMLElement;
+      fireEvent.keyDown(wrapper, { key });
+      fireEvent.keyDown(wrapper, { key, repeat: true });
+      fireEvent.keyDown(wrapper, { key, repeat: true });
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should keep preventing the default Space action while Space is held down', () => {
+      const { container } = renderCard({ title: 'Test Card', onClick: vitest.fn() });
+
+      const notPrevented = fireEvent.keyDown(container.firstChild as HTMLElement, {
+        key: ' ',
+        repeat: true,
+      });
+
+      expect(notPrevented).toBe(false);
+    });
+
     it('should keep the default Space action on a display-only card', () => {
       const { container } = renderCard({ title: 'Summary', isSelectable: false });
 
