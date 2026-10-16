@@ -132,6 +132,38 @@ describe('TextTruncate', () => {
       expect(getByRole('group')).not.toHaveAttribute('aria-describedby');
     });
 
+    it('keeps a consumer aria-describedby with the default tooltip', async () => {
+      const user = userEvent.setup();
+      const { getByRole, findByRole } = renderCUI(
+        <>
+          <span id="hint">Hint</span>
+          <TextTruncate aria-describedby="hint">{LONG_TEXT}</TextTruncate>
+        </>
+      );
+      await user.tab();
+      await findByRole('tooltip');
+      expect(getByRole('group')).toHaveAttribute('aria-describedby', 'hint');
+    });
+
+    it.each([
+      ['aria-label', { 'aria-label': 'Custom name' }, 'Custom name'],
+      ['aria-labelledby', { 'aria-labelledby': 'external' }, 'External name'],
+    ])(
+      'is described by the default tooltip when a consumer %s names it',
+      async (_, labelProps, name) => {
+        const user = userEvent.setup();
+        const { getByRole, findByRole } = renderCUI(
+          <>
+            <span id="external">External name</span>
+            <TextTruncate {...labelProps}>{LONG_TEXT}</TextTruncate>
+          </>
+        );
+        await user.tab();
+        await findByRole('tooltip');
+        expect(getByRole('group', { name })).toHaveAccessibleDescription(LONG_TEXT);
+      }
+    );
+
     it('shows a custom tooltipContent and is described by it', async () => {
       const user = userEvent.setup();
       const { getByRole, findByRole } = renderCUI(
