@@ -358,6 +358,33 @@ describe('CardHorizontal Component', () => {
       expect(notPrevented).toBe(true);
     });
 
+    it('should leave Enter to the inner button when the card has one', () => {
+      const onButtonClick = vitest.fn();
+      const { container } = renderCard({
+        title: 'Test Card',
+        infoText: 'Continue',
+        onButtonClick,
+      });
+
+      fireEvent.keyDown(container.firstChild as HTMLElement, { key: 'Enter' });
+
+      expect(onButtonClick).not.toHaveBeenCalled();
+    });
+
+    it('should keep the default Space action when the card has an inner button', () => {
+      const { container } = renderCard({
+        title: 'Test Card',
+        infoText: 'Continue',
+        onButtonClick: vitest.fn(),
+      });
+
+      const notPrevented = fireEvent.keyDown(container.firstChild as HTMLElement, {
+        key: ' ',
+      });
+
+      expect(notPrevented).toBe(true);
+    });
+
     it('should call onButtonClick when Enter is pressed on the focused card', async () => {
       const onButtonClick = vitest.fn();
       const { container } = renderCard({ title: 'Test Card', onButtonClick });

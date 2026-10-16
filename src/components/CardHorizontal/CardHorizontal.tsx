@@ -101,18 +101,19 @@ export const CardHorizontal = ({
     e.stopPropagation();
     handleClick(e);
   };
-  // A display-only card keeps Enter and Space for the page, and isn't announced as a button.
   const isActionable =
     typeof props.onClick === 'function' ||
     typeof onButtonClick === 'function' ||
     Boolean(infoUrl);
+  // With an inner info button, that button is the keyboard action, so the card leaves Enter and Space alone.
+  const isButton = isActionable && !infoText;
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (typeof onKeyDown === 'function') {
       onKeyDown(e);
     }
-    // Keys from the inner info button bubble up here and must not activate the card twice.
+    // Keys from nested controls bubble up here and must not activate the card.
     const shouldSkipActivation =
-      !isActionable || e.defaultPrevented || disabled || e.target !== e.currentTarget;
+      !isButton || e.defaultPrevented || disabled || e.target !== e.currentTarget;
     if (shouldSkipActivation) {
       return;
     }
@@ -129,7 +130,7 @@ export const CardHorizontal = ({
     <div
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
-      role={isActionable && !infoText ? 'button' : undefined}
+      role={isButton ? 'button' : undefined}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       {...props}
