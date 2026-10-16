@@ -80,6 +80,7 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
+  onKeyDown,
   className,
   ...props
 }: CardHorizontalProps) => {
@@ -100,11 +101,38 @@ export const CardHorizontal = ({
     e.stopPropagation();
     handleClick(e);
   };
+  const isActionable =
+    typeof props.onClick === 'function' ||
+    typeof onButtonClick === 'function' ||
+    Boolean(infoUrl);
+  // With an inner info button, that button is the keyboard action, so the card leaves Enter and Space alone.
+  const isButton = isActionable && !infoText;
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (typeof onKeyDown === 'function') {
+      onKeyDown(e);
+    }
+    // Keys from nested controls bubble up here and must not activate the card.
+    const shouldSkipActivation =
+      !isButton || e.defaultPrevented || disabled || e.target !== e.currentTarget;
+    if (shouldSkipActivation) {
+      return;
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      // A held key repeats keydown, so only the first press activates the card.
+      if (!e.repeat) {
+        // Runs whichever onClick is attached.
+        e.currentTarget.click();
+      }
+    }
+  };
   return (
     <div
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
+      role={isButton ? 'button' : undefined}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       {...props}
       className={cn(
         wrapperVariants({

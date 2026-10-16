@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { CSSProperties, ReactNode } from 'react';
+import { expect, fn, userEvent, within } from 'storybook/test';
 
 import { ICON_NAMES } from '../Icon/IconCommon';
 
@@ -127,5 +128,23 @@ export const WithButton: Story = {
     ...baseArgs,
     infoText: 'Read more',
     infoUrl: 'https://clickhouse.com',
+  },
+};
+
+export const Keyboard: Story = {
+  args: {
+    ...baseArgs,
+    isSelectable: true,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const card = within(canvasElement).getByRole('button', { name: /Card title/ });
+
+    await userEvent.tab();
+    await expect(card).toHaveFocus();
+
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard(' ');
+    await expect(args.onClick).toHaveBeenCalledTimes(2);
   },
 };
