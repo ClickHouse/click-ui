@@ -21,6 +21,17 @@ describe('ButtonGroup', () => {
     });
   });
 
+  it('accepts readonly options', () => {
+    const readonlyOptions = [
+      { label: 'Option 1', value: 'option1' },
+      { label: 'Option 2', value: 'option2' },
+    ] as const;
+    const { getByRole } = renderButtonGroup({ options: readonlyOptions });
+
+    expect(getByRole('button', { name: 'Option 1' })).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Option 2' })).toBeInTheDocument();
+  });
+
   it('renders icon-only buttons when iconOnly is true', () => {
     const iconOptions = [
       { icon: 'table' as const, value: 'table', 'aria-label': 'Table view' },
