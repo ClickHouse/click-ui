@@ -970,6 +970,30 @@ export const Loading: StoryObj<typeof Table> = {
   ),
 };
 
+// Storybook adds action handlers for `on*` props; without `onEdit` and `onDelete` the
+// table has no actions column, so it shows exactly the 6 columns below.
+const withoutActions = { onEdit: undefined, onDelete: undefined };
+
+const skeletonHeaders: TableColumnConfigProps[] = [
+  { label: 'Name', width: '24%' },
+  { label: 'Type', width: '10%' },
+  { label: 'Owner', width: '16%' },
+  { label: 'Created', width: '18%' },
+  { label: 'Size', width: '12%' },
+  { label: 'Status', width: '20%' },
+];
+
+export const LoadingSkeleton: StoryObj<typeof Table> = {
+  args: {
+    headers: skeletonHeaders,
+    rows: [],
+    loading: true,
+    loadingVariant: 'skeleton',
+    skeletonRowCount: 10,
+    ...withoutActions,
+  },
+};
+
 export const NoData: StoryObj<typeof Table> = {
   args: {
     headers: [

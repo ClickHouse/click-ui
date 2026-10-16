@@ -223,6 +223,16 @@ export type { CheckboxMultiSelectProps } from './components/CheckboxMultiSelect'
 // Separator
 export { Separator } from './components/Separator';
 
+// Skeleton
+export { Skeleton } from './components/Skeleton';
+export type {
+  SkeletonProps,
+  SkeletonRectangleProps,
+  SkeletonShape,
+  SkeletonSize,
+  SkeletonTextProps,
+} from './components/Skeleton';
+
 // Spacer
 export { Spacer } from './components/Spacer';
 export type { SpacerProps } from './components/Spacer';
@@ -236,6 +246,7 @@ export type {
   MobileLayoutProp,
   TableColumnConfigProps,
   TableHeaderType,
+  TableLoadingVariant,
   TableProps,
   TableRowType,
 } from './components/Table';

@@ -382,4 +382,104 @@ describe('Table', () => {
       rect.mockRestore();
     }
   });
+  describe('loading', () => {
+    it('shows the spinner message by default', () => {
+      const { getByText, getByRole } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+        />
+      );
+
+      expect(getByText('Loading data')).toBeInTheDocument();
+      expect(getByRole('table')).toHaveAttribute('aria-busy', 'true');
+    });
+
+    it('draws placeholder rows when loadingVariant is skeleton', () => {
+      const { container, queryByText } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+          loadingVariant="skeleton"
+        />
+      );
+
+      expect(queryByText('Loading data')).not.toBeInTheDocument();
+
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(3);
+      // Real cells, one per column, so the placeholders line up with the data that replaces them.
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row] td')).toHaveLength(
+        3 * headers.length
+      );
+    });
+
+    it('draws the requested number of placeholder rows', () => {
+      const { container } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+          loadingVariant="skeleton"
+          skeletonRowCount={5}
+        />
+      );
+
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(5);
+    });
+
+    it('gives placeholder rows the table row height', () => {
+      const { container } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+          loadingVariant="skeleton"
+          rowHeight="64px"
+        />
+      );
+
+      const skeletonRow = container.querySelector<HTMLElement>(
+        'tbody tr[data-skeleton-row]'
+      );
+      expect(skeletonRow?.style.getPropertyValue('--table-row-height')).toBe('64px');
+    });
+
+    it('draws no placeholders in the default spinner variant', () => {
+      const { container } = renderCUI(
+        <Table
+          headers={headers}
+          rows={[]}
+          loading
+        />
+      );
+
+      expect(container.querySelectorAll('tbody tr[data-skeleton-row]')).toHaveLength(0);
+    });
+
+    it('keeps the rows it already has while loading', () => {
+      const { getByText } = renderCUI(
+        <Table
+          headers={headers}
+          rows={rows}
+          loading
+          loadingVariant="skeleton"
+        />
+      );
+
+      expect(getByText('Alfreds Futterkiste')).toBeInTheDocument();
+    });
+
+    it('is not busy once loading finishes', () => {
+      const { getByRole } = renderCUI(
+        <Table
+          headers={headers}
+          rows={rows}
+        />
+      );
+
+      expect(getByRole('table')).not.toHaveAttribute('aria-busy');
+    });
+  });
 });
