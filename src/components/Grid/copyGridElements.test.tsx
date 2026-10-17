@@ -66,4 +66,56 @@ describe('copyGridElements', () => {
       [10, 0],
     ]);
   });
+
+  it('copies selected columns using the current rowStart', async () => {
+    const outerRef = { current: document.createElement('div') };
+
+    await copyGridElements({
+      cell: Cell,
+      selection: {
+        type: 'columns',
+        columns: new Set([2, 0]),
+        anchorColumn: 2,
+      },
+      rowCount: 3,
+      columnCount: 4,
+      rowStart: 100,
+      focus: { row: 100, column: 0 },
+      outerRef,
+    });
+
+    expect(renderedCells).toEqual([
+      [100, 0],
+      [100, 2],
+      [101, 0],
+      [101, 2],
+      [102, 0],
+      [102, 2],
+    ]);
+  });
+
+  it('keeps column indexes zero-based when copying rows with rowStart', async () => {
+    const outerRef = { current: document.createElement('div') };
+
+    await copyGridElements({
+      cell: Cell,
+      selection: {
+        type: 'rows',
+        rows: new Set([101, 100]),
+        anchorRow: 101,
+      },
+      rowCount: 3,
+      columnCount: 2,
+      rowStart: 100,
+      focus: { row: 100, column: 0 },
+      outerRef,
+    });
+
+    expect(renderedCells).toEqual([
+      [100, 0],
+      [100, 1],
+      [101, 0],
+      [101, 1],
+    ]);
+  });
 });
