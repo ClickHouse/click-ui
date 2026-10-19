@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
+import { clickOnActivationKey } from '@/utils/keyboard';
 import { openInNewTab } from '@/utils/url';
 import { CardHorizontalProps } from './CardHorizontal.types';
 import styles from './CardHorizontal.module.css';
@@ -80,16 +81,12 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
+  onClick,
   onKeyDown,
   className,
   ...props
 }: CardHorizontalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
-
+  const fireAction = (e: React.MouseEvent<HTMLElement>) => {
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
@@ -97,33 +94,35 @@ export const CardHorizontal = ({
       openInNewTab(infoUrl);
     }
   };
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+    if (typeof onClick === 'function') {
+      onClick(e);
+      return;
+    }
+    fireAction(e);
+  };
   const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    handleClick(e);
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+    fireAction(e);
   };
   const isActionable =
-    typeof props.onClick === 'function' ||
+    typeof onClick === 'function' ||
     typeof onButtonClick === 'function' ||
     Boolean(infoUrl);
   // With an inner info button, that button is the keyboard action, so the card leaves Enter and Space alone.
   const isButton = isActionable && !infoText;
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (typeof onKeyDown === 'function') {
-      onKeyDown(e);
-    }
-    // Keys from nested controls bubble up here and must not activate the card.
-    const shouldSkipActivation =
-      !isButton || e.defaultPrevented || disabled || e.target !== e.currentTarget;
-    if (shouldSkipActivation) {
-      return;
-    }
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      // A held key repeats keydown, so only the first press activates the card.
-      if (!e.repeat) {
-        // Runs whichever onClick is attached.
-        e.currentTarget.click();
-      }
+    onKeyDown?.(e);
+    if (isButton && !disabled) {
+      clickOnActivationKey(e);
     }
   };
   return (

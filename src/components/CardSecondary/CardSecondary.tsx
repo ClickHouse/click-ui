@@ -3,6 +3,7 @@ import { Icon } from '@/components/Icon';
 import { Title } from '@/components/Title';
 import { Text } from '@/components/Text';
 import { cn, cva } from '@/lib/cva';
+import { clickOnActivationKey } from '@/utils/keyboard';
 import { CardSecondaryProps } from './CardSecondary.types';
 import styles from './CardSecondary.module.css';
 
@@ -35,15 +36,35 @@ export const CardSecondary = ({
   infoText,
   infoIcon = 'chevron-right',
   infoAssetSize = 'md',
+  onClick,
+  onKeyDown,
   className,
   ...props
 }: CardSecondaryProps) => {
   const isInfoLink = !disabled && !!infoUrl && infoUrl.length > 0;
   const InfoComponent = isInfoLink ? 'a' : 'div';
+  // With an info link, that link is the keyboard action, so the card leaves Enter and Space alone.
+  const isButton = typeof onClick === 'function' && !infoUrl;
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+    onClick?.(e);
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (isButton && !disabled) {
+      clickOnActivationKey(e);
+    }
+  };
   return (
     <div
       aria-disabled={disabled}
       tabIndex={0}
+      role={isButton ? 'button' : undefined}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
       {...props}
       className={cn(wrapperVariants({ shadow: hasShadow }), className)}
     >
@@ -88,6 +109,7 @@ export const CardSecondary = ({
             className={styles.infolink__icon}
             size={infoAssetSize}
             name={infoIcon}
+            aria-hidden={infoText ? true : undefined}
           />
         </InfoComponent>
       )}

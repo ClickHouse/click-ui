@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { CardSecondary } from '@/components/CardSecondary';
 
 const meta: Meta<typeof CardSecondary> = {
@@ -61,5 +62,25 @@ export const Disabled: Story = {
     badgeText: 'experiment',
     badgeState: 'success',
     disabled: true,
+  },
+};
+
+export const Keyboard: Story = {
+  args: {
+    title: baseArgs.title,
+    icon: baseArgs.icon,
+    description: baseArgs.description,
+    infoText: baseArgs.infoText,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const card = within(canvasElement).getByRole('button', { name: /Card title/ });
+
+    await userEvent.tab();
+    await expect(card).toHaveFocus();
+
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard(' ');
+    await expect(args.onClick).toHaveBeenCalledTimes(2);
   },
 };

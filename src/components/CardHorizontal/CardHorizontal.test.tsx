@@ -497,5 +497,14 @@ describe('CardHorizontal Component', () => {
 
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
+
+    it('should not run a consumer onClick on a disabled card', () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', disabled: true, onClick });
+
+      fireEvent.click(container.firstChild as HTMLElement);
+
+      expect(onClick).not.toHaveBeenCalled();
+    });
   });
 });

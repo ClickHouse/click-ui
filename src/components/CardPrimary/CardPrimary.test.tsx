@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';
 import { CardPrimary, CardPrimaryProps } from '@/components/CardPrimary';
@@ -168,6 +168,114 @@ describe('CardPrimary Component', () => {
       expect(windowOpenSpy).not.toHaveBeenCalled();
       expect(warnSpy).toHaveBeenCalledTimes(1);
       expect(warnSpy.mock.calls[0][0]).toContain('javascript:alert(1)');
+    });
+  });
+
+  describe('keyboard', () => {
+    const renderCard = (props: CardPrimaryProps) => renderCUI(<CardPrimary {...props} />);
+    const getCard = (container: HTMLElement) =>
+      container.querySelector('[aria-disabled]') as HTMLElement;
+
+    it.each(['{Enter}', ' '])(
+      'should call onClick on "%s" and expose a button',
+      async key => {
+        const onClick = vitest.fn();
+        const { container } = renderCard({ title: 'Test Card', onClick });
+
+        const card = screen.getByRole('button', { name: /Test Card/ });
+        expect(card).toBe(getCard(container));
+        card.focus();
+        await userEvent.keyboard(key);
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+      }
+    );
+
+    it('should activate only once while Space is held and keep the page from scrolling', () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onClick });
+
+      const card = getCard(container);
+      expect(fireEvent.keyDown(card, { key: ' ' })).toBe(false);
+      expect(fireEvent.keyDown(card, { key: ' ', repeat: true })).toBe(false);
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should leave other keys and keys from controls inside the card alone', () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({
+        title: 'Test Card',
+        onClick,
+        children: <input aria-label="Name" />,
+      });
+
+      expect(fireEvent.keyDown(getCard(container), { key: 'Tab' })).toBe(true);
+      expect(fireEvent.keyDown(screen.getByRole('textbox'), { key: ' ' })).toBe(true);
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('should run the consumer onKeyDown and still activate', () => {
+      const onClick = vitest.fn();
+      const onKeyDown = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onClick, onKeyDown });
+
+      fireEvent.keyDown(getCard(container), { key: 'Enter' });
+
+      expect(onKeyDown).toHaveBeenCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it.each([
+      ['infoText only', { infoText: 'Go' }],
+      ['infoUrl without infoText', { infoUrl: 'https://example.com' }],
+      ['onButtonClick without infoText', { onButtonClick: vitest.fn() }],
+    ])('should be the only button when it has %s', (_name, extra) => {
+      const onClick = vitest.fn();
+      renderCard({ title: 'Test Card', onClick, ...extra });
+
+      fireEvent.keyDown(screen.getByRole('button', { name: /Test Card/ }), {
+        key: 'Enter',
+      });
+
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not run a consumer onClick on a disabled card', () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({ title: 'Test Card', onClick, disabled: true });
+
+      fireEvent.click(getCard(container));
+
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('should leave the keys to the inner button and not be a button itself', () => {
+      const onClick = vitest.fn();
+      const { container } = renderCard({
+        title: 'Test Card',
+        infoText: 'Go',
+        onButtonClick: vitest.fn(),
+        onClick,
+      });
+
+      const card = getCard(container);
+      expect(card).not.toHaveAttribute('role');
+      expect(fireEvent.keyDown(card, { key: 'Enter' })).toBe(true);
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('should keep the default key behavior on a display-only or disabled card', () => {
+      const onClick = vitest.fn();
+      const plain = getCard(renderCard({ title: 'Summary' }).container);
+      expect(plain).not.toHaveAttribute('role');
+      expect(fireEvent.keyDown(plain, { key: ' ' })).toBe(true);
+
+      const disabled = getCard(
+        renderCard({ title: 'Test Card', onClick, disabled: true }).container
+      );
+      fireEvent.keyDown(disabled, { key: 'Enter' });
+      expect(onClick).not.toHaveBeenCalled();
     });
   });
 });
