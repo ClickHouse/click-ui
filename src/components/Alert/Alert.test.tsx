@@ -70,10 +70,36 @@ describe('Alert', () => {
     await waitFor(() => expect(queryAllByText(text).length).toEqual(0));
   });
 
-  it('preserves line breaks in string text and title', () => {
+  it('does not forward preserveLineBreaks onto the root element', () => {
+    const { getByTestId } = renderAlert({
+      text: 'body',
+      preserveLineBreaks: true,
+    });
+
+    const root = getByTestId('click-alert');
+    expect(root).not.toHaveAttribute('preserveLineBreaks');
+    expect(root).not.toHaveAttribute('preservelinebreaks');
+  });
+
+  it('does not apply pre-wrap to string text or title by default', () => {
     const { getByText } = renderAlert({
       title: 'Title line 1\nTitle line 2',
       text: 'line 1\nline 2',
+    });
+
+    const title = getByText(withExactText('Title line 1\nTitle line 2'));
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(title.tagName).toBe('H6');
+    expect(title).not.toHaveClass(styles['alert__title_pre-wrap']);
+    expect(body).not.toHaveClass(styles['alert__text_pre-wrap']);
+  });
+
+  it('preserves line breaks in string text and title when preserveLineBreaks is true', () => {
+    const { getByText } = renderAlert({
+      title: 'Title line 1\nTitle line 2',
+      text: 'line 1\nline 2',
+      preserveLineBreaks: true,
     });
 
     const title = getByText(withExactText('Title line 1\nTitle line 2'));
@@ -84,17 +110,23 @@ describe('Alert', () => {
     expect(body).toHaveClass(styles['alert__text_pre-wrap']);
   });
 
-  it('preserves line breaks on WarningAlert string text', () => {
-    const { getByText } = renderCUI(<WarningAlert text={'line 1\nline 2'} />);
+  it('preserves line breaks on WarningAlert when preserveLineBreaks is true', () => {
+    const { getByText } = renderCUI(
+      <WarningAlert
+        text={'line 1\nline 2'}
+        preserveLineBreaks
+      />
+    );
     const body = getByText(withExactText('line 1\nline 2'));
 
     expect(body).toHaveClass(styles['alert__text_pre-wrap']);
   });
 
-  it('does not apply pre-wrap to ReactNode text or title', () => {
+  it('does not apply pre-wrap to ReactNode text or title when preserveLineBreaks is true', () => {
     const { getByText } = renderAlert({
       title: <span>Title node</span>,
       text: <span>{'line 1\nline 2'}</span>,
+      preserveLineBreaks: true,
     });
 
     const title = getByText('Title node');

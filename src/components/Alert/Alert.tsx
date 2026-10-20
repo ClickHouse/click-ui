@@ -118,6 +118,7 @@ export const Alert = ({
   onDismiss,
   customIcon,
   className,
+  preserveLineBreaks = false,
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -154,7 +155,9 @@ export const Alert = ({
           <h6
             className={cn(
               titleVariants({ size }),
-              typeof title === 'string' && styles['alert__title_pre-wrap']
+              preserveLineBreaks &&
+                typeof title === 'string' &&
+                styles['alert__title_pre-wrap']
             )}
           >
             {title}
@@ -163,7 +166,9 @@ export const Alert = ({
         <div
           className={cn(
             textVariants({ size }),
-            typeof text === 'string' && styles['alert__text_pre-wrap']
+            preserveLineBreaks &&
+              typeof text === 'string' &&
+              styles['alert__text_pre-wrap']
           )}
         >
           {text}

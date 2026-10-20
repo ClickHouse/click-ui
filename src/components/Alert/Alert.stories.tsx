@@ -11,6 +11,7 @@ const meta: Meta<typeof Alert> = {
   tags: ['alert', 'autodocs'],
   argTypes: {
     customIcon: { type: { name: 'enum', value: [...ICON_NAMES] } },
+    preserveLineBreaks: { control: 'boolean' },
   },
   decorators: Story => (
     <Container maxWidth="65%">
@@ -32,6 +33,7 @@ export const Playground: Story = {
     type: 'default',
     showIcon: true,
     dismissible: false,
+    preserveLineBreaks: false,
   },
 };
 
@@ -174,7 +176,11 @@ export const DismissibleBanner: Story = {
   },
 };
 
-// Whitespace: string text/title keep `\n` and wrap long tokens.
+const multilineTitle = 'Query failed\nCode: 62';
+const multilineText =
+  'Syntax error: failed at position 15.\nExpected one of: token, identifier.\n\nSELECT * FROM events\nWHERE id = 1';
+
+// Default: `\n` collapses. Opt-in: string text/title keep line breaks and wrap long tokens.
 
 export const SingleLineText: Story = {
   args: {
@@ -183,16 +189,29 @@ export const SingleLineText: Story = {
     state: 'warning',
     size: 'small',
     type: 'default',
+    preserveLineBreaks: false,
+  },
+};
+
+export const CollapsedNewlines: Story = {
+  args: {
+    title: multilineTitle,
+    text: multilineText,
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: false,
   },
 };
 
 export const MultilineText: Story = {
   args: {
-    title: 'Query failed\nCode: 62',
-    text: 'Syntax error: failed at position 15.\nExpected one of: token, identifier.\n\nSELECT * FROM events\nWHERE id = 1',
+    title: multilineTitle,
+    text: multilineText,
     state: 'warning',
     size: 'small',
     type: 'default',
+    preserveLineBreaks: true,
   },
 };
 
@@ -210,5 +229,6 @@ export const LongUnbrokenToken: Story = {
     state: 'danger',
     size: 'small',
     type: 'default',
+    preserveLineBreaks: true,
   },
 };

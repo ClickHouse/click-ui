@@ -1,7 +1,7 @@
 ---
-'@clickhouse/click-ui': patch
+'@clickhouse/click-ui': minor
 ---
 
-Preserve line breaks in string `Alert` `text` and `title`, and wrap long unbroken tokens inside the alert.
+Add `preserveLineBreaks` to `Alert`. When it is true, string `text` and `title` keep `\n` line breaks and wrap long unbroken tokens.
 
-Visual: string content uses `white-space: pre-wrap` and `overflow-wrap: anywhere`. Single-line alerts look the same. Multi-line strings now show each `\n` as a line break. ReactNode `text` and `title` are unchanged.
+Visual: unchanged by default. Set `preserveLineBreaks` on `Alert`, `WarningAlert`, `DangerAlert`, `InfoAlert`, or `SuccessAlert` to opt in. ReactNode `text` and `title` are unchanged.

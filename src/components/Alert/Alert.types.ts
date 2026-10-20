@@ -7,9 +7,7 @@ type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
 export interface AlertProps {
   state?: AlertState;
-  /** String values keep `\n` and wrap long tokens. ReactNode is unchanged. */
   title?: ReactNode;
-  /** String values keep `\n` and wrap long tokens. ReactNode is unchanged. */
   text: ReactNode;
   size?: AlertSize;
   type?: AlertType;
@@ -18,4 +16,6 @@ export interface AlertProps {
   dismissible?: boolean;
   onDismiss?: () => void;
   className?: string;
+  /** When true, string `text` and `title` keep `\n` and wrap long tokens; ReactNode is unchanged. Defaults to `false`. */
+  preserveLineBreaks?: boolean;
 }
