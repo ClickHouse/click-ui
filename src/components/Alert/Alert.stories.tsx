@@ -233,8 +233,8 @@ export const LongUnbrokenToken: Story = {
   },
 };
 
-// `alexeyS3SignaturesError` from SQL-2580. Leading space before each `-` is intentional.
-const alexeyS3SignaturesError = `Code: 42. DB::Exception: Storage S3 requires 1 to 9 arguments. All supported signatures:
+// A multi-line S3 signatures error (SQL-2580 / CUI-335). Leading space before each `-` is intentional.
+const multilineS3SignaturesError = `Code: 42. DB::Exception: Storage S3 requires 1 to 9 arguments. All supported signatures:
  - url
  - url, NOSIGN
  - url, format
@@ -250,7 +250,7 @@ const alexeyS3SignaturesError = `Code: 42. DB::Exception: Storage S3 requires 1 
 
 export const CollapsedSignaturesError: Story = {
   args: {
-    text: alexeyS3SignaturesError,
+    text: multilineS3SignaturesError,
     state: 'warning',
     size: 'small',
     type: 'default',
@@ -260,7 +260,7 @@ export const CollapsedSignaturesError: Story = {
 
 export const PreservedSignaturesError: Story = {
   args: {
-    text: alexeyS3SignaturesError,
+    text: multilineS3SignaturesError,
     state: 'warning',
     size: 'small',
     type: 'default',
