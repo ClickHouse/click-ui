@@ -7,7 +7,9 @@ type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
 export interface AlertProps {
   state?: AlertState;
+  /** String values keep `\n` and wrap long tokens. ReactNode is unchanged. */
   title?: ReactNode;
+  /** String values keep `\n` and wrap long tokens. ReactNode is unchanged. */
   text: ReactNode;
   size?: AlertSize;
   type?: AlertType;

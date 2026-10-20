@@ -173,3 +173,42 @@ export const DismissibleBanner: Story = {
     dismissible: true,
   },
 };
+
+// Whitespace: string text/title keep `\n` and wrap long tokens.
+
+export const SingleLineText: Story = {
+  args: {
+    title: 'Query failed',
+    text: 'A single-line alert.',
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+  },
+};
+
+export const MultilineText: Story = {
+  args: {
+    title: 'Query failed\nCode: 62',
+    text: 'Syntax error: failed at position 15.\nExpected one of: token, identifier.\n\nSELECT * FROM events\nWHERE id = 1',
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+  },
+};
+
+export const LongUnbrokenToken: Story = {
+  decorators: [
+    Story => (
+      <Container maxWidth="320px">
+        <Story />
+      </Container>
+    ),
+  ],
+  args: {
+    title: 'Unknown identifier',
+    text: 'DB::Exception: Unknown table expression identifier default.extremely_long_table_name_without_any_spaces_that_should_wrap_inside_the_alert_instead_of_overflowing in scope.',
+    state: 'danger',
+    size: 'small',
+    type: 'default',
+  },
+};

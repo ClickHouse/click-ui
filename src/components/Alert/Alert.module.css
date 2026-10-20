@@ -142,6 +142,11 @@
   margin: 0;
 }
 
+.alert__title_pre-wrap {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .alert__title_size_small {
   font: var(--click-alert-small-typography-title-default);
 }
@@ -152,6 +157,11 @@
 
 .alert__text {
   margin: 0;
+}
+
+.alert__text_pre-wrap {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .alert__text_size_small {

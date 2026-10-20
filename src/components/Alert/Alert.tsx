@@ -150,8 +150,24 @@ export const Alert = ({
         </div>
       )}
       <div className={cn(textWrapperVariants({ size }))}>
-        {title && <h6 className={cn(titleVariants({ size }))}>{title}</h6>}
-        <div className={cn(textVariants({ size }))}>{text}</div>
+        {title ? (
+          <h6
+            className={cn(
+              titleVariants({ size }),
+              typeof title === 'string' && styles['alert__title_pre-wrap']
+            )}
+          >
+            {title}
+          </h6>
+        ) : null}
+        <div
+          className={cn(
+            textVariants({ size }),
+            typeof text === 'string' && styles['alert__text_pre-wrap']
+          )}
+        >
+          {text}
+        </div>
       </div>
       {dismissible && (
         <button

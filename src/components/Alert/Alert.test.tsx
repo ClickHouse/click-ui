@@ -1,10 +1,18 @@
-import { Alert, AlertProps } from '@/components/Alert';
+import { Alert, AlertProps, WarningAlert } from '@/components/Alert';
 import { fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';
+import styles from './Alert.module.css';
 
 describe('Alert', () => {
   const renderAlert = (props: AlertProps) => renderCUI(<Alert {...props} />);
+
+  const withExactText = (value: string) => (_content: string, node: Element | null) =>
+    Boolean(
+      node &&
+      node.textContent === value &&
+      Array.from(node.children).every(child => child.textContent !== value)
+    );
 
   it('renders the dismiss button with type="button" so it does not submit a form', () => {
     const handleSubmit = vi.fn(e => e.preventDefault());
@@ -60,5 +68,41 @@ describe('Alert', () => {
     const dismissButton = getByTestId('click-alert-dismiss-button');
     userEvent.click(dismissButton);
     await waitFor(() => expect(queryAllByText(text).length).toEqual(0));
+  });
+
+  it('preserves line breaks in string text and title', () => {
+    const { getByText } = renderAlert({
+      title: 'Title line 1\nTitle line 2',
+      text: 'line 1\nline 2',
+    });
+
+    const title = getByText(withExactText('Title line 1\nTitle line 2'));
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(title.tagName).toBe('H6');
+    expect(title).toHaveClass(styles['alert__title_pre-wrap']);
+    expect(body).toHaveClass(styles['alert__text_pre-wrap']);
+  });
+
+  it('preserves line breaks on WarningAlert string text', () => {
+    const { getByText } = renderCUI(<WarningAlert text={'line 1\nline 2'} />);
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(body).toHaveClass(styles['alert__text_pre-wrap']);
+  });
+
+  it('does not apply pre-wrap to ReactNode text or title', () => {
+    const { getByText } = renderAlert({
+      title: <span>Title node</span>,
+      text: <span>{'line 1\nline 2'}</span>,
+    });
+
+    const title = getByText('Title node');
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(title.tagName).toBe('SPAN');
+    expect(title.parentElement).not.toHaveClass(styles['alert__title_pre-wrap']);
+    expect(body.tagName).toBe('SPAN');
+    expect(body.parentElement).not.toHaveClass(styles['alert__text_pre-wrap']);
   });
 });
