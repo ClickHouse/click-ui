@@ -81,11 +81,13 @@ export const CardHorizontal = ({
   badgeIcon,
   badgeIconDir,
   onButtonClick,
-  onClick,
   onKeyDown,
   className,
-  ...props
+  ...rest
 }: CardHorizontalProps) => {
+  const { onClick, ...props } = rest;
+  // An explicit onClick={undefined} turns the card body off; consumers use it to keep only the inner button.
+  const hasOnClickProp = 'onClick' in rest;
   const fireAction = (e: React.MouseEvent<HTMLElement>) => {
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
@@ -99,8 +101,8 @@ export const CardHorizontal = ({
       e.preventDefault();
       return;
     }
-    if (typeof onClick === 'function') {
-      onClick(e);
+    if (hasOnClickProp) {
+      onClick?.(e);
       return;
     }
     fireAction(e);
@@ -113,10 +115,9 @@ export const CardHorizontal = ({
     }
     fireAction(e);
   };
-  const isActionable =
-    typeof onClick === 'function' ||
-    typeof onButtonClick === 'function' ||
-    Boolean(infoUrl);
+  const isActionable = hasOnClickProp
+    ? typeof onClick === 'function'
+    : typeof onButtonClick === 'function' || Boolean(infoUrl);
   // With an inner info button, that button is the keyboard action, so the card leaves Enter and Space alone.
   const isButton = isActionable && !infoText;
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {

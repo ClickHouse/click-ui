@@ -225,6 +225,22 @@ describe('CardHorizontal Component', () => {
     expect(onButtonClick).toHaveBeenCalledTimes(1);
   });
 
+  it('should not run onButtonClick on a body click when onClick is explicitly undefined', async () => {
+    const onButtonClick = vitest.fn();
+    const { container, getByRole } = renderCard({
+      title: 'Test Card',
+      infoText: 'Continue',
+      onClick: undefined,
+      onButtonClick,
+    });
+
+    fireEvent.click(container.firstChild as HTMLElement);
+    expect(onButtonClick).not.toHaveBeenCalled();
+
+    await userEvent.click(getByRole('button', { name: 'Continue' }));
+    expect(onButtonClick).toHaveBeenCalledTimes(1);
+  });
+
   it('should open infoUrl only once when the inner button is clicked', async () => {
     const windowOpenSpy = vitest.spyOn(window, 'open').mockImplementation(() => null);
     const { getByRole } = renderCard({
