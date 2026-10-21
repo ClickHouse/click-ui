@@ -95,10 +95,7 @@ const copyGridElements = async ({
       [...selection.rows]
         .sort((a, b) => a - b)
         .forEach(rowIndex => {
-          const columnList = Array.from(
-            { length: columnCount },
-            (_, index) => index
-          );
+          const columnList = Array.from({ length: columnCount }, (_, index) => index);
           columnListLoop(tbody, columnList, cell, rowIndex);
         });
       break;
