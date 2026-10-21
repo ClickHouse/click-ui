@@ -1,4 +1,5 @@
 import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Dropdown } from '@/components/Dropdown';
 import { BaseButton } from '@/components/Button/BaseButton';
 import { IconWrapper } from '@/components/IconWrapper';
@@ -48,6 +49,7 @@ export const SplitButton = ({
   children,
   icon,
   iconDir = 'start',
+  menuAriaLabel = 'More options',
   className,
   ...props
 }: SplitButtonProps) => {
@@ -107,19 +109,26 @@ export const SplitButton = ({
             {children}
           </IconWrapper>
         </BaseButton>
-        <Dropdown.Trigger
+        {/* The menu half is a menu button (WAI-ARIA APG Menu Button pattern). `Dropdown.Trigger` wraps
+            its children in a `div`, which can't take focus, so use the Radix trigger on a button. */}
+        <DropdownMenu.Trigger
           disabled={disabled}
           asChild
-          data-testid="split-button-dropdown"
-          className={styles['split-button__secondary']}
         >
-          <span>
+          <BaseButton
+            type="button"
+            aria-label={menuAriaLabel}
+            aria-disabled={disabled || undefined}
+            data-testid="split-button-dropdown"
+            className={styles['split-button__secondary']}
+          >
             <Icon
               name="chevron-down"
               size="sm"
+              aria-hidden
             />
-          </span>
-        </Dropdown.Trigger>
+          </BaseButton>
+        </DropdownMenu.Trigger>
       </div>
       <Dropdown.Content
         side={side}
