@@ -180,7 +180,8 @@ const multilineTitle = 'Query failed\nCode: 62';
 const multilineText =
   'Syntax error: failed at position 15.\nExpected one of: token, identifier.\n\nSELECT * FROM events\nWHERE id = 1';
 
-// Default: `\n` collapses. Opt-in: string text/title keep line breaks and wrap long tokens.
+// Default: `\n` in text collapses. Opt-in: string text keeps line breaks and wraps long tokens.
+// The title stays one line.
 
 export const SingleLineText: Story = {
   args: {

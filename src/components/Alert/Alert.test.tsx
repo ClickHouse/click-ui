@@ -91,11 +91,11 @@ describe('Alert', () => {
     const body = getByText(withExactText('line 1\nline 2'));
 
     expect(title.tagName).toBe('H6');
-    expect(title).not.toHaveClass(styles['alert__title_pre-wrap']);
+    expect(title.className).not.toContain('pre-wrap');
     expect(body).not.toHaveClass(styles['alert__text_pre-wrap']);
   });
 
-  it('preserves line breaks in string text and title when preserveLineBreaks is true', () => {
+  it('preserves line breaks in string text and keeps the title on one line', () => {
     const { getByText } = renderAlert({
       title: 'Title line 1\nTitle line 2',
       text: 'line 1\nline 2',
@@ -106,7 +106,7 @@ describe('Alert', () => {
     const body = getByText(withExactText('line 1\nline 2'));
 
     expect(title.tagName).toBe('H6');
-    expect(title).toHaveClass(styles['alert__title_pre-wrap']);
+    expect(title.className).not.toContain('pre-wrap');
     expect(body).toHaveClass(styles['alert__text_pre-wrap']);
   });
 
@@ -133,7 +133,7 @@ describe('Alert', () => {
     const body = getByText(withExactText('line 1\nline 2'));
 
     expect(title.tagName).toBe('SPAN');
-    expect(title.parentElement).not.toHaveClass(styles['alert__title_pre-wrap']);
+    expect(title.parentElement?.className ?? '').not.toContain('pre-wrap');
     expect(body.tagName).toBe('SPAN');
     expect(body.parentElement).not.toHaveClass(styles['alert__text_pre-wrap']);
   });

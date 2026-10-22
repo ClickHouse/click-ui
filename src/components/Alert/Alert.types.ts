@@ -16,6 +16,6 @@ export interface AlertProps {
   dismissible?: boolean;
   onDismiss?: () => void;
   className?: string;
-  /** When true, string `text` and `title` keep `\n` and wrap long tokens; ReactNode is unchanged. Defaults to `false`. */
+  /** When true, string `text` keeps `\n` and wraps long tokens. The title stays one line. Defaults to `false`. */
   preserveLineBreaks?: boolean;
 }
