@@ -35,7 +35,7 @@ const primaryVariants = cva(styles['split-button__primary'], {
 
 export const SplitButton = ({
   type = 'primary',
-  htmlType,
+  htmlType = 'button',
   disabled,
   menu,
   dir,

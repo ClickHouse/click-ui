@@ -201,6 +201,24 @@ describe('SplitButton', () => {
       }
     );
 
+    it('defaults to type=button so it does not submit an enclosing form', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+      const { getByText } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <SplitButton menu={menuItems}>
+            <div>SplitButton Main Trigger</div>
+          </SplitButton>
+        </form>
+      );
+
+      const button = getByText('SplitButton Main Trigger').closest('button');
+      expect(button).toHaveAttribute('type', 'button');
+
+      fireEvent.click(getByText('SplitButton Main Trigger'));
+
+      expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
     it('does not submit an enclosing form when htmlType="button"', () => {
       const handleSubmit = vi.fn(e => e.preventDefault());
       const { getByText } = renderCUI(
@@ -217,6 +235,24 @@ describe('SplitButton', () => {
       fireEvent.click(getByText('SplitButton Main Trigger'));
 
       expect(handleSubmit).not.toHaveBeenCalled();
+    });
+
+    it('submits an enclosing form when htmlType="submit" is set explicitly', () => {
+      const handleSubmit = vi.fn(e => e.preventDefault());
+      const { getByText } = renderCUI(
+        <form onSubmit={handleSubmit}>
+          <SplitButton
+            menu={menuItems}
+            htmlType="submit"
+          >
+            <div>SplitButton Main Trigger</div>
+          </SplitButton>
+        </form>
+      );
+
+      fireEvent.click(getByText('SplitButton Main Trigger'));
+
+      expect(handleSubmit).toHaveBeenCalled();
     });
   });
 });
