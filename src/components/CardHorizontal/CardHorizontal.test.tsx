@@ -123,6 +123,7 @@ describe('CardHorizontal Component', () => {
     const { container } = renderCard({
       title: 'Test Card',
       disabled: true,
+      onClick: () => undefined,
     });
 
     const wrapper = container.firstChild;
@@ -133,10 +134,23 @@ describe('CardHorizontal Component', () => {
     const { container } = renderCard({
       title: 'Test Card',
       disabled: false,
+      onClick: () => undefined,
     });
 
     const wrapper = container.firstChild;
     expect(wrapper).toHaveAttribute('tabIndex', '0');
+  });
+
+  it('should not be a Tab stop without a body action or with an inner button', () => {
+    const plain = renderCard({ title: 'Summary' }).container.firstChild;
+    expect(plain).not.toHaveAttribute('tabIndex');
+
+    const withButton = renderCard({
+      title: 'Test Card',
+      infoText: 'Continue',
+      onButtonClick: () => undefined,
+    }).container.firstChild;
+    expect(withButton).not.toHaveAttribute('tabIndex');
   });
 
   it('should not call onClick when disabled', () => {
@@ -466,7 +480,11 @@ describe('CardHorizontal Component', () => {
 
     it("should call the consumer's onKeyDown", async () => {
       const onKeyDown = vitest.fn();
-      const { container } = renderCard({ title: 'Test Card', onKeyDown });
+      const { container } = renderCard({
+        title: 'Test Card',
+        onClick: () => undefined,
+        onKeyDown,
+      });
 
       (container.firstChild as HTMLElement).focus();
       await userEvent.keyboard('{Enter}');

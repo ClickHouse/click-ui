@@ -130,7 +130,7 @@ const Card = ({
   return (
     <div
       aria-disabled={disabled}
-      tabIndex={0}
+      tabIndex={isButton ? 0 : undefined}
       role={isButton ? 'button' : undefined}
       onClick={handleCardClick}
       onKeyDown={handleKeyDown}

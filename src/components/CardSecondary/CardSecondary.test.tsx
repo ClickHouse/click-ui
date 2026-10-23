@@ -212,6 +212,7 @@ describe('CardSecondary Component', () => {
         renderCard({ title: 'Summary', description: 'Desc' }).container
       );
       expect(plain).not.toHaveAttribute('role');
+      expect(plain).not.toHaveAttribute('tabIndex');
       expect(fireEvent.keyDown(plain, { key: ' ' })).toBe(true);
 
       const disabled = getCard(

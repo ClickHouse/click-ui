@@ -269,6 +269,7 @@ describe('CardPrimary Component', () => {
       const onClick = vitest.fn();
       const plain = getCard(renderCard({ title: 'Summary' }).container);
       expect(plain).not.toHaveAttribute('role');
+      expect(plain).not.toHaveAttribute('tabIndex');
       expect(fireEvent.keyDown(plain, { key: ' ' })).toBe(true);
 
       const disabled = getCard(

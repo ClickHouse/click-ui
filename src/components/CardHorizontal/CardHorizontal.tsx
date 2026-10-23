@@ -128,7 +128,7 @@ export const CardHorizontal = ({
   };
   return (
     <div
-      tabIndex={disabled ? -1 : 0}
+      tabIndex={isButton ? (disabled ? -1 : 0) : undefined}
       aria-disabled={disabled}
       role={isButton ? 'button' : undefined}
       onClick={handleClick}
