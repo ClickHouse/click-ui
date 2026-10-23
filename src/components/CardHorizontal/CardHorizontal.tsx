@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { Container } from '@/components/Container';
 import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
+import { clickOnActivationKey } from '@/utils/keyboard';
 import { openInNewTab } from '@/utils/url';
 import { CardHorizontalProps } from './CardHorizontal.types';
 import styles from './CardHorizontal.module.css';
@@ -82,14 +83,12 @@ export const CardHorizontal = ({
   onButtonClick,
   onKeyDown,
   className,
-  ...props
+  ...rest
 }: CardHorizontalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
-
+  const { onClick, ...props } = rest;
+  // An explicit onClick={undefined} turns the card body off; consumers use it to keep only the inner button.
+  const hasOnClickProp = 'onClick' in rest;
+  const fireAction = (e: React.MouseEvent<HTMLElement>) => {
     if (typeof onButtonClick === 'function') {
       onButtonClick(e);
     }
@@ -97,38 +96,39 @@ export const CardHorizontal = ({
       openInNewTab(infoUrl);
     }
   };
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+    if (hasOnClickProp) {
+      onClick?.(e);
+      return;
+    }
+    fireAction(e);
+  };
   const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    handleClick(e);
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+    fireAction(e);
   };
-  const isActionable =
-    typeof props.onClick === 'function' ||
-    typeof onButtonClick === 'function' ||
-    Boolean(infoUrl);
+  const isActionable = hasOnClickProp
+    ? typeof onClick === 'function'
+    : typeof onButtonClick === 'function' || Boolean(infoUrl);
   // With an inner info button, that button is the keyboard action, so the card leaves Enter and Space alone.
   const isButton = isActionable && !infoText;
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (typeof onKeyDown === 'function') {
-      onKeyDown(e);
-    }
-    // Keys from nested controls bubble up here and must not activate the card.
-    const shouldSkipActivation =
-      !isButton || e.defaultPrevented || disabled || e.target !== e.currentTarget;
-    if (shouldSkipActivation) {
-      return;
-    }
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      // A held key repeats keydown, so only the first press activates the card.
-      if (!e.repeat) {
-        // Runs whichever onClick is attached.
-        e.currentTarget.click();
-      }
+    onKeyDown?.(e);
+    if (isButton && !disabled) {
+      clickOnActivationKey(e);
     }
   };
   return (
     <div
-      tabIndex={disabled ? -1 : 0}
+      tabIndex={isButton ? (disabled ? -1 : 0) : undefined}
       aria-disabled={disabled}
       role={isButton ? 'button' : undefined}
       onClick={handleClick}

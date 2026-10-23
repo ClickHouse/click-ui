@@ -153,7 +153,8 @@ describe('CardPrimary Visual Regression', () => {
         });
         const card = page.locator(cardLocator).first();
         await expect(card).toBeVisible({ timeout: 10000 });
-        await card.focus();
+        await page.locator('body').click();
+        await page.keyboard.press('Tab');
         await page.waitForTimeout(100);
         await expect(card).toHaveScreenshot('cardprimary-focus-light.png', {
           maxDiffPixels: 100,
@@ -308,7 +309,8 @@ describe('CardPrimary Visual Regression', () => {
         });
         const card = page.locator(cardLocator).first();
         await expect(card).toBeVisible({ timeout: 10000 });
-        await card.focus();
+        await page.locator('body').click();
+        await page.keyboard.press('Tab');
         await page.waitForTimeout(100);
         await expect(card).toHaveScreenshot('cardprimary-focus-dark.png', {
           maxDiffPixels: 100,
@@ -319,11 +321,12 @@ describe('CardPrimary Visual Regression', () => {
 
   describe('Accessibility', () => {
     it('card is focusable via Tab', async ({ page }) => {
-      await page.goto(getStoryUrl('cards-primary-card--default', 'light'), {
+      await page.goto(getStoryUrl('cards-primary-card--keyboard', 'light'), {
         waitUntil: 'networkidle',
       });
       const card = page.locator(cardLocator).first();
       await expect(card).toBeVisible({ timeout: 10000 });
+      await expect(card).toHaveAttribute('role', 'button');
 
       await page.locator('body').click();
       await page.keyboard.press('Tab');
