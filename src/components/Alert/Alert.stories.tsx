@@ -342,6 +342,17 @@ export const MaxHeightFocusVisible: Story = {
   parameters: { pseudo: { focusVisible: true } },
 };
 
+export const MaxHeightOnBackground: Story = {
+  args: MaxHeightOverflow.args,
+  decorators: [
+    Story => (
+      <div style={{ backgroundColor: 'var(--click-global-color-background-muted)' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 export const MaxHeightKeyboard: Story = {
   args: MaxHeightOverflow.args,
   play: async ({ canvasElement }) => {
