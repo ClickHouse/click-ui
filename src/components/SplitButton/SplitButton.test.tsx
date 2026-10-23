@@ -7,6 +7,7 @@ import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
+  menuAriaLabel?: string;
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
@@ -189,6 +190,46 @@ describe('SplitButton', () => {
     item && fireEvent.pointerDown(item);
     expect(item).not.toBeNull();
     expect(queryByText('Content2')).not.toBeNull();
+  });
+
+  describe('menu button', () => {
+    it('is a button named "More options" that controls a menu', () => {
+      const { getByRole } = renderDropdown({});
+      const menuButton = getByRole('button', { name: 'More options' });
+      expect(menuButton).toHaveAttribute('type', 'button');
+      expect(menuButton).toHaveAttribute('aria-haspopup', 'menu');
+      expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('uses menuAriaLabel as its accessible name', () => {
+      const { getByRole } = renderDropdown({ menuAriaLabel: 'Export formats' });
+      expect(getByRole('button', { name: 'Export formats' })).toBeInTheDocument();
+    });
+
+    it.each(['{Enter}', ' ', '{ArrowDown}'])(
+      'is reached with Tab after the main button and opens the menu with %s',
+      async key => {
+        const { getByRole, getByText } = renderDropdown({});
+        await userEvent.tab();
+        expect(getByText('SplitButton Main Trigger').closest('button')).toHaveFocus();
+        await userEvent.tab();
+        const menuButton = getByRole('button', { name: 'More options' });
+        expect(menuButton).toHaveFocus();
+        await userEvent.keyboard(key);
+        expect(getByText('Content0')).toBeInTheDocument();
+        expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+        expect(mainButtonClick).not.toHaveBeenCalled();
+      }
+    );
+
+    it('is disabled and skipped by Tab when the split button is disabled', async () => {
+      const { getByRole } = renderDropdown({ disabled: true });
+      const menuButton = getByRole('button', { name: 'More options' });
+      expect(menuButton).toBeDisabled();
+      expect(menuButton).toHaveAttribute('aria-disabled', 'true');
+      await userEvent.tab();
+      expect(menuButton).not.toHaveFocus();
+    });
   });
 
   describe('native button type', () => {

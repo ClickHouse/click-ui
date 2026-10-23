@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { Menu, SplitButton } from '@/components/SplitButton';
 
 const menuItems: Menu[] = [
@@ -142,5 +143,38 @@ export const PrimaryOpen: Story = {
     defaultOpen: true,
     children: 'Split button',
     menu: menuItems,
+  },
+};
+
+export const FocusVisible: Story = {
+  args: {
+    type: 'primary',
+    children: 'Split button',
+    menu: menuItems,
+  },
+  parameters: { pseudo: { focusVisible: true } },
+};
+
+// Tab reaches the main button, then the menu button, which opens the menu with Enter.
+export const KeyboardNavigation: Story = {
+  args: {
+    type: 'primary',
+    children: 'Split button',
+    menu: menuItems,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Split button' })).toHaveFocus();
+
+    await userEvent.tab();
+    const menuButton = canvas.getByRole('button', { name: 'More options' });
+    await expect(menuButton).toHaveFocus();
+
+    await userEvent.keyboard('{Enter}');
+    await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(args.onClick).not.toHaveBeenCalled();
   },
 };
