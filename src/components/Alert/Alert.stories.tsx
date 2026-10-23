@@ -176,12 +176,10 @@ export const DismissibleBanner: Story = {
   },
 };
 
-const multilineTitle = 'Query failed\nCode: 62';
 const multilineText =
   'Syntax error: failed at position 15.\nExpected one of: token, identifier.\n\nSELECT * FROM events\nWHERE id = 1';
 
-// Default: `\n` in text collapses. Opt-in: string text keeps line breaks and wraps long tokens.
-// The title stays one line.
+// Default: `\n` in text collapses. Opt-in: string text keeps line breaks.
 
 export const SingleLineText: Story = {
   args: {
@@ -196,7 +194,7 @@ export const SingleLineText: Story = {
 
 export const CollapsedNewlines: Story = {
   args: {
-    title: multilineTitle,
+    title: 'Query failed Code: 62',
     text: multilineText,
     state: 'warning',
     size: 'small',
@@ -207,7 +205,7 @@ export const CollapsedNewlines: Story = {
 
 export const MultilineText: Story = {
   args: {
-    title: multilineTitle,
+    title: 'Query failed Code: 62',
     text: multilineText,
     state: 'warning',
     size: 'small',

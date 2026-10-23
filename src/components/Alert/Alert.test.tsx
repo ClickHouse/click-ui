@@ -81,32 +81,24 @@ describe('Alert', () => {
     expect(root).not.toHaveAttribute('preservelinebreaks');
   });
 
-  it('does not apply pre-wrap to string text or title by default', () => {
+  it('does not apply pre-wrap to string text by default', () => {
     const { getByText } = renderAlert({
-      title: 'Title line 1\nTitle line 2',
       text: 'line 1\nline 2',
     });
 
-    const title = getByText(withExactText('Title line 1\nTitle line 2'));
     const body = getByText(withExactText('line 1\nline 2'));
 
-    expect(title.tagName).toBe('H6');
-    expect(title.className).not.toContain('pre-wrap');
     expect(body).not.toHaveClass(styles['alert__text_pre-wrap']);
   });
 
-  it('preserves line breaks in string text and keeps the title on one line', () => {
+  it('preserves line breaks in string text when preserveLineBreaks is true', () => {
     const { getByText } = renderAlert({
-      title: 'Title line 1\nTitle line 2',
       text: 'line 1\nline 2',
       preserveLineBreaks: true,
     });
 
-    const title = getByText(withExactText('Title line 1\nTitle line 2'));
     const body = getByText(withExactText('line 1\nline 2'));
 
-    expect(title.tagName).toBe('H6');
-    expect(title.className).not.toContain('pre-wrap');
     expect(body).toHaveClass(styles['alert__text_pre-wrap']);
   });
 
@@ -122,18 +114,14 @@ describe('Alert', () => {
     expect(body).toHaveClass(styles['alert__text_pre-wrap']);
   });
 
-  it('does not apply pre-wrap to ReactNode text or title when preserveLineBreaks is true', () => {
+  it('does not apply pre-wrap to ReactNode text when preserveLineBreaks is true', () => {
     const { getByText } = renderAlert({
-      title: <span>Title node</span>,
       text: <span>{'line 1\nline 2'}</span>,
       preserveLineBreaks: true,
     });
 
-    const title = getByText('Title node');
     const body = getByText(withExactText('line 1\nline 2'));
 
-    expect(title.tagName).toBe('SPAN');
-    expect(title.parentElement?.className ?? '').not.toContain('pre-wrap');
     expect(body.tagName).toBe('SPAN');
     expect(body.parentElement).not.toHaveClass(styles['alert__text_pre-wrap']);
   });

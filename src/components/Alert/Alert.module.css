@@ -156,7 +156,6 @@
 
 .alert__text_pre-wrap {
   white-space: pre-wrap;
-  overflow-wrap: anywhere;
 }
 
 .alert__text_size_small {

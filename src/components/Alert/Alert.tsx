@@ -151,7 +151,7 @@ export const Alert = ({
         </div>
       )}
       <div className={cn(textWrapperVariants({ size }))}>
-        {title ? <h6 className={titleVariants({ size })}>{title}</h6> : null}
+        {title && <h6 className={cn(titleVariants({ size }))}>{title}</h6>}
         <div
           className={cn(
             textVariants({ size }),
