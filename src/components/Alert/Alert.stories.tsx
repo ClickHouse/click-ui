@@ -4,7 +4,7 @@ import { Alert } from '@/components/Alert';
 import { Container } from '@/components/Container';
 import { Link } from '@/components/Link';
 import { ICON_NAMES } from '@/components/Icon/IconCommon';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 
 const meta: Meta<typeof Alert> = {
   component: Alert,
@@ -302,6 +302,7 @@ export const MaxHeightExpanded: Story = {
   args: {
     ...MaxHeightOverflow.args,
     state: 'danger',
+    onExpandedChange: fn(),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -354,7 +355,7 @@ export const MaxHeightOnBackground: Story = {
 };
 
 export const MaxHeightKeyboard: Story = {
-  args: MaxHeightOverflow.args,
+  args: { ...MaxHeightOverflow.args, onExpandedChange: fn() },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.tab();
