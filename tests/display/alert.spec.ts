@@ -36,6 +36,18 @@ const cases: Case[] = [
   { id: 'dismissible', story: 'display-alert--dismissible' },
   { id: 'dismissible-banner', story: 'display-alert--dismissible-banner' },
   { id: 'title-with-link', story: 'display-alert--title-with-link' },
+  { id: 'single-line-text', story: 'display-alert--single-line-text' },
+  { id: 'collapsed-newlines', story: 'display-alert--collapsed-newlines' },
+  { id: 'multiline-text', story: 'display-alert--multiline-text' },
+  { id: 'long-unbroken-token', story: 'display-alert--long-unbroken-token' },
+  {
+    id: 'collapsed-signatures-error',
+    story: 'display-alert--collapsed-signatures-error',
+  },
+  {
+    id: 'preserved-signatures-error',
+    story: 'display-alert--preserved-signatures-error',
+  },
 ];
 
 describe('Alert Visual Regression', () => {

@@ -11,6 +11,7 @@ const meta: Meta<typeof Alert> = {
   tags: ['alert', 'autodocs'],
   argTypes: {
     customIcon: { type: { name: 'enum', value: [...ICON_NAMES] } },
+    preserveLineBreaks: { control: 'boolean' },
   },
   decorators: Story => (
     <Container maxWidth="65%">
@@ -32,6 +33,7 @@ export const Playground: Story = {
     type: 'default',
     showIcon: true,
     dismissible: false,
+    preserveLineBreaks: false,
   },
 };
 
@@ -171,5 +173,96 @@ export const DismissibleBanner: Story = {
     size: 'medium',
     type: 'banner',
     dismissible: true,
+  },
+};
+
+const multilineText =
+  'Syntax error: failed at position 15.\nExpected one of: token, identifier.\n\nSELECT * FROM events\nWHERE id = 1';
+
+// Default: `\n` in text collapses. Opt-in: string text keeps line breaks.
+
+export const SingleLineText: Story = {
+  args: {
+    title: 'Query failed',
+    text: 'A single-line alert.',
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: false,
+  },
+};
+
+export const CollapsedNewlines: Story = {
+  args: {
+    title: 'Query failed Code: 62',
+    text: multilineText,
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: false,
+  },
+};
+
+export const MultilineText: Story = {
+  args: {
+    title: 'Query failed Code: 62',
+    text: multilineText,
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: true,
+  },
+};
+
+export const LongUnbrokenToken: Story = {
+  decorators: [
+    Story => (
+      <Container maxWidth="320px">
+        <Story />
+      </Container>
+    ),
+  ],
+  args: {
+    title: 'Unknown identifier',
+    text: 'DB::Exception: Unknown table expression identifier default.extremely_long_table_name_without_any_spaces_that_should_wrap_inside_the_alert_instead_of_overflowing in scope.',
+    state: 'danger',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: true,
+  },
+};
+
+// A multi-line S3 signatures error (SQL-2580 / CUI-335). Leading space before each `-` is intentional.
+const multilineS3SignaturesError = `Code: 42. DB::Exception: Storage S3 requires 1 to 9 arguments. All supported signatures:
+ - url
+ - url, NOSIGN
+ - url, format
+ - url, NOSIGN, format
+ - url, format, compression_method
+ - url, NOSIGN, format, compression_method
+ - url, access_key_id, secret_access_key
+ - url, access_key_id, secret_access_key, session_token
+ - url, access_key_id, secret_access_key, format
+ - url, access_key_id, secret_access_key, session_token, format
+ - url, access_key_id, secret_access_key, format, compression_method
+ - url, access_key_id, secret_access_key, session_token, format, compression_method`;
+
+export const CollapsedSignaturesError: Story = {
+  args: {
+    text: multilineS3SignaturesError,
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: false,
+  },
+};
+
+export const PreservedSignaturesError: Story = {
+  args: {
+    text: multilineS3SignaturesError,
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: true,
   },
 };

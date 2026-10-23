@@ -1,10 +1,18 @@
-import { Alert, AlertProps } from '@/components/Alert';
+import { Alert, AlertProps, WarningAlert } from '@/components/Alert';
 import { fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';
+import styles from './Alert.module.css';
 
 describe('Alert', () => {
   const renderAlert = (props: AlertProps) => renderCUI(<Alert {...props} />);
+
+  const withExactText = (value: string) => (_content: string, node: Element | null) =>
+    Boolean(
+      node &&
+      node.textContent === value &&
+      Array.from(node.children).every(child => child.textContent !== value)
+    );
 
   it('renders the dismiss button with type="button" so it does not submit a form', () => {
     const handleSubmit = vi.fn(e => e.preventDefault());
@@ -60,5 +68,61 @@ describe('Alert', () => {
     const dismissButton = getByTestId('click-alert-dismiss-button');
     userEvent.click(dismissButton);
     await waitFor(() => expect(queryAllByText(text).length).toEqual(0));
+  });
+
+  it('does not forward preserveLineBreaks onto the root element', () => {
+    const { getByTestId } = renderAlert({
+      text: 'body',
+      preserveLineBreaks: true,
+    });
+
+    const root = getByTestId('click-alert');
+    expect(root).not.toHaveAttribute('preserveLineBreaks');
+    expect(root).not.toHaveAttribute('preservelinebreaks');
+  });
+
+  it('does not apply pre-wrap to string text by default', () => {
+    const { getByText } = renderAlert({
+      text: 'line 1\nline 2',
+    });
+
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(body).not.toHaveClass(styles['alert__text_pre-wrap']);
+  });
+
+  it('preserves line breaks in string text when preserveLineBreaks is true', () => {
+    const { getByText } = renderAlert({
+      text: 'line 1\nline 2',
+      preserveLineBreaks: true,
+    });
+
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(body).toHaveClass(styles['alert__text_pre-wrap']);
+  });
+
+  it('preserves line breaks on WarningAlert when preserveLineBreaks is true', () => {
+    const { getByText } = renderCUI(
+      <WarningAlert
+        text={'line 1\nline 2'}
+        preserveLineBreaks
+      />
+    );
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(body).toHaveClass(styles['alert__text_pre-wrap']);
+  });
+
+  it('does not apply pre-wrap to ReactNode text when preserveLineBreaks is true', () => {
+    const { getByText } = renderAlert({
+      text: <span>{'line 1\nline 2'}</span>,
+      preserveLineBreaks: true,
+    });
+
+    const body = getByText(withExactText('line 1\nline 2'));
+
+    expect(body.tagName).toBe('SPAN');
+    expect(body.parentElement).not.toHaveClass(styles['alert__text_pre-wrap']);
   });
 });
