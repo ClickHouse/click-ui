@@ -214,10 +214,7 @@
 }
 
 .alert_max-height .alert__title {
-  overflow: hidden;
   flex-shrink: 0;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 /* stylelint-disable plugin/no-unsupported-browser-features, property-no-vendor-prefix -- Chrome below 120 and Safari below 15.4 only know the prefixed mask, and the build has no autoprefixer */
