@@ -144,7 +144,7 @@ export const Alert = ({
   const titleId = useId();
   const hasMaxHeight = maxHeight !== undefined;
   const { rootRef, textRef, toggleRef, isOverflowing, isFadeVisible } = useAlertOverflow({
-    enabled: hasMaxHeight,
+    enabled: hasMaxHeight && isVisible,
     expanded: isExpanded,
   });
 

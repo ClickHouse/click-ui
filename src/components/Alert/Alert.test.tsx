@@ -584,6 +584,20 @@ describe('Alert', () => {
       expect(FakeResizeObserver.instances[1].disconnect).toHaveBeenCalled();
     });
 
+    it('disconnects its observers when the alert is dismissed', () => {
+      contentHeight = 300;
+      const { getByTestId } = renderAlert({
+        text: 'long text',
+        maxHeight: 100,
+        dismissible: true,
+      });
+      const [observer] = FakeResizeObserver.instances;
+
+      fireEvent.click(getByTestId('click-alert-dismiss-button'));
+
+      expect(observer.disconnect).toHaveBeenCalled();
+    });
+
     it('passes every maxHeight prop through WarningAlert', () => {
       contentHeight = 300;
       const onExpandedChange = vi.fn();
