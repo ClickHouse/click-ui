@@ -1,8 +1,9 @@
 import { Icon, type IconName } from '@/components/Icon';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useId, useMemo, type CSSProperties } from 'react';
 import { cn, cva } from '@/lib/cva';
 import { AlertProps } from './Alert.types';
 import styles from './Alert.module.css';
+import { useAlertOverflow } from './useAlertOverflow';
 
 type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -107,6 +108,18 @@ const textVariants = cva(styles.alert__text, {
   },
 });
 
+const toggleVariants = cva(styles.alert__toggle, {
+  variants: {
+    size: {
+      small: styles.alert__toggle_size_small,
+      medium: styles.alert__toggle_size_medium,
+    },
+  },
+  defaultVariants: {
+    size: 'small',
+  },
+});
+
 export const Alert = ({
   text,
   title = '',
@@ -119,20 +132,73 @@ export const Alert = ({
   customIcon,
   className,
   preserveLineBreaks = false,
+  maxHeight,
+  onExpandedChange,
+  expandLabel = 'Show more',
+  collapseLabel = 'Show less',
   ...delegated
 }: AlertProps) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const textId = useId();
+  const titleId = useId();
+  const hasMaxHeight = maxHeight !== undefined;
+  const { rootRef, textRef, toggleRef, isOverflowing, isFadeVisible } = useAlertOverflow({
+    enabled: hasMaxHeight && isVisible,
+    expanded: isExpanded,
+  });
+
+  const rootStyle = useMemo(
+    () =>
+      hasMaxHeight
+        ? ({
+            '--alert-max-height':
+              typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight,
+          } as CSSProperties)
+        : undefined,
+    [hasMaxHeight, maxHeight]
+  );
 
   const handleDismiss = useCallback(() => {
     setIsVisible(false);
     onDismiss?.();
   }, [onDismiss]);
 
+  const changeExpanded = useCallback(
+    (expanded: boolean) => {
+      setIsExpanded(expanded);
+      onExpandedChange?.(expanded);
+    },
+    [onExpandedChange]
+  );
+
+  const handleToggle = useCallback(() => {
+    if (isExpanded && textRef.current) {
+      textRef.current.scrollTop = 0;
+    }
+    changeExpanded(!isExpanded);
+  }, [isExpanded, textRef, changeExpanded]);
+
+  const handleTextFocus = useCallback(() => {
+    if (isOverflowing && !isExpanded) {
+      changeExpanded(true);
+    }
+  }, [isOverflowing, isExpanded, changeExpanded]);
+
+  const isScrollable = isExpanded && isOverflowing;
+  const hasTitle = Boolean(title);
+
   return isVisible ? (
     <div
+      ref={rootRef}
       data-testid="click-alert"
+      style={rootStyle}
       {...delegated}
-      className={cn(wrapperVariants({ state, type }), className)}
+      className={cn(
+        wrapperVariants({ state, type }),
+        hasMaxHeight && styles['alert_max-height'],
+        className
+      )}
     >
       {dismissible && type === 'banner' && (
         <span
@@ -151,17 +217,45 @@ export const Alert = ({
         </div>
       )}
       <div className={cn(textWrapperVariants({ size }))}>
-        {title && <h6 className={cn(titleVariants({ size }))}>{title}</h6>}
+        {title && (
+          <h6
+            id={hasMaxHeight ? titleId : undefined}
+            className={cn(titleVariants({ size }))}
+          >
+            {title}
+          </h6>
+        )}
         <div
+          ref={textRef}
+          id={hasMaxHeight ? textId : undefined}
+          tabIndex={isScrollable ? 0 : undefined}
+          role={isScrollable && hasTitle ? 'region' : undefined}
+          aria-labelledby={isScrollable && hasTitle ? titleId : undefined}
+          onFocus={hasMaxHeight ? handleTextFocus : undefined}
           className={cn(
             textVariants({ size }),
             preserveLineBreaks &&
               typeof text === 'string' &&
-              styles['alert__text_pre-wrap']
+              styles['alert__text_pre-wrap'],
+            hasMaxHeight && isExpanded && styles.alert__text_expanded,
+            hasMaxHeight && !isFadeVisible && styles['alert__text_no-fade']
           )}
         >
           {text}
         </div>
+        {isOverflowing && (
+          <button
+            ref={toggleRef}
+            type="button"
+            data-testid="click-alert-toggle"
+            aria-expanded={isExpanded}
+            aria-controls={textId}
+            onClick={handleToggle}
+            className={cn(toggleVariants({ size }))}
+          >
+            {isExpanded ? collapseLabel : expandLabel}
+          </button>
+        )}
       </div>
       {dismissible && (
         <button

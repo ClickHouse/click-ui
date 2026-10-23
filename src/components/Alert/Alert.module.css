@@ -1,6 +1,8 @@
 /* stylelint-disable custom-property-pattern -- design tokens use camelCase (e.g. iconBackground) */
 
 .alert {
+  --alert-max-height: initial;
+
   display: flex;
   width: 100%;
   overflow: hidden;
@@ -8,6 +10,10 @@
   border-radius: var(--click-alert-radii-end);
   background-color: var(--click-alert-color-background-neutral);
   color: var(--click-alert-color-text-neutral);
+}
+
+.alert_max-height {
+  max-height: var(--alert-max-height, none);
 }
 
 .alert_type_default {
@@ -175,3 +181,71 @@
   color: inherit;
   cursor: pointer;
 }
+
+.alert__toggle {
+  margin: var(--click-container-gap-xxs) 0 0;
+  padding: 0;
+  flex-shrink: 0;
+  align-self: flex-start;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.alert__toggle:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 1px;
+}
+
+.alert__toggle_size_small {
+  font: var(--click-alert-small-typography-text-default);
+}
+
+.alert__toggle_size_medium {
+  font: var(--click-alert-medium-typography-text-default);
+}
+
+/* Height cap. Lives after the base rules so these selectors do not precede lower-specificity ones. */
+.alert_max-height .alert__text-wrapper {
+  min-width: 0;
+  min-height: 0;
+}
+
+.alert_max-height .alert__title {
+  flex-shrink: 0;
+}
+
+/* stylelint-disable plugin/no-unsupported-browser-features, property-no-vendor-prefix -- Chrome below 120 and Safari below 15.4 only know the prefixed mask, and the build has no autoprefixer */
+.alert_max-height .alert__text {
+  /* Only the alpha channel matters, so a system color stands in for a literal one. */
+  --alert-fade: linear-gradient(
+    to bottom,
+    canvastext calc(100% - var(--click-container-space-sm)),
+    transparent
+  );
+
+  min-height: 0;
+  overflow: hidden;
+  -webkit-mask-image: var(--alert-fade);
+  mask-image: var(--alert-fade);
+  scroll-behavior: auto;
+}
+
+.alert_max-height .alert__text_expanded {
+  overflow: auto;
+}
+
+.alert_max-height .alert__text_no-fade {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+@media (forced-colors: active) {
+  .alert_max-height .alert__text {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+/* stylelint-enable plugin/no-unsupported-browser-features, property-no-vendor-prefix */
