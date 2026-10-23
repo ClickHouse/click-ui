@@ -62,7 +62,7 @@ export interface SelectGroupOptionItem extends Omit<
   SelectGroupProps,
   'children' | 'label' | 'description'
 > {
-  options: SelectOptionItem[];
+  options: readonly SelectOptionItem[];
   label?: never;
   [key: `data-${string}`]: string;
 }
@@ -70,7 +70,7 @@ export interface SelectGroupOptionItem extends Omit<
 export type SelectOptionListItem = SelectGroupOptionItem | SelectOptionItem;
 
 type SelectOptionType = {
-  options: SelectOptionListItem[];
+  options: readonly SelectOptionListItem[];
   children?: never;
 };
 
@@ -93,7 +93,7 @@ interface InternalSelectProps
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   open: boolean;
-  value: string[];
+  value: readonly string[];
   allowCreateOption?: boolean;
   checkbox?: boolean;
   container?: HTMLElement;
@@ -131,13 +131,13 @@ export interface BaseMultiSelectProps extends Omit<
   SelectContainerProps,
   'onChange' | 'value' | 'open' | 'onOpenChange' | 'onSelect'
 > {
-  defaultValue?: string[];
+  defaultValue?: readonly string[];
   onSelect?: (
     value: string[],
     type?: SelectionType,
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
-  value?: string[];
+  value?: readonly string[];
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
 }

@@ -159,6 +159,19 @@ describe('Pagination', () => {
     expect(onPageSizeChange).toBeCalledTimes(1);
   });
 
+  it('accepts a readonly maxRowsPerPageList', () => {
+    const maxRowsPerPageList = [250, 500] as const;
+    const { getByText } = renderPagination({
+      currentPage: 1,
+      onChange,
+      maxRowsPerPageList,
+    });
+    fireEvent.click(getByText('All rows'));
+
+    expect(getByText('250 rows')).toBeInTheDocument();
+    expect(getByText('500 rows')).toBeInTheDocument();
+  });
+
   it('should disable input if the left and right button are disabled', () => {
     const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({

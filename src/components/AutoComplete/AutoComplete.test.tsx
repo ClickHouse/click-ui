@@ -121,6 +121,18 @@ describe('AutoComplete', () => {
     expect(item).not.toBeNull();
   });
 
+  it('accepts readonly options', () => {
+    const options = [
+      { heading: 'Group label', options: [{ label: 'Content0', value: 'content0' }] },
+      { label: 'Content1', value: 'content1' },
+    ] as const;
+    const { queryByText, getByPlaceholderText } = renderAutocomplete({ options });
+    fireEvent.click(getByPlaceholderText('Search'));
+
+    expect(queryByText('Content0')).not.toBeNull();
+    expect(queryByText('Content1')).not.toBeNull();
+  });
+
   it('should skip disabled options when navigating with the keyboard', () => {
     const onSelect = vi.fn();
     const { getByPlaceholderText } = renderAutocomplete({
