@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { Icon } from '@/components/Icon';
 import { cn, cva } from '@/lib/cva';
+import { markTakesHtmlType } from '@/utils/buttonType';
 import { IconButtonProps } from './IconButton.types';
 import styles from './IconButton.module.css';
 
@@ -61,3 +62,4 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 );
 
 IconButton.displayName = 'IconButton';
+markTakesHtmlType(IconButton);
