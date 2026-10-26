@@ -197,6 +197,7 @@ export const Alert = ({
       className={cn(
         wrapperVariants({ state, type }),
         hasMaxHeight && styles['alert_max-height'],
+        hasMaxHeight && isExpanded && styles.alert_expanded,
         className
       )}
     >

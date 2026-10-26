@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentType } from 'react';
 
 import { Alert } from '@/components/Alert';
 import { Container } from '@/components/Container';
@@ -273,7 +274,16 @@ export const PreservedSignaturesError: Story = {
   },
 };
 
-// Max height: the alert is capped and long text gets a Show more / Show less toggle.
+// Max height: collapsed text is capped. Expanded, the alert fills its container.
+
+const alertBounds = (Story: ComponentType) => (
+  <div
+    data-testid="alert-bounds"
+    style={{ display: 'flex', flexDirection: 'column', width: '100%', height: 240 }}
+  >
+    <Story />
+  </div>
+);
 
 export const MaxHeightFits: Story = {
   args: {
@@ -298,17 +308,28 @@ export const MaxHeightOverflow: Story = {
   },
 };
 
+export const MaxHeightBounded: Story = {
+  args: MaxHeightOverflow.args,
+  decorators: [alertBounds],
+};
+
 export const MaxHeightExpanded: Story = {
   args: {
     ...MaxHeightOverflow.args,
     state: 'danger',
     onExpandedChange: fn(),
   },
+  decorators: [alertBounds],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const alert = canvas.getByTestId('click-alert');
+    const collapsedHeight = alert.getBoundingClientRect().height;
     const toggle = canvas.getByRole('button', { name: 'Show more' });
     await userEvent.click(toggle);
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(alert.getBoundingClientRect().height).toBeGreaterThan(collapsedHeight);
+    const region = canvas.getByRole('region', { name: 'Query failed' });
+    await expect(region.scrollHeight).toBeGreaterThan(region.clientHeight);
   },
 };
 
@@ -356,6 +377,7 @@ export const MaxHeightOnBackground: Story = {
 
 export const MaxHeightKeyboard: Story = {
   args: { ...MaxHeightOverflow.args, onExpandedChange: fn() },
+  decorators: [alertBounds],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.tab();

@@ -21,7 +21,10 @@ const alert = (page: import('@playwright/test').Page) =>
 
 type Case = { id: string; story: string; expand?: 'click' | 'story' };
 
-const expandAlert = async (page: import('@playwright/test').Page, mode: 'click' | 'story') => {
+const expandAlert = async (
+  page: import('@playwright/test').Page,
+  mode: 'click' | 'story'
+) => {
   const toggle = page.getByTestId('click-alert-toggle');
   await expect(toggle).toBeVisible({ timeout: 10000 });
   if (mode === 'click') {
@@ -61,7 +64,7 @@ const cases: Case[] = [
   { id: 'max-height-collapsed', story: 'display-alert--max-height-overflow' },
   {
     id: 'max-height-expanded',
-    story: 'display-alert--max-height-overflow',
+    story: 'display-alert--max-height-bounded',
     expand: 'click',
   },
   {
@@ -89,6 +92,47 @@ describe('Alert Visual Regression', () => {
         });
       });
     }
+
+    it('grows past the collapsed height and scrolls inside the container', async ({
+      page,
+    }) => {
+      await goto(page, 'display-alert--max-height-bounded', 'light');
+      const node = alert(page);
+      await expect(node).toBeVisible({ timeout: 10000 });
+      const bounds = page.getByTestId('alert-bounds');
+      const collapsedHeight = (await node.boundingBox())?.height ?? 0;
+      const toggle = page.getByTestId('click-alert-toggle');
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+      const expandedHeight = (await node.boundingBox())?.height ?? 0;
+      const boundsHeight = (await bounds.boundingBox())?.height ?? 0;
+      expect(expandedHeight).toBeGreaterThan(collapsedHeight);
+      expect(expandedHeight).toBeCloseTo(boundsHeight, 0);
+
+      const region = page.getByRole('region', { name: 'Query failed' });
+      const scroll = await region.evaluate(element => ({
+        scrollHeight: element.scrollHeight,
+        clientHeight: element.clientHeight,
+        overflowY: getComputedStyle(element).overflowY,
+      }));
+      expect(scroll.scrollHeight).toBeGreaterThan(scroll.clientHeight);
+      expect(scroll.overflowY).toBe('auto');
+
+      await region.evaluate(element => {
+        element.scrollTop = element.scrollHeight;
+      });
+      await expect
+        .poll(() => region.evaluate(element => element.scrollTop))
+        .toBeGreaterThan(0);
+
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      const collapsedAgain = (await node.boundingBox())?.height ?? 0;
+      expect(collapsedAgain).toBeLessThan(expandedHeight);
+    });
 
     describe('Dismissible behavior', () => {
       it('dismiss button exposes aria-label', async ({ page }) => {

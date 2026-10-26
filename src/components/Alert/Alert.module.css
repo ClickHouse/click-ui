@@ -16,6 +16,14 @@
   max-height: var(--alert-max-height, none);
 }
 
+/* Expanded lifts the collapsed cap and fills the parent. The text then scrolls. */
+.alert_max-height.alert_expanded {
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  flex: 1 1 auto;
+}
+
 .alert_type_default {
   justify-content: start;
   border-radius: var(--click-alert-radii-end);
@@ -213,6 +221,11 @@
   min-height: 0;
 }
 
+.alert_max-height.alert_expanded .alert__text-wrapper {
+  min-height: 0;
+  overflow: hidden;
+}
+
 .alert_max-height .alert__title {
   flex-shrink: 0;
 }
@@ -234,7 +247,9 @@
 }
 
 .alert_max-height .alert__text_expanded {
+  min-height: 0;
   overflow: auto;
+  flex: 1 1 auto;
 }
 
 .alert_max-height .alert__text_no-fade {

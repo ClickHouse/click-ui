@@ -278,18 +278,25 @@ describe('Alert', () => {
     it('expands on click and reports it', () => {
       contentHeight = 300;
       const onExpandedChange = vi.fn();
-      const { getByRole } = renderAlert({
+      const { getByRole, getByTestId } = renderAlert({
         text: 'long text',
         maxHeight: 100,
         onExpandedChange,
       });
 
+      const root = getByTestId('click-alert');
+      expect(root).not.toHaveClass(styles.alert_expanded);
+
       fireEvent.click(getByRole('button', { name: 'Show more' }));
 
       const toggle = getByRole('button', { name: 'Show less' });
       expect(toggle).toHaveAttribute('aria-expanded', 'true');
+      expect(root).toHaveClass(styles.alert_expanded);
       expect(onExpandedChange).toHaveBeenCalledTimes(1);
       expect(onExpandedChange).toHaveBeenLastCalledWith(true);
+
+      fireEvent.click(toggle);
+      expect(root).not.toHaveClass(styles.alert_expanded);
     });
 
     it('collapses on a second click, scrolling the text back to the top', () => {
