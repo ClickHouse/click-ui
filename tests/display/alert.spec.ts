@@ -19,7 +19,19 @@ const goto = async (
 const alert = (page: import('@playwright/test').Page) =>
   page.locator(alertLocator).first();
 
-type Case = { id: string; story: string };
+type Case = { id: string; story: string; expand?: 'click' | 'story' };
+
+const expandAlert = async (
+  page: import('@playwright/test').Page,
+  mode: 'click' | 'story'
+) => {
+  const toggle = page.getByTestId('click-alert-toggle');
+  await expect(toggle).toBeVisible({ timeout: 10000 });
+  if (mode === 'click') {
+    await toggle.click();
+  }
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+};
 
 const cases: Case[] = [
   { id: 'state-neutral', story: 'display-alert--state-neutral' },
@@ -48,20 +60,79 @@ const cases: Case[] = [
     id: 'preserved-signatures-error',
     story: 'display-alert--preserved-signatures-error',
   },
+  { id: 'max-height-fits', story: 'display-alert--max-height-fits' },
+  { id: 'max-height-collapsed', story: 'display-alert--max-height-overflow' },
+  {
+    id: 'max-height-expanded',
+    story: 'display-alert--max-height-bounded',
+    expand: 'click',
+  },
+  {
+    id: 'max-height-expanded-danger',
+    story: 'display-alert--max-height-expanded',
+    expand: 'story',
+  },
+  { id: 'max-height-with-link', story: 'display-alert--max-height-with-link' },
+  { id: 'max-height-focus-visible', story: 'display-alert--max-height-focus-visible' },
+  { id: 'max-height-on-background', story: 'display-alert--max-height-on-background' },
 ];
 
 describe('Alert Visual Regression', () => {
   describe('Light Theme (Storybook Global)', () => {
-    for (const { id, story } of cases) {
+    for (const { id, story, expand } of cases) {
       it(`${id} matches snapshot`, async ({ page }) => {
         await goto(page, story, 'light');
         const node = alert(page);
         await expect(node).toBeVisible({ timeout: 10000 });
+        if (expand) {
+          await expandAlert(page, expand);
+        }
         await expect(node).toHaveScreenshot(`alert-${id}-light.png`, {
           maxDiffPixels: 100,
         });
       });
     }
+
+    it('grows past the collapsed height and scrolls inside the container', async ({
+      page,
+    }) => {
+      await goto(page, 'display-alert--max-height-bounded', 'light');
+      const node = alert(page);
+      await expect(node).toBeVisible({ timeout: 10000 });
+      const bounds = page.getByTestId('alert-bounds');
+      const collapsedHeight = (await node.boundingBox())?.height ?? 0;
+      const toggle = page.getByTestId('click-alert-toggle');
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+      const expandedHeight = (await node.boundingBox())?.height ?? 0;
+      const boundsHeight = (await bounds.boundingBox())?.height ?? 0;
+      expect(expandedHeight).toBeGreaterThan(collapsedHeight);
+      expect(expandedHeight).toBeCloseTo(boundsHeight, 0);
+
+      const region = page.getByRole('region', { name: 'Query failed' });
+      const scroll = await region.evaluate(element => ({
+        scrollHeight: element.scrollHeight,
+        clientHeight: element.clientHeight,
+        overflowY: getComputedStyle(element).overflowY,
+      }));
+      expect(scroll.scrollHeight).toBeGreaterThan(scroll.clientHeight);
+      expect(scroll.overflowY).toBe('auto');
+
+      await region.evaluate(element => {
+        element.scrollTop = element.scrollHeight;
+      });
+      await expect
+        .poll(() => region.evaluate(element => element.scrollTop))
+        .toBeGreaterThan(0);
+
+      await toggle.click();
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+      const collapsedAgain = (await node.boundingBox())?.height ?? 0;
+      expect(collapsedAgain).toBeLessThan(expandedHeight);
+    });
 
     describe('Dismissible behavior', () => {
       it('dismiss button exposes aria-label', async ({ page }) => {
@@ -83,11 +154,14 @@ describe('Alert Visual Regression', () => {
   describe('Dark Theme (System prefers-color-scheme)', () => {
     use({ colorScheme: 'dark' });
 
-    for (const { id, story } of cases) {
+    for (const { id, story, expand } of cases) {
       it(`${id} matches snapshot`, async ({ page }) => {
         await goto(page, story);
         const node = alert(page);
         await expect(node).toBeVisible({ timeout: 10000 });
+        if (expand) {
+          await expandAlert(page, expand);
+        }
         await expect(node).toHaveScreenshot(`alert-${id}-dark.png`, {
           maxDiffPixels: 100,
         });

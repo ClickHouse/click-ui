@@ -1,9 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentType } from 'react';
 
 import { Alert } from '@/components/Alert';
 import { Container } from '@/components/Container';
 import { Link } from '@/components/Link';
 import { ICON_NAMES } from '@/components/Icon/IconCommon';
+import { expect, fn, userEvent, within } from 'storybook/test';
 
 const meta: Meta<typeof Alert> = {
   component: Alert,
@@ -12,6 +14,9 @@ const meta: Meta<typeof Alert> = {
   argTypes: {
     customIcon: { type: { name: 'enum', value: [...ICON_NAMES] } },
     preserveLineBreaks: { control: 'boolean' },
+    maxHeight: { control: 'number' },
+    expandLabel: { control: 'text' },
+    collapseLabel: { control: 'text' },
   },
   decorators: Story => (
     <Container maxWidth="65%">
@@ -34,6 +39,8 @@ export const Playground: Story = {
     showIcon: true,
     dismissible: false,
     preserveLineBreaks: false,
+    expandLabel: 'Show more',
+    collapseLabel: 'Show less',
   },
 };
 
@@ -264,5 +271,125 @@ export const PreservedSignaturesError: Story = {
     size: 'small',
     type: 'default',
     preserveLineBreaks: true,
+  },
+};
+
+// Max height: collapsed text is capped. Expanded, the alert fills its container.
+
+const alertBounds = (Story: ComponentType) => (
+  <div
+    data-testid="alert-bounds"
+    style={{ display: 'flex', flexDirection: 'column', width: '100%', height: 240 }}
+  >
+    <Story />
+  </div>
+);
+
+export const MaxHeightFits: Story = {
+  args: {
+    title: 'Query failed',
+    text: 'Short enough to fit, so there is no toggle.',
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    maxHeight: 200,
+  },
+};
+
+export const MaxHeightOverflow: Story = {
+  args: {
+    title: 'Query failed',
+    text: multilineS3SignaturesError,
+    state: 'warning',
+    size: 'small',
+    type: 'default',
+    preserveLineBreaks: true,
+    maxHeight: 140,
+  },
+};
+
+export const MaxHeightBounded: Story = {
+  args: MaxHeightOverflow.args,
+  decorators: [alertBounds],
+};
+
+export const MaxHeightExpanded: Story = {
+  args: {
+    ...MaxHeightOverflow.args,
+    state: 'danger',
+    onExpandedChange: fn(),
+  },
+  decorators: [alertBounds],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const alert = canvas.getByTestId('click-alert');
+    const collapsedHeight = alert.getBoundingClientRect().height;
+    const toggle = canvas.getByRole('button', { name: 'Show more' });
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(alert.getBoundingClientRect().height).toBeGreaterThan(collapsedHeight);
+    const region = canvas.getByRole('region', { name: 'Query failed' });
+    await expect(region.scrollHeight).toBeGreaterThan(region.clientHeight);
+  },
+};
+
+export const MaxHeightWithLink: Story = {
+  args: {
+    title: 'Query failed',
+    text: (
+      <>
+        {multilineS3SignaturesError}{' '}
+        <Link href="https://clickhouse.com/docs/sql-reference/table-functions/s3">
+          S3 table function docs
+        </Link>
+      </>
+    ),
+    state: 'info',
+    size: 'medium',
+    type: 'default',
+    maxHeight: 140,
+  },
+};
+
+export const MaxHeightCustomLabels: Story = {
+  args: {
+    ...MaxHeightOverflow.args,
+    expandLabel: 'Read more',
+    collapseLabel: 'Read less',
+  },
+};
+
+export const MaxHeightFocusVisible: Story = {
+  args: MaxHeightOverflow.args,
+  parameters: { pseudo: { focusVisible: true } },
+};
+
+export const MaxHeightOnBackground: Story = {
+  args: MaxHeightOverflow.args,
+  decorators: [
+    Story => (
+      <div style={{ backgroundColor: 'var(--click-global-color-background-muted)' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const MaxHeightKeyboard: Story = {
+  args: { ...MaxHeightOverflow.args, onExpandedChange: fn() },
+  decorators: [alertBounds],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    const toggle = canvas.getByRole('button', { name: 'Show more' });
+    await expect(toggle).toHaveFocus();
+
+    await userEvent.keyboard('{Enter}');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(toggle).toHaveFocus();
+
+    // The scrollable text comes before the toggle in the DOM, so it is one Shift+Tab back.
+    await userEvent.tab({ shift: true });
+    await expect(canvas.getByRole('region', { name: 'Query failed' })).toHaveFocus();
   },
 };
