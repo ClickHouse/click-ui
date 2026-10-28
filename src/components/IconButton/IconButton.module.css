@@ -21,6 +21,15 @@
 .iconbutton_size_xs {
   padding: var(--click-button-iconButton-xs-space-y)
     var(--click-button-iconButton-xs-space-x);
+
+  /* The xs button is 16x16 by design and has no padding, so the stroke has to
+     come out of the icon instead of adding to the box (sm icon 16px + 2x1px). */
+  --svg-width: calc(
+    var(--click-image-sm-size-width) - 2 * var(--click-button-stroke)
+  );
+  --svg-height: calc(
+    var(--click-image-sm-size-height) - 2 * var(--click-button-stroke)
+  );
 }
 
 .iconbutton_type_primary {
