@@ -113,13 +113,21 @@ describe('Alert Visual Regression', () => {
       expect(expandedHeight).toBeCloseTo(boundsHeight, 0);
 
       const region = page.getByRole('region', { name: 'Query failed' });
-      const scroll = await region.evaluate(element => ({
-        scrollHeight: element.scrollHeight,
-        clientHeight: element.clientHeight,
-        overflowY: getComputedStyle(element).overflowY,
-      }));
+      const scroll = await region.evaluate(element => {
+        const root = element.closest('[data-testid="click-alert"]');
+        const rootBox = root?.getBoundingClientRect();
+        const regionBox = element.getBoundingClientRect();
+        return {
+          scrollHeight: element.scrollHeight,
+          clientHeight: element.clientHeight,
+          overflowY: getComputedStyle(element).overflowY,
+          rightGap: (rootBox?.right ?? 0) - regionBox.right,
+        };
+      });
       expect(scroll.scrollHeight).toBeGreaterThan(scroll.clientHeight);
       expect(scroll.overflowY).toBe('auto');
+      // The scrollbar sits at the alert edge, inside the text padding.
+      expect(scroll.rightGap).toBeLessThan(40);
 
       await region.evaluate(element => {
         element.scrollTop = element.scrollHeight;
