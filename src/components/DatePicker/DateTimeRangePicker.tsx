@@ -884,6 +884,8 @@ const TabbedCalendar = ({
 
 export interface DateTimeRangePickerProps {
   closeOnDateRangeSelected?: boolean;
+  /** Test id set on the trigger that opens the picker. */
+  'data-testid'?: string;
   defaultActiveTab?: Tab;
   disabled?: boolean;
   endDate?: Date;
@@ -907,6 +909,7 @@ export interface DateTimeRangePickerProps {
 
 export const DateTimeRangePicker = ({
   closeOnDateRangeSelected = false,
+  'data-testid': dataTestId,
   defaultActiveTab,
   disabled = false,
   endDate,
@@ -1082,11 +1085,11 @@ export const DateTimeRangePicker = ({
       open={isOpen}
     >
       <Dropdown.Trigger
+        data-testid={dataTestId}
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >
         <DateTimeRangePickerInput
-          data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
           placeholder={placeholder}
