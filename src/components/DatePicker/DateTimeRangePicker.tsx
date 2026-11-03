@@ -884,7 +884,6 @@ const TabbedCalendar = ({
 
 export interface DateTimeRangePickerProps {
   closeOnDateRangeSelected?: boolean;
-  /** Test id set on the trigger that opens the picker. */
   'data-testid'?: string;
   defaultActiveTab?: Tab;
   disabled?: boolean;

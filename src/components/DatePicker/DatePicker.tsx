@@ -169,7 +169,6 @@ const Calendar = ({
 export interface DatePickerProps {
   allowOnlyDatesList?: Array<Date>;
   container?: HTMLElement | null;
-  /** Test id set on the trigger that opens the picker. */
   'data-testid'?: string;
   date?: Date;
   disabled?: boolean;

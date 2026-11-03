@@ -389,7 +389,6 @@ const PredefinedDates = ({
 
 export interface DateRangePickerProps {
   allowOnlyDatesList?: Array<Date>;
-  /** Test id set on the trigger that opens the picker. */
   'data-testid'?: string;
   disabled?: boolean;
   endDate?: Date;
