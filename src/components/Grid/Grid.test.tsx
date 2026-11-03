@@ -3,6 +3,12 @@ import type { CellProps, GridProps } from '@/components/Grid/types';
 import { renderCUI } from '@/utils/test-utils';
 import { SelectionFocus } from './types';
 import { ReactNode } from 'react';
+import { fireEvent } from '@testing-library/dom';
+import copyGridElements from './copyGridElements';
+
+vi.mock('./copyGridElements', () => ({
+  default: vi.fn().mockResolvedValue(undefined),
+}));
 
 const Cell: CellProps = ({ type, rowIndex, columnIndex, isScrolling, ...props }) => {
   let content = `${rowIndex} ${columnIndex} - ${type}`;
@@ -144,5 +150,24 @@ describe('Grid', () => {
 
     const computedHeight = window.getComputedStyle(cell).height;
     expect(computedHeight).toBe('100%');
+  });
+
+  it('passes rowStart to the default copy handler', () => {
+    vi.mocked(copyGridElements).mockClear();
+    const { getByTestId } = renderGrid({
+      rowStart: 100,
+      rowCount: 3,
+      columnCount: 2,
+      focus: { row: 100, column: 0 },
+    });
+
+    fireEvent.keyDown(getByTestId('grid-outer-element'), {
+      key: 'c',
+      ctrlKey: true,
+    });
+
+    expect(copyGridElements).toHaveBeenCalledWith(
+      expect.objectContaining({ rowStart: 100, rowCount: 3, columnCount: 2 })
+    );
   });
 });
