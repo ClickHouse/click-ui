@@ -467,7 +467,7 @@
     "eslint-plugin-react-refresh": "0.5.7",
     "eslint-plugin-storybook": "^10.1.10",
     "fs-extra": "^11.3.4",
-    "glob": "^13.0.6",
+    "glob": "^14.0.2",
     "globals": "^16.5.0",
     "jsdom": "^24.0.0",
     "postcss": "^8.5.8",
@@ -493,7 +493,7 @@
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-externalize-deps": "^0.10.0",
     "vite-tsconfig-paths": "^6.0.5",
-    "vitest": "^3.2.6",
+    "vitest": "^5.1.0",
     "watch": "^1.0.2"
   },
   "peerDependencies": {
