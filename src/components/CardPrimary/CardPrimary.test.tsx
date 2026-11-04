@@ -98,6 +98,30 @@ describe('CardPrimary Component', () => {
       expect(queryAllByTestId('card-top-badge').length).toEqual(0);
     });
 
+    it('should have data-selected=true on the card when isSelected', () => {
+      renderCard({
+        title: 'Test Card',
+        isSelected: true,
+      });
+
+      expect(screen.getByText('Test Card').closest('[data-selected]')).toHaveAttribute(
+        'data-selected',
+        'true'
+      );
+    });
+
+    it('should have data-selected=false on the card when not selected', () => {
+      renderCard({
+        title: 'Test Card',
+        isSelected: false,
+      });
+
+      expect(screen.getByText('Test Card').closest('[data-selected]')).toHaveAttribute(
+        'data-selected',
+        'false'
+      );
+    });
+
     it('should render an image when iconUrl is provided', () => {
       const iconUrl = 'https://example.com/icon.png';
       renderCard({
