@@ -76,6 +76,23 @@ describe('Table', () => {
     expect(onSelect).toBeCalledTimes(2);
   });
 
+  it('names the row checkboxes and the header select-all checkbox', () => {
+    const { getAllByRole, getByRole } = renderTable({
+      isSelectable: true,
+      selectedIds: [],
+    });
+    expect(getAllByRole('checkbox', { name: 'Select row' })).toHaveLength(2);
+    expect(getByRole('checkbox', { name: 'Select all rows' })).toBeInTheDocument();
+  });
+
+  it('keeps the visible label as the name of the mobile select-all checkbox', () => {
+    const { getByRole } = renderTable({
+      isSelectable: true,
+      selectedIds: [],
+    });
+    expect(getByRole('checkbox', { name: 'Select All' })).toBeInTheDocument();
+  });
+
   it('should trigger onDelete on clicking closeButton', () => {
     const onDelete = vi.fn();
     const { queryByTestId, queryAllByTestId } = renderTable({
