@@ -724,6 +724,7 @@ export const MultiSelectCheckboxItem = forwardRef<
     const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
     const labelId = useId();
+    const descriptionId = useId();
 
     return (
       <>
@@ -748,26 +749,28 @@ export const MultiSelectCheckboxItem = forwardRef<
           >
             <Checkbox
               aria-labelledby={labelId}
+              aria-describedby={description ? descriptionId : undefined}
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
               variant={variant ?? 'default'}
             />
             <IconWrapper
-              id={labelId}
               icon={icon}
               iconDir={iconDir}
               gap="xxs"
             >
               {label ? (
                 <>
-                  {label}
+                  <span id={labelId}>{label}</span>
                   {description && (
-                    <SelectItemDescription>{description}</SelectItemDescription>
+                    <SelectItemDescription>
+                      <span id={descriptionId}>{description}</span>
+                    </SelectItemDescription>
                   )}
                 </>
               ) : (
-                children
+                <span id={labelId}>{children}</span>
               )}
             </IconWrapper>
           </Container>

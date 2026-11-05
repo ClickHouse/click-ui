@@ -130,6 +130,26 @@ describe('CheckboxCheckboxMultiSelect', () => {
     expect(getByRole('checkbox', { name: 'Content4' })).toBeInTheDocument();
   });
 
+  it('names an item checkbox by its label only, not its icon', () => {
+    const { getByTestId, getAllByRole } = renderSelect({
+      options: [{ value: 'a', label: 'Alpha', icon: 'user' }],
+    });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getAllByRole('checkbox')[0]).toHaveAccessibleName('Alpha');
+  });
+
+  it('uses an item description as the checkbox description, not its name', () => {
+    const { getByTestId, getAllByRole } = renderSelect({
+      options: [{ value: 'b', label: 'Beta', description: 'Second letter' }],
+    });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    const checkbox = getAllByRole('checkbox')[0];
+    expect(checkbox).toHaveAccessibleName('Beta');
+    expect(checkbox).toHaveAccessibleDescription('Second letter');
+  });
+
   it('reports onSelect by clicking on the label', () => {
     const handleSelect = vi.fn();
     const { queryByText, getByTestId } = renderSelect({
