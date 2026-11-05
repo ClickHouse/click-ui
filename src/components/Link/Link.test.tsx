@@ -29,4 +29,14 @@ describe('Link Component', () => {
     );
     expect(getByRole('link', { name: 'Docs' })).toBeInTheDocument();
   });
+
+  test('keeps the icon name when the link has no text', () => {
+    const { getByRole } = renderCUI(
+      <Link
+        href="/x"
+        icon="popout"
+      />
+    );
+    expect(getByRole('link')).toHaveAccessibleName('popout');
+  });
 });
