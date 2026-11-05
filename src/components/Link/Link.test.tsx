@@ -39,4 +39,28 @@ describe('Link Component', () => {
     );
     expect(getByRole('link')).toHaveAccessibleName('popout');
   });
+
+  test('keeps the icon name when the children render nothing', () => {
+    const { getByRole } = renderCUI(
+      <Link
+        href="/x"
+        icon="popout"
+      >
+        {[]}
+      </Link>
+    );
+    expect(getByRole('link')).toHaveAccessibleName('popout');
+  });
+
+  test('hides the icon name when the children are the number 0', () => {
+    const { getByRole } = renderCUI(
+      <Link
+        href="/x"
+        icon="popout"
+      >
+        {0}
+      </Link>
+    );
+    expect(getByRole('link')).toHaveAccessibleName('0');
+  });
 });
