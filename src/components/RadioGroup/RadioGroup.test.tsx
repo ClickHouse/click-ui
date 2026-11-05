@@ -53,4 +53,82 @@ describe('RadioGroup', () => {
     expect(radio.dataset.state).toBe('unchecked');
     expect(handleClick).toBeCalledTimes(0);
   });
+
+  describe('accessible name', () => {
+    it('names the group from its label', () => {
+      const { getByRole } = renderRadioGroup({ label: 'Plan' });
+      expect(getByRole('radiogroup', { name: 'Plan' })).toBeInTheDocument();
+    });
+
+    it('names the group from its label when the group has an id', () => {
+      const { getByRole } = renderRadioGroup({ label: 'Plan', id: 'plan' });
+      const group = getByRole('radiogroup', { name: 'Plan' });
+      expect(group).toHaveAttribute('id', 'plan');
+    });
+
+    it('keeps a consumer aria-label on the group', () => {
+      const { getByRole } = renderRadioGroup({
+        label: 'Plan',
+        'aria-label': 'Billing plan',
+      });
+      expect(getByRole('radiogroup', { name: 'Billing plan' })).toBeInTheDocument();
+    });
+
+    it('keeps a consumer aria-labelledby on the group', () => {
+      const { getByRole } = renderCUI(
+        <>
+          <span id="external-label">Billing plan</span>
+          <RadioGroup
+            label="Plan"
+            aria-labelledby="external-label"
+          >
+            <RadioGroup.Item
+              label="Pro"
+              value="pro"
+            />
+          </RadioGroup>
+        </>
+      );
+      expect(getByRole('radiogroup', { name: 'Billing plan' })).toBeInTheDocument();
+    });
+
+    it('names an item from the text of a JSX label', () => {
+      const { getByRole } = renderCUI(
+        <RadioGroup label="Plan">
+          <RadioGroup.Item
+            label={<strong>Pro</strong>}
+            value="pro"
+          />
+        </RadioGroup>
+      );
+      expect(getByRole('radio', { name: 'Pro' })).toBeInTheDocument();
+    });
+
+    it('puts a consumer aria-label and aria-describedby on the radio', () => {
+      const { getByRole } = renderCUI(
+        <>
+          <span id="pro-hint">Billed yearly</span>
+          <RadioGroup label="Plan">
+            <RadioGroup.Item
+              label="Pro"
+              value="pro"
+              aria-label="Consumer name"
+              aria-describedby="pro-hint"
+            />
+          </RadioGroup>
+        </>
+      );
+      const radio = getByRole('radio', { name: 'Consumer name' });
+      expect(radio).toHaveAccessibleDescription('Billed yearly');
+    });
+
+    it('does not set an item aria-label from a missing label', () => {
+      const { getByRole } = renderCUI(
+        <RadioGroup label="Plan">
+          <RadioGroup.Item value="pro" />
+        </RadioGroup>
+      );
+      expect(getByRole('radio')).not.toHaveAttribute('aria-label');
+    });
+  });
 });

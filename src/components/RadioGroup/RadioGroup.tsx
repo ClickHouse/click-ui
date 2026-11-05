@@ -37,6 +37,7 @@ export const RadioGroup = ({
   className,
   ...props
 }: RadioGroupProps) => {
+  const labelId = useId();
   return (
     <FormRoot
       $orientation={orientation}
@@ -49,6 +50,7 @@ export const RadioGroup = ({
           disabled={disabled}
           id={id}
           dir={itemDir}
+          aria-labelledby={label && !props['aria-label'] ? labelId : undefined}
           {...props}
           className={cn(
             radioGroupVariants({
@@ -64,7 +66,7 @@ export const RadioGroup = ({
       </FormElementContainer>
       {label && (
         <Label
-          htmlFor={id}
+          id={labelId}
           disabled={disabled}
           error={!!error}
         >
@@ -82,6 +84,9 @@ const RadioGroupItem = ({
   disabled,
   required,
   className,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: RadioGroupItemProps) => {
   const defaultId = useId();
@@ -98,7 +103,9 @@ const RadioGroupItem = ({
         id={id ?? defaultId}
         disabled={disabled}
         required={required}
-        aria-label={`${label}`}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        aria-describedby={ariaDescribedBy}
         className={styles['radio-input']}
       >
         <RadixRadioGroup.Indicator className={styles['radio-indicator']} />
