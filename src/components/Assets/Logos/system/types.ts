@@ -80,6 +80,7 @@ export type LogoName =
   | 'tigerdata'
   | 'upstash'
   | 'vector'
+  | 'vercel'
   | 'warpstream';
 
 export interface LogoProps extends SVGAttributes<SVGElement> {
