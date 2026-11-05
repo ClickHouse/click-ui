@@ -70,10 +70,10 @@ describe('Table', () => {
     const rowCheckbox = queryAllByTestId('checkbox')[2];
     expect(selectAllCheckbox).not.toBeNull();
     fireEvent.click(selectAllCheckbox);
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
     expect(rowCheckbox).not.toBeNull();
     fireEvent.click(selectAllCheckbox);
-    expect(onSelect).toBeCalledTimes(2);
+    expect(onSelect).toHaveBeenCalledTimes(2);
   });
 
   it('should trigger onDelete on clicking closeButton', () => {
@@ -88,7 +88,7 @@ describe('Table', () => {
     const rowCheckbox = queryAllByTestId('table-row-delete')[0];
     expect(rowCheckbox).not.toBeNull();
     fireEvent.click(rowCheckbox);
-    expect(onDelete).toBeCalledTimes(1);
+    expect(onDelete).toHaveBeenCalledTimes(1);
   });
 
   it('should trigger onEdit on clicking editButton', () => {
@@ -103,7 +103,7 @@ describe('Table', () => {
     const rowCheckbox = queryAllByTestId('table-row-edit')[0];
     expect(rowCheckbox).not.toBeNull();
     fireEvent.click(rowCheckbox);
-    expect(onEdit).toBeCalledTimes(1);
+    expect(onEdit).toHaveBeenCalledTimes(1);
   });
 
   it('renders row action buttons with type="button" so they do not submit a form', () => {

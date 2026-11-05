@@ -7,11 +7,14 @@ import { selectOptions } from '@/components/Select/Select.fixtures';
 describe('AutoComplete', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const renderAutocomplete = (props: Omit<AutoCompleteProps, 'label' | 'children'>) => {
     if (props.options) {
@@ -88,7 +91,7 @@ describe('AutoComplete', () => {
 
     expect(queryByText('Content0')).not.toBeNull();
     fireEvent.focus(document.body);
-    expect(onOpenChange).toBeCalledTimes(2);
+    expect(onOpenChange).toHaveBeenCalledTimes(2);
     expect(queryByText('Content0')).toBeNull();
   });
 
@@ -106,7 +109,7 @@ describe('AutoComplete', () => {
     act(() => {
       getByText('Content3').click();
     });
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
   });
 
   it('should render options', () => {
