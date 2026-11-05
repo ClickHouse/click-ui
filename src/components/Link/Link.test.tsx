@@ -17,4 +17,16 @@ describe('Link Component', () => {
     const rendered = renderLink({ icon: 'popout' });
     expect(rendered.getAllByTestId('popout').length).toEqual(1);
   });
+
+  test('keeps the icon name out of the link name', () => {
+    const { getByRole } = renderCUI(
+      <Link
+        href="/docs"
+        icon="arrow-right"
+      >
+        Docs
+      </Link>
+    );
+    expect(getByRole('link', { name: 'Docs' })).toBeInTheDocument();
+  });
 });

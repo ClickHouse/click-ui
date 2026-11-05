@@ -80,6 +80,7 @@ const _Link = <T extends ElementType = 'a'>(
             name={icon}
             className={cn(iconVariants({ size }))}
             data-testid={icon}
+            aria-hidden
           />
         </span>
       )}
