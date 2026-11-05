@@ -7,7 +7,7 @@ import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
-  menuAriaLabel?: string;
+  menuLabel?: string;
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
@@ -201,15 +201,15 @@ describe('SplitButton', () => {
       expect(menuButton).toHaveAttribute('aria-expanded', 'false');
     });
 
-    it('uses menuAriaLabel as its accessible name', () => {
-      const { getByRole } = renderDropdown({ menuAriaLabel: 'Export formats' });
+    it('uses menuLabel as its accessible name', () => {
+      const { getByRole } = renderDropdown({ menuLabel: 'Export formats' });
       expect(getByRole('button', { name: 'Export formats' })).toBeInTheDocument();
     });
 
     it.each(['{Enter}', ' ', '{ArrowDown}'])(
       'is reached with Tab after the main button and opens the menu with %s',
       async key => {
-        const { getByRole, getByText } = renderDropdown({});
+        const { getByRole, getAllByRole, getByText, queryByRole } = renderDropdown({});
         await userEvent.tab();
         expect(getByText('SplitButton Main Trigger').closest('button')).toHaveFocus();
         await userEvent.tab();
@@ -219,6 +219,11 @@ describe('SplitButton', () => {
         expect(getByText('Content0')).toBeInTheDocument();
         expect(menuButton).toHaveAttribute('aria-expanded', 'true');
         expect(mainButtonClick).not.toHaveBeenCalled();
+        // Focus moves into the menu, and Escape gives it back to the menu button rather than to <body>.
+        await waitFor(() => expect(getAllByRole('menuitem')[0]).toHaveFocus());
+        await userEvent.keyboard('{Escape}');
+        await waitFor(() => expect(queryByRole('menu')).not.toBeInTheDocument());
+        expect(menuButton).toHaveFocus();
       }
     );
 

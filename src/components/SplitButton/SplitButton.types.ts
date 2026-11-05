@@ -43,5 +43,5 @@ export interface SplitButtonProps
   icon?: IconName;
   iconDir?: HorizontalDirection;
   /** Accessible name of the button that opens the menu. Defaults to `More options`. */
-  menuAriaLabel?: string;
+  menuLabel?: string;
 }

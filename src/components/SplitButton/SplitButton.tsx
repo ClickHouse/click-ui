@@ -49,7 +49,7 @@ export const SplitButton = ({
   children,
   icon,
   iconDir = 'start',
-  menuAriaLabel = 'More options',
+  menuLabel = 'More options',
   className,
   ...props
 }: SplitButtonProps) => {
@@ -117,7 +117,7 @@ export const SplitButton = ({
         >
           <BaseButton
             type="button"
-            aria-label={menuAriaLabel}
+            aria-label={menuLabel}
             aria-disabled={disabled || undefined}
             data-testid="split-button-dropdown"
             className={styles['split-button__secondary']}
