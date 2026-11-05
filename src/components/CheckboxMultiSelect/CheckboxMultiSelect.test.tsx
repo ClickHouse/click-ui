@@ -122,6 +122,14 @@ describe('CheckboxCheckboxMultiSelect', () => {
     );
   });
 
+  it('names each item checkbox after its option label', () => {
+    const { getByTestId, getByRole } = renderSelect({});
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getByRole('checkbox', { name: 'Content3' })).toBeInTheDocument();
+    expect(getByRole('checkbox', { name: 'Content4' })).toBeInTheDocument();
+  });
+
   it('reports onSelect by clicking on the label', () => {
     const handleSelect = vi.fn();
     const { queryByText, getByTestId } = renderSelect({

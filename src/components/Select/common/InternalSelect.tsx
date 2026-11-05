@@ -715,6 +715,7 @@ export const MultiSelectCheckboxItem = forwardRef<
     // Render hidden rather than unmounting so the text stays in the DOM for search.
     const hidden = isHidden(value);
     const isChecked = selectedValues.includes(value);
+    const labelId = useId();
 
     return (
       <>
@@ -738,12 +739,14 @@ export const MultiSelectCheckboxItem = forwardRef<
             isResponsive={false}
           >
             <Checkbox
+              aria-labelledby={labelId}
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
               variant={variant ?? 'default'}
             />
             <IconWrapper
+              id={labelId}
               icon={icon}
               iconDir={iconDir}
               gap="xxs"
