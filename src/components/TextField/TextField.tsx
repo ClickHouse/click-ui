@@ -133,6 +133,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               <Icon
                 name="loading-animated"
                 size="sm"
+                aria-label="Loading"
               />
             )}
           </InputEndContent>

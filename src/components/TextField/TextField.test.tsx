@@ -64,4 +64,17 @@ describe('TextField', () => {
       expect(labelElement).toHaveStyle('color: #FF0000');
     });
   });
+
+  describe('loading', () => {
+    it('names the loading icon "Loading"', () => {
+      const { getByRole } = renderCUI(
+        <TextField
+          label="Name"
+          loading
+          onChange={() => {}}
+        />
+      );
+      expect(getByRole('img', { name: 'Loading' })).toBeInTheDocument();
+    });
+  });
 });
