@@ -56,6 +56,7 @@ export const Checkbox = ({
           <Icon
             name={checked === 'indeterminate' ? 'minus' : 'check'}
             size="sm"
+            aria-hidden
           />
         </RadixCheckbox.Indicator>
       </RadixCheckbox.Root>

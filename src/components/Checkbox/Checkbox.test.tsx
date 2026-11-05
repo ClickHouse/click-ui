@@ -88,5 +88,18 @@ describe('Checkbox', () => {
       expect(checkbox).not.toHaveAttribute('aria-label');
       expect(checkbox).toHaveAccessibleName('');
     });
+
+    it.each([true, 'indeterminate'] as const)(
+      'does not take the check icon name when checked is %s and there is no label',
+      checked => {
+        const { getByRole } = renderCheckbox({ checked });
+        expect(getByRole('checkbox')).toHaveAccessibleName('');
+      }
+    );
+
+    it('keeps the label as the name when checked', () => {
+      const { getByRole } = renderCheckbox({ label: 'Accept terms', checked: true });
+      expect(getByRole('checkbox')).toHaveAccessibleName('Accept terms');
+    });
   });
 });
