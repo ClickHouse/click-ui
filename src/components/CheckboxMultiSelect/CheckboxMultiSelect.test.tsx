@@ -150,6 +150,51 @@ describe('CheckboxCheckboxMultiSelect', () => {
     expect(checkbox).toHaveAccessibleDescription('Second letter');
   });
 
+  it('uses an ItemDescription child as the checkbox description, not its name', () => {
+    const { getByTestId, getByRole } = renderCUI(
+      <CheckboxMultiSelect label="Columns">
+        <CheckboxMultiSelect.Item value="content3">
+          Content3
+          <CheckboxMultiSelect.ItemDescription>
+            Description of Content3
+          </CheckboxMultiSelect.ItemDescription>
+        </CheckboxMultiSelect.Item>
+      </CheckboxMultiSelect>
+    );
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getByRole('checkbox', { name: 'Content3' })).toHaveAccessibleDescription(
+      'Description of Content3'
+    );
+  });
+
+  it('does not describe a children item that has no ItemDescription', () => {
+    const { getByTestId, getByRole } = renderSelect({});
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getByRole('checkbox', { name: 'Content3' })).not.toHaveAttribute(
+      'aria-describedby'
+    );
+  });
+
+  it('does not describe an item whose label is empty', () => {
+    const { getByTestId, getAllByRole } = renderSelect({
+      options: [{ value: 'e', label: '', description: 'Orphan description' }],
+    });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getAllByRole('checkbox')[0]).not.toHaveAttribute('aria-describedby');
+  });
+
+  it('uses a description of 0 as the checkbox description', () => {
+    const { getByTestId, getByRole } = renderSelect({
+      options: [{ value: 'g', label: 'Gamma', description: 0 }],
+    });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getByRole('checkbox', { name: 'Gamma' })).toHaveAccessibleDescription('0');
+  });
+
   it('reports onSelect by clicking on the label', () => {
     const handleSelect = vi.fn();
     const { queryByText, getByTestId } = renderSelect({

@@ -4,7 +4,9 @@ import {
   HTMLAttributes,
   KeyboardEvent,
   MouseEvent,
+  ReactElement,
   ReactNode,
+  cloneElement,
   forwardRef,
   isValidElement,
   useCallback,
@@ -57,6 +59,7 @@ import { GenericMenuItem } from '@/components/GenericMenu';
 import { IconWrapper } from '@/components/IconWrapper';
 import { useInputModality } from '@/hooks/internal';
 import { cn } from '@/lib/cva';
+import { hasRenderableContent } from '@/lib/hasRenderableContent';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
 
 type NormalizedOption = {
@@ -725,6 +728,29 @@ export const MultiSelectCheckboxItem = forwardRef<
     const isChecked = selectedValues.includes(value);
     const labelId = useId();
     const descriptionId = useId();
+    const hasDescription = hasRenderableContent(description);
+
+    // In the children form, ItemDescription children describe the checkbox;
+    // the rest of the children name it (APG Checkbox: aria-describedby).
+    const labelChildren: ReactNode[] = [];
+    const descriptionChildren: ReactElement<{ id?: string }>[] = [];
+    Children.toArray(children).forEach(child => {
+      if (isValidElement(child) && child.type === SelectItemDescription) {
+        descriptionChildren.push(child as ReactElement<{ id?: string }>);
+      } else {
+        labelChildren.push(child);
+      }
+    });
+    const descriptionChildIds = descriptionChildren.map(
+      (_, index) => `${descriptionId}-${index}`
+    );
+
+    let describedBy: string | undefined;
+    if (label) {
+      describedBy = hasDescription ? descriptionId : undefined;
+    } else if (descriptionChildIds.length > 0) {
+      describedBy = descriptionChildIds.join(' ');
+    }
 
     return (
       <>
@@ -749,7 +775,7 @@ export const MultiSelectCheckboxItem = forwardRef<
           >
             <Checkbox
               aria-labelledby={labelId}
-              aria-describedby={description ? descriptionId : undefined}
+              aria-describedby={describedBy}
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
@@ -763,14 +789,19 @@ export const MultiSelectCheckboxItem = forwardRef<
               {label ? (
                 <>
                   <span id={labelId}>{label}</span>
-                  {description && (
+                  {hasDescription && (
                     <SelectItemDescription>
                       <span id={descriptionId}>{description}</span>
                     </SelectItemDescription>
                   )}
                 </>
               ) : (
-                <span id={labelId}>{children}</span>
+                <>
+                  <span id={labelId}>{labelChildren}</span>
+                  {descriptionChildren.map((child, index) =>
+                    cloneElement(child, { id: descriptionChildIds[index] })
+                  )}
+                </>
               )}
             </IconWrapper>
           </Container>
