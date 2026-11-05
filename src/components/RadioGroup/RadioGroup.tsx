@@ -35,6 +35,8 @@ export const RadioGroup = ({
   disabled,
   id,
   className,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...props
 }: RadioGroupProps) => {
   const labelId = useId();
@@ -50,8 +52,9 @@ export const RadioGroup = ({
           disabled={disabled}
           id={id}
           dir={itemDir}
-          aria-labelledby={label && !props['aria-label'] ? labelId : undefined}
           {...props}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy ?? (label && !ariaLabel ? labelId : undefined)}
           className={cn(
             radioGroupVariants({
               inline: inline === false ? false : true,

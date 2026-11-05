@@ -92,6 +92,14 @@ describe('RadioGroup', () => {
       expect(getByRole('radiogroup', { name: 'Billing plan' })).toBeInTheDocument();
     });
 
+    it('keeps the label name when a wrapper passes aria-labelledby as undefined', () => {
+      const { getByRole } = renderRadioGroup({
+        label: 'Plan',
+        'aria-labelledby': undefined,
+      });
+      expect(getByRole('radiogroup')).toHaveAccessibleName('Plan');
+    });
+
     it('names an item from the text of a JSX label', () => {
       const { getByRole } = renderCUI(
         <RadioGroup label="Plan">
