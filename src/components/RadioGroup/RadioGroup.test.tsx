@@ -100,6 +100,14 @@ describe('RadioGroup', () => {
       expect(getByRole('radiogroup')).toHaveAccessibleName('Plan');
     });
 
+    it('keeps the label name when a wrapper passes an empty aria-labelledby', () => {
+      const { getByRole } = renderRadioGroup({
+        label: 'Plan',
+        'aria-labelledby': '',
+      });
+      expect(getByRole('radiogroup')).toHaveAccessibleName('Plan');
+    });
+
     it('names an item from the text of a JSX label', () => {
       const { getByRole } = renderCUI(
         <RadioGroup label="Plan">
