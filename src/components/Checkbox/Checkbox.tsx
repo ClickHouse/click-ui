@@ -48,7 +48,6 @@ export const Checkbox = ({
         id={id ?? defaultId}
         data-testid="checkbox"
         disabled={disabled}
-        aria-label={`${label}`}
         checked={checked}
         {...delegated}
         className={cn(checkInputVariants({ variant }), className)}
