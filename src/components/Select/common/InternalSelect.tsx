@@ -202,6 +202,8 @@ export const InternalSelect = ({
   itemCharacterLimit = '64ch',
   noAvailableOptions = true,
   triggerProps,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
@@ -381,6 +383,8 @@ export const InternalSelect = ({
             $error={!!error}
             disabled={disabled}
             data-testid="select-trigger"
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
             {...triggerProps}
           >
             <SelectValue>
@@ -409,6 +413,7 @@ export const InternalSelect = ({
             <Icon
               name="sort"
               size="sm"
+              aria-hidden
             />
           </StyledSelectTrigger>
           {form && (
@@ -446,6 +451,7 @@ export const InternalSelect = ({
                 <SearchBarContainer $showSearch={showSearch}>
                   <SearchBar
                     ref={inputRef}
+                    aria-label="Search options"
                     value={search}
                     onChange={e => onSearchChange(e.target.value)}
                     data-testid="select-search-input"
@@ -459,6 +465,7 @@ export const InternalSelect = ({
                     )}
                     htmlType="button"
                     icon="cross"
+                    aria-label="Clear search"
                     onClick={clearSearch}
                     data-testid="select-search-close"
                     size="xs"
@@ -655,6 +662,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             )}
             name="check"
             size="sm"
+            aria-hidden
           />
         </GenericMenuItem>
         {separator && !hidden && <Separator size="sm" />}

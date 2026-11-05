@@ -436,4 +436,55 @@ describe('Select', () => {
     });
     expect(queryByText('No Options Custom')).toBeNull();
   });
+
+  describe('accessible names', () => {
+    it('names the trigger with the aria-label passed to Select', () => {
+      const { getByRole } = renderSelect({ 'aria-label': 'Fruit' });
+      expect(getByRole('button', { name: 'Fruit' })).toBeInTheDocument();
+    });
+
+    it('names the trigger with the aria-labelledby passed to Select', () => {
+      const { getByRole } = renderCUI(
+        <>
+          <span id="fruit-label">Fruit</span>
+          <Select aria-labelledby="fruit-label">
+            <Select.Item value="apple">Apple</Select.Item>
+          </Select>
+        </>
+      );
+      expect(getByRole('button', { name: 'Fruit' })).toBeInTheDocument();
+    });
+
+    it('lets triggerProps override the aria-label passed to Select', () => {
+      const { getByRole } = renderSelect({
+        'aria-label': 'Fruit',
+        triggerProps: { 'aria-label': 'Pick a fruit' },
+      });
+      expect(getByRole('button', { name: 'Pick a fruit' })).toBeInTheDocument();
+    });
+
+    it('keeps the sort icon out of the trigger name', () => {
+      const { getByRole } = renderCUI(
+        <Select>
+          <Select.Item value="apple">Apple</Select.Item>
+        </Select>
+      );
+      expect(getByRole('button', { name: 'Select an option' })).toBeInTheDocument();
+    });
+
+    it('names the search input and the search clear button', () => {
+      const { getByTestId, getByRole } = renderSelect({ showSearch: true });
+      fireEvent.click(getByTestId('select-trigger'));
+
+      expect(getByRole('textbox', { name: 'Search options' })).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Clear search' })).toBeInTheDocument();
+    });
+
+    it('hides the option check icons from assistive technology', () => {
+      const { getByTestId, queryByRole } = renderSelect({ value: 'content3' });
+      fireEvent.click(getByTestId('select-trigger'));
+
+      expect(queryByRole('img', { name: 'check' })).toBeNull();
+    });
+  });
 });
