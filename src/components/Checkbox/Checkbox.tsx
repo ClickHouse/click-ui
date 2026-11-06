@@ -48,7 +48,6 @@ export const Checkbox = ({
         id={id ?? defaultId}
         data-testid="checkbox"
         disabled={disabled}
-        aria-label={`${label}`}
         checked={checked}
         {...delegated}
         className={cn(checkInputVariants({ variant }), className)}
@@ -57,6 +56,7 @@ export const Checkbox = ({
           <Icon
             name={checked === 'indeterminate' ? 'minus' : 'check'}
             size="sm"
+            aria-hidden
           />
         </RadixCheckbox.Indicator>
       </RadixCheckbox.Root>
