@@ -126,7 +126,7 @@ type InputElementPolymorphicComponent = <T extends ElementType = 'input'>(
   props: InputElementProps<T>
 ) => ReactNode;
 
-const _InputElement = <T extends ElementType = 'input'>(
+const InputElementRender = <T extends ElementType = 'input'>(
   { as, $hasStartContent, $hasEndContent, className, ...props }: InputElementProps<T>,
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
@@ -146,7 +146,8 @@ const _InputElement = <T extends ElementType = 'input'>(
   );
 };
 
-export const InputElement: InputElementPolymorphicComponent = forwardRef(_InputElement);
+export const InputElement: InputElementPolymorphicComponent =
+  forwardRef(InputElementRender);
 
 export interface NumberInputElementProps extends InputHTMLAttributes<HTMLInputElement> {
   $hasStartContent?: boolean;

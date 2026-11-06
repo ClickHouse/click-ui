@@ -13,6 +13,7 @@ import { EllipsisContentProps } from './EllipsisContent.types';
 import styles from './EllipsisContent.module.css';
 
 type EllipsisPolymorphicComponent = <T extends ElementType = 'div'>(
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- the deprecated component's own props; remove with it
   props: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> & EllipsisContentProps<T>
 ) => ReactNode;
 
@@ -22,7 +23,9 @@ const EllipsisContentComponent = <T extends ElementType = 'div'>(
     className,
     tooltipProps,
     ...props
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- the deprecated component's own props; remove with it
   }: Omit<ComponentProps<T>, keyof EllipsisContentProps<T>> &
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- the deprecated component's own props; remove with it
     EllipsisContentProps<T> & { className?: string },
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
