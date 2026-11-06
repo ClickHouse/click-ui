@@ -186,6 +186,19 @@ describe('Select', () => {
     expect(getByTestId('select-trigger')).toHaveTextContent('Content0');
   });
 
+  it('accepts readonly options', () => {
+    const options = [
+      { heading: 'Group label', options: [{ label: 'Content0', value: 'content0' }] },
+      { label: 'Content1', value: 'content1' },
+    ] as const;
+    const { queryByText } = renderSelect({ options });
+    const selectTrigger = queryByText('Select an option');
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(queryByText('Content0')).not.toBeNull();
+    expect(queryByText('Content1')).not.toBeNull();
+  });
+
   it('should render initially selected option with empty value', () => {
     const OPTION_TEXT = 'Empty option';
 

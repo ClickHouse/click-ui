@@ -2,7 +2,9 @@ import {
   act,
   fireEvent,
   queryByText as queryByTestingText,
+  within,
 } from '@testing-library/react';
+import Sortable from 'sortablejs';
 import { MultiSelect } from '@/components/MultiSelect/MultiSelect';
 import type { MultiSelectProps } from '@/components/MultiSelect';
 import { ReactNode } from 'react';
@@ -212,6 +214,47 @@ describe('MultiSelect', () => {
     item && fireEvent.click(item);
     expect(item).not.toBeNull();
     expect(getByTestId('select-trigger')).toHaveTextContent('Content0');
+  });
+
+  it('accepts readonly options and value', () => {
+    const onSelect = vi.fn();
+    const options = [
+      { heading: 'Group label', options: [{ label: 'Content0', value: 'content0' }] },
+      { label: 'Content1', value: 'content1' },
+    ] as const;
+    const value = ['content0'] as const;
+    const { getByTestId, getByText } = renderSelect({ options, value, onSelect });
+    fireEvent.click(getByTestId('select-trigger'));
+    fireEvent.click(getByText('Content1'));
+
+    expect(onSelect).toHaveBeenCalledWith(['content0', 'content1'], undefined, undefined);
+  });
+
+  it('reorders chips into a new array and leaves the value prop untouched', () => {
+    const onSelect = vi.fn();
+    const value = Object.freeze(['content0', 'content1', 'content3'] as const);
+    const { getByTestId } = renderSelect({ value, onSelect, sortable: true });
+
+    // jsdom can't run a SortableJS drag, so call the onEnd handler react-sortablejs registers.
+    let list: HTMLElement | null = within(getByTestId('select-trigger')).getByText(
+      'Content0'
+    );
+    while (list && !Sortable.get(list)) {
+      list = list.parentElement;
+    }
+    const onEnd = list ? Sortable.get(list)?.option('onEnd') : undefined;
+    expect(onEnd).toBeTypeOf('function');
+
+    act(() => {
+      onEnd?.({ oldDraggableIndex: 0, newDraggableIndex: 2 } as Sortable.SortableEvent);
+    });
+
+    expect(onSelect).toHaveBeenCalledWith(
+      ['content3', 'content1', 'content0'],
+      undefined,
+      undefined
+    );
+    expect(onSelect.mock.calls[0][0]).not.toBe(value);
   });
 
   describe('onSearch enabled', () => {

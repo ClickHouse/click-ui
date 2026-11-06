@@ -93,6 +93,14 @@ describe('CheckboxCheckboxMultiSelect', () => {
     expect(queryByTestingText(selectTrigger, 'Content3')).not.toBeInTheDocument();
   });
 
+  it('accepts a readonly defaultValue', () => {
+    const defaultValue = ['content0', 'content3'] as const;
+    const { getByTestId, getAllByRole } = renderSelect({ defaultValue });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getAllByRole('checkbox', { checked: true })).toHaveLength(2);
+  });
+
   it('allows checking and unchecking', async () => {
     const { getByTestId } = renderSelect({
       selectLabel: 'Select columns',

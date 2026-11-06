@@ -1,6 +1,7 @@
 import { renderCUI } from '@/utils/test-utils';
 import { DatePicker } from '@/components/DatePicker';
 import userEvent from '@testing-library/user-event';
+import { fireEvent } from '@testing-library/react';
 
 describe('DatePicker', () => {
   it('opens the calendar on click', async () => {
@@ -139,6 +140,33 @@ describe('DatePicker', () => {
       user.click(await findByText('22'));
 
       expect(handleSelectDate).not.toHaveBeenCalled();
+    });
+
+    it('accepts a readonly allowOnlyDatesList', () => {
+      const allowOnlyDatesList = [
+        new Date('07-04-2020'),
+        new Date('07-06-2020'),
+      ] as const;
+      const handleSelectDate = vi.fn();
+
+      const { getByTestId, getByRole } = renderCUI(
+        <DatePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          date={new Date('07-04-2020')}
+          onSelectDate={handleSelectDate}
+        />
+      );
+
+      fireEvent.click(getByTestId('datepicker-input'));
+      fireEvent.click(
+        getByRole('gridcell', { name: new Date('07-05-2020').toDateString() })
+      );
+      expect(handleSelectDate).not.toHaveBeenCalled();
+
+      fireEvent.click(
+        getByRole('gridcell', { name: new Date('07-06-2020').toDateString() })
+      );
+      expect(handleSelectDate).toHaveBeenCalledTimes(1);
     });
 
     it('disables selecting dates not in allowOnlyDatesList', async () => {
