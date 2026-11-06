@@ -7,16 +7,6 @@
       "count": 1
     }
   },
-  "src/components/CardPrimary/CardPrimary.tsx": {
-    "jsx-a11y/no-noninteractive-tabindex": {
-      "count": 1
-    }
-  },
-  "src/components/CardSecondary/CardSecondary.tsx": {
-    "jsx-a11y/no-noninteractive-tabindex": {
-      "count": 1
-    }
-  },
   "src/components/Collapsible/Collapsible.tsx": {
     "jsx-a11y/click-events-have-key-events": {
       "count": 1

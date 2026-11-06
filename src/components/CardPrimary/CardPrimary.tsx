@@ -5,6 +5,7 @@ import { Button } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Spacer } from '@/components/Spacer';
 import { cn, cva } from '@/lib/cva';
+import { clickOnActivationKey } from '@/utils/keyboard';
 import { openInNewTab } from '@/utils/url';
 import { CardPrimaryProps } from './CardPrimary.types';
 import styles from './CardPrimary.module.css';
@@ -95,6 +96,8 @@ const Card = ({
   onButtonClick,
   isSelected,
   children,
+  onClick,
+  onKeyDown,
   className,
   ...props
 }: CardPrimaryProps) => {
@@ -106,12 +109,31 @@ const Card = ({
       openInNewTab(infoUrl);
     }
   };
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+    onClick?.(e);
+  };
 
-  const Component = !!infoUrl || typeof onButtonClick === 'function' ? Button : 'div';
+  const hasInnerButton = !!infoUrl || typeof onButtonClick === 'function';
+  const Component = hasInnerButton ? Button : 'div';
+  // With an inner info button, that button is the keyboard action, so the card leaves Enter and Space alone.
+  const isButton = typeof onClick === 'function' && !(infoText && hasInnerButton);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(e);
+    if (isButton && !disabled) {
+      clickOnActivationKey(e);
+    }
+  };
   return (
     <div
       aria-disabled={disabled}
-      tabIndex={0}
+      tabIndex={isButton ? 0 : undefined}
+      role={isButton ? 'button' : undefined}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
       {...props}
       className={cn(
         wrapperVariants({ size, align: alignContent, hasShadow, isSelected }),
