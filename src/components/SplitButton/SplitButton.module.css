@@ -20,7 +20,9 @@
   --split-bg-action-default: var(--click-button-split-primary-background-action-default);
   --split-bg-action-hover: var(--click-button-split-primary-background-action-hover);
   --split-bg-action-active: var(--click-button-split-primary-background-action-active);
-  --split-bg-action-disabled: var(--click-button-split-primary-background-action-disabled);
+  --split-bg-action-disabled: var(
+    --click-button-split-primary-background-action-disabled
+  );
   --split-text-default: var(--click-button-split-primary-text-default);
   --split-text-hover: var(--click-button-split-primary-text-hover);
   --split-text-active: var(--click-button-split-primary-text-active);
@@ -36,10 +38,14 @@
   --split-bg-main-hover: var(--click-button-split-secondary-background-main-hover);
   --split-bg-main-active: var(--click-button-split-secondary-background-main-active);
   --split-bg-main-disabled: var(--click-button-split-secondary-background-main-disabled);
-  --split-bg-action-default: var(--click-button-split-secondary-background-action-default);
+  --split-bg-action-default: var(
+    --click-button-split-secondary-background-action-default
+  );
   --split-bg-action-hover: var(--click-button-split-secondary-background-action-hover);
   --split-bg-action-active: var(--click-button-split-secondary-background-action-active);
-  --split-bg-action-disabled: var(--click-button-split-secondary-background-action-disabled);
+  --split-bg-action-disabled: var(
+    --click-button-split-secondary-background-action-disabled
+  );
   --split-text-default: var(--click-button-split-secondary-text-default);
   --split-text-hover: var(--click-button-split-secondary-text-hover);
   --split-text-active: var(--click-button-split-secondary-text-active);
