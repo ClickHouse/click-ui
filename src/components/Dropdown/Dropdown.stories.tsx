@@ -5,6 +5,7 @@ import { Dropdown } from '@/components/Dropdown';
 import { GridCenter } from '@/components/GridCenter';
 import { Button } from '@/components/Button';
 import { Key } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 
 import type { DropdownItemProps } from '@/components/Dropdown';
 
@@ -254,6 +255,29 @@ export const TriggerStandalone: Story = {
       </Dropdown>
     </div>
   ),
+};
+
+export const ButtonTriggerKeyboard: Story = {
+  render: () => (
+    <Dropdown>
+      <Dropdown.Trigger>
+        <Button>Actions</Button>
+      </Dropdown.Trigger>
+      <Dropdown.Content>
+        <Dropdown.Item>Rename</Dropdown.Item>
+        <Dropdown.Item type="danger">Delete</Dropdown.Item>
+      </Dropdown.Content>
+    </Dropdown>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    const trigger = canvas.getByRole('button', { name: 'Actions' });
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+    await userEvent.keyboard('{Enter}');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  },
 };
 
 // A menu whose item labels are too long for the panel. The first two items take the
