@@ -56,11 +56,14 @@ const renderSelect = (props: Props) => {
 describe('CheckboxCheckboxMultiSelect', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
 
   it('opens on click', () => {
@@ -91,6 +94,14 @@ describe('CheckboxCheckboxMultiSelect', () => {
 
     expect(queryByTestingText(selectTrigger, 'Do something')).toBeInTheDocument();
     expect(queryByTestingText(selectTrigger, 'Content3')).not.toBeInTheDocument();
+  });
+
+  it('accepts a readonly defaultValue', () => {
+    const defaultValue = ['content0', 'content3'] as const;
+    const { getByTestId, getAllByRole } = renderSelect({ defaultValue });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getAllByRole('checkbox', { checked: true })).toHaveLength(2);
   });
 
   it('allows checking and unchecking', async () => {

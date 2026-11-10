@@ -55,11 +55,14 @@ const menuItems: Menu[] = [
 describe('SplitButton', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const mainButtonClick = vi.fn();
   beforeEach(() => {
@@ -83,7 +86,7 @@ describe('SplitButton', () => {
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
     expect(queryByText('Content0')).toBeNull();
-    expect(mainButtonClick).toBeCalledTimes(1);
+    expect(mainButtonClick).toHaveBeenCalledTimes(1);
   });
 
   it('should not trigger onClick on pointer on disabled btn', async () => {
@@ -93,7 +96,7 @@ describe('SplitButton', () => {
     const dropdownTrigger = queryByText('SplitButton Main Trigger');
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
-    expect(mainButtonClick).toBeCalledTimes(0);
+    expect(mainButtonClick).toHaveBeenCalledTimes(0);
   });
 
   it('should open dropdown on pointer on secondary btn', async () => {
@@ -102,6 +105,22 @@ describe('SplitButton', () => {
     expect(dropdownTrigger).not.toBeNull();
     await userEvent.click(dropdownTrigger);
     expect(getByText('Content0')).not.toBeNull();
+  });
+
+  it('accepts a readonly menu', async () => {
+    const menu = [
+      { type: 'group', items: [{ label: 'Grouped' }] },
+      { type: 'sub-menu', label: 'Nested', items: [{ label: 'SubItem' }] },
+      { label: 'Plain' },
+    ] as const;
+    const { getByTestId, getByText } = renderCUI(
+      <SplitButton menu={menu}>Main</SplitButton>
+    );
+    await userEvent.click(getByTestId('split-button-dropdown'));
+
+    expect(getByText('Grouped')).toBeInTheDocument();
+    expect(getByText('Nested')).toBeInTheDocument();
+    expect(getByText('Plain')).toBeInTheDocument();
   });
 
   it('should not open disabled dropdown on pointer', async () => {

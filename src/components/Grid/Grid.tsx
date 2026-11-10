@@ -158,6 +158,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
           focus: focusProp ?? focus,
           rowCount,
           columnCount,
+          rowStart,
           outerRef: outerRef,
         });
 
@@ -192,6 +193,7 @@ export const Grid = forwardRef<HTMLDivElement, GridProps>(
       focus,
       focusProp,
       rowCount,
+      rowStart,
       selection,
       showToast,
       onCopyCallback,

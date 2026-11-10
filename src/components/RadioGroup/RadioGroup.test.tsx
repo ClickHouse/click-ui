@@ -37,7 +37,7 @@ describe('RadioGroup', () => {
     expect(radio.dataset.state).toBe('unchecked');
     fireEvent.click(radio);
     expect(radio.dataset.state).toBe('checked');
-    expect(handleClick).toBeCalledTimes(1);
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
   it('should not execute action on click if the radio is disabled', () => {
@@ -51,6 +51,6 @@ describe('RadioGroup', () => {
     expect(radio).not.toBeNull();
     fireEvent.click(radio);
     expect(radio.dataset.state).toBe('unchecked');
-    expect(handleClick).toBeCalledTimes(0);
+    expect(handleClick).toHaveBeenCalledTimes(0);
   });
 });

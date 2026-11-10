@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { MiddleTruncator } from '@/components/MiddleTruncator';
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- stories of the deprecated component; remove with it
 type StoryArgs = React.ComponentProps<typeof MiddleTruncator> & {
   containerWidth: number;
 };
@@ -15,6 +16,7 @@ const Decorator = (Story: React.ComponentType, { args }: { args: StoryArgs }) =>
 );
 
 const meta: Meta<StoryArgs> = {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- stories of the deprecated component; remove with it
   component: MiddleTruncator,
   title: 'Display/MiddleTruncator',
   tags: ['autodocs'],
@@ -51,6 +53,7 @@ type Story = StoryObj<StoryArgs>;
 export const Playground: Story = {
   render: ({ containerWidth, ...args }) => (
     <div style={{ width: `${containerWidth}%` }}>
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated -- stories of the deprecated component; remove with it */}
       <MiddleTruncator {...args} />
     </div>
   ),
