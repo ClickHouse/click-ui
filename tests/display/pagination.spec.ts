@@ -51,9 +51,7 @@ describe('Pagination Visual Regression', () => {
   });
 
   describe('Content', () => {
-    it('renders page count, row count, and page size selector', async ({
-      page,
-    }) => {
+    it('renders page count, row count, and page size selector', async ({ page }) => {
       await page.goto(getStoryUrl('display-pagination--full', 'light'), {
         waitUntil: 'networkidle',
       });

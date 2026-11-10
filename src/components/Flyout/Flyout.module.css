@@ -138,8 +138,8 @@
 }
 
 .header_type_default.header_type_default {
-  padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y)
-    0 var(--click-flyout-space-default-y);
+  padding: var(--click-flyout-space-default-y) var(--click-flyout-space-default-y) 0
+    var(--click-flyout-space-default-y);
   gap: var(--click-flyout-space-default-content-row-gap)
     var(--click-flyout-space-default-content-column-gap);
 }
