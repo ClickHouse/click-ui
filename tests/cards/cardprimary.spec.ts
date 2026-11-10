@@ -272,10 +272,9 @@ describe('CardPrimary Visual Regression', () => {
       });
 
       it('with top badge selected matches snapshot', async ({ page }) => {
-        await page.goto(
-          getStoryUrl('cards-primary-card--with-top-badge-selected'),
-          { waitUntil: 'networkidle' }
-        );
+        await page.goto(getStoryUrl('cards-primary-card--with-top-badge-selected'), {
+          waitUntil: 'networkidle',
+        });
         const card = page.locator(cardLocator).first();
         await expect(card).toBeVisible({ timeout: 10000 });
         const badge = page.getByTestId('card-top-badge');

@@ -99,9 +99,13 @@
   --item-mobile-space-y: var(--click-sidebar-navigation-item-mobile-space-y);
   --item-mobile-space-right: var(--click-sidebar-navigation-item-mobile-space-right);
   --item-mobile-space-left: var(--click-sidebar-navigation-item-mobile-space-left);
-  --item-mobile-font-default: var(--click-sidebar-navigation-item-mobile-typography-default);
+  --item-mobile-font-default: var(
+    --click-sidebar-navigation-item-mobile-typography-default
+  );
   --item-mobile-font-hover: var(--click-sidebar-navigation-item-mobile-typography-hover);
-  --item-mobile-font-active: var(--click-sidebar-navigation-item-mobile-typography-active);
+  --item-mobile-font-active: var(
+    --click-sidebar-navigation-item-mobile-typography-active
+  );
 }
 
 .wrapper_itemtype_sub-item {
@@ -116,9 +120,15 @@
   --item-mobile-space-y: var(--click-sidebar-navigation-subItem-mobile-space-y);
   --item-mobile-space-right: var(--click-sidebar-navigation-subItem-mobile-space-right);
   --item-mobile-space-left: var(--click-sidebar-navigation-subItem-mobile-space-left);
-  --item-mobile-font-default: var(--click-sidebar-navigation-subItem-mobile-typography-default);
-  --item-mobile-font-hover: var(--click-sidebar-navigation-subItem-mobile-typography-hover);
-  --item-mobile-font-active: var(--click-sidebar-navigation-subItem-mobile-typography-active);
+  --item-mobile-font-default: var(
+    --click-sidebar-navigation-subItem-mobile-typography-default
+  );
+  --item-mobile-font-hover: var(
+    --click-sidebar-navigation-subItem-mobile-typography-hover
+  );
+  --item-mobile-font-active: var(
+    --click-sidebar-navigation-subItem-mobile-typography-active
+  );
 }
 
 .wrapper_collapsible_true {
@@ -137,7 +147,9 @@
 }
 
 .wrapper_color_main-sub-item {
-  --item-bg-default: var(--click-sidebar-main-navigation-subItem-color-background-default);
+  --item-bg-default: var(
+    --click-sidebar-main-navigation-subItem-color-background-default
+  );
   --item-bg-hover: var(--click-sidebar-main-navigation-subItem-color-background-hover);
   --item-bg-active: var(--click-sidebar-main-navigation-subItem-color-background-active);
   --item-text-default: var(--click-sidebar-main-navigation-subItem-color-text-default);
@@ -147,21 +159,39 @@
 }
 
 .wrapper_color_sql-sidebar-item {
-  --item-bg-default: var(--click-sidebar-sqlSidebar-navigation-item-color-background-default);
+  --item-bg-default: var(
+    --click-sidebar-sqlSidebar-navigation-item-color-background-default
+  );
   --item-bg-hover: var(--click-sidebar-sqlSidebar-navigation-item-color-background-hover);
-  --item-bg-active: var(--click-sidebar-sqlSidebar-navigation-item-color-background-active);
+  --item-bg-active: var(
+    --click-sidebar-sqlSidebar-navigation-item-color-background-active
+  );
   --item-text-default: var(--click-sidebar-sqlSidebar-navigation-item-color-text-default);
   --item-text-hover: var(--click-sidebar-sqlSidebar-navigation-item-color-text-hover);
   --item-text-active: var(--click-sidebar-sqlSidebar-navigation-item-color-text-active);
-  --item-text-disabled: var(--click-sidebar-sqlSidebar-navigation-item-color-text-disabled);
+  --item-text-disabled: var(
+    --click-sidebar-sqlSidebar-navigation-item-color-text-disabled
+  );
 }
 
 .wrapper_color_sql-sidebar-sub-item {
-  --item-bg-default: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-default);
-  --item-bg-hover: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-hover);
-  --item-bg-active: var(--click-sidebar-sqlSidebar-navigation-subItem-color-background-active);
-  --item-text-default: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-default);
+  --item-bg-default: var(
+    --click-sidebar-sqlSidebar-navigation-subItem-color-background-default
+  );
+  --item-bg-hover: var(
+    --click-sidebar-sqlSidebar-navigation-subItem-color-background-hover
+  );
+  --item-bg-active: var(
+    --click-sidebar-sqlSidebar-navigation-subItem-color-background-active
+  );
+  --item-text-default: var(
+    --click-sidebar-sqlSidebar-navigation-subItem-color-text-default
+  );
   --item-text-hover: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-hover);
-  --item-text-active: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-active);
-  --item-text-disabled: var(--click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled);
+  --item-text-active: var(
+    --click-sidebar-sqlSidebar-navigation-subItem-color-text-active
+  );
+  --item-text-disabled: var(
+    --click-sidebar-sqlSidebar-navigation-subItem-color-text-disabled
+  );
 }

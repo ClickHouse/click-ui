@@ -25,7 +25,7 @@ yarn dev                        # Storybook on http://localhost:6006 — the onl
 yarn test                       # vitest; filter by name: yarn test Button
 yarn typecheck                  # tsc --noEmit
 yarn lint                       # eslint (src, plugins) + stylelint (src/**/*.css); yarn lint:fix
-yarn format                     # prettier check; yarn format:fix writes
+yarn format                     # prettier check of every file not in .gitignore or .prettierignore; yarn format:fix writes; one path: yarn prettier --write <path>
 yarn lint:code --prune-suppressions  # after fixing a frozen jsx-a11y violation (see section 7)
 yarn circular-dependency:check
 yarn build                      # .scripts/bash/build_pkg_dist -> dist/
