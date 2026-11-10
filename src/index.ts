@@ -129,7 +129,9 @@ export { Dropdown } from './components/Dropdown';
 export type { DropdownItemProps } from './components/Dropdown';
 
 // Ellipsis Content
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- deprecated export still used by consumers; remove with the component
 export { EllipsisContent } from './components/EllipsisContent';
+// eslint-disable-next-line @typescript-eslint/no-deprecated -- deprecated export still used by consumers; remove with the component
 export type { EllipsisContentProps } from './components/EllipsisContent';
 
 // File Upload & Tabs
@@ -245,6 +247,7 @@ export { Table } from './components/Table';
 export type {
   MobileLayoutProp,
   TableColumnConfigProps,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- public alias still imported by consumers; remove with the type
   TableHeaderType,
   TableLoadingVariant,
   TableProps,
