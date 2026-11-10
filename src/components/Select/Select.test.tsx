@@ -14,11 +14,14 @@ interface Props extends Omit<SelectProps, 'children' | 'label'> {
 describe('Select', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const renderSelect = (props: Props) => {
     if (props.options) {
@@ -117,7 +120,7 @@ describe('Select', () => {
     act(() => {
       getByText('Content3').click();
     });
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
     expect(queryByText('Content4')).toBeNull();
     expect(queryByTestingText(selectTrigger, 'Content3')).toBeNull();
     expect(queryByTestingText(selectTrigger, 'Content0')).not.toBeNull();
@@ -377,7 +380,7 @@ describe('Select', () => {
       const btn = queryByText(/No Field found/i);
       expect(btn).not.toBeNull();
       btn && fireEvent.click(btn);
-      expect(onClick).toBeCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
       expect(btn).not.toBeVisible();
     });
 
