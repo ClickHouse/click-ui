@@ -60,7 +60,7 @@ export default tseslint.config(
       quotes: ['error', 'single', { avoidEscape: true }],
       'arrow-parens': ['error', 'as-needed'],
       'prefer-arrow-functions/prefer-arrow-functions': [
-        'warn',
+        'error',
         preferArrowFunctionsOptions,
       ],
       'react-hooks/exhaustive-deps': [
@@ -190,7 +190,7 @@ export default tseslint.config(
     },
     rules: {
       'prefer-arrow-functions/prefer-arrow-functions': [
-        'warn',
+        'error',
         { ...preferArrowFunctionsOptions, allowObjectProperties: true },
       ],
     },
