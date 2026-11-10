@@ -1,5 +1,32 @@
 # @clickhouse/click-ui
 
+## 0.16.0
+
+### Minor Changes
+
+- 822b25d: Add `preserveLineBreaks` to `Alert`. When it is true, string `text` keeps `\n` line breaks.
+
+  Visual: unchanged by default. Set `preserveLineBreaks` on `Alert`, `WarningAlert`, `DangerAlert`, `InfoAlert`, or `SuccessAlert` to opt in. ReactNode `text` is unchanged.
+
+- b050934: New `Skeleton` component: a placeholder for content that is still loading, in two shapes. `shape="text"` (the default) draws `lines` of text, each as tall as a line of `Text` at the same `size` (`sm` or `md`); `shape="rectangle"` draws a box of any `height`. `width` and `height` take any CSS value and default to filling the parent. Skeletons on screen together share one shimmer sweep; with reduced motion the fill is static.
+
+  `Table` can now show placeholder rows while loading instead of a centered spinner: set `loadingVariant="skeleton"` alongside `loading`, and `skeletonRowCount` to choose how many rows (3 by default). The placeholders follow the table's `rowHeight`.
+
+  Visual: unchanged by default. `loadingVariant` defaults to `spinner`, which is what `loading` has always drawn. The table also sets `aria-busy` while loading, in either variant.
+
+### Patch Changes
+
+- 390216f: Adds a Vercel logo: `<Icon name="vercel" />`. It follows the text color, so it adapts to the theme and accepts a `color` override.
+- 3eee4d7: Bump the `@radix-ui/react-*` runtime dependencies. A consumer `aria-describedby` on `Tooltip.Trigger` or its `asChild` child is now merged with the tooltip's id instead of replacing it. This also applies to `EllipsisContent` and `TextTruncate` while their text is cut off. `Tabs` triggers move focus before the tab switches, and non-modal popovers inside a `Dialog` or `Flyout` keep focus and scroll.
+
+  If your app also installs `@radix-ui/react-*` packages directly, update them to the versions in click-ui's `package.json` dependencies so nested dialogs and menus share one focus trap.
+
+- eab4994: `Checkbox`, `Switch` and `RadioGroup` inside a `<form>` now also fire a bubbled `change` event when the checked value updates after the click, for example from an async handler. A `Tooltip` inside a modal `Popover` keeps the right tab order. `ContextMenu.Content` now applies a `sideOffset` you pass.
+- 9da6410: Activate a clickable CardHorizontal with Enter and Space, and expose it as a button when it has no inner action button. Display-only cards keep the default key behavior.
+- 529463c: Keep the selected meridiem when committing a DateTimeRangePicker time with Enter.
+- e7a3fda: Keep copied Grid rows and columns in numeric index order.
+- d062351: Copy selected Grid columns from the current row offset.
+
 ## 0.15.0
 
 _Reconstructed from the changesets pending at the time of this release._

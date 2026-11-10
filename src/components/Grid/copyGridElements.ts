@@ -8,7 +8,7 @@ interface CopyGridElementsProps {
   selection: SelectedRegion;
   rowCount: number;
   columnCount: number;
-  pageStart?: number;
+  rowStart?: number;
   focus: SelectionFocus;
   outerRef: RefObject<HTMLDivElement>;
 }
@@ -53,7 +53,7 @@ const copyGridElements = async ({
   selection,
   rowCount,
   columnCount,
-  pageStart = 0,
+  rowStart = 0,
   focus,
   outerRef,
 }: CopyGridElementsProps): Promise<void> => {
@@ -84,7 +84,7 @@ const copyGridElements = async ({
       });
       break;
     case 'columns':
-      Array.from({ length: rowCount }, (_, index) => pageStart + index).forEach(
+      Array.from({ length: rowCount }, (_, index) => rowStart + index).forEach(
         rowIndex => {
           const columnList = [...selection.columns].sort((a, b) => a - b);
           columnListLoop(tbody, columnList, cell, rowIndex);
@@ -95,10 +95,7 @@ const copyGridElements = async ({
       [...selection.rows]
         .sort((a, b) => a - b)
         .forEach(rowIndex => {
-          const columnList = Array.from(
-            { length: columnCount },
-            (_, index) => pageStart + index
-          );
+          const columnList = Array.from({ length: columnCount }, (_, index) => index);
           columnListLoop(tbody, columnList, cell, rowIndex);
         });
       break;

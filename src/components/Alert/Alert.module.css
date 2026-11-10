@@ -154,6 +154,10 @@
   margin: 0;
 }
 
+.alert__text_pre-wrap {
+  white-space: pre-wrap;
+}
+
 .alert__text_size_small {
   font: var(--click-alert-small-typography-text-default);
 }

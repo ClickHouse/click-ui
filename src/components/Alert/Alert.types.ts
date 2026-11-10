@@ -16,4 +16,6 @@ export interface AlertProps {
   dismissible?: boolean;
   onDismiss?: () => void;
   className?: string;
+  /** When true, string `text` keeps `\n` line breaks. Defaults to `false`. */
+  preserveLineBreaks?: boolean;
 }

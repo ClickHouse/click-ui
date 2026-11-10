@@ -56,11 +56,14 @@ const menuItems: Menu[] = [
 describe('SplitButton', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const mainButtonClick = vi.fn();
   beforeEach(() => {
@@ -84,7 +87,7 @@ describe('SplitButton', () => {
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
     expect(queryByText('Content0')).toBeNull();
-    expect(mainButtonClick).toBeCalledTimes(1);
+    expect(mainButtonClick).toHaveBeenCalledTimes(1);
   });
 
   it('should not trigger onClick on pointer on disabled btn', async () => {
@@ -94,7 +97,7 @@ describe('SplitButton', () => {
     const dropdownTrigger = queryByText('SplitButton Main Trigger');
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
-    expect(mainButtonClick).toBeCalledTimes(0);
+    expect(mainButtonClick).toHaveBeenCalledTimes(0);
   });
 
   it('should open dropdown on pointer on secondary btn', async () => {

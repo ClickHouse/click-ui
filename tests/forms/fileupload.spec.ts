@@ -66,9 +66,12 @@ describe('FileMultiUpload Visual Regression', () => {
       });
 
       it('uploading files matches snapshot', async ({ page }) => {
-        await page.goto(getStoryUrl('forms-filemultiupload--with-uploading-files', theme), {
-          waitUntil: 'networkidle',
-        });
+        await page.goto(
+          getStoryUrl('forms-filemultiupload--with-uploading-files', theme),
+          {
+            waitUntil: 'networkidle',
+          }
+        );
         const harness = page.locator(MULTI_UPLOAD_HARNESS);
         await expect(harness).toBeVisible({ timeout: 10000 });
         await expect(harness).toHaveScreenshot(`filemultiupload-uploading-${theme}.png`, {
