@@ -1,6 +1,6 @@
 {
   "name": "@clickhouse/click-ui",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Official ClickHouse design system react library",
   "type": "module",
   "license": "Apache-2.0",
@@ -493,7 +493,7 @@
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-externalize-deps": "^0.10.0",
     "vite-tsconfig-paths": "^6.0.5",
-    "vitest": "^3.2.6",
+    "vitest": "^4.1.12",
     "watch": "^1.0.2"
   },
   "peerDependencies": {
