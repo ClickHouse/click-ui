@@ -16,11 +16,14 @@ interface Props extends Omit<MultiSelectProps, 'children' | 'label'> {
 describe('MultiSelect', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const renderSelect = (props: Props) => {
     if (props.options) {
@@ -84,7 +87,7 @@ describe('MultiSelect', () => {
     act(() => {
       getByText('Content3').click();
     });
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
     expect(queryByTestingText(selectTrigger, 'Content3')).toBeNull();
   });
 
@@ -339,7 +342,7 @@ describe('MultiSelect', () => {
       const btn = queryByText(/No Field found/i);
       expect(btn).not.toBeNull();
       btn && fireEvent.click(btn);
-      expect(onClick).toBeCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
       expect(getByTestId('select-trigger')).toHaveTextContent('nodata');
     });
   });

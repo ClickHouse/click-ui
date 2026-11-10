@@ -156,7 +156,7 @@ describe('Pagination', () => {
     fireEvent.click(selector);
     expect(getByText('250 rows')).not.toBeNull();
     fireEvent.click(getByText('250 rows'));
-    expect(onPageSizeChange).toBeCalledTimes(1);
+    expect(onPageSizeChange).toHaveBeenCalledTimes(1);
   });
 
   it('should disable input if the left and right button are disabled', () => {
@@ -190,7 +190,7 @@ describe('Pagination', () => {
     await vi.waitFor(() => {
       fireEvent.click(getByText('250 rows'));
       fireEvent.click(getByText('500 rows'));
-      expect(onPageSizeChange).toBeCalledTimes(1);
+      expect(onPageSizeChange).toHaveBeenCalledTimes(1);
     });
   });
 });

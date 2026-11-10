@@ -19,7 +19,7 @@ describe('SidebarCollapsibleItem', () => {
     expect(collapsibleHeader).not.toBeNull();
     expect(queryByTestId('collapsible-content')).toBeNull();
     collapsibleHeader && fireEvent.click(collapsibleHeader);
-    expect(onOpenChange).toBeCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
     expect(queryByTestId('collapsible-content')).not.toBeNull();
   });
   it('should trigger toggle on clicking trigger type sqlSidebar', () => {
@@ -42,7 +42,7 @@ describe('SidebarCollapsibleItem', () => {
     expect(queryByTestId('collapsible-content')).toBeNull();
     const trigger = collapsibleHeader?.querySelector('button') as HTMLButtonElement;
     fireEvent.click(trigger);
-    expect(onOpenChange).toBeCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
     expect(queryByTestId('collapsible-content')).not.toBeNull();
   });
 });

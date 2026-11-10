@@ -18,6 +18,6 @@ describe('SidebarNavigationItem', () => {
     expect(collapsibleTrigger).not.toBeNull();
     expect(queryByTestId('collapsible-content')).toBeNull();
     collapsibleTrigger && fireEvent.click(collapsibleTrigger);
-    expect(onClick).toBeCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

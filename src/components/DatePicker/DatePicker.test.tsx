@@ -17,6 +17,24 @@ describe('DatePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('puts the data-testid on the trigger that opens the calendar', async () => {
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DatePicker
+        data-testid="start-date-picker"
+        onSelectDate={vi.fn()}
+      />
+    );
+
+    const trigger = getByTestId('start-date-picker');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(trigger);
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   it('opens the calendar and focuses the selected date when pressing Enter', async () => {
     const handleSelectDate = vi.fn();
     const date = new Date('01-12-2026');

@@ -80,7 +80,10 @@ type DeprecatedFields = {
   align?: string;
 };
 
-type ContextMenuContentProps = RightMenu.ContextMenuContentProps & {
+type ContextMenuContentProps = Omit<
+  RightMenu.ContextMenuContentProps,
+  'side' | 'align'
+> & {
   sub?: true;
   container?: HTMLElement | null;
 } & ArrowProps &

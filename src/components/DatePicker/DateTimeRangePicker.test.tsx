@@ -18,6 +18,24 @@ describe('DateTimeRangePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('puts the data-testid on the trigger that opens the calendar', async () => {
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DateTimeRangePicker
+        data-testid="start-date-picker"
+        onSelectDateRange={vi.fn()}
+      />
+    );
+
+    const trigger = getByTestId('start-date-picker');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(trigger);
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   it('sets the value of the DatePicker input start date to the start date passed in', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');
