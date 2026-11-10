@@ -169,6 +169,7 @@ const Calendar = ({
 export interface DatePickerProps {
   allowOnlyDatesList?: Array<Date>;
   container?: HTMLElement | null;
+  'data-testid'?: string;
   date?: Date;
   disabled?: boolean;
   futureDatesDisabled?: boolean;
@@ -181,6 +182,7 @@ export interface DatePickerProps {
 export const DatePicker = ({
   allowOnlyDatesList,
   container,
+  'data-testid': dataTestId,
   date,
   disabled = false,
   futureDatesDisabled = false,
@@ -263,11 +265,11 @@ export const DatePicker = ({
     >
       <Popover.Trigger
         className={styles['popover-trigger']}
+        data-testid={dataTestId}
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >
         <DatePickerInput
-          data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
           partialMonth={partialMonth}

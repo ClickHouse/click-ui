@@ -389,6 +389,7 @@ const PredefinedDates = ({
 
 export interface DateRangePickerProps {
   allowOnlyDatesList?: Array<Date>;
+  'data-testid'?: string;
   disabled?: boolean;
   endDate?: Date;
   futureDatesDisabled?: boolean;
@@ -405,6 +406,7 @@ export interface DateRangePickerProps {
 
 export const DateRangePicker = ({
   allowOnlyDatesList,
+  'data-testid': dataTestId,
   disabled = false,
   endDate,
   futureDatesDisabled = false,
@@ -528,11 +530,11 @@ export const DateRangePicker = ({
       open={isOpen}
     >
       <Dropdown.Trigger
+        data-testid={dataTestId}
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >
         <DateRangePickerInput
-          data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
           placeholder={placeholder}
