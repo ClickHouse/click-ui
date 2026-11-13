@@ -219,6 +219,7 @@ jobs:
           private-key: ${{ secrets.CLICK_UI_AUTOMATION_PRIVATE_KEY }}
           owner: ClickHouse
           repositories: click-ui
+          permission-contents: write
       - name: Checkout repository (release)
         if: env.PUBLISH_MODE == 'release'
         uses: actions/checkout@v7
