@@ -1,17 +1,23 @@
 import { Icon, type IconName } from '@/components/Icon';
 import { useState, useCallback } from 'react';
 import { cn, cva } from '@/lib/cva';
+import type { AssetSize } from '@/types';
 import { AlertProps } from './Alert.types';
 import styles from './Alert.module.css';
 
 type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
 const stateIconMap: Record<AlertState, IconName> = {
-  neutral: 'information',
+  neutral: 'info-in-circle',
   success: 'check',
   warning: 'warning',
   danger: 'warning',
-  info: 'information',
+  info: 'info-in-circle',
+};
+
+const sizeIconMap: Record<NonNullable<AlertProps['size']>, AssetSize> = {
+  small: 'sm',
+  medium: 'md',
 };
 
 const wrapperVariants = cva(styles.alert, {
@@ -143,7 +149,7 @@ export const Alert = ({
       {showIcon && (
         <div className={cn(iconWrapperVariants({ state, size, type }))}>
           <Icon
-            size="sm"
+            size={sizeIconMap[size]}
             aria-hidden
             name={customIcon || stateIconMap[state]}
             className={cn(iconVariants({ size }))}
