@@ -204,16 +204,28 @@ jobs:
   publish:
     needs: [resolve, build]
     runs-on: ubuntu-latest
+    # Holds the click-ui-automation App key; only main and v* tags may use it.
+    environment: automation
     permissions:
-      contents: read # The bump commit, the tag and the release notes use PAT_TOKEN
+      contents: read # The bump commit, the tag and the release notes use the click-ui-automation App
       id-token: write # For OIDC trusted publishing to npm
     steps:
+      - name: Create click-ui-automation token
+        if: env.PUBLISH_MODE == 'release'
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.CLICK_UI_AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.CLICK_UI_AUTOMATION_PRIVATE_KEY }}
+          owner: ClickHouse
+          repositories: click-ui
+          permission-contents: write
       - name: Checkout repository (release)
         if: env.PUBLISH_MODE == 'release'
         uses: actions/checkout@v7
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.branch || github.event.release.target_commitish }}
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
       - name: Checkout repository (canary)
         if: env.PUBLISH_MODE == 'canary'
@@ -361,7 +373,7 @@ jobs:
         if: github.event_name == 'release'
         shell: bash
         env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }} # the job's GITHUB_TOKEN cannot edit releases
+          GH_TOKEN: ${{ steps.app-token.outputs.token }} # the job's GITHUB_TOKEN cannot edit releases
           RELEASE_TAG: ${{ github.event.release.tag_name }} # as created, with or without the v
         run: |
           # Replaces the release body: GitHub's generated notes plus the changeset entries.
