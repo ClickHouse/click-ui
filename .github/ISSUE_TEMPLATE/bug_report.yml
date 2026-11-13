@@ -1,7 +1,7 @@
 name: 🐛 Bug report
 description: Something's not looking or behaving right in the component library
-title: "[Bug]: "
-labels: ["bug"]
+title: '[Bug]: '
+labels: ['bug']
 
 body:
   - type: markdown
@@ -14,7 +14,7 @@ body:
     attributes:
       label: What happened?
       description: What did you expect to see, and what did you get instead?
-      placeholder: "Expected: the Button renders with correct padding. Actual: padding is missing on the left side."
+      placeholder: 'Expected: the Button renders with correct padding. Actual: padding is missing on the left side.'
     validations:
       required: true
 
@@ -23,7 +23,7 @@ body:
     attributes:
       label: Component(s) affected
       description: Which component(s) is this related to?
-      placeholder: "e.g. Button, Modal, Tooltip"
+      placeholder: 'e.g. Button, Modal, Tooltip'
     validations:
       required: true
 
@@ -43,7 +43,7 @@ body:
     id: library-version
     attributes:
       label: Click UI Version
-      placeholder: "e.g. 0.250.0"
+      placeholder: 'e.g. 0.250.0'
     validations:
       required: true
 
@@ -66,7 +66,7 @@ body:
     id: os
     attributes:
       label: Operating system
-      placeholder: "e.g. macOS 14, Windows 11, iOS 17"
+      placeholder: 'e.g. macOS 14, Windows 11, iOS 17'
     validations:
       required: true
 
@@ -76,8 +76,8 @@ body:
       label: Is this a regression?
       description: Did this work in a previous version?
       options:
-        - "Yes, it worked before"
-        - "No, never worked as far as I know"
+        - 'Yes, it worked before'
+        - 'No, never worked as far as I know'
         - Not sure
     validations:
       required: true
@@ -86,7 +86,7 @@ body:
     id: last-working-version
     attributes:
       label: Last working version (if regression)
-      placeholder: "e.g. 2.1.0"
+      placeholder: 'e.g. 2.1.0'
 
   - type: textarea
     id: screenshots

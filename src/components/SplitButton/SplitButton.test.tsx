@@ -7,6 +7,7 @@ import { renderCUI } from '@/utils/test-utils';
 
 interface Props extends DropdownMenuProps {
   disabled?: boolean;
+  menuLabel?: string;
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
@@ -55,11 +56,14 @@ const menuItems: Menu[] = [
 describe('SplitButton', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const mainButtonClick = vi.fn();
   beforeEach(() => {
@@ -83,7 +87,7 @@ describe('SplitButton', () => {
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
     expect(queryByText('Content0')).toBeNull();
-    expect(mainButtonClick).toBeCalledTimes(1);
+    expect(mainButtonClick).toHaveBeenCalledTimes(1);
   });
 
   it('should not trigger onClick on pointer on disabled btn', async () => {
@@ -93,7 +97,7 @@ describe('SplitButton', () => {
     const dropdownTrigger = queryByText('SplitButton Main Trigger');
     expect(dropdownTrigger).not.toBeNull();
     dropdownTrigger && (await userEvent.click(dropdownTrigger));
-    expect(mainButtonClick).toBeCalledTimes(0);
+    expect(mainButtonClick).toHaveBeenCalledTimes(0);
   });
 
   it('should open dropdown on pointer on secondary btn', async () => {
@@ -102,6 +106,22 @@ describe('SplitButton', () => {
     expect(dropdownTrigger).not.toBeNull();
     await userEvent.click(dropdownTrigger);
     expect(getByText('Content0')).not.toBeNull();
+  });
+
+  it('accepts a readonly menu', async () => {
+    const menu = [
+      { type: 'group', items: [{ label: 'Grouped' }] },
+      { type: 'sub-menu', label: 'Nested', items: [{ label: 'SubItem' }] },
+      { label: 'Plain' },
+    ] as const;
+    const { getByTestId, getByText } = renderCUI(
+      <SplitButton menu={menu}>Main</SplitButton>
+    );
+    await userEvent.click(getByTestId('split-button-dropdown'));
+
+    expect(getByText('Grouped')).toBeInTheDocument();
+    expect(getByText('Nested')).toBeInTheDocument();
+    expect(getByText('Plain')).toBeInTheDocument();
   });
 
   it('should not open disabled dropdown on pointer', async () => {
@@ -189,6 +209,51 @@ describe('SplitButton', () => {
     item && fireEvent.pointerDown(item);
     expect(item).not.toBeNull();
     expect(queryByText('Content2')).not.toBeNull();
+  });
+
+  describe('menu button', () => {
+    it('is a button named "More options" that controls a menu', () => {
+      const { getByRole } = renderDropdown({});
+      const menuButton = getByRole('button', { name: 'More options' });
+      expect(menuButton).toHaveAttribute('type', 'button');
+      expect(menuButton).toHaveAttribute('aria-haspopup', 'menu');
+      expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('uses menuLabel as its accessible name', () => {
+      const { getByRole } = renderDropdown({ menuLabel: 'Export formats' });
+      expect(getByRole('button', { name: 'Export formats' })).toBeInTheDocument();
+    });
+
+    it.each(['{Enter}', ' ', '{ArrowDown}'])(
+      'is reached with Tab after the main button and opens the menu with %s',
+      async key => {
+        const { getByRole, getAllByRole, getByText, queryByRole } = renderDropdown({});
+        await userEvent.tab();
+        expect(getByText('SplitButton Main Trigger').closest('button')).toHaveFocus();
+        await userEvent.tab();
+        const menuButton = getByRole('button', { name: 'More options' });
+        expect(menuButton).toHaveFocus();
+        await userEvent.keyboard(key);
+        expect(getByText('Content0')).toBeInTheDocument();
+        expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+        expect(mainButtonClick).not.toHaveBeenCalled();
+        // Focus moves into the menu, and Escape gives it back to the menu button rather than to <body>.
+        await waitFor(() => expect(getAllByRole('menuitem')[0]).toHaveFocus());
+        await userEvent.keyboard('{Escape}');
+        await waitFor(() => expect(queryByRole('menu')).not.toBeInTheDocument());
+        expect(menuButton).toHaveFocus();
+      }
+    );
+
+    it('is disabled and skipped by Tab when the split button is disabled', async () => {
+      const { getByRole } = renderDropdown({ disabled: true });
+      const menuButton = getByRole('button', { name: 'More options' });
+      expect(menuButton).toBeDisabled();
+      expect(menuButton).toHaveAttribute('aria-disabled', 'true');
+      await userEvent.tab();
+      expect(menuButton).not.toHaveFocus();
+    });
   });
 
   describe('native button type', () => {

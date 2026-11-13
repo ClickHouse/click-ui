@@ -168,7 +168,7 @@ const DateRangeTableCell = ({
 );
 
 interface CalendarProps {
-  allowOnlyDatesList?: Array<Date>;
+  allowOnlyDatesList?: readonly Date[];
   calendarBody: Body;
   closeDatepicker: () => void;
   futureDatesDisabled: boolean;
@@ -304,7 +304,7 @@ const Calendar = ({
 
 interface PredefinedDatesProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
-  predefinedDatesList: DateRange[];
+  predefinedDatesList: readonly DateRange[];
   selectedEndDate: Date | undefined;
   selectedStartDate: Date | undefined;
   setEndDate: Dispatch<SetStateAction<Date | undefined>>;
@@ -388,7 +388,8 @@ const PredefinedDates = ({
 };
 
 export interface DateRangePickerProps {
-  allowOnlyDatesList?: Array<Date>;
+  allowOnlyDatesList?: readonly Date[];
+  'data-testid'?: string;
   disabled?: boolean;
   endDate?: Date;
   futureDatesDisabled?: boolean;
@@ -397,7 +398,7 @@ export interface DateRangePickerProps {
   onSelectDateRange: (selectedStartDate: Date, selectedEndDate: Date) => void;
   openDirection?: OpenDirection;
   placeholder?: string;
-  predefinedDatesList?: DateRange[];
+  predefinedDatesList?: readonly DateRange[];
   responsivePositioning?: boolean;
   startDate?: Date;
   timezone?: Timezone;
@@ -405,6 +406,7 @@ export interface DateRangePickerProps {
 
 export const DateRangePicker = ({
   allowOnlyDatesList,
+  'data-testid': dataTestId,
   disabled = false,
   endDate,
   futureDatesDisabled = false,
@@ -528,11 +530,11 @@ export const DateRangePicker = ({
       open={isOpen}
     >
       <Dropdown.Trigger
+        data-testid={dataTestId}
         disabled={disabled}
         onKeyDown={onTriggerKeyDown}
       >
         <DateRangePickerInput
-          data-testid="datepicker-input-container"
           disabled={disabled}
           isActive={isOpen}
           placeholder={placeholder}

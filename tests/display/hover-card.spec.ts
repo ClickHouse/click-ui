@@ -15,8 +15,7 @@ const goto = async (
 };
 
 // The trigger is HoverCard's only own styling (`width: fit-content`).
-const trigger = (page: import('@playwright/test').Page) =>
-  page.getByText('Hover Here');
+const trigger = (page: import('@playwright/test').Page) => page.getByText('Hover Here');
 
 // The content panel is portaled by Radix and carries data-state="open" once shown.
 const panel = (page: import('@playwright/test').Page) =>

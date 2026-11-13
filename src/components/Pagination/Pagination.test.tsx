@@ -156,7 +156,20 @@ describe('Pagination', () => {
     fireEvent.click(selector);
     expect(getByText('250 rows')).not.toBeNull();
     fireEvent.click(getByText('250 rows'));
-    expect(onPageSizeChange).toBeCalledTimes(1);
+    expect(onPageSizeChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('accepts a readonly maxRowsPerPageList', () => {
+    const maxRowsPerPageList = [250, 500] as const;
+    const { getByText } = renderPagination({
+      currentPage: 1,
+      onChange,
+      maxRowsPerPageList,
+    });
+    fireEvent.click(getByText('All rows'));
+
+    expect(getByText('250 rows')).toBeInTheDocument();
+    expect(getByText('500 rows')).toBeInTheDocument();
   });
 
   it('should disable input if the left and right button are disabled', () => {
@@ -190,7 +203,7 @@ describe('Pagination', () => {
     await vi.waitFor(() => {
       fireEvent.click(getByText('250 rows'));
       fireEvent.click(getByText('500 rows'));
-      expect(onPageSizeChange).toBeCalledTimes(1);
+      expect(onPageSizeChange).toHaveBeenCalledTimes(1);
     });
   });
 });

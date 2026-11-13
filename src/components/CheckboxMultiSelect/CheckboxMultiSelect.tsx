@@ -21,7 +21,7 @@ export const CheckboxMultiSelect = ({
   selectLabel,
   ...props
 }: CheckboxMultiSelectProps) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>(
+  const [selectedValues, setSelectedValues] = useState<readonly string[]>(
     valueProp ?? defaultValue ?? []
   );
   const [open, setOpen] = useState(defaultOpen ?? false);

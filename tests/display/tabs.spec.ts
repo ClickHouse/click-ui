@@ -115,10 +115,9 @@ describe('FullWidthTabs Visual Regression', () => {
           });
           const region = page.locator(fullWidthHarness);
           await expect(region).toBeVisible({ timeout: 10000 });
-          await expect(region).toHaveScreenshot(
-            `full-width-tabs-${name}-${theme}.png`,
-            { maxDiffPixels: 100 }
-          );
+          await expect(region).toHaveScreenshot(`full-width-tabs-${name}-${theme}.png`, {
+            maxDiffPixels: 100,
+          });
         });
       }
     });
