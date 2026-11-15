@@ -156,3 +156,29 @@ export const TriggerOnly: Story = {
     </div>
   ),
 };
+
+// The child button is the popover trigger: it carries the ARIA state, opens the
+// popover from the keyboard and gets focus back when the popover closes.
+export const TriggerAsChild: Story = {
+  args: {
+    modal: false,
+  },
+  render: args => (
+    <GridCenter>
+      <Popover {...args}>
+        <Popover.Trigger asChild>
+          <Button label="Open popover" />
+        </Popover.Trigger>
+        <Popover.Content
+          side="bottom"
+          showArrow
+          showClose
+        >
+          <Title type="h2">Content popover</Title>
+          <br />
+          <Text>The button is the trigger, so it works from the keyboard.</Text>
+        </Popover.Content>
+      </Popover>
+    </GridCenter>
+  ),
+};

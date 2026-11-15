@@ -6,8 +6,10 @@ import {
   ElementType,
   ReactNode,
   forwardRef,
+  isValidElement,
 } from 'react';
 import { cn, cva } from '@/lib/cva';
+import { Button } from '@/components/Button';
 import { IconButton } from '@/components/IconButton';
 import Popover_Arrow from '@/components/Assets/Icons/Popover-Arrow';
 import { useResolvedPortalContainer } from '@/providers/PortalContext';
@@ -19,16 +21,31 @@ export const Popover = ({ children, ...props }: RadixPopover.PopoverProps) => {
 
 interface TriggerProps extends RadixPopover.PopoverTriggerProps {
   anchor?: ReactNode;
+  /**
+   * Use the single child element as the trigger instead of wrapping it in a
+   * `div`. The child must be focusable and forward `ref` and props.
+   */
+  asChild?: boolean;
 }
 
-const PopoverTrigger = ({ anchor, children, ...props }: TriggerProps) => {
+const PopoverTrigger = ({ anchor, asChild, children, type, ...props }: TriggerProps) => {
+  const child = asChild && isValidElement(children) ? children.type : undefined;
+  // Radix sets `type="button"` on its trigger. With `asChild` it would land on the child, where a
+  // click-ui `Button` or `IconButton` reads `type` as its variant and takes its native type from `htmlType`.
+  const typeProps =
+    child === Button || child === IconButton
+      ? { type: undefined, htmlType: type ?? 'button' }
+      : { type: type ?? (!asChild || child === 'button' ? 'button' : undefined) };
+
   return (
     <>
       <RadixPopover.Trigger
-        asChild
+        // `asChild={false}` keeps rendering Radix's own button around the wrapper.
+        asChild={asChild !== false}
+        {...typeProps}
         {...props}
       >
-        <div className={styles.trigger}>{children}</div>
+        {asChild ? children : <div className={styles.trigger}>{children}</div>}
       </RadixPopover.Trigger>
       {anchor && <RadixPopover.Anchor asChild>{anchor}</RadixPopover.Anchor>}
     </>
