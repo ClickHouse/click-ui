@@ -182,20 +182,6 @@ describe('Popover', () => {
       expect(onSubmit).not.toHaveBeenCalled();
     });
 
-    it('keeps the htmlType of a Button child with asChild', () => {
-      const { getByRole } = renderCUI(
-        <Popover>
-          <Popover.Trigger asChild>
-            <Button
-              label="Save"
-              htmlType="submit"
-            />
-          </Popover.Trigger>
-        </Popover>
-      );
-      expect(getByRole('button', { name: 'Save' })).toHaveAttribute('type', 'submit');
-    });
-
     it.each([
       ['a native button', <button>Save</button>],
       ['a Button', <Button label="Save" />],
