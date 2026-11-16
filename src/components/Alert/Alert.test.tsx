@@ -3,6 +3,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderCUI } from '@/utils/test-utils';
 import styles from './Alert.module.css';
+import iconStyles from '@/components/Icon/Icon.module.css';
 
 describe('Alert', () => {
   const renderAlert = (props: AlertProps) => renderCUI(<Alert {...props} />);
@@ -54,6 +55,47 @@ describe('Alert', () => {
     expect(root).toHaveClass('custom-class');
     // the component's own base class must still be present alongside it
     expect(root.className).not.toBe('custom-class');
+  });
+
+  it.each([
+    ['neutral', 'info-in-circle'],
+    ['info', 'info-in-circle'],
+    ['success', 'check'],
+    ['warning', 'warning'],
+    ['danger', 'warning'],
+  ] as const)('renders the %s state with the %s icon', (state, iconName) => {
+    const { getByRole } = renderAlert({ text: 'State icon', state });
+
+    expect(getByRole('img', { hidden: true })).toHaveAttribute('aria-label', iconName);
+  });
+
+  it.each([
+    ['small', 'svg-wrapper_size_sm'],
+    ['medium', 'svg-wrapper_size_md'],
+  ] as const)('renders the %s alert icon with the %s class', (size, sizeClass) => {
+    const { getByRole } = renderAlert({ text: 'Sized icon', size });
+
+    const icon = getByRole('img', { hidden: true });
+    expect(icon.parentElement).toHaveClass(iconStyles[sizeClass]);
+  });
+
+  it.each([
+    ['small', 'svg-wrapper_size_sm'],
+    ['medium', 'svg-wrapper_size_md'],
+  ] as const)('renders a custom icon at the %s alert size', (size, sizeClass) => {
+    const { getByRole } = renderAlert({ text: 'Custom icon', size, customIcon: 'star' });
+
+    const icon = getByRole('img', { hidden: true });
+    expect(icon).toHaveAttribute('aria-label', 'star');
+    expect(icon.parentElement).toHaveClass(iconStyles[sizeClass]);
+  });
+
+  it('renders the default alert with a small info-in-circle icon', () => {
+    const { getByRole } = renderAlert({ text: 'Default' });
+
+    const icon = getByRole('img', { hidden: true });
+    expect(icon).toHaveAttribute('aria-label', 'info-in-circle');
+    expect(icon.parentElement).toHaveClass(iconStyles['svg-wrapper_size_sm']);
   });
 
   it('given a dismissible alert, should not be visible after dismissing it', async () => {
