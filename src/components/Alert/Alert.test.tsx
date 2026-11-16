@@ -58,8 +58,8 @@ describe('Alert', () => {
   });
 
   it.each([
-    ['neutral', 'info-in-circle'],
-    ['info', 'info-in-circle'],
+    ['neutral', 'info'],
+    ['info', 'info'],
     ['success', 'check'],
     ['warning', 'warning'],
     ['danger', 'warning'],
@@ -90,11 +90,11 @@ describe('Alert', () => {
     expect(icon.parentElement).toHaveClass(iconStyles[sizeClass]);
   });
 
-  it('renders the default alert with a small info-in-circle icon', () => {
+  it('renders the default alert with a small info icon', () => {
     const { getByRole } = renderAlert({ text: 'Default' });
 
     const icon = getByRole('img', { hidden: true });
-    expect(icon).toHaveAttribute('aria-label', 'info-in-circle');
+    expect(icon).toHaveAttribute('aria-label', 'info');
     expect(icon.parentElement).toHaveClass(iconStyles['svg-wrapper_size_sm']);
   });
 
