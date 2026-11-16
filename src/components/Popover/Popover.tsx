@@ -36,13 +36,16 @@ const PopoverTrigger = ({ anchor, asChild, children, type, ...props }: TriggerPr
     child === Button || child === IconButton
       ? { type: undefined, htmlType: type ?? 'button' }
       : { type: type ?? (!asChild || child === 'button' ? 'button' : undefined) };
+  // Only add the key when disabled: an `aria-disabled` of `undefined` would be merged onto the
+  // child and replace the one a `Button` sets for its own `disabled` or `loading`.
+  const disabledProps = asChild && props.disabled ? { 'aria-disabled': true } : {};
 
   return (
     <>
       <RadixPopover.Trigger
         // `asChild={false}` keeps rendering Radix's own button around the wrapper.
         asChild={asChild !== false}
-        aria-disabled={(asChild && props.disabled) || undefined}
+        {...disabledProps}
         {...typeProps}
         {...props}
       >

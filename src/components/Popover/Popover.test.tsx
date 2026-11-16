@@ -180,6 +180,33 @@ describe('Popover', () => {
       expect(trigger).toHaveAttribute('aria-disabled', 'true');
     });
 
+    it.each([
+      [
+        'disabled',
+        <Button
+          label="Save"
+          disabled
+        />,
+      ],
+      [
+        'loading',
+        <Button
+          label="Save"
+          loading
+        />,
+      ],
+    ])('keeps aria-disabled on a %s Button child with asChild', (_state, child) => {
+      const { getByRole } = renderCUI(
+        <Popover>
+          <Popover.Trigger asChild>{child}</Popover.Trigger>
+        </Popover>
+      );
+      expect(getByRole('button', { name: 'Save' })).toHaveAttribute(
+        'aria-disabled',
+        'true'
+      );
+    });
+
     it('keeps a Button child from submitting its form with asChild', async () => {
       const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault());
       const { getByRole, queryByText } = renderCUI(
