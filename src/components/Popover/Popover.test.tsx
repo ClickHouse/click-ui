@@ -163,6 +163,23 @@ describe('Popover', () => {
       }
     );
 
+    it('marks a disabled native button child with aria-disabled with asChild', () => {
+      const { getByRole } = renderCUI(
+        <Popover>
+          <Popover.Trigger
+            asChild
+            disabled
+          >
+            <button>Details</button>
+          </Popover.Trigger>
+        </Popover>
+      );
+      const trigger = getByRole('button', { name: 'Details' });
+
+      expect(trigger).toBeDisabled();
+      expect(trigger).toHaveAttribute('aria-disabled', 'true');
+    });
+
     it('keeps a Button child from submitting its form with asChild', async () => {
       const onSubmit = vi.fn((event: React.FormEvent) => event.preventDefault());
       const { getByRole, queryByText } = renderCUI(

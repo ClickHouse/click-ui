@@ -42,6 +42,7 @@ const PopoverTrigger = ({ anchor, asChild, children, type, ...props }: TriggerPr
       <RadixPopover.Trigger
         // `asChild={false}` keeps rendering Radix's own button around the wrapper.
         asChild={asChild !== false}
+        aria-disabled={(asChild && props.disabled) || undefined}
         {...typeProps}
         {...props}
       >
