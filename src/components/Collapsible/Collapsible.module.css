@@ -41,7 +41,8 @@
 
 .collapsible__trigger:focus-visible {
   outline: 2px solid var(--click-global-color-outline-default);
-  outline-offset: 2px;
+  /* Keep the ring inside wrappers that clip overflowing content. */
+  outline-offset: -2px;
 }
 
 /* stylelint-disable-next-line block-no-empty -- base element required by BEM */

@@ -62,15 +62,15 @@ describe('Collapsible focus styles', () => {
     expect(trigger).toHaveClass(styles.collapsible__trigger);
   });
 
-  it('shows a focus-visible outline on the trigger', () => {
-    // Trigger is an EmptyButton, which sets `outline: none`; the module must restore a focus ring.
+  it('keeps the focus-visible outline inside clipping wrappers', () => {
+    // EmptyButton resets the outline, and sidebar wrappers clip overflow, so the ring must be inset.
     // Vitest runs from the repo root; read the stylesheet source directly.
     const css = readFileSync(
       resolve(process.cwd(), 'src/components/Collapsible/Collapsible.module.css'),
       'utf8'
     );
     expect(css).toMatch(
-      /\.collapsible__trigger:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--click-global-color-outline-default\)/
+      /\.collapsible__trigger:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--click-global-color-outline-default\)[^}]*outline-offset:\s*-2px/
     );
   });
 });
