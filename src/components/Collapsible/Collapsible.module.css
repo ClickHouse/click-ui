@@ -11,6 +11,10 @@
   transform: rotate(90deg);
 }
 
+.collapsible__trigger:focus-visible [data-trigger-icon] {
+  visibility: visible;
+}
+
 .collapsible [data-collapsible-header]:hover [data-trigger-icon] {
   visibility: visible;
 }
@@ -33,6 +37,11 @@
   color: inherit;
   font: inherit;
   cursor: inherit;
+}
+
+.collapsible__trigger:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
 }
 
 /* stylelint-disable-next-line block-no-empty -- base element required by BEM */
