@@ -131,6 +131,30 @@ describe('Pagination', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
+  it('discards the typed page when currentPage changes while editing', () => {
+    const onChange = vi.fn();
+    const { getByRole, rerender } = renderPagination({
+      currentPage: 3,
+      totalPages: 10,
+      onChange,
+    });
+    const pageInput = getByRole('spinbutton');
+    typePageNumber(pageInput, '7');
+    expect(pageInput).toHaveValue(7);
+
+    rerender(
+      <Pagination
+        currentPage={1}
+        totalPages={10}
+        onChange={onChange}
+      />
+    );
+
+    expect(pageInput).toHaveValue(1);
+    fireEvent.focusOut(pageInput);
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
   it('should not call onChange when input is less than 1', () => {
     const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({

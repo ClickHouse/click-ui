@@ -46,6 +46,13 @@ export const Pagination = ({
   // Holds what the user is typing, so a partial or empty value isn't replaced by currentPage
   const [pageNumberDraft, setPageNumberDraft] = useState<string | null>(null);
 
+  // Discards the typed page when currentPage changes from outside
+  const [previousPage, setPreviousPage] = useState(currentPage);
+  if (previousPage !== currentPage) {
+    setPreviousPage(currentPage);
+    setPageNumberDraft(null);
+  }
+
   const commitPageNumber = () => {
     if (pageNumberDraft === null) {
       return;
