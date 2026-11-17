@@ -225,8 +225,18 @@ describe('Pagination', () => {
       pageNumberMode: 'text',
     });
     expect(queryByRole('spinbutton')).not.toBeInTheDocument();
-    expect(getByText('2')).toBeInTheDocument();
+    expect(getByText('2')).toHaveTextContent('Page 2');
     expect(getByText('of 5')).toBeInTheDocument();
+  });
+
+  it('hides the "Page" label visually so only the number shows', () => {
+    const { getByText } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+      pageNumberMode: 'text',
+    });
+    expect(getByText('Page').className).toMatch(/sr-only/);
   });
 
   it('changes the page with the buttons when pageNumberMode is text', async () => {

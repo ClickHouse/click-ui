@@ -4,6 +4,7 @@ import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
 import { Select } from '@/components/Select';
 import { Text } from '@/components/Text';
+import visuallyHiddenStyles from '@/styles/visually-hidden.module.css';
 import type { PaginationProps } from './Pagination.types';
 import styles from './Pagination.module.css';
 
@@ -124,6 +125,7 @@ export const Pagination = ({
             component="div"
             size="sm"
           >
+            <span className={visuallyHiddenStyles['sr-only']}>Page </span>
             {formatNumber(currentPage)}
           </Text>
         ) : (
