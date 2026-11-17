@@ -46,6 +46,13 @@
   background: var(--click-radio-color-background-hover);
 }
 
+/* The base rule above and FormRoot both reset `outline`, so the control needs
+   its own ring. Same ring as BaseButton and IconButton. */
+.radio-input:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
+}
+
 .radio-input[data-state='checked'] {
   border-color: var(--click-radio-color-stroke-active);
   background: var(--click-radio-color-background-active);
