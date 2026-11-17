@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { Pagination } from '@/components/Pagination';
 
 const meta: Meta<typeof Pagination> = {
@@ -79,6 +80,25 @@ export const Full: Story = {
     rowCount: 12345,
     maxRowsPerPageList: [250, 500],
     onChange: noop,
+  },
+};
+
+export const EditPageNumber: Story = {
+  args: {
+    currentPage: 3,
+    totalPages: 10,
+    onChange: fn(),
+    onPageNumberFocus: fn(),
+    onPageNumberBlur: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const pageInput = canvas.getByRole('spinbutton');
+    await userEvent.clear(pageInput);
+    await userEvent.type(pageInput, '7');
+    await expect(args.onChange).not.toHaveBeenCalled();
+    await userEvent.keyboard('{Enter}');
+    await expect(args.onChange).toHaveBeenCalledWith(7);
   },
 };
 

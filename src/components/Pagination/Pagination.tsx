@@ -1,4 +1,12 @@
-import { MouseEventHandler, ReactElement, useCallback, useRef } from 'react';
+import {
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  ReactElement,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import { Container } from '@/components/Container';
 import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
@@ -35,11 +43,27 @@ export const Pagination = ({
   const rightButtonDisabled =
     (!!totalPages && currentPage === totalPages) || disableNextButton;
 
-  const onChange = (value: string) => {
-    const pageNumber = parseInt(value, 10);
+  // Holds what the user is typing, so a partial or empty value isn't replaced by currentPage
+  const [pageNumberDraft, setPageNumberDraft] = useState<string | null>(null);
+
+  // Discards the typed page when currentPage changes from outside
+  const [previousPage, setPreviousPage] = useState(currentPage);
+  if (previousPage !== currentPage) {
+    setPreviousPage(currentPage);
+    setPageNumberDraft(null);
+  }
+
+  const commitPageNumber = () => {
+    if (pageNumberDraft === null) {
+      return;
+    }
+
+    const pageNumber = parseInt(pageNumberDraft, 10);
+    setPageNumberDraft(null);
     if (
       Number.isNaN(pageNumber) ||
       pageNumber < 1 ||
+      pageNumber === currentPage ||
       inputRef.current?.disabled ||
       (typeof totalPages !== 'undefined' ? pageNumber > totalPages : false)
     ) {
@@ -47,6 +71,26 @@ export const Pagination = ({
     }
 
     onChangeProp(pageNumber);
+  };
+
+  const onPageNumberChange = (value: string) => {
+    setPageNumberDraft(value);
+  };
+
+  const onPageNumberKeyDown: KeyboardEventHandler<HTMLInputElement> = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      commitPageNumber();
+    } else if (e.key === 'Escape') {
+      setPageNumberDraft(null);
+    }
+  };
+
+  const onPageNumberBlurHandler: FocusEventHandler<HTMLInputElement> = e => {
+    commitPageNumber();
+    if (typeof onPageNumberBlur === 'function') {
+      onPageNumberBlur(e);
+    }
   };
 
   const onPageSizeChange = (value: string) => {
@@ -124,15 +168,16 @@ export const Pagination = ({
         >
           <NumberField
             ref={inputRef}
-            onChange={onChange}
-            value={currentPage}
+            onChange={onPageNumberChange}
+            onKeyDown={onPageNumberKeyDown}
+            value={pageNumberDraft ?? currentPage}
             loading={false}
             aria-label={currentPage.toString()}
             min={1}
             max={totalPages}
             onFocus={onPageNumberFocus}
             hideControls
-            onBlur={onPageNumberBlur}
+            onBlur={onPageNumberBlurHandler}
             disabled={leftButtonDisabled && rightButtonDisabled}
           />
         </Container>

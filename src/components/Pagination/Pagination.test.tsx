@@ -64,18 +64,95 @@ describe('Pagination', () => {
     expect(nextBtn).toHaveProperty('disabled', true);
   });
 
-  it('should call onChange when input is changed', () => {
+  const typePageNumber = (pageInput: HTMLElement, value: string) => {
+    fireEvent.input(pageInput, {
+      target: {
+        value,
+      },
+    });
+  };
+
+  it('does not call onChange while the page number is being typed', () => {
+    const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({
       currentPage: 1,
+      totalPages: 10,
       onChange,
     });
     const pageInput = getByDisplayValue('1');
-    fireEvent.input(pageInput, {
-      target: {
-        value: '2',
-      },
+    typePageNumber(pageInput, '');
+    typePageNumber(pageInput, '3');
+    expect(onChange).not.toHaveBeenCalled();
+    expect(pageInput).toHaveValue(3);
+  });
+
+  it('calls onChange with the typed page on Enter', () => {
+    const onChange = vi.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      totalPages: 10,
+      onChange,
     });
+    const pageInput = getByDisplayValue('1');
+    typePageNumber(pageInput, '3');
+    fireEvent.keyDown(pageInput, { key: 'Enter' });
     expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(3);
+  });
+
+  it('calls onChange with the typed page on blur', () => {
+    const onChange = vi.fn();
+    const onPageNumberBlur = vi.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      totalPages: 10,
+      onChange,
+      onPageNumberBlur,
+    });
+    const pageInput = getByDisplayValue('1');
+    typePageNumber(pageInput, '3');
+    fireEvent.focusOut(pageInput);
+    expect(onChange).toHaveBeenCalledWith(3);
+    expect(onPageNumberBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('restores the current page on Escape', () => {
+    const onChange = vi.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 1,
+      totalPages: 10,
+      onChange,
+    });
+    const pageInput = getByDisplayValue('1');
+    typePageNumber(pageInput, '3');
+    fireEvent.keyDown(pageInput, { key: 'Escape' });
+    expect(pageInput).toHaveValue(1);
+    fireEvent.focusOut(pageInput);
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('discards the typed page when currentPage changes while editing', () => {
+    const onChange = vi.fn();
+    const { getByRole, rerender } = renderPagination({
+      currentPage: 3,
+      totalPages: 10,
+      onChange,
+    });
+    const pageInput = getByRole('spinbutton');
+    typePageNumber(pageInput, '7');
+    expect(pageInput).toHaveValue(7);
+
+    rerender(
+      <Pagination
+        currentPage={1}
+        totalPages={10}
+        onChange={onChange}
+      />
+    );
+
+    expect(pageInput).toHaveValue(1);
+    fireEvent.focusOut(pageInput);
+    expect(onChange).not.toHaveBeenCalled();
   });
 
   it('should not call onChange when input is less than 1', () => {
@@ -85,12 +162,10 @@ describe('Pagination', () => {
       onChange,
     });
     const pageInput = getByDisplayValue('1');
-    fireEvent.input(pageInput, {
-      target: {
-        value: '0',
-      },
-    });
+    typePageNumber(pageInput, '0');
+    fireEvent.keyDown(pageInput, { key: 'Enter' });
     expect(onChange).toHaveBeenCalledTimes(0);
+    expect(pageInput).toHaveValue(1);
   });
 
   it('should not call onChange when input is cleared', () => {
@@ -100,12 +175,10 @@ describe('Pagination', () => {
       onChange,
     });
     const pageInput = getByDisplayValue('1');
-    fireEvent.input(pageInput, {
-      target: {
-        value: '',
-      },
-    });
+    typePageNumber(pageInput, '');
+    fireEvent.focusOut(pageInput);
     expect(onChange).not.toHaveBeenCalled();
+    expect(pageInput).toHaveValue(1);
   });
 
   it('should not call onChange when input is greater than totalPages', () => {
@@ -116,32 +189,24 @@ describe('Pagination', () => {
       onChange,
     });
     const pageInput = getByDisplayValue('99');
-    fireEvent.input(pageInput, {
-      target: {
-        value: '100',
-      },
-    });
+    typePageNumber(pageInput, '100');
+    fireEvent.keyDown(pageInput, { key: 'Enter' });
     expect(onChange).toHaveBeenCalledTimes(1);
-    fireEvent.input(pageInput, {
-      target: {
-        value: '101',
-      },
-    });
+    typePageNumber(pageInput, '101');
+    fireEvent.keyDown(pageInput, { key: 'Enter' });
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
   it('santizes inputs so that decimals become integers', () => {
+    const onChange = vi.fn();
     const { getByDisplayValue } = renderPagination({
       currentPage: 1,
       onChange,
     });
     const pageInput = getByDisplayValue('1');
-    fireEvent.input(pageInput, {
-      target: {
-        value: '1.3',
-      },
-    });
-    expect(onChange).toHaveBeenCalledWith(1);
+    typePageNumber(pageInput, '2.3');
+    fireEvent.keyDown(pageInput, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith(2);
   });
 
   it('should call onPageSizeChange when pageSize option are selected', () => {
@@ -181,11 +246,8 @@ describe('Pagination', () => {
     });
     const pageInput = getByDisplayValue('1');
     expect(pageInput).toHaveProperty('disabled', true);
-    fireEvent.input(pageInput, {
-      target: {
-        value: '2',
-      },
-    });
+    typePageNumber(pageInput, '2');
+    fireEvent.keyDown(pageInput, { key: 'Enter' });
     expect(onChange).not.toHaveBeenCalled();
   });
 
