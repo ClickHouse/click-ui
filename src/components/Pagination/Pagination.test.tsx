@@ -208,30 +208,25 @@ describe('Pagination', () => {
     });
   });
 
-  it('keeps the page input editable by default', () => {
-    const { getByDisplayValue } = renderPagination({
+  it('shows the page number as an input by default', () => {
+    const { getByRole } = renderPagination({
       currentPage: 2,
       totalPages: 5,
       onChange,
     });
-    expect(getByDisplayValue('2')).not.toHaveAttribute('readonly');
+    expect(getByRole('spinbutton')).toHaveValue(2);
   });
 
-  it('ignores typing in the page input when readOnlyPageNumber is set', async () => {
-    const onChange = vi.fn();
-    const { getByDisplayValue } = renderPagination({
+  it('shows the page number as text when readOnlyPageNumber is set', () => {
+    const { queryByRole, getByText } = renderPagination({
       currentPage: 2,
       totalPages: 5,
       onChange,
       readOnlyPageNumber: true,
     });
-    const pageInput = getByDisplayValue('2');
-    expect(pageInput).toHaveAttribute('readonly');
-
-    await userEvent.type(pageInput, '4');
-
-    expect(onChange).not.toHaveBeenCalled();
-    expect(pageInput).toHaveValue(2);
+    expect(queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(getByText('2')).toBeInTheDocument();
+    expect(getByText('of 5')).toBeInTheDocument();
   });
 
   it('changes the page with the buttons when readOnlyPageNumber is set', async () => {

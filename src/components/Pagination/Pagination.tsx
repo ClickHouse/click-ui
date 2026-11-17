@@ -119,25 +119,33 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        <Container
-          maxWidth="50px"
-          fillWidth={false}
-        >
-          <NumberField
-            ref={inputRef}
-            onChange={onChange}
-            value={currentPage}
-            loading={false}
-            aria-label={currentPage.toString()}
-            min={1}
-            max={totalPages}
-            onFocus={onPageNumberFocus}
-            hideControls
-            onBlur={onPageNumberBlur}
-            readOnly={readOnlyPageNumber}
-            disabled={leftButtonDisabled && rightButtonDisabled}
-          />
-        </Container>
+        {readOnlyPageNumber ? (
+          <Text
+            component="div"
+            size="sm"
+          >
+            {formatNumber(currentPage)}
+          </Text>
+        ) : (
+          <Container
+            maxWidth="50px"
+            fillWidth={false}
+          >
+            <NumberField
+              ref={inputRef}
+              onChange={onChange}
+              value={currentPage}
+              loading={false}
+              aria-label={currentPage.toString()}
+              min={1}
+              max={totalPages}
+              onFocus={onPageNumberFocus}
+              hideControls
+              onBlur={onPageNumberBlur}
+              disabled={leftButtonDisabled && rightButtonDisabled}
+            />
+          </Container>
+        )}
         {!!totalPages && (
           <Text
             component="div"
