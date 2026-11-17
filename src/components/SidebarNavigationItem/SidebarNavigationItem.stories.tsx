@@ -1,4 +1,5 @@
 import { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import { SidebarNavigationItem } from '@/components/SidebarNavigationItem';
 
 const harness: Decorator = Story => (
@@ -88,5 +89,36 @@ export const SqlSidebarItemSelected: Story = {
     icon: 'table',
     selected: true,
     label: <a href="#">Tables</a>,
+  },
+};
+
+// asChild: the link itself is the item, so it gets aria-current and aria-disabled
+export const AsChildSelected: Story = {
+  args: {
+    asChild: true,
+    selected: true,
+    icon: 'table',
+    children: <a href="#">Tables</a>,
+  },
+};
+
+export const AsChildFocusVisible: Story = {
+  args: { asChild: true, icon: 'table', children: <a href="#">Tables</a> },
+  parameters: { pseudo: { focusVisible: true } },
+};
+
+export const AsChildDisabled: Story = {
+  args: {
+    asChild: true,
+    disabled: true,
+    icon: 'table',
+    children: <a href="#">Tables</a>,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    const link = canvas.getByRole('link', { name: 'Tables' });
+    await expect(link).not.toHaveFocus();
+    await expect(link).toHaveAttribute('aria-disabled', 'true');
   },
 };
