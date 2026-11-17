@@ -217,25 +217,25 @@ describe('Pagination', () => {
     expect(getByRole('spinbutton')).toHaveValue(2);
   });
 
-  it('shows the page number as text when readOnlyPageNumber is set', () => {
+  it('shows the page number as text when pageNumberMode is text', () => {
     const { queryByRole, getByText } = renderPagination({
       currentPage: 2,
       totalPages: 5,
       onChange,
-      readOnlyPageNumber: true,
+      pageNumberMode: 'text',
     });
     expect(queryByRole('spinbutton')).not.toBeInTheDocument();
     expect(getByText('2')).toBeInTheDocument();
     expect(getByText('of 5')).toBeInTheDocument();
   });
 
-  it('changes the page with the buttons when readOnlyPageNumber is set', async () => {
+  it('changes the page with the buttons when pageNumberMode is text', async () => {
     const onChange = vi.fn();
     const { getByTestId } = renderPagination({
       currentPage: 2,
       totalPages: 5,
       onChange,
-      readOnlyPageNumber: true,
+      pageNumberMode: 'text',
     });
 
     await userEvent.click(getByTestId('next-btn'));

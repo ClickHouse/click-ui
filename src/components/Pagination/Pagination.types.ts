@@ -1,6 +1,8 @@
 import { FocusEventHandler, MouseEventHandler } from 'react';
 import type { ContainerProps } from '@/components/Container';
 
+export type PaginationPageNumberMode = 'input' | 'text';
+
 export interface PaginationProps extends Omit<
   ContainerProps<'div'>,
   'children' | 'onChange'
@@ -22,6 +24,6 @@ export interface PaginationProps extends Omit<
   disableNextButton?: boolean;
   /** Adds an "All rows" option to the rows-per-page select. */
   allowAllRows?: boolean;
-  /** Shows the page number as text instead of an input, so the page changes only through the previous and next buttons. */
-  readOnlyPageNumber?: boolean;
+  /** `text` shows the page number as text, so the page changes only through the previous and next buttons. Defaults to `input`. */
+  pageNumberMode?: PaginationPageNumberMode;
 }

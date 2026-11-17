@@ -82,11 +82,11 @@ export const Full: Story = {
   },
 };
 
-export const ReadOnlyPageNumber: Story = {
+export const TextPageNumber: Story = {
   args: {
     currentPage: 3,
     totalPages: 10,
-    readOnlyPageNumber: true,
+    pageNumberMode: 'text',
     onChange: noop,
   },
 };

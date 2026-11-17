@@ -24,7 +24,7 @@ export const Pagination = ({
   onPageNumberBlur,
   disableNextButton,
   allowAllRows = true,
-  readOnlyPageNumber = false,
+  pageNumberMode = 'input',
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ['number', 'string'].includes(typeof rowCount);
@@ -119,7 +119,7 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        {readOnlyPageNumber ? (
+        {pageNumberMode === 'text' ? (
           <Text
             component="div"
             size="sm"
