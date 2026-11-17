@@ -65,4 +65,22 @@ describe('Icon', () => {
     const { getByRole } = renderIcon('share-arrow');
     expect(getByRole('img')).toHaveAttribute('aria-label', 'share');
   });
+
+  // Regression (CUI inline-nesting fix): an icon is inline content, so its
+  // wrapper must be phrasing content. A block <div> wrapper was invalid inside
+  // <p>/<a> and triggered React's validateDOMNesting console.error. Rendering
+  // the icon inside a <p> must stay warning-free; asserting the wrapper's tag
+  // pins the mechanism so a revert to <div> is caught here, not downstream.
+  it('uses an inline-valid span wrapper (no DOM-nesting warning inside a <p>)', () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const { getByRole } = renderCUI(
+      <p>
+        <Icon name="share" />
+      </p>
+    );
+
+    expect(getByRole('img').parentElement?.tagName).toBe('SPAN');
+    expect(error).not.toHaveBeenCalled();
+    error.mockRestore();
+  });
 });
