@@ -82,6 +82,15 @@ export const Full: Story = {
   },
 };
 
+export const ReadOnlyPageNumber: Story = {
+  args: {
+    currentPage: 3,
+    totalPages: 10,
+    readOnlyPageNumber: true,
+    onChange: noop,
+  },
+};
+
 export const FirstPage: Story = {
   args: {
     currentPage: 1,

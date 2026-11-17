@@ -2,6 +2,7 @@ import { renderCUI } from '@/utils/test-utils';
 import { Pagination } from '@/components/Pagination';
 import type { PaginationProps } from '@/components/Pagination';
 import { fireEvent } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 
 describe('Pagination', () => {
   const onChange = vi.fn();
@@ -205,5 +206,47 @@ describe('Pagination', () => {
       fireEvent.click(getByText('500 rows'));
       expect(onPageSizeChange).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('keeps the page input editable by default', () => {
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+    });
+    expect(getByDisplayValue('2')).not.toHaveAttribute('readonly');
+  });
+
+  it('ignores typing in the page input when readOnlyPageNumber is set', async () => {
+    const onChange = vi.fn();
+    const { getByDisplayValue } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+      readOnlyPageNumber: true,
+    });
+    const pageInput = getByDisplayValue('2');
+    expect(pageInput).toHaveAttribute('readonly');
+
+    await userEvent.type(pageInput, '4');
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(pageInput).toHaveValue(2);
+  });
+
+  it('changes the page with the buttons when readOnlyPageNumber is set', async () => {
+    const onChange = vi.fn();
+    const { getByTestId } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+      readOnlyPageNumber: true,
+    });
+
+    await userEvent.click(getByTestId('next-btn'));
+    await userEvent.click(getByTestId('prev-btn'));
+
+    expect(onChange).toHaveBeenNthCalledWith(1, 3);
+    expect(onChange).toHaveBeenNthCalledWith(2, 1);
   });
 });

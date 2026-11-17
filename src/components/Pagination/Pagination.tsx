@@ -24,6 +24,7 @@ export const Pagination = ({
   onPageNumberBlur,
   disableNextButton,
   allowAllRows = true,
+  readOnlyPageNumber = false,
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ['number', 'string'].includes(typeof rowCount);
@@ -133,6 +134,7 @@ export const Pagination = ({
             onFocus={onPageNumberFocus}
             hideControls
             onBlur={onPageNumberBlur}
+            readOnly={readOnlyPageNumber}
             disabled={leftButtonDisabled && rightButtonDisabled}
           />
         </Container>

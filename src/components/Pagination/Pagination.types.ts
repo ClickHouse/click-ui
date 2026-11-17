@@ -22,4 +22,6 @@ export interface PaginationProps extends Omit<
   disableNextButton?: boolean;
   /** Adds an "All rows" option to the rows-per-page select. */
   allowAllRows?: boolean;
+  /** Makes the page number read-only, so the page changes only through the previous and next buttons. */
+  readOnlyPageNumber?: boolean;
 }
