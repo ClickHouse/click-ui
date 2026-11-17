@@ -1,4 +1,6 @@
+import { createRef } from 'react';
 import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { SidebarNavigationItem } from '@/components/SidebarNavigationItem';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -59,7 +61,30 @@ describe('SidebarNavigationItem', () => {
       );
     });
 
-    it('disables the link and cancels its navigation', () => {
+    it('moves Tab focus to the link', async () => {
+      const { getByRole } = renderCUI(
+        <SidebarNavigationItem asChild>
+          <a href="/tables">Tables</a>
+        </SidebarNavigationItem>
+      );
+      await userEvent.tab();
+      expect(getByRole('link', { name: 'Tables' })).toHaveFocus();
+    });
+
+    it('forwards the ref to the link', () => {
+      const ref = createRef<HTMLDivElement>();
+      renderCUI(
+        <SidebarNavigationItem
+          asChild
+          ref={ref}
+        >
+          <a href="/tables">Tables</a>
+        </SidebarNavigationItem>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+    });
+
+    it('disables the link and cancels its navigation', async () => {
       const onClick = vi.fn();
       const { getByRole } = renderCUI(
         <SidebarNavigationItem
@@ -72,7 +97,8 @@ describe('SidebarNavigationItem', () => {
       );
       const link = getByRole('link', { name: 'Tables' });
       expect(link).toHaveAttribute('aria-disabled', 'true');
-      expect(link).toHaveAttribute('tabindex', '-1');
+      await userEvent.tab();
+      expect(link).not.toHaveFocus();
       expect(fireEvent.click(link)).toBe(false);
       expect(onClick).not.toHaveBeenCalled();
     });

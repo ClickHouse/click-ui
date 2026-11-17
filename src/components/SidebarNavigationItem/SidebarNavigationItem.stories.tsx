@@ -1,5 +1,4 @@
 import { Decorator, Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
 import { SidebarNavigationItem } from '@/components/SidebarNavigationItem';
 
 const harness: Decorator = Story => (
@@ -102,9 +101,8 @@ export const AsChildSelected: Story = {
   },
 };
 
-export const AsChildFocusVisible: Story = {
+export const AsChild: Story = {
   args: { asChild: true, icon: 'table', children: <a href="#">Tables</a> },
-  parameters: { pseudo: { focusVisible: true } },
 };
 
 export const AsChildDisabled: Story = {
@@ -113,12 +111,5 @@ export const AsChildDisabled: Story = {
     disabled: true,
     icon: 'table',
     children: <a href="#">Tables</a>,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.tab();
-    const link = canvas.getByRole('link', { name: 'Tables' });
-    await expect(link).not.toHaveFocus();
-    await expect(link).toHaveAttribute('aria-disabled', 'true');
   },
 };
