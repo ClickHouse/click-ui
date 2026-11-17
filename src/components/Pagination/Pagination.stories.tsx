@@ -88,6 +88,8 @@ export const EditPageNumber: Story = {
     currentPage: 3,
     totalPages: 10,
     onChange: fn(),
+    onPageNumberFocus: fn(),
+    onPageNumberBlur: fn(),
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
