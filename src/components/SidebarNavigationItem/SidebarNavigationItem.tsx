@@ -134,7 +134,8 @@ const SidebarNavigationLink = forwardRef<
               iconDir={iconDir}
               iconHidden
             >
-              {linkContent}
+              {/* The ellipsis rule only targets element children, not bare text. */}
+              <span>{linkContent}</span>
             </IconWrapper>
           )}
         </Slottable>
