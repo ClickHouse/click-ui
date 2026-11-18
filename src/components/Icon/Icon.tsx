@@ -65,12 +65,12 @@ const SVGIcon = ({
   }
 
   return (
-    <div
+    <span
       className={cn(svgWrapperVariants({ size, state }), className)}
       style={wrapperStyle}
     >
       <Component {...props} />
-    </div>
+    </span>
   );
 };
 
