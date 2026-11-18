@@ -21,7 +21,7 @@ on:
         required: true
         type: string
       branch:
-        description: 'Branch to deploy from'
+        description: 'Branch to deploy from. Releases are built from main only.'
         required: false
         default: 'main'
         type: string
@@ -49,6 +49,19 @@ jobs:
       npm_tag: ${{ steps.resolve.outputs.npm_tag }}
       sha: ${{ steps.resolve.outputs.sha }}
     steps:
+      # The automation environment admits a run from main, then publish checks out this branch and
+      # runs its scripts with the App token. Only main may get there.
+      - name: Guard - release from main only
+        if: env.PUBLISH_MODE == 'release'
+        shell: bash
+        env:
+          SOURCE_BRANCH: ${{ github.event_name == 'workflow_dispatch' && inputs.branch || github.event.release.target_commitish }}
+        run: |
+          reject() { echo "$1" >&2; printf '## Release rejected\n\n%s\n' "$1" >> "$GITHUB_STEP_SUMMARY"; exit 1; }
+
+          if [[ "$SOURCE_BRANCH" != "main" ]]; then
+            reject "❌ Error: releases are built from main, not '$SOURCE_BRANCH'"
+          fi
       - name: Checkout repository
         if: env.PUBLISH_MODE == 'release'
         uses: actions/checkout@v7
@@ -215,7 +228,7 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          app-id: ${{ vars.CLICK_UI_AUTOMATION_APP_ID }}
+          client-id: ${{ vars.CLICK_UI_AUTOMATION_CLIENT_ID }}
           private-key: ${{ secrets.CLICK_UI_AUTOMATION_PRIVATE_KEY }}
           owner: ClickHouse
           repositories: click-ui
