@@ -13,6 +13,7 @@ const variants = [
   { story: 'with-row-count', name: 'with-row-count' },
   { story: 'with-page-sizes', name: 'with-page-sizes' },
   { story: 'full', name: 'full' },
+  { story: 'text-page-number', name: 'text-page-number' },
   { story: 'first-page', name: 'first-page' },
   { story: 'last-page', name: 'last-page' },
 ] as const;
