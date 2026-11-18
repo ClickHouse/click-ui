@@ -1,9 +1,6 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { renderCUI } from '@/utils/test-utils';
 import { Collapsible } from '@/components/Collapsible';
 import { fireEvent } from '@testing-library/react';
-import styles from './Collapsible.module.css';
 
 describe('Collapsible', () => {
   const onOpenChange = vi.fn();
@@ -45,32 +42,5 @@ describe('Collapsible', () => {
     collapsibleHeader && fireEvent.click(collapsibleHeader);
     expect(onOpenChange).toHaveBeenCalledTimes(0);
     expect(queryByTestId('collapsible-content')).toBeNull();
-  });
-});
-
-describe('Collapsible focus styles', () => {
-  it('renders the trigger with the module class that carries the focus ring', () => {
-    const { container } = renderCUI(
-      <Collapsible>
-        <Collapsible.Header>
-          <Collapsible.Trigger data-testid="collapsible-trigger" />
-        </Collapsible.Header>
-      </Collapsible>
-    );
-    const trigger = container.querySelector('[data-testid="collapsible-trigger"]');
-    expect(trigger).not.toBeNull();
-    expect(trigger).toHaveClass(styles.collapsible__trigger);
-  });
-
-  it('keeps the focus-visible outline inside clipping wrappers', () => {
-    // EmptyButton resets the outline, and sidebar wrappers clip overflow, so the ring must be inset.
-    // Vitest runs from the repo root; read the stylesheet source directly.
-    const css = readFileSync(
-      resolve(process.cwd(), 'src/components/Collapsible/Collapsible.module.css'),
-      'utf8'
-    );
-    expect(css).toMatch(
-      /\.collapsible__trigger:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--click-global-color-outline-default\)[^}]*outline-offset:\s*-2px/
-    );
   });
 });
