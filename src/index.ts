@@ -192,7 +192,7 @@ export type { SidebarNavigationTitleProps } from './components/SidebarNavigation
 
 // Pagination
 export { Pagination } from './components/Pagination';
-export type { PaginationProps } from './components/Pagination';
+export type { PaginationPageNumberMode, PaginationProps } from './components/Pagination';
 
 // Panel
 export { Panel } from './components/Panel';
