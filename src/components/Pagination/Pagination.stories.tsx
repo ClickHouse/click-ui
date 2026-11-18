@@ -82,6 +82,15 @@ export const Full: Story = {
   },
 };
 
+export const TextPageNumber: Story = {
+  args: {
+    currentPage: 3,
+    totalPages: 10,
+    pageNumberMode: 'text',
+    onChange: noop,
+  },
+};
+
 export const FirstPage: Story = {
   args: {
     currentPage: 1,

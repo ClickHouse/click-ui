@@ -4,6 +4,7 @@ import { IconButton } from '@/components/IconButton';
 import { NumberField } from '@/components/NumberField';
 import { Select } from '@/components/Select';
 import { Text } from '@/components/Text';
+import visuallyHiddenStyles from '@/styles/visually-hidden.module.css';
 import type { PaginationProps } from './Pagination.types';
 import styles from './Pagination.module.css';
 
@@ -24,6 +25,7 @@ export const Pagination = ({
   onPageNumberBlur,
   disableNextButton,
   allowAllRows = true,
+  pageNumberMode = 'input',
   ...props
 }: PaginationProps): ReactElement => {
   const hasRowCount = ['number', 'string'].includes(typeof rowCount);
@@ -118,24 +120,34 @@ export const Pagination = ({
           onClick={onPrevClick}
           data-testid="prev-btn"
         />
-        <Container
-          maxWidth="50px"
-          fillWidth={false}
-        >
-          <NumberField
-            ref={inputRef}
-            onChange={onChange}
-            value={currentPage}
-            loading={false}
-            aria-label={currentPage.toString()}
-            min={1}
-            max={totalPages}
-            onFocus={onPageNumberFocus}
-            hideControls
-            onBlur={onPageNumberBlur}
-            disabled={leftButtonDisabled && rightButtonDisabled}
-          />
-        </Container>
+        {pageNumberMode === 'text' ? (
+          <Text
+            component="div"
+            size="sm"
+          >
+            <span className={visuallyHiddenStyles['sr-only']}>Page </span>
+            {formatNumber(currentPage)}
+          </Text>
+        ) : (
+          <Container
+            maxWidth="50px"
+            fillWidth={false}
+          >
+            <NumberField
+              ref={inputRef}
+              onChange={onChange}
+              value={currentPage}
+              loading={false}
+              aria-label={currentPage.toString()}
+              min={1}
+              max={totalPages}
+              onFocus={onPageNumberFocus}
+              hideControls
+              onBlur={onPageNumberBlur}
+              disabled={leftButtonDisabled && rightButtonDisabled}
+            />
+          </Container>
+        )}
         {!!totalPages && (
           <Text
             component="div"
