@@ -18,6 +18,24 @@ describe('DateTimeRangePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('puts the data-testid on the trigger that opens the calendar', async () => {
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DateTimeRangePicker
+        data-testid="start-date-picker"
+        onSelectDateRange={vi.fn()}
+      />
+    );
+
+    const trigger = getByTestId('start-date-picker');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(trigger);
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   it('sets the value of the DatePicker input start date to the start date passed in', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');
@@ -1146,6 +1164,29 @@ describe('DateTimeRangePicker', () => {
       await userEvent.click(getByTestId('datetimepicker-input'));
 
       expect(queryByTestId('predefined-times-list')).not.toBeInTheDocument();
+    });
+
+    it('accepts a readonly predefinedTimesList', async () => {
+      const predefinedTimesList = [
+        {
+          dateRange: {
+            startDate: new Date('06-27-2020 11:30 AM'),
+            endDate: new Date('07-04-2020 11:30 AM'),
+          },
+          label: 'Past week',
+        },
+      ] as const;
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateTimeRangePicker
+          onSelectDateRange={vi.fn()}
+          predefinedTimesList={predefinedTimesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('datetimepicker-input'));
+
+      expect(getByText('Past week')).toBeInTheDocument();
     });
 
     it('allows showing the full calendar', async () => {

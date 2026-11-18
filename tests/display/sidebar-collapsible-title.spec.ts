@@ -22,9 +22,12 @@ describe('SidebarCollapsibleTitle Visual Regression', () => {
         });
         const harness = page.locator(harnessLocator);
         await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot(`sidebar-collapsible-title-${name}-light.png`, {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          `sidebar-collapsible-title-${name}-light.png`,
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     }
   });
@@ -39,9 +42,12 @@ describe('SidebarCollapsibleTitle Visual Regression', () => {
         });
         const harness = page.locator(harnessLocator);
         await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot(`sidebar-collapsible-title-${name}-dark.png`, {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          `sidebar-collapsible-title-${name}-dark.png`,
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     }
   });

@@ -14,11 +14,14 @@ interface Props extends Omit<SelectProps, 'children' | 'label'> {
 describe('Select', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const renderSelect = (props: Props) => {
     if (props.options) {
@@ -117,7 +120,7 @@ describe('Select', () => {
     act(() => {
       getByText('Content3').click();
     });
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
     expect(queryByText('Content4')).toBeNull();
     expect(queryByTestingText(selectTrigger, 'Content3')).toBeNull();
     expect(queryByTestingText(selectTrigger, 'Content0')).not.toBeNull();
@@ -184,6 +187,19 @@ describe('Select', () => {
     item && fireEvent.click(item);
     expect(item).not.toBeNull();
     expect(getByTestId('select-trigger')).toHaveTextContent('Content0');
+  });
+
+  it('accepts readonly options', () => {
+    const options = [
+      { heading: 'Group label', options: [{ label: 'Content0', value: 'content0' }] },
+      { label: 'Content1', value: 'content1' },
+    ] as const;
+    const { queryByText } = renderSelect({ options });
+    const selectTrigger = queryByText('Select an option');
+    selectTrigger && fireEvent.click(selectTrigger);
+
+    expect(queryByText('Content0')).not.toBeNull();
+    expect(queryByText('Content1')).not.toBeNull();
   });
 
   it('should render initially selected option with empty value', () => {
@@ -377,7 +393,7 @@ describe('Select', () => {
       const btn = queryByText(/No Field found/i);
       expect(btn).not.toBeNull();
       btn && fireEvent.click(btn);
-      expect(onClick).toBeCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
       expect(btn).not.toBeVisible();
     });
 

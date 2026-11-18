@@ -106,7 +106,7 @@ const textVariants = cva(styles.text, {
   },
 });
 
-const _Text = <T extends ElementType = 'p'>(
+const TextRender = <T extends ElementType = 'p'>(
   {
     align,
     color,
@@ -136,6 +136,6 @@ const _Text = <T extends ElementType = 'p'>(
   );
 };
 
-_Text.displayName = 'Text';
+TextRender.displayName = 'Text';
 
-export const Text: TextPolymorphicComponent = forwardRef(_Text);
+export const Text: TextPolymorphicComponent = forwardRef(TextRender);

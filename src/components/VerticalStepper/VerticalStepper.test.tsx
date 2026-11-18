@@ -107,7 +107,7 @@ describe('VerticalStepper', () => {
 
     expect(queryAllByTestId('stepper-4')).toHaveLength(1);
     fireEvent.click(getByTestId('stepper-4'));
-    expect(label4Click).not.toBeCalled();
+    expect(label4Click).not.toHaveBeenCalled();
   });
 
   test('complete step is clickable', () => {
@@ -118,7 +118,7 @@ describe('VerticalStepper', () => {
 
     expect(queryAllByTestId('stepper-1')).toHaveLength(1);
     fireEvent.click(getByTestId('stepper-1'));
-    expect(label1Click).toBeCalled();
+    expect(label1Click).toHaveBeenCalled();
   });
 
   test('show items with collapsible false ', () => {

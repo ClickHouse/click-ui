@@ -58,4 +58,20 @@ describe('Toast', () => {
     expect(screen.getByText('Modal body')).toBeTruthy();
     expect(isHiddenFromAccessibilityTree(toast)).toBe(false);
   });
+
+  it('accepts readonly actions', () => {
+    const actions = [{ label: 'Undo', altText: 'Undo the change' }] as const;
+    const ActionsTrigger = () => {
+      const { createToast } = useToast();
+      return (
+        <button onClick={() => createToast({ title: 'Toast title', actions })}>
+          Make toast
+        </button>
+      );
+    };
+    renderCUI(<ActionsTrigger />);
+    openToast();
+
+    expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
+  });
 });

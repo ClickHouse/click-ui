@@ -1,18 +1,18 @@
-import type { Preview } from "@storybook/react-vite";
-import { themes } from "storybook/theming";
-import { withTheme } from "./withThemeDecorator";
+import type { Preview } from '@storybook/react-vite';
+import { themes } from 'storybook/theming';
+import { withTheme } from './withThemeDecorator';
 
 export const globalTypes = {
   theme: {
-    name: "Theme",
-    description: "Global theme for components",
-    defaultValue: "system",
+    name: 'Theme',
+    description: 'Global theme for components',
+    defaultValue: 'system',
     toolbar: {
-      icon: "circlehollow",
+      icon: 'circlehollow',
       items: [
-        { value: "system", icon: "browser", title: "system" },
-        { value: "dark", icon: "moon", title: "dark" },
-        { value: "light", icon: "sun", title: "light" },
+        { value: 'system', icon: 'browser', title: 'system' },
+        { value: 'dark', icon: 'moon', title: 'dark' },
+        { value: 'light', icon: 'sun', title: 'light' },
       ],
       showName: true,
     },
@@ -23,22 +23,22 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        method: "alphabetical",
+        method: 'alphabetical',
         order: [
-          "Introduction",
-          "Buttons",
-          "Cards",
-          "Layout",
-          "Forms",
-          "Display",
-          "Sidebar",
-          "Typography",
-          "Colors",
-          ["Title", "Text", "Link"],
+          'Introduction',
+          'Buttons',
+          'Cards',
+          'Layout',
+          'Forms',
+          'Display',
+          'Sidebar',
+          'Typography',
+          'Colors',
+          ['Title', 'Text', 'Link'],
         ],
       },
     },
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,

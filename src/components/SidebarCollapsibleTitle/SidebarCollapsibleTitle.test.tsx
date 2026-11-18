@@ -19,7 +19,7 @@ describe('SidebarCollapsibleTitle', () => {
     expect(collapsibleHeader).not.toBeNull();
     expect(queryByTestId('collapsible-content')).toBeNull();
     collapsibleHeader && fireEvent.click(collapsibleHeader);
-    expect(onOpenChange).toBeCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
     expect(queryByTestId('collapsible-content')).not.toBeNull();
   });
 });

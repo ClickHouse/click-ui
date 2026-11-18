@@ -82,6 +82,7 @@ import Tableau from '../Tableau';
 import Tigerdata from '../Tigerdata';
 import Upstash from '../Upstash';
 import Vector from '../Vector';
+import Vercel from '../Vercel';
 import Warpstream from '../Warpstream';
 import { LogoName } from './types';
 import type { SVGAssetProps } from '@/types';
@@ -165,6 +166,7 @@ const LogosDark: Record<LogoName, ComponentType<SVGAssetProps>> = {
   tigerdata: Tigerdata,
   upstash: Upstash,
   vector: Vector,
+  vercel: Vercel,
   warpstream: Warpstream,
 };
 

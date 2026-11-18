@@ -52,7 +52,7 @@ type SidebarItemWrapperComponent = <T extends ElementType = 'div'>(
     SidebarItemWrapperProps<T>
 ) => ReactNode;
 
-const _SidebarItemWrapper = <T extends ElementType = 'div'>(
+const SidebarItemWrapperRender = <T extends ElementType = 'div'>(
   {
     as,
     $collapsible = false,
@@ -81,8 +81,9 @@ const _SidebarItemWrapper = <T extends ElementType = 'div'>(
   );
 };
 
-export const SidebarItemWrapper: SidebarItemWrapperComponent =
-  forwardRef(_SidebarItemWrapper);
+export const SidebarItemWrapper: SidebarItemWrapperComponent = forwardRef(
+  SidebarItemWrapperRender
+);
 
 const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
   (

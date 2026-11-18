@@ -83,10 +83,9 @@ describe('GridContainer Visual Regression', () => {
 
     it('not-responsive-no-template at md matches snapshot', async ({ page }) => {
       await page.setViewportSize(NARROW_VIEWPORT);
-      await page.goto(
-        getStoryUrl('layout-gridcontainer--not-responsive-no-template'),
-        { waitUntil: 'networkidle' }
-      );
+      await page.goto(getStoryUrl('layout-gridcontainer--not-responsive-no-template'), {
+        waitUntil: 'networkidle',
+      });
       const gridContainer = page.locator(gridContainerLocator).first();
       await expect(gridContainer).toBeVisible({ timeout: 10000 });
       await expect(gridContainer).toHaveScreenshot(

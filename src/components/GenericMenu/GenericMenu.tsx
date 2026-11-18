@@ -29,7 +29,7 @@ type GenericMenuPanelComponent = <T extends ElementType = 'div'>(
     GenericMenuPanelOwnProps & { as?: T }
 ) => ReactNode;
 
-const _GenericMenuPanel = <T extends ElementType = 'div'>(
+const GenericMenuPanelRender = <T extends ElementType = 'div'>(
   {
     as,
     type,
@@ -50,7 +50,8 @@ const _GenericMenuPanel = <T extends ElementType = 'div'>(
   );
 };
 
-export const GenericMenuPanel: GenericMenuPanelComponent = forwardRef(_GenericMenuPanel);
+export const GenericMenuPanel: GenericMenuPanelComponent =
+  forwardRef(GenericMenuPanelRender);
 
 const popoverPanelVariants = cva(styles['generic-popover-menu-panel'], {
   variants: {
@@ -78,7 +79,7 @@ type GenericPopoverMenuPanelComponent = <T extends ElementType = 'div'>(
     GenericPopoverMenuPanelOwnProps & { as?: T }
 ) => ReactNode;
 
-const _GenericPopoverMenuPanel = <T extends ElementType = 'div'>(
+const GenericPopoverMenuPanelRender = <T extends ElementType = 'div'>(
   {
     as,
     type,
@@ -100,14 +101,14 @@ const _GenericPopoverMenuPanel = <T extends ElementType = 'div'>(
 };
 
 export const GenericPopoverMenuPanel: GenericPopoverMenuPanelComponent = forwardRef(
-  _GenericPopoverMenuPanel
+  GenericPopoverMenuPanelRender
 );
 
 type ArrowComponent = <T extends ElementType = 'svg'>(
   props: Omit<ComponentPropsWithRef<T>, 'as'> & { as?: T }
 ) => ReactNode;
 
-const _Arrow = <T extends ElementType = 'svg'>(
+const ArrowRender = <T extends ElementType = 'svg'>(
   { as, className, ...props }: Omit<ComponentPropsWithRef<T>, 'as'> & { as?: T },
   ref: ComponentPropsWithRef<T>['ref']
 ) => {
@@ -121,7 +122,7 @@ const _Arrow = <T extends ElementType = 'svg'>(
   );
 };
 
-export const Arrow: ArrowComponent = forwardRef(_Arrow);
+export const Arrow: ArrowComponent = forwardRef(ArrowRender);
 
 const itemVariants = cva(styles['generic-menu-item'], {
   variants: {
@@ -144,7 +145,7 @@ type GenericMenuItemComponent = <T extends ElementType = 'div'>(
     GenericMenuItemOwnProps & { as?: T }
 ) => ReactNode;
 
-const _GenericMenuItem = <T extends ElementType = 'div'>(
+const GenericMenuItemRender = <T extends ElementType = 'div'>(
   {
     as,
     type = 'default',
@@ -164,4 +165,5 @@ const _GenericMenuItem = <T extends ElementType = 'div'>(
   );
 };
 
-export const GenericMenuItem: GenericMenuItemComponent = forwardRef(_GenericMenuItem);
+export const GenericMenuItem: GenericMenuItemComponent =
+  forwardRef(GenericMenuItemRender);

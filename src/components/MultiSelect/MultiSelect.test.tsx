@@ -2,7 +2,9 @@ import {
   act,
   fireEvent,
   queryByText as queryByTestingText,
+  within,
 } from '@testing-library/react';
+import Sortable from 'sortablejs';
 import { MultiSelect } from '@/components/MultiSelect/MultiSelect';
 import type { MultiSelectProps } from '@/components/MultiSelect';
 import { ReactNode } from 'react';
@@ -16,11 +18,14 @@ interface Props extends Omit<MultiSelectProps, 'children' | 'label'> {
 describe('MultiSelect', () => {
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   const renderSelect = (props: Props) => {
     if (props.options) {
@@ -84,7 +89,7 @@ describe('MultiSelect', () => {
     act(() => {
       getByText('Content3').click();
     });
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
     expect(queryByTestingText(selectTrigger, 'Content3')).toBeNull();
   });
 
@@ -214,6 +219,47 @@ describe('MultiSelect', () => {
     expect(getByTestId('select-trigger')).toHaveTextContent('Content0');
   });
 
+  it('accepts readonly options and value', () => {
+    const onSelect = vi.fn();
+    const options = [
+      { heading: 'Group label', options: [{ label: 'Content0', value: 'content0' }] },
+      { label: 'Content1', value: 'content1' },
+    ] as const;
+    const value = ['content0'] as const;
+    const { getByTestId, getByText } = renderSelect({ options, value, onSelect });
+    fireEvent.click(getByTestId('select-trigger'));
+    fireEvent.click(getByText('Content1'));
+
+    expect(onSelect).toHaveBeenCalledWith(['content0', 'content1'], undefined, undefined);
+  });
+
+  it('reorders chips into a new array and leaves the value prop untouched', () => {
+    const onSelect = vi.fn();
+    const value = Object.freeze(['content0', 'content1', 'content3'] as const);
+    const { getByTestId } = renderSelect({ value, onSelect, sortable: true });
+
+    // jsdom can't run a SortableJS drag, so call the onEnd handler react-sortablejs registers.
+    let list: HTMLElement | null = within(getByTestId('select-trigger')).getByText(
+      'Content0'
+    );
+    while (list && !Sortable.get(list)) {
+      list = list.parentElement;
+    }
+    const onEnd = list ? Sortable.get(list)?.option('onEnd') : undefined;
+    expect(onEnd).toBeTypeOf('function');
+
+    act(() => {
+      onEnd?.({ oldDraggableIndex: 0, newDraggableIndex: 2 } as Sortable.SortableEvent);
+    });
+
+    expect(onSelect).toHaveBeenCalledWith(
+      ['content3', 'content1', 'content0'],
+      undefined,
+      undefined
+    );
+    expect(onSelect.mock.calls[0][0]).not.toBe(value);
+  });
+
   describe('onSearch enabled', () => {
     it('on open show all options', () => {
       const { queryByText } = renderSelect({
@@ -339,7 +385,7 @@ describe('MultiSelect', () => {
       const btn = queryByText(/No Field found/i);
       expect(btn).not.toBeNull();
       btn && fireEvent.click(btn);
-      expect(onClick).toBeCalledTimes(1);
+      expect(onClick).toHaveBeenCalledTimes(1);
       expect(getByTestId('select-trigger')).toHaveTextContent('nodata');
     });
   });

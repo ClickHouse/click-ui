@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/playwright:v1.64.1-noble
 
 WORKDIR /app
 
-RUN corepack enable && corepack prepare yarn@4.5.3 --activate
+RUN rm -f /usr/bin/yarn /usr/bin/yarnpkg && npm install -g corepack && corepack enable && corepack prepare yarn@4.5.3 --activate
 
 COPY package.json yarn.lock .yarnrc.yml ./
 

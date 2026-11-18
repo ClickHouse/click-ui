@@ -18,11 +18,11 @@ type MenuGroup = {
   iconDir?: never;
   label?: never;
   type: 'group';
-  items: Array<MenuItem | SubMenu>;
+  items: readonly (MenuItem | SubMenu)[];
 };
 
 type SubMenu = Omit<MenuItem, 'type' | 'items'> & {
-  items: Array<MenuGroup | MenuItem>;
+  items: readonly (MenuGroup | MenuItem)[];
   type: 'sub-menu';
 };
 
@@ -38,8 +38,10 @@ export interface SplitButtonProps
   htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   disabled?: boolean;
   fillWidth?: boolean;
-  menu: Array<Menu>;
+  menu: readonly Menu[];
   side?: 'top' | 'bottom';
   icon?: IconName;
   iconDir?: HorizontalDirection;
+  /** Accessible name of the button that opens the menu. Defaults to `More options`. */
+  menuLabel?: string;
 }

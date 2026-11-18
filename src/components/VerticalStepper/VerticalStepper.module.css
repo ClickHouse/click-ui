@@ -30,12 +30,8 @@
     --click-stepper-vertical-numbered-content-space-bottom-active
   );
   --step-connector-top: var(--click-stepper-vertical-numbered-step-size-height);
-  --step-connector-left: calc(
-    var(--click-stepper-vertical-numbered-step-size-width) / 2
-  );
-  --step-connector-width: var(
-    --click-stepper-vertical-numbered-connector-size-width
-  );
+  --step-connector-left: calc(var(--click-stepper-vertical-numbered-step-size-width) / 2);
+  --step-connector-width: var(--click-stepper-vertical-numbered-connector-size-width);
   --step-connector-stroke-incomplete: var(
     --click-stepper-vertical-numbered-connector-color-stroke-incomplete
   );
@@ -57,12 +53,8 @@
     --click-stepper-vertical-bulleted-content-space-bottom-active
   );
   --step-connector-top: var(--click-stepper-vertical-bulleted-step-size-height);
-  --step-connector-left: calc(
-    var(--click-stepper-vertical-bulleted-step-size-width) / 2
-  );
-  --step-connector-width: var(
-    --click-stepper-vertical-bulleted-connector-size-width
-  );
+  --step-connector-left: calc(var(--click-stepper-vertical-bulleted-step-size-width) / 2);
+  --step-connector-width: var(--click-stepper-vertical-bulleted-connector-size-width);
   --step-connector-stroke-incomplete: var(
     --click-stepper-vertical-bulleted-connector-color-stroke-incomplete
   );
@@ -87,7 +79,7 @@
 }
 
 .step:not(:last-of-type)::before {
-  content: "";
+  content: '';
   position: absolute;
   top: var(--step-connector-top);
   left: var(--step-connector-left);
@@ -154,18 +146,12 @@
   --bubble-stroke-complete: var(
     --click-stepper-vertical-numbered-step-color-stroke-complete
   );
-  --bubble-stroke-active: var(
-    --click-stepper-vertical-numbered-step-color-stroke-active
-  );
+  --bubble-stroke-active: var(--click-stepper-vertical-numbered-step-color-stroke-active);
   --bubble-icon-incomplete: var(
     --click-stepper-vertical-numbered-step-color-icon-incomplete
   );
-  --bubble-icon-complete: var(
-    --click-stepper-vertical-numbered-step-color-icon-complete
-  );
-  --bubble-icon-active: var(
-    --click-stepper-vertical-numbered-step-color-icon-active
-  );
+  --bubble-icon-complete: var(--click-stepper-vertical-numbered-step-color-icon-complete);
+  --bubble-icon-active: var(--click-stepper-vertical-numbered-step-color-icon-active);
 }
 
 .step__bubble_type_bulleted {
@@ -186,18 +172,12 @@
   --bubble-stroke-complete: var(
     --click-stepper-vertical-bulleted-step-color-stroke-complete
   );
-  --bubble-stroke-active: var(
-    --click-stepper-vertical-bulleted-step-color-stroke-active
-  );
+  --bubble-stroke-active: var(--click-stepper-vertical-bulleted-step-color-stroke-active);
   --bubble-icon-incomplete: var(
     --click-stepper-vertical-bulleted-step-color-icon-incomplete
   );
-  --bubble-icon-complete: var(
-    --click-stepper-vertical-bulleted-step-color-icon-complete
-  );
-  --bubble-icon-active: var(
-    --click-stepper-vertical-bulleted-step-color-icon-active
-  );
+  --bubble-icon-complete: var(--click-stepper-vertical-bulleted-step-color-icon-complete);
+  --bubble-icon-active: var(--click-stepper-vertical-bulleted-step-color-icon-active);
 }
 
 .step__bubble_status_complete {
@@ -221,7 +201,7 @@
 }
 
 .step__bubble_type_bulleted.step__bubble_status_complete::after {
-  content: "";
+  content: '';
   position: absolute;
   box-sizing: content-box;
   width: 50%;
@@ -250,28 +230,16 @@
 
 .step__label_type_numbered {
   --label-font: var(--click-stepper-vertical-numbered-typography-title-default);
-  --label-color-incomplete: var(
-    --click-stepper-vertical-numbered-color-title-incomplete
-  );
-  --label-color-complete: var(
-    --click-stepper-vertical-numbered-color-title-complete
-  );
-  --label-color-active: var(
-    --click-stepper-vertical-numbered-color-title-active
-  );
+  --label-color-incomplete: var(--click-stepper-vertical-numbered-color-title-incomplete);
+  --label-color-complete: var(--click-stepper-vertical-numbered-color-title-complete);
+  --label-color-active: var(--click-stepper-vertical-numbered-color-title-active);
 }
 
 .step__label_type_bulleted {
   --label-font: var(--click-stepper-vertical-bulleted-typography-title-default);
-  --label-color-incomplete: var(
-    --click-stepper-vertical-bulleted-color-title-incomplete
-  );
-  --label-color-complete: var(
-    --click-stepper-vertical-bulleted-color-title-complete
-  );
-  --label-color-active: var(
-    --click-stepper-vertical-bulleted-color-title-active
-  );
+  --label-color-incomplete: var(--click-stepper-vertical-bulleted-color-title-incomplete);
+  --label-color-complete: var(--click-stepper-vertical-bulleted-color-title-complete);
+  --label-color-active: var(--click-stepper-vertical-bulleted-color-title-active);
 }
 
 .step__label_status_complete {
@@ -290,13 +258,9 @@
 }
 
 .step__content_type_numbered {
-  --content-padding-left: var(
-    --click-stepper-vertical-numbered-content-space-left
-  );
+  --content-padding-left: var(--click-stepper-vertical-numbered-content-space-left);
 }
 
 .step__content_type_bulleted {
-  --content-padding-left: var(
-    --click-stepper-vertical-bulleted-content-space-left
-  );
+  --content-padding-left: var(--click-stepper-vertical-bulleted-content-space-left);
 }

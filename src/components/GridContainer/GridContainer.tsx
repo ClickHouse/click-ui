@@ -15,7 +15,7 @@ type GridContainerPolymorphicComponent = <T extends ElementType = 'div'>(
   props: Omit<ComponentProps<T>, keyof GridContainerProps<T>> & GridContainerProps<T>
 ) => ReactNode;
 
-const _GridContainer = <T extends ElementType = 'div'>(
+const GridContainerRender = <T extends ElementType = 'div'>(
   {
     alignItems = 'stretch',
     alignContent = 'stretch',
@@ -50,10 +50,6 @@ const _GridContainer = <T extends ElementType = 'div'>(
 ) => {
   const Component = component ?? 'div';
 
-  // `_GridContainer` is a real component (wrapped by `forwardRef` below); the
-  // rules-of-hooks PascalCase-name heuristic false-positives on our
-  // `_`-prefixed polymorphic-component naming convention.
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const mergedStyle = useMemo(
     () =>
       ({
@@ -154,4 +150,4 @@ const _GridContainer = <T extends ElementType = 'div'>(
 };
 
 export const GridContainer: GridContainerPolymorphicComponent =
-  forwardRef(_GridContainer);
+  forwardRef(GridContainerRender);

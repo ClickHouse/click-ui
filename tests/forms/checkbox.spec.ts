@@ -170,12 +170,9 @@ describe('Checkbox Visual Regression', () => {
         const checkbox = page.locator(checkboxLocator);
         await expect(checkbox).toBeVisible({ timeout: 10000 });
         const wrapper = checkbox.locator('..');
-        await expect(wrapper).toHaveScreenshot(
-          'checkbox-vertical-start-light.png',
-          {
-            maxDiffPixels: 100,
-          }
-        );
+        await expect(wrapper).toHaveScreenshot('checkbox-vertical-start-light.png', {
+          maxDiffPixels: 100,
+        });
       });
 
       it('orientation horizontal with dir start matches snapshot', async ({ page }) => {
@@ -188,12 +185,9 @@ describe('Checkbox Visual Regression', () => {
         const checkbox = page.locator(checkboxLocator);
         await expect(checkbox).toBeVisible({ timeout: 10000 });
         const wrapper = checkbox.locator('..');
-        await expect(wrapper).toHaveScreenshot(
-          'checkbox-horizontal-start-light.png',
-          {
-            maxDiffPixels: 100,
-          }
-        );
+        await expect(wrapper).toHaveScreenshot('checkbox-horizontal-start-light.png', {
+          maxDiffPixels: 100,
+        });
       });
 
       it('without label matches snapshot', async ({ page }) => {

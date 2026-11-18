@@ -26,9 +26,12 @@ describe('SidebarNavigationItem Visual Regression', () => {
         });
         const harness = page.locator(harnessLocator);
         await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot(`sidebar-navigation-item-${name}-light.png`, {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          `sidebar-navigation-item-${name}-light.png`,
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     }
   });
@@ -43,9 +46,12 @@ describe('SidebarNavigationItem Visual Regression', () => {
         });
         const harness = page.locator(harnessLocator);
         await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot(`sidebar-navigation-item-${name}-dark.png`, {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          `sidebar-navigation-item-${name}-dark.png`,
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     }
   });

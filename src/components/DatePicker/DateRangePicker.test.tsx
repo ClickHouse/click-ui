@@ -19,6 +19,24 @@ describe('DateRangePicker', () => {
     expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
   });
 
+  it('puts the data-testid on the trigger that opens the calendar', async () => {
+    const { getByTestId, queryByTestId } = renderCUI(
+      <DateRangePicker
+        data-testid="start-date-picker"
+        onSelectDateRange={vi.fn()}
+      />
+    );
+
+    const trigger = getByTestId('start-date-picker');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(trigger);
+
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    expect(queryByTestId('datepicker-calendar-container')).toBeVisible();
+  });
+
   it('sets the value of the DatePicker input start date to the start date passed in', () => {
     const handleSelectDate = vi.fn();
     const startDate = new Date('07-04-2020');
@@ -361,6 +379,28 @@ describe('DateRangePicker', () => {
       await userEvent.click(getByTestId('daterangepicker-input'));
 
       expect(queryByTestId('predefined-dates-list')).not.toBeInTheDocument();
+    });
+
+    it('accepts readonly predefinedDatesList and allowOnlyDatesList', async () => {
+      const predefinedDatesList = [
+        { startDate: new Date('06-01-2020'), endDate: new Date('06-30-2020') },
+      ] as const;
+      const allowOnlyDatesList = [
+        new Date('06-01-2020'),
+        new Date('06-30-2020'),
+      ] as const;
+
+      const { getByTestId, getByText } = renderCUI(
+        <DateRangePicker
+          allowOnlyDatesList={allowOnlyDatesList}
+          onSelectDateRange={vi.fn()}
+          predefinedDatesList={predefinedDatesList}
+        />
+      );
+
+      await userEvent.click(getByTestId('daterangepicker-input'));
+
+      expect(getByText('Jun 2020')).toBeInTheDocument();
     });
 
     it("shows dates in the past if getPredefinedMonthsForDateRangePicker's value is negative", async () => {

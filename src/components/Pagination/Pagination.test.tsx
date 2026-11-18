@@ -2,6 +2,7 @@ import { renderCUI } from '@/utils/test-utils';
 import { Pagination } from '@/components/Pagination';
 import type { PaginationProps } from '@/components/Pagination';
 import { fireEvent } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 
 describe('Pagination', () => {
   const onChange = vi.fn();
@@ -156,7 +157,20 @@ describe('Pagination', () => {
     fireEvent.click(selector);
     expect(getByText('250 rows')).not.toBeNull();
     fireEvent.click(getByText('250 rows'));
-    expect(onPageSizeChange).toBeCalledTimes(1);
+    expect(onPageSizeChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('accepts a readonly maxRowsPerPageList', () => {
+    const maxRowsPerPageList = [250, 500] as const;
+    const { getByText } = renderPagination({
+      currentPage: 1,
+      onChange,
+      maxRowsPerPageList,
+    });
+    fireEvent.click(getByText('All rows'));
+
+    expect(getByText('250 rows')).toBeInTheDocument();
+    expect(getByText('500 rows')).toBeInTheDocument();
   });
 
   it('should disable input if the left and right button are disabled', () => {
@@ -190,7 +204,54 @@ describe('Pagination', () => {
     await vi.waitFor(() => {
       fireEvent.click(getByText('250 rows'));
       fireEvent.click(getByText('500 rows'));
-      expect(onPageSizeChange).toBeCalledTimes(1);
+      expect(onPageSizeChange).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('shows the page number as an input by default', () => {
+    const { getByRole } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+    });
+    expect(getByRole('spinbutton')).toHaveValue(2);
+  });
+
+  it('shows the page number as text when pageNumberMode is text', () => {
+    const { queryByRole, getByText } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+      pageNumberMode: 'text',
+    });
+    expect(queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(getByText('2')).toHaveTextContent('Page 2');
+    expect(getByText('of 5')).toBeInTheDocument();
+  });
+
+  it('hides the "Page" label visually so only the number shows', () => {
+    const { getByText } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+      pageNumberMode: 'text',
+    });
+    expect(getByText('Page').className).toMatch(/sr-only/);
+  });
+
+  it('changes the page with the buttons when pageNumberMode is text', async () => {
+    const onChange = vi.fn();
+    const { getByTestId } = renderPagination({
+      currentPage: 2,
+      totalPages: 5,
+      onChange,
+      pageNumberMode: 'text',
+    });
+
+    await userEvent.click(getByTestId('next-btn'));
+    await userEvent.click(getByTestId('prev-btn'));
+
+    expect(onChange).toHaveBeenNthCalledWith(1, 3);
+    expect(onChange).toHaveBeenNthCalledWith(2, 1);
   });
 });

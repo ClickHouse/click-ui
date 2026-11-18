@@ -25,10 +25,14 @@
 }
 
 .checkinput_variant_default {
-  --checkbox-bg-default: var(--click-checkbox-color-variations-default-background-default);
+  --checkbox-bg-default: var(
+    --click-checkbox-color-variations-default-background-default
+  );
   --checkbox-bg-hover: var(--click-checkbox-color-variations-default-background-hover);
   --checkbox-bg-active: var(--click-checkbox-color-variations-default-background-active);
-  --checkbox-stroke-default: var(--click-checkbox-color-variations-default-stroke-default);
+  --checkbox-stroke-default: var(
+    --click-checkbox-color-variations-default-stroke-default
+  );
   --checkbox-stroke-active: var(--click-checkbox-color-variations-default-stroke-active);
 }
 
@@ -90,6 +94,13 @@
 
 .checkinput:hover {
   background: var(--checkbox-bg-hover);
+}
+
+/* FormRoot resets `outline` on every descendant, so the control needs its own
+   ring. Same ring as BaseButton and IconButton. */
+.checkinput:focus-visible {
+  outline: 2px solid var(--click-global-color-outline-default);
+  outline-offset: 2px;
 }
 
 .checkinput[data-state='checked'],

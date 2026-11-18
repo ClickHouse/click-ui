@@ -20,7 +20,7 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const toPascalCase = (str) => {
+const toPascalCase = str => {
   return str
     .replace(/[-_](.)/g, (_, char) => char.toUpperCase())
     .replace(/^(.)/, (_, char) => char.toUpperCase());
@@ -57,7 +57,7 @@ const ASSET_TYPES = {
   },
 };
 
-const getAssetType = (args) => {
+const getAssetType = args => {
   const typeFlag = args.find(arg => arg && arg.startsWith('--type='));
 
   const type = typeFlag.replace('--type=', '');
@@ -70,7 +70,7 @@ const getAssetType = (args) => {
   return { type, config: ASSET_TYPES[type] };
 };
 
-const generateAssetTypes = (config) => {
+const generateAssetTypes = config => {
   const files = getComponentFiles(config.dir);
   const sorted = files
     .map(name => ({ name, kebab: filenameToKebabCase(name) }))
@@ -87,7 +87,7 @@ const generateAssetTypes = (config) => {
   fs.writeFileSync(path.join(systemDir, 'types.ts'), content);
 };
 
-const regenerateAssetRegistry = (config) => {
+const regenerateAssetRegistry = config => {
   const files = getComponentFiles(config.dir);
   const sorted = files
     .map(name => ({ name, kebab: filenameToKebabCase(name) }))
@@ -124,10 +124,7 @@ const regenerateAssetRegistry = (config) => {
     true
   );
 
-  fs.writeFileSync(
-    path.join(systemDir, `${config.registryName}.ts`),
-    lightContent
-  );
+  fs.writeFileSync(path.join(systemDir, `${config.registryName}.ts`), lightContent);
   fs.writeFileSync(
     // TODO: The Light and dark theme should not be hard typed
     // once https://github.com/ClickHouse/click-ui/pull/784
@@ -151,16 +148,16 @@ const normalizeSvg = (svgPath, tempPath, idPrefix) => {
           params: {
             overrides: {
               removeViewBox: false,
-              convertPathData: false
-            }
-          }
+              convertPathData: false,
+            },
+          },
         },
         // Assets render inline, so ids need a per-component prefix to avoid colliding.
         {
           name: 'prefixIds',
-          params: { prefix: idPrefix, delim: '__' }
-        }
-      ]
+          params: { prefix: idPrefix, delim: '__' },
+        },
+      ],
     });
 
     fs.writeFileSync(tempPath, result.data);
@@ -172,7 +169,13 @@ const normalizeSvg = (svgPath, tempPath, idPrefix) => {
   }
 };
 
-const convertSvgToComponent = (svgPath, componentName, outputPath, defaultSize, preNormalized = false) => {
+const convertSvgToComponent = (
+  svgPath,
+  componentName,
+  outputPath,
+  defaultSize,
+  preNormalized = false
+) => {
   let svgrConfig;
   let tempConfigPath = null;
 
@@ -218,10 +221,7 @@ export default \${variables.componentName};
     `const ${constName} = (props: SVGAssetProps)`
   );
 
-  output = output.replace(
-    /export default (\w+);$/m,
-    `export default ${constName};`
-  );
+  output = output.replace(/export default (\w+);$/m, `export default ${constName};`);
 
   output = output.replace(
     /(import \{ SVGAssetProps \} from ['"]\.\.\/types['"];)\n(const [^(]+ = )/,
@@ -242,12 +242,11 @@ export default \${variables.componentName};
   if (tempConfigPath && fs.existsSync(tempConfigPath)) {
     try {
       fs.unlinkSync(tempConfigPath);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 };
 
-const cleanUp = (files) => {
+const cleanUp = files => {
   let countErrors = 0;
 
   try {
@@ -267,7 +266,9 @@ const cleanUp = (files) => {
   }
 
   if (countErrors > 0) {
-    console.log('💡 Found some issues! In any case, you can test the component and make any further amends manually. If you find hard to troubleshoot report it immediately, please!');
+    console.log(
+      '💡 Found some issues! In any case, you can test the component and make any further amends manually. If you find hard to troubleshoot report it immediately, please!'
+    );
   }
 };
 
@@ -312,7 +313,9 @@ if (isRegenerate) {
 
     console.log(`📝 Regenerating registry for ${type}...`);
     regenerateAssetRegistry(config);
-    console.log(`✅ ${config.registryName}.ts and ${config.registryName.replace('Light', 'Dark')}.ts updated\n`);
+    console.log(
+      `✅ ${config.registryName}.ts and ${config.registryName.replace('Light', 'Dark')}.ts updated\n`
+    );
 
     const systemDir = path.join(config.dir, 'system');
     filesToCleanup.push(
@@ -332,9 +335,15 @@ if (isRegenerate) {
 
 if (args.length < 1) {
   console.error('❌ Error: The SVG file path is required');
-  console.error('💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags] [--skip-normalize]');
-  console.error('💡 Or use: convert-svg-to-react-component --regenerate [--type=logos|icons|flags|payments]');
-  console.error('💡 Note: SVGs are automatically normalized before conversion. Use --skip-normalize to disable.');
+  console.error(
+    '💡 Usage: convert-svg-to-react-component <svg-path> [component-name] [--type=logos|icons|flags] [--skip-normalize]'
+  );
+  console.error(
+    '💡 Or use: convert-svg-to-react-component --regenerate [--type=logos|icons|flags|payments]'
+  );
+  console.error(
+    '💡 Note: SVGs are automatically normalized before conversion. Use --skip-normalize to disable.'
+  );
   process.exit(1);
 }
 
@@ -349,7 +358,9 @@ if (!componentName) {
 }
 
 if (!componentName.match(/^[A-Z][a-zA-Z0-9_-]*$/)) {
-  console.error('❌ Error: The component name must start with uppercase and use only letters, numbers, hyphens, or underscores.');
+  console.error(
+    '❌ Error: The component name must start with uppercase and use only letters, numbers, hyphens, or underscores.'
+  );
   process.exit(1);
 }
 
@@ -358,8 +369,12 @@ if (type === 'icons' && componentName.length > 1) {
   const isCamelCase = componentName.match(/[a-z][A-Z]/);
 
   if (isCamelCase && !hasMultipleWords) {
-    console.error(`❌ Error: Icon name "${componentName}" must use dashes to separate words, e.g., Arrow-Down not ArrowDown.`);
-    console.log(`💡 This ensures consistent kebab-case registry keys, e.g., 'arrow-down').`);
+    console.error(
+      `❌ Error: Icon name "${componentName}" must use dashes to separate words, e.g., Arrow-Down not ArrowDown.`
+    );
+    console.log(
+      `💡 This ensures consistent kebab-case registry keys, e.g., 'arrow-down').`
+    );
     process.exit(1);
   }
 }
@@ -368,7 +383,10 @@ const outputPath = path.join(config.dir, `${componentName}.tsx`);
 const systemDir = path.join(config.dir, 'system');
 const typesPath = path.join(systemDir, 'types.ts');
 const lightFile = path.join(systemDir, `${config.registryName}.ts`);
-const darkFile = path.join(systemDir, `${config.registryName.replace('Light', 'Dark')}.ts`);
+const darkFile = path.join(
+  systemDir,
+  `${config.registryName.replace('Light', 'Dark')}.ts`
+);
 
 console.log(`🍩 Baking ${componentName} for ${type}...`);
 
@@ -393,7 +411,13 @@ if (!skipNormalize) {
 }
 
 const didNormalize = !skipNormalize;
-convertSvgToComponent(svgToConvert, componentName, outputPath, config.defaultSize, didNormalize);
+convertSvgToComponent(
+  svgToConvert,
+  componentName,
+  outputPath,
+  config.defaultSize,
+  didNormalize
+);
 
 if (tempNormalizedPath && fs.existsSync(tempNormalizedPath)) {
   try {

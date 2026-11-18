@@ -6,11 +6,14 @@ describe('DateDetails', () => {
   const actualTZ = process.env.TZ;
 
   beforeAll(() => {
-    global.ResizeObserver = vi.fn(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
 
     process.env.TZ = 'America/New_York';
   });

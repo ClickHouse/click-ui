@@ -27,16 +27,14 @@ describe('MultiAccordion Visual Regression', () => {
     describe(`${theme} theme`, () => {
       for (const { story, name } of variants) {
         it(`${name} matches snapshot`, async ({ page }) => {
-          await page.goto(
-            getStoryUrl(`accordion-multiaccordion--${story}`, theme),
-            { waitUntil: 'networkidle' }
-          );
+          await page.goto(getStoryUrl(`accordion-multiaccordion--${story}`, theme), {
+            waitUntil: 'networkidle',
+          });
           const region = page.locator(harness);
           await expect(region).toBeVisible({ timeout: 10000 });
-          await expect(region).toHaveScreenshot(
-            `multi-accordion-${name}-${theme}.png`,
-            { maxDiffPixels: 100 }
-          );
+          await expect(region).toHaveScreenshot(`multi-accordion-${name}-${theme}.png`, {
+            maxDiffPixels: 100,
+          });
         });
       }
     });

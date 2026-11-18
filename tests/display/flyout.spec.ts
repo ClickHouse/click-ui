@@ -75,9 +75,7 @@ describe('Flyout Visual Regression', () => {
       });
       const dialog = page.getByRole('dialog').first();
       await expect(dialog).toBeVisible({ timeout: 10000 });
-      await expect(
-        page.getByTestId('flyout-header-close-btn').first()
-      ).toBeVisible();
+      await expect(page.getByTestId('flyout-header-close-btn').first()).toBeVisible();
     });
   });
 });

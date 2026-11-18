@@ -10,11 +10,14 @@ describe('FileTabs', () => {
   const onSelect = vi.fn();
   beforeAll(() => {
     window.HTMLElement.prototype.scrollIntoView = vi.fn();
-    global.ResizeObserver = vi.fn().mockImplementation(() => ({
-      observe: vi.fn(),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    }));
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe = vi.fn();
+        unobserve = vi.fn();
+        disconnect = vi.fn();
+      }
+    );
   });
   beforeEach(() => {
     onReorderTab.mockClear();
@@ -65,7 +68,7 @@ describe('FileTabs', () => {
     const { getByTestId } = renderTabs({});
     const tabElement = getByTestId('tab-element-0');
     fireEvent.click(tabElement);
-    expect(onSelect).toBeCalledTimes(1);
+    expect(onSelect).toHaveBeenCalledTimes(1);
   });
 
   // The hover-driven show/hide of the close button and status indicator is

@@ -26,11 +26,11 @@ describe('Collapsible', () => {
     expect(collapsibleTrigger).not.toBeNull();
     expect(queryByTestId('collapsible-content')).toBeNull();
     collapsibleTrigger && fireEvent.click(collapsibleTrigger);
-    expect(onOpenChange).toBeCalledTimes(1);
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
 
     expect(queryByTestId('collapsible-content')).not.toBeNull();
     collapsibleTrigger && fireEvent.click(collapsibleTrigger);
-    expect(onOpenChange).toBeCalledTimes(2);
+    expect(onOpenChange).toHaveBeenCalledTimes(2);
     expect(queryByTestId('collapsible-content')).toBeNull();
   });
 
@@ -40,7 +40,7 @@ describe('Collapsible', () => {
     expect(collapsibleHeader).not.toBeNull();
     expect(queryByTestId('collapsible-content')).toBeNull();
     collapsibleHeader && fireEvent.click(collapsibleHeader);
-    expect(onOpenChange).toBeCalledTimes(0);
+    expect(onOpenChange).toHaveBeenCalledTimes(0);
     expect(queryByTestId('collapsible-content')).toBeNull();
   });
 });

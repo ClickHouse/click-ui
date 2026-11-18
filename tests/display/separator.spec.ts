@@ -153,9 +153,12 @@ describe('Separator Visual Regression', () => {
         });
         const harness = page.locator(harnessLocator).first();
         await expect(harness).toBeVisible({ timeout: 10000 });
-        await expect(harness).toHaveScreenshot('separator-default-orientation-light.png', {
-          maxDiffPixels: 100,
-        });
+        await expect(harness).toHaveScreenshot(
+          'separator-default-orientation-light.png',
+          {
+            maxDiffPixels: 100,
+          }
+        );
       });
     });
   });

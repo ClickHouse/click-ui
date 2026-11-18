@@ -76,10 +76,9 @@ describe('DateRangePicker Visual Regression', () => {
           timeout: 10000,
         });
         await page.waitForTimeout(settleMs);
-        await expect(content).toHaveScreenshot(
-          `daterangepicker-custom-${theme}.png`,
-          { maxDiffPixels: 100 }
-        );
+        await expect(content).toHaveScreenshot(`daterangepicker-custom-${theme}.png`, {
+          maxDiffPixels: 100,
+        });
       });
     });
   }

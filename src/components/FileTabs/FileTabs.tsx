@@ -1,6 +1,5 @@
 import {
   HTMLAttributes,
-  createContext,
   useContext,
   Children,
   useState,
@@ -16,6 +15,7 @@ import { Icon } from '@/components/Icon';
 import { IconButton } from '@/components/IconButton';
 import type { IconName } from '@/components/Icon/Icon.types';
 import type { FileTabProps, FileTabsProps } from './FileTabs.types';
+import { TabContext } from './TabContext';
 import styles from './FileTabs.module.css';
 
 // TODO: Check if react-sortablejs has ESM version
@@ -23,15 +23,7 @@ import ReactSortableModule from 'react-sortablejs/dist/index.js';
 import type { ItemInterface } from 'react-sortablejs';
 const { ReactSortable } = ReactSortableModule;
 
-interface ContextProps {
-  selectedIndex?: number;
-  onClose: (index: number) => void;
-}
-
-export const TabContext = createContext<ContextProps>({
-  selectedIndex: undefined,
-  onClose: () => null,
-});
+export { TabContext };
 
 const useSelect = () => {
   const result = useContext(TabContext);
