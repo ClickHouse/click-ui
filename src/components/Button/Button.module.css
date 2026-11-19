@@ -90,7 +90,7 @@
   border-color: var(--click-button-basic-color-secondary-stroke-active);
   background-color: var(--click-button-basic-color-secondary-background-active);
   font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-secondary-stroke-active);
+  outline: 2px solid var(--click-global-color-outline-default);
   outline-offset: 2px;
 }
 
@@ -127,7 +127,7 @@
   border-color: var(--click-button-basic-color-empty-stroke-active);
   background-color: var(--click-button-basic-color-empty-background-active);
   font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-empty-stroke-active);
+  outline: 2px solid var(--click-global-color-outline-default);
   outline-offset: 2px;
 }
 
@@ -164,7 +164,7 @@
   border-color: var(--click-button-basic-color-danger-stroke-active);
   background-color: var(--click-button-basic-color-danger-background-active);
   font: var(--click-button-basic-typography-label-active);
-  outline: 2px solid var(--click-button-basic-color-danger-stroke-active);
+  outline: 2px solid var(--click-global-color-outline-default);
   outline-offset: 2px;
 }
 
