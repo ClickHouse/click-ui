@@ -31,7 +31,7 @@ The tag decides the npm dist-tag (the label that people install with, for exampl
    release. Maybe it already has the changes you need.
 2. Draft a [new release](https://github.com/ClickHouse/click-ui/releases/new).
 3. Create the tag. Use the next version after the latest release: `vX.Y.Z` for a release,
-   `vX.Y.Z-rc1` for a release candidate. ![Create tag instruction](./images/publish-1.png)
+   `vX.Y.Z-rc1` for a release candidate. Only maintainers can create `v*` tags. ![Create tag instruction](./images/publish-1.png)
 4. Leave the description empty. The workflow writes the release notes.
    ![Release notes instruction](./images/publish-2.png)
 5. For an `rc` or `alpha` tag, select **"Pre-release"** label. For regular "production" release leave label at **"Latest"**.  
@@ -51,13 +51,17 @@ it failed and **Re-run all jobs** does not help. Do this only if the version is 
 
 1. If the release's [workflow run](https://github.com/ClickHouse/click-ui/actions/workflows/publish.yml)
    still waits or runs, cancel it.
-2. Delete the release and its tag. The workflow builds the tip of `main`, so an old tag would
-   point at a different commit than the one published.
-   - **With** the GitHub CLI: `gh release delete vX.Y.Z --cleanup-tag --repo ClickHouse/click-ui`.
-   - **Without** the Github CLI: on the [releases page](https://github.com/ClickHouse/click-ui/releases), click the
-     trash icon next to the release, then **Delete this release**. Then delete the tag with git:
-     `git push origin --delete vX.Y.Z`.
-3. Follow the [steps](#steps) again.
+2. Delete the release, but not its tag: `v*` tags cannot be deleted or moved (an organisation
+   rule protects release tags).
+   - **With** the GitHub CLI: `gh release delete vX.Y.Z --repo ClickHouse/click-ui`.
+   - **Without** the GitHub CLI: on the [releases page](https://github.com/ClickHouse/click-ui/releases),
+     click the trash icon next to the release, then **Delete this release**.
+3. Follow the [steps](#steps) again. The workflow builds the tip of `main`, so the tag must still
+   point at it:
+   - Only the checkbox was wrong and `main` has not moved since the tag: pick the existing tag.
+   - Otherwise: create the next version, for example `vX.Y.Z-rc2` or `vX.Y.(Z+1)`.
+
+If a wrong tag really has to go, ask Security: only they can lift the rule.
 
 If the release is already on npm reach out in `click-ui` Slack channel for alignment.
 
