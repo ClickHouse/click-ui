@@ -12,7 +12,7 @@
 }
 
 .collapsible [data-collapsible-header]:hover [data-trigger-icon],
-.collapsible [data-collapsible-header]:focus-within [data-trigger-icon] {
+.collapsible__trigger:focus-visible [data-trigger-icon] {
   visibility: visible;
 }
 
