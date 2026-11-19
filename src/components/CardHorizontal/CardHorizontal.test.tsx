@@ -139,6 +139,24 @@ describe('CardHorizontal Component', () => {
     expect(wrapper).toHaveAttribute('tabIndex', '0');
   });
 
+  it('should have data-selected=true when isSelected', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelected: true,
+    });
+
+    expect(container.firstChild).toHaveAttribute('data-selected', 'true');
+  });
+
+  it('should have data-selected=false when not selected', () => {
+    const { container } = renderCard({
+      title: 'Test Card',
+      isSelected: false,
+    });
+
+    expect(container.firstChild).toHaveAttribute('data-selected', 'false');
+  });
+
   it('should not call onClick when disabled', () => {
     const onClickMock = vitest.fn();
     const { container } = renderCard({
