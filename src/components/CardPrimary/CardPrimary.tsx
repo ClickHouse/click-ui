@@ -111,6 +111,7 @@ const Card = ({
   return (
     <div
       aria-disabled={disabled}
+      data-selected={isSelected ? 'true' : undefined}
       tabIndex={0}
       {...props}
       className={cn(

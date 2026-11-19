@@ -11,6 +11,14 @@ describe('CardPrimary Component', () => {
       vitest.restoreAllMocks();
     });
 
+    it('should expose selection through data-selected', () => {
+      const { container, rerender } = renderCard({ title: 'Card', isSelected: true });
+      expect(container.querySelector('[data-selected="true"]')).not.toBeNull();
+
+      rerender(<CardPrimary title="Card" />);
+      expect(container.querySelector('[data-selected]')).toBeNull();
+    });
+
     it('should render the title', () => {
       const title = 'Test card component';
       renderCard({

@@ -11,6 +11,18 @@ describe('CardHorizontal Component', () => {
     vitest.restoreAllMocks();
   });
 
+  it('should expose selection through data-selected', () => {
+    const { container, rerender } = renderCard({
+      title: 'Card',
+      isSelectable: true,
+      isSelected: true,
+    });
+    expect(container.querySelector('[data-selected="true"]')).not.toBeNull();
+
+    rerender(<CardHorizontal title="Card" />);
+    expect(container.querySelector('[data-selected]')).toBeNull();
+  });
+
   it('should render the title', () => {
     const title = 'Test card component';
     renderCard({
