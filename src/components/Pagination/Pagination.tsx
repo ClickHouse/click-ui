@@ -98,6 +98,7 @@ export const Pagination = ({
         (rowCount || maxRowsPerPageList.length > 0 ? 'space-between' : 'center')
       }
       fillWidth={fillWidth}
+      isResponsive={false}
       {...props}
     >
       {hasRowCount && (
