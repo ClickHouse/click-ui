@@ -1,5 +1,5 @@
 import { Icon } from '@/components/Icon';
-import type { ImageName } from '@/components/Icon/Icon.types';
+import type { IconName, ImageName } from '@/components/Icon/Icon.types';
 import { within } from '@testing-library/react';
 import { renderCUI } from '@/utils/test-utils';
 
@@ -41,6 +41,33 @@ describe('Icon', () => {
     const arrow = within(renderIcon('share-arrow').container).getByRole('img');
     const share = within(renderIcon('share').container).getByRole('img');
     expect(arrow.innerHTML).toEqual(share.innerHTML);
+  });
+
+  it.each(['info-in-circle', 'information', 'InfoInCircleIcon', 'InformationIcon'])(
+    'renders the deprecated %s name as info and warns (CUI-340)',
+    name => {
+      const info = within(renderIcon('info').container).getByRole('img');
+      expect(warn).not.toHaveBeenCalled();
+
+      const deprecated = within(renderIcon(name).container).getByRole('img');
+      expect(deprecated).toHaveAttribute('aria-label', 'info');
+      expect(deprecated.innerHTML).toEqual(info.innerHTML);
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining(`"${name}" is deprecated, use "info"`)
+      );
+    }
+  );
+
+  it('keeps only info in IconName (CUI-340)', () => {
+    const names: IconName[] = [
+      'info',
+      // @ts-expect-error `info-in-circle` was renamed to `info`
+      'info-in-circle',
+      // @ts-expect-error `information` was removed
+      'information',
+    ];
+
+    expect(names).toHaveLength(3);
   });
 
   it('renders a deprecated PascalCase name', () => {

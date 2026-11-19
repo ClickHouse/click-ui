@@ -8,11 +8,11 @@ import styles from './Alert.module.css';
 type AlertState = 'neutral' | 'success' | 'warning' | 'danger' | 'info';
 
 const stateIconMap: Record<AlertState, IconName> = {
-  neutral: 'info-in-circle',
+  neutral: 'info',
   success: 'check',
   warning: 'warning',
   danger: 'warning',
-  info: 'info-in-circle',
+  info: 'info',
 };
 
 const sizeIconMap: Record<NonNullable<AlertProps['size']>, AssetSize> = {
