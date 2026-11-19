@@ -2,9 +2,11 @@ import {
   ComponentProps,
   ComponentPropsWithRef,
   ElementType,
+  MouseEvent,
   ReactNode,
   forwardRef,
 } from 'react';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cn, cva } from '@/lib/cva';
 import { IconWrapper } from '@/components/Collapsible/IconWrapper';
 import { SidebarNavigationItemProps } from './SidebarNavigationItem.types';
@@ -85,11 +87,94 @@ export const SidebarItemWrapper: SidebarItemWrapperComponent = forwardRef(
   SidebarItemWrapperRender
 );
 
-const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
+const SidebarNavigationLink = forwardRef<
+  HTMLDivElement,
+  Omit<SidebarNavigationItemProps, 'asChild' | 'label'>
+>(
   (
-    { label, level = 0, icon, selected, iconDir, disabled, type = 'main', ...props },
+    {
+      level = 0,
+      icon,
+      selected,
+      iconDir,
+      disabled,
+      type = 'main',
+      children,
+      onClick,
+      ...props
+    },
     ref
   ) => {
+    // Enter on a link fires click, so this blocks keyboard navigation too.
+    const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+      if (disabled) {
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+    };
+
+    return (
+      <SidebarItemWrapper
+        as={Slot}
+        $level={level}
+        $type={type}
+        ref={ref}
+        data-selected={selected}
+        aria-current={selected ? 'page' : undefined}
+        aria-disabled={disabled}
+        tabIndex={disabled ? -1 : undefined}
+        {...props}
+        onClick={handleClick}
+      >
+        <Slottable child={children}>
+          {linkContent => (
+            <IconWrapper
+              icon={icon}
+              iconDir={iconDir}
+              iconHidden
+            >
+              {/* The ellipsis rule only targets element children, not bare text. */}
+              <span>{linkContent}</span>
+            </IconWrapper>
+          )}
+        </Slottable>
+      </SidebarItemWrapper>
+    );
+  }
+);
+SidebarNavigationLink.displayName = 'SidebarNavigationLink';
+
+const SidebarNavigationItem = forwardRef<HTMLDivElement, SidebarNavigationItemProps>(
+  (
+    {
+      asChild,
+      label,
+      level = 0,
+      icon,
+      selected,
+      iconDir,
+      disabled,
+      type = 'main',
+      ...props
+    },
+    ref
+  ) => {
+    if (asChild) {
+      return (
+        <SidebarNavigationLink
+          ref={ref}
+          level={level}
+          icon={icon}
+          selected={selected}
+          iconDir={iconDir}
+          disabled={disabled}
+          type={type}
+          {...props}
+        />
+      );
+    }
+
     return (
       <SidebarItemWrapper
         $level={level}

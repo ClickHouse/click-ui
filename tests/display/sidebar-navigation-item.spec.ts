@@ -15,6 +15,8 @@ const variants = [
   { story: 'main-sub-item', name: 'main-sub-item' },
   { story: 'sql-sidebar-item', name: 'sql-sidebar-item' },
   { story: 'sql-sidebar-item-selected', name: 'sql-sidebar-item-selected' },
+  { story: 'as-child-selected', name: 'as-child-selected' },
+  { story: 'as-child-disabled', name: 'as-child-disabled' },
 ];
 
 describe('SidebarNavigationItem Visual Regression', () => {
@@ -34,6 +36,23 @@ describe('SidebarNavigationItem Visual Regression', () => {
         );
       });
     }
+
+    it('as-child focus state matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('sidebar-navigationitem--as-child', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const harness = page.locator(harnessLocator);
+      await expect(harness).toBeVisible({ timeout: 10000 });
+      await page.locator('body').click();
+      await page.keyboard.press('Tab');
+      await expect(page.getByRole('link', { name: 'Tables' })).toBeFocused();
+      await expect(harness).toHaveScreenshot(
+        'sidebar-navigation-item-as-child-focus-light.png',
+        {
+          maxDiffPixels: 100,
+        }
+      );
+    });
   });
 
   describe('Dark Theme (System prefers-color-scheme)', () => {
@@ -54,5 +73,35 @@ describe('SidebarNavigationItem Visual Regression', () => {
         );
       });
     }
+
+    it('as-child focus state matches snapshot', async ({ page }) => {
+      await page.goto(getStoryUrl('sidebar-navigationitem--as-child'), {
+        waitUntil: 'networkidle',
+      });
+      const harness = page.locator(harnessLocator);
+      await expect(harness).toBeVisible({ timeout: 10000 });
+      await page.locator('body').click();
+      await page.keyboard.press('Tab');
+      await expect(page.getByRole('link', { name: 'Tables' })).toBeFocused();
+      await expect(harness).toHaveScreenshot(
+        'sidebar-navigation-item-as-child-focus-dark.png',
+        {
+          maxDiffPixels: 100,
+        }
+      );
+    });
+  });
+
+  describe('Keyboard', () => {
+    it('as-child disabled is not focusable via Tab', async ({ page }) => {
+      await page.goto(getStoryUrl('sidebar-navigationitem--as-child-disabled', 'light'), {
+        waitUntil: 'networkidle',
+      });
+      const link = page.getByRole('link', { name: 'Tables' });
+      await expect(link).toHaveAttribute('aria-disabled', 'true');
+      await page.locator('body').click();
+      await page.keyboard.press('Tab');
+      await expect(link).not.toBeFocused();
+    });
   });
 });

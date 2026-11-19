@@ -9,12 +9,15 @@ import styles from './Collapsible.module.css';
 export const IconWrapper = ({
   icon,
   iconDir = 'start',
+  iconHidden,
   children,
 }: {
   // TODO: The consumer app seem to expect to use other assets
   // this needs to be investigated why it had type IconName
   icon?: ImageName;
   iconDir?: HorizontalDirection;
+  /** Hides the icon from assistive tech when it sits inside a control that already has a text name. */
+  iconHidden?: boolean;
   children: ReactNode;
 }) => {
   return (
@@ -23,6 +26,7 @@ export const IconWrapper = ({
         <Icon
           name={icon}
           size="sm"
+          aria-hidden={iconHidden}
         />
       )}
       <span className={cn(styles.collapsible__ellipsis)}>{children}</span>
@@ -30,6 +34,7 @@ export const IconWrapper = ({
         <Icon
           name={icon}
           size="sm"
+          aria-hidden={iconHidden}
         />
       )}
     </span>
