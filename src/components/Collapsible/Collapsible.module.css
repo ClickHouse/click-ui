@@ -11,7 +11,8 @@
   transform: rotate(90deg);
 }
 
-.collapsible [data-collapsible-header]:hover [data-trigger-icon] {
+.collapsible [data-collapsible-header]:hover [data-trigger-icon],
+.collapsible [data-collapsible-header]:focus-within [data-trigger-icon] {
   visibility: visible;
 }
 
