@@ -101,7 +101,25 @@ describe('CheckboxCheckboxMultiSelect', () => {
     const { getByTestId, getAllByRole } = renderSelect({ defaultValue });
     fireEvent.click(getByTestId('select-trigger'));
 
-    expect(getAllByRole('checkbox', { checked: true })).toHaveLength(2);
+    expect(getAllByRole('option', { selected: true })).toHaveLength(2);
+    // The checkbox is now decorative (aria-hidden), but it must still render checked.
+    expect(getAllByRole('checkbox', { checked: true, hidden: true })).toHaveLength(2);
+  });
+
+  it('exposes options instead of nested checkboxes to assistive technology', () => {
+    const { getByTestId, getByRole, queryAllByRole } = renderSelect({
+      value: ['content0'],
+    });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(
+      getByRole('listbox', { name: 'Test CheckboxMultiSelect Label' })
+    ).toHaveAttribute('aria-multiselectable', 'true');
+    expect(getByRole('option', { name: 'Content0' })).toHaveAttribute(
+      'aria-selected',
+      'true'
+    );
+    expect(queryAllByRole('checkbox')).toHaveLength(0);
   });
 
   it('allows checking and unchecking', async () => {

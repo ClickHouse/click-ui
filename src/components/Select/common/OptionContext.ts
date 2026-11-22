@@ -13,6 +13,8 @@ type OptionContextProps = {
     evt?: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement>
   ) => void;
   showCheck?: boolean;
+  /** Id of the option element for `value`, referenced by `aria-activedescendant`. */
+  getOptionId: (value: string) => string | undefined;
 };
 
 export const OptionContext = createContext<OptionContextProps>({
@@ -21,4 +23,5 @@ export const OptionContext = createContext<OptionContextProps>({
   updateHighlighted: () => null,
   onSelect: () => null,
   isHidden: () => true,
+  getOptionId: () => undefined,
 });

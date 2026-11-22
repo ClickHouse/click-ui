@@ -452,4 +452,82 @@ describe('Select', () => {
     });
     expect(queryByText('No Options Custom')).toBeNull();
   });
+
+  describe('listbox semantics', () => {
+    it('exposes the open list as a listbox named by the label', () => {
+      const { getByTestId, getByRole } = renderSelect({});
+      fireEvent.click(getByTestId('select-trigger'));
+
+      expect(getByRole('listbox', { name: 'Test Select Label' })).toBeInTheDocument();
+    });
+
+    it('names the listbox from the trigger when there is no label', () => {
+      const { getByTestId, getByRole } = renderCUI(<Select options={selectOptions} />);
+      const trigger = getByTestId('select-trigger');
+      fireEvent.click(trigger);
+
+      expect(getByRole('listbox')).toHaveAttribute('aria-labelledby', trigger.id);
+    });
+
+    it('exposes items as options with their selected and disabled state', () => {
+      const { getByTestId, getByRole } = renderSelect({ value: 'content3' });
+      fireEvent.click(getByTestId('select-trigger'));
+
+      expect(getByRole('listbox')).not.toHaveAttribute('aria-multiselectable');
+      expect(getByRole('option', { name: 'Content3' })).toHaveAttribute(
+        'aria-selected',
+        'true'
+      );
+      expect(getByRole('option', { name: 'Content1 long text content' })).toHaveAttribute(
+        'aria-selected',
+        'false'
+      );
+      expect(getByRole('option', { name: 'Content2' })).toHaveAttribute(
+        'aria-disabled',
+        'true'
+      );
+    });
+
+    it('points the combobox at the highlighted option as the arrow keys move it', () => {
+      const { getByTestId, getByRole } = renderSelect({});
+      fireEvent.click(getByTestId('select-trigger'));
+      const combobox = getByRole('combobox', { name: 'Test Select Label' });
+
+      expect(combobox).toHaveAttribute('aria-expanded', 'true');
+      expect(combobox).toHaveAttribute('aria-controls', getByRole('listbox').id);
+      expect(combobox).toHaveAttribute(
+        'aria-activedescendant',
+        getByRole('option', { name: 'Content0' }).id
+      );
+
+      fireEvent.keyDown(combobox, { key: 'ArrowDown' });
+      expect(combobox).toHaveAttribute(
+        'aria-activedescendant',
+        getByRole('option', { name: 'Content1 long text content' }).id
+      );
+
+      // Content2 is disabled, so the highlight skips it.
+      fireEvent.keyDown(combobox, { key: 'ArrowDown' });
+      expect(combobox).toHaveAttribute(
+        'aria-activedescendant',
+        getByRole('option', { name: 'Content3' }).id
+      );
+    });
+
+    it('names option groups by their heading', () => {
+      const { getByTestId, getByRole } = renderSelect({});
+      fireEvent.click(getByTestId('select-trigger'));
+
+      expect(getByRole('group', { name: 'Group label' })).toContainElement(
+        getByRole('option', { name: 'Content0' })
+      );
+    });
+
+    it('keeps the decorative check icon out of the accessibility tree', () => {
+      const { getByTestId, queryAllByRole } = renderSelect({ value: 'content3' });
+      fireEvent.click(getByTestId('select-trigger'));
+
+      expect(queryAllByRole('img', { name: 'check' })).toHaveLength(0);
+    });
+  });
 });
