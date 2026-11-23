@@ -1,6 +1,6 @@
 import { renderCUI } from '@/utils/test-utils';
 import { Collapsible } from '@/components/Collapsible';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, within } from '@testing-library/react';
 
 describe('Collapsible', () => {
   const onOpenChange = vi.fn();
@@ -32,6 +32,43 @@ describe('Collapsible', () => {
     collapsibleTrigger && fireEvent.click(collapsibleTrigger);
     expect(onOpenChange).toHaveBeenCalledTimes(2);
     expect(queryByTestId('collapsible-content')).toBeNull();
+  });
+
+  it('should expose the open state on the trigger with aria-expanded', () => {
+    const { getByTestId } = renderCollapsible();
+    const collapsibleTrigger = getByTestId('collapsible-trigger');
+    expect(collapsibleTrigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(collapsibleTrigger);
+    expect(collapsibleTrigger).toHaveAttribute('aria-expanded', 'true');
+    fireEvent.click(collapsibleTrigger);
+    expect(collapsibleTrigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('should give an icon-only trigger a generic accessible name', () => {
+    const { getByTestId } = renderCollapsible();
+    expect(getByTestId('collapsible-trigger')).toHaveAccessibleName('Toggle section');
+  });
+
+  it('should name a trigger with visible text by that text', () => {
+    const { container } = renderCUI(
+      <Collapsible>
+        <Collapsible.Trigger>Advanced settings</Collapsible.Trigger>
+      </Collapsible>
+    );
+    expect(
+      within(container).getByRole('button', { name: 'Advanced settings' })
+    ).toBeInTheDocument();
+  });
+
+  it('should let consumers override the trigger name with aria-label', () => {
+    const { container } = renderCUI(
+      <Collapsible>
+        <Collapsible.Trigger aria-label="Show query details" />
+      </Collapsible>
+    );
+    expect(
+      within(container).getByRole('button', { name: 'Show query details' })
+    ).toBeInTheDocument();
   });
 
   it('should not open collapsible on click header and not trigger', () => {

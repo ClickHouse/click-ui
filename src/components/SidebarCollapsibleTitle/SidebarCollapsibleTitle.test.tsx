@@ -22,4 +22,20 @@ describe('SidebarCollapsibleTitle', () => {
     expect(onOpenChange).toHaveBeenCalledTimes(1);
     expect(queryByTestId('collapsible-content')).not.toBeNull();
   });
+
+  it('should name the trigger by its label and expose its open state', () => {
+    const { getByTestId } = renderCUI(
+      <SidebarCollapsibleTitle
+        label="Services"
+        data-testid="collapsible-header"
+      >
+        <div>Sidebar nav content</div>
+      </SidebarCollapsibleTitle>
+    );
+    const trigger = getByTestId('collapsible-header');
+    expect(trigger).toHaveAccessibleName('Services');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    fireEvent.click(trigger);
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
 });
