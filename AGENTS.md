@@ -69,6 +69,8 @@ tokens/themes/                  # Figma export (tokens-studio); source of src/th
 plugins/css-colocate/           # Vite + PostCSS plugins: CSS colocation and the `clickui` cascade layer
 .changeset/                     # pending changesets
 .claude/skills/                 # step-by-step procedures (see section 11)
+.agents/skills/                 # third-party skills for all agents; symlinked into .claude/skills/ (see section 11)
+skills-lock.json                # source commit and hash of each .agents/skills/ entry, written by `npx skills`
 ```
 
 ## 4. Rules that must not be broken
@@ -468,6 +470,10 @@ test(Button): cover loading state
 - `docs/converting-svg-to-react-components.md` — adding icons, logos, flags.
 - `.claude/skills/component-css-modules-migration/SKILL.md` — a worked, two-commit procedure
   for pure styling refactors. Its pitfalls list applies to any component change.
+- `.agents/skills/modern-web-guidance/` — modern HTML, CSS and browser API guidance (Google
+  Chrome). Add a third-party skill with
+  `npx skills add <owner/repo> --skill <name> -a claude-code -a codex -a cursor -a github-copilot -a gemini-cli`
+  and update with `npx skills update -p`. Never hand-edit these; `skills-lock.json` checks the hash.
 - `.github/instructions/` — path-scoped rules for GitHub Copilot review.
 - `.github/workflows/llm-code-review.yml` — the `@claude review` PR reviewer; it follows this file.
 
