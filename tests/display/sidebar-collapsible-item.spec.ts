@@ -16,6 +16,25 @@ const variants = [
 ];
 
 describe('SidebarCollapsibleItem Visual Regression', () => {
+  it('toggles with Enter and Space from keyboard focus', async ({ page }) => {
+    await page.goto(getStoryUrl('sidebar-collapsibleitem--playground', 'light'), {
+      waitUntil: 'networkidle',
+    });
+    await page.locator('body').click();
+    await page.keyboard.press('Tab');
+
+    const trigger = page.getByRole('button', { name: 'trigger children' });
+    const content = page.getByRole('heading', { name: 'Content' });
+    await expect(trigger).toBeFocused();
+    await expect(content).toHaveCount(0);
+
+    await page.keyboard.press('Enter');
+    await expect(content).toBeVisible();
+
+    await page.keyboard.press('Space');
+    await expect(content).toHaveCount(0);
+  });
+
   describe('Light Theme (Storybook Global)', () => {
     for (const { story, name } of variants) {
       it(`${name} matches snapshot`, async ({ page }) => {
