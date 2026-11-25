@@ -30,6 +30,9 @@ const createEntryFileNames = (ext: 'js' | 'cjs') => {
   };
 };
 
+const toCommonJsSyntaxHighlighterPath = (id: string) =>
+  id.replace('react-syntax-highlighter/dist/esm/', 'react-syntax-highlighter/dist/cjs/');
+
 const buildOptions: BuildOptions = {
   target: 'esnext',
   emptyOutDir: true,
@@ -70,6 +73,7 @@ const buildOptions: BuildOptions = {
           chunk.name === 'index' || chunk.name === 'hooks/index' ? `'use client';` : '',
         interop: 'auto',
         exports: 'named',
+        paths: toCommonJsSyntaxHighlighterPath,
       },
     ],
   },

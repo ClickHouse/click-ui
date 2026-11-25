@@ -43,5 +43,23 @@ for dir in cjs esm types; do
   fi
 done
 
+esm_files_importing_cjs=$(grep -rlE "(from|import) ['\"][^'\"]+/dist/cjs/" "$DIST_DIR/esm" --include='*.js')
+
+if [[ -n "$esm_files_importing_cjs" ]]; then
+  echo "❌ Error: The ESM build imports a dependency's CommonJS build, which breaks ESM-only module runners such as Vite SSR:"
+  echo "$esm_files_importing_cjs"
+
+  exit 1;
+fi
+
+cjs_files_requiring_esm=$(grep -rlE "require\(['\"][^'\"]+/dist/esm/" "$DIST_DIR/cjs" --include='*.cjs')
+
+if [[ -n "$cjs_files_requiring_esm" ]]; then
+  echo "❌ Error: The CommonJS build requires a dependency's ESM build, which breaks CommonJS consumers such as Jest:"
+  echo "$cjs_files_requiring_esm"
+
+  exit 1;
+fi
+
 echo "✅ Done! Build $DIST_DIR output health check completed."
 exit 0

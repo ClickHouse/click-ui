@@ -9,26 +9,26 @@ import { CodeBlockProps } from './CodeBlock.types';
 import styles from './CodeBlock.module.css';
 
 /* eslint-disable import/extensions */
-// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql.js';
-// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import bash from 'react-syntax-highlighter/dist/cjs/languages/hljs/bash.js';
-// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json.js';
-// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript.js';
-// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext.js';
-// @ts-expect-error - Importing CJS modules in ESM context requires explicit .js extension
-import diff from 'react-syntax-highlighter/dist/cjs/languages/hljs/diff.js';
+// @ts-expect-error - The types declare these paths without the .js extension that ESM resolution needs
+import sql from 'react-syntax-highlighter/dist/esm/languages/hljs/sql.js';
+// @ts-expect-error - The types declare these paths without the .js extension that ESM resolution needs
+import bash from 'react-syntax-highlighter/dist/esm/languages/hljs/bash.js';
+// @ts-expect-error - The types declare these paths without the .js extension that ESM resolution needs
+import json from 'react-syntax-highlighter/dist/esm/languages/hljs/json.js';
+// @ts-expect-error - The types declare these paths without the .js extension that ESM resolution needs
+import tsx from 'react-syntax-highlighter/dist/esm/languages/hljs/typescript.js';
+// @ts-expect-error - The types declare these paths without the .js extension that ESM resolution needs
+import plaintext from 'react-syntax-highlighter/dist/esm/languages/hljs/plaintext.js';
+// @ts-expect-error - The types declare these paths without the .js extension that ESM resolution needs
+import diff from 'react-syntax-highlighter/dist/esm/languages/hljs/diff.js';
 /* eslint-enable import/extensions */
 
-SyntaxHighlighter.registerLanguage('sql', sql.default || sql);
-SyntaxHighlighter.registerLanguage('bash', bash.default || bash);
-SyntaxHighlighter.registerLanguage('json', json.default || json);
-SyntaxHighlighter.registerLanguage('tsx', tsx.default || tsx);
-SyntaxHighlighter.registerLanguage('plaintext', plaintext.default || plaintext);
-SyntaxHighlighter.registerLanguage('diff', diff.default || diff);
+SyntaxHighlighter.registerLanguage('sql', sql);
+SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('json', json);
+SyntaxHighlighter.registerLanguage('tsx', tsx);
+SyntaxHighlighter.registerLanguage('plaintext', plaintext);
+SyntaxHighlighter.registerLanguage('diff', diff);
 
 interface RendererNodeType {
   type: 'element' | 'text';
