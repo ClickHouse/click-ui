@@ -77,6 +77,32 @@ describe('Dialog Component', () => {
     expect(screen.queryByRole('button', { name: /close/i })).toBeFalsy();
   });
 
+  it('gives the header close button an accessible name and test id', () => {
+    const onClose = vi.fn();
+    renderCUI(
+      <Dialog>
+        <Dialog.Trigger>
+          <div>Open Dialog</div>
+        </Dialog.Trigger>
+        <Dialog.Content
+          title="Test Dialog"
+          showClose
+          onClose={onClose}
+        >
+          Test Content
+        </Dialog.Content>
+      </Dialog>
+    );
+    fireEvent.click(screen.getByText('Open Dialog'));
+
+    const closeButton = screen.getByRole('button', { name: 'Close' });
+    expect(closeButton).toHaveAttribute('data-testid', 'click-dialog-close');
+
+    fireEvent.click(closeButton);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText('Test Content')).toBeFalsy();
+  });
+
   it('renders the dialog with reducePadding set to true', () => {
     renderCUI(
       <Dialog>

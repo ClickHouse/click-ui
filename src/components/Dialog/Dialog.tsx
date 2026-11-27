@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { Button, ButtonProps } from '@/components/Button';
 import { Icon } from '@/components/Icon';
@@ -61,9 +62,17 @@ const titleAreaVariants = cva(styles['title-area'], {
   },
 });
 
-const CloseButton = ({ onClose }: { onClose?: () => void }) => (
+type CloseButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  onClose?: () => void;
+};
+
+const CloseButton = ({ onClose, ...props }: CloseButtonProps) => (
   <RadixDialog.Close asChild>
-    <CrossButton onClick={onClose}>
+    <CrossButton
+      aria-label="Close"
+      {...props}
+      onClick={onClose}
+    >
       <Icon
         name="cross"
         size="lg"
