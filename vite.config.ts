@@ -9,8 +9,10 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { cssColocatePlugin } from './plugins/css-colocate';
 import { generateScopedName } from './plugins/css-colocate/utils';
 import { wrapInClickuiLayers } from './plugins/css-colocate/postcss-clickui-layers';
+import { addDtsImportExtensions } from './plugins/dts-import-extensions';
 
 const srcDir = path.resolve(__dirname, 'src').replace(/\\/g, '/');
+const typesDir = path.resolve(__dirname, 'dist/types');
 
 const createEntryFileNames = (ext: 'js' | 'cjs') => {
   return (chunkInfo: { name: string }) => {
@@ -112,6 +114,13 @@ const viteConfig = defineConfig({
         'src/assets/**',
         'src/stories/**',
       ],
+      beforeWriteFile: (filePath, content) => ({
+        filePath,
+        content: addDtsImportExtensions(
+          content,
+          path.join(srcDir, path.relative(typesDir, path.dirname(filePath)))
+        ),
+      }),
     }),
     externalizeDeps({
       deps: true,
