@@ -92,5 +92,6 @@ export const NoLabel: Story = {
   args: {
     checked: false,
     label: undefined,
+    'aria-label': 'Dark mode',
   },
 };

@@ -153,5 +153,6 @@ export const OrientationHorizontalDirStart: Story = {
 export const NoLabel: Story = {
   args: {
     label: undefined,
+    'aria-label': 'Accept terms',
   },
 };
