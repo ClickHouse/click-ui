@@ -205,6 +205,12 @@ export const InternalSelect = ({
   ...props
 }: SelectContainerProps) => {
   const defaultId = useId();
+  const triggerId = id ?? defaultId;
+  const labelId = `${triggerId}-label`;
+  const listboxId = `${triggerId}-listbox`;
+  // The label names the combobox and the listbox. Without one, the trigger names
+  // them: its text is the selected value or the placeholder.
+  const listLabelledBy = label ? labelId : (triggerProps?.id ?? triggerId);
   const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState<string | undefined>();
   // value -> lowercased rendered text (item + its group heading).
@@ -233,6 +239,20 @@ export const InternalSelect = ({
 
     return [];
   }, [children, options, registerValueNode]);
+
+  // Option values can hold any character, and an id cannot hold spaces, so option
+  // ids are built from the option's position in the list.
+  const optionIds = useMemo(() => {
+    const ids = new Map<string, string>();
+    normalizedOptions.forEach(({ value }, index) => {
+      if (!ids.has(value)) {
+        ids.set(value, `${listboxId}-option-${index}`);
+      }
+    });
+    return ids;
+  }, [normalizedOptions, listboxId]);
+
+  const getOptionId = useCallback((value: string) => optionIds.get(value), [optionIds]);
 
   const listNode = useRef<HTMLDivElement | null>(null);
 
@@ -352,8 +372,9 @@ export const InternalSelect = ({
       isHidden,
       onSelect,
       selectedValues,
+      getOptionId,
     };
-  }, [search, effectiveHighlight, isHidden, onSelect, selectedValues]);
+  }, [search, effectiveHighlight, isHidden, onSelect, selectedValues, getOptionId]);
 
   const onCreateOption = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -451,6 +472,16 @@ export const InternalSelect = ({
                     data-testid="select-search-input"
                     onKeyDown={onKeyDown}
                     $showSearch={showSearch}
+                    // APG combobox pattern: focus stays here and aria-activedescendant
+                    // points at the highlighted option (one Tab stop, AGENTS.md section 7).
+                    role="combobox"
+                    aria-expanded
+                    aria-controls={listboxId}
+                    aria-autocomplete="list"
+                    aria-activedescendant={
+                      effectiveHighlight ? getOptionId(effectiveHighlight) : undefined
+                    }
+                    aria-labelledby={listLabelledBy}
                   />
                   <IconButton
                     className={cn(
@@ -467,6 +498,10 @@ export const InternalSelect = ({
                 <SelectListContent
                   ref={listNode}
                   $maxHeight={maxHeight}
+                  role="listbox"
+                  id={listboxId}
+                  aria-labelledby={listLabelledBy}
+                  aria-multiselectable={multiple || checkbox || undefined}
                 >
                   <OptionContext.Provider value={optionContextValue}>
                     {options && options.length > 0
@@ -536,6 +571,7 @@ export const InternalSelect = ({
       </FormElementContainer>
       {label && (
         <Label
+          id={labelId}
           htmlFor={id ?? defaultId}
           disabled={disabled}
           error={!!error}
@@ -550,8 +586,11 @@ export const InternalSelect = ({
 export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
   ({ children, heading, ...props }, forwardedRef) => {
     useSearch();
+    const headingId = useId();
     return (
       <SelectGroupContainer
+        role="group"
+        aria-labelledby={headingId}
         {...props}
         cui-select-group=""
         ref={mergeRefs([
@@ -568,7 +607,12 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
           },
         ])}
       >
-        <SelectGroupName cui-select-group-name="">{heading}</SelectGroupName>
+        <SelectGroupName
+          id={headingId}
+          cui-select-group-name=""
+        >
+          {heading}
+        </SelectGroupName>
         <SelectGroupContent>{children}</SelectGroupContent>
       </SelectGroupContainer>
     );
@@ -594,8 +638,14 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     },
     forwardedRef
   ) => {
-    const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
-      useOption();
+    const {
+      highlighted,
+      updateHighlighted,
+      isHidden,
+      selectedValues,
+      onSelect,
+      getOptionId,
+    } = useOption();
     const onSelectValue = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
         onSelect(value, undefined, evt);
@@ -621,6 +671,10 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       <>
         <GenericMenuItem
           {...props}
+          role="option"
+          id={getOptionId(value) ?? props.id}
+          aria-selected={isChecked}
+          aria-disabled={disabled || undefined}
           hidden={hidden}
           className={cn(selectStyles['select-item'], props.className)}
           data-value={value}
@@ -655,9 +709,15 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
             )}
             name="check"
             size="sm"
+            aria-hidden="true"
           />
         </GenericMenuItem>
-        {separator && !hidden && <Separator size="sm" />}
+        {separator && !hidden && (
+          <Separator
+            size="sm"
+            decorative
+          />
+        )}
       </>
     );
   }
@@ -690,8 +750,14 @@ export const MultiSelectCheckboxItem = forwardRef<
     },
     forwardedRef
   ) => {
-    const { highlighted, updateHighlighted, isHidden, selectedValues, onSelect } =
-      useOption();
+    const {
+      highlighted,
+      updateHighlighted,
+      isHidden,
+      selectedValues,
+      onSelect,
+      getOptionId,
+    } = useOption();
 
     const handleMenuItemClick = (evt: MouseEvent<HTMLElement>) => {
       if (!disabled) {
@@ -720,6 +786,10 @@ export const MultiSelectCheckboxItem = forwardRef<
       <>
         <GenericMenuItem
           {...props}
+          role="option"
+          id={getOptionId(value) ?? props.id}
+          aria-selected={isChecked}
+          aria-disabled={disabled || undefined}
           hidden={hidden}
           className={cn(selectStyles['select-item'], props.className)}
           data-value={value}
@@ -737,11 +807,15 @@ export const MultiSelectCheckboxItem = forwardRef<
             overflow="hidden"
             isResponsive={false}
           >
+            {/* Decorative: the option carries the checked state through aria-selected,
+                and a focusable control must not sit inside an option. */}
             <Checkbox
               checked={isChecked}
               data-testid="multi-select-checkbox"
               disabled={disabled}
               variant={variant ?? 'default'}
+              aria-hidden="true"
+              tabIndex={-1}
             />
             <IconWrapper
               icon={icon}
@@ -761,7 +835,12 @@ export const MultiSelectCheckboxItem = forwardRef<
             </IconWrapper>
           </Container>
         </GenericMenuItem>
-        {separator && !hidden && <Separator size="sm" />}
+        {separator && !hidden && (
+          <Separator
+            size="sm"
+            decorative
+          />
+        )}
       </>
     );
   }

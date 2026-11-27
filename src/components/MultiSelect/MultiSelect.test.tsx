@@ -389,4 +389,28 @@ describe('MultiSelect', () => {
       expect(getByTestId('select-trigger')).toHaveTextContent('nodata');
     });
   });
+
+  it('exposes a multi-selectable listbox with every selected option marked', () => {
+    const { getByTestId, getByRole } = renderSelect({
+      value: ['content0', 'content3'],
+    });
+    fireEvent.click(getByTestId('select-trigger'));
+
+    expect(getByRole('listbox', { name: 'Test MultiSelect Label' })).toHaveAttribute(
+      'aria-multiselectable',
+      'true'
+    );
+    expect(getByRole('option', { name: 'Content0' })).toHaveAttribute(
+      'aria-selected',
+      'true'
+    );
+    expect(getByRole('option', { name: 'Content3' })).toHaveAttribute(
+      'aria-selected',
+      'true'
+    );
+    expect(getByRole('option', { name: 'Content1 long text content' })).toHaveAttribute(
+      'aria-selected',
+      'false'
+    );
+  });
 });
