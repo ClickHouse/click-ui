@@ -25,13 +25,6 @@
   cursor: pointer;
 }
 
-.select-trigger span:first-of-type {
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .select-trigger:hover {
   border: 1px solid var(--click-field-color-stroke-hover);
   background: var(--click-field-color-background-hover);

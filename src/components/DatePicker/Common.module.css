@@ -1,6 +1,13 @@
 /* Design tokens use camelCase segments (e.g. datePicker, dateOption). */
 /* stylelint-disable custom-property-pattern */
 
+.date-input__value {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .clickable-title {
   padding: 0.25rem 0.5rem;
   border: 1px solid transparent;
