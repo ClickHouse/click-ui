@@ -130,6 +130,7 @@ export const CardHorizontal = ({
     <div
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
+      data-selected={Boolean(isSelected)} 
       role={isButton ? 'button' : undefined}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
