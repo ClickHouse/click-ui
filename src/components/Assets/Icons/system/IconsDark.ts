@@ -99,8 +99,7 @@ import Home from '../Home';
 import Horizontal_Loading from '../Horizontal-Loading';
 import Http from '../Http';
 import Http_Monitoring from '../Http-Monitoring';
-import Info_In_Circle from '../Info-In-Circle';
-import Information from '../Information';
+import Info from '../Info';
 import Insert_Row from '../Insert-Row';
 import Integrations from '../Integrations';
 import Italic from '../Italic';
@@ -280,8 +279,7 @@ const IconsDark: Record<IconName, ComponentType<SVGAssetProps>> = {
   'horizontal-loading': Horizontal_Loading,
   http: Http,
   'http-monitoring': Http_Monitoring,
-  'info-in-circle': Info_In_Circle,
-  information: Information,
+  info: Info,
   'insert-row': Insert_Row,
   integrations: Integrations,
   italic: Italic,

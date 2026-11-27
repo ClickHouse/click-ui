@@ -69,7 +69,7 @@ export const Toast = ({
 }: ToastProps & { onClose: (open: boolean) => void }) => {
   let iconName = '';
   if (type === 'default') {
-    iconName = 'info-in-circle';
+    iconName = 'info';
   } else if (type === 'success') {
     iconName = 'check';
   } else if (type && ['danger', 'warning'].includes(type)) {
