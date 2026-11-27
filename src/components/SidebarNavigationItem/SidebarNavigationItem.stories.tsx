@@ -90,3 +90,26 @@ export const SqlSidebarItemSelected: Story = {
     label: <a href="#">Tables</a>,
   },
 };
+
+// asChild: the link itself is the item, so it gets aria-current and aria-disabled
+export const AsChildSelected: Story = {
+  args: {
+    asChild: true,
+    selected: true,
+    icon: 'table',
+    children: <a href="#">Tables</a>,
+  },
+};
+
+export const AsChild: Story = {
+  args: { asChild: true, icon: 'table', children: <a href="#">Tables</a> },
+};
+
+export const AsChildDisabled: Story = {
+  args: {
+    asChild: true,
+    disabled: true,
+    icon: 'table',
+    children: <a href="#">Tables</a>,
+  },
+};
