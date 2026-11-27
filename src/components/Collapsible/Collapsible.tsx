@@ -156,7 +156,9 @@ const CollapsipleTrigger = ({
   return (
     <EmptyButton
       onClick={onClick}
-      aria-label="trigger children"
+      aria-expanded={open}
+      // With visible text, that text is the button's name. Icon-only: a generic name.
+      aria-label={children ? undefined : 'Toggle section'}
       {...props}
       className={cn(styles.collapsible__trigger, className)}
     >
@@ -166,6 +168,7 @@ const CollapsipleTrigger = ({
           name="chevron-right"
           data-open={open.toString()}
           size="sm"
+          aria-hidden
         />
       )}
       {children && (
@@ -182,6 +185,7 @@ const CollapsipleTrigger = ({
           name="chevron-right"
           data-open={open.toString()}
           size="sm"
+          aria-hidden
         />
       )}
     </EmptyButton>
