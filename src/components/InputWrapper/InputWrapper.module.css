@@ -21,13 +21,6 @@
   font: var(--click-field-typography-fieldText-default);
 }
 
-.wrapper span:first-of-type {
-  max-width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .wrapper *:autofill,
 .wrapper *:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50vh var(--click-field-color-background-default) inset;

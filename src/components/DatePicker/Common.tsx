@@ -200,6 +200,7 @@ export const DateRangePickerInput = ({
     <Text
       color="muted"
       component="span"
+      className={styles['date-input__value']}
     >
       {placeholder ?? ''}
     </Text>
@@ -207,14 +208,14 @@ export const DateRangePickerInput = ({
   if (selectedStartDate) {
     if (selectedEndDate) {
       formattedValue = (
-        <span>
+        <span className={styles['date-input__value']}>
           {formatSelectedDate(timezone, selectedStartDate)} –{' '}
           {formatSelectedDate(timezone, selectedEndDate)}
         </span>
       );
     } else {
       formattedValue = (
-        <span>
+        <span className={styles['date-input__value']}>
           {formatSelectedDate(timezone, selectedStartDate)}{' '}
           <Text
             color="muted"
@@ -285,6 +286,7 @@ export const DateTimeRangePickerInput = ({
     <Text
       color="muted"
       component="span"
+      className={styles['date-input__value']}
     >
       {placeholder ?? ''}
     </Text>
@@ -293,14 +295,14 @@ export const DateTimeRangePickerInput = ({
   if (selectedStartDate) {
     if (selectedEndDate) {
       formattedValue = (
-        <span>
+        <span className={styles['date-input__value']}>
           {formatDateTime(selectedStartDate).replace('AM', 'am').replace('PM', 'pm')} –{' '}
           {formatDateTime(selectedEndDate).replace('AM', 'am').replace('PM', 'pm')}
         </span>
       );
     } else {
       formattedValue = (
-        <span>
+        <span className={styles['date-input__value']}>
           {formatDateTime(selectedStartDate).replace('AM', 'am').replace('PM', 'pm')}{' '}
           <Text
             color="muted"
@@ -313,7 +315,7 @@ export const DateTimeRangePickerInput = ({
     }
   } else if (selectedEndDate) {
     formattedValue = (
-      <span>
+      <span className={styles['date-input__value']}>
         <Text
           color="muted"
           component="span"
